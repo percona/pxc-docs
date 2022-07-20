@@ -27,9 +27,8 @@ sys.path.append(os.path.abspath('ext'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.intersphinx', 'sphinx.ext.todo',
-              'sphinx.ext.coverage', 'sphinx.ext.ifconfig',
-              'sphinx.ext.extlinks', 'psdom']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.ifconfig',
+              'sphinx.ext.extlinks']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -72,8 +71,6 @@ exclude_patterns = []
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
-
-primary_domain = 'psdom'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 #add_function_parentheses = True
@@ -197,6 +194,13 @@ html_theme = 'percona-theme'
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = ['.', './percona-theme']
+
+# Redirect info for Edit on Github link
+html_context = {
+    'repo_name': '/percona/pxc-docs',
+    'repo_url': 'https://github.com/percona/pxc-docs',
+    'edit_uri': 'edit/5.7/source'
+}
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
