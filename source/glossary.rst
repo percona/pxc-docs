@@ -3,26 +3,23 @@
  Glossary
 ==========
 
-.. glossary::
-   
+LSN
+Each InnoDB page (usually 16kb in size) contains a log sequence number, or
+LSN. The LSN is the system version number for the entire database. Each
+page's LSN shows how recently it was changed.
 
-   LSN
-     Each InnoDB page (usually 16kb in size) contains a log sequence number, or
-     LSN. The LSN is the system version number for the entire database. Each
-     page's LSN shows how recently it was changed.
+InnoDB
+Storage engine which provides ACID-compliant transactions and foreign key
+support, among others improvements over :term:`MyISAM`. It is the default
+engine for |MySQL| as of the 5.5 series.
 
-   InnoDB
-      Storage engine which provides ACID-compliant transactions and foreign key
-      support, among others improvements over :term:`MyISAM`. It is the default
-      engine for |MySQL| as of the 5.5 series.
+MyISAM
+Previous default storage engine for |MySQL| for versions prior to 5.5. It
+doesn't fully support transactions but in some scenarios may be faster
+than :term:`InnoDB`. Each table is stored on disk in 3 files: :term:`.frm`,i
+:file:`.MYD`, :file:`.MYI`.
 
-   MyISAM
-     Previous default storage engine for |MySQL| for versions prior to 5.5. It
-     doesn't fully support transactions but in some scenarios may be faster
-     than :term:`InnoDB`. Each table is stored on disk in 3 files: :term:`.frm`,i
-     :file:`.MYD`, :file:`.MYI`.
-
-   GTID
+GTID
      Global Transaction ID, in *Percona XtraDB Cluster* it consists of
      :term:`UUID` and an ordinal sequence number which denotes the position of
      the change in the sequence.
