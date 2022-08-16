@@ -1,0 +1,161 @@
+# MkDocs configuration for Netlify builds
+
+site_name: Percona XtraDB Cluster
+site_description: Documentation
+site_author: Percona LLC
+copyright: Percona LLC, &#169; 2022
+
+repo_name: percona/pxc-docs
+repo_url: https://github.com/percona/pxc-docs
+edit_uri: edit/8.0/docs/
+
+use_directory_urls: false
+
+# Theme for netlify testing
+theme:
+  name: material
+  logo: _static/percona-logo.svg
+  favicon: _static/percona_favicon.ico
+  custom_dir: _resource/overrides/
+  palette:
+
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: percona-light
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+# Theme features
+
+  features:
+    - search.highlight
+    - navigation.top
+    - content.tabs.link
+
+extra_css:
+  - https://unicons.iconscout.com/release/v3.0.3/css/line.css
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
+  - css/percona.css
+  - css/version-select.css
+
+extra_javascript:
+  - js/version-select.js
+
+markdown_extensions:
+  attr_list: {}
+  toc:
+    permalink: True
+    title: On this page
+  admonition: {}
+  footnotes: {}
+  def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
+  meta: {}
+  md_in_html: {}
+  smarty:
+      {smart_angled_quotes: true}
+  pymdownx.details: {}
+  pymdownx.mark: {}
+  pymdownx.smartsymbols: {}
+  pymdownx.tabbed: 
+      {alternate_style: true}
+  pymdownx.tilde: {}
+  pymdownx.superfences: {}
+  pymdownx.highlight:
+      linenums: false
+  pymdownx.inlinehilite: {}
+
+
+plugins:
+  search: {}
+  git-revision-date: {}
+  macros:
+      include_yaml:
+#        - 'variables.yml' # Use in markdown as '{{ VAR }}'
+# exclude: # Don't process these files
+#      glob:
+#         - file.md
+  with-pdf: # https://github.com/orzih/mkdocs-with-pdf
+          output_path: '_pdf/PerconaXtradbCluster-8.0.pdf'
+          cover_title: 'Percona XtraDB Cluster Documentation'
+          cover_subtitle: 8.0.28-19.1 (July 19, 2022)
+          author: 'Percona Technical Documentation Team'
+          cover_logo: docs/_static/percona-xtradb-cluster-logo.jpg
+          debug_html: false
+          custom_template_path: _resource/templates
+          enabled_if_env: ENABLE_PDF_EXPORT
+  mike:
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+      canonical_version: null
+
+extra:
+  version: 
+    provider: mike
+
+nav:
+  - index.md
+  - Introduction:
+      - intro.md
+      - limitation.md
+  - Getting Started:
+      - overview.md
+      - install/index.md
+      - configure.md
+      - bootstrap.md
+      - add-node.md
+      - verify.md
+  - Features:
+      - features/highavailability.md
+      - features/pxc-strict-mode.md
+      - features/online-schema-upgrade.md
+      - features/nbo.md
+  - PXC Security:
+      - security/index.md
+      - security/secure-network.md
+      - security/encrypt-traffic.md
+      - security/apparmor.md
+      - security/selinux.md
+  - User's Manual:
+      - manual/state_snapshot_transfer.md
+      - manual/xtrabackup_sst.md
+      - manual/restarting_nodes.md
+      - manual/failover.md
+      - manual/monitoring.md
+      - manual/certification.md
+      - manual/threading_model.md
+      - manual/gcache_record-set_cache_difference.md
+      - manual/performance_schema_instrumentation.md
+      - management/data_at_rest_encryption.md
+  - How-tos:
+      - howtos/upgrade_guide.md
+      - howtos/crash-recovery.md
+      - howtos/centos_howto.md
+      - howtos/ubuntu_howto.md
+      - howtos/garbd_howto.md
+      - howtos/singlebox.md
+      - howtos/3nodesec2.md
+      - howtos/haproxy.md
+      - howtos/proxysql.md
+      - howtos/proxysql-v2.md
+      - howtos/virt_sandbox.md
+  - Release notes:
+      - release-notes/release-notes_index.md
+  - References:
+      - wsrep-status-index.md
+      - wsrep-system-index.md
+      - wsrep-provider-index.md
+      - wsrep-files-index.md
+      - faq.md
+      - glossary.md
+
+# - Version Selector: "../"
+
