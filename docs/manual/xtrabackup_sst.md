@@ -135,7 +135,7 @@ Used to enable and specify SST encryption mode:
    ```
 !!! note
 
-    All encryption modes can only be used when [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default).
+    All encryption modes can only be used when [`wsrep_sst_method`](../wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default).
 
 For more information, see [Encrypting PXC Traffic](../security/encrypt-traffic.md#encrypt-traffic).
 
@@ -263,7 +263,7 @@ cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$
 
 !!! note
 
-    This option can only be used when [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default value).
+    This option can only be used when [`wsrep_sst_method`](../wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default value).
 
 ### compressor
 
@@ -335,7 +335,7 @@ To disable initial SST timeout, set `sst-initial-timeout=0`.
 
 !!! note
 
-    If you are using [`wsrep_sst_donor`](wsrep-system-index.md#wsrep_sst_donor), and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), **and** there is a possibility of **all** nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).
+    If you are using [`wsrep_sst_donor`](../wsrep-system-index.md#wsrep_sst_donor), and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), **and** there is a possibility of **all** nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).
 
 ### sst-idle-timeout
 
@@ -379,7 +379,7 @@ The `tmpdir` option can be set in the following `my.cnf` groups:
 
 * `[mysqld]` is used if it is not specified in either of the above 
 
-[`wsrep_debug`](wsrep-system-index.md#wsrep_debug)
+[`wsrep_debug`](../wsrep-system-index.md#wsrep_debug)
 
 Specifies whether additional debugging output for the database server error log
 should be enabled.

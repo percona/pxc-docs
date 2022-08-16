@@ -118,7 +118,7 @@ To upgrade the cluster, follow these steps for each node:
         upon encountering a failed validation.
 
         If you are not sure, it is recommended to first start the node
-        with the [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) variable set to `PERMISSIVE` in the in the *MySQL* configuration file, `my.cnf`.
+        with the [`pxc_strict_mode`](../wsrep-system-index.md#pxc_strict_mode) variable set to `PERMISSIVE` in the in the *MySQL* configuration file, `my.cnf`.
 
         After you check the log for any experimental or unsupported features
         and fix any encountered incompatibilities,
@@ -247,7 +247,7 @@ To upgrade the cluster, follow these steps for each node:
         upon encountering a failed validation.
 
         If you are not sure, it is recommended to first start the node
-        with the [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) variable set to `PERMISSIVE` in the in the *MySQL* configuration file, `my.cnf`.
+        with the [`pxc_strict_mode`](../wsrep-system-index.md#pxc_strict_mode) variable set to `PERMISSIVE` in the in the *MySQL* configuration file, `my.cnf`.
 
         After you check the log for any experimental or unsupported features
         and fix any encountered incompatibilities,
@@ -293,7 +293,7 @@ directory structure after [SST](../glossary.md#sst) (after the normal major or m
     $ sudo service mysql stop
     ```
 
-2. Restart the node in standalone mode by setting the [`wsrep_provider`](wsrep-system-index.md#wsrep_provider) variable to `none`, for example:
+2. Restart the node in standalone mode by setting the [`wsrep_provider`](../wsrep-system-index.md#wsrep_provider) variable to `none`, for example:
 
     ```shell
     sudo mysqld --skip-grant-tables --user=mysql --wsrep-provider='none'
