@@ -1699,7 +1699,7 @@ ssl-key=server-key.pem
 ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 </code></pre></div>
-<p>For <a href="wsrep-system-index.md#wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
+<p>For <a href="../wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
 </div>
 <p>Automatic configuration of the SSL encryption needs key and certificate files.
 Starting from the version 5.7, <em>MySQL</em> generates default key and certificate
@@ -1839,7 +1839,7 @@ where you want to use <code>mysqldump</code> for SST.</p>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="wsrep-system-index.md#wsrep_OSU_method"><code>wsrep_OSU_method</code></a> is set to ROI, you need to manually create the SST user on each node in the cluster.</p>
+<p>If the <a href="../wsrep-system-index.html#wsrep_OSU_method"><code>wsrep_OSU_method</code></a> is set to ROI, you need to manually create the SST user on each node in the cluster.</p>
 </div>
 </li>
 <li>
@@ -2036,7 +2036,7 @@ Most likely, you only want to give read permissions to the user running <code>my
   For example, if you are planning to perform SST using <code>mysqldump</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a href="security/encrypt-traffic.md#upgrade-certs">Upgrading Certificates</a> subsection covers the details on upgrading certificates, if necessary.</p>
+<p><a href="#upgrading-certificates">Upgrading Certificates</a> subsection covers the details on upgrading certificates, if necessary.</p>
 </div>
 <h3 id="upgrading-certificates">Upgrading Certificates<a class="headerlink" href="#upgrading-certificates" title="Permanent link">&para;</a></h3>
 <p>The following procedure shows how to upgrade certificates
@@ -2086,7 +2086,7 @@ cat new-ca.pem &gt;&gt; upgrade-ca.pem
   <small>
     
       Last update:
-      2022-07-20
+      2022-08-16
     
   </small>
 </div>

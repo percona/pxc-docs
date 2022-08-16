@@ -1486,7 +1486,7 @@ Percona XtraDB Cluster runs with <a href="../features/pxc-strict-mode.html#pxc-s
 This will deny any unsupported operations and may halt the server
 upon encountering a failed validation.</p>
 <p>If you are not sure, it is recommended to first start the node
-with the <a href="wsrep-system-index.md#pxc_strict_mode"><code>pxc_strict_mode</code></a> variable set to <code>PERMISSIVE</code> in the in the <em>MySQL</em> configuration file, <code>my.cnf</code>.</p>
+with the <a href="../wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> variable set to <code>PERMISSIVE</code> in the in the <em>MySQL</em> configuration file, <code>my.cnf</code>.</p>
 <p>After you check the log for any experimental or unsupported features
 and fix any encountered incompatibilities,
 you can set the variable back to <code>ENFORCING</code> at run time:</p>
@@ -1603,7 +1603,7 @@ should run the node with your previous configuration:</p>
 This will deny any unsupported operations and may halt the server
 upon encountering a failed validation.</p>
 <p>If you are not sure, it is recommended to first start the node
-with the <a href="wsrep-system-index.md#pxc_strict_mode"><code>pxc_strict_mode</code></a> variable set to <code>PERMISSIVE</code> in the in the <em>MySQL</em> configuration file, <code>my.cnf</code>.</p>
+with the <a href="../wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> variable set to <code>PERMISSIVE</code> in the in the <em>MySQL</em> configuration file, <code>my.cnf</code>.</p>
 <p>After you check the log for any experimental or unsupported features
 and fix any encountered incompatibilities,
 you can set the variable back to <code>ENFORCING</code> at run time:</p>
@@ -1645,7 +1645,7 @@ directory structure after <a href="../glossary.html#sst">SST</a> (after the norm
 </code></pre></div>
 </li>
 <li>
-<p>Restart the node in standalone mode by setting the <a href="wsrep-system-index.md#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>, for example:</p>
+<p>Restart the node in standalone mode by setting the <a href="../wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>, for example:</p>
 <div class="highlight"><pre><span></span><code>sudo mysqld --skip-grant-tables --user<span class="o">=</span>mysql --wsrep-provider<span class="o">=</span><span class="s1">&#39;none&#39;</span>
 </code></pre></div>
 </li>
@@ -1677,7 +1677,7 @@ directory structure after <a href="../glossary.html#sst">SST</a> (after the norm
   <small>
     
       Last update:
-      2022-07-20
+      2022-08-16
     
   </small>
 </div>

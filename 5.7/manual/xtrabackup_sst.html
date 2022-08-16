@@ -1932,7 +1932,7 @@ ssl-key=server-key.pem
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All encryption modes can only be used when <a href="wsrep-system-index.md#wsrep_sst_method"><code>wsrep_sst_method</code></a> is set to <code>xtrabackup-v2</code> (which is the default).</p>
+<p>All encryption modes can only be used when <a href="../wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is set to <code>xtrabackup-v2</code> (which is the default).</p>
 </div>
 <p>For more information, see <a href="../security/encrypt-traffic.html#encrypt-traffic">Encrypting PXC Traffic</a>.</p>
 <h3 id="encrypt-algo">encrypt-algo<a class="headerlink" href="#encrypt-algo" title="Permanent link">&para;</a></h3>
@@ -2068,7 +2068,7 @@ cpat=&#39;.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This option can only be used when <a href="wsrep-system-index.md#wsrep_sst_method"><code>wsrep_sst_method</code></a> is set to <code>xtrabackup-v2</code> (which is the default value).</p>
+<p>This option can only be used when <a href="../wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is set to <code>xtrabackup-v2</code> (which is the default value).</p>
 </div>
 <h3 id="compressor">compressor<a class="headerlink" href="#compressor" title="Permanent link">&para;</a></h3>
 <table>
@@ -2180,7 +2180,7 @@ so you can set it appropriately for your cluster.
 To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are using <a href="wsrep-system-index.md#wsrep_sst_donor"><code>wsrep_sst_donor</code></a>, and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), <strong>and</strong> there is a possibility of <strong>all</strong> nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).</p>
+<p>If you are using <a href="../wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a>, and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), <strong>and</strong> there is a possibility of <strong>all</strong> nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).</p>
 </div>
 <h3 id="sst-idle-timeout">sst-idle-timeout<a class="headerlink" href="#sst-idle-timeout" title="Permanent link">&para;</a></h3>
 <table>
@@ -2253,7 +2253,7 @@ before streaming or copying it to a remote host.</p>
 <p><code>[mysqld]</code> is used if it is not specified in either of the above </p>
 </li>
 </ul>
-<p><a href="wsrep-system-index.md#wsrep_debug"><code>wsrep_debug</code></a></p>
+<p><a href="../wsrep-system-index.html#wsrep_debug"><code>wsrep_debug</code></a></p>
 <p>Specifies whether additional debugging output for the database server error log
 should be enabled.
 Disabled by default.</p>
@@ -2447,7 +2447,7 @@ innodb_buffer_pool_size=24M
   <small>
     
       Last update:
-      2022-07-20
+      2022-08-16
     
   </small>
 </div>
