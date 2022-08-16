@@ -592,7 +592,7 @@ the replica queue drops below [`gcs.fc_factor`](wsrep-provider-index.md#gcsfc_fa
 | Dynamic:       | Yes                 |
 | Default Value: | 100   |
 
-The dafaul velue has been changed from ``16`` to ``100`` in [`5.7.17-29.20`](Percona-XtraDB-Cluster-5.7.17-29.20.md).
+The dafaul velue has been changed from ``16`` to ``100`` in [`5.7.17-29.20`](release-notes/Percona-XtraDB-Cluster-5.7.17-29.20.md).
 
 This variable is used for replication flow control. Replication is paused when
 the replica queue exceeds this limit. In the default operation mode, flow control

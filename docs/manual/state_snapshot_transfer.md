@@ -25,7 +25,7 @@ using the [`wsrep_sst_method`](../wsrep-system-index.md#wsrep_sst_method) variab
 
 !!! note 
 
-    If the [`gcs.sync_donor`](wsrep-provider-index.md#gcs.sync_donor) variable is set to `Yes` (default is `No`), the whole cluster will get blocked if the donor is blocked by SST.
+    If the [`gcs.sync_donor`](../wsrep-provider-index.md#gcs.sync_donor) variable is set to `Yes` (default is `No`), the whole cluster will get blocked if the donor is blocked by SST.
 
 ## Choosing the SST Donor
 

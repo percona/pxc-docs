@@ -86,7 +86,7 @@ there-by using non-secured channel for replication).
     ssl-cert=server-cert.pem
     ```
 
-    For [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options), only the mentioned options are affected (`socket.ssl_key`, `socket,ssl_cert`, and `socket.ssl_ca`), the rest is not modified.
+    For [`wsrep_provider_options`](../wsrep-system-index.md#wsrep_provider_options), only the mentioned options are affected (`socket.ssl_key`, `socket,ssl_cert`, and `socket.ssl_ca`), the rest is not modified.
 
 Automatic configuration of the SSL encryption needs key and certificate files.
 Starting from the version 5.7, *MySQL* generates default key and certificate
@@ -258,7 +258,7 @@ in a running cluster:
 
     !!! note 
 
-        If the [`wsrep_OSU_method`](wsrep-system-index.md#wsrep_OSU_method) is set to ROI, you need to manually create the SST user on each node in the cluster.
+        If the [`wsrep_OSU_method`](../wsrep-system-index.md#wsrep_OSU_method) is set to ROI, you need to manually create the SST user on each node in the cluster.
 
 4. Specify corresponding certificate files in both `[mysqld]` and `[client]` sections of the configuration file on each node:
 
@@ -484,7 +484,7 @@ The following files are required:
 
 !!! note 
 
-    [Upgrading Certificates](security/encrypt-traffic.md#upgrade-certs) subsection covers the details on upgrading certificates, if necessary.
+    [Upgrading Certificates](#upgrading-certificates) subsection covers the details on upgrading certificates, if necessary.
 
 ### Upgrading Certificates
 
@@ -508,7 +508,7 @@ used for securing replication traffic when there are two nodes in the cluster.
     wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
     ```
 
-2. Restart the second node with the [`socket.ssl_ca`](../wsrep-provider-index.md#socket.ssl_ca), [`socket.ssl_cert`](../wsrep-provider-index.html#socket.ssl_cert), and [`socket.ssl_key`](../wsrep-provider-index.html#socket.ssl_cert) options set to the corresponding new certificate files.
+2. Restart the second node with the [`socket.ssl_ca`](../wsrep-provider-index.md#socket.ssl_ca), [`socket.ssl_cert`](../wsrep-provider-index.md#socket.ssl_cert), and [`socket.ssl_key`](../wsrep-provider-index.md#socket.ssl_cert) options set to the corresponding new certificate files.
 
     ```shell
     wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"

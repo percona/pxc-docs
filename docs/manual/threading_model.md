@@ -10,7 +10,7 @@ Applier threads apply write-sets that the node receives from other nodes.
 Write messages are directed through `gcv_recv_thread`.
 
 The number of applier threads is controlled
-using the [`wsrep_slave_threads`](wsrep-system-index.md#wsrep_slave_threads) variable.
+using the [`wsrep_slave_threads`](../wsrep-system-index.md#wsrep_slave_threads) variable.
 The default value is `1`,
 which means at least one wsrep applier thread exists to process the request.
 

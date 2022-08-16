@@ -126,7 +126,7 @@ replication should not be enabled if you want to ensure data consistency.
     The [`wsrep_replicate_myisam`](../wsrep-system-index.md#wsrep_replicate_myisam) variable controls *replication* for
     MyISAM tables, and this validation only checks whether it is allowed.
     Undesirable operations for MyISAM tables are restricted using the
-    [Storage engine](features/pxc-strict-mode.md#storage-engine) validation. 
+    [Storage engine](#pxc-strict-mode) validation. 
 
 ### Binary log format
 
