@@ -1,0 +1,2025 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/features/pxc-strict-mode.html">
+      
+      <link rel="icon" href="../_static/percona_favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+    
+    
+      
+        <title>PXC Strict Mode - Percona XtraDB Cluster</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/percona.css">
+    
+      <link rel="stylesheet" href="../css/version-select.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-343802-3","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){if(document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),document.forms.feedback){var e,a=document.forms.feedback;for(e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");ga("send","event","feedback","click",t,e),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pxc-strict-mode" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"><a href="https://www.percona.com/software/documentation">
+            Percona Product Documentation
+          </a></span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PXC Strict Mode
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona XtraDB Cluster
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Percona XtraDB Cluster 5.7 Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro.html" class="md-nav__link">
+        About Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitation.html" class="md-nav__link">
+        Percona XtraDB Cluster Limitations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        Quick Start Guide for Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/index.html" class="md-nav__link">
+        Installing Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure.html" class="md-nav__link">
+        Configuring Nodes for Write-Set Replication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bootstrap.html" class="md-nav__link">
+        Bootstrapping the First Node
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../add-node.html" class="md-nav__link">
+        Adding Nodes to Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verify.html" class="md-nav__link">
+        Verifying Replication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="highavailability.html" class="md-nav__link">
+        High Availability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multimaster-replication.html" class="md-nav__link">
+        Multi-Source Replication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          PXC Strict Mode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="pxc-strict-mode.html" class="md-nav__link md-nav__link--active">
+        PXC Strict Mode
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#validations" class="md-nav__link">
+    Validations
+  </a>
+  
+    <nav class="md-nav" aria-label="Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-engine" class="md-nav__link">
+    Storage engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#myisam-replication" class="md-nav__link">
+    MyISAM replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-log-format" class="md-nav__link">
+    Binary log format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables-without-the-primary-key" class="md-nav__link">
+    Tables without the primary key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-output" class="md-nav__link">
+    Log output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-table-locking" class="md-nav__link">
+    Explicit table locking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-increment-lock-mode" class="md-nav__link">
+    Auto-increment lock mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-schema-and-data-changes-in-a-single-statement" class="md-nav__link">
+    Combining schema and data changes in a single statement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discarding-and-importing-tablespaces" class="md-nav__link">
+    Discarding and Importing Tablespaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xa-transactions" class="md-nav__link">
+    XA transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          PXC Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          PXC Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/index.html" class="md-nav__link">
+        Security Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/secure-network.html" class="md-nav__link">
+        Securing the Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/encrypt-traffic.html" class="md-nav__link">
+        Encrypting PXC Traffic
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          User's Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          User's Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
+        State Snapshot Transfer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
+        Percona XtraBackup SST Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/restarting_nodes.html" class="md-nav__link">
+        Restarting the cluster nodes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/failover.html" class="md-nav__link">
+        Cluster Failover
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/monitoring.html" class="md-nav__link">
+        Monitoring the cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/certification.html" class="md-nav__link">
+        Certification in Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/threading_model.html" class="md-nav__link">
+        Percona XtraDB Cluster threading model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
+        Understanding GCache and Record-Set Cache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
+        Perfomance Schema Instrumentation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+        Data at Rest Encryption
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Flexibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flexibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Flexibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        Binlogging and replication improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+        InnoDB Full-Text Search improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+        Multiple page asynchronous I/O requests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Diagnostics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagnostics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        InnoDB Page Fragmentation Counters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+        Using libcoredumper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+        Stack Trace
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          How-tos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          How-tos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/upgrade_guide.html" class="md-nav__link">
+        Upgrading Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/crash-recovery.html" class="md-nav__link">
+        Crash Recovery
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/centos_howto.html" class="md-nav__link">
+        Configuring Percona XtraDB Cluster on CentOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
+        Configuring Percona XtraDB Cluster on Ubuntu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/garbd_howto.html" class="md-nav__link">
+        Setting up Galera Arbitrator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/singlebox.html" class="md-nav__link">
+        How to set up a three-node cluster on a single box
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/3nodesec2.html" class="md-nav__link">
+        How to set up a three-node cluster in EC2 environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/haproxy.html" class="md-nav__link">
+        Load balancing with HAProxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/proxysql.html" class="md-nav__link">
+        Load balancing with ProxySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/virt_sandbox.html" class="md-nav__link">
+        Setting up PXC reference architecture with HAProxy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+        Percona XtraDB Cluster 5.7 Release notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-status-index.html" class="md-nav__link">
+        Index of wsrep status variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-system-index.html" class="md-nav__link">
+        Index of wsrep system variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-provider-index.html" class="md-nav__link">
+        Index of wsrep_provider options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-files-index.html" class="md-nav__link">
+        Index of files created by PXC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-xtradb-cluster-5-7-manual" onclick="_gaq.push(['b._trackEvent', 'Percona XtraBackup', 'Download', 'Download Manual Percona XtraBackup']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#validations" class="md-nav__link">
+    Validations
+  </a>
+  
+    <nav class="md-nav" aria-label="Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage-engine" class="md-nav__link">
+    Storage engine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#myisam-replication" class="md-nav__link">
+    MyISAM replication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-log-format" class="md-nav__link">
+    Binary log format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tables-without-the-primary-key" class="md-nav__link">
+    Tables without the primary key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-output" class="md-nav__link">
+    Log output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-table-locking" class="md-nav__link">
+    Explicit table locking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-increment-lock-mode" class="md-nav__link">
+    Auto-increment lock mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-schema-and-data-changes-in-a-single-statement" class="md-nav__link">
+    Combining schema and data changes in a single statement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discarding-and-importing-tablespaces" class="md-nav__link">
+    Discarding and Importing Tablespaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xa-transactions" class="md-nav__link">
+    XA transactions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+
+                <!-- Edit button -->
+                
+                  <a
+                    href="https://github.com/percona/pxc-docs/edit/5.7/docs/features/pxc-strict-mode.md"
+                    title="Edit this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="pxc-strict-mode">PXC Strict Mode<a class="headerlink" href="#pxc-strict-mode" title="Permanent link">&para;</a></h1>
+<p>PXC Strict Mode (<a href="../wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a>) is designed to help control
+behavior of cluster when an experimental/unsupported feature is used. It
+performs a number of validations at startup and during runtime.</p>
+<p>Depending on the actual mode you select, upon encountering a failed validation,
+the server will either throw an error (halting startup or denying the
+operation), or log a warning and continue running as normal.  The following
+modes are available:</p>
+<ul>
+<li>
+<p><code>DISABLED</code>: Do not perform strict mode validations and run as normal; no error or warning is logged for use of experimental/unsupported feature.</p>
+</li>
+<li>
+<p><code>PERMISSIVE</code>: If a vaidation fails, log a warning and continue running as normal.</p>
+</li>
+<li>
+<p><code>ENFORCING</code>: If a validation fails during startup, halt the server and throw an error. If a validation fails during runtime, deny the operation and throw
+an error.</p>
+</li>
+<li>
+<p><code>MASTER</code>: The same as <code>ENFORCING</code> except that explicit table locking is
+allowed: the validation of <a href="#explicit-table-locking">explicit table locking</a> is not performed. This mode can be used with
+clusters in which write operations are isolated to a single node.</p>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Setting <code>pxc_strict_mode</code> from <code>DISABLED</code> or <code>PERMISSIVE</code> to either <code>ENFORCING</code> or <code>MASTER</code> requires that the following conditions are met:</p>
+<ul>
+<li><code>wsrep_replicate_myisam=OFF</code></li>
+<li><code>binlog_format=ROW</code></li>
+<li><code>log_output=FILE/NONE</code></li>
+<li>transaction isolation level != SERIALIZABLE </li>
+</ul>
+</div>
+<p>By default, PXC Strict Mode is set to <code>ENFORCING</code>,
+except if the node is acting as a standalone server (wsrep_provider=none)
+or the node is bootstrapping, then PXC Strict Mode defaults to <code>DISABLED</code>.</p>
+<p>It is recommended to keep PXC Strict Mode set to <code>ENFORCING</code>,
+because in this case whenever Percona XtraDB Cluster encounters an experimental feature
+or an unsupported operation, the server will deny it.
+This will force you to re-evaluate your Percona XtraDB Cluster configuration
+without risking the consistency of your data.</p>
+<p>If you are planning to set PXC Strict Mode to anything else than <code>ENFORCING</code>,
+you should be aware of the limitations and effects
+that this may have on data integrity.
+For more information, see <a href="pxc-strict-mode.html#validations">Validations</a>.</p>
+<p>To set the mode, use the <a href="../wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> variable in the configuration file or the <code>--pxc-strict-mode</code> option during <code>mysqld</code> startup.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is better to start the server with the necessary mode (the default <code>ENFORCING</code> is highly recommended).  However, you can dynamically change it during runtime.  For example, to set PXC Strict Mode to <code>PERMISSIVE</code>, run the following command:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt; SET GLOBAL <span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
+</code></pre></div>
+<p>To further ensure data consistency, it is important to have all nodes in the
+cluster running with the same configuration, including the value of
+<code>pxc_strict_mode</code> variable. </p>
+</div>
+<h2 id="validations">Validations<a class="headerlink" href="#validations" title="Permanent link">&para;</a></h2>
+<p>PXC Strict Mode validations are designed to ensure optimal operation
+for common cluster setups that do not require experimental features
+and do not rely on operations not supported by Percona XtraDB Cluster.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If an unsupported operation is performed on a node
+with <code>pxc_strict_mode</code> set to <code>DISABLED</code> or <code>PERMISSIVE</code>,
+it will not be validated on nodes where it is replicated to,
+even if the destination node has <code>pxc_strict_mode</code> set to <code>ENFORCING</code>. </p>
+</div>
+<p>This section describes the purpose and consequences of each validation.</p>
+<h3 id="storage-engine">Storage engine<a class="headerlink" href="#storage-engine" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster supports only transactional storage engine (XtraDB or InnoDB) as PXC needs
+capability of the storage engine to rollback any given transaction. Storage
+engines, such as <em>MyISAM</em>, <em>MEMORY</em>, <em>CSV</em> are not supported.</p>
+<ul>
+<li>
+<p>Data manipulation statements that perform writing to table (for example,
+<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, etc.)</p>
+</li>
+<li>
+<p>The following administrative statements: <code>CHECK</code>, <code>OPTIMIZE</code>, <code>REPAIR</code>,
+and <code>ANALYZE</code></p>
+</li>
+<li>
+<p><code>TRUNCATE TABLE</code> and <code>ALTER TABLE</code></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed</td>
+<td>Allow write/DML, ALTER, TRUNCATE and ADMIN (check, optimize, repair, analyze) operations on all persistent tables (including one that resides in non-transactional storage engine).</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted, but a warning is logged when an undesirable operation is performed on an unsupported table.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>No validation is performed.</td>
+<td>write/DML, ALTER, TRUNCATE, and ADMIN operations on each persistent table that is not implemented using a supported storage engine logs an error.</td>
+</tr>
+</tbody>
+</table>
+<p>In order to balance backward compatibility and existing application, Percona XtraDB Cluster
+allows table created with a non-transactional storage engine to co-exist but
+DML, ALTER, TRUNCATE and ADMIN (ANALYZE, CHECK, etc….) operations on such
+tables are blocked in ENFORCING mode.</p>
+<p>ALTERing unsupported table from non-transactional storage engine to a
+transactional storage engine is allowed.</p>
+<p>As operation checks are applicable only to persistent tables, temporary tables
+are not replicated by Galera Cluster so <em>pxc-strict-mode</em> enforcement is not
+applicable to temporary table. Same is applicable to performance-schema. (Check
+is also not applied for system tables located in the mysql database.)</p>
+<h3 id="myisam-replication">MyISAM replication<a class="headerlink" href="#myisam-replication" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster provides experimental support for replication of tables that use the
+MyISAM storage engine.  Due to the non-transactional nature of MyISAM, it is not
+likely to ever be fully supported in Percona XtraDB Cluster.</p>
+<p>MyISAM replication is controlled using the <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> variable, which is set to <code>OFF</code> by default.  Due to its unreliability, MyISAM
+replication should not be enabled if you want to ensure data consistency.</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>You can set <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> to any value.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>If <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> is set to <code>ON</code>, a warning is logged and startup continues.</td>
+<td>It is permitted to change <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code> </a> to any value, but if you set it to <code>ON</code>, a warning is logged.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>If <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> is set to <code>ON</code>, an error is logged and startup is aborted.</td>
+<td>Any attempt to change <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> to <code>ON</code> fails and an error is logged. Setting it to OFF is welcome operation and doesn&rsquo;t result in an error.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="../wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> variable controls <em>replication</em> for
+MyISAM tables, and this validation only checks whether it is allowed.
+Undesirable operations for MyISAM tables are restricted using the
+<a href="features/pxc-strict-mode.md#storage-engine">Storage engine</a> validation. </p>
+</div>
+<h3 id="binary-log-format">Binary log format<a class="headerlink" href="#binary-log-format" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster supports only the default row-based binary logging format.  Setting the
+<a href="http://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format"><code>binlog_format</code></a> variable to anything but <code>ROW</code> at startup is not allowed,
+because this changes the global scope, which must be set to <code>ROW</code>.  Validation is
+performed only at runtime and against session scope.</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No check is enforced.</td>
+<td>You can set <code>binlog_format</code> to any value.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No check is enforced.</td>
+<td>It is permitted to change <code>binlog_format</code> to any value, but if you set it to anything other than <code>ROW</code>, a warning is logged.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>No check is enforced.</td>
+<td>At runtime, any attempt to change <code>binlog_format</code> to anything other than <code>ROW</code> fails and an error is logged. Setting it to ROW is welcome operation and doesn&rsquo;t result in an error.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting <em>binlog_format</em> at global level to STATEMENT/MIXED is not allowed under any mode and even during startup (startup setting are global setting).</p>
+</div>
+<h3 id="tables-without-the-primary-key">Tables without the primary key<a class="headerlink" href="#tables-without-the-primary-key" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster cannot properly propagate certain write operations to tables that do not
+have primary keys defined.  Undesirable operations include data manipulation
+statements that perform writing to table (especially <code>DELETE</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This type of validation is not applicable to temporary tables, system tables(tables located in mysql database), and performance-schema.</p>
+</div>
+<p>Depending on the selected mode, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted, but a warning is logged when an undesirable operation is performed on a table without an explicit primary key defined.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>No validation is performed.</td>
+<td>Any undesirable operation performed on a table without an explicit primary key is denied and an error is logged.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="log-output">Log output<a class="headerlink" href="#log-output" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to a file.  This validation checks the value of the <a href="http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output"><code>log_output</code></a> variable.</p>
+<p>Depending on the selected mode, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>You can set <code>log_output</code> to any value.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>If <code>log_output</code> is set only to <code>TABLE</code>, a warning is logged and startup continues.</td>
+<td>It is permitted to change <code>log_output</code> to any value, but if you set it only to <code>TABLE</code>, a warning is logged. Setting it to FILE/NONE is welcome operation and doesn&rsquo;t result in a warning.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>If <code>log_output</code> is set only to <code>TABLE</code>, an error is logged and startup is aborted.</td>
+<td>Any attempt to change <code>log_output</code> only to <code>TABLE</code> fails and an error is logged. Setting it to FILE/NONE is welcome operation and doesn&rsquo;t result in a warning.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="explicit-table-locking">Explicit table locking<a class="headerlink" href="#explicit-table-locking" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster has only experimental support for explicit table locking operations,
+The following undesirable operations lead to explicit table locking
+and are covered by this validation:</p>
+<ul>
+<li>
+<p><code>LOCK TABLES</code></p>
+</li>
+<li>
+<p><code>GET_LOCK()</code> and <code>RELEASE_LOCK()</code></p>
+</li>
+<li>
+<p><code>FLUSH TABLES &lt;tables&gt; WITH READ LOCK</code></p>
+</li>
+<li>
+<p>Setting the <code>SERIALIZABLE</code> transaction level</p>
+</li>
+</ul>
+<p>Depending on the selected mode, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted, but a warning is logged when an undesirable operation is performed.</td>
+</tr>
+<tr>
+<td>ENFORCING</td>
+<td>No validation is performed.</td>
+<td>Any undesirable operation is denied and an error is logged.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="auto-increment-lock-mode">Auto-increment lock mode<a class="headerlink" href="#auto-increment-lock-mode" title="Permanent link">&para;</a></h3>
+<p>The lock mode for generating auto-increment values must be <em>interleaved</em>
+to ensure that each node generates a unique (but non-sequential) identifier.</p>
+<p>This validation checks the value of the <a href="http://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a> variable.
+By default, the variable is set to <code>1</code> (<em>consecutive</em> lock mode),
+but it should be set to <code>2</code> (<em>interleaved</em> lock mode).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This validation is not performed during runtime, because the
+<code>innodb_autoinc_lock_mode</code> variable cannot be set dynamically.</p>
+</div>
+<p>Depending on the strict mode selected, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>This option is not dynamic, no validation is required during runtime.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>If <code>innodb_autoinc_lock_mode</code> is not set to <code>2</code>, a warning is logged and startup continues.</td>
+<td>This option is not dynamic, no validation is required during runtime.</td>
+</tr>
+<tr>
+<td>ENFORCING or MASTER</td>
+<td>If <code>innodb_autoinc_lock_mode</code> is not set to <code>2</code>, an error is logged and startup is aborted.</td>
+<td>This option is not dynamic, no validation is required during runtime.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="combining-schema-and-data-changes-in-a-single-statement">Combining schema and data changes in a single statement<a class="headerlink" href="#combining-schema-and-data-changes-in-a-single-statement" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster does not support <code>CREATE TABLE ... AS SELECT</code> (CTAS) statements, because
+they combine both schema and data changes.</p>
+<p>Depending on the strict mode selected, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted, but a warning is logged when a CTAS operation is performed.</td>
+</tr>
+<tr>
+<td>ENFORCING</td>
+<td>No validation is performed.</td>
+<td>Any CTAS operation is denied and an error is logged.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>CTAS operations for temporary tables are permitted even in strict mode.</p>
+</div>
+<h3 id="discarding-and-importing-tablespaces">Discarding and Importing Tablespaces<a class="headerlink" href="#discarding-and-importing-tablespaces" title="Permanent link">&para;</a></h3>
+<p><code>DISCARD TABLESPACE</code> and <code>IMPORT TABLESPACE</code> are not replicated using
+<code>TOI (Total Order Isolation)</code>. This can lead to data inconsistency if executed on only one node.</p>
+<p>Depending on the strict mode selected, the following happens:</p>
+<table>
+<thead>
+<tr>
+<th>Strict Mode</th>
+<th>At startup</th>
+<th>At runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DISABLED</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted.</td>
+</tr>
+<tr>
+<td>PERMISSIVE</td>
+<td>No validation is performed.</td>
+<td>All operations are permitted, but a warning is logged when you discard or import a tablespace.</td>
+</tr>
+<tr>
+<td>ENFORCING</td>
+<td>No validation is performed.</td>
+<td>Discarding or importing a tablespace is denied and an error is logged.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xa-transactions">XA transactions<a class="headerlink" href="#xa-transactions" title="Permanent link">&para;</a></h3>
+<p>XA transaction are not supported by PXC/Galera and with new MySQL-5.7 semantics
+using xa statement causes reuse of XID which is being used by Galera causing
+conflicts.  XA statements are completely blocked irrespective of the value of <code>pxc-strict-mode</code>.</p>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h4>Contact Us </h4>
+    <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-xtradb-cluster-5-x/12" target="_blank">Community Forum</a>.<br>
+      <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PXC/issues" target="_blank">JIRA</a> ticket.<br>
+       <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+ </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-07-20
+    
+  </small>
+</div>
+                  
+                
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="multimaster-replication.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Multi-Source Replication" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Multi-Source Replication
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../security/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Security Basics" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Security Basics
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Percona LLC, &#169; 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+        <script src="../js/version-select.js"></script>
+      
+    
+  </body>
+</html>

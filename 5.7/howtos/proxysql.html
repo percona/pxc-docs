@@ -1,0 +1,2214 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/howtos/proxysql.html">
+      
+      <link rel="icon" href="../_static/percona_favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+    
+    
+      
+        <title>Load balancing with ProxySQL - Percona XtraDB Cluster</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="../css/percona.css">
+    
+      <link rel="stylesheet" href="../css/version-select.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-343802-3","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){if(document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),document.forms.feedback){var e,a=document.forms.feedback;for(e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");ga("send","event","feedback","click",t,e),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#load-balancing-with-proxysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"><a href="https://www.percona.com/software/documentation">
+            Percona Product Documentation
+          </a></span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Load balancing with ProxySQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+      
+  <img src="../_static/percona-logo.svg" alt="logo">
+
+    </a>
+    Percona XtraDB Cluster
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Percona XtraDB Cluster 5.7 Documentation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro.html" class="md-nav__link">
+        About Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../limitation.html" class="md-nav__link">
+        Percona XtraDB Cluster Limitations
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview.html" class="md-nav__link">
+        Quick Start Guide for Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/index.html" class="md-nav__link">
+        Installing Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure.html" class="md-nav__link">
+        Configuring Nodes for Write-Set Replication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bootstrap.html" class="md-nav__link">
+        Bootstrapping the First Node
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../add-node.html" class="md-nav__link">
+        Adding Nodes to Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../verify.html" class="md-nav__link">
+        Verifying Replication
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/highavailability.html" class="md-nav__link">
+        High Availability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/multimaster-replication.html" class="md-nav__link">
+        Multi-Source Replication
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/pxc-strict-mode.html" class="md-nav__link">
+        PXC Strict Mode
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          PXC Security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          PXC Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/index.html" class="md-nav__link">
+        Security Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/secure-network.html" class="md-nav__link">
+        Securing the Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/encrypt-traffic.html" class="md-nav__link">
+        Encrypting PXC Traffic
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          User's Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          User's Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
+        State Snapshot Transfer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
+        Percona XtraBackup SST Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/restarting_nodes.html" class="md-nav__link">
+        Restarting the cluster nodes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/failover.html" class="md-nav__link">
+        Cluster Failover
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/monitoring.html" class="md-nav__link">
+        Monitoring the cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/certification.html" class="md-nav__link">
+        Certification in Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/threading_model.html" class="md-nav__link">
+        Percona XtraDB Cluster threading model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
+        Understanding GCache and Record-Set Cache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
+        Perfomance Schema Instrumentation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+        Data at Rest Encryption
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Flexibility
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flexibility" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Flexibility
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+        Binlogging and replication improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+        InnoDB Full-Text Search improvements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+        Multiple page asynchronous I/O requests
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Diagnostics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Diagnostics" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Diagnostics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+        InnoDB Page Fragmentation Counters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+        Using libcoredumper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+        Stack Trace
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          How-tos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          How-tos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrade_guide.html" class="md-nav__link">
+        Upgrading Percona XtraDB Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crash-recovery.html" class="md-nav__link">
+        Crash Recovery
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="centos_howto.html" class="md-nav__link">
+        Configuring Percona XtraDB Cluster on CentOS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ubuntu_howto.html" class="md-nav__link">
+        Configuring Percona XtraDB Cluster on Ubuntu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="garbd_howto.html" class="md-nav__link">
+        Setting up Galera Arbitrator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="singlebox.html" class="md-nav__link">
+        How to set up a three-node cluster on a single box
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="3nodesec2.html" class="md-nav__link">
+        How to set up a three-node cluster in EC2 environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="haproxy.html" class="md-nav__link">
+        Load balancing with HAProxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Load balancing with ProxySQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="proxysql.html" class="md-nav__link md-nav__link--active">
+        Load balancing with ProxySQL
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#manual-configuration" class="md-nav__link">
+    Manual Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-cluster-nodes-to-proxysql" class="md-nav__link">
+    Adding cluster nodes to ProxySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-proxysql-monitoring-user" class="md-nav__link">
+    Creating ProxySQL Monitoring User
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-proxysql-client-user" class="md-nav__link">
+    Creating ProxySQL Client User
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-galera-support-in-proxysql-v1" class="md-nav__link">
+    Adding Galera Support in ProxySQL v1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-cluster-with-sysbench" class="md-nav__link">
+    Testing Cluster with sysbench
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-fail-over" class="md-nav__link">
+    Automatic Fail-over
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assisted-maintenance-mode" class="md-nav__link">
+    Assisted Maintenance Mode
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virt_sandbox.html" class="md-nav__link">
+        Setting up PXC reference architecture with HAProxy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+        Percona XtraDB Cluster 5.7 Release notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-status-index.html" class="md-nav__link">
+        Index of wsrep status variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-system-index.html" class="md-nav__link">
+        Index of wsrep system variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-provider-index.html" class="md-nav__link">
+        Index of wsrep_provider options
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wsrep-files-index.html" class="md-nav__link">
+        Index of files created by PXC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        Frequently Asked Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary.html" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+   <label class="md-nav__title" for="__drawer">
+    <a href="https://learn.percona.com/download-percona-xtradb-cluster-5-7-manual" onclick="_gaq.push(['b._trackEvent', 'Percona XtraBackup', 'Download', 'Download Manual Percona XtraBackup']);" class="md-nav__link md-nav__link--active">
+      Download PDF
+    </a>
+  </label> 
+  </ul>
+</nav>
+
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#manual-configuration" class="md-nav__link">
+    Manual Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-cluster-nodes-to-proxysql" class="md-nav__link">
+    Adding cluster nodes to ProxySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-proxysql-monitoring-user" class="md-nav__link">
+    Creating ProxySQL Monitoring User
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-proxysql-client-user" class="md-nav__link">
+    Creating ProxySQL Client User
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-galera-support-in-proxysql-v1" class="md-nav__link">
+    Adding Galera Support in ProxySQL v1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-cluster-with-sysbench" class="md-nav__link">
+    Testing Cluster with sysbench
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-fail-over" class="md-nav__link">
+    Automatic Fail-over
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assisted-maintenance-mode" class="md-nav__link">
+    Assisted Maintenance Mode
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+
+                <!-- Edit button -->
+                
+                  <a
+                    href="https://github.com/percona/pxc-docs/edit/5.7/docs/howtos/proxysql.md"
+                    title="Edit this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                  </a>
+                
+
+                <!--
+                  Hack: check whether the content contains a h1 headline. If it
+                  doesn't, the page title (or respectively site name) is used
+                  as the main headline.
+                -->
+                
+
+                <!-- Markdown content -->
+                <h1 id="load-balancing-with-proxysql">Load balancing with ProxySQL<a class="headerlink" href="#load-balancing-with-proxysql" title="Permanent link">&para;</a></h1>
+<p><a href="https://www.proxysql.com/">ProxySQL</a> is a high-performance SQL proxy.  ProxySQL runs as a daemon watched by
+a monitoring process.  The process monitors the daemon and restarts it in case
+of a crash to minimize downtime.</p>
+<p>The daemon accepts incoming traffic from <em>MySQL</em> clients and forwards it to
+backend <em>MySQL</em> servers.</p>
+<p>The proxy is designed to run continuously without needing to be restarted.  Most
+configuration can be done at runtime using queries similar to SQL statements.
+These include runtime parameters, server grouping, and traffic-related settings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more information about ProxySQL, see <a href="https://proxysql.com/documentation/">ProxySQL documentation</a>.</p>
+</div>
+<p>ProxySQL is available from the Percona software repositories in two
+versions. ProxySQL v1 does not natively support Percona XtraDB Cluster and requires
+custom bash scripts to keep track of the status of Percona XtraDB Cluster nodes using the
+ProxySQL scheduler.</p>
+<p>ProxySQL v2 natively supports Percona XtraDB Cluster. With this version,
+<code>proxysql-admin</code> tool does not require custom scripts to keep track of
+Percona XtraDB Cluster status.</p>
+<ul>
+<li>
+<p><a href="proxysql-v1.html">Using ProxySQL v1 with <code>proxysql-admin</code></a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#installing-proxysql-v1">Installing ProxySQL v1</a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#automatic-configuration">Automatic Configuration</a></p>
+<ul>
+<li>
+<p><a href="proxysql-v1.html#preparing-configuration-file">Preparing Configuration File</a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#enabling-proxysql">Enabling ProxySQL</a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#disabling-proxysql">Disabling ProxySQL</a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#additional-options">Additional Options</a></p>
+</li>
+<li>
+<p><a href="proxysql-v1.html#proxysql-status-script">ProxySQL Status script</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="proxysql-v2.html">The <strong>proxysql-admin</strong> Tool with ProxySQL 2.0.x</a></p>
+</li>
+</ul>
+<h2 id="manual-configuration">Manual Configuration<a class="headerlink" href="#manual-configuration" title="Permanent link">&para;</a></h2>
+<p>This tutorial describes how to configure ProxySQL with three Percona XtraDB Cluster nodes.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Host Name</th>
+<th>IP address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node 1</td>
+<td>pxc1</td>
+<td>192.168.70.61</td>
+</tr>
+<tr>
+<td>Node 2</td>
+<td>pxc2</td>
+<td>192.168.70.62</td>
+</tr>
+<tr>
+<td>Node 3</td>
+<td>pxc3</td>
+<td>192.168.70.63</td>
+</tr>
+<tr>
+<td>Node 4</td>
+<td>proxysql</td>
+<td>192.168.70.64</td>
+</tr>
+</tbody>
+</table>
+<p>ProxySQL can be configured either using the <code>/etc/proxysql.cnf</code> file
+or through the admin interface.
+Using the admin interface is preferable,
+because it allows you to change the configuration dynamically
+(without having to restart the proxy).</p>
+<p>To connect to the ProxySQL admin interface, you need a <code>mysql</code> client.
+You can either connect to the admin interface from Percona XtraDB Cluster nodes
+that already have the <code>mysql</code> client installed (Node 1, Node 2, Node 3)
+or install the client on Node 4 and connect locally.
+For this tutorial, install Percona XtraDB Cluster on Node 4:</p>
+<ul>
+<li>On Debian or Ubuntu:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>root@proxysql:~# apt install percona-xtradb-cluster-client-5.7
+</code></pre></div>
+<ul>
+<li>On Red Hat Enterprise Linux or CentOS:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@proxysql ~<span class="o">]</span><span class="c1"># yum install Percona-XtraDB-Cluster-client-57</span>
+</code></pre></div>
+<p>To connect to the admin interface,
+use the credentials, host name and port specified in the <a href="https://github.com/sysown/proxysql/blob/master/doc/global_variables.md">global variables</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not use default credentials in production!</p>
+</div>
+<p>The following example shows how to connect to the ProxySQL admin interface
+with default credentials:</p>
+<div class="highlight"><pre><span></span><code>root@proxysql:~# mysql -u admin -padmin -h <span class="m">127</span>.0.0.1 -P <span class="m">6032</span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.1.30 (ProxySQL Admin Module)
+
+Copyright (c) 2009-2016 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql@proxysql&gt;
+</code></pre></div>
+<p>To see the ProxySQL databases and tables use the following commands:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+-----+---------+-------------------------------+
+| seq | name    | file                          |
++-----+---------+-------------------------------+
+| 0   | main    |                               |
+| 2   | disk    | /var/lib/proxysql/proxysql.db |
+| 3   | stats   |                               |
+| 4   | monitor |                               |
++-----+---------+-------------------------------+
+4 rows in set (0.00 sec)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------------------------------+
+| tables                               |
++--------------------------------------+
+| global_variables                     |
+| mysql_collations                     |
+| mysql_query_rules                    |
+| mysql_replication_hostgroups         |
+| mysql_servers                        |
+| mysql_users                          |
+| runtime_global_variables             |
+| runtime_mysql_query_rules            |
+| runtime_mysql_replication_hostgroups |
+| runtime_mysql_servers                |
+| runtime_scheduler                    |
+| scheduler                            |
++--------------------------------------+
+12 rows in set (0.00 sec)
+</code></pre></div>
+<p>For more information about admin databases and tables,
+see <a href="https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md">Admin Tables</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ProxySQL has 3 areas where the configuration can reside:</p>
+<ul>
+<li>
+<p>MEMORY (your current working place)</p>
+</li>
+<li>
+<p>RUNTIME (the production settings)</p>
+</li>
+<li>
+<p>DISK (durable configuration, saved inside an SQLITE database)</p>
+</li>
+</ul>
+<p>When you change a parameter, you change it in MEMORY area.
+  That is done by design to allow you to test the changes
+  before pushing to production (RUNTIME), or save them to disk.</p>
+</div>
+<h3 id="adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a class="headerlink" href="#adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
+<p>To configure the backend Percona XtraDB Cluster nodes in ProxySQL,
+insert corresponding records into the <code>mysql_servers</code> table.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ProxySQL uses the concept of <em>hostgroups</em> to group cluster nodes.
+  This enables you to balance the load in a cluster by
+  routing different types of traffic to different groups.
+  There are many ways you can configure hostgroups
+  (for example source and replicas, read and write load, etc.)
+  and a every node can be a member of multiple hostgroups.</p>
+</div>
+<p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>),
+which receives both write and read traffic:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.61&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.62&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.63&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>To see the nodes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+| hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
++--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+| 0            | 192.168.70.61 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | 192.168.70.62 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | 192.168.70.63 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
++--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+<h3 id="creating-proxysql-monitoring-user">Creating ProxySQL Monitoring User<a class="headerlink" href="#creating-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
+<p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL,
+create a user with <code>USAGE</code> privilege on any node in the cluster
+and configure the user in ProxySQL.</p>
+<p>The following example shows how to add a monitoring user on Node 2:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">pxc2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The following example shows how to configure this user on the ProxySQL node:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span><span class="w"></span>
+<span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="w"></span>
+<span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>To load this configuration at runtime, issue a <code>LOAD</code> command.
+To save these changes to disk
+(ensuring that they persist after ProxySQL shuts down),
+issue a <code>SAVE</code> command.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>To ensure that monitoring is enabled,
+check the monitoring logs:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_connect_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+---------------+------+------------------+----------------------+---------------+
+| hostname      | port | time_start_us    | connect_success_time | connect_error |
++---------------+------+------------------+----------------------+---------------+
+| 192.168.70.61 | 3306 | 1469635762434625 | 1695                 | NULL          |
+| 192.168.70.62 | 3306 | 1469635762434625 | 1779                 | NULL          |
+| 192.168.70.63 | 3306 | 1469635762434625 | 1627                 | NULL          |
+| 192.168.70.61 | 3306 | 1469635642434517 | 1557                 | NULL          |
+| 192.168.70.62 | 3306 | 1469635642434517 | 2737                 | NULL          |
+| 192.168.70.63 | 3306 | 1469635642434517 | 1447                 | NULL          |
++---------------+------+------------------+----------------------+---------------+
+6 rows in set (0.00 sec)
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_ping_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+---------------+------+------------------+-------------------+------------+
+| hostname      | port | time_start_us    | ping_success_time | ping_error |
++---------------+------+------------------+-------------------+------------+
+| 192.168.70.61 | 3306 | 1469635762416190 | 948               | NULL       |
+| 192.168.70.62 | 3306 | 1469635762416190 | 803               | NULL       |
+| 192.168.70.63 | 3306 | 1469635762416190 | 711               | NULL       |
+| 192.168.70.61 | 3306 | 1469635702416062 | 783               | NULL       |
+| 192.168.70.62 | 3306 | 1469635702416062 | 631               | NULL       |
+| 192.168.70.63 | 3306 | 1469635702416062 | 542               | NULL       |
++---------------+------+------------------+-------------------+------------+
+6 rows in set (0.00 sec)
+</code></pre></div>
+<p>The previous examples show that ProxySQL is able to connect
+and ping the nodes you added.</p>
+<p>To enable monitoring of these nodes, load them at runtime:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h3 id="creating-proxysql-client-user">Creating ProxySQL Client User<a class="headerlink" href="#creating-proxysql-client-user" title="Permanent link">&para;</a></h3>
+<p>ProxySQL must have users that can access backend nodes
+to manage connections.</p>
+<p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;sbuser&#39;</span><span class="p">,</span><span class="s1">&#39;sbpass&#39;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ProxySQL currently doesn’t encrypt passwords.</p>
+</div>
+<p>Load the user into runtime space and save these changes to disk
+(ensuring that they persist after ProxySQL shuts down):</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span><span class="w"></span>
+<span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>To confirm that the user has been set up correctly, you can try to log in:</p>
+<div class="highlight"><pre><span></span><code><span class="n">root</span><span class="o">@</span><span class="n">proxysql</span><span class="p">:</span><span class="o">~#</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">sbuser</span><span class="w"> </span><span class="o">-</span><span class="n">psbpass</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="mi">127</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="n">P</span><span class="w"> </span><span class="mi">6033</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1491
+Server version: 5.1.30 (ProxySQL)
+
+Copyright (c) 2009-2016 Percona LLC and/or its affiliates
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+</code></pre></div>
+<p>To provide read/write access to the cluster for ProxySQL,
+add this user on one of the Percona XtraDB Cluster nodes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc3</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;sbuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.64&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+
+```sql
+mysql@pxc3&gt; GRANT ALL ON *.* TO &#39;sbuser&#39;@&#39;192.168.70.64&#39;;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+<h3 id="adding-galera-support-in-proxysql-v1">Adding Galera Support in ProxySQL v1<a class="headerlink" href="#adding-galera-support-in-proxysql-v1" title="Permanent link">&para;</a></h3>
+<p>ProxySQL v2 supports monitoring the status Percona XtraDB Cluster nodes. ProxySQL v1 cannot
+detect a node which is not in <code>Synced</code> state.  To monitor the status of Percona XtraDB Cluster
+nodes in ProxySQL v1, use the <code>proxysql_galera_checker</code> script.  The
+script is located here: <code>/usr/bin/proxysql_galera_checker</code>.</p>
+<p>To use this script, load it into ProxySQL v1
+<a href="https://github.com/sysown/proxysql/blob/master/doc/scheduler.md">Scheduler</a>.</p>
+<p>The following example shows how you can load the script
+for default ProxySQL v1 configuration:</p>
+<div class="highlight"><pre><span></span><code>INSERT INTO scheduler (active,interval_ms,filename,arg1,comment)
+VALUES (1,10000,&#39;/usr/bin/proxysql_galera_checker&#39;,&#39;--config-file=/etc/proxysql-admin.cnf
+--write-hg=10 --read-hg=11 --writer-count=1 --mode=singlewrite
+--priority=192.168.100.20:3306,192.168.100.40:3306,192.168.100.10:3306,192.168.100.30:3306
+--log=/var/lib/proxysql/cluster_one_proxysql_galera_check.log&#39;,&#39;cluster_one&#39;);
+</code></pre></div>
+<p>This scheduler script accepts the following options in the <code>arg1</code> argument:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Name</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--config-file</code></td>
+<td>Configuration File</td>
+<td>Yes</td>
+<td>Specify <code>proxysql-admin</code> configuration file.</td>
+</tr>
+<tr>
+<td><code>--write-hg</code></td>
+<td><code>HOSTGROUP WRITERS</code></td>
+<td>No</td>
+<td>Specify ProxySQL write hostgroup.</td>
+</tr>
+<tr>
+<td><code>--read-hg</code></td>
+<td><code>HOSTGROUP READERS</code></td>
+<td>No</td>
+<td>Specify ProxySQL read hostgroup.</td>
+</tr>
+<tr>
+<td><code>--writer-count</code></td>
+<td><code>NUMBER WRITERS</code></td>
+<td>No</td>
+<td>Specify write nodes count. <code>0</code> for <code>loadbal</code> mode and <code>1</code> for <code>singlewrite</code> mode.</td>
+</tr>
+<tr>
+<td><code>--mode</code></td>
+<td><code>MODE</code></td>
+<td>No</td>
+<td>Specify ProxySQL read/write configuration mode.</td>
+</tr>
+<tr>
+<td><code>--priority</code></td>
+<td><code>WRITER PRIORITY</code></td>
+<td>No</td>
+<td>Specify write nodes priority.</td>
+</tr>
+<tr>
+<td><code>--log</code></td>
+<td><code>LOG FILE</code></td>
+<td>No</td>
+<td>Specify <code>proxysql_galera_checker</code> log file.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Specify cluster name in comment column.</p>
+</div>
+<p>To load the scheduler changes into the runtime space:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">LOAD</span><span class="w"> </span><span class="n">SCHEDULER</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>To make sure that the script has been loaded,
+check the <code>runtime_scheduler</code> table:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">scheduler</span><span class="err">\</span><span class="k">G</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>*************************** 1. row ***************************
+         id: 1
+     active: 1
+interval_ms: 10000
+   filename: /bin/proxysql_galera_checker
+       arg1: --config-file=/etc/proxysql-admin.cnf --write-hg=10 --read-hg=11
+             --writer-count=1 --mode=singlewrite
+             --priority=192.168.100.20:3306,192.168.100.40:3306,192.168.100.10:3306,192.168.100.30:3306
+             --log=/var/lib/proxysql/cluster_one_proxysql_galera_check.log
+       arg2: NULL
+       arg3: NULL
+       arg4: NULL
+       arg5: NULL
+    comment: cluster_one
+1 row in set (0.00 sec)
+</code></pre></div>
+<p>To check the status of available nodes, run the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------+---------------+------+--------+
+| hostgroup_id | hostname      | port | status |
++--------------+---------------+------+--------+
+| 0            | 192.168.70.61 | 3306 | ONLINE |
+| 0            | 192.168.70.62 | 3306 | ONLINE |
+| 0            | 192.168.70.63 | 3306 | ONLINE |
++--------------+---------------+------+--------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each node can have the following status:</p>
+<ul>
+<li>
+<p><code>ONLINE</code>: backend node is fully operational.</p>
+</li>
+<li>
+<p><code>SHUNNED</code>: backend node is temporarily taken out of use,
+  because either too many connection errors hapenned in a short time,
+  or replication lag exceeded the allowed threshold.</p>
+</li>
+<li>
+<p><code>OFFLINE_SOFT</code>: new incoming connections aren’t accepted,
+  while existing connections are kept until they become inactive.
+  In other words, connections are kept in use
+  until the current transaction is completed.
+  This allows to gracefully detach a backend node.</p>
+</li>
+<li>
+<p><code>OFFLINE_HARD</code>: existing connections are dropped,
+  and new incoming connections aren’t accepted.
+  This is equivalent to deleting the node from a hostgroup,
+  or temporarily taking it out of the hostgroup for maintenance.</p>
+</li>
+</ul>
+</div>
+<h3 id="testing-cluster-with-sysbench">Testing Cluster with sysbench<a class="headerlink" href="#testing-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
+<p>You can install <code>sysbench</code> from Percona software repositories:</p>
+<ul>
+<li>For Debian or Ubuntu:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>root@proxysql:~# apt install sysbench
+</code></pre></div>
+<ul>
+<li>For Red Hat Enterprise Linux or CentOS</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@proxysql ~<span class="o">]</span><span class="c1"># yum install sysbench</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>sysbench</code> requires ProxySQL client user credentials
+that you creted in <a href="#creating-proxysql-client-user">Creating ProxySQL Client User</a>.</p>
+</div>
+<ul>
+<li>Create the database that will be used for testing on one of the Percona XtraDB Cluster nodes:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">sbtest</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<ul>
+<li>Populate the table with data for the benchmark on the ProxySQL node:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
+--num-requests=0 --max-time=20 \
+--test=/usr/share/doc/sysbench/tests/db/oltp.lua \
+--mysql-user=&#39;sbuser&#39; --mysql-password=&#39;sbpass&#39; \
+--oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
+prepare
+</code></pre></div>
+<ul>
+<li>Run the benchmark on the ProxySQL node:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
+  --num-requests=0 --max-time=20 \
+  --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
+  --mysql-user=&#39;sbuser&#39; --mysql-password=&#39;sbpass&#39; \
+  --oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
+  run
+</code></pre></div>
+<p>ProxySQL stores collected data in the <code>stats</code> schema:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------------------------+
+| tables                         |
++--------------------------------+
+| stats_mysql_query_rules        |
+| stats_mysql_commands_counters  |
+| stats_mysql_processlist        |
+| stats_mysql_connection_pool    |
+| stats_mysql_query_digest       |
+| stats_mysql_query_digest_reset |
+| stats_mysql_global             |
++--------------------------------+
+</code></pre></div>
+<p>For example, to see the number of commands that run on the cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats_mysql_commands_counters</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+-------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+| Command           | Total_Time_us | Total_cnt | cnt_100us | cnt_500us | cnt_1ms | cnt_5ms | cnt_10ms | cnt_50ms | cnt_100ms | cnt_500ms | cnt_1s | cnt_5s | cnt_10s | cnt_INFs |
++-------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+| ALTER_TABLE       | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| ANALYZE_TABLE     | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| BEGIN             | 2212625       | 3686      | 55        | 2162      | 899     | 569     | 1        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| CHANGE_MASTER     | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| COMMIT            | 21522591      | 3628      | 0         | 0         | 0       | 1765    | 1590     | 272      | 1         | 0         | 0      | 0      | 0       | 0        |
+| CREATE_DATABASE   | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| CREATE_INDEX      | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+...
+| DELETE            | 2904130       | 3670      | 35        | 1546      | 1346    | 723     | 19       | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
+| DESCRIBE          | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+...
+| INSERT            | 19531649      | 3660      | 39        | 1588      | 1292    | 723     | 12       | 2        | 0         | 1         | 0      | 1      | 2       | 0        |
+...
+| SELECT            | 35049794      | 51605     | 501       | 26180     | 16606   | 8241    | 70       | 3        | 4         | 0         | 0      | 0      | 0       | 0        |
+| SELECT_FOR_UPDATE | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+...
+| UPDATE            | 6402302       | 7367      | 75        | 2503      | 3020    | 1743    | 23       | 3        | 0         | 0         | 0      | 0      | 0       | 0        |
+| USE               | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+| SHOW              | 19691         | 2         | 0         | 0         | 0       | 0       | 1        | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
+| UNKNOWN           | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
++-------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+45 rows in set (0.00 sec)
+</code></pre></div>
+<h3 id="automatic-fail-over">Automatic Fail-over<a class="headerlink" href="#automatic-fail-over" title="Permanent link">&para;</a></h3>
+<p>ProxySQL will automatically detect if a node is not available
+or not synced with the cluster.</p>
+<p>You can check the status of all available nodes by running:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------+---------------+------+--------+
+| hostgroup_id | hostname      | port | status |
++--------------+---------------+------+--------+
+| 0            | 192.168.70.61 | 3306 | ONLINE |
+| 0            | 192.168.70.62 | 3306 | ONLINE |
+| 0            | 192.168.70.63 | 3306 | ONLINE |
++--------------+---------------+------+--------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+<p>To test problem detection and fail-over mechanism, shut down Node 3:</p>
+<div class="highlight"><pre><span></span><code>root@pxc3:~# service mysql stop
+</code></pre></div>
+<p>ProxySQL will detect that the node is down and update its status to
+<code>OFFLINE_SOFT</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------+---------------+------+--------------+
+| hostgroup_id | hostname      | port | status       |
++--------------+---------------+------+--------------+
+| 0            | 192.168.70.61 | 3306 | ONLINE       |
+| 0            | 192.168.70.62 | 3306 | ONLINE       |
+| 0            | 192.168.70.63 | 3306 | OFFLINE_SOFT |
++--------------+---------------+------+--------------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+<p>Now start Node 3 again:</p>
+<div class="highlight"><pre><span></span><code>root@pxc3:~# service mysql start
+</code></pre></div>
+<p>The script will detect the change and mark the node as <code>ONLINE</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">proxysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>+--------------+---------------+------+--------+
+| hostgroup_id | hostname      | port | status |
++--------------+---------------+------+--------+
+| 0            | 192.168.70.61 | 3306 | ONLINE |
+| 0            | 192.168.70.62 | 3306 | ONLINE |
+| 0            | 192.168.70.63 | 3306 | ONLINE |
++--------------+---------------+------+--------+
+3 rows in set (0.00 sec)
+</code></pre></div>
+<h2 id="assisted-maintenance-mode">Assisted Maintenance Mode<a class="headerlink" href="#assisted-maintenance-mode" title="Permanent link">&para;</a></h2>
+<p>Usually, to take a node down for maintenance, you need to identify that node,
+update its status in ProxySQL to <code>OFFLINE_SOFT</code>,
+wait for ProxySQL to divert traffic from this node,
+and then initiate the shutdown or perform maintenance tasks.
+Percona XtraDB Cluster includes a special <em>maintenance mode</em> for nodes
+that enables you to take a node down without adjusting ProxySQL manually.
+This mode is controlled using the <a href="../wsrep-system-index.html#pxc_maint_mode"><code>pxc_maint_mode</code></a> variable,
+which is monitored by ProxySQL and can be set to one of the following values:</p>
+<ul>
+<li>
+<p><code>DISABLED</code>: This is the default state that tells ProxySQL to route traffic to the node as usual.</p>
+</li>
+<li>
+<p><code>SHUTDOWN</code>: This state is set automatically when you initiate node shutdown.</p>
+</li>
+</ul>
+<p>You may need to shut down a node when upgrading the OS, adding resources,
+changing hardware parts, relocating the server, etc.</p>
+<p>When you initiate node shutdown, Percona XtraDB Cluster does not send the signal immediately.
+Instead, it changes the state to <code>pxc_maint_mode=SHUTDOWN</code>
+and waits for a predefined period,
+which is determined by the value of the <a href="../wsrep-system-index.html#pxc_maint_transition_period"><code>pxc_maint_transition_period</code></a>.
+After detecting that the maintenance mode is set to <code>SHUTDOWN</code>,
+ProxySQL changes the status of this node to <code>OFFLINE_SOFT</code>,
+which stops creating new connections for the node.
+After the transition period ends,
+any long-running transactions that are still active are aborted.</p>
+<ul>
+<li><code>MAINTENANCE</code>: You can change to this state if you need to perform maintenace on a node without shutting it down.</li>
+</ul>
+<p>You may need to isolate the node for some time,
+so that it does not receive traffic from ProxySQL
+while you resize the buffer pool, truncate the undo log,
+defragment or check disks, etc.</p>
+<p>To do this, manually set <code>pxc_maint_mode=MAINTENANCE</code>.
+Control is not returned to the user for a predefined period
+(10 seconds by default).
+When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>,
+it stops routing traffic to the node.
+Once control is returned, you can perform maintenance activity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any data changes will still be replicated across the cluster.</p>
+<p>After you finish maintenance, set the mode back to <code>DISABLED</code>.
+When ProxySQL detects this, it starts routing traffic to the node again.</p>
+</div>
+
+                
+<div class="md-relbar2__inner md-grid">
+<div class="md-content">
+  <article class="md-content__inner md-typeset" role="main">    
+    <h4>Contact Us </h4>
+    <p>For free technical help, visit the Percona <a class="reference external" href="https://forums.percona.com/c/mysql-mariadb/percona-xtradb-cluster-5-x/12" target="_blank">Community Forum</a>.<br>
+      <p>To report bugs or submit feature requests, open a <a class="reference external" href="https://jira.percona.com/projects/PXC/issues" target="_blank">JIRA</a> ticket.<br>
+       <p>For paid <a class="reference external" href="https://www.percona.com/services/support"> support </a> and <a class="reference external" href="https://www.percona.com/services/managed-services"> managed </a> or <a class="reference external" href="https://www.percona.com/services/consulting">consulting services </a>, contact <a class="reference external" href="https://www.percona.com/about-percona/contact" target="_blank">Percona Sales</a>.</p>
+ </article>
+</div>
+</div>
+
+                <!-- Last update of source file -->
+                
+                  
+                    <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2022-07-20
+    
+  </small>
+</div>
+                  
+                
+              
+            </article>
+            
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="haproxy.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Load balancing with HAProxy" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Load balancing with HAProxy
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="virt_sandbox.html" class="md-footer__link md-footer__link--next" aria-label="Next: Setting up PXC reference architecture with HAProxy" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Setting up PXC reference architecture with HAProxy
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Percona LLC, &#169; 2022
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+        <script src="../js/version-select.js"></script>
+      
+    
+  </body>
+</html>
