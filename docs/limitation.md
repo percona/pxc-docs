@@ -79,7 +79,7 @@ in the same order on different [nodes](glossary.md#node). The `DELETE` statement
 
 !!! admonition "See also"
 
-    [Galera Documentation: Tables without Primary Keys](http://galeracluster.com/documentation-webpages/limitations.html#tables-without-primary-keys)
+    [Galera Documentation: Tables without Primary Keys](https://galeracluster.com/documentation-webpages/limitations.html#tables-without-primary-keys)
 
 * Avoid reusing the names of a persistent table for a temporary table. Although MySQL allows a temporary table and a persistent table to have the same name, this approach is not recommended. If a persistent table name matches a temporary table name, Galera Cluster blocks the replication to that table.
 

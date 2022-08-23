@@ -56,7 +56,7 @@ There are two important consequences of this architecture:
 
 The described behavior of `COMMIT` also has another serious implication.
 If you run write transactions to two different nodes,
-the cluster will use an [optimistic locking model](http://en.wikipedia.org/wiki/Optimistic_concurrency_control).
+the cluster will use an [optimistic locking model](https://en.wikipedia.org/wiki/Optimistic_concurrency_control).
 This means a transaction will not check on possible locking conflicts
 during the individual queries, but rather on the `COMMIT` stage,
 and you may get `ERROR` response on `COMMIT`.

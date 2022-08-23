@@ -110,4 +110,4 @@ but disaster-recovery failover remains in your control.
 
 ## Other Reading
 
-* [PXC - Failure Scenarios with only 2 nodes](http://www.mysqlperformanceblog.com/2012/07/25/percona-xtradb-cluster-failure-scenarios-with-only-2-nodes/)
+* [PXC - Failure Scenarios with only 2 nodes](https://www.mysqlperformanceblog.com/2012/07/25/percona-xtradb-cluster-failure-scenarios-with-only-2-nodes/)

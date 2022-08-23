@@ -30,9 +30,9 @@ you should use at least the following triggers specific to Percona XtraDB Cluste
 
 * Node state
 
- [`wsrep_connected`](../wsrep-status-index.md#wsrep_connected) != `ON`
+  [`wsrep_connected`](../wsrep-status-index.md#wsrep_connected) != `ON`
 
- [`wsrep_ready`](../wsrep-status-index.md#wsrep_ready) != `ON`
+  [`wsrep_ready`](../wsrep-status-index.md#wsrep_ready) != `ON`
 
 For additional alerting, consider the following:
 

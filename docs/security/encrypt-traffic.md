@@ -332,7 +332,7 @@ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;soc
 
     You must use the same key and certificate files on all nodes, preferably those used for Encrypting Client-Server Communication.
 
-Check :upgrade-certificate: section on how to upgrade existing certificates.
+Check the [Upgrading Certificates](#upgrading-certificates) section on how to upgrade existing certificates.
 
 ## Generating Keys and Certificates Manually
 
