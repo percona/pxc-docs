@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/features/pxc-strict-mode.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
     
     
       
@@ -1660,7 +1660,7 @@ Undesirable operations for MyISAM tables are restricted using the
 </div>
 <h3 id="binary-log-format">Binary log format<a class="headerlink" href="#binary-log-format" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster supports only the default row-based binary logging format.  Setting the
-<a href="http://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format"><code>binlog_format</code></a> variable to anything but <code>ROW</code> at startup is not allowed,
+<a href="https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format"><code>binlog_format</code></a> variable to anything but <code>ROW</code> at startup is not allowed,
 because this changes the global scope, which must be set to <code>ROW</code>.  Validation is
 performed only at runtime and against session scope.</p>
 <table>
@@ -1729,7 +1729,7 @@ statements that perform writing to table (especially <code>DELETE</code>).</p>
 </tbody>
 </table>
 <h3 id="log-output">Log output<a class="headerlink" href="#log-output" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to a file.  This validation checks the value of the <a href="http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output"><code>log_output</code></a> variable.</p>
+<p>Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to a file.  This validation checks the value of the <a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output"><code>log_output</code></a> variable.</p>
 <p>Depending on the selected mode, the following happens:</p>
 <table>
 <thead>
@@ -1805,7 +1805,7 @@ and are covered by this validation:</p>
 <h3 id="auto-increment-lock-mode">Auto-increment lock mode<a class="headerlink" href="#auto-increment-lock-mode" title="Permanent link">&para;</a></h3>
 <p>The lock mode for generating auto-increment values must be <em>interleaved</em>
 to ensure that each node generates a unique (but non-sequential) identifier.</p>
-<p>This validation checks the value of the <a href="http://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a> variable.
+<p>This validation checks the value of the <a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a> variable.
 By default, the variable is set to <code>1</code> (<em>consecutive</em> lock mode),
 but it should be set to <code>2</code> (<em>interleaved</em> lock mode).</p>
 <div class="admonition note">
@@ -1929,7 +1929,7 @@ conflicts.  XA statements are completely blocked irrespective of the value of <c
   <small>
     
       Last update:
-      2022-08-16
+      2022-08-23
     
   </small>
 </div>

@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/manual/xtrabackup_sst.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
     
     
       
@@ -1845,7 +1845,7 @@ For more information about the <code>xbstream</code> format, see <a href="https:
 The recommended value is the default <code>transferfmt=socat</code>
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see <a href="http://www.dest-unreach.org/socat/doc/socat.html">socat(1)</a>.</p>
+For more information, see <a href="https://www.dest-unreach.org/socat/doc/socat.html">socat(1)</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Using <code>transferfmt=nc</code> does not support any of the SSL-based encryption modes (values <code>2</code>, <code>3</code>, and <code>4</code> for the <code>encrypt</code> option). Only <code>encrypt=1</code> is supported.</p>
@@ -1860,7 +1860,7 @@ for <code>socat</code> encryption based on OpenSSL.</p>
 for <code>socat</code> encryption based on OpenSSL.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For more information about <code>tca</code> and <code>tcert</code>, see <a href="http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html">http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html</a>. The <code>tca</code> is essentially the self-signed certificate in that example, and <code>tcert</code> is the PEM file generated after concatenation of the key and the certificate generated earlier. The names of options were chosen to be compatible with <code>socat</code> parameter names as well as with MySQL’s SSL authentication. For testing you can also download certificates from <a href="https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/">launchpad</a>.</p>
+<p>For more information about <code>tca</code> and <code>tcert</code>, see <a href="https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html">https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html</a>. The <code>tca</code> is essentially the self-signed certificate in that example, and <code>tcert</code> is the PEM file generated after concatenation of the key and the certificate generated earlier. The names of options were chosen to be compatible with <code>socat</code> parameter names as well as with MySQL’s SSL authentication. For testing you can also download certificates from <a href="https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/">launchpad</a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1939,7 +1939,7 @@ ssl-key=server-key.pem
 <p><strong>Values</strong>: AES128, AES192, AES256</p>
 <p>Used to specify the SST encryption algorithm.
 It uses the same values as the <code>--encryption</code> option for XtraBackup
-(see <a href="http://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html">this document</a>).
+(see <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html">this document</a>).
 The <code>encrypt-algo</code> option is considered only
 if <code>encrypt</code> is set to <code>1</code>.</p>
 <h3 id="sockopt">sockopt<a class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
@@ -1959,7 +1959,7 @@ sockopt=&quot;,cipher=AES128&quot;
 </div>
 <p>This option only applies when socat is used (<code>transferfmt=socat</code>).
 For more information about socket options, see
-<a href="http://www.dest-unreach.org/socat/doc/socat.html">socat (1)</a>.</p>
+<a href="https://www.dest-unreach.org/socat/doc/socat.html">socat (1)</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can also enable SSL based compression with <code>sockopt</code>. This can be used instead of the Percona XtraBackup <code>compress</code> option.</p>
@@ -2029,7 +2029,7 @@ Rebuild of indexes may be used as an optimization.</p>
 <p>Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
 For example, <code>128k</code> is 128 kilobytes.
-For more information, see <a href="http://linux.die.net/man/1/pv">pv(1)</a>.</p>
+For more information, see <a href="https://linux.die.net/man/1/pv">pv(1)</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
@@ -2054,7 +2054,7 @@ For more information, see <a href="http://linux.die.net/man/1/pv">pv(1)</a>.</p>
 </tbody>
 </table>
 <p>Used to force SST to use the thread pool’s
-<a href="http://www.percona.com/doc/percona-server/5.7/performance/threadpool.html#extra_port">extra_port</a>.
+<a href="https://www.percona.com/doc/percona-server/5.7/performance/threadpool.html#extra_port">extra_port</a>.
 Make sure that thread pool is enabled and the <code>extra_port</code> option is set
 in <code>my.cnf</code> before you enable this option.</p>
 <h3 id="cpat">cpat<a class="headerlink" href="#cpat" title="Permanent link">&para;</a></h3>
@@ -2382,7 +2382,7 @@ if any of the above are in <code>my.cnf</code> under <code>[xtrabackup]</code>.
 For that reason, consider the following scenarios:</p>
 <ol>
 <li>
-<p>If you want to use XtraBackup-based encryption for SST but not otherwise, use <code>encrypt=1</code> under <code>[sst]</code> and provide the above XtraBackup encryption options under <code>[sst]</code>. Details of those options can be found <a href="http://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html">here</a>.</p>
+<p>If you want to use XtraBackup-based encryption for SST but not otherwise, use <code>encrypt=1</code> under <code>[sst]</code> and provide the above XtraBackup encryption options under <code>[sst]</code>. Details of those options can be found <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html">here</a>.</p>
 </li>
 <li>
 <p>If you want to use XtraBackup-based encryption always, use <code>encrypt=1</code> under <code>[sst]</code> and have the above XtraBackup encryption options either under <code>[sst]</code> or <code>[xtrabackup]</code>.</p>
@@ -2447,7 +2447,7 @@ innodb_buffer_pool_size=24M
   <small>
     
       Last update:
-      2022-08-16
+      2022-08-23
     
   </small>
 </div>

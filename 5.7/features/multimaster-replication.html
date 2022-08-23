@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/features/multimaster-replication.html">
       
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
     
     
       
@@ -1356,7 +1356,7 @@ because it happens in the background after the response on certification. </p>
   and not <em>real synchronous replication</em>.</p>
 <p>The described behavior of <code>COMMIT</code> also has another serious implication.
 If you run write transactions to two different nodes,
-the cluster will use an <a href="http://en.wikipedia.org/wiki/Optimistic_concurrency_control">optimistic locking model</a>.
+the cluster will use an <a href="https://en.wikipedia.org/wiki/Optimistic_concurrency_control">optimistic locking model</a>.
 This means a transaction will not check on possible locking conflicts
 during the individual queries, but rather on the <code>COMMIT</code> stage,
 and you may get <code>ERROR</code> response on <code>COMMIT</code>.</p>
@@ -1390,7 +1390,7 @@ you may need to make sure you handle the responses on <code>COMMIT</code> querie
   <small>
     
       Last update:
-      2022-07-20
+      2022-08-23
     
   </small>
 </div>
