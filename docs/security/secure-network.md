@@ -81,23 +81,23 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
     
     The changes that you make in `iptables` are not persistent unless you save the packet filtering state:
 
-```shell
-# service save iptables
-```
+    ```shell
+    # service save iptables
+    ```
 
-For distributions that use `systemd`,
-you need to save the current packet filtering rules
-to the path where `iptables` reads from when it starts.
-This path can vary by distribution,
-but it is usually in the `/etc` directory.
-For example:
+    For distributions that use `systemd`,
+    you need to save the current packet filtering rules
+    to the path where `iptables` reads from when it starts.
+    This path can vary by distribution,
+    but it is usually in the `/etc` directory.
+    For example:
 
-* `/etc/sysconfig/iptables`
+    * `/etc/sysconfig/iptables`
 
-* `/etc/iptables/iptables.rules`
+    * `/etc/iptables/iptables.rules`
 
-Use `iptables-save` to update the file:
+    Use `iptables-save` to update the file:
 
-```shell
-# iptables-save > /etc/sysconfig/iptables
-```
+    ```shell
+    # iptables-save > /etc/sysconfig/iptables
+    ```

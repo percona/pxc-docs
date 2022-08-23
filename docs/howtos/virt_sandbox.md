@@ -107,7 +107,7 @@ with application servers.
     120619 13:21:17 InnoDB: Completed initialization of buffer pool
     120619 13:21:18 InnoDB: highest supported file format is Barracuda.
     120619 13:21:18  InnoDB: Waiting for the background threads to start
-    120619 13:21:19 Percona XtraDB (http://www.percona.com) 1.1.8-rel25.3 started; log sequence number 246661644
+    120619 13:21:19 Percona XtraDB (https://www.percona.com) 1.1.8-rel25.3 started; log sequence number 246661644
     120619 13:21:19 [Note] Recovering after a crash using mysql-bin
     120619 13:21:19 [Note] Starting crash recovery...
     120619 13:21:19 [Note] Crash recovery finished.

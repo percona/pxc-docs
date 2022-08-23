@@ -44,5 +44,5 @@ and the cluster will continue to function without any data loss.
 [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is based on [Percona Server](https://www.percona.com/software/mysql-database/percona-server) running with the [XtraDB](https://www.percona.com/software/mysql-database/percona-server/xtradb) storage engine.
 It uses the [Galera](https://github.com/percona/galera) library,
 which is an implementation of the write set replication (wsrep) API
-developed by [Codership Oy](http://www.galeracluster.com/).
+developed by [Codership Oy](https://www.galeracluster.com/).
 The default and recommended data transfer method is via [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup).

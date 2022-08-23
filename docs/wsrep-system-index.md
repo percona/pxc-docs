@@ -366,8 +366,8 @@ if you enable `wsrep_dirty_reads`.
 | Default Value: | ``OFF`` |
 
 This variable has been announced as deprecated in `5.7.24-31.33`. Enables a workaround for MySQL InnoDB bug that affects Drupal
-([Drupal bug #282555](http://drupal.org/node/282555)
-and [MySQL bug #41984](http://bugs.mysql.com/bug.php?id=41984)).
+([Drupal bug #282555](https://drupal.org/node/282555)
+and [MySQL bug #41984](https://bugs.mysql.com/bug.php?id=41984)).
 In some cases, duplicate key errors would occur
 when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
 

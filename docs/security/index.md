@@ -56,7 +56,7 @@ For more information, see [SELinux and MySQL](https://blogs.oracle.com/jsmyth/se
 
 ### AppArmor
 
-[AppArmor](http://wiki.apparmor.net/index.php/Main_Page) is included
+[AppArmor](https://wiki.apparmor.net/index.php/Main_Page) is included
 in Debian and Ubuntu.
 During installation and configuration,
 you can disable AppArmor for `mysqld`:

@@ -131,7 +131,7 @@ replication should not be enabled if you want to ensure data consistency.
 ### Binary log format
 
 Percona XtraDB Cluster supports only the default row-based binary logging format.  Setting the
-[`binlog_format`](http://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format) variable to anything but `ROW` at startup is not allowed,
+[`binlog_format`](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_binlog_format) variable to anything but `ROW` at startup is not allowed,
 because this changes the global scope, which must be set to `ROW`.  Validation is
 performed only at runtime and against session scope.
 
@@ -165,7 +165,7 @@ Depending on the selected mode, the following happens:
 
 ### Log output
 
-Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to a file.  This validation checks the value of the [`log_output`](http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output) variable.
+Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to a file.  This validation checks the value of the [`log_output`](https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_log_output) variable.
 
 Depending on the selected mode, the following happens:
 
@@ -202,7 +202,7 @@ Depending on the selected mode, the following happens:
 The lock mode for generating auto-increment values must be *interleaved*
 to ensure that each node generates a unique (but non-sequential) identifier.
 
-This validation checks the value of the [`innodb_autoinc_lock_mode`](http://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode) variable.
+This validation checks the value of the [`innodb_autoinc_lock_mode`](https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode) variable.
 By default, the variable is set to `1` (*consecutive* lock mode),
 but it should be set to `2` (*interleaved* lock mode).
 

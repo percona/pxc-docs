@@ -54,7 +54,7 @@ Used to specify the data transfer format.
 The recommended value is the default `transferfmt=socat`
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see [socat(1)](http://www.dest-unreach.org/socat/doc/socat.html).
+For more information, see [socat(1)](https://www.dest-unreach.org/socat/doc/socat.html).
 
 !!! note
 
@@ -76,7 +76,7 @@ for `socat` encryption based on OpenSSL.
 
 !!! note
 
-    For more information about `tca` and `tcert`, see [http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html](http://www.dest-unreach.org/socat/doc/socat-openssltunnel.html). The `tca` is essentially the self-signed certificate in that example, and `tcert` is the PEM file generated after concatenation of the key and the certificate generated earlier. The names of options were chosen to be compatible with `socat` parameter names as well as with MySQL’s SSL authentication. For testing you can also download certificates from [launchpad](https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/).
+    For more information about `tca` and `tcert`, see [https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html](https://www.dest-unreach.org/socat/doc/socat-openssltunnel.html). The `tca` is essentially the self-signed certificate in that example, and `tcert` is the PEM file generated after concatenation of the key and the certificate generated earlier. The names of options were chosen to be compatible with `socat` parameter names as well as with MySQL’s SSL authentication. For testing you can also download certificates from [launchpad](https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/).
 
 !!! note
 
@@ -146,7 +146,7 @@ For more information, see [Encrypting PXC Traffic](../security/encrypt-traffic.m
 
 Used to specify the SST encryption algorithm.
 It uses the same values as the `--encryption` option for XtraBackup
-(see [this document](http://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html)).
+(see [this document](https://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html)).
 The `encrypt-algo` option is considered only
 if `encrypt` is set to `1`.
 
@@ -174,7 +174,7 @@ The previous example causes socat to try to connect three times
 
 This option only applies when socat is used (`transferfmt=socat`).
 For more information about socket options, see
-[socat (1)](http://www.dest-unreach.org/socat/doc/socat.html).
+[socat (1)](https://www.dest-unreach.org/socat/doc/socat.html).
 
 !!! note
 
@@ -229,7 +229,7 @@ Enabling this option instruments key stages of backup and restore in SST.
 Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
 For example, `128k` is 128 kilobytes.
-For more information, see [pv(1)](http://linux.die.net/man/1/pv).
+For more information, see [pv(1)](https://linux.die.net/man/1/pv).
 
 !!! note
 
@@ -243,7 +243,7 @@ For more information, see [pv(1)](http://linux.die.net/man/1/pv).
 | Default:       | 0                  |
 
 Used to force SST to use the thread pool’s
-[extra_port](http://www.percona.com/doc/percona-server/5.7/performance/threadpool.html#extra_port).
+[extra_port](https://www.percona.com/doc/percona-server/5.7/performance/threadpool.html#extra_port).
 Make sure that thread pool is enabled and the `extra_port` option is set
 in `my.cnf` before you enable this option.
 
@@ -473,7 +473,7 @@ There is no way to disable encryption from innobackupex
 if any of the above are in `my.cnf` under `[xtrabackup]`.
 For that reason, consider the following scenarios:
 
-1. If you want to use XtraBackup-based encryption for SST but not otherwise, use `encrypt=1` under `[sst]` and provide the above XtraBackup encryption options under `[sst]`. Details of those options can be found [here](http://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html).
+1. If you want to use XtraBackup-based encryption for SST but not otherwise, use `encrypt=1` under `[sst]` and provide the above XtraBackup encryption options under `[sst]`. Details of those options can be found [here](https://www.percona.com/doc/percona-xtrabackup/2.4/innobackupex/encrypted_backups_innobackupex.html).
 
 2. If you want to use XtraBackup-based encryption always, use `encrypt=1` under `[sst]` and have the above XtraBackup encryption options either under `[sst]` or `[xtrabackup]`.
 

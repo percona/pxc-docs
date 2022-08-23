@@ -57,7 +57,7 @@ Configuration file should look like this after installation:
 # GALERA_GROUP=""
 
 # Optional Galera internal options string (e.g. SSL settings)
-# see http://galeracluster.com/documentation-webpages/galeraparameters.html
+# see https://galeracluster.com/documentation-webpages/galeraparameters.html
 # GALERA_OPTIONS=""
 
 # Log file for garbd. Optional, by default logs to syslog

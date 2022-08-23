@@ -134,7 +134,7 @@ The number of `FC_PAUSE` events received since the last status query. Unlike mos
 
 The number of `FC_PAUSE` events sent since the last status query. Unlike most status variables, this counter does not reset each time you run the query. This counter is reset when the server restarts.
 
-### `wsrep_flow_control_status`
+### `wsrep_flow_control_sent`
 
 This variable has been implemented in `5.7.17-29.20`. The variable shows whether a node has flow control enabled for normal traffic.
 It does not indicate the status of flow control during SST.

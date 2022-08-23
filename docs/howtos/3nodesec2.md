@@ -127,7 +127,7 @@ To set up Percona XtraDB Cluster:
     2014-01-30 09:52:43 26104 [Note] InnoDB: Highest supported file format is Barracuda.
     2014-01-30 09:52:43 26104 [Note] InnoDB: 128 rollback segment(s) are active.
     2014-01-30 09:52:43 26104 [Note] InnoDB: Waiting for purge to start
-    2014-01-30 09:52:43 26104 [Note] InnoDB:  Percona XtraDB (http://www.percona.com) 5.6.15-rel62.0 started; log sequence number 1626341
+    2014-01-30 09:52:43 26104 [Note] InnoDB:  Percona XtraDB (https://www.percona.com) 5.6.15-rel62.0 started; log sequence number 1626341
     2014-01-30 09:52:43 26104 [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
     2014-01-30 09:52:43 26104 [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
     2014-01-30 09:52:43 26104 [Note] Server hostname (bind-address): '*'; port: 3306
