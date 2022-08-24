@@ -1,4 +1,4 @@
-# *Percona XtraDB Cluster* 5.7.37-31.57 (2022-05-18)
+# Percona XtraDB Cluster 5.7.37-31.57 (2022-05-18)
 
 Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.
 

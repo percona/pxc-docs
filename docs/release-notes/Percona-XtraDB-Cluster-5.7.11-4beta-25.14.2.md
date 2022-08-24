@@ -1,4 +1,4 @@
-# *Percona XtraDB Cluster* 5.7.11-4beta-25.14.2
+# Percona XtraDB Cluster 5.7.11-4beta-25.14.2
 
 Percona is glad to announce the release of
 Percona XtraDB Cluster 5.7.11-4beta-25.14.2 on June 9, 2016.

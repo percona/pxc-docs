@@ -1,4 +1,4 @@
-# *Percona XtraDB Cluster* 5.7.32-31.47
+# Percona XtraDB Cluster 5.7.32-31.47
 
 
 * **Date**
