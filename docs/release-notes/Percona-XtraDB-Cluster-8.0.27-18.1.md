@@ -1,4 +1,4 @@
-# *Percona XtraDB Cluster* 8.0.27-18.1
+# Percona XtraDB Cluster 8.0.27-18.1
 
 Date: April 11, 2022
 
