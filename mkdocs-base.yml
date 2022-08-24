@@ -152,7 +152,40 @@ nav:
       - howtos/proxysql.md
       - howtos/virt_sandbox.md
   - References:
-      - release-notes/release-notes_index.md
+      - Release notes: 
+           - release-notes/release-notes_index.md
+           - release-notes/5.7.38-31.59.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.37-31.57.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.36-31.55.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.35-31.53.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.34-31.51.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.33-31.49.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.32-31.47.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.2.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.31-31-45.3.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.30-31.43.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.29-31.43.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.2.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.27-31.39.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.26-31.37.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.25-31.35.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.24-31.33.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.2.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.22-29.26.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.21-29.26.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.20-29.24.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.19-29.22.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.19-29.22-3.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.18-29.20.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.17-29.20.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.17-27.20.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.16-27.19.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.14-26.17.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.12-5rc1-26.16.md
+           - release-notes/Percona-XtraDB-Cluster-5.7.11-4beta-25.14.2.md
       - wsrep-status-index.md
       - wsrep-system-index.md
       - wsrep-provider-index.md
