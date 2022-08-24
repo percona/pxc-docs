@@ -149,6 +149,18 @@ nav:
       - howtos/virt_sandbox.md
   - Release notes:
       - release-notes/release-notes_index.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.19-10.md
+      - release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.md
   - References:
       - wsrep-status-index.md
       - wsrep-system-index.md
