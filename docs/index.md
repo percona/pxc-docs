@@ -211,7 +211,7 @@ Percona XtraDB Cluster is fully compatible with [MySQL Server Community Edition]
 * [Index of wsrep system variables](wsrep-system-index.md)
 
 
-* [Index of :variable:\`wsrep_provider\` options](wsrep-provider-index.md)
+* [Index of wsrep_provider options](wsrep-provider-index.md)
 
 
 * [Index of files created by PXC](wsrep-files-index.md)
