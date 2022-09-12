@@ -1,7 +1,9 @@
 # Percona XtraDB Cluster 8.0 Release notes
 
 
-* [*Percona XtraDB Cluster* 8.0.28-19.1 (2022-07-19)](Percona-XtraDB-Cluster-8.0.28-19.1.md)
+* [Percona XtraDB Cluster 8.0.29-21 (2022-09-)](8.0.29-21.md)
+
+* [Percona XtraDB Cluster 8.0.28-19.1 (2022-07-19)](Percona-XtraDB-Cluster-8.0.28-19.1.md)
 
 
 * [Percona XtraDB Cluster 8.0.27-18.1 (2022-04-11)](Percona-XtraDB-Cluster-8.0.27-18.1.md)
