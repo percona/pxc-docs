@@ -369,31 +369,6 @@ Specifies the name of the cluster and should be identical on all nodes.
 
     [MySQL wsrep option: wsrep_cluster_name](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-name)
 
-### `wsrep_convert_lock_to_trx`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-convert-lock-to-trx`` |
-| Config File:   | Yes                |
-| Scope:         | Global             |
-| Dynamic:       | Yes                |
-| Default Value: | ``OFF`` |
-
-Defines whether locking sessions should be converted into transactions.
-By default, this is disabled.
-
-Enabling this variable can help older applications to work
-in a multi-source setup by converting `LOCK/UNLOCK TABLES` statements
-into `BEGIN/COMMIT` statements.
-It is not the same as support for locking sessions,
-but it does prevent the database from ending up
-in a logically inconsistent state.
-Enabling this variable can also result in having huge write-sets.
-
-!!! admonition "See also"
-
-    [MySQL wsrep option: wsrep_convert_lock_to_trx](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-convert-lock-to-trx)
-
 ### `wsrep_data_home_dir`
 
 | Option         | Description        |
