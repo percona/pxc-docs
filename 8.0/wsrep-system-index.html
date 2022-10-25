@@ -1409,13 +1409,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#wsrep_convert_lock_to_trx" class="md-nav__link">
-    wsrep_convert_lock_to_trx
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#wsrep_data_home_dir" class="md-nav__link">
     wsrep_data_home_dir
   </a>
@@ -1873,13 +1866,6 @@
         <li class="md-nav__item">
   <a href="#wsrep_cluster_name" class="md-nav__link">
     wsrep_cluster_name
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wsrep_convert_lock_to_trx" class="md-nav__link">
-    wsrep_convert_lock_to_trx
   </a>
   
 </li>
@@ -2807,50 +2793,6 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-name">MySQL wsrep option: wsrep_cluster_name</a></p>
-</div>
-<h3 id="wsrep_convert_lock_to_trx"><code>wsrep_convert_lock_to_trx</code><a class="headerlink" href="#wsrep_convert_lock_to_trx" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command Line:</td>
-<td><code>--wsrep-convert-lock-to-trx</code></td>
-</tr>
-<tr>
-<td>Config File:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Dynamic:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Default Value:</td>
-<td><code>OFF</code></td>
-</tr>
-</tbody>
-</table>
-<p>Defines whether locking sessions should be converted into transactions.
-By default, this is disabled.</p>
-<p>Enabling this variable can help older applications to work
-in a multi-source setup by converting <code>LOCK/UNLOCK TABLES</code> statements
-into <code>BEGIN/COMMIT</code> statements.
-It is not the same as support for locking sessions,
-but it does prevent the database from ending up
-in a logically inconsistent state.
-Enabling this variable can also result in having huge write-sets.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-convert-lock-to-trx">MySQL wsrep option: wsrep_convert_lock_to_trx</a></p>
 </div>
 <h3 id="wsrep_data_home_dir"><code>wsrep_data_home_dir</code><a class="headerlink" href="#wsrep_data_home_dir" title="Permanent link">&para;</a></h3>
 <table>
@@ -4838,7 +4780,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2022-08-16
+      2022-10-05
     
   </small>
 </div>
