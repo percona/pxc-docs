@@ -243,7 +243,7 @@ Specifies the name of the cluster and should be identical on all nodes.
 | Dynamic:       | Yes                 |
 | Default Value: | ``OFF`` |
 
-This variable has been implemented in `5.7.23-31.31`. Defines whether locking sessions should be converted into transactions.
+This variable has been deprecated in `5.7.23-31.31`. Defines whether locking sessions should be converted into transactions.
 By default, this is disabled.
 
 Enabling this variable can help older applications to work
