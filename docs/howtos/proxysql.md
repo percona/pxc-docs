@@ -478,7 +478,7 @@ or not synced with the cluster.
 You can check the status of all available nodes by running:
 
 ```sql
-mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM mysql_servers;
+mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 The following output shows the status of all available nodes:
@@ -504,7 +504,7 @@ ProxySQL will detect that the node is down and update its status to
 `OFFLINE_SOFT`:
 
 ```sql
-mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM mysql_servers;
+mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 The example of the output is following:
@@ -530,7 +530,7 @@ The script will detect the change and mark the node as
 `ONLINE`:
 
 ```sql
-mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM mysql_servers;
+mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 The example of the output is following:
