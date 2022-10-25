@@ -98,8 +98,7 @@ allows table created with a non-transactional storage engine to co-exist but
 DML, ALTER, TRUNCATE and ADMIN (ANALYZE, CHECK, etc….) operations on such
 tables are blocked in ENFORCING mode.
 
-ALTERing unsupported table from non-transactional storage engine to a
-transactional storage engine is allowed.
+Altering unsupported table from non-transactional storage engine to a transactional storage engine is allowed.
 
 As operation checks are applicable only to persistent tables, temporary tables
 are not replicated by Galera Cluster so *pxc-strict-mode* enforcement is not
@@ -255,3 +254,13 @@ XA transaction are not supported by PXC/Galera and with new MySQL-5.7 semantics
 using xa statement causes reuse of XID which is being used by Galera causing
 conflicts.  XA statements are completely blocked irrespective of the value of `pxc-strict-mode`.
 
+### Major version check
+
+This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.
+
+The following output shows the error message: 
+
+```text
+
+    ERROR 1105 (HY000): Percona-XtraDB-Cluster prohibits use of multiple major versions while accepting write workload with pxc_strict_mode = ENFORCING or MASTER
+```
