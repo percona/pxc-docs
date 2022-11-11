@@ -517,7 +517,26 @@ size of the disk. Pages are prefixed by gcache.page.
 
       * [Galera Documentation: gcache.page_size](https://galeracluster.com/library/documentation/galera-parameters.html#gcache-page-size)
 
-      * [Percona Database Performance Blog: All You Need to Know About GCache (https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+      * [Percona Database Performance Blog: All You Need to Know About GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+
+### `gcache.recover`
+
+| Option              | Description |
+|---------------------|-------------|
+| Command line:       | No          |
+| Configuration file: | Yes         |
+| Scope:              | Global      |
+| Dynamic:            | No          |
+| Default value:      | No          |
+
+Attempts to recover a node’s gcache file to a usable state on startup. If the node can successfully recover the gcache file, the node can provide IST to the remaining nodes. This ability can reduce the time needed to bring up the cluster.
+
+An example of enabling the variable in the configuration file:
+
+```text
+wsrep_provider_options="gcache.recover=yes"
+```
+
 
 ### `gcache.size`
 
