@@ -106,6 +106,7 @@ nav:
   - Introduction:
       - intro.md
       - limitation.md
+      - xtrabackup-versioning-scheme.md
   - Getting Started:
       - overview.md
       - install/index.md
