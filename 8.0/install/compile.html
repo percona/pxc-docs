@@ -1563,20 +1563,17 @@ Old codebase may not be compatible with the build script.</p>
 </div>
 </li>
 <li>
-<p>Check out the <code>8.0</code> branch:</p>
+<p>Check out the <code>8.0</code> branch and initialize submodules:</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">cd</span> percona-xtradb-cluster-galera
 $ git checkout <span class="m">8</span>.0
+$ git submodule update --init --recursive
 </code></pre></div>
 </li>
 <li>
-<p>Initialize the submodule:</p>
-<div class="highlight"><pre><span></span><code>$ git submodule init wsrep/src <span class="o">&amp;&amp;</span> git submodule update wsrep/src
-$ git submodule init percona-xtradb-cluster-galera <span class="o">&amp;&amp;</span> git submodule update percona-xtradb-cluster-galera
-$ <span class="nb">cd</span>  percona-xtradb-cluster-galera
-$ git submodule init wsrep/src <span class="o">&amp;&amp;</span> git submodule update wsrep/src
-<span class="p">&amp;</span> git submodule init <span class="o">&amp;&amp;</span> git submodule update
-$ <span class="nb">cd</span> ..
-</code></pre></div>
+<p>Please download latest tarball of Percona XtraBackup 2.4 for your operating system (e.g <code>percona-xtrabackup-2.4.26-r19de43b-jammy-x86_64-bundle.tar</code>) from <a href="https://www.percona.com/downloads/Percona-XtraBackup-2.4/LATEST/">Downloads</a> and move it to the target output directory, such as <code>./pxc-build</code>.</p>
+</li>
+<li>
+<p>Please download latest tarball of Percona XtraBackup 8.0 for your operating system (e.g <code>percona-xtrabackup-8.0.29-rc31e7ddcce3-jammy-x86_64-bundle.tar</code>) from <a href="https://www.percona.com/downloads/Percona-XtraBackup-LATEST/">Downloads</a> and move it to the target output directory, such as <code>./pxc-build</code>.</p>
 </li>
 <li>
 <p>Run the build script <code>./build-ps/build-binary.sh</code>.
@@ -1613,7 +1610,7 @@ $ ./build-ps/build-binary.sh ./pxc-build
   <small>
     
       Last update:
-      2022-08-16
+      2022-11-04
     
   </small>
 </div>
