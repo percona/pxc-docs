@@ -898,44 +898,9 @@ If set to `OFF` for a session, no transaction changes are replicated in that ses
 
 Defines the method for Online Schema Upgrade
 that the node uses to replicate DDL statements.
-The following methods are available:
 
-* `TOI`: When the *Total Order Isolation* method is selected, data definition language (DDL) statements are processed in the same order with regards to other transactions in each node. This guarantees data consistency.
+For information on the available methods, see [Online Schema upgrade](./features/online-schema-upgrade.md) and for information on Non-blocking operations, see [NBO](./features/nbo.md).
 
-  In the case of DDL statements,
-  the cluster will have parts of the database locked
-  and it will behave like a single server.
-  In some cases (like big `ALTER TABLE`)
-  this could have impact on cluster’s performance and availability,
-  but it could be fine for quick changes that happen almost instantly
-  (like fast index changes).
-
-  When DDL statements are processed under TOI,
-  the DDL statement will be replicated up front to the cluster.
-  That is, the cluster will assign global transaction ID
-  for the DDL statement before DDL processing begins.
-  Then every node in the cluster has the responsibility
-  to execute the DDL statement in the given slot
-  in the sequence of incoming transactions,
-  and this DDL execution has to happen with high priority.
-
-  !!! important
-
-        Under the `TOI` method, when DDL operations are performed, `MDL` is ignored. If `MDL` is important, use the `RSU` method.
-
-* `RSU`: When the *Rolling Schema Upgrade* method is selected, DDL statements won’t be replicated across the cluster. Instead, it’s up to the user to run them on each node separately.
-
-  The node applying the changes will desynchronize from the cluster briefly,
-  while normal work happens on all the other nodes.
-  When a DDL statement is processed, the node will apply delayed replication events.
-
-  The schema changes must be backwards compatible for this method to work,
-  otherwise, the node that receives the change will likely break Galera replication.
-  If replication breaks, SST will be triggered when the node tries to join again but the change will be undone.
-
-  !!! note
-
-        This variable’s behavior is consistent with MySQL behavior for variables that have both global and session scope. This means if you want to change the variable in current session, you need to do it with `SET wsrep_OSU_method` (without the `GLOBAL` keyword). Setting the variable with `SET GLOBAL wsrep_OSU_method` will change the variable globally but it won’t have effect on the current session.
 
 !!! admonition "See also"
 
