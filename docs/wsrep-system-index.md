@@ -542,7 +542,7 @@ identify the given node in the cluster as the alternative to using the node addr
 | Command Line:  | ``--wsrep-notify-cmd`` |
 | Config File:   | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | Yes                 |
+| Dynamic:       | No                 |
 
 Specifies the [notification command](https://galeracluster.com/library/documentation/notification-cmd.html)
 that the node should execute
@@ -659,8 +659,8 @@ also being updated through asynchronous replication.
 | -------------- | ------------------ |
 | Command Line:  | ``--wsrep-provider`` |
 | Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
 
 Specifies the path to the Galera library.
 This is usually
