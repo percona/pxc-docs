@@ -106,6 +106,7 @@ nav:
   - Introduction:
       - intro.md
       - limitation.md
+      - xtabackup-versioning-scheme.md
   - Getting Started:
       - overview.md
       - install/index.md
