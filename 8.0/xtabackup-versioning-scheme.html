@@ -15,21 +15,21 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/proxysql-v2.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/xtabackup-versioning-scheme.html">
       
-      <link rel="icon" href="../_static/percona_favicon.ico">
+      <link rel="icon" href="_static/percona_favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>ProxySQL Admin Utilities - Percona XtraDB Cluster</title>
+        <title>Xtabackup versioning scheme - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.472b142f.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.472b142f.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.08040f6c.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.08040f6c.min.css">
         
       
       
@@ -50,11 +50,11 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/percona.css">
+      <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="../css/version-select.css">
+      <link rel="stylesheet" href="css/version-select.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#proxysql-admin-utilities" class="md-skip">
+        <a href="#percona-xtradb-cluster-80-versioning-scheme" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -129,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ProxySQL Admin Utilities
+              Xtabackup versioning scheme
             
           </span>
         </div>
@@ -229,9 +229,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+    <a href="index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -259,7 +259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0 Documentation
       </a>
     </li>
@@ -272,12 +272,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -300,7 +302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intro.html" class="md-nav__link">
+      <a href="intro.html" class="md-nav__link">
         About Percona XtraDB Cluster
       </a>
     </li>
@@ -314,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitation.html" class="md-nav__link">
+      <a href="limitation.html" class="md-nav__link">
         Percona XtraDB Cluster Limitations
       </a>
     </li>
@@ -326,11 +328,50 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../xtabackup-versioning-scheme.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Xtabackup versioning scheme
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="xtabackup-versioning-scheme.html" class="md-nav__link md-nav__link--active">
         Xtabackup versioning scheme
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#percona-xtradb-cluster-80-versioning-scheme" class="md-nav__link">
+    Percona XtraDB Cluster 8.0 versioning scheme:
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -376,7 +417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         Quick Start Guide for Percona XtraDB Cluster
       </a>
     </li>
@@ -390,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../install/index.html" class="md-nav__link">
+      <a href="install/index.html" class="md-nav__link">
         Installing Percona XtraDB Cluster
       </a>
     </li>
@@ -404,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure.html" class="md-nav__link">
+      <a href="configure.html" class="md-nav__link">
         Configuring Nodes for Write-Set Replication
       </a>
     </li>
@@ -418,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bootstrap.html" class="md-nav__link">
+      <a href="bootstrap.html" class="md-nav__link">
         Bootstrapping the First Node
       </a>
     </li>
@@ -432,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../add-node.html" class="md-nav__link">
+      <a href="add-node.html" class="md-nav__link">
         Adding Nodes to Cluster
       </a>
     </li>
@@ -446,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../verify.html" class="md-nav__link">
+      <a href="verify.html" class="md-nav__link">
         Verifying Replication
       </a>
     </li>
@@ -494,7 +535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/highavailability.html" class="md-nav__link">
+      <a href="features/highavailability.html" class="md-nav__link">
         High Availability
       </a>
     </li>
@@ -508,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/pxc-strict-mode.html" class="md-nav__link">
+      <a href="features/pxc-strict-mode.html" class="md-nav__link">
         PXC Strict Mode
       </a>
     </li>
@@ -522,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/online-schema-upgrade.html" class="md-nav__link">
+      <a href="features/online-schema-upgrade.html" class="md-nav__link">
         Online Schema Upgrade
       </a>
     </li>
@@ -536,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/nbo.html" class="md-nav__link">
+      <a href="features/nbo.html" class="md-nav__link">
         Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
       </a>
     </li>
@@ -584,7 +625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/index.html" class="md-nav__link">
+      <a href="security/index.html" class="md-nav__link">
         Security Basics
       </a>
     </li>
@@ -598,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/secure-network.html" class="md-nav__link">
+      <a href="security/secure-network.html" class="md-nav__link">
         Securing the Network
       </a>
     </li>
@@ -612,7 +653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypt-traffic.html" class="md-nav__link">
+      <a href="security/encrypt-traffic.html" class="md-nav__link">
         Encrypting PXC Traffic
       </a>
     </li>
@@ -626,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/apparmor.html" class="md-nav__link">
+      <a href="security/apparmor.html" class="md-nav__link">
         Enabling AppArmor
       </a>
     </li>
@@ -640,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/selinux.html" class="md-nav__link">
+      <a href="security/selinux.html" class="md-nav__link">
         Enabling SELinux
       </a>
     </li>
@@ -688,7 +729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
+      <a href="manual/state_snapshot_transfer.html" class="md-nav__link">
         State Snapshot Transfer
       </a>
     </li>
@@ -702,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
+      <a href="manual/xtrabackup_sst.html" class="md-nav__link">
         Percona XtraBackup SST Configuration
       </a>
     </li>
@@ -716,7 +757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/restarting_nodes.html" class="md-nav__link">
+      <a href="manual/restarting_nodes.html" class="md-nav__link">
         Restarting the cluster nodes
       </a>
     </li>
@@ -730,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/failover.html" class="md-nav__link">
+      <a href="manual/failover.html" class="md-nav__link">
         Cluster Failover
       </a>
     </li>
@@ -744,7 +785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/monitoring.html" class="md-nav__link">
+      <a href="manual/monitoring.html" class="md-nav__link">
         Monitoring the cluster
       </a>
     </li>
@@ -758,7 +799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/certification.html" class="md-nav__link">
+      <a href="manual/certification.html" class="md-nav__link">
         Certification in Percona XtraDB Cluster
       </a>
     </li>
@@ -772,7 +813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/threading_model.html" class="md-nav__link">
+      <a href="manual/threading_model.html" class="md-nav__link">
         Percona XtraDB Cluster threading model
       </a>
     </li>
@@ -786,7 +827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
+      <a href="manual/gcache_record-set_cache_difference.html" class="md-nav__link">
         Understanding GCache and Record-Set Cache
       </a>
     </li>
@@ -800,7 +841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
+      <a href="manual/performance_schema_instrumentation.html" class="md-nav__link">
         Perfomance Schema Instrumentation
       </a>
     </li>
@@ -814,7 +855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+      <a href="management/data_at_rest_encryption.html" class="md-nav__link">
         Data at Rest Encryption
       </a>
     </li>
@@ -834,14 +875,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
       
@@ -864,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upgrade_guide.html" class="md-nav__link">
+      <a href="howtos/upgrade_guide.html" class="md-nav__link">
         Upgrading Percona XtraDB Cluster
       </a>
     </li>
@@ -878,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="crash-recovery.html" class="md-nav__link">
+      <a href="howtos/crash-recovery.html" class="md-nav__link">
         Crash Recovery
       </a>
     </li>
@@ -892,7 +931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="centos_howto.html" class="md-nav__link">
+      <a href="howtos/centos_howto.html" class="md-nav__link">
         Configuring Percona XtraDB Cluster on CentOS
       </a>
     </li>
@@ -906,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ubuntu_howto.html" class="md-nav__link">
+      <a href="howtos/ubuntu_howto.html" class="md-nav__link">
         Configuring Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
@@ -920,7 +959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="garbd_howto.html" class="md-nav__link">
+      <a href="howtos/garbd_howto.html" class="md-nav__link">
         Setting up Galera Arbitrator
       </a>
     </li>
@@ -934,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
+      <a href="howtos/singlebox.html" class="md-nav__link">
         How to set up a three-node cluster on a single box
       </a>
     </li>
@@ -948,7 +987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="3nodesec2.html" class="md-nav__link">
+      <a href="howtos/3nodesec2.html" class="md-nav__link">
         How to set up a three-node cluster in EC2 environment
       </a>
     </li>
@@ -962,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="haproxy.html" class="md-nav__link">
+      <a href="howtos/haproxy.html" class="md-nav__link">
         Load balancing with HAProxy
       </a>
     </li>
@@ -976,7 +1015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="proxysql.html" class="md-nav__link">
+      <a href="howtos/proxysql.html" class="md-nav__link">
         Load balancing with ProxySQL
       </a>
     </li>
@@ -988,21 +1027,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="proxysql-v2.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="howtos/proxysql-v2.html" class="md-nav__link">
         ProxySQL Admin Utilities
       </a>
-      
     </li>
   
 
@@ -1014,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="virt_sandbox.html" class="md-nav__link">
+      <a href="howtos/virt_sandbox.html" class="md-nav__link">
         Setting up a testing environment with ProxySQL
       </a>
     </li>
@@ -1062,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0 Release notes
       </a>
     </li>
@@ -1076,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.29-21.html" class="md-nav__link">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.29-21 (2022-09-12)
       </a>
     </li>
@@ -1090,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.28-19.1 (2022-07-19)
       </a>
     </li>
@@ -1104,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.27-18.1
       </a>
     </li>
@@ -1118,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.26-16.1
       </a>
     </li>
@@ -1132,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.25-15.1
       </a>
     </li>
@@ -1146,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.23-14.1
       </a>
     </li>
@@ -1160,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.22-13.1
       </a>
     </li>
@@ -1174,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.21-12.1
       </a>
     </li>
@@ -1188,7 +1217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11
       </a>
     </li>
@@ -1202,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.3
       </a>
     </li>
@@ -1216,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.2
       </a>
     </li>
@@ -1230,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.19-10
       </a>
     </li>
@@ -1244,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.18-9.3
       </a>
     </li>
@@ -1292,7 +1321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-status-index.html" class="md-nav__link">
+      <a href="wsrep-status-index.html" class="md-nav__link">
         Index of wsrep status variables
       </a>
     </li>
@@ -1306,7 +1335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-system-index.html" class="md-nav__link">
+      <a href="wsrep-system-index.html" class="md-nav__link">
         Index of wsrep system variables
       </a>
     </li>
@@ -1320,7 +1349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-provider-index.html" class="md-nav__link">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
         Index of wsrep_provider options
       </a>
     </li>
@@ -1334,7 +1363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-files-index.html" class="md-nav__link">
+      <a href="wsrep-files-index.html" class="md-nav__link">
         Index of files created by PXC
       </a>
     </li>
@@ -1348,7 +1377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         Frequently Asked Questions
       </a>
     </li>
@@ -1362,7 +1391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         Glossary
       </a>
     </li>
@@ -1376,7 +1405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         Copyright and licensing information
       </a>
     </li>
@@ -1390,7 +1419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         Trademark policy
       </a>
     </li>
@@ -1429,8 +1458,21 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#percona-xtradb-cluster-80-versioning-scheme" class="md-nav__link">
+    Percona XtraDB Cluster 8.0 versioning scheme:
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1446,7 +1488,7 @@
                 <!-- Edit button -->
                 
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/howtos/proxysql-v2.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/xtabackup-versioning-scheme.md"
                     title="Edit this page"
                     class="md-content__button md-icon"
                   >
@@ -1460,18 +1502,22 @@
                   as the main headline.
                 -->
                 
+                  <h1>Xtabackup versioning scheme</h1>
+                
 
                 <!-- Markdown content -->
-                <h1 id="proxysql-admin-utilities">ProxySQL Admin Utilities<a class="headerlink" href="#proxysql-admin-utilities" title="Permanent link">&para;</a></h1>
-<p>The <a href="https://docs.percona.com/proxysql/index.html">ProxySQL and ProxySQL admin utilities documentation</a> provides information on installing and running ProxySQL 1.x.x or ProxySQL 2.x.x with the following ProxySQL admin utilities: </p>
+                <h3 id="percona-xtradb-cluster-80-versioning-scheme">Percona XtraDB Cluster 8.0 versioning scheme:<a class="headerlink" href="#percona-xtradb-cluster-80-versioning-scheme" title="Permanent link">&para;</a></h3>
+<p>Here is what the numbers in the product version specification mean:</p>
+<p>For example, in Percona XtraDB Cluster 8.0.29-21</p>
 <ul>
 <li>
-<p>The <a href="https://docs.percona.com/proxysql/v2-config.html">ProxySQL Admin</a> simplifies the configuration of Percona XtraDB Cluster nodes with ProxySQL.</p>
+<p><code>8.0.29</code> - the version of Percona Server for MySQL that Percona XtraDB Cluster is based on</p>
 </li>
 <li>
-<p>The <a href="https://docs.percona.com/proxysql/psa-scheduler.html">Percona Scheduler Admin</a> tool can automatically perform a failover due to node failures, service degradation, or maintenance.</p>
+<p><code>21</code> - a sequential number that increases every time Percona releases a new version of Percona XtraDB Cluster</p>
 </li>
 </ul>
+<p>Percona can relese several Percona XtraDB Cluster versions based on the same Percona Server for MySQL version. For example, Percona XtraDB Cluster 8.0.20-11.1, 8.0.20-11.2, and 8.0.20-11.3 are based on Percona Server for MySQL 8.0.20.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -1493,7 +1539,7 @@
   <small>
     
       Last update:
-      2022-10-12
+      2022-11-16
     
   </small>
 </div>
@@ -1521,7 +1567,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href="proxysql.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Load balancing with ProxySQL" rel="prev">
+        <a href="limitation.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Percona XtraDB Cluster Limitations" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1530,20 +1576,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Load balancing with ProxySQL
+              Percona XtraDB Cluster Limitations
             </div>
           </div>
         </a>
       
       
         
-        <a href="virt_sandbox.html" class="md-footer__link md-footer__link--next" aria-label="Next: Setting up a testing environment with ProxySQL" rel="next">
+        <a href="overview.html" class="md-footer__link md-footer__link--next" aria-label="Next: Quick Start Guide for Percona XtraDB Cluster" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Setting up a testing environment with ProxySQL
+              Quick Start Guide for Percona XtraDB Cluster
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1578,12 +1624,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      <script src="assets/javascripts/bundle.d6c3db9e.min.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
     
   </body>
