@@ -81,11 +81,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/xtabackup-versioning-scheme.html</loc>
-         <lastmod>2022-11-16</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/features/highavailability.html</loc>
          <lastmod>2022-11-16</lastmod>
          <changefreq>daily</changefreq>

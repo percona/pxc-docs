@@ -322,20 +322,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtabackup-versioning-scheme.html" class="md-nav__link">
-        Xtabackup versioning scheme
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -3801,8 +3787,41 @@ and have the script return immediately.</p>
 </tbody>
 </table>
 <p>Defines the method for Online Schema Upgrade
-that the node uses to replicate DDL statements.</p>
-<p>For information on the available methods, see <a href="features/online-schema-upgrade.html">Online Schema upgrade</a> and for information on Non-blocking operations, see <a href="features/nbo.html">NBO</a>.</p>
+that the node uses to replicate DDL statements.
+The following methods are available:</p>
+<ul>
+<li><code>TOI</code>: When the <em>Total Order Isolation</em> method is selected, data definition language (DDL) statements are processed in the same order with regards to other transactions in each node. This guarantees data consistency.</li>
+</ul>
+<p>In the case of DDL statements,
+  the cluster will have parts of the database locked
+  and it will behave like a single server.
+  In some cases (like big <code>ALTER TABLE</code>)
+  this could have impact on cluster’s performance and availability,
+  but it could be fine for quick changes that happen almost instantly
+  (like fast index changes).</p>
+<p>When DDL statements are processed under TOI,
+  the DDL statement will be replicated up front to the cluster.
+  That is, the cluster will assign global transaction ID
+  for the DDL statement before DDL processing begins.
+  Then every node in the cluster has the responsibility
+  to execute the DDL statement in the given slot
+  in the sequence of incoming transactions,
+  and this DDL execution has to happen with high priority.</p>
+<p>!!! important</p>
+<div class="highlight"><pre><span></span><code>    Under the `TOI` method, when DDL operations are performed, `MDL` is ignored. If `MDL` is important, use the `RSU` method.
+</code></pre></div>
+<ul>
+<li><code>RSU</code>: When the <em>Rolling Schema Upgrade</em> method is selected, DDL statements won’t be replicated across the cluster. Instead, it’s up to the user to run them on each node separately.</li>
+</ul>
+<p>The node applying the changes will desynchronize from the cluster briefly,
+  while normal work happens on all the other nodes.
+  When a DDL statement is processed, the node will apply delayed replication events.</p>
+<p>The schema changes must be backwards compatible for this method to work,
+  otherwise, the node that receives the change will likely break Galera replication.
+  If replication breaks, SST will be triggered when the node tries to join again but the change will be undone.</p>
+<p>!!! note</p>
+<div class="highlight"><pre><span></span><code>    This variable’s behavior is consistent with MySQL behavior for variables that have both global and session scope. This means if you want to change the variable in current session, you need to do it with `SET wsrep_OSU_method` (without the `GLOBAL` keyword). Setting the variable with `SET GLOBAL wsrep_OSU_method` will change the variable globally but it won’t have effect on the current session.
+</code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-osu-method">MySQL wsrep option: wsrep_OSU_method</a></p>
@@ -4789,7 +4808,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2022-11-14
+      2022-10-05
     
   </small>
 </div>
