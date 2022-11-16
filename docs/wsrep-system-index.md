@@ -411,8 +411,7 @@ Defines `DBUG` options to pass to the wsrep provider.
 | Dynamic:       | Yes                 |
 | Default Value: | ``NONE`` |
 
-Enables debug level logging for the database server and [`wsrep-lib`]
-(https://github.com/codership/wsrep-lib) - an integration library for WSREP
+Enables debug level logging for the database server and [`wsrep-lib`](https://github.com/codership/wsrep-lib) - an integration library for WSREP
 API with additional convenience for transaction processing. By default,
 `--wsrep-debug` variable is disabled.
 
