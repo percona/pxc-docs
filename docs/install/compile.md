@@ -60,7 +60,7 @@ To compile Percona XtraDB Cluster from source code:
 2. Check out the `8.0` branch and initialize submodules:
 
     ```shell
-    $ cd percona-xtradb-cluster-galera
+    $ cd percona-xtradb-cluster
     $ git checkout 8.0
     $ git submodule update --init --recursive
     ```
