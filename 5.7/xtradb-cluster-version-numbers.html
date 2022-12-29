@@ -15,14 +15,14 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/xtrabackup-versioning-scheme.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/5.7/5.7/xtradb-cluster-version-numbers.html">
       
       <link rel="icon" href="_static/percona_favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>Xtrabackup versioning scheme - Percona XtraDB Cluster</title>
+        <title>Percona XtraDB Cluster 5.7 version numbers - Percona XtraDB Cluster</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#percona-xtradb-cluster-57-versioning-scheme" class="md-skip">
+        <a href="#percona-xtradb-cluster-57-version-numbers" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Xtrabackup versioning scheme
+              Percona XtraDB Cluster 5.7 version numbers
             
           </span>
         </div>
@@ -336,41 +336,12 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Xtrabackup versioning scheme
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="xtrabackup-versioning-scheme.html" class="md-nav__link md-nav__link--active">
-        Xtrabackup versioning scheme
-      </a>
-      
         
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
-        <li class="md-nav__item">
-  <a href="#percona-xtradb-cluster-57-versioning-scheme" class="md-nav__link">
-    Percona XtraDB Cluster 5.7 versioning scheme:
-  </a>
-  
-</li>
       
-    </ul>
-  
-</nav>
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link md-nav__link--active">
+        Percona XtraDB Cluster 5.7 version numbers
+      </a>
       
     </li>
   
@@ -1834,21 +1805,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#percona-xtradb-cluster-57-versioning-scheme" class="md-nav__link">
-    Percona XtraDB Cluster 5.7 versioning scheme:
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1864,7 +1822,7 @@
                 <!-- Edit button -->
                 
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/5.7/docs/xtrabackup-versioning-scheme.md"
+                    href="https://github.com/percona/pxc-docs/edit/5.7/docs/xtradb-cluster-version-numbers.md"
                     title="Edit this page"
                     class="md-content__button md-icon"
                   >
@@ -1878,22 +1836,57 @@
                   as the main headline.
                 -->
                 
-                  <h1>Xtrabackup versioning scheme</h1>
-                
 
                 <!-- Markdown content -->
-                <h3 id="percona-xtradb-cluster-57-versioning-scheme">Percona XtraDB Cluster 5.7 versioning scheme:<a class="headerlink" href="#percona-xtradb-cluster-57-versioning-scheme" title="Permanent link">&para;</a></h3>
-<p>Here is what the numbers in the product version specification mean:</p>
-<p>For example, in Percona XtraDB Cluster 5.7.39-31.61</p>
+                <h1 id="percona-xtradb-cluster-57-version-numbers">Percona XtraDB Cluster 5.7 version numbers<a class="headerlink" href="#percona-xtradb-cluster-57-version-numbers" title="Permanent link">&para;</a></h1>
+<p>A version number identifies the product release. The product contains the latest Generally Available (GA) features at the time of that release. Percona XtraDB Cluster assigns a set of unique numbers for each version in increasing order. The numbers are a combination of the Percona Server for MySQL version and internal version numbers denoting the build.</p>
+<style>
+    table {
+        border-collapse: collapse;
+        width=100%;
+    }
+    table td {
+        border: 2px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    tr:nth-child(even){
+        background-color:#f5f5f5
+    }
+</style>
+
+<table>
+<thead>
+<tr>
+<th>5.7.40</th>
+<th>31</th>
+<th>63</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base version</td>
+<td>WSREP API version</td>
+<td>Minor build</td>
+<td>Custom build</td>
+</tr>
+</tbody>
+</table>
+<p>Percona uses semantic version numbering, which follows the pattern of base version, minor build, and an optional custom build. Percona assigns unique, non-negative integers in increasing order for each minor build release. The version number combines the base Percona Server for MySQL version number, the minor build version, and the custom build version, if needed.</p>
+<p>The version numbers for Percona XtraDB Cluster 5.7.40-31.63 define the following information:</p>
 <ul>
 <li>
-<p><code>5.7.39</code> - the version of Percona Server for MySQL that Percona XtraDB Cluster is based on</p>
+<p>Base version - the leftmost set of numbers indicate the Percona Server for MySQL version used as a base. An increase in base version resets the minor build version and the custom build version to 0.</p>
 </li>
 <li>
-<p><code>31</code> - the WSREP API version</p>
+<p>WSREP API version - the version of the WSREP API</p>
 </li>
 <li>
-<p><code>61</code> - a monolithically growing odd number that increases every time Percona releases a new version of Percona XtraDB Cluster</p>
+<p>Minor build version - an internal number that denotes which version. When this number increases by one, the custom build fix is reset to 0.</p>
+</li>
+<li>
+<p>Custom build version - an optional number assigned to custom builds used for bug fixes. The software features, unless they&rsquo;re included in the bug fix, don&rsquo;t change.</p>
 </li>
 </ul>
 
@@ -1917,7 +1910,7 @@
   <small>
     
       Last update:
-      2022-11-16
+      2022-12-29
     
   </small>
 </div>
