@@ -17,8 +17,14 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/selinux.html">
       
+      
+        <link rel="prev" href="apparmor.html">
+      
+      
+        <link rel="next" href="../manual/state_snapshot_transfer.html">
+      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.1">
     
     
       
@@ -26,11 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3bd4f189.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -110,7 +115,7 @@
     
     
       <header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="">
     <a href="https://percona.com/software/documentation" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
   <img src="../_static/percona-logo.svg" alt="logo">
@@ -160,39 +165,6 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header__source">
         <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
@@ -227,7 +199,7 @@
                     
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
@@ -1538,7 +1510,7 @@
                 
                   <a
                     href="https://github.com/percona/pxc-docs/edit/8.0/docs/security/selinux.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
@@ -1581,42 +1553,42 @@
 <p>To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as <code>root</code>:</p>
 <p>To enable port <code>14567</code> instead of the default port <code>4567</code>:</p>
 <p>Find the tag associated with the <code>4567</code> port:</p>
-<div class="highlight"><pre><span></span><code>$ semanage port -l <span class="p">|</span> grep <span class="m">4567</span>
-tram_port_t tcp <span class="m">4567</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4567</span>
+tram_port_t<span class="w"> </span>tcp<span class="w"> </span><span class="m">4567</span>
 </code></pre></div>
 <p>Run a command to find which rules grant mysqld access to the port:</p>
-<div class="highlight"><pre><span></span><code>$ sesearch -A -s mysqld_t -t tram_port_t -c tcp_socket
-Found <span class="m">5</span> semantic av rules:
-    allow mysqld_t port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
-    allow mysqld_t tram_port_t : tcp_socket <span class="o">{</span> name_bind name_connect <span class="o">}</span> <span class="p">;</span>
-    allow mysqld_t port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
-    allow mysqld_t port_type : tcp_socket name_connect <span class="p">;</span>
-    allow nsswitch_domain port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>tram_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+Found<span class="w"> </span><span class="m">5</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
+<span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+<span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>tram_port_t<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>name_bind<span class="w"> </span>name_connect<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+<span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+<span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_connect<span class="w"> </span><span class="p">;</span>
+<span class="w">    </span>allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
 <p>You could tag port 14567 with the <code>tramp_port_t</code> tag, but this tag may cause issues because port 14567 is not a TRAM port. Use the general <code>mysqld_port_t</code> tag to add ports. For example, the following command adds port 14567 to the policy module with the <code>mysqld_port_t</code> tag.</p>
-<div class="highlight"><pre><span></span><code>$ semanage port -a -t mysqld_port_t -p tcp <span class="m">14567</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_port_t<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span><span class="m">14567</span>
 </code></pre></div>
 <p>You can verify the addition with the following command:</p>
-<div class="highlight"><pre><span></span><code>$ semanage port -l <span class="p">|</span> grep <span class="m">14567</span>
-mysqld_port_t                  tcp      <span class="m">4568</span>, <span class="m">14567</span>, <span class="m">1186</span>, <span class="m">3306</span>, <span class="m">63132</span>-63164
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">14567</span>
+mysqld_port_t<span class="w">                  </span>tcp<span class="w">      </span><span class="m">4568</span>,<span class="w"> </span><span class="m">14567</span>,<span class="w"> </span><span class="m">1186</span>,<span class="w"> </span><span class="m">3306</span>,<span class="w"> </span><span class="m">63132</span>-63164
 </code></pre></div>
 <p>To see the tag associated with the 4444 port, run the following command:</p>
-<div class="highlight"><pre><span></span><code>$ semanage port -l <span class="p">|</span> grep <span class="m">4444</span>
-kerberos_port_t                tcp      <span class="m">88</span>, <span class="m">750</span>, <span class="m">4444</span>
-kerberos_port_t                udp      <span class="m">88</span>, <span class="m">750</span>, <span class="m">4444</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4444</span>
+kerberos_port_t<span class="w">                </span>tcp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
+kerberos_port_t<span class="w">                </span>udp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
 </code></pre></div>
 <p>To find the rules associated with <code>kerberos_port_t</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code>$ sesearch -A -s mysqld_t -t kerberos_port_t -c tcp_socket
-Found <span class="m">9</span> semantic av rules:
-allow mysqld_t port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
-allow mysqld_t rpc_port_type : tcp_socket name_bind <span class="p">;</span>
-allow mysqld_t port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
-allow mysqld_t port_type : tcp_socket name_connect <span class="p">;</span>
-allow nsswitch_domain kerberos_port_t : tcp_socket name_connect <span class="p">;</span>
-allow nsswitch_domain kerberos_port_t : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
-allow nsswitch_domain reserved_port_type : tcp_socket name_connect <span class="p">;</span>
-allow mysqld_t reserved_port_type : tcp_socket name_connect <span class="p">;</span>
-allow nsswitch_domain port_type : tcp_socket <span class="o">{</span> recv_msg send_msg <span class="o">}</span> <span class="p">;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>kerberos_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+Found<span class="w"> </span><span class="m">9</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
+allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>mysqld_t<span class="w"> </span>rpc_port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_bind<span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_connect<span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>kerberos_port_t<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_connect<span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>kerberos_port_t<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>reserved_port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_connect<span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>mysqld_t<span class="w"> </span>reserved_port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_connect<span class="w"> </span><span class="p">;</span>
+allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
 <p>If you require port 14444 added, use the same method used to add port 14567.</p>
 <p>If you must use a port that is already tagged, you can use either of the following ways:</p>
@@ -1642,16 +1614,16 @@ allow nsswitch_domain port_type : tcp_socket <span class="o">{</span> recv_msg s
 <p>Certificates without the proper SELinux context can be restored with the following command:</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>$ restorecon -v /etc/mysql/certs/*
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-v<span class="w"> </span>/etc/mysql/certs/*
 </code></pre></div>
 <h2 id="enabling-enforcing-mode-for-pxc">Enabling enforcing mode for PXC<a class="headerlink" href="#enabling-enforcing-mode-for-pxc" title="Permanent link">&para;</a></h2>
 <p>The process, mysqld, runs in permissive mode, by default, even if SELinux runs in enforcing mode:</p>
-<div class="highlight"><pre><span></span><code>$ semodule -l <span class="p">|</span> grep permissive
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
 permissive_mysqld_t
 permissivedomains
 </code></pre></div>
 <p>After ensuring that the system journal does not list any issues, the administrator can remove the permissive mode for mysqld_t:</p>
-<div class="highlight"><pre><span></span><code>$ semanage permissive -d mysqld_t
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -1702,42 +1674,6 @@ permissivedomains
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="apparmor.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Enabling AppArmor" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Enabling AppArmor
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../manual/state_snapshot_transfer.html" class="md-footer__link md-footer__link--next" aria-label="Next: State Snapshot Transfer" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              State Snapshot Transfer
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -1763,14 +1699,13 @@ permissivedomains
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../assets/javascripts/bundle.5cf534bf.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
-    
     
   </body>
 </html>
