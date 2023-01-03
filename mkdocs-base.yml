@@ -135,6 +135,7 @@ nav:
       - manual/gcache_record-set_cache_difference.md
       - manual/performance_schema_instrumentation.md
       - management/data_at_rest_encryption.md
+      - management/configure-timeoutstartsec.md
   - Flexibility:
       - flexibility/binlogging_replication_improvements.md
       - flexibility/innodb_fts_improvements.md
