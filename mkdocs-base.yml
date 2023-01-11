@@ -134,6 +134,7 @@ nav:
       - manual/certification.md
       - manual/threading_model.md
       - manual/gcache_record-set_cache_difference.md
+      - management/gcache-write-set-cache-encryption.md
       - manual/performance_schema_instrumentation.md
       - management/data_at_rest_encryption.md
   - How-tos:
