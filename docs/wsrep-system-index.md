@@ -248,13 +248,13 @@ mysql> SHOW VARIABLES LIKE 'wsrep_cluster_name';
 
 ??? example "Expected output"
 
-```text
-+--------------------+----------------+
-| Variable_name      | Value          |
-+--------------------+----------------+
-| wsrep_cluster_name | simple-cluster |
-+--------------------+----------------+
-```
+    ```text
+    +--------------------+----------------+
+    | Variable_name      | Value          |
+    +--------------------+----------------+
+    | wsrep_cluster_name | simple-cluster |
+    +--------------------+----------------+
+    ```
 
 !!! note
 
