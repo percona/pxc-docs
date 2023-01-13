@@ -306,6 +306,22 @@ To disable initial SST timeout, set `sst-initial-timeout=0`.
 
     If you are using [`wsrep_sst_donor`](../wsrep-system-index.md#wsrep_sst_donor), and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), **and** there is a possibility of **all** nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).
 
+### sst-idle-timeout
+
+| Parameter      | Description        |
+| -------------- | ------------------ |
+| Default:       | 120            |
+| Unit:          | seconds            |
+
+This option configures the time the SST operation waits on the joiner to receive more data. The size of the joiner’s sst directory is checked for the amount of data received. For example, the directory has received 50MB of data. The operation rechecks the data size after the default value, 120 seconds, has elapsed. If the data size is still 50MB, this operation is aborted. If the data has increased, the operation continues.
+
+An example of setting the option:
+
+```text
+[sst]
+sst-idle-timeout=0
+```
+
 ### tmpdir
 
 | Parameter      | Description        |
