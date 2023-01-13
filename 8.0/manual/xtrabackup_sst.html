@@ -888,6 +888,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sst-idle-timeout" class="md-nav__link">
+    sst-idle-timeout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tmpdir" class="md-nav__link">
     tmpdir
   </a>
@@ -1823,6 +1830,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sst-idle-timeout" class="md-nav__link">
+    sst-idle-timeout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tmpdir" class="md-nav__link">
     tmpdir
   </a>
@@ -2292,6 +2306,30 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 <p class="admonition-title">Note</p>
 <p>If you are using <a href="../wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a>, and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), <strong>and</strong> there is a possibility of <strong>all</strong> nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).</p>
 </div>
+<h3 id="sst-idle-timeout">sst-idle-timeout<a class="headerlink" href="#sst-idle-timeout" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>120</td>
+</tr>
+<tr>
+<td>Unit:</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>This option configures the time the SST operation waits on the joiner to receive more data. The size of the joiner’s sst directory is checked for the amount of data received. For example, the directory has received 50MB of data. The operation rechecks the data size after the default value, 120 seconds, has elapsed. If the data size is still 50MB, this operation is aborted. If the data has increased, the operation continues.</p>
+<p>An example of setting the option:</p>
+<div class="highlight"><pre><span></span><code>[sst]
+sst-idle-timeout=0
+</code></pre></div>
 <h3 id="tmpdir">tmpdir<a class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2487,7 +2525,7 @@ innodb_buffer_pool_size=24M
   <small>
     
       Last update:
-      2022-08-16
+      2023-01-13
     
   </small>
 </div>

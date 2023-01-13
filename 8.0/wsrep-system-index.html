@@ -2842,7 +2842,24 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the name of the cluster and should be identical on all nodes.</p>
+<p>Specifies the name of the cluster and must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
+<p>Edit the value in the <code>my.cnf</code> in the [galera] section.</p>
+<div class="highlight"><pre><span></span><code>[galera]
+
+    wsrep_cluster_name=simple-cluster
+</code></pre></div>
+<p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="highlight"><pre><span></span><code>+--------------------+----------------+
+| Variable_name      | Value          |
++--------------------+----------------+
+| wsrep_cluster_name | simple-cluster |
++--------------------+----------------+
+</code></pre></div>
+</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It should not exceed 32 characters. A node cannot join the cluster if the cluster names do not match. You must re-bootstrap the cluster after a name change.</p>
@@ -4803,7 +4820,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2022-11-16
+      2023-01-12
     
   </small>
 </div>
