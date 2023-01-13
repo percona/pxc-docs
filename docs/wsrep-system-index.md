@@ -359,8 +359,34 @@ you should pass the `--wsrep-new-cluster` option when starting.
 | Dynamic:       | No                 |
 | Default Value: | ``my_wsrep_cluster`` |
 
-Specifies the name of the cluster and should be identical on all nodes.
+Specifies the name of the cluster and must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. 
 
+Edit the value in the `my.cnf` in the [galera] section.
+
+```text
+
+[galera]
+
+    wsrep_cluster_name=simple-cluster
+```
+
+Execute `SHOW VARIABLES` with the LIKE operator to view the variable:
+
+```sql
+
+mysql> SHOW VARIABLES LIKE 'wsrep_cluster_name';
+```
+
+??? example "Expected output"
+
+    ```text
+
+    +--------------------+----------------+
+    | Variable_name      | Value          |
+    +--------------------+----------------+
+    | wsrep_cluster_name | simple-cluster |
+    +--------------------+----------------+
+    ```
 !!! note
 
     It should not exceed 32 characters. A node cannot join the cluster if the cluster names do not match. You must re-bootstrap the cluster after a name change.
