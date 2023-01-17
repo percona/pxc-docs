@@ -23,7 +23,6 @@ under `[sst]`.
 
     * SST options must be specified in the main `my.cnf` file.
 
-
 ### streamfmt
 
 | Parameter      | Description        |
@@ -32,7 +31,8 @@ under `[sst]`.
 | Default:       | xbstream           |
 | Match:         | Yes                |
 
-Used to specify the Percona XtraBackup streaming format. The default value is `streamfmt=xbstream`.
+Used to specify the Percona XtraBackup streaming format. The only option is the `xbstream` format. SST fails and generates an error when another format, such as `tar`, is used.
+
 For more information about the `xbstream` format, see [The xbstream Binary](https://www.percona.com/doc/percona-xtrabackup/8.0/xbstream/xbstream.html).
 
 
