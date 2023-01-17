@@ -1969,8 +1969,8 @@ under <code>[sst]</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>Used to specify the Percona XtraBackup streaming format. The default value is <code>streamfmt=xbstream</code>.
-For more information about the <code>xbstream</code> format, see <a href="https://www.percona.com/doc/percona-xtrabackup/8.0/xbstream/xbstream.html">The xbstream Binary</a>.</p>
+<p>Used to specify the Percona XtraBackup streaming format. The only option is the <code>xbstream</code> format. SST fails and generates an error when another format, such as <code>tar</code>, is used.</p>
+<p>For more information about the <code>xbstream</code> format, see <a href="https://www.percona.com/doc/percona-xtrabackup/8.0/xbstream/xbstream.html">The xbstream Binary</a>.</p>
 <h3 id="transferfmt">transferfmt<a class="headerlink" href="#transferfmt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2525,7 +2525,7 @@ innodb_buffer_pool_size=24M
   <small>
     
       Last update:
-      2023-01-13
+      2023-01-17
     
   </small>
 </div>
