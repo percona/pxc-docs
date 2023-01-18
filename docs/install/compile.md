@@ -1,4 +1,4 @@
-# Compiling and Installing from Source Code
+# Compile and install from Source Code
 
 If you want to compile Percona XtraDB Cluster, you can find the source code on
 [GitHub](https://github.com/percona/percona-xtradb-cluster).
@@ -29,7 +29,7 @@ dependencies:
 
 * For Debian or Ubuntu:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo apt install -y git scons gcc g++ openssl check cmake bison \
     libboost-all-dev libasio-dev libaio-dev libncurses5-dev libreadline-dev \
     libpam-dev socat libcurl-dev
@@ -37,7 +37,7 @@ dependencies:
 
 * For Red Hat Enterprise Linux or CentOS:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo yum install -y git scons gcc gcc-c++ openssl check cmake bison \
     boost-devel asio-devel libaio-devel ncurses-devel readline-devel pam-devel \
     socat libcurl-devel
@@ -48,7 +48,7 @@ To compile Percona XtraDB Cluster from source code:
 
 1. Clone the Percona XtraDB Cluster repository:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ git clone https://github.com/percona/percona-xtradb-cluster.git
     ```
     
@@ -59,7 +59,7 @@ To compile Percona XtraDB Cluster from source code:
 
 2. Check out the `8.0` branch and initialize submodules:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ cd percona-xtradb-cluster
     $ git checkout 8.0
     $ git submodule update --init --recursive
@@ -73,7 +73,7 @@ To compile Percona XtraDB Cluster from source code:
     By default, it attempts building into the current directory. Specify
     the target output directory, such as `./pxc-build`:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mkdir ./pxc-build
     $ ./build-ps/build-binary.sh ./pxc-build
     ```

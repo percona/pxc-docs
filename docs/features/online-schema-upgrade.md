@@ -1,4 +1,4 @@
-# Online Schema Upgrade
+# Online schema upgrade
 
 Database schemas must change as applications change. For a cluster, the schema upgrade must occur while the system is online. A synchronous cluster requires all active nodes have the same data. Schema updates are performed using Data Definition Language (DDL) statements, such as `ALTER TABLE <table_name> DROP COLUMN <column_name>`.
 

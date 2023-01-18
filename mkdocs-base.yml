@@ -3,7 +3,7 @@
 site_name: Percona XtraDB Cluster
 site_description: Documentation
 site_author: Percona LLC
-copyright: Percona LLC, &#169; 2022
+copyright: Percona LLC, &#169; 2023
 
 repo_name: percona/pxc-docs
 repo_url: https://github.com/percona/pxc-docs
@@ -39,29 +39,34 @@ theme:
     - search.highlight
     - navigation.top
     - content.tabs.link
+    - content.code.copy 
+    - navigation.tracking 
+    - content.action.edit
+    - content.action.view 
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/version-select.css
+  - css/nocopy.css
 
 extra_javascript:
   - js/version-select.js
+  - js/promptremover.js
 
 markdown_extensions:
   attr_list: {}
   toc:
     permalink: True
     title: On this page
+    toc_depth: 3
   admonition: {}
   footnotes: {}
   def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
   meta: {}
   md_in_html: {}
   smarty:
-      {smart_angled_quotes: true, 
-       smart_dashes: false}
+      {smart_angled_quotes: true}
   pymdownx.details: {}
   pymdownx.mark: {}
   pymdownx.smartsymbols: {}
@@ -72,14 +77,19 @@ markdown_extensions:
   pymdownx.highlight:
       linenums: false
   pymdownx.inlinehilite: {}
+  pymdownx.snippets: {}
+  pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 
 plugins:
-  search: {}
+  search: 
+    separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
   macros:
       include_yaml:
-#        - 'variables.yml' # Use in markdown as '{{ VAR }}'
+        - 'variables.yml' # Use in markdown as '{{ VAR }}'
 # exclude: # Don't process these files
 #      glob:
 #         - file.md
@@ -103,12 +113,12 @@ extra:
     provider: mike
 
 nav:
-  - index.md
+  - Home: index.md
   - Introduction:
       - intro.md
       - limitation.md
       - xtradb-cluster-version-numbers.md
-  - Getting Started:
+  - Get started:
       - overview.md
       - install/index.md
       - configure.md
@@ -120,13 +130,13 @@ nav:
       - features/pxc-strict-mode.md
       - features/online-schema-upgrade.md
       - features/nbo.md
-  - PXC Security:
+  - PXC security:
       - security/index.md
       - security/secure-network.md
       - security/encrypt-traffic.md
       - security/apparmor.md
       - security/selinux.md
-  - User's Manual:
+  - User's manual:
       - manual/state_snapshot_transfer.md
       - manual/xtrabackup_sst.md
       - manual/restarting_nodes.md

@@ -171,11 +171,11 @@ If any replication consistency problems are encountered,
 it's recommended to set this back to ``1`` to see if that resolves the issue.
 The default value can be increased for better throughput.
 
-You may want to increase it as suggested in [`Codership documentation for flow control`](https://galeracluster.com/documentation-webpages/nodestates.html#flow-control): when the node is in ``JOINED`` state, increasing the number of replica threads can speed up the catchup to ``SYNCED``.
+You may want to increase it as suggested in [`Codership documentation for flow control`](https://galeracluster.com/library/documentation/node-states.html): when the node is in ``JOINED`` state, increasing the number of replica threads can speed up the catchup to ``SYNCED``.
 
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [`on this page`](https://galeracluster.com/documentation-webpages/monitoringthecluster.html#checking-the-replication-health).
+You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the Galera Cluster documentation](https://galeracluster.com/library/training/tutorials/galera-monitoring.html).
 
-For more configuration tips, see [`this document`](https://galeracluster.com/documentation-webpages/configurationtips.html#setting-parallel-slave-threads).
+For more configuration tips, see [Setting Parallel Slave Threads`](https://galeracluster.com/library/kb/parallel-applier-threads.html).
 
 !!! admonition "See also"
 
@@ -363,8 +363,7 @@ Specifies the name of the cluster and must be identical on all nodes. A node che
 
 Edit the value in the `my.cnf` in the [galera] section.
 
-```text
-
+```{.text .no-copy}
 [galera]
 
     wsrep_cluster_name=simple-cluster
@@ -372,15 +371,13 @@ Edit the value in the `my.cnf` in the [galera] section.
 
 Execute `SHOW VARIABLES` with the LIKE operator to view the variable:
 
-```sql
-
+```{.bash data-prompt="mysql>"}
 mysql> SHOW VARIABLES LIKE 'wsrep_cluster_name';
 ```
 
 ??? example "Expected output"
 
-    ```text
-
+    ```{.text .no-copy}
     +--------------------+----------------+
     | Variable_name      | Value          |
     +--------------------+----------------+
@@ -546,33 +543,33 @@ if you enable `wsrep_dirty_reads`.
 
 As of Percona XtraDB Cluster 8.0.26-16, you can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT @@wsrep_dirty_reads;
 ```
 
-The example of the output:
+??? example "Expected output"
 
-```text
-+-----------------------+
-| @@wsrep_dirty_reads   |
-+=======================+
-| OFF                   |
-+-----------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------+
+    | @@wsrep_dirty_reads   |
+    +=======================+
+    | OFF                   |
+    +-----------------------+
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 ```
 
-The example of the output:
+??? example "Expected output"
 
-```text
-+-----------------------+
-| @@wsrep_dirty_reads   |
-+=======================+
-| ON                    |
-+-----------------------+
-```
+    ```{.text .no-copy}
+    +-----------------------+
+    | @@wsrep_dirty_reads   |
+    +=======================+
+    | ON                    |
+    +-----------------------+
+    ```
 
 !!! admonition "See also"
 
@@ -1196,13 +1193,13 @@ it’s recommended to set this back to `1` to see if that resolves the issue.
 The default value can be increased for better throughput.
 
 You may want to increase it as suggested
-in [`Codership documentation for flow control`](http://galeracluster.com/documentation-webpages/nodestates.html#flow-control):
+in [`Codership documentation for flow control`](https://galeracluster.com/library/documentation/node-states.html):
 when the node is in ``JOINED`` state,
 increasing the number of replica threads can speed up the catchup to ``SYNCED``.
 
 You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the Galera Cluster documentation](https://galeracluster.com/library/training/tutorials/galera-monitoring.html).
 
-For more configuration tips, see [this document](https://galeracluster.com/library/kb/parallel-slave-threads.html).
+For more configuration tips, see [this document](https://galeracluster.com/library/kb/parallel-applier-threads.html).
 
 ### `wsrep_slave_UK_checks`
 
@@ -1233,9 +1230,9 @@ that the current node should prefer as donors for [SST](glossary.md#sst) and [IS
 
 !!! warning
 
-    Using IP addresses of nodes instead of node names (the value of  [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)) as values of [`wsrep_sst_donor`](wsrep-system-index.md#wsrep_sst_donor) results in an error.
+    Using IP addresses of nodes instead of node names (the value of [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)) as values of [`wsrep_sst_donor`](wsrep-system-index.md#wsrep_sst_donor) results in an error.
     
-    ```text
+    ```{.text .no-copy}
     ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
     to host). Most likely it is due to inability to communicate with the
     cluster primary component. Restart required.
@@ -1362,32 +1359,33 @@ that is fully synced with the cluster.
 
 As of Percona XtraDB Cluster 8.0.26-16, you are able to update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```sql
+```{.bash data-prompt="mysql>"}
    mysql> SELECT @@wsrep_sync_wait;
 ```
-The example of the output is the following:
 
-```text
-   +---------------------+
-   | @@wsrep_sync_wait   |
-   +=====================+
-   | 3                   |
-   +---------------------+
-```
+??? example "Expected output"
 
-```sql
+    ```{.text .no-copy}
+    +---------------------+
+    | @@wsrep_sync_wait   |
+    +=====================+
+    | 3                   |
+    +---------------------+
+    ```
+
+```{.bash data-prompt="mysql>"}
    mysql> SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-   +---------------------+
-   | @@wsrep_sync_wait   |
-   +=====================+
-   | 7                   |
-   +---------------------+
-```
+    ```{.text .no-copy}
+    +---------------------+
+    | @@wsrep_sync_wait   |
+    +=====================+
+    | 7                   |
+    +---------------------+
+    ```
 
 !!! note
 
@@ -1435,41 +1433,41 @@ Defines the the streaming replication fragment size. This variable is measured i
 
 As of *Percona XtraDB Cluster for MySQL* 8.0.26-16, you can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+------------------------------+
-| @@wsrep_trx_fragment_unit    |
-+==============================+
-| statements                   |
-+------------------------------+
-| @@wsrep_trx_fragment_size    |
-+------------------------------+
-| 3                            |
-+------------------------------+
-```
+    ```{.text .no-copy}
+    +------------------------------+
+    | @@wsrep_trx_fragment_unit    |
+    +==============================+
+    | statements                   |
+    +------------------------------+
+    | @@wsrep_trx_fragment_size    |
+    +------------------------------+
+    | 3                            |
+    +------------------------------+
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+------------------------------+
-| @@wsrep_trx_fragment_size    |
-+==============================+
-| 5                            |
-+------------------------------+
-```
+    ```{.text .no-copy}
+    +------------------------------+
+    | @@wsrep_trx_fragment_size    |
+    +==============================+
+    | 5                            |
+    +------------------------------+
+    ```
 
 You can also use set_var() in a data manipulation language (DML) statement. This ability is useful when streaming large statements within a transaction.
 
-```text
+```{.text .no-copy}
 node1> BEGIN;
 Query OK, 0 rows affected (0.00 sec)
 
@@ -1516,34 +1514,34 @@ Defines the type of measure for the ``wsrep_trx_fragment_size``. The possible va
 
 As of *Percona XtraDB Cluster for MySQL* 8.0.26-16, you can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+------------------------------+
-| @@wsrep_trx_fragment_unit    |
-+==============================+
-| statements                   |
-+------------------------------+
-| @@wsrep_trx_fragment_size    |
-+------------------------------+
-| 3                            |
-+------------------------------+
-```
+    ```{.text .no-copy}
+    +------------------------------+
+    | @@wsrep_trx_fragment_unit    |
+    +==============================+
+    | statements                   |
+    +------------------------------+
+    | @@wsrep_trx_fragment_size    |
+    +------------------------------+
+    | 3                            |
+    +------------------------------+
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+------------------------------+
-| @@wsrep_trx_fragment_unit    |
-+==============================+
-| rows                         |
-+------------------------------+
-```
+    ```{.text .no-copy}
+    +------------------------------+
+    | @@wsrep_trx_fragment_unit    |
+    +==============================+
+    | rows                         |
+    +------------------------------+
+    ```

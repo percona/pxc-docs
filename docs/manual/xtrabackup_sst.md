@@ -1,4 +1,4 @@
-# Percona XtraBackup SST Configuration
+# Percona XtraBackup SST configuration
 
 Percona XtraBackup SST works in two stages:
 
@@ -8,7 +8,7 @@ Percona XtraBackup SST works in two stages:
 
     In case of IST, it proceeds as before.
 
-## SST Options
+## SST options
 
 The following options specific to SST can be used in `my.cnf`
 under `[sst]`.
@@ -35,7 +35,6 @@ Used to specify the Percona XtraBackup streaming format. The only option is the 
 
 For more information about the `xbstream` format, see [The xbstream Binary](https://www.percona.com/doc/percona-xtrabackup/8.0/xbstream/xbstream.html).
 
-
 ### transferfmt
 
 | Parameter      | Description        |
@@ -48,7 +47,7 @@ Used to specify the data transfer format.
 The recommended value is the default `transferfmt=socat`
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see [socat(1)](https://www.dest-unreach.org/socat/doc/socat.html).
+For more information, see [socat(1)](https://www.redhat.com/sysadmin/getting-started-socat).
 
 !!! note
 
@@ -107,7 +106,7 @@ Enables SST encryption mode in Percona XtraBackup:
 
   Considering that you have all three necessary files:
 
-  ```text
+  ```{.text .no-copy}
   [sst]
   encrypt=4
   ssl-ca=ca.pem
@@ -122,7 +121,7 @@ For more information, see [Encrypting PXC Traffic](../security/encrypt-traffic.m
 Used to specify key/value pairs of socket options, separated by commas,
 for example:
 
-```text
+```{.text .no-copy}
 [sst]
 sockopt="retry=2,interval=3"
 ```
@@ -132,7 +131,7 @@ The previous example causes socat to try to connect three times
 
 This option only applies when socat is used (`transferfmt=socat`).
 For more information about socket options, see
-[socat (1)](https://www.dest-unreach.org/socat/doc/socat.html).
+[socat (1)](https://www.redhat.com/sysadmin/getting-started-socat).
 
 !!! note
 
@@ -216,9 +215,10 @@ in `my.cnf` before you enable this option.
 Used to define the files
 that need to be retained in the [datadir](../glossary.md#datadir) before running SST,
 so that the state of the other node can be restored cleanly.
+
 For example:
 
-```text
+```{.text .no-copy}
 [sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 ```
@@ -226,7 +226,6 @@ cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$
 !!! note
 
     This option can only be used when [`wsrep_sst_method`](../wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default value).
-
 
 ### compressor
 
@@ -258,7 +257,7 @@ decompressor=’gzip -dc’
 To revert to the XtraBackup-based compression,
 set `compress` under `[xtrabackup]`. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.
 
-```text
+```shell
 [xtrabackup]
 compress
 
@@ -317,7 +316,7 @@ This option configures the time the SST operation waits on the joiner to receive
 
 An example of setting the option:
 
-```text
+```{.text .no-copy}
 [sst]
 sst-idle-timeout=0
 ```
@@ -385,7 +384,7 @@ See the `--parallel` option in XtraBackup.
 This option affects only SST with XtraBackup
 and should be specified under the `[sst]` group.
 
-## XtraBackup SST Dependencies
+## XtraBackup SST dependencies
 
 Each suppored version of Percona XtraDB Cluster is tested against a specific version of Percona XtraBackup:
 
@@ -421,7 +420,7 @@ introduced by `wsrep_sst_xtrabackup-v2`
 
 * `which` is required.
 
-## XtraBackup-based Encryption
+## XtraBackup-based encryption
 
 Settings related to XtraBackup-based Encryption are no longer allowed in PXC 8.0
 when used for [SST](../glossary.md#sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
@@ -435,14 +434,14 @@ under `[xtrabackup]` in `my.cnf`:
 
 * `encrypt-key-file`
 
-## Memory Allocation
+## Memory allocation
 
 The amount of memory for XtraBackup
 is defined by the `--use-memory` option.
 You can pass it using the `inno-apply-opts` option
 under `[sst]` as follows:
 
-```text
+```shell
 [sst]
 inno-apply-opts="--use-memory=500M"
 ```
@@ -450,7 +449,7 @@ inno-apply-opts="--use-memory=500M"
 If it is not specified,
 the `use-memory` option under `[xtrabackup]` will be used:
 
-```text
+```shell
 [xtrabackup]
 use-memory=32M
 ```
@@ -458,7 +457,7 @@ use-memory=32M
 If neither of the above are specified,
 the size of the InnoDB memory buffer will be used:
 
-```text
+```shell
 [mysqld]
 innodb_buffer_pool_size=24M
 ```

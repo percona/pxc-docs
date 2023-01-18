@@ -1,4 +1,4 @@
-# Cluster Failover
+# Cluster failover
 
 Cluster membership is determined simply by
 which nodes are connected to the rest of the cluster;
@@ -53,7 +53,7 @@ to avoid single points of failure. For example:
 These rules will prevent split brain situations
 and ensure automatic failover works correctly.
 
-## Using an arbitrator
+## Use an arbitrator
 
 If it is too expensive to add a third node, switch, network, or datacenter,
 you should use an arbitrator.
@@ -65,7 +65,7 @@ Placing even a single arbitrator in a 3rd location
 can add split brain protection to a cluster
 that is spread across only two nodes/locations.
 
-## Recovering a Non-Primary cluster
+## Recover a non-primary cluster
 
 It is important to note that the *rule of 3s* applies
 only to automatic failover.
@@ -108,7 +108,6 @@ you can tell the secondary data center to bootstrap itself
 with a single command,
 but disaster-recovery failover remains in your control.
 
-## Other Reading
-
+## Other reading
 
 * [PXC - Failure Scenarios with only 2 nodes](https://www.mysqlperformanceblog.com/2012/07/25/percona-xtradb-cluster-failure-scenarios-with-only-2-nodes/)

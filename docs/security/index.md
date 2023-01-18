@@ -1,4 +1,4 @@
-# Security Basics
+# Security basics
 
 By default, Percona XtraDB Cluster does not provide any protection for stored data. There are
 several considerations to take into account for securing Percona XtraDB Cluster:
@@ -17,14 +17,14 @@ several considerations to take into account for securing Percona XtraDB Cluster:
 
 * Data-at-rest encryption
 
-   Percona XtraDB Cluster supports [tablespace encryption](https://dev.mysql.com/doc/refman/8.0/en/innodb-tablespace-encryption.html) to provide at-rest encryption for physical tablespace data files.
+   Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files.
 
    For more information, see the following blog post:
 
 
       * [MySQL Data at Rest Encryption](https://www.percona.com/blog/2016/04/08/mysql-data-at-rest-encryption/)
 
-## Security Modules
+## Security modules
 
 Most modern distributions include special security modules
 that control access to resources for users and applications.
@@ -66,7 +66,7 @@ setenforce 0
 
 ### AppArmor
 
-[AppArmor](https://wiki.apparmor.net/index.php/Main_Page) is included
+[AppArmor](https://wiki.apparmor.net/) is included
 in Debian and Ubuntu. *Percona XtraDB Cluster* contains several AppArmor profiles which allows for easier maintenance.
 To help with troubleshooting, during the installation and configuration,
 you can set the mode to `complain` for `mysqld`.

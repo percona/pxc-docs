@@ -1,4 +1,4 @@
-# Frequently Asked Questions
+# Frequently asked questions
 
 ## How do I report bugs?
 
@@ -38,18 +38,18 @@ The following results of the previous query are possible:
 You can also check a node’s health with the `clustercheck` script.
 First set up the `clustercheck` user:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE USER 'clustercheck'@'localhost' IDENTIFIED BY PASSWORD
 '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19';
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Query OK, 0 rows affected (0.00 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 0 rows affected (0.00 sec)
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
 ```
 
@@ -61,7 +61,7 @@ You can then check a node’s health by running the `clustercheck` script:
 
 If the node is running, you should get the following status:
 
-```text
+```{.text .no-copy}
 HTTP/1.1 200 OK
 Content-Type: text/plain
 Connection: close
@@ -72,7 +72,7 @@ Percona XtraDB Cluster Node is synced.
 
 In case node isn’t synced or if it is offline, status will look like:
 
-```text
+```{.text .no-copy}
 HTTP/1.1 503 Service Unavailable
 Content-Type: text/plain
 Connection: close
@@ -120,7 +120,7 @@ in a new component strictly exceeds half that
 of the preceding Primary Component,
 minus the nodes which left gracefully.
 
-The mechanism is described in detail in [Galera documentation](https://galeracluster.com/documentation-webpages/weightedquorum.html).
+The mechanism is described in detail in [Galera documentation](https://galeracluster.com/library/documentation/index.html).
 
 ## How would the quorum mechanism handle split brain?
 
@@ -131,14 +131,14 @@ The minimal recommendation is to have 3 nodes.
 However, it is possibile to allow a node to handle traffic
 with the following option:
 
-```text
+```{.text .no-copy}
 wsrep_provider_options="pc.ignore_sb = yes"
 ```
 
 ## Why a node stops accepting commands if the other one fails in a 2-node setup?
 
 This is expected behavior to prevent [split brain](glossary.md#split-brain).
-For more information, see previous question or [Galera documentation](http://galeracluster.com/documentation-webpages/weightedquorum.html).
+For more information, see previous question or [Galera documentation](https://galeracluster.com/library/documentation/index.html).
 
 ## Is it possible to set up a cluster without state transfer?
 
@@ -156,19 +156,19 @@ You may need to open up to four ports if you are using a firewall:
 
 2. Port for group communication (default is 4567). It can be changed using the following option:
 
-    ```text
+    ```{.text .no-copy}
     wsrep_provider_options ="gmcast.listen_addr=tcp://0.0.0.0:4010; "
     ```
 
 3. Port for State Snaphot Transfer (default is 4444). It can be changed using the following option:
 
-    ```text
+    ```{.text .no-copy}
     wsrep_sst_receive_address=10.11.12.205:5555
     ```
 
 4. Port for Incremental State Transfer (default is port for group communication + 1 or 4568). It can be changed using the following option:
 
-    ```text
+    ```{.text .no-copy}
     wsrep_provider_options = "ist.recv_addr=10.11.12.206:7777; "
     ```
 
@@ -177,8 +177,7 @@ You may need to open up to four ports if you are using a firewall:
 Percona XtraDB Cluster does not support “async” mode, all commits are synchronous on all nodes.
 To be precise, the commits are “virtually” synchronous,
 which means that the transaction should pass *certification* on nodes,
-not physical commit.
-Certification means a guarantee that the transaction does not have conflicts
+not physical commit. Certification means a guarantee that the transaction does not have conflicts
 with other transactions on the corresponding node.
 
 ## Does it work with regular MySQL replication?
@@ -196,6 +195,6 @@ echo 0 > /selinux/enforce
 
 ## What does “nc: invalid option – ‘d’” in the sst.err log file mean?
 
-This error is specific to Debian and Ubuntu.  Percona XtraDB Cluster uses `netcat-openbsd`
-package. This dependency has been fixed.  Future releases of Percona XtraDB Cluster will be
+This error is specific to Debian and Ubuntu. Percona XtraDB Cluster uses `netcat-openbsd`
+package. This dependency has been fixed. Future releases of Percona XtraDB Cluster will be
 compatible with any `netcat` (see bug [PXC-941](https://jira.percona.com/browse/PXC-941)).

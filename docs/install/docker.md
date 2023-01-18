@@ -29,7 +29,7 @@ In this procedure, all of the nodes run Percona XtraDB Cluster 8.0 in separate c
 2. Create a custom.cnf file with the following contents, and place the
 file in the new directory:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     ssl-ca = /cert/ca.pem
     ssl-cert = /cert/server-cert.pem
@@ -49,7 +49,7 @@ file in the new directory:
 
 3. Create a cert directory and generate self-signed SSL certificates on the host node:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mkdir -m 777 -p ~/pxc-docker-test/cert
     docker run --name pxc-cert --rm -v ~/pxc-docker-test/cert:/cert
     percona/percona-xtradb-cluster:8.0 mysql_ssl_rsa_setup -d /cert
@@ -106,49 +106,49 @@ To verify the cluster is available, do the following:
 
 1. Access the MySQL client. For example, on the first node:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo docker exec -it pxc-node1 /usr/bin/mysql -uroot -ptest1234#
     ```
 
-    The example of the output:
+    ??? example "Expected output"
 
-    ```text
-    mysql: [Warning] Using a password on the command line interface can be insecure.
-    Welcome to the MySQL monitor.  Commands end with ; or \g.
-    Your MySQL connection id is 12
-    ...
-    You are enforcing ssl connection via unix socket. Please consider
-    switching ssl off as it does not make connection via unix socket
-    any more secure
+        ```{.text .no-copy}
+        mysql: [Warning] Using a password on the command line interface can be insecure.
+        Welcome to the MySQL monitor.  Commands end with ; or \g.
+        Your MySQL connection id is 12
+        ...
+        You are enforcing ssl connection via unix socket. Please consider
+        switching ssl off as it does not make connection via unix socket
+        any more secure
 
-    mysql>
-    ```
+        mysql>
+        ```
 
 2. View the wsrep status variables:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> show status like 'wsrep%';
     ```
 
-    The example of the output:
+    ??? example "Expected output"
 
-    ```text
-    +------------------------------+-------------------------------------------------+
-    | Variable_name                | Value                                           |
-    +------------------------------+-------------------------------------------------+
-    | wsrep_local_state_uuid       | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
-    ...
-    | wsrep_local_state_comment    | Synced                                          |
-    ...
-    | wsrep_incoming_addresses     | 172.18.0.2:3306,172.18.0.3:3306,172.18.0.4:3306 |
-    ...
-    | wsrep_cluster_conf_id        | 3                                               |
-    | wsrep_cluster_size           | 3                                               |
-    | wsrep_cluster_state_uuid     | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
-    | wsrep_cluster_status         | Primary                                         |
-    | wsrep_connected              | ON                                              |
-    ...
-    | wsrep_ready                  | ON                                              |
-    +------------------------------+-------------------------------------------------+
-    59 rows in set (0.02 sec)
-    ```
+        ```{.text .no-copy}
+        +------------------------------+-------------------------------------------------+
+        | Variable_name                | Value                                           |
+        +------------------------------+-------------------------------------------------+
+        | wsrep_local_state_uuid       | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
+        ...
+        | wsrep_local_state_comment    | Synced                                          |
+        ...
+        | wsrep_incoming_addresses     | 172.18.0.2:3306,172.18.0.3:3306,172.18.0.4:3306 |
+        ...
+        | wsrep_cluster_conf_id        | 3                                               |
+        | wsrep_cluster_size           | 3                                               |
+        | wsrep_cluster_state_uuid     | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
+        | wsrep_cluster_status         | Primary                                         |
+        | wsrep_connected              | ON                                              |
+        ...
+        | wsrep_ready                  | ON                                              |
+        +------------------------------+-------------------------------------------------+
+        59 rows in set (0.02 sec)
+        ```

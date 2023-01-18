@@ -1,4 +1,4 @@
-# Monitoring the cluster
+# Monitor the cluster
 
 Each node can have a different view of the cluster.
 There is no centralized node to monitor.
@@ -14,7 +14,7 @@ where flow messages are coming from,
 which node sends excessively large transactions,
 and so on.
 
-## Manual Monitoring
+## Manual monitoring
 
 Manual cluster monitoring can be performed using
 [myq-tools](https://github.com/jayjanssen/myq-tools/).
@@ -67,15 +67,15 @@ at least for the following:
 
   [`wsrep_local_cert_failures`](../wsrep-status-index.md#wsrep_local_cert_failures) and [`wsrep_local_bf_aborts`](../wsrep-status-index.md#wsrep_local_bf_aborts)
 
-## Using Percona Monitoring and Management
+## Use Percona Monitoring and Management
 
 [Percona Monitoring and Management](https://www.percona.com/doc/percona-monitoring-and-management/index.html) includes two dashboards to monitor PXC:
 
-1. [PXC/Galera Cluster Overview](https://pmmdemo.percona.com/graph/dashboard/db/pxc-galera-cluster-overview?orgId=1):
+1. PXC/Galera Cluster Overview:
 
     ![image](./pmm.pxc-galera-cluster-overview.png)
 
-2. [PXC/Galera Graphs](https://pmmdemo.percona.com/graph/dashboard/db/pxc-galera-graphs?orgId=1):
+2. PXC/Galera Graphs:
 
     ![image](./pmm.pxc-galera-graphs.png)
 
@@ -85,7 +85,7 @@ at least for the following:
 
 Please refer to the [official documentation](https://www.percona.com/doc/percona-monitoring-and-management/index.html) for details on Percona Monitoring and Management installation and setup.
 
-## Other Reading
+## Other reading
 
 * [Realtime stats to pay attention to in PXC and Galera](https://www.mysqlperformanceblog.com/2012/11/26/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/)
 

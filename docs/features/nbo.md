@@ -14,7 +14,7 @@ To dynamically set the `NBO` mode in the client, run the following statement:
 SET SESSION wsrep_OSU_method='NBO';
 ```
 
-## Supported DDL Statements
+## Supported DDL statements
 
 The NBO method supports the following DDL statements:
 

@@ -91,20 +91,22 @@ To set up the cluster:
 
 3. Start the first node using the following command (from the Percona XtraDB Cluster install directory):
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ bin/mysqld_safe --defaults-file=/etc/my.4000.cnf --wsrep-new-cluster
     ```
 
     If the node starts correctly, you should see the following output:
 
-    ```text
-    111215 19:01:49 [Note] WSREP: Shifting JOINED -> SYNCED (TO: 0)
-    111215 19:01:49 [Note] WSREP: New cluster view: global state: 4c286ccc-2792-11e1-0800-94bd91e32efa:0, view# 1: Primary, number of nodes: 1, my index: 0, protocol version 1
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        111215 19:01:49 [Note] WSREP: Shifting JOINED -> SYNCED (TO: 0)
+        111215 19:01:49 [Note] WSREP: New cluster view: global state: 4c286ccc-2792-11e1-0800-94bd91e32efa:0, view# 1: Primary, number of nodes: 1, my index: 0, protocol version 1
+        ```
 
     To check the ports, run the following command:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ netstat -anp | grep mysqld
     tcp        0      0 192.168.2.21:4030           0.0.0.0:*                   LISTEN      21895/mysqld
     tcp        0      0 0.0.0.0:4000                0.0.0.0:*                   LISTEN      21895/mysqld
@@ -128,25 +130,25 @@ To set up the cluster:
 
     To check the cluster size, run the following command:
 
-    ```sql
+    ```{.bash data-prompt="$"}
     $ mysql -h127.0.0.1 -P6000 -e "show global status like 'wsrep_cluster_size';"
     ```
 
-    The following output shows the custer size:
+    ??? example "Expected output"
 
-    ```text
-    +--------------------+-------+
-    | Variable_name      | Value |
-    +--------------------+-------+
-    | wsrep_cluster_size | 3     |
-    +--------------------+-------+
-    ```
+        ```{.text .no-copy}
+        +--------------------+-------+
+        | Variable_name      | Value |
+        +--------------------+-------+
+        | wsrep_cluster_size | 3     |
+        +--------------------+-------+
+        ```
 
     After that you can connect to any node and perform queries,
     which will be automatically synchronized with other nodes.
     For example, to create a database on the second node,
     you can run the following command:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mysql -h127.0.0.1 -P5000 -e "CREATE DATABASE hello_peter"
     ```

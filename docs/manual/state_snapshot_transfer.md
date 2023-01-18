@@ -1,4 +1,4 @@
-# State Snapshot Transfer
+# State snapshot transfer
 
 State Snapshot Transfer (SST) is a full data copy from one node (donor)
 to the joining node (joiner).
@@ -16,7 +16,7 @@ The SST method can be configured using the [`wsrep_sst_method`](../wsrep-system-
 
     If the [`gcs.sync_donor`](../wsrep-provider-index.md#gcs.sync_donor) variable is set to `Yes` (default is `No`), the whole cluster will get blocked if the donor is blocked by SST.
 
-## Choosing the SST Donor
+## Choose the SST Donor
 
 If there are no nodes available
 that can safely perform incremental state transfer (IST),
@@ -31,7 +31,7 @@ the cluster chooses a remote node to serve as the donor.
 If there are several local and remote nodes that can perform IST,
 the cluster chooses the node with the highest `seqno` to serve as the donor.
 
-## Using Percona Xtrabackup
+## Use Percona Xtrabackup
 
 The default SST method is `xtrabackup-v2` which uses *Percona XtraBackup*.
 This is the least blocking method that leverages [backup locks](https://www.percona.com/doc/percona-server/8.0/management/backup_locks.html).
@@ -56,7 +56,7 @@ the target directory does not exist, it will be created.  If the target file
 already exists, an error will be returned, because XtraBackup cannot clear
 tablespaces not in the data directory.
 
-## Other Reading
+## Other reading
 
 * [State Snapshot Transfer Methods for MySQL](https://galeracluster.com/library/documentation/sst.html)
 

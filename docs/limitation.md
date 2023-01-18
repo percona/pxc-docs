@@ -1,4 +1,4 @@
-# Percona XtraDB Cluster Limitations
+# Percona XtraDB Cluster limitations
 
 The following limitations apply to Percona XtraDB Cluster:
 
@@ -36,9 +36,11 @@ The following limitations apply to Percona XtraDB Cluster:
     and only one of the them can successfully commit. The failing one will be
     aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock error code:
 
-    ```text
-    (Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
-    ```
+    ??? example "Error message"
+
+        ```{.text .no-copy}
+        (Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
+        ```
 
 * XA transactions are not supported
 
@@ -82,10 +84,12 @@ The following limitations apply to Percona XtraDB Cluster:
 
     With wsrep_debug set to *1*, the error log may contain the following message:
 
-    ```text
-    ... [Note] WSREP: TO BEGIN: -1, 0 : create table t (i int) engine=innodb
-    ... [Note] WSREP: TO isolation skipped for: 1, sql: create table t (i int) engine=innodb.Only temporary tables affected.
-    ```
+    ??? example "Error message"
+
+        ```{.text .no-copy}
+        ... [Note] WSREP: TO BEGIN: -1, 0 : create table t (i int) engine=innodb
+        ... [Note] WSREP: TO isolation skipped for: 1, sql: create table t (i int) engine=innodb.Only temporary tables affected.
+        ```
 
     !!! admonition "See also"
 
@@ -102,9 +106,7 @@ This change addresses a deadlock, which could cause a cluster node to hang in th
 
 Do not use one or more dot characters (.) when defining the values for the following variables:
 
-
 * [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
-
 
 * [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 

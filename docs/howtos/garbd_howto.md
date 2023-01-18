@@ -1,4 +1,4 @@
-# Setting up Galera Arbitrator
+# Set up Galera arbitrator
 
 The size of a cluster increases when a node joins the cluster and decreases when a node leaves. A cluster reacts to replication problems with inconsistency voting. The size of the cluster determines the required votes to achieve a quorum. If a node no longer responds and is disconnected from the cluster the remaining nodes vote. The majority of the nodes that vote are considered to be in the cluster.
 
@@ -18,17 +18,17 @@ Galera Arbitrator does not need a dedicated server and can be installed on a mac
 
 *Galera Arbitrator* can be installed from Percona’s repository on Debian/Ubuntu distributions with the following command:
 
-```shell
+```{.bash data-prompt="root@ubuntu:~#"}
 root@ubuntu:~# apt install percona-xtradb-cluster-garbd
 ```
 
 *Galera Arbitrator* can be installed from Percona’s repository on RedHat or derivative distributions with the following command:
 
-```shell
+```{.bash data-prompt="[root@centos ~]#"}
 [root@centos ~]# yum install percona-xtradb-cluster-garbd
 ```
 
-## Starting `garbd` and configuration
+## Start `garbd` and configuration
 
 !!! note 
 
@@ -40,7 +40,7 @@ root@ubuntu:~# apt install percona-xtradb-cluster-garbd
 
 When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:
 
-```shell
+```{.bash data-prompt="$"}
 $ garbd --group=my_ubuntu_cluster \
 --address="gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567" \
 --option="socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \
@@ -53,7 +53,7 @@ To avoid entering the options each time you start `garbd`, edit the options in t
 
 The configuration file should look like this after the installation and before you have added your parameters:
 
-```text
+```{.text .no-copy}
 # Copyright (C) 2013-2015 Codership Oy
 # This config file is to be sourced by garb service script.
 
@@ -81,7 +81,7 @@ Add the parameter information about the cluster. For this document, we use the c
     Please note that you need to remove the `# REMOVE THIS AFTER
     CONFIGURATION` line before you can start the service.
 
-```text
+```{.text .no-copy}
 # This config file is to be sourced by garb service script.
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
@@ -101,52 +101,60 @@ GALERA_GROUP="my_ubuntu_cluster"
 
 You can now start the *Galera Arbitrator* daemon (`garbd`) by running:
 
-* On Debian or Ubuntu:
+=== "On Debian or Ubuntu"
 
-    ```shell
+    ```{.bash data-prompt="root@server:~#"}
     root@server:~# service garbd start
     ```
 
-    ```text
-    [ ok ] Starting /usr/bin/garbd: :.
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        [ ok ] Starting /usr/bin/garbd: :.
+        ```
 
     !!! note 
 
         On systems that run `systemd` as the default system and service manager, use `systemctl` instead of `service` to invoke the command. Currently, both are supported.
 
-        ```shell
+        ```{.bash data-prompt="root@server:~#"}
         root@server:~# systemctl start garb
         ```
 
-* On Red Hat Enterprise Linux or CentOS:
+=== "On Red Hat Enterprise Linux or CentOS"
 
-    ```shell
+    ```{.bash data-prompt="root@server:~#"}
     root@server:~# service garb start
     ```
 
-    ```text
-    [ ok ] Starting /usr/bin/garbd: :.
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        [ ok ] Starting /usr/bin/garbd: :.
+        ```
 
 Additionally, you can check the `arbitrator` status by running:
 
-* On Debian or Ubuntu:
+=== "On Debian or Ubuntu"
 
-    ```shell
+    ```{.bash data-prompt="root@server:~#"}
     root@server:~# service garbd status
     ```
 
-    ```text
-    [ ok ] garb is running.
-    ```
+    ??? example "Expected output"
 
-* On Red Hat Enterprise Linux or CentOS:
+        ```{.text .no-copy}
+        [ ok ] garb is running.
+        ```
 
-    ```shell
+=== "On Red Hat Enterprise Linux or CentOS"
+
+    ```{.bash data-prompt="root@server:~#"}
     root@server:~# service garb status
     ```
 
-    ```text
-    [ ok ] garb is running.
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        [ ok ] garb is running.
+        ```

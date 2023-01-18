@@ -1,4 +1,4 @@
-# Quick Start Guide for Percona XtraDB Cluster
+# Quick start guide for Percona XtraDB Cluster
 
 This guide describes the procedure for setting up Percona XtraDB Cluster.
 

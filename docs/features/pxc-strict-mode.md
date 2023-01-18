@@ -1,4 +1,4 @@
-# PXC Strict Mode
+# PXC strict mode
 
 PXC Strict Mode is designed to avoid the use of
 tech preview features and unsupported features in Percona XtraDB Cluster.
@@ -53,7 +53,7 @@ or the `--pxc-strict-mode` option during `mysqld` startup.
     For example, to set PXC Strict Mode to `PERMISSIVE`,
     run the following command:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SET GLOBAL pxc_strict_mode=PERMISSIVE;
     ```
 
@@ -98,9 +98,11 @@ ENFORCING or MASTER, the server will stop with an error:
 
 **Error message with [`pxc_strict_mode`](../wsrep-system-index.md#pxc_strict_mode) set to `ENFORCING` or `MASTER`**
 
-```text
-Group replication cannot be used with PXC in strict mode.
-```
+??? example "The error message"
+
+    ```{.text .no-copy}
+    Group replication cannot be used with PXC in strict mode.
+    ```
 
 If `pxc_strict_mode` is set to `DISABLED` you can use group
 replication at your own risk. Setting [`pxc_strict_mode`](../wsrep-system-index.md#pxc_strict_mode) to
@@ -108,10 +110,12 @@ replication at your own risk. Setting [`pxc_strict_mode`](../wsrep-system-index.
 
 **Warning message with `pxc_strict_mode` set to `PERMISSIVE`**
 
-```text
-Using group replication with PXC is only supported for migration. Please
-make sure that group replication is turned off once all data is migrated to PXC.
-```
+??? example "Warning message"
+
+    ```{.text .no-copy}
+    Using group replication with PXC is only supported for migration. Please
+    make sure that group replication is turned off once all data is migrated to PXC.
+    ```
 
 ### Storage engine
 
@@ -324,7 +328,7 @@ At startup, if `innodb_autoinc_lock_mode` is not set to `2`, an error is logged 
 
     This validation is not performed during runtime, because the `innodb_autoinc_lock_mode` variable cannot be set dynamically.
 
-### Combining schema and data changes in a single statement
+### Combine schema and data changes in a single statement
 
 With strict mode set to `ENFORCING`, Percona XtraDB Cluster does not support  statements, because they combine both schema and
 data changes. Note that tables in the SELECT clause should be present on all
@@ -358,7 +362,7 @@ Depending on the strict mode selected, the following happens:
     If ``node-1`` has a temporary and a non-temporary table with the same name,
     CREATE TABLE ... AS SELECT (CTAS) on ``node-1`` will use temporary and CREATE TABLE ... AS SELECT (CTAS) on ``node-2`` will use the non-temporary table resulting in a data level inconsistency.
 
-### Discarding and Importing Tablespaces
+### Discard and import tablespaces
 
 `DISCARD TABLESPACE` and `IMPORT TABLESPACE` are not replicated using TOI.
 This can lead to data inconsistency if executed on only one node.

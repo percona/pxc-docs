@@ -1,4 +1,4 @@
-# Installing Percona XtraDB Cluster on Debian or Ubuntu
+# Install Percona XtraDB Cluster on Debian or Ubuntu
 
 Specific information on the supported platforms, products, and versions
 is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -29,7 +29,7 @@ using **apt**.
 
     For more information, see [Enabling AppArmor](../security/apparmor.md#apparmor).
 
-## Installing from Repository
+## Install from Repository
 
 
 1. Update the sytem:
@@ -107,7 +107,7 @@ During the installation, you are requested to provide a password for the `root` 
     * `percona-xtradb-cluster-test`
 
 
-## Next Steps
+## Next steps
 
 After you install Percona XtraDB Cluster and stop the `mysql` service,
 configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](../configure.md#configure).

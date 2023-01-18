@@ -1,4 +1,4 @@
-# Perfomance Schema Instrumentation
+# Perfomance Schema instrumentation
 
 To improve monitoring *Percona XtraDB Cluster* has implemented an
 infrastructure to expose Galera instruments (mutexes, cond-variables, files,
@@ -12,26 +12,26 @@ not part of the `PERFORMANCE_SCHEMA`.
 
 You can see the complete list of available instruments by running:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM performance_schema.setup_instruments WHERE name LIKE '%galera%' OR name LIKE '%wsrep%';
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+----------------------------------------------------------+---------+-------+
-| NAME                                                     | ENABLED | TIMED |
-+----------------------------------------------------------+---------+-------+
-| wait/synch/mutex/sql/LOCK_wsrep_ready                    | NO      | NO    |
-| wait/synch/mutex/sql/LOCK_wsrep_sst                      | NO      | NO    |
-| wait/synch/mutex/sql/LOCK_wsrep_sst_init                 | NO      | NO    |
-...
-| stage/wsrep/wsrep: in rollback thread                    | NO      | NO    |
-| stage/wsrep/wsrep: aborter idle                          | NO      | NO    |
-| stage/wsrep/wsrep: aborter active                        | NO      | NO    |
-+----------------------------------------------------------+---------+-------+
-73 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +----------------------------------------------------------+---------+-------+
+    | NAME                                                     | ENABLED | TIMED |
+    +----------------------------------------------------------+---------+-------+
+    | wait/synch/mutex/sql/LOCK_wsrep_ready                    | NO      | NO    |
+    | wait/synch/mutex/sql/LOCK_wsrep_sst                      | NO      | NO    |
+    | wait/synch/mutex/sql/LOCK_wsrep_sst_init                 | NO      | NO    |
+    ...
+    | stage/wsrep/wsrep: in rollback thread                    | NO      | NO    |
+    | stage/wsrep/wsrep: aborter idle                          | NO      | NO    |
+    | stage/wsrep/wsrep: aborter active                        | NO      | NO    |
+    +----------------------------------------------------------+---------+-------+
+    73 rows in set (0.00 sec)
+    ```
 
 Some of the most important are:
 
@@ -75,7 +75,7 @@ monitor. That is 128K \* 3 = 384K condition variables. These are not tracked to
 avoid hogging `PERFORMANCE_SCHEMA` limits and sidelining of the main crucial
 information.
 
-## Using `pxc_cluster_view`
+## Use `pxc_cluster_view`
 
 The `pxc_cluster_view` - provides a unified view of the cluster. The table is in the Performance_Schema database.
 
@@ -85,18 +85,20 @@ DESCRIBE pxc_cluster_view;
 
 This table has the following definition:
 
-```text
-+-------------+--------------+------+-----+---------+-------+
-| Field       | Type         | Null | Key | Default | Extra |
-+-------------+--------------+------+-----+---------+-------+
-| HOST_NAME   | char(64)     | NO   |     | NULL    |       |
-| UUID        | char(36)     | NO   |     | NULL    |       |
-| STATUS      | char(64)     | NO   |     | NULL    |       |
-| LOCAL_INDEX | int unsigned | NO   |     | NULL    |       |
-| SEGMENT     | int unsigned | NO   |     | NULL    |       |
-+-------------+--------------+------+-----+---------+-------+
-5 rows in set (0.00 sec)
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +-------------+--------------+------+-----+---------+-------+
+    | Field       | Type         | Null | Key | Default | Extra |
+    +-------------+--------------+------+-----+---------+-------+
+    | HOST_NAME   | char(64)     | NO   |     | NULL    |       |
+    | UUID        | char(36)     | NO   |     | NULL    |       |
+    | STATUS      | char(64)     | NO   |     | NULL    |       |
+    | LOCAL_INDEX | int unsigned | NO   |     | NULL    |       |
+    | SEGMENT     | int unsigned | NO   |     | NULL    |       |
+    +-------------+--------------+------+-----+---------+-------+
+    5 rows in set (0.00 sec)
+    ```
 
 To view the table, run the following query:
 
@@ -104,15 +106,15 @@ To view the table, run the following query:
 SELECT * FROM pxc_cluster_view;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+-----------+--------------------------------------+--------+-------------+---------+
-| HOST_NAME | UUID                                 | STATUS | LOCAL_INDEX | SEGMENT |
-+-----------+--------------------------------------+--------+-------------+---------+
-| node1     | 22b9d47e-c215-11eb-81f7-7ed65a9d253b | SYNCED |           0 |       0 |
-| node3     | 29c51cf5-c216-11eb-9101-1ba3a28e377a | SYNCED |           1 |       0 |
-| node2     | 982cdb03-c215-11eb-9865-0ae076a59c5c | SYNCED |           2 |       0 |
-+-----------+--------------------------------------+--------+-------------+---------+
-3 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +-----------+--------------------------------------+--------+-------------+---------+
+    | HOST_NAME | UUID                                 | STATUS | LOCAL_INDEX | SEGMENT |
+    +-----------+--------------------------------------+--------+-------------+---------+
+    | node1     | 22b9d47e-c215-11eb-81f7-7ed65a9d253b | SYNCED |           0 |       0 |
+    | node3     | 29c51cf5-c216-11eb-9101-1ba3a28e377a | SYNCED |           1 |       0 |
+    | node2     | 982cdb03-c215-11eb-9865-0ae076a59c5c | SYNCED |           2 |       0 |
+    +-----------+--------------------------------------+--------+-------------+---------+
+    3 rows in set (0.00 sec)
+    ```

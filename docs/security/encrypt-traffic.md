@@ -1,8 +1,8 @@
-# Encrypting PXC Traffic
+# Encrypt PXC traffic
 
 There are two kinds of traffic in Percona XtraDB Cluster:
 
-1. Client-Server traffic (the one between client applications and cluster
+1. Client-server traffic (the one between client applications and cluster
 nodes),
 
 2. Replication traffic, that includes [SST](../glossary.md#sst), [IST](../glossary.md#ist), write-set replication, and various service messages.
@@ -10,14 +10,14 @@ nodes),
 Percona XtraDB Cluster supports encryption for all types of traffic. Replication traffic
 encryption can be configured either automatically or manually.
 
-## Encrypting Client-Server Communication
+## Encrypt client-server communication
 
 Percona XtraDB Cluster uses the underlying MySQL encryption mechanism
 to secure communication between client applications and cluster nodes.
 
 MySQL generates default key and certificate files and places them in the data
 directory. You can override auto-generated files with manually created ones, as
-described in the section [Generating Keys and Certificates Manually](#generating-keys-and-certificates-manually).
+described in the section [Generate keys and certificates manually](#generate-keys-and-certificates-manually).
 
 The auto-generated files are suitable for automatic SSL configuration, but you
 should use the same key and certificate files on all nodes.
@@ -44,9 +44,9 @@ to communicate with cluster nodes.
 MySQL generates the default key and certificate
 files and places them in the data directory. You can either use them or generate
 new certificates. For generation of new certificate please refer to
-[Generating Keys and Certificates Manually](#generating-keys-and-certificates-manually) section.
+[Generate keys and certificates manually](#generate-keys-and-certificates-manually) section.
 
-## Encrypting Replication Traffic
+## Encrypt replication traffic
 
 *Replication traffic* refers to the inter-node traffic which includes
 the [SST](../glossary.md#sst) traffic, [IST](../glossary.md#ist) traffic, and replication traffic.
@@ -56,11 +56,11 @@ is important to configure secure channels for all 3 variants to
 completely secure the replication traffic.
 
 Percona XtraDB Cluster supports a single configuration option which helps to secure the complete
-replication traffic, and is often referred to as [SSL Automatic Configuration](#ssl-automatic-configuration). You can
+replication traffic, and is often referred to as [SSL automatic configuration](#ssl-automatic-configuration). You can
 also configure the security of each channel by specifying independent
 parameters.
 
-## SSL Automatic Configuration
+## SSL automatic configuration
 
 The automatic configuration of the SSL encryption needs a key and certificate
 files. MySQL generates a default key and certificate files and places them in
@@ -70,7 +70,7 @@ the data directory.
 
     It is important that your cluster use the same SSL certificates on all nodes.
 
-### Enabling `pxc-encrypt-cluster-traffic`
+### Enable `pxc-encrypt-cluster-traffic`
 
 Percona XtraDB Cluster includes the `pxc-encrypt-cluster-traffic` variable that
 enables automatic configuration of SSL encryption there-by encrypting
@@ -119,7 +119,7 @@ MySQL generates default key and certificate
 files and places them in data directory. These auto-generated files are
 suitable for automatic SSL configuration, but *you should use the same key and
 certificate files on all nodes*. Also you can override auto-generated files with
-manually created ones, as covered in [Generating Keys and Certificates Manually](#generating-keys-and-certificates-manually).
+manually created ones, as covered in [Generate keys and certificates manually](#generate-keys-and-certificates-manually).
 
 The necessary key and certificate files are first searched at the `ssl-ca`,
 `ssl-cert`, and `ssl-key` options under `[mysqld]`. If these options are
@@ -133,7 +133,7 @@ not set, the data directory is searched for `ca.pem`,
 If all three files are found, they are used to configure encryption.
 If any of the files is missing, a fatal error is generated.
 
-## SSL Manual Configuration
+## SSL manual configuration
 
 If user wants to enable encryption for specific channel only or
 use different certificates or other mix-match, then user can opt for
@@ -141,7 +141,7 @@ manual configuration. This helps to provide more flexibility to end-users.
 
 To enable encryption manually, the location of the required key and certificate
 files shoud be specified in the Percona XtraDB Cluster configuration. If you do not have the
-necessary files, see [Generating Keys and Certificates Manually](#generating-keys-and-certificates-manually).
+necessary files, see [Generate keys and certificates manually](#generate-keys-and-certificates-manually).
 
 !!! note 
 
@@ -149,27 +149,27 @@ necessary files, see [Generating Keys and Certificates Manually](#generating-key
 
 There are three aspects of Percona XtraDB Cluster operation, where you can enable encryption:
 
-* [Encrypting SST Traffic](#encrypting-sst-traffic)
+* [Encrypt SST traffic](#encrypt-sst-traffic)
 
     This refers to [SST](../glossary.md#sst) traffic during full data copy
     from one cluster node (donor) to the joining node (joiner).
 
 
-* [Encrypting Replication Traffic](#encrypting-replication-traffic)
+* [Encrypt replication traffic](#encrypt-replication-traffic)
 
 
-* [Encrypting IST Traffic](#encrypting-replicationist-traffic)
+* [Encrypt IST traffic](#encrypt-replicationist-traffic)
 
     This refers to all internal Percona XtraDB Cluster communication,
     such as, write-set replication, [IST](../glossary.md#ist), and various service messages.
 
-### Encrypting SST Traffic
+### Encrypt SST traffic
 
 This refers to full data transfer
 that usually occurs when a new node (JOINER) joins the cluster
 and receives data from an existing node (DONOR).
 
-For more information, see [State Snapshot Transfer](../manual/state_snapshot_transfer.md#state-snapshot-transfer).
+For more information, see [State snapshot transfer](../manual/state_snapshot_transfer.md#state-snapshot-transfer).
 
 !!! note 
 
@@ -214,13 +214,13 @@ Encryption mode for this method is selected using the [`encrypt`](../manual/xtra
     If a `dhparams.pem` file of required length is not found during SST in the data directory, it is generated with 2048 bits, which can take several minutes.
     To avoid this delay, create the `dhparams.pem` file manually and place it in the data directory before joining the node to the cluster:
 
-    ```default
+    ```shell
     openssl dhparam -out /path/to/datadir/dhparams.pem 2048
     ```
 
     For more information, see [this blog post](https://www.percona.com/blog/2017/04/23/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
 
-### Encrypting Replication/IST Traffic
+### Encrypt replication/IST traffic
 
 Replication traffic refers to the following:
 
@@ -251,17 +251,17 @@ using the following [wsrep provider options](../wsrep-provider-index.md#wsrep-pr
 
 To set these options, use the [`wsrep_provider_options`](../wsrep-system-index.md#wsrep_provider_options) variable in the configuration file:
 
-```text
+```shell
 wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
 ```
 
 !!! note 
 
-    You must use the same key and certificate files on all nodes, preferably those used for [Encrypting Client-Server Communication](#encrypting-client-server-communication).
+    You must use the same key and certificate files on all nodes, preferably those used for [Encrypt client-server communication](#encrypt-client-server-communication).
 
-Check [upgrade-certificate](#upgrading-certificates) section on how to upgrade existing certificates.
+Check [upgrade-certificate](#upgrade-certificates) section on how to upgrade existing certificates.
 
-## Generating Keys and Certificates Manually
+## Generate keys and certificates manually
 
 As mentioned above, MySQL generates default key and certificate
 files and places them in the data directory. If you want to override these
@@ -279,78 +279,76 @@ These files should be generated using [OpenSSL](https://www.openssl.org/).
 
     The `Common Name` value used for the server and client keys and certificates must differ from that value used for the CA certificate.
 
-### Generating CA Key and Certificate
+=== "Generate CA key and certificate"
 
-The Certificate Authority is used to verify the signature on certificates.
+    The Certificate Authority is used to verify the signature on certificates.
 
-1. Generate the CA key file:
+    1. Generate the CA key file:
 
-    ```shell
-    $ openssl genrsa 2048 > ca-key.pem
-    ```
+        ```{.bash data-prompt="$"}
+        $ openssl genrsa 2048 > ca-key.pem
+        ```
 
-2. Generate the CA certificate file:
+    2. Generate the CA certificate file:
 
-    ```shell
-    $ openssl req -new -x509 -nodes -days 3600
-        -key ca-key.pem -out ca.pem
-    ```
+        ```{.bash data-prompt="$"}
+        $ openssl req -new -x509 -nodes -days 3600
+            -key ca-key.pem -out ca.pem
+        ```
 
-### Generating Server Key and Certificate
+=== "Generate server key and certificate"
 
+    1. Generate the server key file:
 
-1. Generate the server key file:
+        ```{.bash data-prompt="$"}
+        $ openssl req -newkey rsa:2048 -days 3600 \
+            -nodes -keyout server-key.pem -out server-req.pem
+        ```
 
-    ```shell
-    $ openssl req -newkey rsa:2048 -days 3600 \
-        -nodes -keyout server-key.pem -out server-req.pem
-    ```
+    2. Remove the passphrase:
 
-2. Remove the passphrase:
+        ```{.bash data-prompt="$"}
+        $ openssl rsa -in server-key.pem -out server-key.pem
+        ```
 
-    ```shell
-    $ openssl rsa -in server-key.pem -out server-key.pem
-    ```
+    3. Generate the server certificate file:
 
-3. Generate the server certificate file:
+        ```{.bash data-prompt="$"}
+        $ openssl x509 -req -in server-req.pem -days 3600 \
+            -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
+            -out server-cert.pem
+        ```
 
-    ```shell
-    $ openssl x509 -req -in server-req.pem -days 3600 \
-        -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
-        -out server-cert.pem
-    ```
+=== "Generate client key and certificate"
 
-### Generating Client Key and Certificate
+    1. Generate the client key file:
 
+        ```{.bash data-prompt="$"}
+        $ openssl req -newkey rsa:2048 -days 3600 \
+            -nodes -keyout client-key.pem -out client-req.pem
+        ```
 
-1. Generate the client key file:
+    2. Remove the passphrase:
 
-    ```shell
-    $ openssl req -newkey rsa:2048 -days 3600 \
-        -nodes -keyout client-key.pem -out client-req.pem
-    ```
+        ```{.bash data-prompt="$"}
+        $ openssl rsa -in client-key.pem -out client-key.pem
+        ```
 
-2. Remove the passphrase:
+    3. Generate the client certificate file:
 
-    ```shell
-    $ openssl rsa -in client-key.pem -out client-key.pem
-    ```
+        ```{.bash data-prompt="$"}
+        $ openssl x509 -req -in client-req.pem -days 3600 \
+           -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
+           -out client-cert.pem
+        ```
 
-3. Generate the client certificate file:
-
-    ```shell
-    $ openssl x509 -req -in client-req.pem -days 3600 \
-       -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
-       -out client-cert.pem
-    ```
-
-### Verifying Certificates
+### Verify certificates
 
 To verify that the server and client certificates
 are correctly signed by the CA certificate,
 run the following command:
 
-```shell
+```{.bash data-prompt="$"}
 $ openssl verify -CAfile ca.pem server-cert.pem client-cert.pem
 ```
 
@@ -367,13 +365,13 @@ Sometimes, an SSL configuration may fail if the certificate and the CA files con
 
 To check if this is the case run `openssl` command as follows and verify that the **CN** field differs for the *Subject* and *Issuer* lines.
 
-```shell
+```{.bash data-prompt="$"}
 $ openssl x509 -in server-cert.pem -text -noout
 ```
 
 **Incorrect values**
 
-```text
+```{.text .no-copy}
 Certificate:
 Data:
 Version: 1 (0x0)
@@ -387,18 +385,18 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 
 To obtain a more compact output run `openssl` specifying -subject and -issuer parameters:
 
-```shell
+```{.bash data-prompt="$"}
 $ openssl x509 -in server-cert.pem -subject -issuer -noout
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-subject= /CN=www.percona.com/O=Database Performance./C=AU
-issuer= /CN=www.percona.com/O=Database Performance./C=US
-```
+    ```{.text .no-copy}
+    subject= /CN=www.percona.com/O=Database Performance./C=AU
+    issuer= /CN=www.percona.com/O=Database Performance./C=US
+    ```
 
-### Deploying Keys and Certificates
+### Deploy keys and certificates
 
 Use a secure method (for example, `scp` or `sftp`)
 to send the key and certificate files to each node.
@@ -428,9 +426,9 @@ The following files are required:
 
 !!! note 
 
-    [Upgrading Certificates](#upgrading-certificates) subsection covers the details on upgrading certificates, if necessary.
+    [Upgrade certificates](#upgrade-certificates) subsection covers the details on upgrading certificates, if necessary.
 
-### Upgrading Certificates
+### Upgrade certificates
 
 The following procedure shows how to upgrade certificates
 used for securing replication traffic when there are two nodes in the cluster.
