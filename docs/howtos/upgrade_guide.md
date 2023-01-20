@@ -1,4 +1,4 @@
-# Upgrading Percona XtraDB Cluster
+# Upgrade Percona XtraDB Cluster
 
 <!-- This guide describes the procedure for upgrading Percona XtraDB Cluster without downtime
 (*rolling upgrade*) to the Percona XtraDB Cluster 8.0. -->
@@ -21,7 +21,7 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 * [PXC Strict Mode is enabled by default](#pxc-strict-mode-is-enabled-by-default)
 * [The configuration file layout has changed in PXC 8.0](#the-configuration-file-layout-has-changed-in-pxc-80)
 * [caching_sha2_password is the default authentication plugin](#cachingsha2password-is-the-default-authentication-plugin)
-* [mysql_upgrade is part of SST](#mysqlupgrade-is-part-of-sstglossarymdterm-sst)
+* [mysql_upgrade is part of SST](#mysqlupgrade-is-part-of-sstglossarymdsst)
 
 ### Traffic encryption is enabled by default
 
@@ -33,10 +33,12 @@ same SSL certificates) or try to join a cluster running PXC 5.7 which
 unencrypted cluster traffic, the node will not be able to join resulting in an
 error.
 
-```text
-... [ERROR] ... [Galera] handshake with remote endpoint ...
-This error is often caused by SSL issues. ...
-```
+??? example "The error message"
+
+    ```{.text .no-copy}
+    ... [ERROR] ... [Galera] handshake with remote endpoint ...
+    This error is often caused by SSL issues. ...
+    ```
 
 !!! admonition "See also"
 
@@ -61,7 +63,7 @@ Shut down the cluster and upgrade all nodes to PXC
 The rolling upgrade is supported but ensure the
 traffic is controlled during the upgrade and writes are directed only to 5.7
 nodes until all nodes are upgraded to 8.0. -->
-### [PXC Strict Mode] is enabled by default
+### [PXC strict mode] is enabled by default
 
 Percona XtraDB Cluster in 8.0 runs with [PXC Strict Mode](../features/pxc-strict-mode.md#pxc-strict-mode) enabled by default. This will deny any unsupported operations and may halt the server if [a strict mode validation fails](../features/pxc-strict-mode.md#validations). It is recommended to first start the node with
 the `pxc_strict_mode` variable set to `PERMISSIVE` in the MySQL
@@ -71,7 +73,7 @@ After you check the log for any tech preview features or unsupported features
 and you have fixed any of the encountered incompatibilities, set the variable
 back to `ENFORCING` at run time:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET pxc_strict_mode=ENFORCING;
 ```
 
@@ -91,7 +93,7 @@ Before you start the upgrade, move your custom settings from
 Ubuntu) or from `/etc/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Red Hat
 and CentOS) to the new location accordingly.
 
-### `caching_sha2_password` is the default authentication plugin
+### caching_sha2_password is the default authentication plugin
 
 In Percona XtraDB Cluster 8.0, the default authentication plugin is
 `caching_sha2_password`. The ProxySQL option
@@ -101,7 +103,7 @@ authentication plugin in these cases.
 
 Be sure you are running on the latest 5.7 version before you upgrade to 8.0.
 
-### **mysql_upgrade** is part of [SST](../glossary.md#sst)
+### mysql_upgrade is part of [SST](../glossary.md#sst)
 
 **mysql_upgrade** is now run automatically as part of [SST](../glossary.md#sst). You do not have
 to run it manually when upgrading your system from an older version.
@@ -162,7 +164,7 @@ each node accordingly and avoid joining a cluster with unencrypted cluster
 traffic: all nodes in your cluster must have traffic encryption enabled. For
 more information, see :ref:`upgrade-guide-changed-traffic-encryption`. -->
 <!-- #. Repeat this procedure for the next node in the cluster until you upgrade all nodes. -->
-## Major Upgrade Scenarios
+## Major upgrade scenarios
 
 Upgrading PXC from 5.7 to 8.0 may have slightly different strategies depending
 on the configuration and workload on your PXC cluster.
@@ -213,17 +215,17 @@ protocol version 4 is applied.
 
     The protocol version is stored in the ``protocol_version`` column of the ``wsrep_cluster`` table.
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> USE mysql;
     ```
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> SELECT protocol_version from wsrep_cluster;
     ```
 
     The example of the output is the following:
 
-    ```text
+    ```{.text .no-copy}
     +------------------+
     | protocol_version |
     +------------------+
@@ -296,7 +298,7 @@ and gets a proper local index and other properties assigned.
 In this case, you need to configure the source-replica replication. Make one of the
 PXC nodes as an async replica. Upgrade the PXC async replica node and check the
 replication status. -->
-### Scenario: Upgrading from PXC 5.6 to PXC 8.0
+### Scenario: Upgrade from PXC 5.6 to PXC 8.0
 
 First, upgrade PXC from 5.6 to the latest version of PXC 5.7. Then proceed
 with the upgrade using the procedure described in
@@ -310,7 +312,7 @@ To upgrade the cluster, follow these steps for each node:
 
 2. Stop the `mysql` service:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo service mysql stop
     ```
 
@@ -327,7 +329,7 @@ state transfer (IST/SST).
     In most cases, starting the `mysql` service should run the node with your
     previous configuration. For more information, see [Adding Nodes to Cluster](../add-node.md#add-node).
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo service mysql start
     ```
 

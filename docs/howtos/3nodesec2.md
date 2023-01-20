@@ -11,7 +11,6 @@ with Red Hat Enterprise Linux 7 64-bit.
 
 ### Recommendations on launching EC2 instances
 
-
 1. Select [instance types](https://aws.amazon.com/ec2/instance-types/) that support Enhanced Networking functionality. Good network performance critical for synchronous replication used in Percona XtraDB Cluster.
 
 2. When adding instance storage volumes, choose the ones with good I/O performance:
@@ -42,14 +41,14 @@ To set up Percona XtraDB Cluster:
 
 3. Create data directories:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mkdir -p /mnt/data
     $ mysql_install_db --datadir=/mnt/data --user=mysql
     ```
 
 4. Stop the firewall service:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ service iptables stop
     ```
 
@@ -96,62 +95,62 @@ To set up Percona XtraDB Cluster:
     [root@pxc1 ~]# systemctl start mysql@bootstrap.service
     ```
 
-    You should see the following output:
+    ??? example "Expected output"
 
-    ```text
-    2014-01-30 11:52:35 23280 [Note] /usr/sbin/mysqld: ready for connections.
-    Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
-    ```
+        ```{.text .no-copy}
+        2014-01-30 11:52:35 23280 [Note] /usr/sbin/mysqld: ready for connections.
+        Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+        ```
 
 7. Start the second and third nodes:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo systemctl start mysql
     ```
 
-    The output should be similar to the following:
+    ??? example "Expected output"
 
-    ```text
-    ... [Note] WSREP: Flow-control interval: [28, 28]
-    ... [Note] WSREP: Restored state OPEN -> JOINED (2)
-    ... [Note] WSREP: Member 2 (percona1) synced with group.
-    ... [Note] WSREP: Shifting JOINED -> SYNCED (TO: 2)
-    ... [Note] WSREP: New cluster view: global state: 4827a206-876b-11e3-911c-3e6a77d54953:2, view# 7: Primary, number of nodes: 3, my index: 2, protocol version 2
-    ... [Note] WSREP: SST complete, seqno: 2
-    ... [Note] Plugin 'FEDERATED' is disabled.
-    ... [Note] InnoDB: The InnoDB memory heap is disabled
-    ... [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
-    ... [Note] InnoDB: Compressed tables use zlib 1.2.3
-    ... [Note] InnoDB: Using Linux native AIO
-    ... [Note] InnoDB: Not using CPU crc32 instructions
-    ... [Note] InnoDB: Initializing buffer pool, size = 128.0M
-    ... [Note] InnoDB: Completed initialization of buffer pool
-    ... [Note] InnoDB: Highest supported file format is Barracuda.
-    ... [Note] InnoDB: 128 rollback segment(s) are active.
-    ... [Note] InnoDB: Waiting for purge to start
-    ... [Note] InnoDB:  Percona XtraDB (http://www.percona.com) ... started; log sequence number 1626341
-    ... [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
-    ... [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
-    ... [Note] Server hostname (bind-address): '*'; port: 3306
-    ... [Note] IPv6 is available.
-    ... [Note]   - '::' resolves to '::';
-    ... [Note] Server socket created on IP: '::'.
-    ... [Note] Event Scheduler: Loaded 0 events
-    ... [Note] /usr/sbin/mysqld: ready for connections.
-    Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
-    ... [Note] WSREP: inited wsrep sidno 1
-    ... [Note] WSREP: wsrep_notify_cmd is not defined, skipping notification.
-    ... [Note] WSREP: REPL Protocols: 5 (3, 1)
-    ... [Note] WSREP: Assign initial position for certification: 2, protocol version: 3
-    ... [Note] WSREP: Service thread queue flushed.
-    ... [Note] WSREP: Synchronized with group, ready for connections
-    ```
+        ```{.text .no-copy}
+        ... [Note] WSREP: Flow-control interval: [28, 28]
+        ... [Note] WSREP: Restored state OPEN -> JOINED (2)
+        ... [Note] WSREP: Member 2 (percona1) synced with group.
+        ... [Note] WSREP: Shifting JOINED -> SYNCED (TO: 2)
+        ... [Note] WSREP: New cluster view: global state: 4827a206-876b-11e3-911c-3e6a77d54953:2, view# 7: Primary, number of nodes: 3, my index: 2, protocol version 2
+        ... [Note] WSREP: SST complete, seqno: 2
+        ... [Note] Plugin 'FEDERATED' is disabled.
+        ... [Note] InnoDB: The InnoDB memory heap is disabled
+        ... [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+        ... [Note] InnoDB: Compressed tables use zlib 1.2.3
+        ... [Note] InnoDB: Using Linux native AIO
+        ... [Note] InnoDB: Not using CPU crc32 instructions
+        ... [Note] InnoDB: Initializing buffer pool, size = 128.0M
+        ... [Note] InnoDB: Completed initialization of buffer pool
+        ... [Note] InnoDB: Highest supported file format is Barracuda.
+        ... [Note] InnoDB: 128 rollback segment(s) are active.
+        ... [Note] InnoDB: Waiting for purge to start
+        ... [Note] InnoDB:  Percona XtraDB (http://www.percona.com) ... started; log sequence number 1626341
+        ... [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
+        ... [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
+        ... [Note] Server hostname (bind-address): '*'; port: 3306
+        ... [Note] IPv6 is available.
+        ... [Note]   - '::' resolves to '::';
+        ... [Note] Server socket created on IP: '::'.
+        ... [Note] Event Scheduler: Loaded 0 events
+        ... [Note] /usr/sbin/mysqld: ready for connections.
+        Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+        ... [Note] WSREP: inited wsrep sidno 1
+        ... [Note] WSREP: wsrep_notify_cmd is not defined, skipping notification.
+        ... [Note] WSREP: REPL Protocols: 5 (3, 1)
+        ... [Note] WSREP: Assign initial position for certification: 2, protocol version: 3
+        ... [Note] WSREP: Service thread queue flushed.
+        ... [Note] WSREP: Synchronized with group, ready for connections
+        ```
 
     When all nodes are in SYNCED state, your cluster is ready.
 
 8. You can try connecting to MySQL on any node and create a database:
 
-    ```sql
+    ```{.bash data-prompt="$"}
     $ mysql -uroot
     > CREATE DATABASE hello_tom;
     ```

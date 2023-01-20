@@ -1,5 +1,9 @@
 # Percona XtraDB Cluster 8.0 Documentation
 
+!!! note ""
+
+    This documentation is for the latest release: Percona XtraDB Cluster {{release}} ([Release Notes](release-notes/{{release}}.md)).
+
 [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
 
 ### Features of Percona XtraDB Cluster
@@ -18,9 +22,9 @@
 
 Percona XtraDB Cluster 8.0 is fully compatible with MySQL Server Community Edition 8.0 and Percona Server for MySQL 8.0. The cluster has the following compatibilities:
 
-* Data - Use the data created by any MySQL variant.
+* Data - use the data created by any MySQL variant.
 
-* Application - No changes or minimal application changes are required for an application to use the cluster.
+* Application - no changes or minimal application changes are required for an application to use the cluster.
 
 !!! admonition "See also"
 

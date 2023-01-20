@@ -409,7 +409,7 @@ The status of the local monitor (local and replicating actions), apply monitor
 sets). In the value of this variable, each monitor (L: Local, A: Apply, C:
 Commit) is represented as a *last_entered*, and *last_left* pair:
 
-```text
+```{.text .no-copy}
 wsrep_monitor_status (L/A/C)	[ ( 7, 5), (2, 2), ( 2, 2) ]
 ```
 

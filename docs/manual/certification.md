@@ -78,13 +78,13 @@ which is then processed through different action handlers.
   and that way even though each packet doesn’t carry `id` information,
   it is inherently established using the locally maintained `id` value.
 
-## Common Situation
+## Common situation
 
 The following example shows what happens in a common situation.
 `act_id` is incremented and assigned only for totally ordered actions,
 and only in primary state (skip messages while in state exchange).
 
-```text
+```shell
 rcvd->id = ++group->act_id_;
 ```
 
@@ -138,7 +138,7 @@ The following happens if two nodes get ready with their packet at same time:
 
         Even though the packet originated from Node 1, it will undergo certification to catch cases like these.
 
-## Resolving Certification Conflicts
+## Resolve certification conflicts
 
 The certification protocol can be described using the previous example.
 The central certification vector (CCV) is updated
@@ -169,12 +169,12 @@ if one of the nodes has local changes that are not synced with the group:
 create (id primary key) -> insert (1), (2), (3), (4);
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-node-1: wsrep_on=0; insert (5); wsrep_on=1
-node-2: insert(5).
-```
+    ```{.text .no-copy}
+    node-1: wsrep_on=0; insert (5); wsrep_on=1
+    node-2: insert(5).
+    ```
 
 The `insert(5)` statement will generate a write-set
 that will then be replicated to Node 1.
@@ -184,7 +184,7 @@ because 5 already exist.
 XtraDB will flag this as an error,
 which would eventually cause Node 1 to shutdown.
 
-## Incrementing GTID
+## Increment GTID
 
 GTID is incremented only when the transaction passes certification,
 and is ready for commit.

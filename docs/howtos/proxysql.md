@@ -1,7 +1,7 @@
 # Load balancing with ProxySQL
 
 [ProxySQL](http://www.proxysql.com/) is a high-performance SQL proxy. ProxySQL runs as a daemon watched by
-a monitoring process.  The process monitors the daemon and restarts it in case
+a monitoring process. The process monitors the daemon and restarts it in case
 of a crash to minimize downtime.
 
 The daemon accepts incoming traffic from MySQL clients and forwards it to
@@ -23,7 +23,7 @@ grouping, and traffic-related settings.
 
     In version 8.0, Percona XtraDB Cluster does not support ProxySQL v1.  
 
-## Manual Configuration
+## Manual configuration
 
 This section describes how to configure ProxySQL with three Percona XtraDB Cluster nodes.
 
@@ -53,14 +53,14 @@ In Percona XtraDB Cluster 8.0, ProxySQL is not installed automatically as a depe
 
 * On Debian or Ubuntu for ProxySQL 2.x:
 
-```shell
+```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# apt install percona-xtradb-cluster-client
 root@proxysql:~# apt install proxysql2
 ```
 
 * On Red Hat Enterprise Linux or CentOS for ProxySQL 2.x:
 
-```shell
+```{.bash data-prompt="$"}
 $ sudo yum install Percona-XtraDB-Cluster-client-80
 $ sudo yum install proxysql2
 ```
@@ -74,74 +74,78 @@ To connect to the admin interface, use the credentials, host name and port speci
 The following example shows how to connect to the ProxySQL admin interface
 with default credentials:
 
-```shell
+```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# mysql -u admin -padmin -h 127.0.0.1 -P 6032
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 2
-Server version: 5.5.30 (ProxySQL Admin Module)
+    ```{.text .no-copy}
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 2
+    Server version: 5.5.30 (ProxySQL Admin Module)
 
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
+    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective
+    owners.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql@proxysql>
-```
+    mysql@proxysql>
+    ```
 
 To see the ProxySQL databases and tables use the following commands:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SHOW DATABASES;
 ```
 
 The following output shows the ProxySQL databases:
 
-```text
-+-----+---------+-------------------------------+
-| seq | name    | file                          |
-+-----+---------+-------------------------------+
-| 0   | main    |                               |
-| 2   | disk    | /var/lib/proxysql/proxysql.db |
-| 3   | stats   |                               |
-| 4   | monitor |                               |
-+-----+---------+-------------------------------+
-4 rows in set (0.00 sec)
-```
+??? example "Expected output"
 
-```sql
+    ```{.text .no-copy}
+    +-----+---------+-------------------------------+
+    | seq | name    | file                          |
+    +-----+---------+-------------------------------+
+    | 0   | main    |                               |
+    | 2   | disk    | /var/lib/proxysql/proxysql.db |
+    | 3   | stats   |                               |
+    | 4   | monitor |                               |
+    +-----+---------+-------------------------------+
+    4 rows in set (0.00 sec)
+    ```
+
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SHOW TABLES;
 ```
 
 The following output shows the ProxySQL tables:
 
-```text
-+--------------------------------------+
-| tables                               |
-+--------------------------------------+
-| global_variables                     |
-| mysql_collations                     |
-| mysql_query_rules                    |
-| mysql_replication_hostgroups         |
-| mysql_servers                        |
-| mysql_users                          |
-| runtime_global_variables             |
-| runtime_mysql_query_rules            |
-| runtime_mysql_replication_hostgroups |
-| runtime_mysql_servers                |
-| runtime_scheduler                    |
-| scheduler                            |
-+--------------------------------------+
-12 rows in set (0.00 sec)
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +--------------------------------------+
+    | tables                               |
+    +--------------------------------------+
+    | global_variables                     |
+    | mysql_collations                     |
+    | mysql_query_rules                    |
+    | mysql_replication_hostgroups         |
+    | mysql_servers                        |
+    | mysql_users                          |
+    | runtime_global_variables             |
+    | runtime_mysql_query_rules            |
+    | runtime_mysql_replication_hostgroups |
+    | runtime_mysql_servers                |
+    | runtime_scheduler                    |
+    | scheduler                            |
+    +--------------------------------------+
+    12 rows in set (0.00 sec)
+    ```
 
 For more information about admin databases and tables,
 see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md)
@@ -163,7 +167,7 @@ see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tabl
     This ability is by design and lets you test the changes
     before pushing the change to production (RUNTIME), or save the change to disk.
 
-### Adding cluster nodes to ProxySQL
+### Add cluster nodes to ProxySQL
 
 To configure the backend Percona XtraDB Cluster nodes in ProxySQL,
 insert corresponding records into the `mysql_servers` table.
@@ -180,7 +184,7 @@ insert corresponding records into the `mysql_servers` table.
 This example adds three Percona XtraDB Cluster nodes to the default hostgroup (`0`),
 which receives both write and read traffic:
 
-```text
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'192.168.70.71',3306);
 mysql@proxysql> INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'192.168.70.72',3306);
 mysql@proxysql> INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'192.168.70.73',3306);
@@ -188,24 +192,26 @@ mysql@proxysql> INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (
 
 To see the nodes:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT * FROM mysql_servers;
 ```
 
 The following output shows the list of nodes:
 
-```text
-+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-| hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
-+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-| 0            | 192.168.70.71 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.72 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.73 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-3 rows in set (0.00 sec)
-```
+??? example "Expected output"
 
-### Creating ProxySQL Monitoring User
+    ```{.text .no-copy}
+    +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+    | hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
+    +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+    | 0            | 192.168.70.71 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+    | 0            | 192.168.70.72 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+    | 0            | 192.168.70.73 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+    +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+    3 rows in set (0.00 sec)
+    ```
+
+### Create ProxySQL monitoring user
 
 To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL,
 create a user with `USAGE` privilege on any node in the cluster
@@ -213,14 +219,14 @@ and configure the user in ProxySQL.
 
 The following example shows how to add a monitoring user on Node 2:
 
-```sql
+```{.bash data-prompt="mysql@pxc2>"}
 mysql@pxc2> CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
 mysql@pxc2> GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
 The following example shows how to configure this user on the ProxySQL node:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> UPDATE global_variables SET variable_value='proxysql'
               WHERE variable_name='mysql-monitor_username';
 mysql@proxysql> UPDATE global_variables SET variable_value='ProxySQLPa55'
@@ -232,151 +238,150 @@ To save these changes to disk
 (ensuring that they persist after ProxySQL shuts down),
 issue a `SAVE` command.
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> LOAD MYSQL VARIABLES TO RUNTIME;
 mysql@proxysql> SAVE MYSQL VARIABLES TO DISK;
 ```
 
 To ensure that monitoring is enabled, check the monitoring logs:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+---------------+------+------------------+----------------------+---------------+
-| hostname      | port | time_start_us    | connect_success_time | connect_error |
-+---------------+------+------------------+----------------------+---------------+
-| 192.168.70.71 | 3306 | 1469635762434625 | 1695                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635762434625 | 1779                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635762434625 | 1627                 | NULL          |
-| 192.168.70.71 | 3306 | 1469635642434517 | 1557                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635642434517 | 2737                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635642434517 | 1447                 | NULL          |
-+---------------+------+------------------+----------------------+---------------+
-6 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +---------------+------+------------------+----------------------+---------------+
+    | hostname      | port | time_start_us    | connect_success_time | connect_error |
+    +---------------+------+------------------+----------------------+---------------+
+    | 192.168.70.71 | 3306 | 1469635762434625 | 1695                 | NULL          |
+    | 192.168.70.72 | 3306 | 1469635762434625 | 1779                 | NULL          |
+    | 192.168.70.73 | 3306 | 1469635762434625 | 1627                 | NULL          |
+    | 192.168.70.71 | 3306 | 1469635642434517 | 1557                 | NULL          |
+    | 192.168.70.72 | 3306 | 1469635642434517 | 2737                 | NULL          |
+    | 192.168.70.73 | 3306 | 1469635642434517 | 1447                 | NULL          |
+    +---------------+------+------------------+----------------------+---------------+
+    6 rows in set (0.00 sec)
+    ```
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+---------------+------+------------------+-------------------+------------+
-| hostname      | port | time_start_us    | ping_success_time | ping_error |
-+---------------+------+------------------+-------------------+------------+
-| 192.168.70.71 | 3306 | 1469635762416190 | 948               | NULL       |
-| 192.168.70.72 | 3306 | 1469635762416190 | 803               | NULL       |
-| 192.168.70.73 | 3306 | 1469635762416190 | 711               | NULL       |
-| 192.168.70.71 | 3306 | 1469635702416062 | 783               | NULL       |
-| 192.168.70.72 | 3306 | 1469635702416062 | 631               | NULL       |
-| 192.168.70.73 | 3306 | 1469635702416062 | 542               | NULL       |
-+---------------+------+------------------+-------------------+------------+
-6 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +---------------+------+------------------+-------------------+------------+
+    | hostname      | port | time_start_us    | ping_success_time | ping_error |
+    +---------------+------+------------------+-------------------+------------+
+    | 192.168.70.71 | 3306 | 1469635762416190 | 948               | NULL       |
+    | 192.168.70.72 | 3306 | 1469635762416190 | 803               | NULL       |
+    | 192.168.70.73 | 3306 | 1469635762416190 | 711               | NULL       |
+    | 192.168.70.71 | 3306 | 1469635702416062 | 783               | NULL       |
+    | 192.168.70.72 | 3306 | 1469635702416062 | 631               | NULL       |
+    | 192.168.70.73 | 3306 | 1469635702416062 | 542               | NULL       |
+    +---------------+------+------------------+-------------------+------------+
+    6 rows in set (0.00 sec)
+    ```
 
 The previous examples show that ProxySQL is able to connect
 and ping the nodes you have added.
 
 To enable monitoring of these nodes, load them at runtime:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
-### Creating ProxySQL Client User
+### Create ProxySQL client user
 
 ProxySQL must have users that can access backend nodes
 to manage connections.
 
 To add a user, insert credentials into `mysql_users` table:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> INSERT INTO mysql_users (username,password) VALUES ('sbuser','sbpass');
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Query OK, 1 row affected (0.00 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 1 row affected (0.00 sec)
+    ```
 
 !!! note
 
     ProxySQL currently doesn’t encrypt passwords.
 
-
 Load the user into runtime space and save these changes to disk
 (ensuring that they persist after ProxySQL shuts down):
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> LOAD MYSQL USERS TO RUNTIME;
 mysql@proxysql> SAVE MYSQL USERS TO DISK;
 ```
 
 To confirm that the user has been set up correctly, you can try to log in as root:
 
-```shell
+```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# mysql -u sbuser -psbpass -h 127.0.0.1 -P 6033
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 1491
-Server version: 5.5.30 (ProxySQL)
+    ```{.text .no-copy}
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 1491
+    Server version: 5.5.30 (ProxySQL)
 
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
+    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective
+    owners.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-```
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    ```
 
 To provide read/write access to the cluster for ProxySQL,
 add this user on one of the Percona XtraDB Cluster nodes:
 
-```sql
+```{.bash data-prompt="mysql@pxc3>"}
 mysql@pxc3> CREATE USER 'sbuser'@'192.168.70.74' IDENTIFIED BY 'sbpass';
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Query OK, 0 rows affected (0.01 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 0 rows affected (0.01 sec)
+    ```
 
-```sql
+```{.bash data-prompt="mysql@pxc3>"}
 mysql@pxc3> GRANT ALL ON *.* TO 'sbuser'@'192.168.70.74';
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-Query OK, 0 rows affected (0.00 sec)
-```
+    ```{.text .no-copy}
+    Query OK, 0 rows affected (0.00 sec)
+    ```
 
-### Testing Cluster with sysbench
+### Test cluster with sysbench
 
 You can install `sysbench` from Percona software repositories:
 
 * For Debian or Ubuntu:
 
-```shell
+```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# apt install sysbench
 ```
 
 * For Red Hat Enterprise Linux or CentOS
 
-```shell
+```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# yum install sysbench
 ```
 
@@ -386,13 +391,13 @@ root@proxysql:~# yum install sysbench
 
 1. Create the database that will be used for testing on one of the Percona XtraDB Cluster nodes:
 
-    ```sql
+    ```{.bash data-prompt="mysql@pxc1>"}
     mysql@pxc1> CREATE DATABASE sbtest;
     ```
 
 2. Populate the table with data for the benchmark on the ProxySQL node:
 
-    ```text
+    ```{.bash data-prompt="root@proxysql:~#"}
     root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
     --num-requests=0 --max-time=20 \
     --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
@@ -403,7 +408,7 @@ root@proxysql:~# yum install sysbench
 
 3. Run the benchmark on the ProxySQL node:
 
-    ```text
+    ```{.bash data-prompt="root@proxysql:~#"}
     root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
     --num-requests=0 --max-time=20 \
     --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
@@ -414,61 +419,61 @@ root@proxysql:~# yum install sysbench
 
 ProxySQL stores collected data in the `stats` schema:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SHOW TABLES FROM stats;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+--------------------------------+
-| tables                         |
-+--------------------------------+
-| stats_mysql_query_rules        |
-| stats_mysql_commands_counters  |
-| stats_mysql_processlist        |
-| stats_mysql_connection_pool    |
-| stats_mysql_query_digest       |
-| stats_mysql_query_digest_reset |
-| stats_mysql_global             |
-+--------------------------------+
-```
+    ```{.text .no-copy}
+    +--------------------------------+
+    | tables                         |
+    +--------------------------------+
+    | stats_mysql_query_rules        |
+    | stats_mysql_commands_counters  |
+    | stats_mysql_processlist        |
+    | stats_mysql_connection_pool    |
+    | stats_mysql_query_digest       |
+    | stats_mysql_query_digest_reset |
+    | stats_mysql_global             |
+    +--------------------------------+
+    ```
 
 For example, to see the number of commands that run on the cluster:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT * FROM stats_mysql_commands_counters;
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
-| Command                   | Total_Time_us | Total_cnt | cnt_100us | cnt_500us | cnt_1ms | cnt_5ms | cnt_10ms | cnt_50ms | cnt_100ms | cnt_500ms | cnt_1s | cnt_5s | cnt_10s | cnt_INFs |
-+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
-| ALTER_TABLE               | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| ANALYZE_TABLE             | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| BEGIN                     | 2212625       | 3686      | 55        | 2162      | 899     | 569     | 1        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| CHANGE_REPLICATION_SOURCE | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| COMMIT                    | 21522591      | 3628      | 0         | 0         | 0       | 1765    | 1590     | 272      | 1         | 0         | 0      | 0      | 0       | 0        |
-| CREATE_DATABASE           | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| CREATE_INDEX              | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-...
-| DELETE                    | 2904130       | 3670      | 35        | 1546      | 1346    | 723     | 19       | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
-| DESCRIBE                  | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-...
-| INSERT                    | 19531649      | 3660      | 39        | 1588      | 1292    | 723     | 12       | 2        | 0         | 1         | 0      | 1      | 2       | 0        |
-...
-| SELECT                    | 35049794      | 51605     | 501       | 26180     | 16606   | 8241    | 70       | 3        | 4         | 0         | 0      | 0      | 0       | 0        |
-| SELECT_FOR_UPDATE         | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-...
-| UPDATE                    | 6402302       | 7367      | 75        | 2503      | 3020    | 1743    | 23       | 3        | 0         | 0         | 0      | 0      | 0       | 0        |
-| USE                       | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-| SHOW                      | 19691         | 2         | 0         | 0         | 0       | 0       | 1        | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
-| UNKNOWN                   | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
-+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
-45 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+    | Command                   | Total_Time_us | Total_cnt | cnt_100us | cnt_500us | cnt_1ms | cnt_5ms | cnt_10ms | cnt_50ms | cnt_100ms | cnt_500ms | cnt_1s | cnt_5s | cnt_10s | cnt_INFs |
+    +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+    | ALTER_TABLE               | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | ANALYZE_TABLE             | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | BEGIN                     | 2212625       | 3686      | 55        | 2162      | 899     | 569     | 1        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | CHANGE_REPLICATION_SOURCE | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | COMMIT                    | 21522591      | 3628      | 0         | 0         | 0       | 1765    | 1590     | 272      | 1         | 0         | 0      | 0      | 0       | 0        |
+    | CREATE_DATABASE           | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | CREATE_INDEX              | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    ...
+    | DELETE                    | 2904130       | 3670      | 35        | 1546      | 1346    | 723     | 19       | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | DESCRIBE                  | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    ...
+    | INSERT                    | 19531649      | 3660      | 39        | 1588      | 1292    | 723     | 12       | 2        | 0         | 1         | 0      | 1      | 2       | 0        |
+    ...
+    | SELECT                    | 35049794      | 51605     | 501       | 26180     | 16606   | 8241    | 70       | 3        | 4         | 0         | 0      | 0      | 0       | 0        |
+    | SELECT_FOR_UPDATE         | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    ...
+    | UPDATE                    | 6402302       | 7367      | 75        | 2503      | 3020    | 1743    | 23       | 3        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | USE                       | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | SHOW                      | 19691         | 2         | 0         | 0         | 0       | 0       | 1        | 1        | 0         | 0         | 0      | 0      | 0       | 0        |
+    | UNKNOWN                   | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
+    +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+    45 rows in set (0.00 sec)
+    ```
 
 ### Automatic failover
 
@@ -477,76 +482,78 @@ or not synced with the cluster.
 
 You can check the status of all available nodes by running:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 The following output shows the status of all available nodes:
 
-```text
-+--------------+---------------+------+--------+
-| hostgroup_id | hostname      | port | status |
-+--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
-+--------------+---------------+------+--------+
-3 rows in set (0.00 sec)
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +--------------+---------------+------+--------+
+    | hostgroup_id | hostname      | port | status |
+    +--------------+---------------+------+--------+
+    | 0            | 192.168.70.71 | 3306 | ONLINE |
+    | 0            | 192.168.70.72 | 3306 | ONLINE |
+    | 0            | 192.168.70.73 | 3306 | ONLINE |
+    +--------------+---------------+------+--------+
+    3 rows in set (0.00 sec)
+    ```
 
 To test problem detection and fail-over mechanism, shut down Node 3:
 
-```shell
+```{.bash data-prompt="root@pxc3:~#"}
 root@pxc3:~# service mysql stop
 ```
 
 ProxySQL will detect that the node is down and update its status to
 `OFFLINE_SOFT`:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
-The example of the output is following:
+??? example "Expected output"
 
-```text
-+--------------+---------------+------+--------------+
-| hostgroup_id | hostname      | port | status       |
-+--------------+---------------+------+--------------+
-| 0            | 192.168.70.71 | 3306 | ONLINE       |
-| 0            | 192.168.70.72 | 3306 | ONLINE       |
-| 0            | 192.168.70.73 | 3306 | OFFLINE_SOFT |
-+--------------+---------------+------+--------------+
-3 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +--------------+---------------+------+--------------+
+    | hostgroup_id | hostname      | port | status       |
+    +--------------+---------------+------+--------------+
+    | 0            | 192.168.70.71 | 3306 | ONLINE       |
+    | 0            | 192.168.70.72 | 3306 | ONLINE       |
+    | 0            | 192.168.70.73 | 3306 | OFFLINE_SOFT |
+    +--------------+---------------+------+--------------+
+    3 rows in set (0.00 sec)
+    ```
 
 Now start Node 3 again:
 
-```shell
+```{.bash data-prompt="root@pxc3:~#"}
 root@pxc3:~# service mysql start
 ```
 
 The script will detect the change and mark the node as
 `ONLINE`:
 
-```sql
+```{.bash data-prompt="mysql@proxysql>"}
 mysql@proxysql> SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
-The example of the output is following:
+??? example "Expected output"
 
-```text
-+--------------+---------------+------+--------+
-| hostgroup_id | hostname      | port | status |
-+--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
-+--------------+---------------+------+--------+
-3 rows in set (0.00 sec)
-```
+    ```{.text .no-copy}
+    +--------------+---------------+------+--------+
+    | hostgroup_id | hostname      | port | status |
+    +--------------+---------------+------+--------+
+    | 0            | 192.168.70.71 | 3306 | ONLINE |
+    | 0            | 192.168.70.72 | 3306 | ONLINE |
+    | 0            | 192.168.70.73 | 3306 | ONLINE |
+    +--------------+---------------+------+--------+
+    3 rows in set (0.00 sec)
+    ```
 
-## Assisted Maintenance Mode
+## Assisted maintenance mode
 
 Usually, to take a node down for maintenance, you need to identify that node,
 update its status in ProxySQL to `OFFLINE_SOFT`,

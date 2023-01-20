@@ -1,4 +1,4 @@
-# Crash Recovery
+# Crash recovery
 
 Unlike the standard MySQL replication, a PXC cluster acts like one logical
 entity, which controls the status and consistency of each node as well as the
@@ -9,7 +9,7 @@ writes on multiple nodes at the same time.
 However, there are scenarios where the database service can stop with no node
 being able to serve requests.
 
-## Scenario: Node A is gracefully stopped
+## Scenario 1: Node A is gracefully stopped
 
 In a three node cluster (node A, Node B, node C), one node (node A, for example)
 is gracefully stopped: for the purpose of maintenance, configuration change,
@@ -26,9 +26,9 @@ has all the transactions executed while node A was down, joining is possible via
 gcache, the fallback decision is made by the donor and [SST](../glossary.md#sst) is started
 automatically.
 
-## Scenario: Two nodes are gracefully stopped
+## Scenario 2: Two nodes are gracefully stopped
 
-Similar to [Scenario: Node A is gracefully stopped](#scenario-node-a-is-gracefully-stopped), the cluster size is reduced to
+Similar to [Scenario 1: Node A is gracefully stopped](#scenario-1-node-a-is-gracefully-stopped), the cluster size is reduced to
 1 — even the single remaining node C forms the primary component and is able to
 serve client requests. To get the nodes back into the cluster, you just need
 to start them.
@@ -46,14 +46,14 @@ use node A as the state transfer donor: node A may not have all the needed
 writesets in its gcache. Specify node C node as the donor in your configuration
 file and start the mysql service:
 
-```shell
+```{.bash data-prompt="$"}
 $ systemctl start mysql
 ```
 !!! admonition "See also"
 
     [Galera Documentation: wsrep_sst_donor option](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-donor)
 
-## Scenario: All three nodes are gracefully stopped
+## Scenario 3: All three nodes are gracefully stopped
 
 The cluster is completely stopped and the problem is to initialize it again. It
 is important that a PXC node writes its last executed position to the
@@ -66,7 +66,7 @@ perform the full [SST](../glossary.md#sst) to join the cluster initialized from 
 advanced one. As a result, some transactions will be lost). To bootstrap the
 first node, invoke the startup script like this:
 
-```shell
+```{.bash data-prompt="$"}
 $ systemctl start mysql@bootstrap.service
 ```
 
@@ -79,7 +79,7 @@ $ systemctl start mysql@bootstrap.service
     For this reason, it is recommended to stop writes to the cluster *before* its
     full shutdown, so that all nodes can stop at the same position. See also [`pc.recovery`](../wsrep-provider-index.md#pc.recovery).
 
-## Scenario: One node disappears from the cluster
+## Scenario 4: One node disappears from the cluster
 
 This is the case when one node becomes unavailable due to power outage, hardware
 failure, kernel panic, mysqld crash, **kill -9** on mysqld pid, etc.
@@ -87,9 +87,9 @@ failure, kernel panic, mysqld crash, **kill -9** on mysqld pid, etc.
 Two remaining nodes notice the connection to node A is down and start trying to
 re-connect to it. After several timeouts, node A is removed from the
 cluster. The quorum is saved (2 out of 3 nodes are up), so no service disruption
-happens. After it is restarted, node A joins automatically (as described in [Scenario: Node A is gracefully stopped](#scenario-node-a-is-gracefully-stopped)).
+happens. After it is restarted, node A joins automatically (as described in [Scenario 1: Node A is gracefully stopped](#scenario-1-node-a-is-gracefully-stopped)).
 
-## Scenario: Two nodes disappear from the cluster
+## Scenario 5: Two nodes disappear from the cluster
 
 Two nodes are not available and the remaining node (node C) is not able to form
 the quorum alone. The cluster has to switch to a non-primary mode, where MySQL
@@ -97,13 +97,15 @@ refuses to serve any SQL queries. In this state, the **mysqld** process
 on node C is still running and can be connected to but any statement related to
 data fails with an error
 
-```sql
+```{.bash data-prompt=">"}
 > SELECT * FROM test.sbtest1;
 ```
 
-```text
-ERROR 1047 (08S01): WSREP has not yet prepared node for application use
-```
+??? example "The error message"
+
+    ```{.text .no-copy}
+    ERROR 1047 (08S01): WSREP has not yet prepared node for application use
+    ```
 
 Reads are possible until node C decides that it cannot access node A and
 node B. New writes are forbidden.
@@ -117,7 +119,7 @@ If node A and node B crashed, you need to enable the primary component on
 node C manually, before you can bring up node A and node B. The command to do
 this is:
 
-```sql
+```{.bash data-prompt=">"}
 > SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
@@ -128,7 +130,7 @@ Otherwise, you end up with two clusters having different data.
 
     [Adding Nodes to Cluster](../add-node.md#add-node)
 
-## Scenario: All nodes went down without a proper shutdown procedure
+## Scenario 6: All nodes went down without a proper shutdown procedure
 
 This scenario is possible in case of a datacenter power failure or when hitting
 a MySQL or Galera bug. Also, it may happen as a result of data consistency being
@@ -151,18 +153,20 @@ the last transaction committed as it is set to **0** for each node. An attempt
 to bootstrap from such a node will fail unless you start `mysqld` with the
 `--wsrep-recover` parameter:
 
-```shell
+```{.bash data-prompt="$"}
 $ mysqld --wsrep-recover
 ```
 
 Search the output for the line that reports the recovered position after the
 node UUID (**1122** in this case):
 
-```text
-...
-... [Note] WSREP: Recovered position: 220dcdcb-1629-11e4-add3-aec059ad3734:1122
-...
-```
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    ...
+    ... [Note] WSREP: Recovered position: 220dcdcb-1629-11e4-add3-aec059ad3734:1122
+    ...
+    ```
 
 The node where the recovered position is marked by the greatest number is the
 best bootstrap candidate. In its `grastate.dat` file, set the
@@ -172,7 +176,7 @@ safe_to_bootstrap variable to **1**. Then, bootstrap from this node.
 
     After a shutdown, you can boostrap from the node which is marked as safe in the `grastate.dat` file.
 
-    ```text
+    ```{.text .no-copy}
     ...
     safe_to_bootstrap: 1
     ...
@@ -185,10 +189,10 @@ safe_to_bootstrap variable to **1**. Then, bootstrap from this node.
 ---
 
 In recent Galera versions, the option [`pc.recovery`](../wsrep-provider-index.md#pc.recovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it
-saves only a cluster being in the PRIMARY state. An example content of : file
+saves only a cluster being in the PRIMARY state. An example content of the file
 may look like this:
 
-```text
+```{.text .no-copy}
 cat /var/lib/mysql/gvwstate.dat
 my_uuid: 76de8ad9-2aac-11e4-8089-d27fd06893b9
 #vwbeg
@@ -206,7 +210,7 @@ members start to see each other. This makes the PXC cluster automatically
 recover from being powered down without any manual intervention! In the logs we
 will see:
 
-## Scenario: The cluster loses its primary state due to split brain
+## Scenario 7: The cluster loses its primary state due to split brain
 
 For the purpose of this example, let’s assume we have a cluster that consists of
 an even number of nodes: six, for example. Three of them are in one location
@@ -220,9 +224,9 @@ re-connect.
 
 If you want to restore the service even
 before the network link is restored, you can make one of the groups primary
-again using the same command as described in [Scenario: Two nodes disappear from the cluster](#scenario-two-nodes-disappear-from-the-cluster)
+again using the same command as described in [Scenario 5: Two nodes disappear from the cluster](#scenario-5-two-nodes-disappear-from-the-cluster)
 
-```sql
+```{.bash data-prompt=">"}
 > SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 

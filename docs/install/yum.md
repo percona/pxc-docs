@@ -1,4 +1,4 @@
-# Installing Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
+# Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
 
 Specific information on the supported platforms, products, and versions
 is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -28,13 +28,13 @@ using **yum**.
 
     For information on SELinux, see [Enabling SELinux](../security/selinux.md#selinux).
 
-## Installing from Percona Repository
+## Install from Percona Repository
 
 1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://www.percona.com/doc/percona-repo-config/index.html).
 
 2. Install the Percona XtraDB Cluster packages:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo yum install percona-xtradb-cluster
     ```
 
@@ -60,44 +60,44 @@ using **yum**.
 
 3. Start the Percona XtraDB Cluster server:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo service mysql start
     ```
 
 4. Copy the automatically generated temporary password for the superuser account:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo grep 'temporary password' /var/log/mysqld.log
     ```
 
 5. Use this password to log in as `root`:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ mysql -u root -p
     ```
 
 6. Change the password for the superuser account and log out. For example:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPass';
     ```
 
-    The example of the output is the following:
+    ??? example "Expected output"
 
-    ```text
-    Query OK, 0 rows affected (0.00 sec)
+        ```{.text .no-copy}
+        Query OK, 0 rows affected (0.00 sec)
 
-    mysql> exit
-    Bye
-    ```
+        mysql> exit
+        Bye
+        ```
 
 7. Stop the `mysql` service:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo service mysql stop
     ```
 
-## Next Steps
+## Next steps
 
 After you install Percona XtraDB Cluster and change the superuser account password,
 configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](../configure.md#configure).

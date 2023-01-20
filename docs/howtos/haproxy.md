@@ -8,14 +8,14 @@ the haproxy package and you can install it using the package manager.
 
 Debian or Ubuntu
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo apt update
     $ sudo apt install haproxy
     ```
 
 Red Hat or CentOS:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ sudo yum update
     $ sudo yum install haproxy
     ```
@@ -28,7 +28,7 @@ To start HAProxy, use the `haproxy` command. You may pass any
 number of configuration parameters on the command line. To use a
 configuration file, use the `-f` option.
 
-```shell
+```{.bash data-prompt="$"}
 $ # Passing one configuration file
 $ sudo haproxy -f haproxy-1.cfg
 
@@ -50,38 +50,39 @@ multiple times.
      * [`Managing HAProxy (including available options)`](http://cbonte.github.io/haproxy-dconv/2.0/management.html)
      * [`More information about how to configure HAProxy`](http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2)
 
-**Example of the configuration file for HAProxy:**
+??? example "Example of the HAProxy configuration file"
 
-    global
-            log 127.0.0.1   local0
-            log 127.0.0.1   local1 notice
-            maxconn 4096
-            uid 99
-            gid 99
-            daemon
-            #debug
-            #quiet
+        ```{.text .no-copy}
+        global
+                log 127.0.0.1   local0
+                log 127.0.0.1   local1 notice
+                maxconn 4096
+                uid 99
+                gid 99
+                daemon
+                #debug
+                #quiet
 
-    defaults
-            log     global
-            mode    http
-            option  tcplog
-            option  dontlognull
-            retries 3
-            redispatch
-            maxconn 2000
-            contimeout      5000
-            clitimeout      50000
-            srvtimeout      50000
+        defaults
+                log     global
+                mode    http
+                option  tcplog
+                option  dontlognull
+                retries 3
+                redispatch
+                maxconn 2000
+                contimeout      5000
+                clitimeout      50000
+                srvtimeout      50000
 
-    listen mysql-cluster 0.0.0.0:3306
-        mode tcp
-        balance roundrobin
-        option mysql-check user root
+        listen mysql-cluster 0.0.0.0:3306
+            mode tcp
+            balance roundrobin
+            option mysql-check user root
 
-        server db01 10.4.29.100:3306 check
-        server db02 10.4.29.99:3306 check
-        server db03 10.4.29.98:3306 check
+            server db01 10.4.29.100:3306 check
+            server db02 10.4.29.99:3306 check
+            server db03 10.4.29.98:3306 check
 
 Options set in the configuration file
 
@@ -130,42 +131,42 @@ by adding the following line on each node:
 mysqlchk        9200/tcp                # mysqlchk
 ```
 
-The following is an example of the HAProxy configuration file in this case:
+??? example "Example of the HAProxy configuration file"
 
-```text
-# this config needs haproxy-1.4.20
+        ```{.text .no-copy}
+        # this config needs haproxy-1.4.20
 
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        #daemon
-        debug
-        #quiet
+        global
+                log 127.0.0.1   local0
+                log 127.0.0.1   local1 notice
+                maxconn 4096
+                uid 99
+                gid 99
+                #daemon
+                debug
+                #quiet
 
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
+        defaults
+                log     global
+                mode    http
+                option  tcplog
+                option  dontlognull
+                retries 3
+                redispatch
+                maxconn 2000
+                contimeout      5000
+                clitimeout      50000
+                srvtimeout      50000
 
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option  httpchk
+        listen mysql-cluster 0.0.0.0:3306
+            mode tcp
+            balance roundrobin
+            option  httpchk
 
-    server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-```
+            server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
+            server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
+            server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
+        ```
 
 !!! important
 
@@ -174,7 +175,7 @@ listen mysql-cluster 0.0.0.0:3306
     plugin. Create a mysql user using the ``mysql_native_password``
     authentication plugin.
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> CREATE USER 'haproxy_user'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
     ```
 

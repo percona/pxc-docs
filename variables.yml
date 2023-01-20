@@ -1,0 +1,5 @@
+# variables for HTML output
+
+release: '8.0.30-22'
+version: '8.0'
+release-date: 2023

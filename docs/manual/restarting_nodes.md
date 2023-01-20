@@ -1,4 +1,4 @@
-# Restarting the cluster nodes
+# Restart the cluster nodes
 
 To restart a cluster node, shut down MySQL and restarting it.
 The node should leave the cluster

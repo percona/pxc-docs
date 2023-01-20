@@ -1,8 +1,7 @@
-# Configuring Percona XtraDB Cluster on Ubuntu
+# Configure Percona XtraDB Cluster on Ubuntu
 
 This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
 on Ubuntu 14 LTS servers, using the packages from Percona repositories.
-
 
 * Node 1
 
@@ -33,7 +32,7 @@ to ports 3306, 4444, 4567 and 4568.
 
 * AppArmor profile for MySQL is [disabled](https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/).
 
-## Step 1. Installing PXC
+## Step 1. Install PXC
 
 Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Debian or Ubuntu](../install/apt.md#apt).
 
@@ -45,7 +44,7 @@ Install Percona XtraDB Cluster on all three nodes as described in [Installing Pe
     `mysqld` will start automatically.
     Stop `mysqld` on all three nodes using `sudo systemctl stop mysql`.
 
-## Step 2. Configuring the first node
+## Step 2. Configure the first node
 
 Individual nodes should be configured to be able to bootstrap the cluster.
 For more information about bootstrapping the cluster, see [Bootstrapping the First Node](../bootstrap.md#bootstrap).
@@ -53,7 +52,7 @@ For more information about bootstrapping the cluster, see [Bootstrapping the Fir
 1. Make sure that the configuration file `/etc/mysql/my.cnf`
 for the first node (`pxc1`) contains the following:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
 
     datadir=/var/lib/mysql
@@ -86,7 +85,7 @@ for the first node (`pxc1`) contains the following:
 
 2. Start the first node with the following command:
 
-    ```shell
+    ```{.bash data-prompt="[root@pxc1 ~]#"}
     [root@pxc1 ~]# systemctl start mysql@bootstrap.service
     ```
 
@@ -95,36 +94,38 @@ for the first node (`pxc1`) contains the following:
 3. After the first node has been started,
 cluster status can be checked with the following command:
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> show status like 'wsrep%';
     ``` 
 
     The following outut shows the cluste status:
 
-    ```text
-    +----------------------------+--------------------------------------+
-    | Variable_name              | Value                                |
-    +----------------------------+--------------------------------------+
-    | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-    ...
-    | wsrep_local_state          | 4                                    |
-    | wsrep_local_state_comment  | Synced                               |
-    ...
-    | wsrep_cluster_size         | 1                                    |
-    | wsrep_cluster_status       | Primary                              |
-    | wsrep_connected            | ON                                   |
-    ...
-    | wsrep_ready                | ON                                   |
-    +----------------------------+--------------------------------------+
-    75 rows in set (0.00 sec)
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        +----------------------------+--------------------------------------+
+        | Variable_name              | Value                                |
+        +----------------------------+--------------------------------------+
+        | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
+        ...
+        | wsrep_local_state          | 4                                    |
+        | wsrep_local_state_comment  | Synced                               |
+        ...
+        | wsrep_cluster_size         | 1                                    |
+        | wsrep_cluster_status       | Primary                              |
+        | wsrep_connected            | ON                                   |
+        ...
+        | wsrep_ready                | ON                                   |
+        +----------------------------+--------------------------------------+
+        75 rows in set (0.00 sec)
+        ```
 
     This output shows that the cluster has been successfully bootstrapped.
 
 To perform [State Snapshot Transfer](../manual/state_snapshot_transfer.md#state-snapshot-transfer) using *XtraBackup*,
 set up a new user with proper [privileges](http://www.percona.com/doc/percona-xtrabackup/innobackupex/privileges.html#permissions-and-privileges-needed):
 
-```sql
+```{.bash data-prompt="mysql@pxc1>"}
 mysql@pxc1> CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cretPass';
 mysql@pxc1> GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
 mysql@pxc1> FLUSH PRIVILEGES;
@@ -134,12 +135,12 @@ mysql@pxc1> FLUSH PRIVILEGES;
 
     MySQL root account can also be used for performing SST, but it is more secure to use a different (non-root) user for this.
 
-## Step 3. Configuring the second node
+## Step 3. Configure the second node
 
 1. Make sure that the configuration file `/etc/mysql/my.cnf`
 on the second node (`pxc2`) contains the following:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
 
     datadir=/var/lib/mysql
@@ -172,7 +173,7 @@ on the second node (`pxc2`) contains the following:
 
 2. Start the second node with the following command:
 
-    ```shell
+    ```{.bash data-prompt="[root@pxc2 ~]#"}
     [root@pxc2 ~]# systemctl start mysql
     ```
 
@@ -180,37 +181,39 @@ on the second node (`pxc2`) contains the following:
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (`pxc2`):
 
-    ```sql
+    ```{.bash data-prompt="mysql>"}
     mysql> show status like 'wsrep%';
     ```
 
     The following output shows that the new node has been successfully added to the cluster.
 
-    ```text
-    +----------------------------+--------------------------------------+
-    | Variable_name              | Value                                |
-    +----------------------------+--------------------------------------+
-    | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-    ...
-    | wsrep_local_state          | 4                                    |
-    | wsrep_local_state_comment  | Synced                               |
-    ...
-    | wsrep_cluster_size         | 2                                    |
-    | wsrep_cluster_status       | Primary                              |
-    | wsrep_connected            | ON                                   |
-    ...
-    | wsrep_ready                | ON                                   |
-    +----------------------------+--------------------------------------+
-    40 rows in set (0.01 sec)
-    ```
+    ??? example "Expected output"
 
-## Step 4. Configuring the third node
+        ```{.text .no-copy}
+        +----------------------------+--------------------------------------+
+        | Variable_name              | Value                                |
+        +----------------------------+--------------------------------------+
+        | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
+        ...
+        | wsrep_local_state          | 4                                    |
+        | wsrep_local_state_comment  | Synced                               |
+        ...
+        | wsrep_cluster_size         | 2                                    |
+        | wsrep_cluster_status       | Primary                              |
+        | wsrep_connected            | ON                                   |
+        ...
+        | wsrep_ready                | ON                                   |
+        +----------------------------+--------------------------------------+
+        40 rows in set (0.01 sec)
+        ```
+
+## Step 4. Configure the third node
 
 
 1. Make sure that the MySQL configuration file `/etc/mysql/my.cnf`
 on the third node (`pxc3`) contains the following:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
 
     datadir=/var/lib/mysql
@@ -243,7 +246,7 @@ on the third node (`pxc3`) contains the following:
 
 2. Start the third node with the following command:
 
-    ```shell
+    ```{.bash data-prompt="[root@pxc3 ~]#"}
     [root@pxc3 ~]# systemctl start mysql
     ```
 
@@ -252,31 +255,33 @@ it should receive SST automatically.
 Cluster status can be checked on all nodes.
 The following is an example of status from the third node (`pxc3`):
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> show status like 'wsrep%';
 ```
 
 The following output confirms that the third node has joined the cluster.
 
-```text
-+----------------------------+--------------------------------------+
-| Variable_name              | Value                                |
-+----------------------------+--------------------------------------+
-| wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-...
-| wsrep_local_state          | 4                                    |
-| wsrep_local_state_comment  | Synced                               |
-...
-| wsrep_cluster_size         | 3                                    |
-| wsrep_cluster_status       | Primary                              |
-| wsrep_connected            | ON                                   |
-...
-| wsrep_ready                | ON                                   |
-+----------------------------+--------------------------------------+
-40 rows in set (0.01 sec)
-```
+??? example "Expected output"
 
-## Testing replication
+    ```{.text .no-copy}
+    +----------------------------+--------------------------------------+
+    | Variable_name              | Value                                |
+    +----------------------------+--------------------------------------+
+    | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
+    ...
+    | wsrep_local_state          | 4                                    |
+    | wsrep_local_state_comment  | Synced                               |
+    ...
+    | wsrep_cluster_size         | 3                                    |
+    | wsrep_cluster_status       | Primary                              |
+    | wsrep_connected            | ON                                   |
+    ...
+    | wsrep_ready                | ON                                   |
+    +----------------------------+--------------------------------------+
+    40 rows in set (0.01 sec)
+    ```
+
+## Test replication
 
 To test replication, lets create a new database on the second node,
 create a table for that database on the third node,
@@ -284,68 +289,78 @@ and add some records to the table on the first node.
 
 1. Create a new database on the second node:
 
-    ```sql
+    ```{.bash data-prompt="mysql@percona2>"}
     mysql@percona2> CREATE DATABASE percona;
     ```
 
     The following output confirms that a new database has been created:
 
-    ```text
-    Query OK, 1 row affected (0.01 sec)
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        Query OK, 1 row affected (0.01 sec)
+        ```
 
 2. Switch to a newly created database:
 
-    ```sql
+    ```{.bash data-prompt="mysql@percona3>"}
     mysql@percona3> USE percona;
     ```
     
     The following output confirms that a database has been changed:
 
-    ```text
-    Database changed
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        Database changed
+        ```
 
 3. Create a table on the third node:
 
-    ```sql
+    ```{.bash data-prompt="mysql@percona3>"}
     mysql@percona3> CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
     ```
 
     The following output confirms that a table has been created:
 
-    ```text
-    Query OK, 0 rows affected (0.05 sec)
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        Query OK, 0 rows affected (0.05 sec)
+        ```
 
 4. Insert records on the first node:
 
-    ```sql
+    ```{.bash data-prompt="mysql@percona1>"}
     mysql@percona1> INSERT INTO percona.example VALUES (1, 'percona1');
     ```
 
     The following output confirms that the records have been inserted:
 
-    ```text
-    Query OK, 1 row affected (0.02 sec)
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        Query OK, 1 row affected (0.02 sec)
+        ```
 
 5. Retrieve all the rows from that table on the second node:
 
-    ```sql
+    ```{.bash data-prompt="mysql@percona2>"}
     mysql@percona2> SELECT * FROM percona.example;
     ```
     
     The following output confirms that all the rows have been retrieved:
 
-    ```text
-    +---------+-----------+
-    | node_id | node_name |
-    +---------+-----------+
-    |       1 | percona1  |
-    +---------+-----------+
-    1 row in set (0.00 sec)
-    ```
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        +---------+-----------+
+        | node_id | node_name |
+        +---------+-----------+
+        |       1 | percona1  |
+        +---------+-----------+
+        1 row in set (0.00 sec)
+        ```
 
     This simple procedure should ensure that all nodes in the cluster
     are synchronized and working as intended.

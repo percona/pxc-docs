@@ -1,4 +1,4 @@
-# High Availability
+# High availability
 
 In a basic setup with 3 nodes, Percona XtraDB Cluster will continue to function
 if you take any of the nodes down.

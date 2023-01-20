@@ -29,7 +29,7 @@ The transit data is defined as data that is transmitted to another node or clien
 Percona XtraDB Cluster 8.0 supports all *data at rest* generally-available encryption
 features available from Percona Server for MySQL 8.0.
 
-## Configuring PXC to use keyring_file plugin
+## Configure PXC to use keyring_file plugin
 
 ### Configuration
 
@@ -37,7 +37,7 @@ Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
 configure the `keyring_file`
 plugin. [Install the plugin](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) and add the following options in the configuration file:
 
-```text
+```{.text .no-copy}
 [mysqld]
 early-plugin-load=keyring_file.so
 keyring_file_data=<PATH>/keyring
@@ -88,7 +88,7 @@ The JOINER node generates its keyring.
 Keyring (or, more generally, the Percona XtraDB Cluster SST process) is backward compatible. A
 higher version JOINER can join from lower version DONOR, but not vice-versa.
 
-## Configuring PXC to use keyring_vault plugin
+## Configure PXC to use keyring_vault plugin
 
 ### keyring_vault
 
@@ -103,8 +103,7 @@ The `keyring_vault` plugin allows storing the master-key in vault-server
 
 Configuration options are the same as
 [upstream](https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html).
-The `my.cnf` configuration file should contain
-the following options:
+The `my.cnf` configuration file should contain the following options:
 
 ```text
 [mysqld]
@@ -112,7 +111,7 @@ early-plugin-load="keyring_vault=keyring_vault.so"
 keyring_vault_config="<PATH>/keyring_vault_n1.conf"
 ```
 
-Also `keyring_vault_n1.conf` file contents should be :
+Also, `keyring_vault_n1.conf` file should contain the following:
 
 ```text
 vault_url = http://127.0.0.1:8200
@@ -138,15 +137,17 @@ do not need to use the same mount point.
 If the node is not able to reach or connect to the vault server, an error is
 notified during the server boot, and the node refuses to start:
 
-```text
-2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
-'There is no vault_ca specified in keyring_vault's configuration file.
-Please make sure that Vault's CA certificate is trusted by the machine
-from which you intend to connect to Vault.'
-2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
-'CURL returned this error code: 7 with error message : Failed to connect
-to 127.0.0.1 port 8200: Connection refused'
-```
+??? example "The warning message"
+
+    ```{.text .no-copy}
+    2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
+    'There is no vault_ca specified in keyring_vault's configuration file.
+    Please make sure that Vault's CA certificate is trusted by the machine
+    from which you intend to connect to Vault.'
+    2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
+    'CURL returned this error code: 7 with error message : Failed to connect
+    to 127.0.0.1 port 8200: Connection refused'
+    ```
 
 If some nodes of the cluster are unable to connect to vault-server, this
 relates only to these specific nodes: e.g., if node-1 can connect, and
@@ -157,34 +158,36 @@ the vault-server, the object is not accessible.
 In case when vault-server is accessible, but authentication credential is incorrect,
 the consequences are the same, and the corresponding error looks like the following:
 
-```text
-2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
-'There is no vault_ca specified in keyring_vault's configuration file.
-Please make sure that Vault's CA certificate is trusted by the machine
-from which you intend to connect to Vault.'
-2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
-'Could not retrieve list of keys from Vault. Vault has returned the
-following error(s): ["permission denied"]'
-```
+??? example "The warning message"
+
+    ```{.text .no-copy}
+    2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
+    'There is no vault_ca specified in keyring_vault's configuration file.
+    Please make sure that Vault's CA certificate is trusted by the machine
+    from which you intend to connect to Vault.'
+    2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
+    'Could not retrieve list of keys from Vault. Vault has returned the
+    following error(s): ["permission denied"]'
+    ```
 
 In case of an accessible vault-server with the wrong mount point, there is no
 error during server boot, but the node still refuses to start:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
 ```
 
-The example of the output is the following:
+??? example "Expected output"
 
-```text
-ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
-plugin is loaded.
+    ```{.text .no-copy}
+    ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
+    plugin is loaded.
 
-... [ERROR] Plugin keyring_vault reported: 'Could not write key to Vault. ...
-... [ERROR] Plugin keyring_vault reported: 'Could not flush keys to keyring'
-```
+    ... [ERROR] Plugin keyring_vault reported: 'Could not write key to Vault. ...
+    ... [ERROR] Plugin keyring_vault reported: 'Could not flush keys to keyring'
+    ```
 
-## Mixing keyring plugin types
+## Mix keyring plugin types
 
 With XtraBackup introducing transition-key logic, it is now possible to
 mix and match keyring plugins. For example, the user has node-1 configured to use the
@@ -196,12 +199,12 @@ mix and match keyring plugins. For example, the user has node-1 configured to us
 
 ## Temporary file encryption
 
-## Migrating Keys Between Keyring Keystores
+## Migrate keys between keyring keystores
 
 Percona XtraDB Cluster supports key migration between keystores. The migration can be performed
 offline or online.
 
-### Offline Migration
+### Offline migration
 
 In offline migration, the node to migrate is shut down, and the migration server
 takes care of migrating keys for the said server to a new keystore.
@@ -218,21 +221,23 @@ For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. T
 
 Here is how the migration server output should look like:
 
-```text
-/dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
---keyring-migration-source=keyring_file.so \
---keyring_file_data=/dev/shm/pxc80/node2/keyring \
---keyring-migration-destination=keyring_vault.so \
---keyring_vault_config=/dev/shm/pxc80/vault/keyring_vault.cnf &
+??? example "Expected output"
 
-... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
-    --explicit_defaults_for_timestamp server option (see documentation for more details).
-... [Note] --secure-file-priv is set to NULL. Operations related to importing and
-    exporting data are disabled
-... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
-... [Note] /dev/shm/pxc80/bin/mysqld (mysqld 8.0-debug) starting as process 5710 ...
-... [Note] Keyring migration successful.
-```
+    ```{.text .no-copy}
+    /dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
+    --keyring-migration-source=keyring_file.so \
+    --keyring_file_data=/dev/shm/pxc80/node2/keyring \
+    --keyring-migration-destination=keyring_vault.so \
+    --keyring_vault_config=/dev/shm/pxc80/vault/keyring_vault.cnf &
+
+    ... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
+        --explicit_defaults_for_timestamp server option (see documentation for more details).
+    ... [Note] --secure-file-priv is set to NULL. Operations related to importing and
+        exporting data are disabled
+    ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
+    ... [Note] /dev/shm/pxc80/bin/mysqld (mysqld 8.0-debug) starting as process 5710 ...
+    ... [Note] Keyring migration successful.
+    ```
 
 On a successful migration, the destination keystore receives additional migrated keys
 (pre-existing keys in the destination keystore are not touched or removed). The source
@@ -241,7 +246,7 @@ not a move operation.
 
 If the migration fails, the destination keystore is unchanged.
 
-### Online Migration
+### Online migration
 
 In online migration, the node to migrate is kept running, and the migration
 server takes

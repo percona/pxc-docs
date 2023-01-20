@@ -19,7 +19,7 @@ Percona XtraDB Cluster (PXC) supports critical business applications in your pub
 The following are a number of the notable fixes for MySQL 8.0.26, provided by Oracle, and included in this release:
 
 
-* The [TLSv1 and TLSv1.1](https://tools.ietf.org/id/draft-ietf-tls-oldversions-deprecate-02.html) connection protocols are deprecated.
+* The TLSv1 and TLSv1.1 connection protocols are deprecated.
 
 
 * Identifiers with specific terms, such as “master” or “slave” are deprecated and replaced. See the [Functionality Added or Changed section in the 8.0.26 Release Notes](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-feature) for a list of updated identifiers. The following terms have been changed:

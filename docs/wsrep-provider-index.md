@@ -5,19 +5,19 @@ changed in the *MySQL* configuration file, `my.cnf`, or by setting the variable 
 
 To change the value in `my.cnf`, the following syntax should be used:
 
-```text
+```shell
 wsrep_provider_options="variable1=value1;[variable2=value2]"
 ```
 
 For example to set the size of the Galera buffer storage to 512 MB, specify the following in `my.cnf`:
 
-```text
+```shell
 wsrep_provider_options="gcache.size=512M"
 ```
 
 Dynamic variables can be changed from the *MySQL* client using the `SET GLOBAL` command. For example, to change the value of the [`pc.ignore_sb`](wsrep-provider-index.md#pcignore_sb), use the following command:
 
-```sql
+```{.bash data-prompt="mysql>"}
 mysql> SET GLOBAL wsrep_provider_options="pc.ignore_sb=true";
 ```
 
@@ -1097,7 +1097,7 @@ wsrep_provider_options="socket.checksum=2"
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | No   |
+| Default Value: | No                 |
 
 This variable is used to specify if SSL encryption should be used.
 
@@ -1145,7 +1145,7 @@ to the server’s private key file (in PEM format).
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | Yes   |
+| Default Value: | Yes                |
 
 This variable is used to specify if the SSL compression is to be used.
 
@@ -1157,6 +1157,6 @@ This variable is used to specify if the SSL compression is to be used.
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | AES128-SHA   |
+| Default Value: | AES128-SHA         |
 
 This variable is used to specify what cypher will be used for encryption.

@@ -1,4 +1,4 @@
-# ProxySQL Admin Utilities
+# ProxySQL admin utilities
 
 The [ProxySQL and ProxySQL admin utilities documentation](https://docs.percona.com/proxysql/index.html) provides information on installing and running ProxySQL 1.x.x or ProxySQL 2.x.x with the following ProxySQL admin utilities: 
 

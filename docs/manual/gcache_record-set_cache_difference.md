@@ -1,4 +1,4 @@
-# Understanding GCache and Record-Set Cache
+# Understand GCache and Record-Set cache
 
 In Percona XtraDB Cluster, there is a concept of GCache and Record-Set cache
 (which can also be called transaction write-set cache).
@@ -7,7 +7,7 @@ if you are running long transactions,
 because both of them result in the creation of disk-level files.
 This manual describes what their main differences are.
 
-## Record-Set Cache
+## Record-Set cache
 
 When you run a long-running transaction on any particular node,
 it will try to append a key for each row that it tries to modify
@@ -68,14 +68,14 @@ one in GCache and another in Record-Set Cache.
 For example, lets say you `INSERT/UPDATE` 2 million rows
 in a table with the following schema.
 
-```text
+```{.text .no-copy}
 (int, char(100), char(100) with pk (int, char(100))
 ```
 
 It will create write-set key/data files in the background
 similar to the following:
 
-```text
+```{.text .no-copy}
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000000
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000001
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000002

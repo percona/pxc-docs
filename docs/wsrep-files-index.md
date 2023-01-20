@@ -14,7 +14,7 @@
     To be able to analyze these files binlog header needs to be added to the log
     file. To create the `GRA_HEADER` file you need an instance running with `binlog_checksum` set to `NONE` and extract first 120 bytes from the binlog file:
 
-    ```text
+    ```shell
     $ head -c 123 mysqld-bin.000001 > GRA_HEADER
     $ cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
     $ cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
@@ -55,10 +55,12 @@
 
     This information can be used for checking the MySQL error log for the corresponding error message.
 
-    ```default
-    160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
-    160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
-    ```
+    ??? example "Error message"
+
+        ```{.text .no-copy}
+        160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
+        160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
+        ```
 
     In this example `DROP TABLE` statement was executed on a table that doesn’t exist.
 
@@ -96,7 +98,7 @@
 
     In case server node has this state when not running it means that that node crashed during the transaction processing.
 
-    ```text
+    ```shell
     # GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -107,7 +109,7 @@
     In case server node has this state when not running it means that the node
     was gracefully shut down.
 
-    ```text
+    ```shell
     # GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -117,7 +119,7 @@
 
     In case server node has this state when not running it means that the node crashed during the DDL.
 
-    ```text
+    ```shell
     # GALERA saved state
     version: 2.1
     uuid:    00000000-0000-0000-0000-000000000000
@@ -142,14 +144,14 @@
 
     * member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
 
-    Example of this file looks like this:
+    ??? example "Example of the file"
 
-    ```text
-    my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
-    #vwbeg
-    view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
-    bootstrap: 0
-    member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
-    member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
-    #vwend
-    ```
+        ```{.text .no-copy}
+        my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
+        #vwbeg
+        view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
+        bootstrap: 0
+        member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
+        member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
+        #vwend
+        ```

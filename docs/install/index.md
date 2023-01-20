@@ -1,4 +1,4 @@
-# Installing Percona XtraDB Cluster
+# Install Percona XtraDB Cluster
 
 Install Percona XtraDB Cluster on all hosts that you are planning to use as cluster nodes
 and ensure that you have root access to the MySQL server on each one.
@@ -18,7 +18,7 @@ using the corresponding package manager for your system:
 
         More information about Galera state information in [Index of files created by PXC grastat.dat](../wsrep-files-index.md#wsrep-file-index)
 
-## Installation Alternatives
+## Installation alternatives
 
 Percona also provides a generic tarball with all required files and binaries
 for manual installation:

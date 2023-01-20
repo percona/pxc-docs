@@ -1,4 +1,4 @@
-# Securing the Network
+# Secure the network
 
 By default, anyone with access to your network can connect to any Percona XtraDB Cluster node
 either as a client or as another node joining the cluster.
@@ -8,7 +8,7 @@ In general, it is a good idea to disable all remote connections to Percona XtraD
 If you require clients or nodes from outside of your network to connect,
 you can set up a VPN (virtual private network) for this purpose.
 
-## Firewall Configuration
+## Firewall configuration
 
 A firewall can let you filter Percona XtraDB Cluster traffic
 based on the clients and nodes that you trust.
@@ -28,7 +28,7 @@ are accessed only from trusted IP addresses.
 You can implement packet filtering using `iptables`, `firewalld`, `pf`,
 or any other firewall of your choice.
 
-### Using iptables
+### Use iptables
 
 To restrict access to Percona XtraDB Cluster ports using `iptables`,
 you need to append new rules to the `INPUT` chain on the filter table.
@@ -36,7 +36,7 @@ In the following example, the trusted range of IP addresses is 192.168.0.1/24.
 It is assumed that only Percona XtraDB Cluster nodes and clients will connect from these IPs.
 To enable packet filtering, run the commands as root on each Percona XtraDB Cluster node.
 
-```shell
+```{.bash data-prompt="#"}
 # iptables --append INPUT --in-interface eth0 \
    --protocol tcp --match tcp --dport 3306 \
    --source 192.168.0.1/24 --jump ACCEPT
@@ -65,7 +65,7 @@ This is a little bit less secure, but reduces the amount of commands.
 For example, if you have three Percona XtraDB Cluster nodes,
 you can run the following commands on each one:
 
-```shell
+```{.bash data-prompt="#"}
 # iptables --append INPUT --protocol tcp \
     --source 64.57.102.34 --jump ACCEPT
 # iptables --append INPUT --protocol tcp \
@@ -81,7 +81,7 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
     
     The changes that you make in `iptables` are not persistent unless you save the packet filtering state:
 
-    ```shell
+    ```{.bash data-prompt="#"}
     # service save iptables
     ```
 
@@ -98,7 +98,7 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
 
     Use `iptables-save` to update the file:
 
-    ```shell
+    ```{.bash data-prompt="#"}
     # iptables-save > /etc/sysconfig/iptables
     ```
 
