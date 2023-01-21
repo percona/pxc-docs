@@ -10,7 +10,7 @@
 
 | Feature| Details|
 | ------ | ------ | 
-| Synchronous replication\*\*  | Data is written to all nodes simultaneously, or not written at all in case of a failure even on a single node  |
+| Synchronous replication  | Data is written to all nodes simultaneously, or not written at all in case of a failure even on a single node  |
 | Multi-source replication| Any node can trigger a data update. |
 | True parallel replication| Multiple threads on replica performing replication on row level |
 | Automatic node provisioning | You simply add a node and it automatically syncs.|
