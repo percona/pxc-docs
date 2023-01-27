@@ -589,9 +589,18 @@ if you need to perform maintenance on a node without shutting it down.
 
     To do this, manually set `pxc_maint_mode=MAINTENANCE`.
     Control is not returned to the user for a predefined period
-    (10 seconds by default).
+    (10 seconds by default). You can increase the transition period
+    using the `pxc_maint_transition_period` variable
+    to accommodate long-running transactions.
+    If the period is long enough for all transactions to finish,
+    there should be little disruption in the cluster workload. If you increase the transition period, the packaging script may determine the wait as a server stall.
+
     When ProxySQL detects that the mode is set to `MAINTENANCE`,
-    it stops routing traffic to the node.
+    it stops routing traffic to the node. During the transition period,
+    the node continues to receive existing write-set replication traffic,
+    ProxySQL avoids opening new connections and starting transactions.
+    Still, the user can open connections to monitor status.
+    
     Once control is returned, you can perform maintenance activity.
 
     !!! note
@@ -600,23 +609,6 @@ if you need to perform maintenance on a node without shutting it down.
 
     After you finish maintenance, set the mode back to `DISABLED`.
     When ProxySQL detects this, it starts routing traffic to the node again.
-
-You can increase the transition period
-using the `pxc_maint_transition_period` variable
-to accommodate long-running transactions.
-If the period is long enough for all transactions to finish,
-there should be little disruption in the cluster workload.
-
-During the transition period,
-the node continues to receive existing write-set replication traffic,
-ProxySQL avoids opening new connections and starting transactions.
-Still, the user can open connections to monitor status.
-
-!!! note
-
-    If you increase the transition period, the packaging script may determine it as a server stall.
-
----
 
 **Related sections**
 
