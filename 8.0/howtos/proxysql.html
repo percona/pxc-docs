@@ -2157,10 +2157,17 @@ while you resize the buffer pool, truncate the undo log,
 defragment, or check disks, etc.</p>
 <p>To do this, manually set <code>pxc_maint_mode=MAINTENANCE</code>.
 Control is not returned to the user for a predefined period
-(10 seconds by default).
-When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>,
-it stops routing traffic to the node.
-Once control is returned, you can perform maintenance activity.</p>
+(10 seconds by default). You can increase the transition period
+using the <code>pxc_maint_transition_period</code> variable
+to accommodate long-running transactions.
+If the period is long enough for all transactions to finish,
+there should be little disruption in the cluster workload. If you increase the transition period, the packaging script may determine the wait as a server stall.</p>
+<p>When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>,
+it stops routing traffic to the node. During the transition period,
+the node continues to receive existing write-set replication traffic,
+ProxySQL avoids opening new connections and starting transactions.
+Still, the user can open connections to monitor status.</p>
+<p>Once control is returned, you can perform maintenance activity.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Data changes continue to be replicated across the cluster.</p>
@@ -2169,20 +2176,6 @@ Once control is returned, you can perform maintenance activity.</p>
 When ProxySQL detects this, it starts routing traffic to the node again.</p>
 </li>
 </ul>
-<p>You can increase the transition period
-using the <code>pxc_maint_transition_period</code> variable
-to accommodate long-running transactions.
-If the period is long enough for all transactions to finish,
-there should be little disruption in the cluster workload.</p>
-<p>During the transition period,
-the node continues to receive existing write-set replication traffic,
-ProxySQL avoids opening new connections and starting transactions.
-Still, the user can open connections to monitor status.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you increase the transition period, the packaging script may determine it as a server stall.</p>
-</div>
-<hr />
 <p><strong>Related sections</strong></p>
 <p><a href="virt_sandbox.html#testing-env-proxysql-setting-up">Setting up a testing environment with ProxySQL</a></p>
 
@@ -2206,7 +2199,7 @@ Still, the user can open connections to monitor status.</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-01-27
     
   </small>
 </div>
