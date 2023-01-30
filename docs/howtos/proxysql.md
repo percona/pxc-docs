@@ -561,7 +561,13 @@ wait for ProxySQL to divert traffic from this node,
 and then initiate the shutdown or perform maintenance tasks.
 Percona XtraDB Cluster includes a special *maintenance mode* for nodes
 that enables you to take a node down without adjusting ProxySQL manually.
-The mode is controlled using the `pxc_maint_mode` variable,
+
+Existing connections to PXC are *not* disconnected when `pxc_maint_mode=MAINTENANCE` is 
+initiated.  You will need to terminate these connections either via your application code 
+by forcing a re-connection (and then the new connections will be re-routed around the PXC 
+node in `MAINTENANCE` mode).
+
+Assisted maintenance mode is controlled via the `pxc_maint_mode` variable,
 which is monitored by ProxySQL and can be set to one of the following values:
 
 * `DISABLED`: This value is the default state
