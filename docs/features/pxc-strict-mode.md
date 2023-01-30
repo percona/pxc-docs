@@ -387,3 +387,15 @@ At startup, no validation is performed.
 
 At runtime, discarding or importing a tablespace is denied and an error is logged.
 
+### Major version check
+
+This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.
+
+??? example "Expected output"
+
+    ```{.mysql no-copy}
+
+    ERROR 1105 (HY000): Percona-XtraDB-Cluster prohibits use of multiple major versions while accepting write workload with pxc_strict_mode = ENFORCING or MASTER
+
+    ```
+
