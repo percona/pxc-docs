@@ -2128,12 +2128,9 @@ or not synced with the cluster.</p>
 update its status in ProxySQL to <code>OFFLINE_SOFT</code>,
 wait for ProxySQL to divert traffic from this node,
 and then initiate the shutdown or perform maintenance tasks.
-Percona XtraDB Cluster includes a special <em>maintenance mode</em> for nodes
+Percona XtraDB Cluster includes a special maintenance mode for nodes
 that enables you to take a node down without adjusting ProxySQL manually.</p>
-<p>Existing connections to PXC are <em>not</em> disconnected when <code>pxc_maint_mode=MAINTENANCE</code> is 
-initiated.  You will need to terminate these connections either via your application code 
-by forcing a re-connection (and then the new connections will be re-routed around the PXC 
-node in <code>MAINTENANCE</code> mode).</p>
+<p>Initiating <code>pxc_maint_mode=MAINTENANCE</code> does not disconnect existing connections. You must terminate these connections by either running your application code or forcing a re-connection. With a re-connection, the new connections are re-routed around the PXC node in <code>MAINTENANCE</code> mode.</p>
 <p>Assisted maintenance mode is controlled via the <code>pxc_maint_mode</code> variable,
 which is monitored by ProxySQL and can be set to one of the following values:</p>
 <ul>
@@ -2165,11 +2162,11 @@ Control is not returned to the user for a predefined period
 using the <code>pxc_maint_transition_period</code> variable
 to accommodate long-running transactions.
 If the period is long enough for all transactions to finish,
-there should be little disruption in the cluster workload. If you increase the transition period, the packaging script may determine the wait as a server stall.</p>
+there should be little disruption in the cluster workload. If you increase 
+the transition period, the packaging script may determine the wait as a server stall.</p>
 <p>When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>,
 it stops routing traffic to the node. During the transition period,
-the node continues to receive existing write-set replication traffic,
-ProxySQL avoids opening new connections and starting transactions.
+any existing connections continue, but ProxySQL avoids opening new connections and starting transactions.
 Still, the user can open connections to monitor status.</p>
 <p>Once control is returned, you can perform maintenance activity.</p>
 <div class="admonition note">
