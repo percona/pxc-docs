@@ -559,13 +559,10 @@ Usually, to take a node down for maintenance, you need to identify that node,
 update its status in ProxySQL to `OFFLINE_SOFT`,
 wait for ProxySQL to divert traffic from this node,
 and then initiate the shutdown or perform maintenance tasks.
-Percona XtraDB Cluster includes a special *maintenance mode* for nodes
+Percona XtraDB Cluster includes a special maintenance mode for nodes
 that enables you to take a node down without adjusting ProxySQL manually.
 
-Existing connections to PXC are *not* disconnected when `pxc_maint_mode=MAINTENANCE` is 
-initiated.  You will need to terminate these connections either via your application code 
-by forcing a re-connection (and then the new connections will be re-routed around the PXC 
-node in `MAINTENANCE` mode).
+Initiating `pxc_maint_mode=MAINTENANCE` does not disconnect existing connections. You must terminate these connections by either running your application code or forcing a re-connection. With a re-connection, the new connections are re-routed around the PXC node in `MAINTENANCE` mode.
 
 Assisted maintenance mode is controlled via the `pxc_maint_mode` variable,
 which is monitored by ProxySQL and can be set to one of the following values:
@@ -599,12 +596,12 @@ if you need to perform maintenance on a node without shutting it down.
     using the `pxc_maint_transition_period` variable
     to accommodate long-running transactions.
     If the period is long enough for all transactions to finish,
-    there should be little disruption in the cluster workload. If you increase the transition period, the packaging script may determine the wait as a server stall.
+    there should be little disruption in the cluster workload. If you increase 
+    the transition period, the packaging script may determine the wait as a server stall.
 
     When ProxySQL detects that the mode is set to `MAINTENANCE`,
     it stops routing traffic to the node. During the transition period,
-    the node continues to receive existing write-set replication traffic,
-    ProxySQL avoids opening new connections and starting transactions.
+    any existing connections continue, but ProxySQL avoids opening new connections and starting transactions.
     Still, the user can open connections to monitor status.
     
     Once control is returned, you can perform maintenance activity.
