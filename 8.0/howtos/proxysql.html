@@ -2129,8 +2129,12 @@ update its status in ProxySQL to <code>OFFLINE_SOFT</code>,
 wait for ProxySQL to divert traffic from this node,
 and then initiate the shutdown or perform maintenance tasks.
 Percona XtraDB Cluster includes a special <em>maintenance mode</em> for nodes
-that enables you to take a node down without adjusting ProxySQL manually.
-The mode is controlled using the <code>pxc_maint_mode</code> variable,
+that enables you to take a node down without adjusting ProxySQL manually.</p>
+<p>Existing connections to PXC are <em>not</em> disconnected when <code>pxc_maint_mode=MAINTENANCE</code> is 
+initiated.  You will need to terminate these connections either via your application code 
+by forcing a re-connection (and then the new connections will be re-routed around the PXC 
+node in <code>MAINTENANCE</code> mode).</p>
+<p>Assisted maintenance mode is controlled via the <code>pxc_maint_mode</code> variable,
 which is monitored by ProxySQL and can be set to one of the following values:</p>
 <ul>
 <li>
@@ -2199,7 +2203,7 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
   <small>
     
       Last update:
-      2023-01-27
+      2023-01-30
     
   </small>
 </div>
