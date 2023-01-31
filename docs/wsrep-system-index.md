@@ -1079,13 +1079,13 @@ By setting all the nodes to have the same value for this variable,
 the cluster can be set up without the state transfer.
 
 ### `wsrep_sync_wait`
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-sync-wait`` |
-| Config File:   | Yes                |
-| Scope:         | Session           |
-| Dynamic:       | Yes                 |
-| Default Value: | ``0`` |
+| Option         | Description               |
+| -------------- | ------------------------- |
+| Command Line:  | ``--wsrep-sync-wait``     |
+| Config File:   | Yes                       |
+| Scope:         | Session, Global           |
+| Dynamic:       | Yes                       |
+| Default Value: | ``0``                     |
 
 This variable has been implemented in `5.6.20-25.7`. Controls cluster-wide causality checks on certain statements.
 Checks ensure that the statement is executed on a node
