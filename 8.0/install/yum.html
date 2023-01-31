@@ -17,21 +17,20 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/yum.html">
       
-      
-      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.8">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
-        <title>Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS - Percona XtraDB Cluster</title>
+        <title>Installing Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -53,7 +52,7 @@
     
       <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css">
+      <link rel="stylesheet" href="../css/version-select.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -74,22 +73,6 @@
     
     
     
-              
-
-              <script>
-              (function (w, d, s, l, i) {
-                  w[l] = w[l] || []; w[l].push({
-                    'gtm.start': new Date().getTime(), 
-                    event: 'gtm.js'
-                  });
-                  var f = d.getElementsByTagName(s)[0],
-                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                  j.async = true; 
-                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                  f.parentNode.insertBefore(j, f);
-                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
-              </script>
-              
   </head>
   
   
@@ -112,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#install-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos" class="md-skip">
+        <a href="#installing-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos" class="md-skip">
           Skip to content
         </a>
       
@@ -146,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
+              Installing Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
             
           </span>
         </div>
@@ -155,16 +138,18 @@
     
       <form class="md-header__option" data-md-component="palette">
         
-        
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
-        
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -201,7 +186,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -275,7 +260,7 @@
   
     <li class="md-nav__item">
       <a href="../index.html" class="md-nav__link">
-        Home
+        Percona XtraDB Cluster 8.0 Documentation
       </a>
     </li>
   
@@ -292,18 +277,17 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
-      
-        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Introduction
@@ -331,7 +315,7 @@
   
     <li class="md-nav__item">
       <a href="../limitation.html" class="md-nav__link">
-        Percona XtraDB Cluster limitations
+        Percona XtraDB Cluster Limitations
       </a>
     </li>
   
@@ -369,21 +353,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Get started
+        <label class="md-nav__link" for="__nav_3">
+          Getting Started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Get started
+          Getting Started
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -394,7 +377,7 @@
   
     <li class="md-nav__item">
       <a href="../overview.html" class="md-nav__link">
-        Quick start guide for Percona XtraDB Cluster
+        Quick Start Guide for Percona XtraDB Cluster
       </a>
     </li>
   
@@ -408,7 +391,7 @@
   
     <li class="md-nav__item">
       <a href="index.html" class="md-nav__link">
-        Install Percona XtraDB Cluster
+        Installing Percona XtraDB Cluster
       </a>
     </li>
   
@@ -422,7 +405,7 @@
   
     <li class="md-nav__item">
       <a href="../configure.html" class="md-nav__link">
-        Configure nodes for write-set replication
+        Configuring Nodes for Write-Set Replication
       </a>
     </li>
   
@@ -436,7 +419,7 @@
   
     <li class="md-nav__item">
       <a href="../bootstrap.html" class="md-nav__link">
-        Bootstrap the first node
+        Bootstrapping the First Node
       </a>
     </li>
   
@@ -450,7 +433,7 @@
   
     <li class="md-nav__item">
       <a href="../add-node.html" class="md-nav__link">
-        Add nodes to cluster
+        Adding Nodes to Cluster
       </a>
     </li>
   
@@ -464,7 +447,7 @@
   
     <li class="md-nav__item">
       <a href="../verify.html" class="md-nav__link">
-        Verify replication
+        Verifying Replication
       </a>
     </li>
   
@@ -488,18 +471,17 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Features" data-md-level="1">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Features
@@ -513,7 +495,7 @@
   
     <li class="md-nav__item">
       <a href="../features/highavailability.html" class="md-nav__link">
-        High availability
+        High Availability
       </a>
     </li>
   
@@ -527,7 +509,7 @@
   
     <li class="md-nav__item">
       <a href="../features/pxc-strict-mode.html" class="md-nav__link">
-        PXC strict mode
+        PXC Strict Mode
       </a>
     </li>
   
@@ -541,7 +523,7 @@
   
     <li class="md-nav__item">
       <a href="../features/online-schema-upgrade.html" class="md-nav__link">
-        Online schema upgrade
+        Online Schema Upgrade
       </a>
     </li>
   
@@ -579,21 +561,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
-      
-        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-          PXC security
+        <label class="md-nav__link" for="__nav_5">
+          PXC Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          PXC security
+          PXC Security
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -604,7 +585,7 @@
   
     <li class="md-nav__item">
       <a href="../security/index.html" class="md-nav__link">
-        Security basics
+        Security Basics
       </a>
     </li>
   
@@ -618,7 +599,7 @@
   
     <li class="md-nav__item">
       <a href="../security/secure-network.html" class="md-nav__link">
-        Secure the network
+        Securing the Network
       </a>
     </li>
   
@@ -632,7 +613,7 @@
   
     <li class="md-nav__item">
       <a href="../security/encrypt-traffic.html" class="md-nav__link">
-        Encrypt PXC traffic
+        Encrypting PXC Traffic
       </a>
     </li>
   
@@ -646,7 +627,7 @@
   
     <li class="md-nav__item">
       <a href="../security/apparmor.html" class="md-nav__link">
-        Enable AppArmor
+        Enabling AppArmor
       </a>
     </li>
   
@@ -660,7 +641,7 @@
   
     <li class="md-nav__item">
       <a href="../security/selinux.html" class="md-nav__link">
-        Enable SELinux
+        Enabling SELinux
       </a>
     </li>
   
@@ -684,21 +665,20 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          User's manual
+        <label class="md-nav__link" for="__nav_6">
+          User's Manual
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          User's manual
+          User's Manual
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -709,7 +689,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
-        State snapshot transfer
+        State Snapshot Transfer
       </a>
     </li>
   
@@ -723,7 +703,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
-        Percona XtraBackup SST configuration
+        Percona XtraBackup SST Configuration
       </a>
     </li>
   
@@ -737,7 +717,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/restarting_nodes.html" class="md-nav__link">
-        Restart the cluster nodes
+        Restarting the cluster nodes
       </a>
     </li>
   
@@ -751,7 +731,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/failover.html" class="md-nav__link">
-        Cluster failover
+        Cluster Failover
       </a>
     </li>
   
@@ -765,7 +745,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/monitoring.html" class="md-nav__link">
-        Monitor the cluster
+        Monitoring the cluster
       </a>
     </li>
   
@@ -807,7 +787,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
-        Understand GCache and Record-Set cache
+        Understanding GCache and Record-Set Cache
       </a>
     </li>
   
@@ -821,7 +801,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
-        Perfomance Schema instrumentation
+        Perfomance Schema Instrumentation
       </a>
     </li>
   
@@ -859,18 +839,17 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
-      
-        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_7">
           How-tos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           How-tos
@@ -884,7 +863,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/upgrade_guide.html" class="md-nav__link">
-        Upgrade Percona XtraDB Cluster
+        Upgrading Percona XtraDB Cluster
       </a>
     </li>
   
@@ -898,7 +877,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/crash-recovery.html" class="md-nav__link">
-        Crash recovery
+        Crash Recovery
       </a>
     </li>
   
@@ -912,7 +891,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/centos_howto.html" class="md-nav__link">
-        Configure Percona XtraDB Cluster on CentOS
+        Configuring Percona XtraDB Cluster on CentOS
       </a>
     </li>
   
@@ -926,7 +905,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
-        Configure Percona XtraDB Cluster on Ubuntu
+        Configuring Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
   
@@ -940,7 +919,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/garbd_howto.html" class="md-nav__link">
-        Set up Galera arbitrator
+        Setting up Galera Arbitrator
       </a>
     </li>
   
@@ -1010,7 +989,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/proxysql-v2.html" class="md-nav__link">
-        ProxySQL admin utilities
+        ProxySQL Admin Utilities
       </a>
     </li>
   
@@ -1048,18 +1027,17 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_8">
           Release notes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Release notes
@@ -1293,18 +1271,17 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
       
       
-      
-        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_9">
           References
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+      <nav class="md-nav" aria-label="References" data-md-level="1">
         <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           References
@@ -1374,7 +1351,7 @@
   
     <li class="md-nav__item">
       <a href="../faq.html" class="md-nav__link">
-        Frequently asked questions
+        Frequently Asked Questions
       </a>
     </li>
   
@@ -1472,15 +1449,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-from-percona-repository" class="md-nav__link">
-    Install from Percona Repository
+  <a href="#installing-from-percona-repository" class="md-nav__link">
+    Installing from Percona Repository
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
-    Next steps
+    Next Steps
   </a>
   
 </li>
@@ -1498,23 +1475,14 @@
               <article class="md-content__inner md-typeset">
                 
 
-                <!-- Edit and view button -->
+                <!-- Edit button -->
                 
-                  
-                  
                   <a
                     href="https://github.com/percona/pxc-docs/edit/8.0/docs/install/yum.md"
-                    title=""
+                    title="Edit this page"
                     class="md-content__button md-icon"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
-                  </a>
-                  <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/install/yum.md"
-                    title="View source of this page"
-                    class="md-content__button md-icon"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
                   </a>
                 
 
@@ -1526,7 +1494,7 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="install-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos">Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS<a class="headerlink" href="#install-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos" title="Permanent link">&para;</a></h1>
+                <h1 id="installing-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos">Installing Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS<a class="headerlink" href="#installing-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos" title="Permanent link">&para;</a></h1>
 <p>Specific information on the supported platforms, products, and versions
 is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
 <p>The packages are available in the official Percona software repository
@@ -1557,14 +1525,14 @@ using <strong>yum</strong>.</p>
 </ul>
 <p>For information on SELinux, see <a href="../security/selinux.html#selinux">Enabling SELinux</a>.</p>
 </div>
-<h2 id="install-from-percona-repository">Install from Percona Repository<a class="headerlink" href="#install-from-percona-repository" title="Permanent link">&para;</a></h2>
+<h2 id="installing-from-percona-repository">Installing from Percona Repository<a class="headerlink" href="#installing-from-percona-repository" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Configure Percona repositories as described in <a href="https://www.percona.com/doc/percona-repo-config/index.html">Percona Software Repositories Documentation</a>.</p>
 </li>
 <li>
 <p>Install the Percona XtraDB Cluster packages:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1599,39 +1567,37 @@ using <strong>yum</strong>.</p>
 </li>
 <li>
 <p>Start the Percona XtraDB Cluster server:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 </li>
 <li>
 <p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 </li>
 <li>
 <p>Use this password to log in as <code>root</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 </li>
 <li>
 <p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<p>The example of the output is the following:</p>
+<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; exit
 Bye
 </code></pre></div>
-</details>
 </li>
 <li>
 <p>Stop the <code>mysql</code> service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 </ol>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After you install Percona XtraDB Cluster and change the superuser account password,
 configure the node according to the procedure described in <a href="../configure.html#configure">Configuring Nodes for Write-Set Replication</a>.</p>
 
@@ -1655,7 +1621,7 @@ configure the node according to the procedure described in <a href="../configure
   <small>
     
       Last update:
-      2023-01-20
+      2022-08-16
     
   </small>
 </div>
@@ -1682,9 +1648,11 @@ configure the node according to the procedure described in <a href="../configure
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
     <div class="md-copyright__highlight">
- <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
+      Percona LLC, &#169; 2022
     </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -1702,23 +1670,14 @@ configure the node according to the procedure described in <a href="../configure
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-              
-      <script src="../assets/javascripts/bundle.a00a7c5e.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
-      
     
-
-              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
-
-              <noscript>
-                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-              </noscript>
-              
+    
   </body>
 </html>
