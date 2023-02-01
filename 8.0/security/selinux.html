@@ -17,20 +17,25 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/selinux.html">
       
+      
+        <link rel="prev" href="apparmor.html">
+      
+      
+        <link rel="next" href="../manual/state_snapshot_transfer.html">
+      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
     
     
       
-        <title>Enabling SELinux - Percona XtraDB Cluster</title>
+        <title>Enable SELinux - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -52,7 +57,7 @@
     
       <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="../css/version-select.css">
+      <link rel="stylesheet" href="../css/nocopy.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -73,6 +78,22 @@
     
     
     
+              
+
+              <script>
+              (function (w, d, s, l, i) {
+                  w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), 
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true; 
+                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
+              </script>
+              
   </head>
   
   
@@ -95,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#enabling-selinux" class="md-skip">
+        <a href="#enable-selinux" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +150,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Enabling SELinux
+              Enable SELinux
             
           </span>
         </div>
@@ -138,18 +159,16 @@
     
       <form class="md-header__option" data-md-component="palette">
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -186,7 +205,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -260,7 +279,7 @@
   
     <li class="md-nav__item">
       <a href="../index.html" class="md-nav__link">
-        Percona XtraDB Cluster 8.0 Documentation
+        Home
       </a>
     </li>
   
@@ -277,17 +296,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Introduction
@@ -315,7 +335,7 @@
   
     <li class="md-nav__item">
       <a href="../limitation.html" class="md-nav__link">
-        Percona XtraDB Cluster Limitations
+        Percona XtraDB Cluster limitations
       </a>
     </li>
   
@@ -353,20 +373,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
-          Getting Started
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Get started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Getting Started
+          Get started
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -377,7 +398,7 @@
   
     <li class="md-nav__item">
       <a href="../overview.html" class="md-nav__link">
-        Quick Start Guide for Percona XtraDB Cluster
+        Quick start guide for Percona XtraDB Cluster
       </a>
     </li>
   
@@ -391,7 +412,7 @@
   
     <li class="md-nav__item">
       <a href="../install/index.html" class="md-nav__link">
-        Installing Percona XtraDB Cluster
+        Install Percona XtraDB Cluster
       </a>
     </li>
   
@@ -405,7 +426,7 @@
   
     <li class="md-nav__item">
       <a href="../configure.html" class="md-nav__link">
-        Configuring Nodes for Write-Set Replication
+        Configure nodes for write-set replication
       </a>
     </li>
   
@@ -419,7 +440,7 @@
   
     <li class="md-nav__item">
       <a href="../bootstrap.html" class="md-nav__link">
-        Bootstrapping the First Node
+        Bootstrap the first node
       </a>
     </li>
   
@@ -433,7 +454,7 @@
   
     <li class="md-nav__item">
       <a href="../add-node.html" class="md-nav__link">
-        Adding Nodes to Cluster
+        Add nodes to cluster
       </a>
     </li>
   
@@ -447,7 +468,7 @@
   
     <li class="md-nav__item">
       <a href="../verify.html" class="md-nav__link">
-        Verifying Replication
+        Verify replication
       </a>
     </li>
   
@@ -471,17 +492,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Features" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Features
@@ -495,7 +517,7 @@
   
     <li class="md-nav__item">
       <a href="../features/highavailability.html" class="md-nav__link">
-        High Availability
+        High availability
       </a>
     </li>
   
@@ -509,7 +531,7 @@
   
     <li class="md-nav__item">
       <a href="../features/pxc-strict-mode.html" class="md-nav__link">
-        PXC Strict Mode
+        PXC strict mode
       </a>
     </li>
   
@@ -523,7 +545,7 @@
   
     <li class="md-nav__item">
       <a href="../features/online-schema-upgrade.html" class="md-nav__link">
-        Online Schema Upgrade
+        Online schema upgrade
       </a>
     </li>
   
@@ -563,20 +585,21 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
-          PXC Security
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          PXC security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          PXC Security
+          PXC security
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -587,7 +610,7 @@
   
     <li class="md-nav__item">
       <a href="index.html" class="md-nav__link">
-        Security Basics
+        Security basics
       </a>
     </li>
   
@@ -601,7 +624,7 @@
   
     <li class="md-nav__item">
       <a href="secure-network.html" class="md-nav__link">
-        Securing the Network
+        Secure the network
       </a>
     </li>
   
@@ -615,7 +638,7 @@
   
     <li class="md-nav__item">
       <a href="encrypt-traffic.html" class="md-nav__link">
-        Encrypting PXC Traffic
+        Encrypt PXC traffic
       </a>
     </li>
   
@@ -629,7 +652,7 @@
   
     <li class="md-nav__item">
       <a href="apparmor.html" class="md-nav__link">
-        Enabling AppArmor
+        Enable AppArmor
       </a>
     </li>
   
@@ -645,19 +668,19 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Enabling SELinux
+          Enable SELinux
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="selinux.html" class="md-nav__link md-nav__link--active">
-        Enabling SELinux
+        Enable SELinux
       </a>
       
         
@@ -678,22 +701,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#modifying-policies" class="md-nav__link">
-    Modifying Policies
+  <a href="#modify-policies" class="md-nav__link">
+    Modify policies
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#working-with-pxc_encrypt_cluster_traffic" class="md-nav__link">
-    Working with pxc_encrypt_cluster_traffic
+  <a href="#work-with-pxc_encrypt_cluster_traffic" class="md-nav__link">
+    Work with pxc_encrypt_cluster_traffic
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#enabling-enforcing-mode-for-pxc" class="md-nav__link">
-    Enabling enforcing mode for PXC
+  <a href="#enable-enforcing-mode-for-pxc" class="md-nav__link">
+    Enable enforcing mode for PXC
   </a>
   
 </li>
@@ -724,20 +747,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6">
-          User's Manual
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User's manual
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          User's Manual
+          User's manual
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -748,7 +772,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
-        State Snapshot Transfer
+        State snapshot transfer
       </a>
     </li>
   
@@ -762,7 +786,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
-        Percona XtraBackup SST Configuration
+        Percona XtraBackup SST configuration
       </a>
     </li>
   
@@ -776,7 +800,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/restarting_nodes.html" class="md-nav__link">
-        Restarting the cluster nodes
+        Restart the cluster nodes
       </a>
     </li>
   
@@ -790,7 +814,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/failover.html" class="md-nav__link">
-        Cluster Failover
+        Cluster failover
       </a>
     </li>
   
@@ -804,7 +828,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/monitoring.html" class="md-nav__link">
-        Monitoring the cluster
+        Monitor the cluster
       </a>
     </li>
   
@@ -846,7 +870,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
-        Understanding GCache and Record-Set Cache
+        Understand GCache and Record-Set cache
       </a>
     </li>
   
@@ -860,7 +884,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
-        Perfomance Schema Instrumentation
+        Perfomance Schema instrumentation
       </a>
     </li>
   
@@ -898,17 +922,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
           How-tos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           How-tos
@@ -922,7 +947,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/upgrade_guide.html" class="md-nav__link">
-        Upgrading Percona XtraDB Cluster
+        Upgrade Percona XtraDB Cluster
       </a>
     </li>
   
@@ -936,7 +961,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/crash-recovery.html" class="md-nav__link">
-        Crash Recovery
+        Crash recovery
       </a>
     </li>
   
@@ -950,7 +975,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/centos_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on CentOS
+        Configure Percona XtraDB Cluster on CentOS
       </a>
     </li>
   
@@ -964,7 +989,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on Ubuntu
+        Configure Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
   
@@ -978,7 +1003,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/garbd_howto.html" class="md-nav__link">
-        Setting up Galera Arbitrator
+        Set up Galera arbitrator
       </a>
     </li>
   
@@ -1048,7 +1073,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/proxysql-v2.html" class="md-nav__link">
-        ProxySQL Admin Utilities
+        ProxySQL admin utilities
       </a>
     </li>
   
@@ -1086,17 +1111,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
           Release notes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Release notes
@@ -1330,17 +1356,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
           References
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="References" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           References
@@ -1410,7 +1437,7 @@
   
     <li class="md-nav__item">
       <a href="../faq.html" class="md-nav__link">
-        Frequently Asked Questions
+        Frequently asked questions
       </a>
     </li>
   
@@ -1501,22 +1528,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#modifying-policies" class="md-nav__link">
-    Modifying Policies
+  <a href="#modify-policies" class="md-nav__link">
+    Modify policies
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#working-with-pxc_encrypt_cluster_traffic" class="md-nav__link">
-    Working with pxc_encrypt_cluster_traffic
+  <a href="#work-with-pxc_encrypt_cluster_traffic" class="md-nav__link">
+    Work with pxc_encrypt_cluster_traffic
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#enabling-enforcing-mode-for-pxc" class="md-nav__link">
-    Enabling enforcing mode for PXC
+  <a href="#enable-enforcing-mode-for-pxc" class="md-nav__link">
+    Enable enforcing mode for PXC
   </a>
   
 </li>
@@ -1534,14 +1561,23 @@
               <article class="md-content__inner md-typeset">
                 
 
-                <!-- Edit button -->
+                <!-- Edit and view button -->
                 
+                  
+                  
                   <a
                     href="https://github.com/percona/pxc-docs/edit/8.0/docs/security/selinux.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+                  </a>
+                  <a
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/security/selinux.md"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
                   </a>
                 
 
@@ -1553,7 +1589,7 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="enabling-selinux">Enabling SELinux<a class="headerlink" href="#enabling-selinux" title="Permanent link">&para;</a></h1>
+                <h1 id="enable-selinux">Enable SELinux<a class="headerlink" href="#enable-selinux" title="Permanent link">&para;</a></h1>
 <p>SELinux helps protects the user’s home directory data. SELinux provides the following:</p>
 <ul>
 <li>
@@ -1576,16 +1612,16 @@
 <p>wsrep-sst-xtrabackup-v2 - allows execution of the xtrabackup-v2 SST script</p>
 </li>
 </ul>
-<h2 id="modifying-policies">Modifying Policies<a class="headerlink" href="#modifying-policies" title="Permanent link">&para;</a></h2>
+<h2 id="modify-policies">Modify policies<a class="headerlink" href="#modify-policies" title="Permanent link">&para;</a></h2>
 <p>Modifications described in <a href="https://www.percona.com/doc/percona-server/LATEST/security/selinux.html">Percona Server and SELinux</a> can also be applied for <em>Percona XtraDB Cluster</em>.</p>
 <p>To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as <code>root</code>:</p>
 <p>To enable port <code>14567</code> instead of the default port <code>4567</code>:</p>
 <p>Find the tag associated with the <code>4567</code> port:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4567</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4567</span>
 tram_port_t<span class="w"> </span>tcp<span class="w"> </span><span class="m">4567</span>
 </code></pre></div>
 <p>Run a command to find which rules grant mysqld access to the port:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>tram_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>tram_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
 Found<span class="w"> </span><span class="m">5</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
 <span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 <span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>tram_port_t<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>name_bind<span class="w"> </span>name_connect<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
@@ -1594,19 +1630,19 @@ Found<span class="w"> </span><span class="m">5</span><span class="w"> </span>sem
 <span class="w">    </span>allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
 <p>You could tag port 14567 with the <code>tramp_port_t</code> tag, but this tag may cause issues because port 14567 is not a TRAM port. Use the general <code>mysqld_port_t</code> tag to add ports. For example, the following command adds port 14567 to the policy module with the <code>mysqld_port_t</code> tag.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_port_t<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span><span class="m">14567</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_port_t<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span><span class="m">14567</span>
 </code></pre></div>
 <p>You can verify the addition with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">14567</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">14567</span>
 mysqld_port_t<span class="w">                  </span>tcp<span class="w">      </span><span class="m">4568</span>,<span class="w"> </span><span class="m">14567</span>,<span class="w"> </span><span class="m">1186</span>,<span class="w"> </span><span class="m">3306</span>,<span class="w"> </span><span class="m">63132</span>-63164
 </code></pre></div>
 <p>To see the tag associated with the 4444 port, run the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4444</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4444</span>
 kerberos_port_t<span class="w">                </span>tcp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
 kerberos_port_t<span class="w">                </span>udp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
 </code></pre></div>
 <p>To find the rules associated with <code>kerberos_port_t</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>kerberos_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>kerberos_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
 Found<span class="w"> </span><span class="m">9</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
 allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 allow<span class="w"> </span>mysqld_t<span class="w"> </span>rpc_port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_bind<span class="w"> </span><span class="p">;</span>
@@ -1628,7 +1664,7 @@ allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<sp
 <p>Adjust the mysqld/sst script policy module to allow access to the given port. This method is better since all PXC-related adjustments are within the PXC-related policy modules.</p>
 </li>
 </ul>
-<h2 id="working-with-pxc_encrypt_cluster_traffic">Working with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#working-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
+<h2 id="work-with-pxc_encrypt_cluster_traffic">Work with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#work-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
 <p>By default, the <code>pxc_encrypt_cluster_traffic</code> is <code>ON</code>, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.</p>
 <p>Review <a href="https://www.percona.com/doc/percona-xtradb-cluster/LATEST/security/encrypt-traffic.html#encrypt-replication">How to set up the certificates</a>. When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:</p>
 <ul>
@@ -1642,16 +1678,16 @@ allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<sp
 <p>Certificates without the proper SELinux context can be restored with the following command:</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-v<span class="w"> </span>/etc/mysql/certs/*
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-v<span class="w"> </span>/etc/mysql/certs/*
 </code></pre></div>
-<h2 id="enabling-enforcing-mode-for-pxc">Enabling enforcing mode for PXC<a class="headerlink" href="#enabling-enforcing-mode-for-pxc" title="Permanent link">&para;</a></h2>
+<h2 id="enable-enforcing-mode-for-pxc">Enable enforcing mode for PXC<a class="headerlink" href="#enable-enforcing-mode-for-pxc" title="Permanent link">&para;</a></h2>
 <p>The process, mysqld, runs in permissive mode, by default, even if SELinux runs in enforcing mode:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
 permissive_mysqld_t
 permissivedomains
 </code></pre></div>
 <p>After ensuring that the system journal does not list any issues, the administrator can remove the permissive mode for mysqld_t:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -1678,7 +1714,7 @@ permissivedomains
   <small>
     
       Last update:
-      2022-08-16
+      2023-01-20
     
   </small>
 </div>
@@ -1702,50 +1738,12 @@ permissivedomains
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="apparmor.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Enabling AppArmor" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Enabling AppArmor
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../manual/state_snapshot_transfer.html" class="md-footer__link md-footer__link--next" aria-label="Next: State Snapshot Transfer" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              State Snapshot Transfer
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
     <div class="md-copyright__highlight">
-      Percona LLC, &#169; 2022
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
     </div>
-  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -1763,14 +1761,23 @@ permissivedomains
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+              
+      <script src="../assets/javascripts/bundle.a00a7c5e.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
+        <script src="../js/promptremover.js"></script>
+      
     
-    
+
+              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
+
+              <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+              </noscript>
+              
   </body>
 </html>

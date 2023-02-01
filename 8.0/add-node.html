@@ -17,20 +17,25 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/add-node.html">
       
+      
+        <link rel="prev" href="bootstrap.html">
+      
+      
+        <link rel="next" href="verify.html">
+      
       <link rel="icon" href="_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
     
     
       
-        <title>Adding Nodes to Cluster - Percona XtraDB Cluster</title>
+        <title>Add nodes to cluster - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.0d440cfe.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -52,7 +57,7 @@
     
       <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="css/version-select.css">
+      <link rel="stylesheet" href="css/nocopy.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -73,6 +78,22 @@
     
     
     
+              
+
+              <script>
+              (function (w, d, s, l, i) {
+                  w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), 
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true; 
+                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
+              </script>
+              
   </head>
   
   
@@ -95,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#adding-nodes-to-cluster" class="md-skip">
+        <a href="#add-nodes-to-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -129,7 +150,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Adding Nodes to Cluster
+              Add nodes to cluster
             
           </span>
         </div>
@@ -138,18 +159,16 @@
     
       <form class="md-header__option" data-md-component="palette">
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -186,7 +205,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -260,7 +279,7 @@
   
     <li class="md-nav__item">
       <a href="index.html" class="md-nav__link">
-        Percona XtraDB Cluster 8.0 Documentation
+        Home
       </a>
     </li>
   
@@ -277,17 +296,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Introduction
@@ -315,7 +335,7 @@
   
     <li class="md-nav__item">
       <a href="limitation.html" class="md-nav__link">
-        Percona XtraDB Cluster Limitations
+        Percona XtraDB Cluster limitations
       </a>
     </li>
   
@@ -355,20 +375,21 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
-          Getting Started
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Get started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Getting Started
+          Get started
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -379,7 +400,7 @@
   
     <li class="md-nav__item">
       <a href="overview.html" class="md-nav__link">
-        Quick Start Guide for Percona XtraDB Cluster
+        Quick start guide for Percona XtraDB Cluster
       </a>
     </li>
   
@@ -393,7 +414,7 @@
   
     <li class="md-nav__item">
       <a href="install/index.html" class="md-nav__link">
-        Installing Percona XtraDB Cluster
+        Install Percona XtraDB Cluster
       </a>
     </li>
   
@@ -407,7 +428,7 @@
   
     <li class="md-nav__item">
       <a href="configure.html" class="md-nav__link">
-        Configuring Nodes for Write-Set Replication
+        Configure nodes for write-set replication
       </a>
     </li>
   
@@ -421,7 +442,7 @@
   
     <li class="md-nav__item">
       <a href="bootstrap.html" class="md-nav__link">
-        Bootstrapping the First Node
+        Bootstrap the first node
       </a>
     </li>
   
@@ -437,19 +458,19 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Adding Nodes to Cluster
+          Add nodes to cluster
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="add-node.html" class="md-nav__link md-nav__link--active">
-        Adding Nodes to Cluster
+        Add nodes to cluster
       </a>
       
         
@@ -470,8 +491,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#starting-the-second-node" class="md-nav__link">
-    Starting the Second Node
+  <a href="#start-the-second-node" class="md-nav__link">
+    Start the second node
   </a>
   
 </li>
@@ -485,7 +506,7 @@
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
-    Next Steps
+    Next steps
   </a>
   
 </li>
@@ -506,7 +527,7 @@
   
     <li class="md-nav__item">
       <a href="verify.html" class="md-nav__link">
-        Verifying Replication
+        Verify replication
       </a>
     </li>
   
@@ -530,17 +551,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Features" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Features
@@ -554,7 +576,7 @@
   
     <li class="md-nav__item">
       <a href="features/highavailability.html" class="md-nav__link">
-        High Availability
+        High availability
       </a>
     </li>
   
@@ -568,7 +590,7 @@
   
     <li class="md-nav__item">
       <a href="features/pxc-strict-mode.html" class="md-nav__link">
-        PXC Strict Mode
+        PXC strict mode
       </a>
     </li>
   
@@ -582,7 +604,7 @@
   
     <li class="md-nav__item">
       <a href="features/online-schema-upgrade.html" class="md-nav__link">
-        Online Schema Upgrade
+        Online schema upgrade
       </a>
     </li>
   
@@ -620,20 +642,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
-          PXC Security
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          PXC security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          PXC Security
+          PXC security
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -644,7 +667,7 @@
   
     <li class="md-nav__item">
       <a href="security/index.html" class="md-nav__link">
-        Security Basics
+        Security basics
       </a>
     </li>
   
@@ -658,7 +681,7 @@
   
     <li class="md-nav__item">
       <a href="security/secure-network.html" class="md-nav__link">
-        Securing the Network
+        Secure the network
       </a>
     </li>
   
@@ -672,7 +695,7 @@
   
     <li class="md-nav__item">
       <a href="security/encrypt-traffic.html" class="md-nav__link">
-        Encrypting PXC Traffic
+        Encrypt PXC traffic
       </a>
     </li>
   
@@ -686,7 +709,7 @@
   
     <li class="md-nav__item">
       <a href="security/apparmor.html" class="md-nav__link">
-        Enabling AppArmor
+        Enable AppArmor
       </a>
     </li>
   
@@ -700,7 +723,7 @@
   
     <li class="md-nav__item">
       <a href="security/selinux.html" class="md-nav__link">
-        Enabling SELinux
+        Enable SELinux
       </a>
     </li>
   
@@ -724,20 +747,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6">
-          User's Manual
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User's manual
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          User's Manual
+          User's manual
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -748,7 +772,7 @@
   
     <li class="md-nav__item">
       <a href="manual/state_snapshot_transfer.html" class="md-nav__link">
-        State Snapshot Transfer
+        State snapshot transfer
       </a>
     </li>
   
@@ -762,7 +786,7 @@
   
     <li class="md-nav__item">
       <a href="manual/xtrabackup_sst.html" class="md-nav__link">
-        Percona XtraBackup SST Configuration
+        Percona XtraBackup SST configuration
       </a>
     </li>
   
@@ -776,7 +800,7 @@
   
     <li class="md-nav__item">
       <a href="manual/restarting_nodes.html" class="md-nav__link">
-        Restarting the cluster nodes
+        Restart the cluster nodes
       </a>
     </li>
   
@@ -790,7 +814,7 @@
   
     <li class="md-nav__item">
       <a href="manual/failover.html" class="md-nav__link">
-        Cluster Failover
+        Cluster failover
       </a>
     </li>
   
@@ -804,7 +828,7 @@
   
     <li class="md-nav__item">
       <a href="manual/monitoring.html" class="md-nav__link">
-        Monitoring the cluster
+        Monitor the cluster
       </a>
     </li>
   
@@ -846,7 +870,7 @@
   
     <li class="md-nav__item">
       <a href="manual/gcache_record-set_cache_difference.html" class="md-nav__link">
-        Understanding GCache and Record-Set Cache
+        Understand GCache and Record-Set cache
       </a>
     </li>
   
@@ -860,7 +884,7 @@
   
     <li class="md-nav__item">
       <a href="manual/performance_schema_instrumentation.html" class="md-nav__link">
-        Perfomance Schema Instrumentation
+        Perfomance Schema instrumentation
       </a>
     </li>
   
@@ -898,17 +922,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
           How-tos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           How-tos
@@ -922,7 +947,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/upgrade_guide.html" class="md-nav__link">
-        Upgrading Percona XtraDB Cluster
+        Upgrade Percona XtraDB Cluster
       </a>
     </li>
   
@@ -936,7 +961,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/crash-recovery.html" class="md-nav__link">
-        Crash Recovery
+        Crash recovery
       </a>
     </li>
   
@@ -950,7 +975,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/centos_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on CentOS
+        Configure Percona XtraDB Cluster on CentOS
       </a>
     </li>
   
@@ -964,7 +989,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/ubuntu_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on Ubuntu
+        Configure Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
   
@@ -978,7 +1003,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/garbd_howto.html" class="md-nav__link">
-        Setting up Galera Arbitrator
+        Set up Galera arbitrator
       </a>
     </li>
   
@@ -1048,7 +1073,7 @@
   
     <li class="md-nav__item">
       <a href="howtos/proxysql-v2.html" class="md-nav__link">
-        ProxySQL Admin Utilities
+        ProxySQL admin utilities
       </a>
     </li>
   
@@ -1086,17 +1111,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
           Release notes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Release notes
@@ -1330,17 +1356,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
           References
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="References" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           References
@@ -1410,7 +1437,7 @@
   
     <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
-        Frequently Asked Questions
+        Frequently asked questions
       </a>
     </li>
   
@@ -1501,8 +1528,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#starting-the-second-node" class="md-nav__link">
-    Starting the Second Node
+  <a href="#start-the-second-node" class="md-nav__link">
+    Start the second node
   </a>
   
 </li>
@@ -1516,7 +1543,7 @@
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
-    Next Steps
+    Next steps
   </a>
   
 </li>
@@ -1534,14 +1561,23 @@
               <article class="md-content__inner md-typeset">
                 
 
-                <!-- Edit button -->
+                <!-- Edit and view button -->
                 
+                  
+                  
                   <a
                     href="https://github.com/percona/pxc-docs/edit/8.0/docs/add-node.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+                  </a>
+                  <a
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/add-node.md"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
                   </a>
                 
 
@@ -1553,7 +1589,7 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="adding-nodes-to-cluster">Adding Nodes to Cluster<a class="headerlink" href="#adding-nodes-to-cluster" title="Permanent link">&para;</a></h1>
+                <h1 id="add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
 <p>New nodes that are <a href="configure.html#configure">properly configured</a> are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
@@ -1565,16 +1601,17 @@ Do not join several nodes at the same time
 to avoid overhead due to large amounts of traffic when a new node joins. </p>
 </div>
 <p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="glossary.html#sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
-<h2 id="starting-the-second-node">Starting the Second Node<a class="headerlink" href="#starting-the-second-node" title="Permanent link">&para;</a></h2>
+<h2 id="start-the-second-node">Start the second node<a class="headerlink" href="#start-the-second-node" title="Permanent link">&para;</a></h2>
 <p>Start the second node using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
 </code></pre></div>
 <p>After the server starts, it receives <a href="glossary.html#sst">SST</a> automatically.</p>
 <p>To check the status of the second node, run the following:</p>
-<p><div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
-The output is the following:</p>
-<div class="highlight"><pre><span></span><code>+----------------------------------+--------------------------------------------------+
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+--------------------------------------------------+
 | Variable_name                    | Value                                            |
 +----------------------------------+--------------------------------------------------+
 | wsrep_local_state_uuid           | a08247c1-5807-11ea-b285-e3a50c8efb41             |
@@ -1591,10 +1628,11 @@ The output is the following:</p>
 | wsrep_provider_vendor            | Codership Oy &lt;info@codership.com&gt;                |
 | wsrep_provider_version           | 4.3(r752664d)                                    |
 | wsrep_ready                      | ON                                               |
-| ...                              | ...                                              |
+| ...                              | ...                                              | 
 +----------------------------------+--------------------------------------------------+
 75 rows in set (0.00 sec)
 </code></pre></div>
+</details>
 <p>The output of <code>SHOW STATUS</code> shows that the new node has been successfully
 added to the cluster.  The cluster size is now 2 nodes, it is the primary
 component, and it is fully connected and ready to receive write-set replication.</p>
@@ -1607,15 +1645,17 @@ proceed to add the next node.</p>
 </div>
 <h2 id="starting-the-third-node">Starting the Third Node<a class="headerlink" href="#starting-the-third-node" title="Permanent link">&para;</a></h2>
 <p>To add the third node, start it as usual:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<div class="highlight" data-prompt="[root@pxc3 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
 </code></pre></div>
 <p>To check the status of the third node, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc3</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the
 cluster. Cluster size is now 3 nodes, it is the primary component, and it is
 fully connected and ready to receive write-set replication.</p>
-<div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | c2883338-834d-11e2-0800-03c9c68e41ec |
@@ -1631,7 +1671,8 @@ fully connected and ready to receive write-set replication.</p>
 +----------------------------+--------------------------------------+
 40 rows in set (0.01 sec)
 </code></pre></div>
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+</details>
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>When you add all nodes to the cluster, you can <a href="verify.html#verify">verify replication</a> by running queries and manipulating data on nodes to see if these changes are synchronized accross the cluster.</p>
 
                 
@@ -1654,7 +1695,7 @@ fully connected and ready to receive write-set replication.</p>
   <small>
     
       Last update:
-      2022-08-16
+      2023-01-20
     
   </small>
 </div>
@@ -1678,50 +1719,12 @@ fully connected and ready to receive write-set replication.</p>
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="bootstrap.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Bootstrapping the First Node" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Bootstrapping the First Node
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="verify.html" class="md-footer__link md-footer__link--next" aria-label="Next: Verifying Replication" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Verifying Replication
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
     <div class="md-copyright__highlight">
-      Percona LLC, &#169; 2022
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
     </div>
-  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -1739,14 +1742,23 @@ fully connected and ready to receive write-set replication.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+              
+      <script src="assets/javascripts/bundle.a00a7c5e.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
+        <script src="js/promptremover.js"></script>
+      
     
-    
+
+              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
+
+              <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+              </noscript>
+              
   </body>
 </html>

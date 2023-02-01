@@ -17,8 +17,14 @@
       
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/management/data_at_rest_encryption.html">
       
+      
+        <link rel="prev" href="../manual/performance_schema_instrumentation.html">
+      
+      
+        <link rel="next" href="../howtos/upgrade_guide.html">
+      
       <link rel="icon" href="../_static/percona_favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.9">
     
     
       
@@ -26,11 +32,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -52,7 +57,7 @@
     
       <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="../css/version-select.css">
+      <link rel="stylesheet" href="../css/nocopy.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -73,6 +78,22 @@
     
     
     
+              
+
+              <script>
+              (function (w, d, s, l, i) {
+                  w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), 
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true; 
+                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
+              </script>
+              
   </head>
   
   
@@ -138,18 +159,16 @@
     
       <form class="md-header__option" data-md-component="palette">
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_1">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
             </label>
           
         
-          
-          
-          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent="" type="radio" name="__palette" id="__palette_2">
+        
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
@@ -186,7 +205,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -260,7 +279,7 @@
   
     <li class="md-nav__item">
       <a href="../index.html" class="md-nav__link">
-        Percona XtraDB Cluster 8.0 Documentation
+        Home
       </a>
     </li>
   
@@ -277,17 +296,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Introduction
@@ -315,7 +335,7 @@
   
     <li class="md-nav__item">
       <a href="../limitation.html" class="md-nav__link">
-        Percona XtraDB Cluster Limitations
+        Percona XtraDB Cluster limitations
       </a>
     </li>
   
@@ -353,20 +373,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
-          Getting Started
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Get started
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
-          Getting Started
+          Get started
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -377,7 +398,7 @@
   
     <li class="md-nav__item">
       <a href="../overview.html" class="md-nav__link">
-        Quick Start Guide for Percona XtraDB Cluster
+        Quick start guide for Percona XtraDB Cluster
       </a>
     </li>
   
@@ -391,7 +412,7 @@
   
     <li class="md-nav__item">
       <a href="../install/index.html" class="md-nav__link">
-        Installing Percona XtraDB Cluster
+        Install Percona XtraDB Cluster
       </a>
     </li>
   
@@ -405,7 +426,7 @@
   
     <li class="md-nav__item">
       <a href="../configure.html" class="md-nav__link">
-        Configuring Nodes for Write-Set Replication
+        Configure nodes for write-set replication
       </a>
     </li>
   
@@ -419,7 +440,7 @@
   
     <li class="md-nav__item">
       <a href="../bootstrap.html" class="md-nav__link">
-        Bootstrapping the First Node
+        Bootstrap the first node
       </a>
     </li>
   
@@ -433,7 +454,7 @@
   
     <li class="md-nav__item">
       <a href="../add-node.html" class="md-nav__link">
-        Adding Nodes to Cluster
+        Add nodes to cluster
       </a>
     </li>
   
@@ -447,7 +468,7 @@
   
     <li class="md-nav__item">
       <a href="../verify.html" class="md-nav__link">
-        Verifying Replication
+        Verify replication
       </a>
     </li>
   
@@ -471,17 +492,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Features
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Features" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Features
@@ -495,7 +517,7 @@
   
     <li class="md-nav__item">
       <a href="../features/highavailability.html" class="md-nav__link">
-        High Availability
+        High availability
       </a>
     </li>
   
@@ -509,7 +531,7 @@
   
     <li class="md-nav__item">
       <a href="../features/pxc-strict-mode.html" class="md-nav__link">
-        PXC Strict Mode
+        PXC strict mode
       </a>
     </li>
   
@@ -523,7 +545,7 @@
   
     <li class="md-nav__item">
       <a href="../features/online-schema-upgrade.html" class="md-nav__link">
-        Online Schema Upgrade
+        Online schema upgrade
       </a>
     </li>
   
@@ -561,20 +583,21 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_5">
-          PXC Security
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          PXC security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="PXC Security" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
-          PXC Security
+          PXC security
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -585,7 +608,7 @@
   
     <li class="md-nav__item">
       <a href="../security/index.html" class="md-nav__link">
-        Security Basics
+        Security basics
       </a>
     </li>
   
@@ -599,7 +622,7 @@
   
     <li class="md-nav__item">
       <a href="../security/secure-network.html" class="md-nav__link">
-        Securing the Network
+        Secure the network
       </a>
     </li>
   
@@ -613,7 +636,7 @@
   
     <li class="md-nav__item">
       <a href="../security/encrypt-traffic.html" class="md-nav__link">
-        Encrypting PXC Traffic
+        Encrypt PXC traffic
       </a>
     </li>
   
@@ -627,7 +650,7 @@
   
     <li class="md-nav__item">
       <a href="../security/apparmor.html" class="md-nav__link">
-        Enabling AppArmor
+        Enable AppArmor
       </a>
     </li>
   
@@ -641,7 +664,7 @@
   
     <li class="md-nav__item">
       <a href="../security/selinux.html" class="md-nav__link">
-        Enabling SELinux
+        Enable SELinux
       </a>
     </li>
   
@@ -667,20 +690,21 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_6">
-          User's Manual
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          User's manual
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="User's Manual" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
-          User's Manual
+          User's manual
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -691,7 +715,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
-        State Snapshot Transfer
+        State snapshot transfer
       </a>
     </li>
   
@@ -705,7 +729,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
-        Percona XtraBackup SST Configuration
+        Percona XtraBackup SST configuration
       </a>
     </li>
   
@@ -719,7 +743,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/restarting_nodes.html" class="md-nav__link">
-        Restarting the cluster nodes
+        Restart the cluster nodes
       </a>
     </li>
   
@@ -733,7 +757,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/failover.html" class="md-nav__link">
-        Cluster Failover
+        Cluster failover
       </a>
     </li>
   
@@ -747,7 +771,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/monitoring.html" class="md-nav__link">
-        Monitoring the cluster
+        Monitor the cluster
       </a>
     </li>
   
@@ -789,7 +813,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
-        Understanding GCache and Record-Set Cache
+        Understand GCache and Record-Set cache
       </a>
     </li>
   
@@ -803,7 +827,7 @@
   
     <li class="md-nav__item">
       <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
-        Perfomance Schema Instrumentation
+        Perfomance Schema instrumentation
       </a>
     </li>
   
@@ -819,7 +843,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -859,30 +883,17 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-pxc-to-use-keyring_file-plugin" class="md-nav__link">
-    Configuring PXC to use keyring_file plugin
+  <a href="#configure-pxc-to-use-keyring_file-plugin" class="md-nav__link">
+    Configure PXC to use keyring_file plugin
   </a>
   
-    <nav class="md-nav" aria-label="Configuring PXC to use keyring_file plugin">
+    <nav class="md-nav" aria-label="Configure PXC to use keyring_file plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     Configuration
   </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -899,11 +910,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-pxc-to-use-keyring_vault-plugin" class="md-nav__link">
-    Configuring PXC to use keyring_vault plugin
+  <a href="#configure-pxc-to-use-keyring_vault-plugin" class="md-nav__link">
+    Configure PXC to use keyring_vault plugin
   </a>
   
-    <nav class="md-nav" aria-label="Configuring PXC to use keyring_vault plugin">
+    <nav class="md-nav" aria-label="Configure PXC to use keyring_vault plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -926,8 +937,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mixing-keyring-plugin-types" class="md-nav__link">
-    Mixing keyring plugin types
+  <a href="#mix-keyring-plugin-types" class="md-nav__link">
+    Mix keyring plugin types
   </a>
   
 </li>
@@ -940,23 +951,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-keys-between-keyring-keystores" class="md-nav__link">
-    Migrating Keys Between Keyring Keystores
+  <a href="#migrate-keys-between-keyring-keystores" class="md-nav__link">
+    Migrate keys between keyring keystores
   </a>
   
-    <nav class="md-nav" aria-label="Migrating Keys Between Keyring Keystores">
+    <nav class="md-nav" aria-label="Migrate keys between keyring keystores">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#offline-migration" class="md-nav__link">
-    Offline Migration
+    Offline migration
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#online-migration" class="md-nav__link">
-    Online Migration
+    Online migration
   </a>
   
 </li>
@@ -999,17 +1010,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_7">
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
           How-tos
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="How-tos" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           How-tos
@@ -1023,7 +1035,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/upgrade_guide.html" class="md-nav__link">
-        Upgrading Percona XtraDB Cluster
+        Upgrade Percona XtraDB Cluster
       </a>
     </li>
   
@@ -1037,7 +1049,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/crash-recovery.html" class="md-nav__link">
-        Crash Recovery
+        Crash recovery
       </a>
     </li>
   
@@ -1051,7 +1063,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/centos_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on CentOS
+        Configure Percona XtraDB Cluster on CentOS
       </a>
     </li>
   
@@ -1065,7 +1077,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
-        Configuring Percona XtraDB Cluster on Ubuntu
+        Configure Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
   
@@ -1079,7 +1091,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/garbd_howto.html" class="md-nav__link">
-        Setting up Galera Arbitrator
+        Set up Galera arbitrator
       </a>
     </li>
   
@@ -1149,7 +1161,7 @@
   
     <li class="md-nav__item">
       <a href="../howtos/proxysql-v2.html" class="md-nav__link">
-        ProxySQL Admin Utilities
+        ProxySQL admin utilities
       </a>
     </li>
   
@@ -1187,17 +1199,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_8">
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
           Release notes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Release notes" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           Release notes
@@ -1431,17 +1444,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_9">
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
           References
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="References" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
           References
@@ -1511,7 +1525,7 @@
   
     <li class="md-nav__item">
       <a href="../faq.html" class="md-nav__link">
-        Frequently Asked Questions
+        Frequently asked questions
       </a>
     </li>
   
@@ -1609,30 +1623,17 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-pxc-to-use-keyring_file-plugin" class="md-nav__link">
-    Configuring PXC to use keyring_file plugin
+  <a href="#configure-pxc-to-use-keyring_file-plugin" class="md-nav__link">
+    Configure PXC to use keyring_file plugin
   </a>
   
-    <nav class="md-nav" aria-label="Configuring PXC to use keyring_file plugin">
+    <nav class="md-nav" aria-label="Configure PXC to use keyring_file plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     Configuration
   </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1649,11 +1650,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-pxc-to-use-keyring_vault-plugin" class="md-nav__link">
-    Configuring PXC to use keyring_vault plugin
+  <a href="#configure-pxc-to-use-keyring_vault-plugin" class="md-nav__link">
+    Configure PXC to use keyring_vault plugin
   </a>
   
-    <nav class="md-nav" aria-label="Configuring PXC to use keyring_vault plugin">
+    <nav class="md-nav" aria-label="Configure PXC to use keyring_vault plugin">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1676,8 +1677,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mixing-keyring-plugin-types" class="md-nav__link">
-    Mixing keyring plugin types
+  <a href="#mix-keyring-plugin-types" class="md-nav__link">
+    Mix keyring plugin types
   </a>
   
 </li>
@@ -1690,23 +1691,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#migrating-keys-between-keyring-keystores" class="md-nav__link">
-    Migrating Keys Between Keyring Keystores
+  <a href="#migrate-keys-between-keyring-keystores" class="md-nav__link">
+    Migrate keys between keyring keystores
   </a>
   
-    <nav class="md-nav" aria-label="Migrating Keys Between Keyring Keystores">
+    <nav class="md-nav" aria-label="Migrate keys between keyring keystores">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#offline-migration" class="md-nav__link">
-    Offline Migration
+    Offline migration
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#online-migration" class="md-nav__link">
-    Online Migration
+    Online migration
   </a>
   
 </li>
@@ -1736,14 +1737,23 @@
               <article class="md-content__inner md-typeset">
                 
 
-                <!-- Edit button -->
+                <!-- Edit and view button -->
                 
+                  
+                  
                   <a
                     href="https://github.com/percona/pxc-docs/edit/8.0/docs/management/data_at_rest_encryption.md"
-                    title="Edit this page"
+                    title=""
                     class="md-content__button md-icon"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+                  </a>
+                  <a
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/management/data_at_rest_encryption.md"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
                   </a>
                 
 
@@ -1792,12 +1802,12 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 <p>The transit data is defined as data that is transmitted to another node or client. Encrypted transit data uses an SSL connection.</p>
 <p>Percona XtraDB Cluster 8.0 supports all <em>data at rest</em> generally-available encryption
 features available from Percona Server for MySQL 8.0.</p>
-<h2 id="configuring-pxc-to-use-keyring_file-plugin">Configuring PXC to use keyring_file plugin<a class="headerlink" href="#configuring-pxc-to-use-keyring_file-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="configure-pxc-to-use-keyring_file-plugin">Configure PXC to use keyring_file plugin<a class="headerlink" href="#configure-pxc-to-use-keyring_file-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
 configure the <code>keyring_file</code>
 plugin. <a href="https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html">Install the plugin</a> and add the following options in the configuration file:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 early-plugin-load=keyring_file.so
 keyring_file_data=&lt;PATH&gt;/keyring
 </code></pre></div>
@@ -1835,7 +1845,7 @@ the keyring.</p>
 <h3 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h3>
 <p>Keyring (or, more generally, the Percona XtraDB Cluster SST process) is backward compatible. A
 higher version JOINER can join from lower version DONOR, but not vice-versa.</p>
-<h2 id="configuring-pxc-to-use-keyring_vault-plugin">Configuring PXC to use keyring_vault plugin<a class="headerlink" href="#configuring-pxc-to-use-keyring_vault-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="configure-pxc-to-use-keyring_vault-plugin">Configure PXC to use keyring_vault plugin<a class="headerlink" href="#configure-pxc-to-use-keyring_vault-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="keyring_vault">keyring_vault<a class="headerlink" href="#keyring_vault" title="Permanent link">&para;</a></h3>
 <p>The <code>keyring_vault</code> plugin allows storing the master-key in vault-server
 (vs. local file as in case of <code>keyring_file</code>).</p>
@@ -1846,13 +1856,12 @@ higher version JOINER can join from lower version DONOR, but not vice-versa.</p>
 <h3 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
 <p>Configuration options are the same as
 <a href="https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html">upstream</a>.
-The <code>my.cnf</code> configuration file should contain
-the following options:</p>
+The <code>my.cnf</code> configuration file should contain the following options:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
 early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
 keyring_vault_config=&quot;&lt;PATH&gt;/keyring_vault_n1.conf&quot;
 </code></pre></div>
-<p>Also <code>keyring_vault_n1.conf</code> file contents should be :</p>
+<p>Also, <code>keyring_vault_n1.conf</code> file should contain the following:</p>
 <div class="highlight"><pre><span></span><code>vault_url = http://127.0.0.1:8200
 secret_mount_point = secret1
 token = e0345eb4-35dd-3ddd-3b1e-e42bb9f2525d
@@ -1871,7 +1880,9 @@ vault server is used, it must be accessible from the respective node. All nodes
 do not need to use the same mount point.</p>
 <p>If the node is not able to reach or connect to the vault server, an error is
 notified during the server boot, and the node refuses to start:</p>
-<div class="highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
+<details class="example">
+<summary>The warning message</summary>
+<div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
 &#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
 Please make sure that Vault&#39;s CA certificate is trusted by the machine
 from which you intend to connect to Vault.&#39;
@@ -1879,6 +1890,7 @@ from which you intend to connect to Vault.&#39;
 &#39;CURL returned this error code: 7 with error message : Failed to connect
 to 127.0.0.1 port 8200: Connection refused&#39;
 </code></pre></div>
+</details>
 <p>If some nodes of the cluster are unable to connect to vault-server, this
 relates only to these specific nodes: e.g., if node-1 can connect, and
 node-2 cannot connect, only node-2 refuses to start. Also, if the server has
@@ -1886,7 +1898,9 @@ a pre-existing encrypted object and on reboot, the server fails to connect to
 the vault-server, the object is not accessible.</p>
 <p>In case when vault-server is accessible, but authentication credential is incorrect,
 the consequences are the same, and the corresponding error looks like the following:</p>
-<div class="highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
+<details class="example">
+<summary>The warning message</summary>
+<div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
 &#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
 Please make sure that Vault&#39;s CA certificate is trusted by the machine
 from which you intend to connect to Vault.&#39;
@@ -1894,18 +1908,21 @@ from which you intend to connect to Vault.&#39;
 &#39;Could not retrieve list of keys from Vault. Vault has returned the
 following error(s): [&quot;permission denied&quot;]&#39;
 </code></pre></div>
+</details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server boot, but the node still refuses to start:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>The example of the output is the following:</p>
-<div class="highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring
 plugin is loaded.
 
 ... [ERROR] Plugin keyring_vault reported: &#39;Could not write key to Vault. ...
 ... [ERROR] Plugin keyring_vault reported: &#39;Could not flush keys to keyring&#39;
 </code></pre></div>
-<h2 id="mixing-keyring-plugin-types">Mixing keyring plugin types<a class="headerlink" href="#mixing-keyring-plugin-types" title="Permanent link">&para;</a></h2>
+</details>
+<h2 id="mix-keyring-plugin-types">Mix keyring plugin types<a class="headerlink" href="#mix-keyring-plugin-types" title="Permanent link">&para;</a></h2>
 <p>With XtraBackup introducing transition-key logic, it is now possible to
 mix and match keyring plugins. For example, the user has node-1 configured to use the
 <code>keyring_file</code> plugin and node-2 configured to use <code>keyring_vault</code>.</p>
@@ -1914,10 +1931,10 @@ mix and match keyring plugins. For example, the user has node-1 configured to us
 <p>Percona recommends the same configuration for all the nodes of the cluster. A mix and match in keyring plugin types is recommended only during the transition from one keying type to another.</p>
 </div>
 <h2 id="temporary-file-encryption">Temporary file encryption<a class="headerlink" href="#temporary-file-encryption" title="Permanent link">&para;</a></h2>
-<h2 id="migrating-keys-between-keyring-keystores">Migrating Keys Between Keyring Keystores<a class="headerlink" href="#migrating-keys-between-keyring-keystores" title="Permanent link">&para;</a></h2>
+<h2 id="migrate-keys-between-keyring-keystores">Migrate keys between keyring keystores<a class="headerlink" href="#migrate-keys-between-keyring-keystores" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster supports key migration between keystores. The migration can be performed
 offline or online.</p>
-<h3 id="offline-migration">Offline Migration<a class="headerlink" href="#offline-migration" title="Permanent link">&para;</a></h3>
+<h3 id="offline-migration">Offline migration<a class="headerlink" href="#offline-migration" title="Permanent link">&para;</a></h3>
 <p>In offline migration, the node to migrate is shut down, and the migration server
 takes care of migrating keys for the said server to a new keystore.</p>
 <p>For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the <code>keyring_file</code>. To migrate the n2 node to use <code>keyring_vault</code>, use the following procedure:</p>
@@ -1936,7 +1953,9 @@ takes care of migrating keys for the said server to a new keystore.</p>
 </li>
 </ol>
 <p>Here is how the migration server output should look like:</p>
-<div class="highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
 --keyring-migration-source=keyring_file.so \
 --keyring_file_data=/dev/shm/pxc80/node2/keyring \
 --keyring-migration-destination=keyring_vault.so \
@@ -1950,12 +1969,13 @@ takes care of migrating keys for the said server to a new keystore.</p>
 ... [Note] /dev/shm/pxc80/bin/mysqld (mysqld 8.0-debug) starting as process 5710 ...
 ... [Note] Keyring migration successful.
 </code></pre></div>
+</details>
 <p>On a successful migration, the destination keystore receives additional migrated keys
 (pre-existing keys in the destination keystore are not touched or removed). The source
 keystore retains the keys as the migration performs a copy operation and
 not a move operation.</p>
 <p>If the migration fails, the destination keystore is unchanged.</p>
-<h3 id="online-migration">Online Migration<a class="headerlink" href="#online-migration" title="Permanent link">&para;</a></h3>
+<h3 id="online-migration">Online migration<a class="headerlink" href="#online-migration" title="Permanent link">&para;</a></h3>
 <p>In online migration, the node to migrate is kept running, and the migration
 server takes
 care of migrating keys for the said server to a new keystore by connecting to
@@ -2060,7 +2080,7 @@ port=16400
   <small>
     
       Last update:
-      2022-08-16
+      2023-01-20
     
   </small>
 </div>
@@ -2084,50 +2104,12 @@ port=16400
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../manual/performance_schema_instrumentation.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Perfomance Schema Instrumentation" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Perfomance Schema Instrumentation
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../howtos/upgrade_guide.html" class="md-footer__link md-footer__link--next" aria-label="Next: Upgrading Percona XtraDB Cluster" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Upgrading Percona XtraDB Cluster
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
-  
     <div class="md-copyright__highlight">
-      Percona LLC, &#169; 2022
+ <a href='https://percona.com' target='_blank'>Percona LLC and/or its affiliates, </a> &copy; 2023
     </div>
-  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -2145,14 +2127,23 @@ port=16400
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link"], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+              
+      <script src="../assets/javascripts/bundle.a00a7c5e.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
+        <script src="../js/promptremover.js"></script>
+      
     
-    
+
+              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
+
+              <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+              </noscript>
+              
   </body>
 </html>
