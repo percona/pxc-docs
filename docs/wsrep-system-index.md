@@ -1345,13 +1345,13 @@ the cluster can be set up without the state transfer.
 
 ### `wsrep_sync_wait`
 
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-sync-wait`` |
-| Config File:   | Yes                |
-| Scope:         | Session           |
-| Dynamic:       | Yes                 |
-| Default Value: | ``0`` |
+| Option         | Description               |
+| -------------- | ------------------------- |
+| Command Line:  | ``--wsrep-sync-wait``     |
+| Config File:   | Yes                       |
+| Scope:         | Session, Global           |
+| Dynamic:       | Yes                       |
+| Default Value: | ``0``                     |
 
 Controls cluster-wide causality checks on certain statements.
 Checks ensure that the statement is executed on a node
