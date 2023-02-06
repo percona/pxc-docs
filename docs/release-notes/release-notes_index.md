@@ -1,4 +1,4 @@
-# Percona XtraDB Cluster 5.7 Release notes
+# Percona XtraDB Cluster 5.7 Release notes index
 
 * [Percona XtraDB Cluster 5.7.40-31.63 (2022-12-29)](5.7.40-31.63.md)
 
