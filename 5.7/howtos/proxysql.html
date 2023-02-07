@@ -2690,13 +2690,12 @@ any long-running transactions that are still active are aborted.</p>
 <p>You may need to isolate the node for some time,
 so that it does not receive traffic from ProxySQL
 while you resize the buffer pool, truncate the undo log,
-defragment or check disks, etc.</p>
+defragment, or check disks, etc.</p>
 <p>To do this, manually set <code>pxc_maint_mode=MAINTENANCE</code>.
-Control is not returned to the user for a predefined period
-(10 seconds by default).
-When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>,
-it stops routing traffic to the node.
-Once control is returned, you can perform maintenance activity.</p>
+Control is not returned to the user for the predefined period set by <code>pxc-maint_transaction_period</code>,
+10 seconds by default.
+ProxySQL marks the node as OFFLINE, and avoids opening new connections for any DML transactions. ProxySQL does not terminate existing connections.</p>
+<p>Once control is returned, you can perform maintenance activity. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Any data changes will still be replicated across the cluster.</p>
@@ -2724,7 +2723,7 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
   <small>
     
       Last update:
-      2022-07-20
+      2023-01-27
     
   </small>
 </div>
