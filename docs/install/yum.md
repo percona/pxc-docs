@@ -30,7 +30,7 @@ using **yum**.
 
 ## Install from Percona Repository
 
-1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://www.percona.com/doc/percona-repo-config/index.html).
+1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
 2. Install the Percona XtraDB Cluster packages:
 
