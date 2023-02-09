@@ -1475,8 +1475,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-from-percona-repository" class="md-nav__link">
-    Install from Percona Repository
+  <a href="#install-from-percona-software-repository" class="md-nav__link">
+    Install from Percona Software Repository
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-installation" class="md-nav__link">
+    After installation
   </a>
   
 </li>
@@ -1530,20 +1537,24 @@
 
                 <!-- Markdown content -->
                 <h1 id="install-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos">Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS<a class="headerlink" href="#install-percona-xtradb-cluster-on-red-hat-enterprise-linux-and-centos" title="Permanent link">&para;</a></h1>
-<p>Specific information on the supported platforms, products, and versions
-is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
-<p>The packages are available in the official Percona software repository
-and on the <a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/">download page</a>.
-It is recommended to install Percona XtraDB Cluster from the official repository
-using <strong>yum</strong>.</p>
+<p>A list of the supported platforms by products and versions
+is available in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
+<p>You can install Percona XtraDB Cluster with the following methods:</p>
+<ul>
+<li>
+<p>Use the official repository using YUM</p>
+</li>
+<li>
+<p>Download and manually install the Percona XtraDB Cluster packages from <a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/">Percona Product Downloads</a>.</p>
+</li>
+<li>
+<p>Use the Percona Software repositories </p>
+</li>
+</ul>
+<p>This documentation describes using the Percona Software repositories.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with <strong>sudo</strong>).</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.</p>
+<p>Installing Percona XtraDB Cluster requires that you either are logged in as a user with root privileges or can run commands with sudo.</p>
+<p>Percona XtraDB Cluster requires the specific ports for communication. Make sure that the following ports are available:</p>
 <ul>
 <li>
 <p>3306</p>
@@ -1559,84 +1570,40 @@ using <strong>yum</strong>.</p>
 </li>
 </ul>
 <p>For information on SELinux, see <a href="../security/selinux.html#selinux">Enabling SELinux</a>.</p>
-</div>
-<h2 id="install-from-percona-repository">Install from Percona Repository<a class="headerlink" href="#install-from-percona-repository" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Configure Percona repositories as described in <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
-</li>
-<li>
-<p>Install the Percona XtraDB Cluster packages:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+<h2 id="install-from-percona-software-repository">Install from Percona Software Repository<a class="headerlink" href="#install-from-percona-software-repository" title="Permanent link">&para;</a></h2>
+<p>For more information on the Percona Software repositories and configuring Percona Repositories with <code>percona-release</code>, see the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Install on Red Hat 7</label><label for="__tabbed_1_2">Install on Red Hat 8 or later</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>pxc-80<span class="w"> </span>release
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>tools<span class="w"> </span>release
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Alternatively you can install the <code>percona-xtradb-cluster-full</code> meta package, which contains the following additional packages:</p>
-<ul>
-<li>
-<p><code>percona-xtraDB-cluster-shared</code></p>
-</li>
-<li>
-<p><code>percona-xtraDB-cluster-shared-compat</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-client</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-debuginfo</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-devel</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-garbd</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-server</code></p>
-</li>
-<li>
-<p><code>percona-xtradb-cluster-test</code></p>
-</li>
-</ul>
 </div>
-</li>
-<li>
-<p>Start the Percona XtraDB Cluster server:</p>
+<div class="tabbed-block">
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-80
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="after-installation">After installation<a class="headerlink" href="#after-installation" title="Permanent link">&para;</a></h2>
+<p>After the installation, start the <code>mysql</code> service and find the temporary password using the <code>grep</code> command. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
-</li>
-<li>
-<p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
-</code></pre></div>
-</li>
-<li>
-<p>Use this password to log in as <code>root</code>:</p>
+<p>Use the temporary password to log into the server:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
-</li>
-<li>
-<p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+<p>Run an <code>ALTER USER</code> statement to change the temporary password, exit the client, and stop the service.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
-
-mysql&gt; exit
-Bye
-</code></pre></div>
-</details>
-</li>
-<li>
-<p>Stop the <code>mysql</code> service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
-</code></pre></div>
-</li>
-</ol>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>After you install Percona XtraDB Cluster and change the superuser account password,
-configure the node according to the procedure described in <a href="../configure.html#configure">Configuring Nodes for Write-Set Replication</a>.</p>
+<p>Configure the node according to the procedure described in <a href="../configure.html#configure">Configuring Nodes for Write-Set Replication</a>.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
