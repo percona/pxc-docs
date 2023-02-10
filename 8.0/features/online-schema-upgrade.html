@@ -24,7 +24,7 @@
         <link rel="next" href="nbo.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.11">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
     
     
       
@@ -1542,7 +1542,7 @@
 <tr>
 <td>NBO or Non-Blocking Operation</td>
 <td>This method is used when consistency is important and uses a more efficient locking strategy.</td>
-<td>Implemented in <em>Percona XtraDB Cluster</em> 8.0.25-15.1. The Non-Blocking Operation feature is in <strong>Tech Preview</strong> mode. This method is similar to <code>TOI</code>. DDL operations acquire an exclusive metadata lock on the table or schema at a late stage of the operation when updating the table or schema definition. Attempting a State Snapshot Transfer (SST) fails during the NBO operation. This mode uses a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking other updates in the cluster.</td>
+<td>This method is similar to <code>TOI</code>. DDL operations acquire an exclusive metadata lock on the table or schema at a late stage of the operation when updating the table or schema definition. Attempting a State Snapshot Transfer (SST) fails during the NBO operation. This mode uses a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking other updates in the cluster.</td>
 </tr>
 </tbody>
 </table>
@@ -1567,7 +1567,7 @@
   <small>
     
       Last update:
-      2023-01-20
+      2023-02-10
     
   </small>
 </div>
@@ -1692,7 +1692,7 @@
     
     
               
-      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
