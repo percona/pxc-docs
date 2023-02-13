@@ -4501,13 +4501,11 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <p>Defines the method or script for <a href="manual/state_snapshot_transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> (SST).</p>
 <p>Available values are:</p>
 <ul>
-<li><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST.
-This method requires <a href="wsrep-system-index.html#wsrep_sst_auth"><code>wsrep_sst_auth</code></a> to be set up with credentials (<code>&lt;user&gt;:&lt;password&gt;</code>) on the donor node.
+<li>
+<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST.
 Privileges and permissions for running <em>Percona XtraBackup</em>
-can be found in <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/using_xtrabackup/privileges.html">Percona XtraBackup documentation</a>. </li>
-</ul>
-<p>For more information, see <a href="manual/xtrabackup_sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
-<ul>
+can be found in <a href="https://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="manual/xtrabackup_sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
+</li>
 <li>
 <p><code>&lt;custom_script_name&gt;</code>: Galera supports <a href="https://galeracluster.com/library/documentation/scriptable-sst.html">Scriptable State Snapshot Transfer</a>.
 This enables users to create their own custom scripts for performing SST.
@@ -4518,7 +4516,7 @@ and specify <code>MySST</code> for this variable to run your custom SST script.<
 <p><code>skip</code>: Use this to skip SST.
 This can be used when initially starting the cluster
 and manually restoring the same data to all nodes.
-It shouldn’t be used permanently
+This option should not be used permanently
 because it could lead to data inconsistency across the nodes.</p>
 </li>
 </ul>
@@ -4875,7 +4873,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2023-02-01
+      2023-02-13
     
   </small>
 </div>
