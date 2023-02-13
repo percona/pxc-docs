@@ -1282,11 +1282,8 @@ Defines the method or script for [State Snapshot Transfer](manual/state_snapshot
 Available values are:
 
 * `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST.
-This method requires [`wsrep_sst_auth`](wsrep-system-index.md#wsrep_sst_auth) to be set up with credentials (`<user>:<password>`) on the donor node.
 Privileges and permissions for running *Percona XtraBackup*
-can be found in [Percona XtraBackup documentation](https://www.percona.com/doc/percona-xtrabackup/2.4/using_xtrabackup/privileges.html). 
-
-For more information, see [Percona XtraBackup SST Configuration](manual/xtrabackup_sst.md#xtrabackup-sst).
+can be found in [Percona XtraBackup documentation](https://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.html). For more information, see [Percona XtraBackup SST Configuration](manual/xtrabackup_sst.md#xtrabackup-sst).
 
 * `<custom_script_name>`: Galera supports [Scriptable State Snapshot Transfer](https://galeracluster.com/library/documentation/scriptable-sst.html).
 This enables users to create their own custom scripts for performing SST.
@@ -1296,7 +1293,7 @@ and specify `MySST` for this variable to run your custom SST script.
 * `skip`: Use this to skip SST.
 This can be used when initially starting the cluster
 and manually restoring the same data to all nodes.
-It shouldn’t be used permanently
+This option should not be used permanently
 because it could lead to data inconsistency across the nodes.
 
 !!! note
