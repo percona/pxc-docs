@@ -4502,15 +4502,9 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <p>Available values are:</p>
 <ul>
 <li>
-<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST.
+<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST. This option is the default option.
 Privileges and permissions for running <em>Percona XtraBackup</em>
 can be found in <a href="https://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="manual/xtrabackup_sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
-</li>
-<li>
-<p><code>&lt;custom_script_name&gt;</code>: Galera supports <a href="https://galeracluster.com/library/documentation/scriptable-sst.html">Scriptable State Snapshot Transfer</a>.
-This enables users to create their own custom scripts for performing SST.
-For example, you can create a script <code>/usr/bin/wsrep_MySST.sh</code>
-and specify <code>MySST</code> for this variable to run your custom SST script.</p>
 </li>
 <li>
 <p><code>skip</code>: Use this to skip SST.
