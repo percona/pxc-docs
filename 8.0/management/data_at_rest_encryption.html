@@ -2045,8 +2045,7 @@ connections, the running server socket or named pipe used to connect.</p>
 <p>Prerequisite for migration:</p>
 <p>Make sure to pass required keyring options and other configuration parameters
 for the two keyring plugins. For example, if <code>keyring_file</code> is one of the
-plugins, you must set the <code>keyring_file_data</code> system variable if the
-keyring data file location is not the default location.</p>
+plugins, you must explicitly configure the <code>keyring_file_data</code> system variable in the my.cnf file.</p>
 <p>Other non-keyring options may be required as well. One way to specify these
 options is by using <code>--defaults-file</code> to name an option file that contains
 the required options.</p>
@@ -2083,7 +2082,7 @@ port=16400
   <small>
     
       Last update:
-      2023-01-20
+      2023-02-09
     
   </small>
 </div>
