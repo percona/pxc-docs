@@ -1,6 +1,6 @@
 # Percona XtraDB Cluster
 
-![PXC logo](source/percona-xtradb-cluster-logo.jpg)
+![PXC logo](docs/_static/Percona_Logo_Color.png)
 
 
 For more information about the Percona XtraDB Cluster components and how to use this product, see [Percona XtraDB Cluster documentation](https://docs.percona.com/percona-xtradb-cluster/)
@@ -30,11 +30,11 @@ As a general rule of thumb, please try to create a bug report that is:
 - Unique - do not duplicate existing tickets
 - Scoped to a single issue - only one issue per report
 
-## Licensing
+## License
 
-Percona is dedicated to **keeping open source open**. Whenever possible, we strive to include permissive licensing for both our software and documentation. For this project, we are using version 2 of the GNU General Public License (GPLv2).
+Percona XtraDB Cluster documentation is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
-## How to get involved
+## Contribute to the documentation
 
 We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/pxc-docs/blob/8.0/contributing.md) contains instructions on how you can contribute.
 
