@@ -781,6 +781,30 @@ You can set it to any value between `1024` and the default `2147483647`.
 
     [MySQL wsrep option: wsrep_max_ws_size](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-max-ws-size)
 
+### `wsrep_mode`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | ``--wsrep-mode``   |
+| Config File:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | Yes                |
+| Default Value: |                    |
+
+This variable has been implemented in [Percona XtraDB Cluster 8.0.31](./release-notes/8.0.31-23.md).
+
+Defines the node behavior according to a specified value. The value is empty or disabled by default.
+
+The available values are:
+
+* `Empty` - does not change the node behavior.
+
+* `IGNORE_NATIVE_REPLICATION_FILTER_RULES` - changes the `wsrep` behavior to ignore native replication filter rules.
+
+!!! admonition "See also"
+
+    [MySQL wsrep option: wsrep_mode](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-mode)
+
 ### `wsrep_node_address`
 | Option         | Description        |
 | -------------- | ------------------ |
