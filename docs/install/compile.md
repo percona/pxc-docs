@@ -65,11 +65,15 @@ To compile Percona XtraDB Cluster from source code:
     $ git submodule update --init --recursive
     ```
 
-3. Please download latest tarball of Percona XtraBackup 2.4 for your operating system (e.g `percona-xtrabackup-2.4.26-r19de43b-jammy-x86_64-bundle.tar`) from [Downloads](https://www.percona.com/downloads/Percona-XtraBackup-2.4/LATEST/) and move it to the target output directory, such as `./pxc-build`.
+3. Download the matching Percona XtraBackup 8.0 tarball (*.tar.gz) for your operating system from [Percona Downloads](https://www.percona.com/downloads/). 
 
-4. Please download latest tarball of Percona XtraBackup 8.0 for your operating system (e.g `percona-xtrabackup-8.0.29-rc31e7ddcce3-jammy-x86_64-bundle.tar`) from [Downloads](https://www.percona.com/downloads/Percona-XtraBackup-LATEST/) and move it to the target output directory, such as `./pxc-build`.
+   The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory `./pxc-build`:
 
-5. Run the build script `./build-ps/build-binary.sh`.
+    ```{.bash data-prompt="$"}
+    $ tar -xvf percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz -C ./pxc-build
+    ```
+
+4. Run the build script `./build-ps/build-binary.sh`.
     By default, it attempts building into the current directory. Specify
     the target output directory, such as `./pxc-build`:
 
