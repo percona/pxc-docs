@@ -1765,12 +1765,22 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 </ul>
 <h2 id="important-changes-in-percona-xtradb-cluster-80">Important changes in Percona XtraDB Cluster 8.0<a class="headerlink" href="#important-changes-in-percona-xtradb-cluster-80" title="Permanent link">&para;</a></h2>
 <ul>
+<li><a href="#upgrade-percona-xtradb-cluster">Upgrade Percona XtraDB Cluster</a></li>
+<li><a href="#important-changes-in-percona-xtradb-cluster-80">Important changes in Percona XtraDB Cluster 8.0</a><ul>
 <li><a href="#traffic-encryption-is-enabled-by-default">Traffic encryption is enabled by default</a></li>
 <li><a href="#not-recommended-to-mix-pxc-57-nodes-with-pxc-80-nodes">Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes</a></li>
-<li><a href="#pxc-strict-mode-is-enabled-by-default">PXC Strict Mode is enabled by default</a></li>
+<li><a href="#pxc-strict-mode-is-enabled-by-default">[PXC strict mode] is enabled by default</a></li>
 <li><a href="#the-configuration-file-layout-has-changed-in-pxc-80">The configuration file layout has changed in PXC 8.0</a></li>
-<li><a href="#cachingsha2password-is-the-default-authentication-plugin">caching_sha2_password is the default authentication plugin</a></li>
-<li><a href="#mysqlupgrade-is-part-of-sstglossarymdsst">mysql_upgrade is part of SST</a></li>
+<li><a href="#caching_sha2_password-is-the-default-authentication-plugin">caching_sha2_password is the default authentication plugin</a></li>
+<li><a href="#mysql_upgrade-is-part-of-sst">mysql_upgrade is part of SST</a></li>
+</ul>
+</li>
+<li><a href="#major-upgrade-scenarios">Major upgrade scenarios</a><ul>
+<li><a href="#scenario-no-active-parallel-workload-or-with-read-only-workload">Scenario: No active parallel workload or with read-only workload</a></li>
+<li><a href="#scenario-upgrade-from-pxc-56-to-pxc-80">Scenario: Upgrade from PXC 5.6 to PXC 8.0</a></li>
+</ul>
+</li>
+<li><a href="#minor-upgrade">Minor upgrade</a></li>
 </ul>
 <h3 id="traffic-encryption-is-enabled-by-default">Traffic encryption is enabled by default<a class="headerlink" href="#traffic-encryption-is-enabled-by-default" title="Permanent link">&para;</a></h3>
 <p>The <code>pxc_encrypt_cluster_traffic</code> variable, which enables traffic
@@ -1831,6 +1841,10 @@ the updated configuration file (on Debian and Ubuntu <code>/etc/mysql/mysql.conf
 <code>/etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf</code> (on Debian and
 Ubuntu) or from <code>/etc/percona-xtradb-cluster.conf.d/wsrep.cnf</code> (on Red Hat
 and CentOS) to the new location accordingly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have moved your my.cnf file to a different location and added a symlink to <code>/etc/my.cnf</code>, the RPM package manager, when upgrading, can delete the symlink and put a default my.cnf file in /etc/.</p>
+</div>
 <h3 id="caching_sha2_password-is-the-default-authentication-plugin">caching_sha2_password is the default authentication plugin<a class="headerlink" href="#caching_sha2_password-is-the-default-authentication-plugin" title="Permanent link">&para;</a></h3>
 <p>In Percona XtraDB Cluster 8.0, the default authentication plugin is
 <code>caching_sha2_password</code>. The ProxySQL option
@@ -2088,7 +2102,7 @@ until you upgrade all nodes.</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-03-08
     
   </small>
 </div>
