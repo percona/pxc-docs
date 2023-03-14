@@ -16,12 +16,18 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 
 ## Important changes in Percona XtraDB Cluster 8.0
 
-* [Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default)
-* [Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes](#not-recommended-to-mix-pxc-57-nodes-with-pxc-80-nodes)
-* [PXC Strict Mode is enabled by default](#pxc-strict-mode-is-enabled-by-default)
-* [The configuration file layout has changed in PXC 8.0](#the-configuration-file-layout-has-changed-in-pxc-80)
-* [caching_sha2_password is the default authentication plugin](#cachingsha2password-is-the-default-authentication-plugin)
-* [mysql_upgrade is part of SST](#mysqlupgrade-is-part-of-sstglossarymdsst)
+- [Upgrade Percona XtraDB Cluster](#upgrade-percona-xtradb-cluster)
+  - [Important changes in Percona XtraDB Cluster 8.0](#important-changes-in-percona-xtradb-cluster-80)
+    - [Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default)
+    - [Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes](#not-recommended-to-mix-pxc-57-nodes-with-pxc-80-nodes)
+    - [\[PXC strict mode\] is enabled by default](#pxc-strict-mode-is-enabled-by-default)
+    - [The configuration file layout has changed in PXC 8.0](#the-configuration-file-layout-has-changed-in-pxc-80)
+    - [caching\_sha2\_password is the default authentication plugin](#caching_sha2_password-is-the-default-authentication-plugin)
+    - [mysql\_upgrade is part of SST](#mysql_upgrade-is-part-of-sst)
+  - [Major upgrade scenarios](#major-upgrade-scenarios)
+    - [Scenario: No active parallel workload or with read-only workload](#scenario-no-active-parallel-workload-or-with-read-only-workload)
+    - [Scenario: Upgrade from PXC 5.6 to PXC 8.0](#scenario-upgrade-from-pxc-56-to-pxc-80)
+  - [Minor upgrade](#minor-upgrade)
 
 ### Traffic encryption is enabled by default
 
@@ -92,6 +98,10 @@ Before you start the upgrade, move your custom settings from
 `/etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Debian and
 Ubuntu) or from `/etc/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Red Hat
 and CentOS) to the new location accordingly.
+
+!!! note
+
+    If you have moved your my.cnf file to a different location and added a symlink to `/etc/my.cnf`, the RPM package manager, when upgrading, can delete the symlink and put a default my.cnf file in /etc/.
 
 ### caching_sha2_password is the default authentication plugin
 
