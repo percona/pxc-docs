@@ -87,6 +87,7 @@ The node joining the cluster, usually a state transfer target.
 
 Log Serial Number. A term used in relation to the [`InnoDB`](glossary.md#innodb) or [`XtraDB`](glossary.md#xtradb) storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.
 
+
 ## MariaDB
 
 A fork of [`MySQL`](glossary.md#mysql) that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.
@@ -98,6 +99,7 @@ This file refers to the database server’s main configuration file. Most Linux 
 installation. Note that this is not the only way of configuring the
 server, some systems does not have one even and rely on the command
 options to start the server and its defaults values.
+
 
 ## MyISAM
 
@@ -111,7 +113,6 @@ An open source database that has spawned several distributions and forks. MySQL 
 
 This user is used by the SST process to run the SQL commands needed for [`SST`](glossary.md#sst), such as creating the `mysql.pxc.sst.user` and assigning it the role [`mysql.pxc.sst.role`](glossary.md#mysql-pxc-sst-role).
 
-
 ## mysql.pxc.sst.role
 
 This role has all the privileges needed to run xtrabackup to create a backup on the donor node.
@@ -119,10 +120,10 @@ This role has all the privileges needed to run xtrabackup to create a backup on 
 ## mysql.pxc.sst.user
 
 This user (set up on the donor node) is assigned the [`mysql.pxc.sst.role`](glossary.md#mysql-pxc-sst-role) and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each [`SST`](glossary.md#sst).
+
 ## node
 
 A cluster node – a single mysql instance that is in the cluster.
-
 
 ## NUMA
 
@@ -131,10 +132,6 @@ Non-Uniform Memory Access ([`NUMA`](http://en.wikipedia.org/wiki/Non-Uniform_Mem
 ## Percona Server for MySQL
 
 Percona's branch of [`MySQL`](glossary.md#mysql) with performance and management improvements.
-
-## Percona Server
-
-See [`Percona Server for MySQL`](glossary.md#percona-server-for-mysql)
 
 ## Percona XtraDB Cluster
 
@@ -157,7 +154,6 @@ Split brain occurs when two parts of a computer cluster are disconnected, each p
 ## SST
 
 State Snapshot Transfer is the full copy of data from one node to another.  It's used when a new node joins the cluster, it has to transfer data from an existing node.
-
 Percona XtraDB Cluster: uses the `xtrabackup` program for this purpose. `xtrabackup` does not require `READ LOCK` for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).
 
 The SST method is configured with the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable.
@@ -170,7 +166,6 @@ manually when upgrading your system from an older version.
 
 A [`Storage Engine`](glossary.md#storage-engine) is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [`MySQL`](glossary.md#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. [`MyISAM`](glossary.md#myisam), InnoDB).
 
-
 ## Tech preview 
 
 A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item’s functionality can change from tech preview to GA.
@@ -178,13 +173,3 @@ A tech preview item can be a feature, a variable, or a value within a variable. 
 ## UUID
 
 Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses ("locally administered" bit in the node address (in the UUID structure) is  always equal to unity).
-
-
-## XtraBackup
-
-*Percona XtraDB* is an enhanced version of the InnoDB storage engine, designed to better scale on modern hardware, and including a variety of other features useful in high performance environments. It is fully backwards compatible, and so can be used as a drop-in replacement for standard InnoDB. See [`The Percona XtraDB Storage Engine`](https://docs.percona.com/percona-server/8.0/).
-
-## XtraDB Cluster
-
-Percona XtraDB Cluster is a high availability solution for MySQL.
-
