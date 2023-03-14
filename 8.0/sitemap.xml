@@ -256,11 +256,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/8.0.31-23.html</loc>
-         <lastmod>2023-03-14</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html</loc>
          <lastmod>2023-03-14</lastmod>
          <changefreq>daily</changefreq>

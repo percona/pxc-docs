@@ -1109,20 +1109,6 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
-        Percona XtraDB Cluster 8.0.31-23 (2023-03-14)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="release-notes/8.0.30-22.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.30-22.md (2022-12-28)
       </a>
@@ -1672,6 +1658,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#percona-server" class="md-nav__link">
+    Percona Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#percona-xtradb-cluster" class="md-nav__link">
     Percona XtraDB Cluster
   </a>
@@ -1723,6 +1716,20 @@
         <li class="md-nav__item">
   <a href="#uuid" class="md-nav__link">
     UUID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtrabackup" class="md-nav__link">
+    XtraBackup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtradb-cluster" class="md-nav__link">
+    XtraDB Cluster
   </a>
   
 </li>
@@ -2016,6 +2023,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#percona-server" class="md-nav__link">
+    Percona Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#percona-xtradb-cluster" class="md-nav__link">
     Percona XtraDB Cluster
   </a>
@@ -2067,6 +2081,20 @@
         <li class="md-nav__item">
   <a href="#uuid" class="md-nav__link">
     UUID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtrabackup" class="md-nav__link">
+    XtraBackup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtradb-cluster" class="md-nav__link">
+    XtraDB Cluster
   </a>
   
 </li>
@@ -2184,6 +2212,8 @@ options to start the server and its defaults values.</p>
 <p>Non-Uniform Memory Access (<a href="http://en.wikipedia.org/wiki/Non-Uniform_Memory_Access"><code>NUMA</code></a>) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere, but at a potentially higher latency and lower performance.</p>
 <h2 id="percona-server-for-mysql">Percona Server for MySQL<a class="headerlink" href="#percona-server-for-mysql" title="Permanent link">&para;</a></h2>
 <p>Percona&rsquo;s branch of <a href="glossary.html#mysql"><code>MySQL</code></a> with performance and management improvements.</p>
+<h2 id="percona-server">Percona Server<a class="headerlink" href="#percona-server" title="Permanent link">&para;</a></h2>
+<p>See <a href="glossary.html#percona-server-for-mysql"><code>Percona Server for MySQL</code></a></p>
 <h2 id="percona-xtradb-cluster">Percona XtraDB Cluster<a class="headerlink" href="#percona-xtradb-cluster" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster (PXC) is a high availability solution for MySQL.</p>
 <h2 id="primary-cluster">primary cluster<a class="headerlink" href="#primary-cluster" title="Permanent link">&para;</a></h2>
@@ -2195,8 +2225,8 @@ attempting to read or write from the database.</p>
 <h2 id="split-brain">split brain<a class="headerlink" href="#split-brain" title="Permanent link">&para;</a></h2>
 <p>Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.</p>
 <h2 id="sst">SST<a class="headerlink" href="#sst" title="Permanent link">&para;</a></h2>
-<p>State Snapshot Transfer is the full copy of data from one node to another.  It&rsquo;s used when a new node joins the cluster, it has to transfer data from an existing node.
-Percona XtraDB Cluster: uses the <code>xtrabackup</code> program for this purpose. <code>xtrabackup</code> does not require <code>READ LOCK</code> for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).</p>
+<p>State Snapshot Transfer is the full copy of data from one node to another.  It&rsquo;s used when a new node joins the cluster, it has to transfer data from an existing node.</p>
+<p>Percona XtraDB Cluster: uses the <code>xtrabackup</code> program for this purpose. <code>xtrabackup</code> does not require <code>READ LOCK</code> for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).</p>
 <p>The SST method is configured with the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
 <p>In PXC 8.0, the <strong>mysql-upgrade</strong> command is now run
 automatically as part of <a href="glossary.html#sst"><code>SST</code></a>. You do not have to run it
@@ -2207,6 +2237,10 @@ manually when upgrading your system from an older version.</p>
 <p>A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as <a href="#general-availability-ga">general availability(GA)</a> or removed if not useful. The item’s functionality can change from tech preview to GA.</p>
 <h2 id="uuid">UUID<a class="headerlink" href="#uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p>
+<h2 id="xtrabackup">XtraBackup<a class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h2>
+<p><em>Percona XtraDB</em> is an enhanced version of the InnoDB storage engine, designed to better scale on modern hardware, and including a variety of other features useful in high performance environments. It is fully backwards compatible, and so can be used as a drop-in replacement for standard InnoDB. See <a href="https://docs.percona.com/percona-server/8.0/"><code>The Percona XtraDB Storage Engine</code></a>.</p>
+<h2 id="xtradb-cluster">XtraDB Cluster<a class="headerlink" href="#xtradb-cluster" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster is a high availability solution for MySQL.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
