@@ -15,20 +15,20 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/index.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/management/gcache-write-set-cache-encryption.html">
       
       
-        <link rel="prev" href="../overview.html">
+        <link rel="prev" href="../manual/gcache_record-set_cache_difference.html">
       
       
-        <link rel="next" href="../configure.html">
+        <link rel="next" href="../manual/performance_schema_instrumentation.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.2">
     
     
       
-        <title>Install Percona XtraDB Cluster - Percona XtraDB Cluster</title>
+        <title>GCache encryption and Write-Set cache encryption - Percona XtraDB Cluster</title>
       
     
     
@@ -116,7 +116,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#install-percona-xtradb-cluster" class="md-skip">
+        <a href="#gcache-encryption-and-write-set-cache-encryption" class="md-skip">
           Skip to content
         </a>
       
@@ -154,7 +154,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install Percona XtraDB Cluster
+              GCache encryption and Write-Set cache encryption
             
           </span>
         </div>
@@ -373,16 +373,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
       
       
       
@@ -391,7 +389,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           Get started
@@ -416,61 +414,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Install Percona XtraDB Cluster
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../install/index.html" class="md-nav__link">
         Install Percona XtraDB Cluster
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation-alternatives" class="md-nav__link">
-    Installation alternatives
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#product-version-numbering" class="md-nav__link">
-    Product version numbering
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -740,14 +688,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
       
       
       
@@ -756,7 +706,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           User's manual
@@ -879,11 +829,108 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../management/gcache-write-set-cache-encryption.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GCache encryption and Write-Set cache encryption
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link md-nav__link--active">
         GCache encryption and Write-Set cache encryption
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gcache-and-write-set-cache-encryption" class="md-nav__link">
+    GCache and Write-Set cache encryption
+  </a>
+  
+    <nav class="md-nav" aria-label="GCache and Write-Set cache encryption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-descriptions" class="md-nav__link">
+    Key descriptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controlling-encryption" class="md-nav__link">
+    Controlling encryption
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotate-the-gcache-master-key" class="md-nav__link">
+    Rotate the GCache Master Key
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variable-descriptions" class="md-nav__link">
+    Variable descriptions
+  </a>
+  
+    <nav class="md-nav" aria-label="Variable descriptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gcache-encryption" class="md-nav__link">
+    GCache encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-set-cache-encryption" class="md-nav__link">
+    Write-Set cache encryption
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -909,7 +956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+      <a href="data_at_rest_encryption.html" class="md-nav__link">
         Data at Rest Encryption
       </a>
     </li>
@@ -1540,16 +1587,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-alternatives" class="md-nav__link">
-    Installation alternatives
+  <a href="#gcache-and-write-set-cache-encryption" class="md-nav__link">
+    GCache and Write-Set cache encryption
+  </a>
+  
+    <nav class="md-nav" aria-label="GCache and Write-Set cache encryption">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-descriptions" class="md-nav__link">
+    Key descriptions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controlling-encryption" class="md-nav__link">
+    Controlling encryption
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotate-the-gcache-master-key" class="md-nav__link">
+    Rotate the GCache Master Key
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#product-version-numbering" class="md-nav__link">
-    Product version numbering
+  <a href="#variable-descriptions" class="md-nav__link">
+    Variable descriptions
   </a>
+  
+    <nav class="md-nav" aria-label="Variable descriptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gcache-encryption" class="md-nav__link">
+    GCache encryption
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-set-cache-encryption" class="md-nav__link">
+    Write-Set cache encryption
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1571,14 +1665,14 @@
                   
                   
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/install/index.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/management/gcache-write-set-cache-encryption.md"
                     title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/install/index.md"
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/management/gcache-write-set-cache-encryption.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -1594,47 +1688,142 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="install-percona-xtradb-cluster">Install Percona XtraDB Cluster<a class="headerlink" href="#install-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
-<p>Install Percona XtraDB Cluster on all hosts that you are planning to use as cluster nodes
-and ensure that you have root access to the MySQL server on each one.</p>
-<p>It is recommended to install Percona XtraDB Cluster from official Percona software repositories
-using the corresponding package manager for your system:</p>
-<ul>
-<li>
-<p><a href="apt.html#apt">Debian or Ubuntu</a></p>
-</li>
-<li>
-<p><a href="yum.html#yum">Red Hat or CentOS</a></p>
-</li>
-</ul>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>After installing Percona XtraDB Cluster the <code>mysql</code> service is <em>stopped</em> but <em>enabled</em> so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of <code>seqno</code> is not <strong>-1</strong>.</p>
+                <h1 id="gcache-encryption-and-write-set-cache-encryption">GCache encryption and Write-Set cache encryption<a class="headerlink" href="#gcache-encryption-and-write-set-cache-encryption" title="Permanent link">&para;</a></h1>
+<p>These features are <a href="../glossary.html#tech-preview">tech preview</a>. Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
+<h2 id="gcache-and-write-set-cache-encryption">GCache and Write-Set cache encryption<a class="headerlink" href="#gcache-and-write-set-cache-encryption" title="Permanent link">&para;</a></h2>
+<p>Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  </p>
+<p>GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the Ring Buffer file. The encrypted File Key is stored in the Ring Bugger&rsquo;s preamble. The Ring Buffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>More information about Galera state information in <a href="../wsrep-files-index.html#wsrep-file-index">Index of files created by PXC grastat.dat</a></p>
+<p>For more information, see <a href="../manual/gcache_record-set_cache_difference.html">Understanding GCache and Record-set Cache</a>, and the Percona Database Performance Blog: <a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">All you need to know about GCache</a></p>
 </div>
-</div>
-<h2 id="installation-alternatives">Installation alternatives<a class="headerlink" href="#installation-alternatives" title="Permanent link">&para;</a></h2>
-<p>Percona also provides a generic tarball with all required files and binaries
-for manual installation:</p>
-<ul>
-<li><a href="tarball.html#tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
-</ul>
-<p>If you want to build Percona XtraDB Cluster from source, see <a href="compile.html#compile">Compiling and Installing from Source Code</a>.</p>
-<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="docker.html#docker">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
-<h2 id="product-version-numbering">Product version numbering<a class="headerlink" href="#product-version-numbering" title="Permanent link">&para;</a></h2>
-<p>The version number in PXC releases contains the following components:</p>
-<ul>
-<li>
-<p>The version of Percona Server for MySQL that the given PXC release is based on</p>
-</li>
-<li>
-<p>The sequence number which represents the PXC built.</p>
-</li>
-</ul>
-<p>For example, version number <em>8.0.18-9.3</em> means that this is the third PXC
-build based on Percona Server for MySQL 8.0.18-9.</p>
+<details class="example">
+<summary>Sample preamble key-value pairs</summary>
+<div class="highlight"><pre><span></span><code>Version: 2
+GID: 3afaa71d-6665-11ed-98de-2aba4aabc65e
+synced: 0
+enc_version: 1
+enc_encrypted: 1
+enc_mk_id: 3
+enc_mk_const_id: 3ad045a2-6665-11ed-a49d-cb7b9d88753f
+enc_mk_uuid: 3ad04c8e-6665-11ed-a947-c7e346da147f
+enc_fk_id: S4hRiibUje4v5GSQ7a+uuS6NBBX9+230nsPHeAXH43k=
+enc_crc: 279433530
+</code></pre></div>
+</details>
+<h3 id="key-descriptions">Key descriptions<a class="headerlink" href="#key-descriptions" title="Permanent link">&para;</a></h3>
+<p>The following table describes the encryption keys defined in the preamble. All other keys in the preamble are not related to encryption.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enc_version</code></td>
+<td>The encryption version</td>
+</tr>
+<tr>
+<td><code>enc_encrypted</code></td>
+<td>If the GCache is encrypted or not</td>
+</tr>
+<tr>
+<td><code>enc_mk_id</code></td>
+<td>A part of the Master Key ID. Rotating the Master Key increments the sequence number.</td>
+</tr>
+<tr>
+<td><code>enc_mk_const_id</code></td>
+<td>A part of the Master Key ID, a constant Universally unique identifier (UUID). This option remains constant for the duration of the <code>galera.gcache</code> file and simplifies matching the Masater Key inside the keyring to the instance that generated the keys. Deleting the <code>galera.gcache</code> changes the value of this key.</td>
+</tr>
+<tr>
+<td><code>enc_mk_uuid</code></td>
+<td>The first Master Key or if Galera detects that the preamble is inconsistent, which causes a full GCache reset and a new Master Key is required, generates this UUID.</td>
+</tr>
+<tr>
+<td><code>enc_fk_id</code></td>
+<td>The File Key ID encrypted with the Master Key.</td>
+</tr>
+<tr>
+<td><code>enc_crc</code></td>
+<td>The cyclic redundancy check (CRC) calculated from all encryption-related keys.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="controlling-encryption">Controlling encryption<a class="headerlink" href="#controlling-encryption" title="Permanent link">&para;</a></h3>
+<p>Encryption is controlled using the wsrep_provider_options. </p>
+<table>
+<thead>
+<tr>
+<th>Variable name</th>
+<th>Default value</th>
+<th>Allowed values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#gcacheencryption"><code>gcache.encryption</code></a></td>
+<td>off</td>
+<td>on/off</td>
+</tr>
+<tr>
+<td><a href="#gcacheencryption_cache_page_size"><code>gcache.encryption_cache_page_size</code></a></td>
+<td>32KB</td>
+<td>2-512</td>
+</tr>
+<tr>
+<td><a href="#gcacheencryption_cache_size"><code>gcache.encryption_cache_size</code></a></td>
+<td>16MB</td>
+<td>2 - 512</td>
+</tr>
+<tr>
+<td><a href="#allocatordisk_pages_encryption"><code>allocator.disk_pages_encryption</code></a></td>
+<td>off</td>
+<td>on/off</td>
+</tr>
+<tr>
+<td><a href="#allocatorencryption_cache_page_size"><code>allocator.encryption_cache_page_size</code></a></td>
+<td>32KB</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#allocatorencryption_cache_size"><code>allocator.encryption_cache_size</code></a></td>
+<td>16MB</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rotate-the-gcache-master-key">Rotate the GCache Master Key<a class="headerlink" href="#rotate-the-gcache-master-key" title="Permanent link">&para;</a></h2>
+<p>GCache and Write-Set cache encryption uses either a keyring plugin or a keyring component. This plugin or component must be loaded.</p>
+<p>Store the keyring file outside the data directory when using a keyring plugin or a keyring component.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">GCACHE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="variable-descriptions">Variable descriptions<a class="headerlink" href="#variable-descriptions" title="Permanent link">&para;</a></h2>
+<h3 id="gcache-encryption">GCache encryption<a class="headerlink" href="#gcache-encryption" title="Permanent link">&para;</a></h3>
+<p>The following sections describe the variables related to GCache encryption.
+All variables are read-only.</p>
+<h4 id="gcacheencryption">gcache.encryption<a class="headerlink" href="#gcacheencryption" title="Permanent link">&para;</a></h4>
+<p>Enable or disable GCache cache encryption.</p>
+<h4 id="gcacheencryption_cache_page_size">gcache.encryption_cache_page_size<a class="headerlink" href="#gcacheencryption_cache_page_size" title="Permanent link">&para;</a></h4>
+<p>The size of the GCache encryption page. The value must be multiple of the CPU page size (typically 4kB). If the value is not, the server reports an error and stops.</p>
+<h4 id="gcacheencryption_cache_size">gcache.encryption_cache_size<a class="headerlink" href="#gcacheencryption_cache_size" title="Permanent link">&para;</a></h4>
+<p>Every encrypted file has an encryption.cache, which consists of pages. Use <code>gcache.encryption_cache_size</code> to configure the encryption.cache size. </p>
+<p>Configure the page size in the cache with <a href="#gcacheencryption_cache_page_size"><code>gcache.encryption_cache_page_size</code></a>. </p>
+<p>The maximum size for the encryption.cache is 512 pages. This value is a hint. If the value is larger than the maximum, the value is rounded down to 512 x gcache.encryption_cache_page_size.</p>
+<p>The minimum size for the encryption.cache is 2 pages. If the value is smaller, the value is rounded up.</p>
+<h3 id="write-set-cache-encryption">Write-Set cache encryption<a class="headerlink" href="#write-set-cache-encryption" title="Permanent link">&para;</a></h3>
+<p>The following sections describe the variables related to Write-Set cache encryption.
+All variables are read-only.</p>
+<h4 id="allocatordisk_pages_encryption">allocator.disk_pages_encryption<a class="headerlink" href="#allocatordisk_pages_encryption" title="Permanent link">&para;</a></h4>
+<p>Enable or disable the Write-Set cache encryption.</p>
+<h4 id="allocatorencryption_cache_page_size">allocator.encryption_cache_page_size<a class="headerlink" href="#allocatorencryption_cache_page_size" title="Permanent link">&para;</a></h4>
+<p>The size of the encryption cache for Write-Set pages. The value must be multiple of the CPU page size (typically 4kB).  If the value is not, the server reports an error and stops.</p>
+<h4 id="allocatorencryption_cache_size">allocator.encryption_cache_size<a class="headerlink" href="#allocatorencryption_cache_size" title="Permanent link">&para;</a></h4>
+<p>Every Write-Set encrypted file has an encryption.cache, which consists of pages. Use <code>allocator.encryption_cache_size</code> to configure the size of the <code>encryption.cache</code>. </p>
+<p>Configure the page size in the cache with <a href="#allocatorencryption_cache_page_size"><code>allocator.encryption_cache_page_size</code></a>. </p>
+<p>The maximum size for the encryption.cache is 512 pages. This value is a hint. If the value is larger than the maximum, the value is rounded down to 512 x gcache.encryption_cache_page_size.</p>
+<p>The minimum size for the encryption.cache is 2 pages. If the value is smaller, the value is rounded up.</p>
 
                 
 <div class="md-relbar2__inner md-grid">
@@ -1656,7 +1845,7 @@ build based on Percona Server for MySQL 8.0.18-9.</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-01-11
     
   </small>
 </div>
