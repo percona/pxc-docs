@@ -11,7 +11,7 @@ edit_uri: edit/5.7/docs/
 
 use_directory_urls: false
 
-# Theme for netlify testing
+# Theme setup
 theme:
   name: material
   logo: _static/percona-logo.svg
@@ -51,8 +51,8 @@ extra_css:
   - css/nocopy.css
 
 extra_javascript:
-  - js/promptremover.js
   - js/version-select.js
+  - js/promptremover.js
 
 markdown_extensions:
   attr_list: {}
@@ -108,6 +108,8 @@ plugins:
       canonical_version: null
 
 extra:
+  version: 
+    provider: mike
   homepage:
     https://docs.percona.com
   consent:
