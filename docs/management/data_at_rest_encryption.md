@@ -309,8 +309,7 @@ Prerequisite for migration:
 
 Make sure to pass required keyring options and other configuration parameters
 for the two keyring plugins. For example, if `keyring_file` is one of the
-plugins, you must set the `keyring_file_data` system variable if the
-keyring data file location is not the default location.
+plugins, you must explicitly configure the `keyring_file_data` system variable in the my.cnf file.
 
 Other non-keyring options may be required as well. One way to specify these
 options is by using `--defaults-file` to name an option file that contains

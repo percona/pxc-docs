@@ -1,103 +1,79 @@
 # Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
 
-Specific information on the supported platforms, products, and versions
-is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
+A list of the supported platforms by products and versions
+is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
-The packages are available in the official Percona software repository
-and on the [download page](http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/).
-It is recommended to install Percona XtraDB Cluster from the official repository
-using **yum**.
+You can install Percona XtraDB Cluster with the following methods:
+
+* Use the official repository using YUM
+
+* Download and manually install the Percona XtraDB Cluster packages from [Percona Product Downloads](http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/).
+
+* Use the Percona Software repositories 
+
+This documentation describes using the Percona Software repositories.
 
 ## Prerequisites
 
-!!! note
+Installing Percona XtraDB Cluster requires that you either are logged in as a user with root privileges or can run commands with sudo.
 
-    You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with **sudo**).
+ Percona XtraDB Cluster requires the specific ports for communication. Make sure that the following ports are available:
 
-!!! note
+* 3306
 
-    Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.
+* 4444
 
-    * 3306
+* 4567
 
-    * 4444
+* 4568
 
-    * 4567
+For information on SELinux, see [Enabling SELinux](../security/selinux.md#selinux).
 
-    * 4568
+## Install from Percona Software Repository
 
-    For information on SELinux, see [Enabling SELinux](../security/selinux.md#selinux).
+For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-## Install from Percona Repository
-
-1. Configure Percona repositories as described in [Percona Software Repositories Documentation](https://www.percona.com/doc/percona-repo-config/index.html).
-
-2. Install the Percona XtraDB Cluster packages:
+=== "Install on Red Hat 7"
 
     ```{.bash data-prompt="$"}
+    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo percona-release enable-only pxc-80 release
+    $ sudo percona-release enable tools release
     $ sudo yum install percona-xtradb-cluster
     ```
 
-    !!! note
-
-        Alternatively you can install the `percona-xtradb-cluster-full` meta package, which contains the following additional packages:
-
-        * `percona-xtraDB-cluster-shared`
-
-        * `percona-xtraDB-cluster-shared-compat`
-
-        * `percona-xtradb-cluster-client`
-
-        * `percona-xtradb-cluster-debuginfo`
-
-        * `percona-xtradb-cluster-devel`
-
-        * `percona-xtradb-cluster-garbd`
-
-        * `percona-xtradb-cluster-server`
-
-        * `percona-xtradb-cluster-test`
-
-3. Start the Percona XtraDB Cluster server:
+=== "Install on Red Hat 8 or later"
 
     ```{.bash data-prompt="$"}
-    $ sudo service mysql start
+    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    $ sudo percona-release setup pxc-80
+    $ sudo yum install percona-xtradb-cluster
     ```
 
-4. Copy the automatically generated temporary password for the superuser account:
+## After installation
 
-    ```{.bash data-prompt="$"}
-    $ sudo grep 'temporary password' /var/log/mysqld.log
-    ```
+After the installation, start the `mysql` service and find the temporary password using the `grep` command. 
 
-5. Use this password to log in as `root`:
+```{.bash data-prompt="$"}
+$ sudo service mysql start
+$ sudo grep 'temporary password' /var/log/mysqld.log
+```
 
-    ```{.bash data-prompt="$"}
-    $ mysql -u root -p
-    ```
+Use the temporary password to log into the server:
 
-6. Change the password for the superuser account and log out. For example:
+```{.bash data-prompt="$"}
+$ mysql -u root -p
+```
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPass';
-    ```
+Run an `ALTER USER` statement to change the temporary password, exit the client, and stop the service.
 
-    ??? example "Expected output"
+```{.bash data-prompt="$"}
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPass';
+mysql> exit
+$ sudo service mysql stop
+```
 
-        ```{.text .no-copy}
-        Query OK, 0 rows affected (0.00 sec)
-
-        mysql> exit
-        Bye
-        ```
-
-7. Stop the `mysql` service:
-
-    ```{.bash data-prompt="$"}
-    $ sudo service mysql stop
-    ```
 
 ## Next steps
 
-After you install Percona XtraDB Cluster and change the superuser account password,
-configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](../configure.md#configure).
+Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](../configure.md#configure).
