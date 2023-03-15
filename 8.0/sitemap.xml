@@ -2,352 +2,352 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/add-node.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/bootstrap.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/configure.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/copyright-and-licensing-information.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/faq.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/glossary.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/intro.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/limitation.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/overview.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/trademark-policy.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/verify.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/wsrep-files-index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/wsrep-provider-index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/wsrep-status-index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/wsrep-system-index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/xtradb-cluster-version-numbers.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/features/highavailability.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/features/nbo.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/features/online-schema-upgrade.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/features/pxc-strict-mode.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/3nodesec2.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/centos_howto.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/crash-recovery.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/garbd_howto.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/haproxy.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/proxysql-v2.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/proxysql.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/singlebox.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/ubuntu_howto.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/upgrade_guide.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/howtos/virt_sandbox.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/apt.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/compile.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/docker.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/tarball.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/install/yum.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/management/data_at_rest_encryption.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/management/gcache-write-set-cache-encryption.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/certification.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/failover.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/gcache_record-set_cache_difference.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/monitoring.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/performance_schema_instrumentation.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/restarting_nodes.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/state_snapshot_transfer.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/threading_model.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/manual/xtrabackup_sst.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/8.0.29-21.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/8.0.30-22.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/8.0.31-23.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.19-10.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.20-11.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/release-notes/release-notes_index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/index.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/apparmor.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/encrypt-traffic.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/secure-network.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster-docs/8.0/8.0/security/selinux.html</loc>
-         <lastmod>2023-03-14</lastmod>
+         <lastmod>2023-03-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

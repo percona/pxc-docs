@@ -24,7 +24,7 @@
         <link rel="next" href="../manual/performance_schema_instrumentation.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.2">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
@@ -32,7 +32,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7bf56d0a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -1706,7 +1706,7 @@
 <p>These features are <a href="../glossary.html#tech-preview">tech preview</a>. Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <h2 id="gcache-and-write-set-cache-encryption">GCache and Write-Set cache encryption<a class="headerlink" href="#gcache-and-write-set-cache-encryption" title="Permanent link">&para;</a></h2>
 <p>Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  </p>
-<p>GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the Ring Buffer file. The encrypted File Key is stored in the Ring Bugger&rsquo;s preamble. The Ring Buffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.</p>
+<p>GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the RingBuffer file. The encrypted File Key is stored in the RingBuffer&rsquo;s preamble. The RingBuffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>For more information, see <a href="../manual/gcache_record-set_cache_difference.html">Understanding GCache and Record-set Cache</a>, and the Percona Database Performance Blog: <a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">All you need to know about GCache</a></p>
@@ -1859,7 +1859,7 @@ All variables are read-only.</p>
   <small>
     
       Last update:
-      2023-01-11
+      2023-03-15
     
   </small>
 </div>
@@ -1874,10 +1874,10 @@ All variables are read-only.</p>
 
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
@@ -1984,7 +1984,7 @@ All variables are read-only.</p>
     
     
               
-      <script src="../assets/javascripts/bundle.fc8c2696.min.js"></script>
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
       
         <script src="../js/version-select.js"></script>
       
