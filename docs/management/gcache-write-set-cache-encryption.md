@@ -7,7 +7,7 @@ These features are [tech preview](../glossary.md#tech-preview). Before using the
 
 Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  
  
-  GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the Ring Buffer file. The encrypted File Key is stored in the Ring Bugger's preamble. The Ring Buffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.
+  GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the RingBuffer file. The encrypted File Key is stored in the RingBuffer's preamble. The RingBuffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.
  
 
 !!! admonition "See also"
