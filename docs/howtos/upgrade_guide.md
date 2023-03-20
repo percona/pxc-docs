@@ -69,11 +69,17 @@ Shut down the cluster and upgrade all nodes to PXC
 The rolling upgrade is supported but ensure the
 traffic is controlled during the upgrade and writes are directed only to 5.7
 nodes until all nodes are upgraded to 8.0. -->
-### [PXC strict mode] is enabled by default
+### PXC strict mode is enabled by default
 
 Percona XtraDB Cluster in 8.0 runs with [PXC Strict Mode](../features/pxc-strict-mode.md#pxc-strict-mode) enabled by default. This will deny any unsupported operations and may halt the server if [a strict mode validation fails](../features/pxc-strict-mode.md#validations). It is recommended to first start the node with
 the `pxc_strict_mode` variable set to `PERMISSIVE` in the MySQL
-configuration file (on Debian and Ubuntu `/etc/mysql/mysql.conf.d/mysqld.cnf`; on CentOS and Red Hat /etc/my.cnf).
+configuration file.
+
+All configuration settings are stored in the default MySQL configuration file:
+
+* Path on Debian and Ubuntu: `/etc/mysql/mysql.conf.d/mysqld.cnf`
+
+* Path on Red Hat and CentOS: `/etc/my.cnf`
 
 After you check the log for any tech preview features or unsupported features
 and you have fixed any of the encountered incompatibilities, set the variable
@@ -83,8 +89,7 @@ back to `ENFORCING` at run time:
 mysql> SET pxc_strict_mode=ENFORCING;
 ```
 
-Also, switching back to `ENFORCING` may be done by restarting the node with
-the updated configuration file (on Debian and Ubuntu `/etc/mysql/mysql.conf.d/mysqld.cnf`; on CentOS and Red Hat /etc/my.cnf).
+Restarting the node with the updated configuration file also sets variable to `ENFORCING`.
 
 ### The configuration file layout has changed in PXC 8.0
 
@@ -203,8 +208,8 @@ cluster:
 !!! important
 
     Before upgrading, make sure your application can work with a reduced cluster
-    size.  Also, during the upgrade, the cluster will operate with an even number
-    of nodes - the cluster may run into the split-brain problem.
+    size. If the cluster operates with an even number
+    of nodes, the cluster may have split-brain.
 
 This upgrade flow auto-detects the presence of the 5.7 data directory and trigger
 the upgrade as part of the node bootup process. The data directory is upgraded
