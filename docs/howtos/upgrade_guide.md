@@ -208,7 +208,7 @@ cluster:
 !!! important
 
     Before upgrading, make sure your application can work with a reduced cluster
-    size.  If the cluster operates with an even number
+    size. If the cluster operates with an even number
     of nodes, the cluster may have split-brain.
 
 This upgrade flow auto-detects the presence of the 5.7 data directory and trigger
