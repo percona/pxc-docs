@@ -967,7 +967,7 @@
         
           <li class="md-nav__item">
   <a href="#pxc-strict-mode-is-enabled-by-default" class="md-nav__link">
-    [PXC strict mode] is enabled by default
+    PXC strict mode is enabled by default
   </a>
   
 </li>
@@ -1652,7 +1652,7 @@
         
           <li class="md-nav__item">
   <a href="#pxc-strict-mode-is-enabled-by-default" class="md-nav__link">
-    [PXC strict mode] is enabled by default
+    PXC strict mode is enabled by default
   </a>
   
 </li>
@@ -1830,17 +1830,25 @@ Shut down the cluster and upgrade all nodes to PXC
 The rolling upgrade is supported but ensure the
 traffic is controlled during the upgrade and writes are directed only to 5.7
 nodes until all nodes are upgraded to 8.0. -->
-<h3 id="pxc-strict-mode-is-enabled-by-default">[PXC strict mode] is enabled by default<a class="headerlink" href="#pxc-strict-mode-is-enabled-by-default" title="Permanent link">&para;</a></h3>
+<h3 id="pxc-strict-mode-is-enabled-by-default">PXC strict mode is enabled by default<a class="headerlink" href="#pxc-strict-mode-is-enabled-by-default" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster in 8.0 runs with <a href="../features/pxc-strict-mode.html#pxc-strict-mode">PXC Strict Mode</a> enabled by default. This will deny any unsupported operations and may halt the server if <a href="../features/pxc-strict-mode.html#validations">a strict mode validation fails</a>. It is recommended to first start the node with
 the <code>pxc_strict_mode</code> variable set to <code>PERMISSIVE</code> in the MySQL
-configuration file (on Debian and Ubuntu <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>; on CentOS and Red Hat /etc/my.cnf).</p>
+configuration file.</p>
+<p>All configuration settings are stored in the default MySQL configuration file:</p>
+<ul>
+<li>
+<p>Path on Debian and Ubuntu: <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+</li>
+<li>
+<p>Path on Red Hat and CentOS: <code>/etc/my.cnf</code></p>
+</li>
+</ul>
 <p>After you check the log for any tech preview features or unsupported features
 and you have fixed any of the encountered incompatibilities, set the variable
 back to <code>ENFORCING</code> at run time:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>ENFORCING<span class="p">;</span>
 </code></pre></div>
-<p>Also, switching back to <code>ENFORCING</code> may be done by restarting the node with
-the updated configuration file (on Debian and Ubuntu <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>; on CentOS and Red Hat /etc/my.cnf).</p>
+<p>Restarting the node with the updated configuration file also sets variable to <code>ENFORCING</code>.</p>
 <h3 id="the-configuration-file-layout-has-changed-in-pxc-80">The configuration file layout has changed in PXC 8.0<a class="headerlink" href="#the-configuration-file-layout-has-changed-in-pxc-80" title="Permanent link">&para;</a></h3>
 <p>All configuration settings are stored in the default MySQL configuration file:</p>
 <ul>
@@ -1955,8 +1963,8 @@ cluster:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Before upgrading, make sure your application can work with a reduced cluster
-size.  Also, during the upgrade, the cluster will operate with an even number
-of nodes - the cluster may run into the split-brain problem.</p>
+size. If the cluster operates with an even number
+of nodes, the cluster may have split-brain.</p>
 </div>
 <p>This upgrade flow auto-detects the presence of the 5.7 data directory and trigger
 the upgrade as part of the node bootup process. The data directory is upgraded
@@ -2116,7 +2124,7 @@ until you upgrade all nodes.</p>
   <small>
     
       Last update:
-      2023-03-08
+      2023-03-20
     
   </small>
 </div>
