@@ -232,14 +232,14 @@ cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$
 | Parameter      | Description        |
 | -------------- | ------------------ |
 | Default:        | not set (disabled)               |
-| Example:       | compressor=’zstd -TO -2’                  |
+| Example:       | compressor=’zstd -T0 -2’                  |
 
 ### decompressor
 
 | Parameter      | Description        |
 | -------------- | ------------------ |
 | Default:        | not set (disabled)               |
-| Example:       | decompressor=’zstd -TO -dc’                  |
+| Example:       | decompressor=’zstd -T0 -dc’                  |
 
 Stream-based compression and decompression are performed on the stream, in contrast to performing decompression after streaming to disk, which involves additional I/O. The savings are considerable, up to half the I/O on the JOINER node.
 
