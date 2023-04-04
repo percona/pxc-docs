@@ -18,7 +18,7 @@ SET SESSION wsrep_OSU_method='NBO';
 
 The NBO method supports the following DDL statements:
 
-* `ALTER TABLE`
+* `ALTER INDEX`
 
 
 * `CREATE INDEX`
