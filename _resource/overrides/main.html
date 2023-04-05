@@ -17,18 +17,68 @@ by adding marketing-requested elements
  </article>
 </div>
 </div>
+
 {%- endmacro %}
+              
+              {% block extrahead %}
+              {{ super() }}
+
+              <html data-lt-installed="true">
+                <head>
+                    <meta property="og:title" content="Percona XtraDB Cluster">
+                    <meta property="og:description" content="Documentation">
+                    <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/5.7/_static/percona-mysql-logo.png"
+                    <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/5.7/">
+                </head>
+                <body>
+                </body>
+              </html>
+
+              <script>
+              (function (w, d, s, l, i) {
+                  w[l] = w[l] || []; w[l].push({
+                    'gtm.start': new Date().getTime(), 
+                    event: 'gtm.js'
+                  });
+                  var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                  j.async = true; 
+                  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                  f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-K48FGP2');
+              </script>
+              {% endblock %}
+
+
+              {% block scripts %}
+              {{ super() }}
+
+              <img src="https://tracking.g2crowd.com/attribution_tracking/conversions/1007137.gif?e=" width="1" height="1" />
+
+              <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K48FGP2" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+              </noscript>
+              {% endblock %}
 
               {% block content %}
 
-                <!-- Edit button -->
+                <!-- Edit and view button -->
                 {% if page.edit_url %}
+                  {% set edit = "https://github.com/percona/pxc-docs/edit/5.7/docs/" %}
+                  {% set view = "https://raw.githubusercontent.com/percona/pxc-docs/5.7/docs/" %}
                   <a
                     href="{{ page.edit_url }}"
                     title="{{ lang.t('edit.link.title') }}"
                     class="md-content__button md-icon"
                   >
-                    {% include ".icons/material/pencil.svg" %}
+                    {% include ".icons/material/file-edit-outline.svg" %}
+                  </a>
+                  <a
+                    href="{{ page.edit_url | replace(edit, view) }}"
+                    title="View source of this page"
+                    class="md-content__button md-icon"
+                  >
+                    {% include ".icons/material/file-eye-outline.svg" %}
                   </a>
                 {% endif %}
 
@@ -37,7 +87,7 @@ by adding marketing-requested elements
                   doesn't, the page title (or respectively site name) is used
                   as the main headline.
                 -->
-                {% if not "\x3ch1" in page.content %}
+                {% if "\x3ch1" not in page.content %}
                   <h1>{{ page.title | d(config.site_name, true)}}</h1>
                 {% endif %}
 

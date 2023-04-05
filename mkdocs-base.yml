@@ -11,12 +11,14 @@ edit_uri: edit/5.7/docs/
 
 use_directory_urls: false
 
-# Theme for netlify testing
+# Theme setup
 theme:
   name: material
   logo: _static/percona-logo.svg
-  favicon: _static/percona_favicon.ico
+  favicon: _static/percona-favicon.ico
   custom_dir: _resource/overrides/
+  font:
+    text: Poppins
   palette:
 
     # Light mode
@@ -34,20 +36,23 @@ theme:
         name: Switch to light mode
 
 # Theme features
-
   features:
     - search.highlight
     - navigation.top
     - content.tabs.link
+    - content.action.edit
+    - content.action.view
+    - content.code.copy   
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/version-select.css
+  - css/nocopy.css
 
 extra_javascript:
   - js/version-select.js
+  - js/promptremover.js
 
 markdown_extensions:
   attr_list: {}
@@ -73,15 +78,17 @@ markdown_extensions:
       linenums: false
   pymdownx.inlinehilite: {}
   pymdownx.snippets: {}
-
-
+  pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 
 plugins:
-  search: {}
+  search: 
+    separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
   macros:
       include_yaml:
-#        - 'variables.yml' # Use in markdown as '{{ VAR }}'
+        - 'variables.yml' # Use in markdown as '{{ VAR }}'
 # exclude: # Don't process these files
 #      glob:
 #         - file.md
@@ -90,7 +97,7 @@ plugins:
           cover_title: 'Percona XtraDB Cluster Documentation'
           cover_subtitle: 5.7.41-31.65 (April 05, 2023)
           author: 'Percona Technical Documentation Team'
-          cover_logo: docs/_static/percona-xtrabackup-logo.jpg
+          cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
           custom_template_path: _resource/templates
           enabled_if_env: ENABLE_PDF_EXPORT
@@ -103,9 +110,18 @@ plugins:
 extra:
   version: 
     provider: mike
+  homepage:
+    https://docs.percona.com
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
 
 nav:
-  - index.md
+  - Home: index.md
   - Introduction:
       - intro.md
       - limitation.md
