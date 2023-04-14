@@ -946,6 +946,26 @@ time specified in [`pc.wait_prim_timeout`](wsrep-provider-index.md#pcwait_prim_t
 This variable is used to specify the period of time to wait for a primary
 component.
 
+### `pc.wait_restored_prim_timeout`
+
+**Introduced in Percona XtraDB Cluster 8.0.33-25.**
+
+| Option   | Description   |
+| ---| ---|
+| Command Line: | Yes |
+| Config File: | Yes|
+| Scope: | Global |
+| Dynamic | No |
+| Default Value: | PT0S |
+
+This variable specifies the wait period for a primary component when the cluster restores the primary component from the `gvwstate.dat` file
+after an outage.
+
+The default value is `PT0S` (zero seconds). The node waits for an infinite time, which is the current behavior.
+
+You can define a wait time with `PTNS`, replace the `N` value with the number of seconds. For example, to wait for 90 seconds, set the value to `PT90S`.
+
+
 ### `pc.weight`
 
 | Option         | Description        |
