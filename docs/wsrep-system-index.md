@@ -1305,15 +1305,14 @@ Defines the method or script for [State Snapshot Transfer](manual/state_snapshot
 
 Available values are:
 
-* `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST. This option is the default option.
+* `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST. This value is the default.
 Privileges and permissions for running *Percona XtraBackup*
 can be found in [Percona XtraBackup documentation](https://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.html). For more information, see [Percona XtraBackup SST Configuration](manual/xtrabackup_sst.md#xtrabackup-sst).
 
 * `skip`: Use this to skip SST.
-This can be used when initially starting the cluster
+**Removed in Percona XtraDB Cluster 8.0.33-25.** This value can be used when initially starting the cluster
 and manually restoring the same data to all nodes.
-This option should not be used permanently
-because it could lead to data inconsistency across the nodes.
+This value should not be used permanently because it could lead to data inconsistency across the nodes.
 
 !!! note
 
