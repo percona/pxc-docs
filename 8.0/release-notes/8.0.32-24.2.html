@@ -9,26 +9,26 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.">
+        <meta name="description" content="Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/howtos/haproxy.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/release-notes/8.0.32-24.2.html">
       
       
-        <link rel="prev" href="3nodesec2.html">
+        <link rel="prev" href="release-notes_index.html">
       
       
-        <link rel="next" href="proxysql.html">
+        <link rel="next" href="8.0.32-24.html">
       
       <link rel="icon" href="../_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Load balancing with HAProxy - Percona XtraDB Cluster</title>
+        <title>Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24) - Percona XtraDB Cluster</title>
       
     
     
@@ -82,7 +82,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Load balancing with HAProxy" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
                
@@ -108,7 +108,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#load-balancing-with-haproxy" class="md-skip">
+        <a href="#percona-xtradb-cluster-8032-242-2023-05-24" class="md-skip">
           Skip to content
         </a>
       
@@ -146,7 +146,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Load balancing with HAProxy
+              Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)
             
           </span>
         </div>
@@ -875,16 +875,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
@@ -893,7 +891,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           How-tos
@@ -906,7 +904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upgrade_guide.html" class="md-nav__link">
+      <a href="../howtos/upgrade_guide.html" class="md-nav__link">
         Upgrade Percona XtraDB Cluster
       </a>
     </li>
@@ -920,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="crash-recovery.html" class="md-nav__link">
+      <a href="../howtos/crash-recovery.html" class="md-nav__link">
         Crash recovery
       </a>
     </li>
@@ -934,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="centos_howto.html" class="md-nav__link">
+      <a href="../howtos/centos_howto.html" class="md-nav__link">
         Configure Percona XtraDB Cluster on CentOS
       </a>
     </li>
@@ -948,7 +946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ubuntu_howto.html" class="md-nav__link">
+      <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
         Configure Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
@@ -962,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="garbd_howto.html" class="md-nav__link">
+      <a href="../howtos/garbd_howto.html" class="md-nav__link">
         Set up Galera arbitrator
       </a>
     </li>
@@ -976,7 +974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
+      <a href="../howtos/singlebox.html" class="md-nav__link">
         How to set up a three-node cluster on a single box
       </a>
     </li>
@@ -990,8 +988,115 @@
   
   
     <li class="md-nav__item">
-      <a href="3nodesec2.html" class="md-nav__link">
+      <a href="../howtos/3nodesec2.html" class="md-nav__link">
         How to set up a three-node cluster in EC2 environment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/haproxy.html" class="md-nav__link">
+        Load balancing with HAProxy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/proxysql.html" class="md-nav__link">
+        Load balancing with ProxySQL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/proxysql-v2.html" class="md-nav__link">
+        ProxySQL admin utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howtos/virt_sandbox.html" class="md-nav__link">
+        Setting up a testing environment with ProxySQL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          Release notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Release notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes_index.html" class="md-nav__link">
+        Release notes index
       </a>
     </li>
   
@@ -1013,115 +1118,57 @@
         
       
       
-      <a href="haproxy.html" class="md-nav__link md-nav__link--active">
-        Load balancing with HAProxy
-      </a>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="proxysql.html" class="md-nav__link">
-        Load balancing with ProxySQL
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="proxysql-v2.html" class="md-nav__link">
-        ProxySQL admin utilities
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="virt_sandbox.html" class="md-nav__link">
-        Setting up a testing environment with ProxySQL
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          Release notes
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          Release notes
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
-        Release notes index
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../release-notes/8.0.32-24.2.html" class="md-nav__link">
+      <a href="8.0.32-24.2.html" class="md-nav__link md-nav__link--active">
         Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-highlights" class="md-nav__link">
+    Release highlights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug fixes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1133,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.32-24.html" class="md-nav__link">
+      <a href="8.0.32-24.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.32-24 (2023-04-18)
       </a>
     </li>
@@ -1147,7 +1194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.31-23.2.html" class="md-nav__link">
+      <a href="8.0.31-23.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.31-23.2 (2023-04-04)
       </a>
     </li>
@@ -1161,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.31-23.html" class="md-nav__link">
+      <a href="8.0.31-23.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.31-23 (2023-03-14)
       </a>
     </li>
@@ -1175,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.30-22.html" class="md-nav__link">
+      <a href="8.0.30-22.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.30-22.md (2022-12-28)
       </a>
     </li>
@@ -1189,7 +1236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.29-21.html" class="md-nav__link">
+      <a href="8.0.29-21.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.29-21 (2022-09-12)
       </a>
     </li>
@@ -1203,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.28-19.1 (2022-07-19)
       </a>
     </li>
@@ -1217,7 +1264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.27-18.1
       </a>
     </li>
@@ -1231,7 +1278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.26-16.1
       </a>
     </li>
@@ -1245,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.25-15.1
       </a>
     </li>
@@ -1259,7 +1306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.23-14.1
       </a>
     </li>
@@ -1273,7 +1320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.22-13.1
       </a>
     </li>
@@ -1287,7 +1334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.21-12.1
       </a>
     </li>
@@ -1301,7 +1348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11
       </a>
     </li>
@@ -1315,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.3
       </a>
     </li>
@@ -1329,7 +1376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.2
       </a>
     </li>
@@ -1343,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.19-10
       </a>
     </li>
@@ -1357,7 +1404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.18-9.3
       </a>
     </li>
@@ -1547,6 +1594,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-highlights" class="md-nav__link">
+    Release highlights
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug fixes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1563,14 +1639,14 @@
                   
                   
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/howtos/haproxy.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/release-notes/8.0.32-24.2.md"
                     title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/howtos/haproxy.md"
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/release-notes/8.0.32-24.2.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -1586,237 +1662,52 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="load-balancing-with-haproxy">Load balancing with HAProxy<a class="headerlink" href="#load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
-<p>This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
-<p>Start by installing HAProxy on a <a href="../glossary.html#node">node</a> that you intend to use
-for load balancing. The operating systems that support Percona XtraDB Cluster provide
-the haproxy package and you can install it using the package manager.</p>
-<p>Debian or Ubuntu</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ sudo apt update
-$ sudo apt install haproxy
-```
-</code></pre></div>
-<p>Red Hat or CentOS:</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ sudo yum update
-$ sudo yum install haproxy
-```
-</code></pre></div>
-<p><strong>Supported versions of HAProxy</strong></p>
-<p>The lowest supported version of HAProxy is 1.4.20. </p>
-<p>To start HAProxy, use the <code>haproxy</code> command. You may pass any
-number of configuration parameters on the command line. To use a
-configuration file, use the <code>-f</code> option.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="c1"># Passing one configuration file</span>
-$<span class="w"> </span>sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg
+                <h1 id="percona-xtradb-cluster-8032-242-2023-05-24">Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)<a class="headerlink" href="#percona-xtradb-cluster-8032-242-2023-05-24" title="Permanent link">&para;</a></h1>
+<style>
+    table {
+        width=50%;
+        font-family: Poppins;
+    }
+    table td {
+        border: 0px;
+        padding: 8px;
+    }
+</style>
 
-$<span class="w"> </span><span class="c1"># Passing multiple configuration files</span>
-$<span class="w"> </span>sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg<span class="w"> </span>haproxy-2.cfg
-
-$<span class="w"> </span><span class="c1"># Passing a directory</span>
-$<span class="w"> </span>sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>conf-dir
-</code></pre></div>
-<p>You can pass the name of an existing configuration file or a
-directory. HAProxy includes all files with the <em>.cfg</em> extension in the the
-supplied directory. Another way to pass multiple files is to use <code>-f</code>
-multiple times.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>HAProxy Documentation:
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/management.html"><code>Managing HAProxy (including available options)</code></a>
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2"><code>More information about how to configure HAProxy</code></a></p>
-</div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```{.text .no-copy}
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        daemon
-        #debug
-        #quiet
-
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option mysql-check user root
-
-    server db01 10.4.29.100:3306 check
-    server db02 10.4.29.99:3306 check
-    server db03 10.4.29.98:3306 check
-</code></pre></div>
-</details>
-<p>Options set in the configuration file</p>
 <table>
 <thead>
 <tr>
-<th>HAProxy option (with links to HAProxy documentation)</th>
-<th>Description</th>
+<th>Release date</th>
+<th>May 24, 2023</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>global</td>
-<td>A section in the configuration file for process-wide parameters</td>
-</tr>
-<tr>
-<td>defaults</td>
-<td>A section in the configuration file for default parameters for all other following sections</td>
-</tr>
-<tr>
-<td>listen</td>
-<td>A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance">balance</a></td>
-<td>Load balancing algorithm to be used in a backend</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout">clitimeout</a></td>
-<td>Set the maximum inactivity time on the client side</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout">contimeout</a></td>
-<td>Set the maximum time to wait for a connection attempt to a server to succeed.</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon">daemon</a></td>
-<td>Makes the process fork into background (recommended mode of operation)</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid">gid</a></td>
-<td>Changes the process&rsquo; group ID to &#60;number&#62;</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log">log</a></td>
-<td>Adds a global syslog server</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn">maxconn</a></td>
-<td>Sets the maximum per-process number of concurrent connections to &#60;number&#62;</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode">mode</a></td>
-<td>Set the running mode or protocol of the instance</td>
-</tr>
-<tr>
-<td>option dontlognull</td>
-<td>Disable logging of null connections</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog">option tcplog</a></td>
-<td>Enable advanced logging of TCP connections with session state and timers</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch">redispatch</a></td>
-<td>Enable or disable session redistribution in case of connection failure</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">retries</a></td>
-<td>Set the number of retries to perform on a server after a connection failure</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">server</a></td>
-<td>Declare a server in a backend</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout">srvtimeout</a></td>
-<td>Set the maximum inactivity time on the server side</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid">uid</a></td>
-<td>Changes the process&rsquo; user ID to &#60;number&#62;</td>
+<td>Install instructions</td>
+<td><a href="https://www.percona.com/doc/percona-xtradb-cluster/8.0/install/index.html">Install Percona XtraDB Cluster</a></td>
 </tr>
 </tbody>
 </table>
-<p>With this configuration, HAProxy will balance the load between three nodes.
-In this case, it only checks if <code>mysqld</code> listens on port 3306,
-but it doesn’t take into an account the state of the node.
-So it could be sending queries to the node that has <code>mysqld</code> running
-even if it’s in <code>JOINING</code> or <code>DISCONNECTED</code> state.</p>
-<p>To check the current status of a node we need a more complex check.
-This idea was taken from <a href="https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6">codership-team google groups</a>.</p>
-<p>To implement this setup, you will need two scripts:</p>
+<p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
+<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<p>This release of Percona XtraDB Cluster 8.0.32-24 includes the fix for <a href="https://jira.percona.com/browse/PXC-4211">PXC-4211</a>.</p>
+<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><strong>clustercheck</strong> (located in <code>/usr/local/bin</code>) and a config for <code>xinetd</code></p>
+<p><a href="https://jira.percona.com/browse/PXC-4211">PXC-4211</a>: The server exited on the binary log rotation.</p>
 </li>
 <li>
-<p><strong>mysqlchk</strong> (located in <code>/etc/xinetd.d</code>) on each node</p>
+<p><a href="https://jira.percona.com/browse/PXC-4217">PXC-4217</a>: The cluster can intermittently abort a node on an insert query.</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4222">PXC-4222</a>: A node abruptly leaving the cluster causes the applier thread to hang on all the remaining nodes.</p>
 </li>
 </ul>
-<p>Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.</p>
-<p>Change the <code>/etc/services</code> file
-by adding the following line on each node:</p>
-<div class="highlight"><pre><span></span><code>mysqlchk        9200/tcp                # mysqlchk
-</code></pre></div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```{.text .no-copy}
-# this config needs haproxy-1.4.20
-
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        #daemon
-        debug
-        #quiet
-
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option  httpchk
-
-    server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-```
-</code></pre></div>
-</details>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In Percona XtraDB Cluster 8.0, the default authentication plugin is
-<code>caching_sha2_password</code>. HAProxy does not support this authentication
-plugin. Create a mysql user using the <code>mysql_native_password</code>
-authentication plugin.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
-</code></pre></div>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/create-user.html">MySQL Documentation: CREATE USER statement</a></p>
-</div>
-</div>
+<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+<p>Download product binaries, packages, and tarballs at <a href="https://www.percona.com/downloads">Percona Product Downloads</a></p>
+<p><a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Contribute to the documentation</a></p>
+<p>For <a href="https://www.percona.com/training">training</a>, contact <a href="https://learn.percona.com/contact-me">Percona Training - Start learning now</a>.</p>
 
                 
 
@@ -1839,7 +1730,7 @@ authentication plugin.</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-05-18
     
   </small>
 </div>
