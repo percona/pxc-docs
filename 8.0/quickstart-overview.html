@@ -9,36 +9,33 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona XtraDB Cluster replicates actions executed on one node
-to all other nodes in the cluster,
-and makes it fast enough to appear
-as if it is synchronous (virtually synchronous).">
+        <meta name="description" content="Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/manual/certification.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/quickstart-overview.html">
       
       
-        <link rel="prev" href="monitoring.html">
+        <link rel="prev" href="features/nbo.html">
       
       
-        <link rel="next" href="threading_model.html">
+        <link rel="next" href="overview.html">
       
-      <link rel="icon" href="../_static/percona-favicon.ico">
+      <link rel="icon" href="_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
-        <title>Certification in Percona XtraDB Cluster - Percona XtraDB Cluster</title>
+        <title>Quickstart Guide for Percona XstraDB Cluster - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.26e3688c.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ecc896b0.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.ecc896b0.min.css">
       
       
 
@@ -58,11 +55,11 @@ as if it is synchronous (virtually synchronous).">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/percona.css">
+      <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css">
+      <link rel="stylesheet" href="css/nocopy.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
               <!-- Google Tag Manager -->
               <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -85,7 +82,7 @@ as if it is synchronous (virtually synchronous).">
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Certification in Percona XtraDB Cluster" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Quickstart Guide for Percona XstraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
                
@@ -111,7 +108,7 @@ as if it is synchronous (virtually synchronous).">
     <div data-md-component="skip">
       
         
-        <a href="#certification-in-percona-xtradb-cluster" class="md-skip">
+        <a href="#quickstart-guide-for-percona-xstradb-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -133,7 +130,7 @@ as if it is synchronous (virtually synchronous).">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -149,7 +146,7 @@ as if it is synchronous (virtually synchronous).">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Certification in Percona XtraDB Cluster
+              Quickstart Guide for Percona XstraDB Cluster
             
           </span>
         </div>
@@ -256,7 +253,7 @@ as if it is synchronous (virtually synchronous).">
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -284,7 +281,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
     </li>
@@ -326,7 +323,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../intro.html" class="md-nav__link">
+      <a href="intro.html" class="md-nav__link">
         About Percona XtraDB Cluster
       </a>
     </li>
@@ -340,7 +337,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../limitation.html" class="md-nav__link">
+      <a href="limitation.html" class="md-nav__link">
         Percona XtraDB Cluster limitations
       </a>
     </li>
@@ -354,7 +351,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
         Understand version numbers
       </a>
     </li>
@@ -403,7 +400,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../features/highavailability.html" class="md-nav__link">
+      <a href="features/highavailability.html" class="md-nav__link">
         High availability
       </a>
     </li>
@@ -417,7 +414,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../features/pxc-strict-mode.html" class="md-nav__link">
+      <a href="features/pxc-strict-mode.html" class="md-nav__link">
         PXC strict mode
       </a>
     </li>
@@ -431,7 +428,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../features/online-schema-upgrade.html" class="md-nav__link">
+      <a href="features/online-schema-upgrade.html" class="md-nav__link">
         Online schema upgrade
       </a>
     </li>
@@ -445,7 +442,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../features/nbo.html" class="md-nav__link">
+      <a href="features/nbo.html" class="md-nav__link">
         Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
       </a>
     </li>
@@ -465,14 +462,16 @@ as if it is synchronous (virtually synchronous).">
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
@@ -481,7 +480,7 @@ as if it is synchronous (virtually synchronous).">
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Quick start guide
@@ -492,11 +491,75 @@ as if it is synchronous (virtually synchronous).">
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../quickstart-overview.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Quickstart Guide for Percona XstraDB Cluster
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="quickstart-overview.html" class="md-nav__link md-nav__link--active">
         Quickstart Guide for Percona XstraDB Cluster
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-and-starting-percona-xstradb-cluster" class="md-nav__link">
+    Installing and starting Percona XstraDB Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-superior-and-optimized-performance" class="md-nav__link">
+    For superior and optimized performance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-backups-and-restores" class="md-nav__link">
+    For backups and restores
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-monitoring-and-management" class="md-nav__link">
+    For Monitoring and Management
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -543,7 +606,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         Quick start guide for Percona XtraDB Cluster
       </a>
     </li>
@@ -557,7 +620,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../install/index.html" class="md-nav__link">
+      <a href="install/index.html" class="md-nav__link">
         Install Percona XtraDB Cluster
       </a>
     </li>
@@ -571,7 +634,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../configure.html" class="md-nav__link">
+      <a href="configure.html" class="md-nav__link">
         Configure nodes for write-set replication
       </a>
     </li>
@@ -585,7 +648,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../bootstrap.html" class="md-nav__link">
+      <a href="bootstrap.html" class="md-nav__link">
         Bootstrap the first node
       </a>
     </li>
@@ -599,7 +662,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../add-node.html" class="md-nav__link">
+      <a href="add-node.html" class="md-nav__link">
         Add nodes to cluster
       </a>
     </li>
@@ -613,7 +676,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../verify.html" class="md-nav__link">
+      <a href="verify.html" class="md-nav__link">
         Verify replication
       </a>
     </li>
@@ -662,7 +725,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/upgrade_guide.html" class="md-nav__link">
+      <a href="howtos/upgrade_guide.html" class="md-nav__link">
         Upgrade Percona XtraDB Cluster
       </a>
     </li>
@@ -711,7 +774,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../security/index.html" class="md-nav__link">
+      <a href="security/index.html" class="md-nav__link">
         Security basics
       </a>
     </li>
@@ -725,7 +788,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../security/secure-network.html" class="md-nav__link">
+      <a href="security/secure-network.html" class="md-nav__link">
         Secure the network
       </a>
     </li>
@@ -739,7 +802,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypt-traffic.html" class="md-nav__link">
+      <a href="security/encrypt-traffic.html" class="md-nav__link">
         Encrypt PXC traffic
       </a>
     </li>
@@ -753,7 +816,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../security/apparmor.html" class="md-nav__link">
+      <a href="security/apparmor.html" class="md-nav__link">
         Enable AppArmor
       </a>
     </li>
@@ -767,7 +830,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../security/selinux.html" class="md-nav__link">
+      <a href="security/selinux.html" class="md-nav__link">
         Enable SELinux
       </a>
     </li>
@@ -787,16 +850,14 @@ as if it is synchronous (virtually synchronous).">
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
       
@@ -805,7 +866,7 @@ as if it is synchronous (virtually synchronous).">
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           User's manual
@@ -818,7 +879,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="state_snapshot_transfer.html" class="md-nav__link">
+      <a href="manual/state_snapshot_transfer.html" class="md-nav__link">
         State snapshot transfer
       </a>
     </li>
@@ -832,7 +893,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="xtrabackup_sst.html" class="md-nav__link">
+      <a href="manual/xtrabackup_sst.html" class="md-nav__link">
         Percona XtraBackup SST configuration
       </a>
     </li>
@@ -846,7 +907,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="restarting_nodes.html" class="md-nav__link">
+      <a href="manual/restarting_nodes.html" class="md-nav__link">
         Restart the cluster nodes
       </a>
     </li>
@@ -860,7 +921,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="failover.html" class="md-nav__link">
+      <a href="manual/failover.html" class="md-nav__link">
         Cluster failover
       </a>
     </li>
@@ -874,7 +935,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="monitoring.html" class="md-nav__link">
+      <a href="manual/monitoring.html" class="md-nav__link">
         Monitor the cluster
       </a>
     </li>
@@ -886,75 +947,11 @@ as if it is synchronous (virtually synchronous).">
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Certification in Percona XtraDB Cluster
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="certification.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="manual/certification.html" class="md-nav__link">
         Certification in Percona XtraDB Cluster
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#common-situation" class="md-nav__link">
-    Common situation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conflicts" class="md-nav__link">
-    Conflicts
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolve-certification-conflicts" class="md-nav__link">
-    Resolve certification conflicts
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#increment-gtid" class="md-nav__link">
-    Increment GTID
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -966,7 +963,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="threading_model.html" class="md-nav__link">
+      <a href="manual/threading_model.html" class="md-nav__link">
         Percona XtraDB Cluster threading model
       </a>
     </li>
@@ -980,7 +977,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="gcache_record-set_cache_difference.html" class="md-nav__link">
+      <a href="manual/gcache_record-set_cache_difference.html" class="md-nav__link">
         Understand GCache and Record-Set cache
       </a>
     </li>
@@ -994,7 +991,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../management/gcache-write-set-cache-encryption.html" class="md-nav__link">
+      <a href="management/gcache-write-set-cache-encryption.html" class="md-nav__link">
         GCache encryption and Write-Set cache encryption
       </a>
     </li>
@@ -1008,7 +1005,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="performance_schema_instrumentation.html" class="md-nav__link">
+      <a href="manual/performance_schema_instrumentation.html" class="md-nav__link">
         Perfomance Schema instrumentation
       </a>
     </li>
@@ -1022,7 +1019,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+      <a href="management/data_at_rest_encryption.html" class="md-nav__link">
         Data at Rest Encryption
       </a>
     </li>
@@ -1071,7 +1068,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/crash-recovery.html" class="md-nav__link">
+      <a href="howtos/crash-recovery.html" class="md-nav__link">
         Crash recovery
       </a>
     </li>
@@ -1085,7 +1082,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/centos_howto.html" class="md-nav__link">
+      <a href="howtos/centos_howto.html" class="md-nav__link">
         Configure Percona XtraDB Cluster on CentOS
       </a>
     </li>
@@ -1099,7 +1096,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/ubuntu_howto.html" class="md-nav__link">
+      <a href="howtos/ubuntu_howto.html" class="md-nav__link">
         Configure Percona XtraDB Cluster on Ubuntu
       </a>
     </li>
@@ -1113,7 +1110,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/garbd_howto.html" class="md-nav__link">
+      <a href="howtos/garbd_howto.html" class="md-nav__link">
         Set up Galera arbitrator
       </a>
     </li>
@@ -1127,7 +1124,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/singlebox.html" class="md-nav__link">
+      <a href="howtos/singlebox.html" class="md-nav__link">
         How to set up a three-node cluster on a single box
       </a>
     </li>
@@ -1141,7 +1138,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/3nodesec2.html" class="md-nav__link">
+      <a href="howtos/3nodesec2.html" class="md-nav__link">
         How to set up a three-node cluster in EC2 environment
       </a>
     </li>
@@ -1155,7 +1152,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/haproxy.html" class="md-nav__link">
+      <a href="howtos/haproxy.html" class="md-nav__link">
         Load balancing with HAProxy
       </a>
     </li>
@@ -1169,7 +1166,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/proxysql.html" class="md-nav__link">
+      <a href="howtos/proxysql.html" class="md-nav__link">
         Load balancing with ProxySQL
       </a>
     </li>
@@ -1183,7 +1180,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/proxysql-v2.html" class="md-nav__link">
+      <a href="howtos/proxysql-v2.html" class="md-nav__link">
         ProxySQL admin utilities
       </a>
     </li>
@@ -1197,7 +1194,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../howtos/virt_sandbox.html" class="md-nav__link">
+      <a href="howtos/virt_sandbox.html" class="md-nav__link">
         Setting up a testing environment with ProxySQL
       </a>
     </li>
@@ -1246,7 +1243,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         Release notes index
       </a>
     </li>
@@ -1260,7 +1257,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.32-24.2.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)
       </a>
     </li>
@@ -1274,7 +1271,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.32-24.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.32-24 (2023-04-18)
       </a>
     </li>
@@ -1288,7 +1285,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.31-23.2.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.31-23.2 (2023-04-04)
       </a>
     </li>
@@ -1302,7 +1299,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.31-23.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.31-23 (2023-03-14)
       </a>
     </li>
@@ -1316,7 +1313,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.30-22.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.30-22.md (2022-12-28)
       </a>
     </li>
@@ -1330,7 +1327,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/8.0.29-21.html" class="md-nav__link">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.29-21 (2022-09-12)
       </a>
     </li>
@@ -1344,7 +1341,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.28-19.1 (2022-07-19)
       </a>
     </li>
@@ -1358,7 +1355,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.27-18.1
       </a>
     </li>
@@ -1372,7 +1369,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.26-16.1
       </a>
     </li>
@@ -1386,7 +1383,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.25-15.1
       </a>
     </li>
@@ -1400,7 +1397,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.23-14.1
       </a>
     </li>
@@ -1414,7 +1411,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.22-13.1
       </a>
     </li>
@@ -1428,7 +1425,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.21-12.1
       </a>
     </li>
@@ -1442,7 +1439,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11
       </a>
     </li>
@@ -1456,7 +1453,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.3
       </a>
     </li>
@@ -1470,7 +1467,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.20-11.2
       </a>
     </li>
@@ -1484,7 +1481,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.19-10
       </a>
     </li>
@@ -1498,7 +1495,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.18-9.3
       </a>
     </li>
@@ -1547,7 +1544,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-status-index.html" class="md-nav__link">
+      <a href="wsrep-status-index.html" class="md-nav__link">
         Index of wsrep status variables
       </a>
     </li>
@@ -1561,7 +1558,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-system-index.html" class="md-nav__link">
+      <a href="wsrep-system-index.html" class="md-nav__link">
         Index of wsrep system variables
       </a>
     </li>
@@ -1575,7 +1572,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-provider-index.html" class="md-nav__link">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
         Index of wsrep_provider options
       </a>
     </li>
@@ -1589,7 +1586,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-files-index.html" class="md-nav__link">
+      <a href="wsrep-files-index.html" class="md-nav__link">
         Index of files created by PXC
       </a>
     </li>
@@ -1603,7 +1600,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         Frequently asked questions
       </a>
     </li>
@@ -1617,7 +1614,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         Glossary
       </a>
     </li>
@@ -1631,7 +1628,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         Copyright and licensing information
       </a>
     </li>
@@ -1645,7 +1642,7 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         Trademark policy
       </a>
     </li>
@@ -1695,29 +1692,29 @@ as if it is synchronous (virtually synchronous).">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#common-situation" class="md-nav__link">
-    Common situation
+  <a href="#installing-and-starting-percona-xstradb-cluster" class="md-nav__link">
+    Installing and starting Percona XstraDB Cluster
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conflicts" class="md-nav__link">
-    Conflicts
+  <a href="#for-superior-and-optimized-performance" class="md-nav__link">
+    For superior and optimized performance
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#resolve-certification-conflicts" class="md-nav__link">
-    Resolve certification conflicts
+  <a href="#for-backups-and-restores" class="md-nav__link">
+    For backups and restores
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#increment-gtid" class="md-nav__link">
-    Increment GTID
+  <a href="#for-monitoring-and-management" class="md-nav__link">
+    For Monitoring and Management
   </a>
   
 </li>
@@ -1740,14 +1737,14 @@ as if it is synchronous (virtually synchronous).">
                   
                   
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/manual/certification.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/quickstart-overview.md"
                     title=""
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/manual/certification.md"
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/quickstart-overview.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -1763,203 +1760,26 @@ as if it is synchronous (virtually synchronous).">
                 
 
                 <!-- Markdown content -->
-                <h1 id="certification-in-percona-xtradb-cluster">Certification in Percona XtraDB Cluster<a class="headerlink" href="#certification-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
-<p>Percona XtraDB Cluster replicates actions executed on one node
-to all other nodes in the cluster,
-and makes it fast enough to appear
-as if it is synchronous (<em>virtually synchronous</em>).</p>
-<p>The following types of actions exist:</p>
+                <h1 id="quickstart-guide-for-percona-xstradb-cluster">Quickstart Guide for Percona XstraDB Cluster<a class="headerlink" href="#quickstart-guide-for-percona-xstradb-cluster" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected downtime and data loss, reduce costs, and improve performance and scalability of your database environments supporting your critical business applications in the most demanding public, private, and hybrid cloud environments.</p>
+<h2 id="installing-and-starting-percona-xstradb-cluster">Installing and starting Percona XstraDB Cluster<a class="headerlink" href="#installing-and-starting-percona-xstradb-cluster" title="Permanent link">&para;</a></h2>
+<p>You can install Percona XstraDB Cluster using different methods. </p>
 <ul>
-<li>
-<p>DDL actions are executed using <em>Total Order Isolation</em> (TOI). We can ignore <em>Rolling Schema Upgrades</em> (ROI).</p>
-</li>
-<li>
-<p>DML actions are executed using normal Galera replication protocol.</p>
-</li>
+<li><a href="install/index.html">Use the Percona Repositories</a></li>
+<li><a href="install/apt.html">Use APT</a></li>
+<li><a href="install/yum.html">Use YUM</a></li>
+<li><a href="install/tarball.html">Use binary tarballs</a></li>
+<li><a href="install/docker.html">Use Docker</a></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This manual page assumes the reader is aware of TOI and MySQL replication protocol.</p>
-</div>
-<p>DML (<code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>) operations
-effectively change the state of the database,
-and all such operations are recorded in XtraDB
-by registering a unique object identifier (key)
-for each change (an update or a new addition).</p>
-<ul>
-<li>A transaction can change an arbitrary number of different data objects.
-  Each such object change is recorded in XtraDB
-  using an <code>append_key</code> operation.
-  An <code>append_key</code> operation registers the key of the data object
-  that has undergone change by the transaction.
-  The key for rows can be represented in three parts as
-  <code>db_name</code>, <code>table_name</code>, and <code>pk_columns_for_table</code>
-  (if <code>pk</code> is absent, a hash of the complete row is calculated).</li>
-</ul>
-<p>This ensures that there is quick and short meta information
-  about the rows that this transaction has touched or modified.
-  This information is passed on as part of the write-set for certification
-  to all the nodes in the cluster while the transaction is in the commit phase.</p>
-<ul>
-<li>
-<p>For a transaction to commit, it has to pass XtraDB/Galera certification,
-  ensuring that transactions don’t conflict with any other changes
-  posted on the cluster group/channel.
-  Certification will add the keys modified by a given transaction
-  to its own central certification vector (CCV),
-  represented by <code>cert_index_ng</code>.
-  If the said key is already part of the vector,
-  then conflict resolution checks are triggered.</p>
-</li>
-<li>
-<p>Conflict resolution traces the reference transaction
-  (that last modified this item in the cluster group).
-  If this reference transaction is from some other node,
-  that suggests the same data was modified by the other node,
-  and changes of that node have been certified by the local node
-  that is executing the check.
-  In such cases, the transaction that arrived later fails to certify.</p>
-</li>
-</ul>
-<p>Changes made to database objects are bin-logged.
-This is similar to how MySQL does it for replication
-with its Source-Replica ecosystem,
-except that a packet of changes from a given transaction
-is created and named as a write-set.</p>
-<p>Once the client/user issues a <code>COMMIT</code>,
-Percona XtraDB Cluster will run a commit hook.
-Commit hooks ensure the following:</p>
-<ul>
-<li>
-<p>Flush the binary logs.</p>
-</li>
-<li>
-<p>Check if the transaction needs replication (not needed for read-only transactions like <code>SELECT</code>).</p>
-</li>
-<li>
-<p>If a transaction needs replication, then it invokes a pre-commit hook in the Galera ecosystem. During this pre-commit hook, a write-set is written in the group channel by a <em>replicate</em> operation. All nodes (including the one that executed the transaction) subscribe to this group-channel and read the write-set.</p>
-</li>
-<li>
-<p><code>gcs_recv_thread</code> is the first to receive the packet,
-which is then processed through different action handlers.</p>
-</li>
-<li>
-<p>Each packet read from the group-channel is assigned an <code>id</code>, which is a locally maintained counter by each node in sync with the group. When any new node joins the group/cluster, a seed-id for it is initialized to the current active id from group/cluster.</p>
-</li>
-</ul>
-<p>There is an inherent assumption/protocol enforcement
-  that all nodes read the packet from a channel in the same order,
-  and that way even though each packet doesn’t carry <code>id</code> information,
-  it is inherently established using the locally maintained <code>id</code> value.</p>
-<h2 id="common-situation">Common situation<a class="headerlink" href="#common-situation" title="Permanent link">&para;</a></h2>
-<p>The following example shows what happens in a common situation.
-<code>act_id</code> is incremented and assigned only for totally ordered actions,
-and only in primary state (skip messages while in state exchange).</p>
-<div class="highlight"><pre><span></span><code>rcvd-&gt;id<span class="w"> </span><span class="o">=</span><span class="w"> </span>++group-&gt;act_id_<span class="p">;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is an amazing way to solve the problem of the id coordination in multi-source systems. Otherwise a node will have to first get an id from central system or through a separate agreed protocol, and then use it for the packet, thereby doubling the round-trip time.</p>
-</div>
-<h2 id="conflicts">Conflicts<a class="headerlink" href="#conflicts" title="Permanent link">&para;</a></h2>
-<p>The following happens if two nodes get ready with their packet at same time:</p>
-<ol>
-<li>
-<p>Both nodes will be allowed to put the packet on the channel. That means the channel will see packets from different nodes queued one behind another.</p>
-</li>
-<li>
-<p>The following example shows what happens if two nodes modify same set of rows. Nodes are in sync until this point:</p>
-<div class="highlight"><pre><span></span><code>create<span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,3,4<span class="o">)</span>
-</code></pre></div>
-<ul>
-<li>
-<p>Node 1: <code>update i = i + 10;</code></p>
-</li>
-<li>
-<p>Node 2: <code>update i = i + 100;</code></p>
-</li>
-</ul>
-<p>Let’s associate transaction ID (<code>trx-id</code>) for an update transaction that is executed on Node 1 and Node 2 in parallel.
-Although the real algorithm is more involved (with <code>uuid</code> + <code>seqno</code>), it is conceptually the same, so we are using <code>trx_id</code>.</p>
-<ul>
-<li>
-<p>Node 1: <code>update action: trx-id=n1x</code></p>
-</li>
-<li>
-<p>Node 2: <code>update action: trx-id=n2x</code></p>
-</li>
-</ul>
-<p>Both node packets are added to the channel, but the transactions are conflicting. The protocol says: FIRST WRITE WINS.</p>
-<p>So in this case, whoever is first to write to the channel will get certified.
-Let’s say Node 2 is first to write the packet, and then Node 1 makes changes immediately after it.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Each node subscribes to all packages, including its own package.</p>
-</div>
-<ul>
-<li>
-<p>Node 2 will see its own packet and will process it. Then it will see the packet from Node 1, try to certify it, and fail.</p>
-</li>
-<li>
-<p>Node 1 will see the packet from Node 2 and will process it.</p>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>InnoDB allows isolation, so Node 1 can process packets from Node 2 independent of Node 1 transaction changes</p>
-</div>
-<p>Then Node 1 will see its own packet, try to certify it, and fail.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Even though the packet originated from Node 1, it will undergo certification to catch cases like these.</p>
-</div>
-</li>
-</ol>
-<h2 id="resolve-certification-conflicts">Resolve certification conflicts<a class="headerlink" href="#resolve-certification-conflicts" title="Permanent link">&para;</a></h2>
-<p>The certification protocol can be described using the previous example.
-The central certification vector (CCV) is updated
-to reflect reference transaction.</p>
-<ul>
-<li>Node 2 sees its own packet for certification, adds it to its local CCV and performs certification checks. Once these checks pass, it updates the reference transaction by setting it to <code>n2x</code>.</li>
-</ul>
-<p>Node 2 then gets the packet from Node 1 for certification.
-  The packet key is already present in CCV,
-  with the reference transaction set it to <code>n2x</code>,
-  whereas write-set proposes setting it to <code>n1x</code>.
-  This causes a conflict, which in turn causes the transaction from Node 1
-  to fail the certification test.</p>
-<ul>
-<li>Node 1 sees the packet from Node 2 for certification, which is then processed, the local CCV is updated, and the reference transaction is set to <code>n2x</code>.</li>
-</ul>
-<p>Using the same case as explained above, Node 1 certification also rejects the packet from Node 1.</p>
-<p>This suggests that the node doesn’t need to wait for certification to complete,
-but just needs to ensure that the packet is written to the channel.
-The applier transaction will always win
-and the local conflicting transaction will be rolled back.</p>
-<p>The following example shows what happens
-if one of the nodes has local changes that are not synced with the group:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>node-1: wsrep_on=0; insert (5); wsrep_on=1
-node-2: insert(5).
-</code></pre></div>
-</details>
-<p>The <code>insert(5)</code> statement will generate a write-set
-that will then be replicated to Node 1.
-Node 1 will try to apply it but will fail with <code>duplicate-key-error</code>,
-because 5 already exist.</p>
-<p>XtraDB will flag this as an error,
-which would eventually cause Node 1 to shutdown.</p>
-<h2 id="increment-gtid">Increment GTID<a class="headerlink" href="#increment-gtid" title="Permanent link">&para;</a></h2>
-<p>GTID is incremented only when the transaction passes certification,
-and is ready for commit.
-That way errant packets don’t cause GTID to increment.</p>
-<p>Also, group packet <code>id</code> is not confused with GTID.
-Without errant packets,
-it may seem that these two counters are the same,
-but they are not related.</p>
+<h2 id="for-superior-and-optimized-performance">For superior and optimized performance<a class="headerlink" href="#for-superior-and-optimized-performance" title="Permanent link">&para;</a></h2>
+<p>Percona Server for MySQL (PS) is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation. Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.</p>
+<p>Install <a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install/index.html">Percona Server for MySQL</a>.</p>
+<h2 id="for-backups-and-restores">For backups and restores<a class="headerlink" href="#for-backups-and-restores" title="Permanent link">&para;</a></h2>
+<p>Percona XtraBackup (PXB) is a 100% open source backup solution for all versions of Percona Server for MySQL and MySQL® that performs online non-blocking, tightly compressed, highly secure full backups on transactional systems. Maintain fully available applications during planned maintenance windows with Percona XtraBackup.</p>
+<p>Install <a href="https://docs.percona.com/percona-xtrabackup/8.0/installation.html">Percona XtraBackup</a></p>
+<h2 id="for-monitoring-and-management">For Monitoring and Management<a class="headerlink" href="#for-monitoring-and-management" title="Permanent link">&para;</a></h2>
+<p>Percona Monitoring and Management (PMM )monitors and provides actionable performance data for MySQL variants, including Percona Server for MySQL, Percona XtraDB Cluster, Oracle MySQL Community Edition, Oracle MySQL Enterprise Edition, and MariaDB. PMM captures metrics and data for the InnoDB, XtraDB, and MyRocks storage engines, and has specialized dashboards for specific engine details.</p>
+<p><a href="https://docs.percona.com/percona-monitoring-and-management/get-started/index.html">Install PMM and connect your MySQL instances to it</a>.</p>
 
                 
 
@@ -1982,7 +1802,7 @@ but they are not related.</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-06-14
     
   </small>
 </div>
@@ -2103,14 +1923,14 @@ but they are not related.</p>
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="assets/javascripts/bundle.b4d07000.min.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
     
   </body>
