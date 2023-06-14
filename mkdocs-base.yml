@@ -135,6 +135,13 @@ nav:
       - intro.md
       - limitation.md
       - xtradb-cluster-version-numbers.md
+  - Features:
+      - features/highavailability.md
+      - features/pxc-strict-mode.md
+      - features/online-schema-upgrade.md
+      - features/nbo.md
+  - Quick start guide:
+      - quickstart-overview.md
   - Get started:
       - overview.md
       - install/index.md
@@ -142,11 +149,8 @@ nav:
       - bootstrap.md
       - add-node.md
       - verify.md
-  - Features:
-      - features/highavailability.md
-      - features/pxc-strict-mode.md
-      - features/online-schema-upgrade.md
-      - features/nbo.md
+  - Upgrade:
+      - howtos/upgrade_guide.md
   - PXC security:
       - security/index.md
       - security/secure-network.md
@@ -166,7 +170,6 @@ nav:
       - manual/performance_schema_instrumentation.md
       - management/data_at_rest_encryption.md
   - How-tos:
-      - howtos/upgrade_guide.md
       - howtos/crash-recovery.md
       - howtos/centos_howto.md
       - howtos/ubuntu_howto.md
