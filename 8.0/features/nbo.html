@@ -1734,8 +1734,8 @@
                 <!-- Markdown content -->
                 <h1 id="non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu">Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)<a class="headerlink" href="#non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu" title="Permanent link">&para;</a></h1>
 <p>An <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> can be a daily issue in an environment with accelerated development and deployment. The task becomes more difficult as the data grows. An <code>ALTER TABLE</code> statement is a multi-step operation and must run until it is complete. Aborting the statement may be more expensive than letting it complete.</p>
-<p>The Non-Blocking Operations (NBO) method is similar to the <code>TOI</code> method (see <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> for more information on the available types of online schema upgrades). Every replica processes the DDL statement at the same point in the cluster transaction stream, and other transactions cannot commit during the operation.</p>
-<p>In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. This method provides a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking cluster updates.</p>
+<p>The Non-Blocking Operations (NBO) method is similar to the <code>TOI</code> method (see <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> for more information on the available types of online schema upgrades). Every replica processes the DDL statement at the same point in the cluster transaction stream, and other transactions cannot commit during the operation. The <code>NBO</code> method provides a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking cluster updates.</p>
+<p>In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_lock_wait_timeout"><code>lock_wait_timeout</code></a> system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause <code>infinite</code> waits and should not be used with the <code>NBO</code> method.</p>
 <p>Attempting a State Snapshot Transfer (SST) fails during the NBO operation.</p>
 <p>To dynamically set the <code>NBO</code> mode in the client, run the following statement:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_OSU_method</span><span class="o">=</span><span class="s1">&#39;NBO&#39;</span><span class="p">;</span>
@@ -1743,6 +1743,9 @@
 <h2 id="supported-ddl-statements">Supported DDL statements<a class="headerlink" href="#supported-ddl-statements" title="Permanent link">&para;</a></h2>
 <p>The NBO method supports the following DDL statements:</p>
 <ul>
+<li>
+<p><code>ALTER TABLE</code></p>
+</li>
 <li>
 <p><code>ALTER INDEX</code></p>
 </li>
@@ -1754,8 +1757,15 @@
 </li>
 </ul>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<p>The <code>NBO</code> method does not support running two DDL statements with conflicting locks on the same table. For example, you cannot run two <code>ALTER TABLE</code> statements for an <code>employees</code> table.</p>
-<p>The <code>NBO</code> method does not support modifying a table changed during the NBO operation. However, you can modify other tables and execute NBO queries on other tables.</p>
+<p>The <code>NBO</code> method does not support the following:</p>
+<ul>
+<li>
+<p>Running two DDL statements with conflicting locks on the same table. For example, you cannot run two <code>ALTER TABLE</code> statements for an <code>employees</code> table.</p>
+</li>
+<li>
+<p>Modifying a table changed during the NBO operation. However, you can modify other tables and execute NBO queries on other tables.</p>
+</li>
+</ul>
 <p>See the <a href="../release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html#pxc-8-0-25-15-1">Percona XtraDB Cluster 8.0.25-15.1</a> Release notes for the latest information.</p>
 
                 
@@ -1779,7 +1789,7 @@
   <small>
     
       Last update:
-      2023-04-04
+      2023-05-15
     
   </small>
 </div>
