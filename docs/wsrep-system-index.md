@@ -1240,6 +1240,32 @@ As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be
 Defines whether unique key checking is done for applier threads.
 This is disabled by default.
 
+### `wsrep_SR_store`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | ``--wsrep-sr-store`` |
+| Config File:   | Yes                |
+| Scope:         | Global            |
+| Dynamic:       | No                 |
+| Default Value: | ``table`` |
+
+Defines storage for streaming replication fragments. The available values are `table`, the default value, and `none`, which disables the variable. 
+
+### `wsrep_sst_allowed_methods`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | ``--wsrep_sst_allowed_methods`` |
+| Config File:   | Yes                |
+| Scope:         | Global            |
+| Dynamic:       | No                 |
+| Default Value: | ``xtrabackup-v2`` |
+
+Percona XtraDB Cluster 8.0.20-11.3 adds this variable.
+
+This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2`.
+
 ### `wsrep_sst_donor`
 
 | Option         | Description        |
