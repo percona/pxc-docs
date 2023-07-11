@@ -25,7 +25,7 @@ related to write-set replication.">
         <link rel="next" href="wsrep-provider-index.html">
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.17">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1846,6 +1846,20 @@ related to write-set replication.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#wsrep_sr_store" class="md-nav__link">
+    wsrep_SR_store
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_allowed_methods" class="md-nav__link">
+    wsrep_sst_allowed_methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wsrep_sst_donor" class="md-nav__link">
     wsrep_sst_donor
   </a>
@@ -2339,6 +2353,20 @@ related to write-set replication.">
         <li class="md-nav__item">
   <a href="#wsrep_slave_uk_checks" class="md-nav__link">
     wsrep_slave_UK_checks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sr_store" class="md-nav__link">
+    wsrep_SR_store
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_allowed_methods" class="md-nav__link">
+    wsrep_sst_allowed_methods
   </a>
   
 </li>
@@ -4621,6 +4649,71 @@ increasing the number of replica threads can speed up the catchup to <code>SYNCE
 <p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_UK_checks</code> variable.</p>
 <p>Defines whether unique key checking is done for applier threads.
 This is disabled by default.</p>
+<h3 id="wsrep_sr_store"><code>wsrep_SR_store</code><a class="headerlink" href="#wsrep_sr_store" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-sr-store</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>table</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>, which disables the variable. </p>
+<h3 id="wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code><a class="headerlink" href="#wsrep_sst_allowed_methods" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep_sst_allowed_methods</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>xtrabackup-v2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Percona XtraDB Cluster 8.0.20-11.3 adds this variable.</p>
+<p>This variable limits SST methods accepted by the server for <a href="#wsrep_sst_method">wsrep_sst_method</a> variable. The default value is <code>xtrabackup-v2</code>.</p>
 <h3 id="wsrep_sst_donor"><code>wsrep_sst_donor</code><a class="headerlink" href="#wsrep_sst_donor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5083,7 +5176,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2023-02-27
+      2023-07-11
     
   </small>
 </div>
@@ -5204,10 +5297,10 @@ Query OK, 131072 rows affected (15.09 sec)
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.b425cdc4.min.js"></script>
+      <script src="assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="js/version-select.js"></script>
