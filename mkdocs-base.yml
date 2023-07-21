@@ -131,55 +131,6 @@ extra:
 
 nav:
   - Home: index.md
-  - Introduction:
-      - intro.md
-      - limitation.md
-      - xtradb-cluster-version-numbers.md
-  - Features:
-      - features/highavailability.md
-      - features/pxc-strict-mode.md
-      - features/online-schema-upgrade.md
-      - features/nbo.md
-  - Quickstart guide:
-      - quickstart-overview.md
-  - Get started:
-      - overview.md
-      - install/index.md
-      - configure.md
-      - bootstrap.md
-      - add-node.md
-      - verify.md
-  - Upgrade:
-      - howtos/upgrade_guide.md
-  - PXC security:
-      - security/index.md
-      - security/secure-network.md
-      - security/encrypt-traffic.md
-      - security/apparmor.md
-      - security/selinux.md
-  - User's manual:
-      - manual/state_snapshot_transfer.md
-      - manual/xtrabackup_sst.md
-      - manual/restarting_nodes.md
-      - manual/failover.md
-      - manual/monitoring.md
-      - manual/certification.md
-      - manual/threading_model.md
-      - manual/gcache_record-set_cache_difference.md
-      - management/gcache-write-set-cache-encryption.md
-      - manual/performance_schema_instrumentation.md
-      - management/data_at_rest_encryption.md
-  - How-tos:
-      - howtos/crash-recovery.md
-      - howtos/centos_howto.md
-      - howtos/ubuntu_howto.md
-      - howtos/garbd_howto.md
-      - howtos/singlebox.md
-      - howtos/3nodesec2.md
-      - howtos/haproxy.md
-      - howtos/proxysql.md
-      - howtos/proxysql-v2.md
-      - howtos/virt_sandbox.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
       - release-notes/8.0.32-24.2.md
@@ -200,6 +151,61 @@ nav:
       - release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.md
       - release-notes/Percona-XtraDB-Cluster-8.0.19-10.md
       - release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.md
+  - Introduction:
+      - intro.md
+      - limitation.md
+      - xtradb-cluster-version-numbers.md
+  - Features:
+      - high-availability.md
+      - strict-mode.md
+      - online-schema-upgrade.md
+      - nbo.md
+  - Quickstart guide:
+      - quickstart-overview.md
+      - get-started-cluster.md
+  - Get started:
+      - install-index.md
+      - apt.md 
+      - yum.md 
+      - tarball.md
+      - compile.md
+      - docker.md 
+      - configure-nodes.md
+      - bootstrap.md
+      - add-node.md
+      - verify-replication.md
+  - Upgrade:
+      - upgrade-guide.md
+  - PXC security:
+      - security-index.md
+      - secure-network.md
+      - encrypt-traffic.md
+      - apparmor.md
+      - selinux.md
+  - User's manual:
+      - state-snapshot-transfer.md
+      - xtrabackup-sst.md
+      - restarting-nodes.md
+      - failover.md
+      - monitoring.md
+      - certification.md
+      - threading-model.md
+      - gcache-record-set-cache-difference.md
+      - gcache-write-set-cache-encryption.md
+      - performance-schema-instrumentation.md
+      - data-at-rest-encryption.md
+  - How-tos:
+      - crash-recovery.md
+      - configure-cluster-rhel.md
+      - configure-cluster-ubuntu.md
+      - garbd-howto.md
+      - singlebox.md
+      - set-up-3nodes-ec2.md
+      - haproxy.md
+      - load-balance-proxysql.md
+      - proxysql-v2.md
+      - virtual-sandbox.md
+
   - References:
       - wsrep-status-index.md
       - wsrep-system-index.md

@@ -58,4 +58,4 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.28 Release Notes](
 * The [Percona XtraDB Cluster GitHub location](https://github.com/percona/percona-xtradb-cluster)
 
 
-* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/percona-xtradb-cluster/blob/8.0/doc/source/contributing.md)
+* To contribute to the documentation, review the [Documentation Contribution Guide](https://github.com/percona/pxc-docs/blob/8.0/contributing.md)

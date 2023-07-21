@@ -1,6 +1,6 @@
 # Add nodes to cluster
 
-New nodes that are [properly configured](configure.md#configure) are provisioned
+New nodes that are [properly configured](configure-nodes.md#configure) are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
 
@@ -106,5 +106,5 @@ fully connected and ready to receive write-set replication.
 
 ## Next steps
 
-When you add all nodes to the cluster, you can [verify replication](verify.md#verify) by running queries and manipulating data on nodes to see if these changes are synchronized accross the cluster.
+When you add all nodes to the cluster, you can [verify replication](verify-replication.md#verify) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.
 

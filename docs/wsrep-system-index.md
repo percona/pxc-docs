@@ -22,7 +22,7 @@ Possible values:
 
 * `OFF`, `0`, `false`: Disabled 
 
-For more information, see [SSL Automatic Configuration](security/encrypt-traffic.md#ssl-auto-conf).
+For more information, see [SSL Automatic Configuration](encrypt-traffic.md#ssl-auto-conf).
 
 ### `pxc_maint_mode`
 
@@ -48,7 +48,7 @@ when you initiate node shutdown.
 * `MAINTENANCE`: You can manually change to this state
 if you need to perform maintenance on a node without shutting it down.
 
-For more information, see [Assisted Maintenance Mode](howtos/proxysql.md#pxc-maint-mode).
+For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#pxc-maint-mode).
 
 ### `pxc_maint_transition_period`
 
@@ -65,7 +65,7 @@ By default, the period is set to 10 seconds,
 which should be enough for most transactions to finish.
 You can increase the value to accommodate for longer-running transactions.
 
-For more information, see [Assisted Maintenance Mode](howtos/proxysql.md#pxc-maint-mode).
+For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#pxc-maint-mode).
 
 ### `pxc_strict_mode`
 
@@ -77,7 +77,7 @@ For more information, see [Assisted Maintenance Mode](howtos/proxysql.md#pxc-mai
 | Dynamic:       | Yes                 |
 | Default Value: | ``ENFORCING`` or ``DISABLED`` |
 
-Controls [PXC Strict Mode](features/pxc-strict-mode.md#pxc-strict-mode), which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.
+Controls [PXC Strict Mode](strict-mode.md#pxc-strict-mode), which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.
 
 Depending on the actual mode you select,
 upon encountering a failed validation,
@@ -98,7 +98,7 @@ If a validation fails during runtime,
 deny the operation and throw an error.
 
 * `MASTER`: The same as `ENFORCING` except that the validation of
-[explicit table locking](features/pxc-strict-mode.md#explicit-table-locking) is not performed.
+[explicit table locking](strict-mode.md#explicit-table-locking) is not performed.
 This mode can be used with clusters
 in which write operations are isolated to a single node.
 
@@ -120,7 +120,7 @@ or the node is bootstrapping, then [`pxc_strict_mode`](wsrep-system-index.md#pxc
      
     The `SERIALIZABLE` method of isolation is not allowed in `ENFORCING` mode.
 
-For more information, see [PXC Strict Mode](features/pxc-strict-mode.md#pxc-strict-mode).
+For more information, see [PXC Strict Mode](strict-mode.md#pxc-strict-mode).
 
 ### `wsrep_applier_FK_checks`
 
@@ -945,7 +945,7 @@ If set to `OFF` for a session, no transaction changes are replicated in that ses
 Defines the method for Online Schema Upgrade
 that the node uses to replicate DDL statements.
 
-For information on the available methods, see [Online Schema upgrade](./features/online-schema-upgrade.md) and for information on Non-blocking operations, see [NBO](./features/nbo.md).
+For information on the available methods, see [Online Schema upgrade](online-schema-upgrade.md) and for information on Non-blocking operations, see [NBO](nbo.md).
 
 
 !!! admonition "See also"
@@ -1305,7 +1305,7 @@ then the joining node will consider *only* `node1` and `node2`.
 
     By default, the joiner node does not wait for more than 100 seconds
     to receive the first packet from a donor.
-    This is implemented via the [`sst-initial-timeout`](manual/xtrabackup_sst.md#cmdoption-arg-sst-initial-timeout) option.
+    This is implemented via the [`sst-initial-timeout`](xtrabackup-sst.md#cmdoption-arg-sst-initial-timeout) option.
     If you set the list of preferred donors without the trailing comma
     or believe that all nodes in the cluster can often be unavailable for SST
     (this is common for small clusters),
@@ -1327,13 +1327,13 @@ then the joining node will consider *only* `node1` and `node2`.
 | Dynamic:       | Yes                 |
 | Default Value: | xtrabackup-v2 |
 
-Defines the method or script for [State Snapshot Transfer](manual/state_snapshot_transfer.md#state-snapshot-transfer) (SST).
+Defines the method or script for [State Snapshot Transfer](state-snapshot-transfer.md#state-snapshot-transfer) (SST).
 
 Available values are:
 
 * `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST. This option is the default option.
 Privileges and permissions for running *Percona XtraBackup*
-can be found in [Percona XtraBackup documentation](https://www.percona.com/doc/percona-xtrabackup/8.0/using_xtrabackup/privileges.html). For more information, see [Percona XtraBackup SST Configuration](manual/xtrabackup_sst.md#xtrabackup-sst).
+can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).
 
 * `skip`: Use this to skip SST.
 This can be used when initially starting the cluster

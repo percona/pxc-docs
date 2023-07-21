@@ -1,6 +1,6 @@
 # Bootstrap the first node
 
-After you [configure all PXC nodes](configure.md#configure), initialize the cluster by
+After you [configure all PXC nodes](configure-nodes.md#configure), initialize the cluster by
 bootstrapping the first node.  The initial node must contain all the data that
 you want to be replicated to other nodes.
 
