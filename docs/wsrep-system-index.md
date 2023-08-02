@@ -1341,6 +1341,8 @@ and manually restoring the same data to all nodes.
 This option should not be used permanently
 because it could lead to data inconsistency across the nodes.
 
+* `ist_only` : **Introduced in Percona XtraDB Cluster 8.0.33-25.** This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node's start. This action leaves the data directory unchanged. This value prevents starting a node, after a manual backup restoration, that does not have a `grastate.dat` file. This missing file could initiate a full-state transfer (SST) which can be a more time and resource-intensive operation.
+
 !!! note
 
     ``xtrabackup-v2`` provides support for clusters with GTIDs and async replicas.
