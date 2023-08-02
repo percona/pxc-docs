@@ -1192,6 +1192,20 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   
   
     <li class="md-nav__item">
+      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
+        Percona XtraDB Cluster 8.0.33-25 (2023-08-02)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/8.0.32-24.2.html" class="md-nav__link">
         Percona XtraDB Cluster 8.0.32-24.2 (2023-05-24)
       </a>
@@ -1800,6 +1814,20 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
           <li class="md-nav__item">
   <a href="#gcommthread_prio" class="md-nav__link">
     gcomm.thread_prio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcsfc_auto_evict_threshold" class="md-nav__link">
+    gcs.fc_auto_evict_threshold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcsfc_auto_evict_window" class="md-nav__link">
+    gcs.fc_auto_evict_window
   </a>
   
 </li>
@@ -2486,6 +2514,20 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
           <li class="md-nav__item">
   <a href="#gcommthread_prio" class="md-nav__link">
     gcomm.thread_prio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcsfc_auto_evict_threshold" class="md-nav__link">
+    gcs.fc_auto_evict_threshold
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcsfc_auto_evict_window" class="md-nav__link">
+    gcs.fc_auto_evict_window
   </a>
   
 </li>
@@ -4101,6 +4143,74 @@ preempted by threads of a higher priority.
 <p class="admonition-title">See also</p>
 <p>For information, see the <a href="https://galeracluster.com/library/documentation/galera-parameters.html#gcomm-thread-prio">Galera Cluster documentation</a></p>
 </div>
+<h3 id="gcsfc_auto_evict_threshold"><code>gcs.fc_auto_evict_threshold</code><a class="headerlink" href="#gcsfc_auto_evict_threshold" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file :</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default value:</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<p>Implemented in Percona XtraDB Cluster 8.0.33-25.</p>
+<p>Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the <a href="#gcs.fc_auto_evict_window"><code>gcs.fc_auto_evict_window</code></a> variable. The default value is <code>.075</code>, but the value can be set to any value between 0.0 and 1.0. </p>
+<h3 id="gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code><a class="headerlink" href="#gcsfc_auto_evict_window" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config file :</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default value:</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Implemented in Percona XtraDB Cluster 8.0.33-25.</p>
+<p>The variable defines the time window width within which flow controls are observed. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time &gt;= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.</p>
+<p>The default value is 0, which means that the feature is disabled.</p>
+<p>The maximum value is <code>DBL_MAX</code>.</p>
 <h3 id="gcsfc_debug"><code>gcs.fc_debug</code><a class="headerlink" href="#gcsfc_debug" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5578,7 +5688,7 @@ to the server’s private key file (in PEM format).</p>
   <small>
     
       Last update:
-      2023-04-14
+      2023-08-02
     
   </small>
 </div>
