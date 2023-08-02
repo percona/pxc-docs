@@ -1994,6 +1994,13 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 </li>
         
           <li class="md-nav__item">
+  <a href="#pcwait_restored_prim_timeout" class="md-nav__link">
+    pc.wait_restored_prim_timeout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pcweight" class="md-nav__link">
     pc.weight
   </a>
@@ -2668,6 +2675,13 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
           <li class="md-nav__item">
   <a href="#pcwait_prim_timeout" class="md-nav__link">
     pc.wait_prim_timeout
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcwait_restored_prim_timeout" class="md-nav__link">
+    pc.wait_restored_prim_timeout
   </a>
   
 </li>
@@ -4986,6 +5000,42 @@ time specified in <a href="wsrep-provider-index.html#pcwait_prim_timeout"><code>
 </table>
 <p>This variable is used to specify the period of time to wait for a primary
 component.</p>
+<h3 id="pcwait_restored_prim_timeout"><code>pc.wait_restored_prim_timeout</code><a class="headerlink" href="#pcwait_restored_prim_timeout" title="Permanent link">&para;</a></h3>
+<p><strong>Introduced in Percona XtraDB Cluster 8.0.33-25.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>PT0S</td>
+</tr>
+</tbody>
+</table>
+<p>This variable specifies the wait period for a primary component when the cluster restores the primary component from the <code>gvwstate.dat</code> file
+after an outage.</p>
+<p>The default value is <code>PT0S</code> (zero seconds). The node waits for an infinite time, which is the current behavior.</p>
+<p>You can define a wait time with <code>PTNS</code>, replace the <code>N</code> value with the number of seconds. For example, to wait for 90 seconds, set the value to <code>PT90S</code>.</p>
 <h3 id="pcweight"><code>pc.weight</code><a class="headerlink" href="#pcweight" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5528,7 +5578,7 @@ to the server’s private key file (in PEM format).</p>
   <small>
     
       Last update:
-      2023-01-20
+      2023-04-14
     
   </small>
 </div>
