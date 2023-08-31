@@ -1,5 +1,5 @@
 # variables for HTML output
 
-release: '5.7.42-31.65'
+release: '5.7.43-31.65'
 version: '5.7'
 release-date: 2023
