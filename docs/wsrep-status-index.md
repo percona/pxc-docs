@@ -130,6 +130,10 @@ Total time spent in a paused state measured in nanoseconds.
 
 The number of `FC_PAUSE` events received since the last status query. Unlike most status variables, this counter does not reset each time you run the query. This counter is reset when the server restarts.
 
+### `wsrep_flow_control_requested`
+
+This variable returns whether or not a node requested a replication pause.
+
 ### `wsrep_flow_control_status`
 
 The number of `FC_PAUSE` events sent since the last status query. Unlike most status variables, this counter does not reset each time you run the query. This counter is reset when the server restarts.
