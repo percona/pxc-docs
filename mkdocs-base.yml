@@ -178,6 +178,7 @@ nav:
       - verify-replication.md
   - Upgrade:
       - upgrade-guide.md
+      - upgrade-from-backup.md
   - PXC security:
       - security-index.md
       - secure-network.md
