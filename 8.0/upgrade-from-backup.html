@@ -9,34 +9,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.">
+        <meta name="description" content="Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/release-notes/8.0.29-21.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/upgrade-from-backup.html">
       
       
-        <link rel="prev" href="8.0.30-22.html">
+        <link rel="prev" href="upgrade-guide.html">
       
       
-        <link rel="next" href="Percona-XtraDB-Cluster-8.0.28-19.1.html">
+        <link rel="next" href="security-index.html">
       
       
-      <link rel="icon" href="../_static/percona-favicon.ico">
+      <link rel="icon" href="_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
     
     
       
-        <title>Percona XtraDB Cluster 8.0.29-21 (2022-09-12) - Percona XtraDB Cluster</title>
+        <title>Restore a 5.7 backup to an 8.0 cluster - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.046329b4.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.85d0ee34.min.css">
       
       
 
@@ -59,13 +59,13 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/percona.css">
+      <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css/">
+      <link rel="stylesheet" href="css/nocopy.css/">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
               <!-- Google Tag Manager -->
               <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -88,7 +88,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 8.0.29-21 (2022-09-12)" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Restore a 5.7 backup to an 8.0 cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
                
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#percona-xtradb-cluster-8029-21-2022-09-12" class="md-skip">
+        <a href="#restore-a-57-backup-to-an-80-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -153,7 +153,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Percona XtraDB Cluster 8.0.29-21 (2022-09-12)
+              Restore a 5.7 backup to an 8.0 cluster
             
           </span>
         </div>
@@ -265,7 +265,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -296,7 +296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -318,19 +318,17 @@
       
   
   
-    
-  
   
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
@@ -343,7 +341,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -356,7 +354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -376,7 +374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.33-25.upd.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.upd.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -396,7 +394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.33-25.html" class="md-nav__link">
+      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -416,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.32-24.2.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -436,7 +434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.32-24.html" class="md-nav__link">
+      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -456,7 +454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.31-23.2.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -476,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.31-23.html" class="md-nav__link">
+      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -496,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.0.30-22.html" class="md-nav__link">
+      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -514,29 +512,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Percona XtraDB Cluster 8.0.29-21 (2022-09-12)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="8.0.29-21.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -545,56 +523,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#release-highlights" class="md-nav__link">
-    Release Highlights
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
-    Bugs Fixed
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#packaging-notes" class="md-nav__link">
-    Packaging Notes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    Useful Links
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -606,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -626,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -646,7 +574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -666,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -686,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -706,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -726,7 +654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -746,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -766,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -786,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -806,7 +734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -826,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -892,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intro.html" class="md-nav__link">
+      <a href="intro.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -912,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitation.html" class="md-nav__link">
+      <a href="limitation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -932,7 +860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -998,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-availability.html" class="md-nav__link">
+      <a href="high-availability.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1018,7 +946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../strict-mode.html" class="md-nav__link">
+      <a href="strict-mode.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1038,7 +966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../online-schema-upgrade.html" class="md-nav__link">
+      <a href="online-schema-upgrade.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1058,7 +986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nbo.html" class="md-nav__link">
+      <a href="nbo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1124,7 +1052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-overview.html" class="md-nav__link">
+      <a href="quickstart-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1144,7 +1072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../get-started-cluster.html" class="md-nav__link">
+      <a href="get-started-cluster.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1210,7 +1138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../install-index.html" class="md-nav__link">
+      <a href="install-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1230,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apt.html" class="md-nav__link">
+      <a href="apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1250,7 +1178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yum.html" class="md-nav__link">
+      <a href="yum.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1270,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tarball.html" class="md-nav__link">
+      <a href="tarball.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1290,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compile.html" class="md-nav__link">
+      <a href="compile.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1310,7 +1238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../docker.html" class="md-nav__link">
+      <a href="docker.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1330,7 +1258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-nodes.html" class="md-nav__link">
+      <a href="configure-nodes.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1350,7 +1278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bootstrap.html" class="md-nav__link">
+      <a href="bootstrap.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1370,7 +1298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../add-node.html" class="md-nav__link">
+      <a href="add-node.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1390,7 +1318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../verify-replication.html" class="md-nav__link">
+      <a href="verify-replication.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1420,17 +1348,19 @@
       
   
   
+    
+  
   
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
@@ -1443,7 +1373,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Upgrade
@@ -1456,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-guide.html" class="md-nav__link">
+      <a href="upgrade-guide.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1474,9 +1404,29 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../upgrade-from-backup.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Restore a 5.7 backup to an 8.0 cluster
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="upgrade-from-backup.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1485,6 +1435,35 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#restore-a-database-with-a-different-server-version" class="md-nav__link">
+    Restore a database with a different server version
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1542,7 +1521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-index.html" class="md-nav__link">
+      <a href="security-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1562,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure-network.html" class="md-nav__link">
+      <a href="secure-network.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1582,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../encrypt-traffic.html" class="md-nav__link">
+      <a href="encrypt-traffic.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1602,7 +1581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apparmor.html" class="md-nav__link">
+      <a href="apparmor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1622,7 +1601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../selinux.html" class="md-nav__link">
+      <a href="selinux.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1688,7 +1667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state-snapshot-transfer.html" class="md-nav__link">
+      <a href="state-snapshot-transfer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1708,7 +1687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xtrabackup-sst.html" class="md-nav__link">
+      <a href="xtrabackup-sst.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1728,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../restarting-nodes.html" class="md-nav__link">
+      <a href="restarting-nodes.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1748,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../failover.html" class="md-nav__link">
+      <a href="failover.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1768,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../monitoring.html" class="md-nav__link">
+      <a href="monitoring.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1788,7 +1767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../certification.html" class="md-nav__link">
+      <a href="certification.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1808,7 +1787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../threading-model.html" class="md-nav__link">
+      <a href="threading-model.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1828,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gcache-record-set-cache-difference.html" class="md-nav__link">
+      <a href="gcache-record-set-cache-difference.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1848,7 +1827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gcache-write-set-cache-encryption.html" class="md-nav__link">
+      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1868,7 +1847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance-schema-instrumentation.html" class="md-nav__link">
+      <a href="performance-schema-instrumentation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1888,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-at-rest-encryption.html" class="md-nav__link">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1954,7 +1933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../crash-recovery.html" class="md-nav__link">
+      <a href="crash-recovery.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1974,7 +1953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-cluster-rhel.html" class="md-nav__link">
+      <a href="configure-cluster-rhel.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1994,7 +1973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-cluster-ubuntu.html" class="md-nav__link">
+      <a href="configure-cluster-ubuntu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2014,7 +1993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../garbd-howto.html" class="md-nav__link">
+      <a href="garbd-howto.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2034,7 +2013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../singlebox.html" class="md-nav__link">
+      <a href="singlebox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2054,7 +2033,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../set-up-3nodes-ec2.html" class="md-nav__link">
+      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2074,7 +2053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../haproxy.html" class="md-nav__link">
+      <a href="haproxy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2094,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../load-balance-proxysql.html" class="md-nav__link">
+      <a href="load-balance-proxysql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2114,7 +2093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proxysql-v2.html" class="md-nav__link">
+      <a href="proxysql-v2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2134,7 +2113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../virtual-sandbox.html" class="md-nav__link">
+      <a href="virtual-sandbox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2200,7 +2179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-status-index.html" class="md-nav__link">
+      <a href="wsrep-status-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2220,7 +2199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-system-index.html" class="md-nav__link">
+      <a href="wsrep-system-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2240,7 +2219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-provider-index.html" class="md-nav__link">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2260,7 +2239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-files-index.html" class="md-nav__link">
+      <a href="wsrep-files-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2280,7 +2259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2300,7 +2279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2320,7 +2299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2340,7 +2319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2397,29 +2376,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#release-highlights" class="md-nav__link">
-    Release Highlights
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
-    Bugs Fixed
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#packaging-notes" class="md-nav__link">
-    Packaging Notes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    Useful Links
+  <a href="#restore-a-database-with-a-different-server-version" class="md-nav__link">
+    Restore a database with a different server version
   </a>
   
 </li>
@@ -2442,14 +2400,14 @@
                   
                   
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/release-notes/8.0.29-21.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/upgrade-from-backup.md"
                     title="edit.link.title"
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/release-notes/8.0.29-21.md"
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/upgrade-from-backup.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -2465,50 +2423,39 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="percona-xtradb-cluster-8029-21-2022-09-12">Percona XtraDB Cluster 8.0.29-21 (2022-09-12)<a class="headerlink" href="#percona-xtradb-cluster-8029-21-2022-09-12" title="Permanent link">&para;</a></h1>
-<p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
-<h2 id="release-highlights">Release Highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/latest/release-notes/8.0.29-21.html">Percona Server for MySQL 8.0.29-21 (2022-08-08) release notes</a>.</p>
-<p>The improvements and bug fixes for MySQL 8.0.29, provided by Oracle, and included in Percona Server for MySQL are the following:</p>
-<p>The Performance Schema tracks if a query was processed on the PRIMARY engine, InnoDB, or a SECONDARY engine, HeatWave. An EXECUTION_ENGINE column, which indicates the engine used, was added to the Performance Schema statement event tables and the sys.processlist and the sys.x$processlist views.</p>
-<p>Added support for the IF NOT EXISTS option for the CREATE FUNCTION, CREATE PROCEDURE, and CREATE TRIGGER statements.</p>
-<p>Added support for ALTER TABLE … DROP COLUMN ALGORITHM=INSTANT.</p>
-<p>An anonymous user with the PROCESS privilege was unable to select processlist table rows.</p>
-<p>Find the full list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-29.html">MySQL 8.0.29 Release Notes</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Percona Server for MySQL has changed the default for the <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-online-ddl-operations.html">supported DDL column operations</a> to ALGORITHM=INPLACE. This change fixes the corruption issue with the INSTANT ADD/DROP COLUMNS (find more details in <a href="https://jira.percona.com/browse/PS-8292">PS-8292</a>.</p>
-<p>In MySQL 8.0.29, the default setting for supported DDL operations is ALGORITHM=INSTANT. You can explicitly specify ALGORITHM=INSTANT in DDL column operations.</p>
-</div>
-<h2 id="bugs-fixed">Bugs Fixed<a class="headerlink" href="#bugs-fixed" title="Permanent link">&para;</a></h2>
-<ul>
+                <h1 id="restore-a-57-backup-to-an-80-cluster">Restore a 5.7 backup to an 8.0 cluster<a class="headerlink" href="#restore-a-57-backup-to-an-80-cluster" title="Permanent link">&para;</a></h1>
+<p>Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.</p>
+<p><a href="https://docs.percona.com/percona-server/8.0/downgrade.html">Downgrading is not supported</a>.</p>
+<h2 id="restore-a-database-with-a-different-server-version">Restore a database with a different server version<a class="headerlink" href="#restore-a-database-with-a-different-server-version" title="Permanent link">&para;</a></h2>
+<p>Review <a href="upgrade-guide.html">Upgrade Percona XtraDB cluster</a>.</p>
+<p>Upgrade the nodes one at a time. The primary node should be the last node to be upgraded. The following steps are required on each node.</p>
+<ol>
 <li>
-<p><a href="https://jira.percona.com/browse/PXC-3982">PXC-3982</a>: When the replica node is also an asynchronous slave and, while joining the cluster, this node was not ready to accept connections, a SQL thread failed at the start.</p>
+<p>Back up the data on the source server.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PXC-3118">PXC-3118</a>: A fix for when, using a thread pool, a brute force abort for a metadata locking (MDL) subsystem conflict stalled.</p>
+<p>Install the same database version as the source server on the target server.</p>
 </li>
 <li>
-<p><a href="https://jira.percona.com/browse/PXC-3999">PXC-3999</a>: The cluster was stalled on <code>Waiting for acl cache lock</code> with concurrent user DDL commands.</p>
-</li>
-</ul>
-<h2 id="packaging-notes">Packaging Notes<a class="headerlink" href="#packaging-notes" title="Permanent link">&para;</a></h2>
-<p>Debian 9 is no longer supported.</p>
-<h2 id="useful-links">Useful Links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p>The <a href="https://www.percona.com/doc/percona-xtradb-cluster/8.0/install/index.html">Percona XtraDB Cluster installation instructions</a></p>
+<p>Restore with a <code>copy-back</code> operation on the target server.</p>
 </li>
 <li>
-<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+<p>Start the database server on the target server.</p>
 </li>
 <li>
-<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+<p>Do a slow shutdown of the database server with the <code>SET GLOBAL innodb_fast_shutdown=0</code> statement. This shutdown type flushes InnoDB operations before completing and may take longer.</p>
 </li>
 <li>
-<p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
+<p>Install the new database server version on the target server.</p>
 </li>
-</ul>
+<li>
+<p>Start the new database server version on the restored data directory.</p>
+</li>
+<li>
+<p>Perform any other upgrade steps as necessary.</p>
+</li>
+</ol>
+<p>To ensure the upgrade was successful, check the data.</p>
 
                 
 
@@ -2532,7 +2479,7 @@
   <small>
     
       Last update:
-      2023-07-21
+      2023-09-12
     
   </small>
 </div>
@@ -2654,14 +2601,14 @@
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      <script src="assets/javascripts/bundle.dff1b7c8.min.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
     
   </body>
