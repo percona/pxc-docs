@@ -162,7 +162,7 @@ the joining node can use other addresses.
     No addresses are required for the initial node in the cluster.
     However, it is recommended to specify them
     and [properly bootstrap the first node](bootstrap.md#bootstrap).
-    This will ensure that th e node is able to rejoin the cluster if it goes down in the future.
+    This will ensure that the node is able to rejoin the cluster if it goes down in the future.
 
 [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)
 
