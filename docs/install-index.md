@@ -3,6 +3,8 @@
 Install Percona XtraDB Cluster on all hosts that you are planning to use as cluster nodes
 and ensure that you have root access to the MySQL server on each one.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 It is recommended to install Percona XtraDB Cluster from official Percona software repositories
 using the corresponding package manager for your system:
 
@@ -39,3 +41,5 @@ The version number in PXC releases contains the following components:
 
 For example, version number *8.0.18-9.3* means that this is the third PXC
 build based on Percona Server for MySQL 8.0.18-9.
+
+[Telemetry data]: telemetry.md

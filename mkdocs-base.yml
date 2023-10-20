@@ -209,11 +209,12 @@ nav:
       - proxysql-v2.md
       - virtual-sandbox.md
 
-  - References:
+  - Reference:
       - wsrep-status-index.md
       - wsrep-system-index.md
       - wsrep-provider-index.md
       - wsrep-files-index.md
+      - telemetry.md
       - faq.md
       - glossary.md
       - copyright-and-licensing-information.md
