@@ -8,6 +8,8 @@ and on the [download page](https://www.percona.com/downloads/Percona-XtraDB-Clus
 It is recommended to install Percona XtraDB Cluster from the official repository
 using APT.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 ## Prerequisites
 
 * You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).
@@ -111,3 +113,5 @@ During the installation, you are requested to provide a password for the `root` 
 
 After you install Percona XtraDB Cluster and stop the `mysql` service,
 configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure).
+
+[Telemetry data]: telemetry.md

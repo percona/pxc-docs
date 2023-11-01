@@ -7,6 +7,8 @@ For more information about using Docker, see the [Docker Docs](https://docs.dock
 sure that you are using the latest version of Docker. The ones
 provided via `apt` and `yum` may be outdated and cause errors.
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 !!! note
 
     By default, Docker pulls the image from Docker Hub if the image is not
@@ -152,3 +154,5 @@ To verify the cluster is available, do the following:
         +------------------------------+-------------------------------------------------+
         59 rows in set (0.02 sec)
         ```
+
+[Telemetry data]: telemetry.md

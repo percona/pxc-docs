@@ -3,6 +3,8 @@
 A list of the supported platforms by products and versions
 is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
+We gather [Telemetry data] in the Percona packages and Docker images.
+
 You can install Percona XtraDB Cluster with the following methods:
 
 * Use the official repository using YUM
@@ -77,3 +79,5 @@ $ sudo service mysql stop
 ## Next steps
 
 Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure).
+
+[Telemetry data]: telemetry.md
