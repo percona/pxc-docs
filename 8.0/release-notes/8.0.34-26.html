@@ -9,34 +9,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="There are two kinds of traffic in Percona XtraDB Cluster:">
+        <meta name="description" content="Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/encrypt-traffic.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/release-notes/8.0.34-26.html">
       
       
-        <link rel="prev" href="secure-network.html">
+        <link rel="prev" href="release-notes_index.html">
       
       
-        <link rel="next" href="apparmor.html">
+        <link rel="next" href="8.0.33-25.upd.html">
       
       
-      <link rel="icon" href="_static/percona-favicon.ico">
+      <link rel="icon" href="../_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.7">
     
     
       
-        <title>Encrypt PXC traffic - Percona XtraDB Cluster</title>
+        <title>Percona XtraDB Cluster 8.0.34-26 (2023-11-01) - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -59,13 +59,13 @@
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="css/percona.css">
+      <link rel="stylesheet" href="../css/percona.css">
     
-      <link rel="stylesheet" href="css/nocopy.css/">
+      <link rel="stylesheet" href="../css/nocopy.css/">
     
-      <link rel="stylesheet" href="css/extra.css">
+      <link rel="stylesheet" href="../css/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
               <!-- Google Tag Manager -->
               <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -88,7 +88,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Encrypt PXC traffic" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 8.0.34-26 (2023-11-01)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
                
@@ -114,7 +114,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#encrypt-pxc-traffic" class="md-skip">
+        <a href="#percona-xtradb-cluster-8034-26-2023-11-01" class="md-skip">
           Skip to content
         </a>
       
@@ -136,7 +136,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="../_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -153,7 +153,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Encrypt PXC traffic
+              Percona XtraDB Cluster 8.0.34-26 (2023-11-01)
             
           </span>
         </div>
@@ -265,7 +265,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="_static/percona-logo.svg" alt="logo">
+  <img src="../_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -296,7 +296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -318,18 +318,20 @@
       
   
   
+    
+  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -343,7 +345,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -356,7 +358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes_index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -374,9 +376,29 @@
                 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="release-notes/8.0.34-26.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster 8.0.34-26 (2023-11-01)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="8.0.34-26.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -385,6 +407,62 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-highlights" class="md-nav__link">
+    Release highlights
+  </a>
+  
+    <nav class="md-nav" aria-label="Release highlights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deprecations-and-removals" class="md-nav__link">
+    Deprecations and removals
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug fixes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -396,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.33-25.upd.html" class="md-nav__link">
+      <a href="8.0.33-25.upd.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -416,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.33-25.html" class="md-nav__link">
+      <a href="8.0.33-25.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -436,7 +514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.32-24.2.html" class="md-nav__link">
+      <a href="8.0.32-24.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -456,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.32-24.html" class="md-nav__link">
+      <a href="8.0.32-24.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -476,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.31-23.2.html" class="md-nav__link">
+      <a href="8.0.31-23.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -496,7 +574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.31-23.html" class="md-nav__link">
+      <a href="8.0.31-23.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -516,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.30-22.html" class="md-nav__link">
+      <a href="8.0.30-22.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -536,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.0.29-21.html" class="md-nav__link">
+      <a href="8.0.29-21.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -556,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.28-19.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -576,7 +654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.27-18.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -596,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.26-16.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -616,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.25-15.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -636,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.23-14.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -656,7 +734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.22-13.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -676,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.21-12.1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -696,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -716,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -736,7 +814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.20-11.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -756,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.19-10.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -776,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-8.0.18-9.3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -844,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="intro.html" class="md-nav__link">
+      <a href="../intro.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -864,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="limitation.html" class="md-nav__link">
+      <a href="../limitation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -884,7 +962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -952,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high-availability.html" class="md-nav__link">
+      <a href="../high-availability.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -972,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="strict-mode.html" class="md-nav__link">
+      <a href="../strict-mode.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -992,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="online-schema-upgrade.html" class="md-nav__link">
+      <a href="../online-schema-upgrade.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1012,7 +1090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="nbo.html" class="md-nav__link">
+      <a href="../nbo.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1080,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart-overview.html" class="md-nav__link">
+      <a href="../quickstart-overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1100,7 +1178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="get-started-cluster.html" class="md-nav__link">
+      <a href="../get-started-cluster.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1168,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="install-index.html" class="md-nav__link">
+      <a href="../install-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1188,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apt.html" class="md-nav__link">
+      <a href="../apt.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1208,7 +1286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="yum.html" class="md-nav__link">
+      <a href="../yum.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1228,7 +1306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tarball.html" class="md-nav__link">
+      <a href="../tarball.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1248,7 +1326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="compile.html" class="md-nav__link">
+      <a href="../compile.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1268,7 +1346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="docker.html" class="md-nav__link">
+      <a href="../docker.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1288,7 +1366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="configure-nodes.html" class="md-nav__link">
+      <a href="../configure-nodes.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1308,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="bootstrap.html" class="md-nav__link">
+      <a href="../bootstrap.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1328,7 +1406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="add-node.html" class="md-nav__link">
+      <a href="../add-node.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1348,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="verify-replication.html" class="md-nav__link">
+      <a href="../verify-replication.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1416,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upgrade-guide.html" class="md-nav__link">
+      <a href="../upgrade-guide.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1436,7 +1514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="upgrade-from-backup.html" class="md-nav__link">
+      <a href="../upgrade-from-backup.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1466,20 +1544,18 @@
       
   
   
-    
-  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1493,7 +1569,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             PXC security
@@ -1506,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="security-index.html" class="md-nav__link">
+      <a href="../security-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1526,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure-network.html" class="md-nav__link">
+      <a href="../secure-network.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1544,29 +1620,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Encrypt PXC traffic
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="encrypt-traffic.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../encrypt-traffic.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1575,137 +1631,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#encrypt-client-server-communication" class="md-nav__link">
-    Encrypt client-server communication
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encrypt-replication-traffic" class="md-nav__link">
-    Encrypt replication traffic
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ssl-automatic-configuration" class="md-nav__link">
-    SSL automatic configuration
-  </a>
-  
-    <nav class="md-nav" aria-label="SSL automatic configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#enable-pxc-encrypt-cluster-traffic" class="md-nav__link">
-    Enable pxc-encrypt-cluster-traffic
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ssl-manual-configuration" class="md-nav__link">
-    SSL manual configuration
-  </a>
-  
-    <nav class="md-nav" aria-label="SSL manual configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encrypt-sst-traffic" class="md-nav__link">
-    Encrypt SST traffic
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xtrabackup" class="md-nav__link">
-    xtrabackup
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encrypt-replicationist-traffic" class="md-nav__link">
-    Encrypt replication/IST traffic
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#generate-keys-and-certificates-manually" class="md-nav__link">
-    Generate keys and certificates manually
-  </a>
-  
-    <nav class="md-nav" aria-label="Generate keys and certificates manually">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#verify-certificates" class="md-nav__link">
-    Verify certificates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#failed-validation-caused-by-matching-cn" class="md-nav__link">
-    Failed validation caused by matching CN
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deploy-keys-and-certificates" class="md-nav__link">
-    Deploy keys and certificates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#upgrade-certificates" class="md-nav__link">
-    Upgrade certificates
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1717,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apparmor.html" class="md-nav__link">
+      <a href="../apparmor.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1737,7 +1662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="selinux.html" class="md-nav__link">
+      <a href="../selinux.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1805,7 +1730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="state-snapshot-transfer.html" class="md-nav__link">
+      <a href="../state-snapshot-transfer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1825,7 +1750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="xtrabackup-sst.html" class="md-nav__link">
+      <a href="../xtrabackup-sst.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1845,7 +1770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="restarting-nodes.html" class="md-nav__link">
+      <a href="../restarting-nodes.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1865,7 +1790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="failover.html" class="md-nav__link">
+      <a href="../failover.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1885,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="monitoring.html" class="md-nav__link">
+      <a href="../monitoring.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1905,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="certification.html" class="md-nav__link">
+      <a href="../certification.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1925,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="threading-model.html" class="md-nav__link">
+      <a href="../threading-model.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1945,7 +1870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gcache-record-set-cache-difference.html" class="md-nav__link">
+      <a href="../gcache-record-set-cache-difference.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1965,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link">
+      <a href="../gcache-write-set-cache-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1985,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="performance-schema-instrumentation.html" class="md-nav__link">
+      <a href="../performance-schema-instrumentation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2005,7 +1930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="data-at-rest-encryption.html" class="md-nav__link">
+      <a href="../data-at-rest-encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2073,7 +1998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="crash-recovery.html" class="md-nav__link">
+      <a href="../crash-recovery.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2093,7 +2018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="configure-cluster-rhel.html" class="md-nav__link">
+      <a href="../configure-cluster-rhel.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2113,7 +2038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="configure-cluster-ubuntu.html" class="md-nav__link">
+      <a href="../configure-cluster-ubuntu.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2133,7 +2058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="garbd-howto.html" class="md-nav__link">
+      <a href="../garbd-howto.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2153,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
+      <a href="../singlebox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2173,7 +2098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
+      <a href="../set-up-3nodes-ec2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2193,7 +2118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="haproxy.html" class="md-nav__link">
+      <a href="../haproxy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2213,7 +2138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="load-balance-proxysql.html" class="md-nav__link">
+      <a href="../load-balance-proxysql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2233,7 +2158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="proxysql-v2.html" class="md-nav__link">
+      <a href="../proxysql-v2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2253,7 +2178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="virtual-sandbox.html" class="md-nav__link">
+      <a href="../virtual-sandbox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2321,7 +2246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="wsrep-status-index.html" class="md-nav__link">
+      <a href="../wsrep-status-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2341,7 +2266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="wsrep-system-index.html" class="md-nav__link">
+      <a href="../wsrep-system-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2361,7 +2286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="wsrep-provider-index.html" class="md-nav__link">
+      <a href="../wsrep-provider-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2381,7 +2306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="wsrep-files-index.html" class="md-nav__link">
+      <a href="../wsrep-files-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2401,7 +2326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="telemetry.html" class="md-nav__link">
+      <a href="../telemetry.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2421,7 +2346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="faq.html" class="md-nav__link">
+      <a href="../faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2441,7 +2366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="glossary.html" class="md-nav__link">
+      <a href="../glossary.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2461,7 +2386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2481,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="trademark-policy.html" class="md-nav__link">
+      <a href="../trademark-policy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2538,30 +2463,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#encrypt-client-server-communication" class="md-nav__link">
-    Encrypt client-server communication
+  <a href="#release-highlights" class="md-nav__link">
+    Release highlights
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encrypt-replication-traffic" class="md-nav__link">
-    Encrypt replication traffic
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ssl-automatic-configuration" class="md-nav__link">
-    SSL automatic configuration
-  </a>
-  
-    <nav class="md-nav" aria-label="SSL automatic configuration">
+    <nav class="md-nav" aria-label="Release highlights">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#enable-pxc-encrypt-cluster-traffic" class="md-nav__link">
-    Enable pxc-encrypt-cluster-traffic
+  <a href="#deprecations-and-removals" class="md-nav__link">
+    Deprecations and removals
   </a>
   
 </li>
@@ -2572,77 +2483,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ssl-manual-configuration" class="md-nav__link">
-    SSL manual configuration
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug fixes
   </a>
-  
-    <nav class="md-nav" aria-label="SSL manual configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#encrypt-sst-traffic" class="md-nav__link">
-    Encrypt SST traffic
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#xtrabackup" class="md-nav__link">
-    xtrabackup
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#encrypt-replicationist-traffic" class="md-nav__link">
-    Encrypt replication/IST traffic
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#generate-keys-and-certificates-manually" class="md-nav__link">
-    Generate keys and certificates manually
+  <a href="#useful-links" class="md-nav__link">
+    Useful links
   </a>
-  
-    <nav class="md-nav" aria-label="Generate keys and certificates manually">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#verify-certificates" class="md-nav__link">
-    Verify certificates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#failed-validation-caused-by-matching-cn" class="md-nav__link">
-    Failed validation caused by matching CN
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#deploy-keys-and-certificates" class="md-nav__link">
-    Deploy keys and certificates
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#upgrade-certificates" class="md-nav__link">
-    Upgrade certificates
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2664,14 +2514,14 @@
                   
                   
                   <a
-                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/encrypt-traffic.md"
+                    href="https://github.com/percona/pxc-docs/edit/8.0/docs/release-notes/8.0.34-26.md"
                     title="edit.link.title"
                     class="md-content__button md-icon"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
                   </a>
                   <a
-                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/encrypt-traffic.md"
+                    href="https://raw.githubusercontent.com/percona/pxc-docs/8.0/docs/release-notes/8.0.34-26.md"
                     title="View source of this page"
                     class="md-content__button md-icon"
                   >
@@ -2687,402 +2537,75 @@
                 
 
                 <!-- Markdown content -->
-                <h1 id="encrypt-pxc-traffic">Encrypt PXC traffic<a class="headerlink" href="#encrypt-pxc-traffic" title="Permanent link">&para;</a></h1>
-<p>There are two kinds of traffic in Percona XtraDB Cluster:</p>
-<ol>
-<li>
-<p>Client-server traffic (the one between client applications and cluster
-nodes),</p>
-</li>
-<li>
-<p>Replication traffic, that includes <a href="glossary.html#sst">SST</a>, <a href="glossary.html#ist">IST</a>, write-set replication, and various service messages.</p>
-</li>
-</ol>
-<p>Percona XtraDB Cluster supports encryption for all types of traffic. Replication traffic
-encryption can be configured either automatically or manually.</p>
-<h2 id="encrypt-client-server-communication">Encrypt client-server communication<a class="headerlink" href="#encrypt-client-server-communication" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster uses the underlying MySQL encryption mechanism
-to secure communication between client applications and cluster nodes.</p>
-<p>MySQL generates default key and certificate files and places them in the data
-directory. You can override auto-generated files with manually created ones, as
-described in the section <a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a>.</p>
-<p>The auto-generated files are suitable for automatic SSL configuration, but you
-should use the same key and certificate files on all nodes.</p>
-<p>Specify the following settings in the <code>my.cnf</code> configuration file
-for each node:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/certs/server-key.pem
-
-[client]
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/client-cert.pem
-ssl-key=/etc/mysql/certs/client-key.pem
-</code></pre></div>
-<p>After it is restarted, the node uses these files to encrypt communication with
-clients. MySQL clients require only the second part of the configuration
-to communicate with cluster nodes.</p>
-<p>MySQL generates the default key and certificate
-files and places them in the data directory. You can either use them or generate
-new certificates. For generation of new certificate please refer to
-<a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a> section.</p>
-<h2 id="encrypt-replication-traffic">Encrypt replication traffic<a class="headerlink" href="#encrypt-replication-traffic" title="Permanent link">&para;</a></h2>
-<p><em>Replication traffic</em> refers to the inter-node traffic which includes
-the <a href="glossary.html#sst">SST</a> traffic, <a href="glossary.html#ist">IST</a> traffic, and replication traffic.</p>
-<p>The traffic of each type is transferred via a different channel, and so it
-is important to configure secure channels for all 3 variants to
-completely secure the replication traffic.</p>
-<p>Percona XtraDB Cluster supports a single configuration option which helps to secure the complete
-replication traffic, and is often referred to as <a href="#ssl-automatic-configuration">SSL automatic configuration</a>. You can
-also configure the security of each channel by specifying independent
-parameters.</p>
-<h2 id="ssl-automatic-configuration">SSL automatic configuration<a class="headerlink" href="#ssl-automatic-configuration" title="Permanent link">&para;</a></h2>
-<p>The automatic configuration of the SSL encryption needs a key and certificate
-files. MySQL generates a default key and certificate files and places them in
-the data directory.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>It is important that your cluster use the same SSL certificates on all nodes.</p>
-</div>
-<h3 id="enable-pxc-encrypt-cluster-traffic">Enable <code>pxc-encrypt-cluster-traffic</code><a class="headerlink" href="#enable-pxc-encrypt-cluster-traffic" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster includes the <code>pxc-encrypt-cluster-traffic</code> variable that
-enables automatic configuration of SSL encryption there-by encrypting
-<a href="glossary.html#sst">SST</a>, <a href="glossary.html#ist">IST</a>, and replication traffic.</p>
-<p>By default, <code>pxc-encrypt-cluster-traffic</code> is enabled thereby using a secured
-channel for replication. This variable is not dynamic and so it cannot be changed
-at runtime.</p>
-<p>Enabled, <code>pxc-encrypt-cluster-traffic</code> has the effect of applying the following
-settings: <a href="xtrabackup-sst.html#encrypt">encrypt</a>, ssl_key, ssl-ca, ssl-cert.</p>
-<p>Setting <code>pxc-encrypt-cluster-traffic=ON</code> has the effect of applying the following settings in the <code>my.cnf</code> configuration file:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
-wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
-
-[sst]
-encrypt=4
-ssl-key=server-key.pem
-ssl-ca=ca.pem
-ssl-cert=server-cert.pem
-</code></pre></div>
-<p>For <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p><strong>Disabling <code>pxc-encrypt-cluster-traffic</code></strong></p>
-<p>The default value of <code>pxc-encrypt-cluster-traffic</code> helps improve the security
-of your system.</p>
-<p>When <code>pxc-encrypt-cluster-traffic</code> is not enabled, anyone with the
-access to your network can connect to any PXC node either as a
-client or as another node joining the cluster. This potentially
-lets them query your data or get a complete copy of it.</p>
-<p>If you must disable <code>pxc-encrypt-cluster-traffic</code>, you need
-to stop the cluster and update <code>[mysqld]</code> section of  the configuration file:
-<code>pxc-encrypt-cluster-traffic=OFF</code> of each node. Then, restart the cluster.</p>
-</div>
-<p>The automatic configuration of the SSL encryption needs key and certificate files.
-MySQL generates default key and certificate
-files and places them in data directory. These auto-generated files are
-suitable for automatic SSL configuration, but <em>you should use the same key and
-certificate files on all nodes</em>. Also you can override auto-generated files with
-manually created ones, as covered in <a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a>.</p>
-<p>The necessary key and certificate files are first searched at the <code>ssl-ca</code>,
-<code>ssl-cert</code>, and <code>ssl-key</code> options under <code>[mysqld]</code>. If these options are
-not set, the data directory is searched for <code>ca.pem</code>,
-<code>server-cert.pem</code>, and <code>server-key.pem</code> files.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>[sst]</code> section is not searched.</p>
-</div>
-<p>If all three files are found, they are used to configure encryption.
-If any of the files is missing, a fatal error is generated.</p>
-<h2 id="ssl-manual-configuration">SSL manual configuration<a class="headerlink" href="#ssl-manual-configuration" title="Permanent link">&para;</a></h2>
-<p>If user wants to enable encryption for specific channel only or
-use different certificates or other mix-match, then user can opt for
-manual configuration. This helps to provide more flexibility to end-users.</p>
-<p>To enable encryption manually, the location of the required key and certificate
-files shoud be specified in the Percona XtraDB Cluster configuration. If you do not have the
-necessary files, see <a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Encryption settings are not dynamic. To enable it on a running cluster, you need to restart the entire cluster.</p>
-</div>
-<p>There are three aspects of Percona XtraDB Cluster operation, where you can enable encryption:</p>
+                <h1 id="percona-xtradb-cluster-8034-26-2023-11-01">Percona XtraDB Cluster 8.0.34-26 (2023-11-01)<a class="headerlink" href="#percona-xtradb-cluster-8034-26-2023-11-01" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
+<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/8.0/release-notes/8.0.34-26.html">Percona Server for MySQL 8.0.34-26 (2023-09-26) release notes</a>.</p>
+<p>Percona XtraDB Cluster implements telemetry that fills in the gaps in our understanding of how you use Percona XtraDB Cluster to improve our products. Participation in the anonymous program is optional. You can opt-out if you prefer not to share this information. Find more information in the <a href="../telemetry.html">Telemetry on Percona XtraDB Cluster</a> document.</p>
+<p>Improvements and bug fixes introduced by Oracle for MySQL 8.0.34 and included in Percona XtraDB Cluster are the following:</p>
 <ul>
 <li>
-<p><a href="#encrypt-sst-traffic">Encrypt SST traffic</a></p>
-<p>This refers to <a href="glossary.html#sst">SST</a> traffic during full data copy
-from one cluster node (donor) to the joining node (joiner).</p>
+<p>Adds <code>mysql_binlog_open()</code>, <code>mysql_binlog_fetch()</code>, and <code>mysql_binlog_close()</code> functions to the libmysqlclient.so shared library. These functions enable developers to access a MySQL server binary log.</p>
 </li>
 <li>
-<p><a href="#encrypt-replication-traffic">Encrypt replication traffic</a></p>
-</li>
-<li>
-<p><a href="#encrypt-replicationist-traffic">Encrypt IST traffic</a></p>
-<p>This refers to all internal Percona XtraDB Cluster communication,
-such as, write-set replication, <a href="glossary.html#ist">IST</a>, and various service messages.</p>
+<p>For platforms on which OpenSSL libraries are bundled, the linked OpenSSL library for MySQL Server is updated from OpenSSL 1.1.1 to OpenSSL 3.0.9.</p>
 </li>
 </ul>
-<h3 id="encrypt-sst-traffic">Encrypt SST traffic<a class="headerlink" href="#encrypt-sst-traffic" title="Permanent link">&para;</a></h3>
-<p>This refers to full data transfer
-that usually occurs when a new node (JOINER) joins the cluster
-and receives data from an existing node (DONOR).</p>
-<p>For more information, see <a href="state-snapshot-transfer.html#state-snapshot-transfer">State snapshot transfer</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If <code>keyring_file</code> plugin is used, then SST encryption is mandatory: when copying encrypted data via SST, the keyring must be sent over with the files for decryption. In this case following options are to be set in <code>my.cnf</code> on all nodes:</p>
-<div class="highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
-keyring-file-data=/path/to/keyring/file
-</code></pre></div>
-<p>The cluster will not work if keyring configuration across nodes is
-different.</p>
-</div>
-<p>The only available SST method is <code>xtrabackup-v2</code> which uses <em>Percona XtraBackup</em>.</p>
-<h3 id="xtrabackup">xtrabackup<a class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h3>
-<p>This is the only available SST method (the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is always set to <code>xtrabackup-v2</code>), which uses Percona XtraBackup to perform non-blocking transfer of files. For more information, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
-<p>Encryption mode for this method is selected using the <a href="xtrabackup-sst.html#cmdoption-arg-encrypt"><code>encrypt</code></a> option:</p>
+<h3 id="deprecations-and-removals">Deprecations and removals<a class="headerlink" href="#deprecations-and-removals" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><code>encrypt=0</code> is the default value, meaning that encryption is disabled.</p>
+<p>The <code>mysqlpump</code> client utility program is deprecated. The use of this program causes a warning. The <code>mysqlpump</code> client may be removed in future releases. The applications that depend on <code>mysqlpump</code> will use <code>mysqldump</code> or <code>MySQL Shell Utilities</code>.</p>
 </li>
 <li>
-<p><code>encrypt=4</code> enables encryption based on key and certificate files generated with OpenSSL. For more information, see Generating Keys and Certificates Manually.</p>
+<p>The <code>sync_relay_log_info</code> server system variable is deprecated. Using this variable or its equivalent startup <code>--sync-relay-log-info</code> option causes a warning. This variable may be removed in future releases. The applications that use this variable should be rewritten not to depend on it before the variable is removed.</p>
+</li>
+<li>
+<p>The <code>binlog_format</code> server system variable is deprecated and may be removed in future releases. The functionality associated with this variable, which changes the binary logging format, is also deprecated. </p>
+<p>When <code>binlog_format</code> is removed, MySQL server supports only row-based binary logging. Thus, new installations should use only row-based binary logging. Migrate the existing installations that use the statement-based or mixed logging format to the row-based format.</p>
+<p>The system variables <code>log_bin_trust_function_creators</code> and <code>log_statements_unsafe_for_binlog</code> used in the context of statement-based logging are also deprecated and may be removed in future releases.</p>
+<p>Setting or selecting the values of deprecated variables causes a warning.</p>
+</li>
+<li>
+<p>The <code>mysql_native_password</code> authentication plugin is deprecated and may be removed in future releases. Using <code>CREATE USER</code>, <code>ALTER USER</code>, and <code>SET PASSWORD</code> operations, insert a deprecation warning into the server error log if an account attempts to authenticate using <code>mysql_native_password</code> as an authentication method.</p>
+</li>
+<li>
+<p>The <code>keyring_file</code> and <code>keyring_encrypted_file</code> plugins are deprecated. These keyring plugins are replaced with the <code>component_keyring_file</code> and <code>component_keyring_encrypted_file</code> components.</p>
 </li>
 </ul>
-<p>To enable encryption for SST using XtraBackup,
-  specify the location of the keys and certificate files
-  in the each node’s configuration under <code>[sst]</code>:</p>
-<div class="highlight"><pre><span></span><code>[sst]
-encrypt=4
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/certs/server-key.pem
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>SSL clients require DH parameters to be at least 1024 bits, due to the <a href="https://en.wikipedia.org/wiki/Logjam_(computer_security)">logjam vulnerability</a>.
-However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameters.
-If a <code>dhparams.pem</code> file of required length is not found during SST in the data directory, it is generated with 2048 bits, which can take several minutes.
-To avoid this delay, create the <code>dhparams.pem</code> file manually and place it in the data directory before joining the node to the cluster:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
-</code></pre></div>
-<p>For more information, see <a href="https://www.percona.com/blog/2017/04/23/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">this blog post</a>.</p>
-</div>
-<h3 id="encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
-<p>Replication traffic refers to the following:</p>
+<p>Find the full list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-34.html">MySQL 8.0.34 Release Notes</a>.</p>
+<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p>Write-set replication which is the main workload of Percona XtraDB Cluster
-(replicating transactions that execute on one node to all other nodes).</p>
+<p><a href="https://jira.percona.com/browse/PXC-4219">PXC-4219</a>: Starting a Percona XtraBackup process and issuing a <code>START REPLICA</code> command simultaneously could deadlock the server.</p>
 </li>
 <li>
-<p>Incremental State Transfer (<a href="glossary.html#ist">IST</a>) which
-is copying only missing transactions from DONOR to JOINER node.</p>
+<p><a href="https://jira.percona.com/browse/PXC-4238">PXC-4238</a>: Running either the <code>asynchronous_connection_failover_add_source</code> user defined function or the <code>asynchronous_connection_failover_delete_source</code> user defined function generated an errant transaction, which could prevent a failover in the future.</p>
 </li>
 <li>
-<p>Service messages which ensure that all nodes are synchronized.</p>
+<p><a href="https://jira.percona.com/browse/PXC-4255">PXC-4255</a>: Running <code>ALTER USER/SET PASSWORD</code> and <code>FLUSH PRIVILEGES</code> simultaneously on different Percona XtraDB Cluster nodes stalled the cluster.</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4284">PXC-4284</a>: If a MySQL user was not created before the GRANT option, the Percona XtraDB Cluster node was disconnected and needed a complete state transfer (<a href="../glossary.html#sst">SST</a>).</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4288">PXC-4288</a>: Galera Arbitrator (garbd) used 100% CPU.</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4302">PXC-4302</a>: The GRANT statement could be replicated in a wrong way if <code>partial_revokes=1</code> was enabled.</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4310">PXC-4310</a>: A warning message had an incorrect link.</p>
+</li>
+<li>
+<p><a href="https://jira.percona.com/browse/PXC-4296">PXC-4296</a>: The garbd 8.0.33 reported a wrong version.</p>
 </li>
 </ul>
-<p>All this traffic is transferred via the same underlying communication channel
-(<code>gcomm</code>). Securing this channel will ensure that <a href="glossary.html#ist">IST</a> traffic,
-write-set replication, and service messages are encrypted.
-(For IST, a separate channel is configured using the same configuration
-parameters, so 2 sections are described together).</p>
-<p>To enable encryption for all these processes,
-define the paths to the key, certificate and certificate authority files
-using the following <a href="wsrep-provider-index.html#wsrep-provider-index">wsrep provider options</a>:</p>
-<ul>
-<li>
-<p><a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a></p>
-</li>
-<li>
-<p><a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a></p>
-</li>
-<li>
-<p><a href="wsrep-provider-index.html#socket.ssl_key"><code>socket.ssl_key</code></a></p>
-</li>
-</ul>
-<p>To set these options, use the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable in the configuration file:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You must use the same key and certificate files on all nodes, preferably those used for <a href="#encrypt-client-server-communication">Encrypt client-server communication</a>.</p>
-</div>
-<p>Check <a href="#upgrade-certificates">upgrade-certificate</a> section on how to upgrade existing certificates.</p>
-<h2 id="generate-keys-and-certificates-manually">Generate keys and certificates manually<a class="headerlink" href="#generate-keys-and-certificates-manually" title="Permanent link">&para;</a></h2>
-<p>As mentioned above, MySQL generates default key and certificate
-files and places them in the data directory. If you want to override these
-certificates, the following new sets of files can be generated:</p>
-<ul>
-<li>
-<p><em>Certificate Authority (CA) key and certificate</em> to sign the server and client certificates.</p>
-</li>
-<li>
-<p><em>Server key and certificate</em> to secure database server activity and write-set replication traffic.</p>
-</li>
-<li>
-<p><em>Client key and certificate</em> to secure client communication traffic.</p>
-</li>
-</ul>
-<p>These files should be generated using <a href="https://www.openssl.org/">OpenSSL</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>Common Name</code> value used for the server and client keys and certificates must differ from that value used for the CA certificate.</p>
-</div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generate CA key and certificate</label><label for="__tabbed_1_2">Generate server key and certificate</label><label for="__tabbed_1_3">Generate client key and certificate</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>The Certificate Authority is used to verify the signature on certificates.</p>
-<ol>
-<li>
-<p>Generate the CA key file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
-</code></pre></div>
-</li>
-<li>
-<p>Generate the CA certificate file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span>
-<span class="w">    </span>-key<span class="w"> </span>ca-key.pem<span class="w"> </span>-out<span class="w"> </span>ca.pem
-</code></pre></div>
-</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<ol>
-<li>
-<p>Generate the server key file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-req.pem
-</code></pre></div>
-</li>
-<li>
-<p>Remove the passphrase:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-key.pem
-</code></pre></div>
-</li>
-<li>
-<p>Generate the server certificate file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-out<span class="w"> </span>server-cert.pem
-</code></pre></div>
-</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<ol>
-<li>
-<p>Generate the client key file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-req.pem
-</code></pre></div>
-</li>
-<li>
-<p>Remove the passphrase:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
-</code></pre></div>
-</li>
-<li>
-<p>Generate the client certificate file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>-out<span class="w"> </span>client-cert.pem
-</code></pre></div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<h3 id="verify-certificates">Verify certificates<a class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
-<p>To verify that the server and client certificates
-are correctly signed by the CA certificate,
-run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
-</code></pre></div>
-<p>If the verification is successful, you should see the following output:</p>
-<div class="highlight"><pre><span></span><code>server-cert.pem: OK
-client-cert.pem: OK
-</code></pre></div>
-<h3 id="failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a class="headerlink" href="#failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
-<p>Sometimes, an SSL configuration may fail if the certificate and the CA files contain the same .</p>
-<p>To check if this is the case run <code>openssl</code> command as follows and verify that the <strong>CN</strong> field differs for the <em>Subject</em> and <em>Issuer</em> lines.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
-</code></pre></div>
-<p><strong>Incorrect values</strong></p>
-<div class="no-copy highlight"><pre><span></span><code>Certificate:
-Data:
-Version: 1 (0x0)
-Serial Number: 1 (0x1)
-Signature Algorithm: sha256WithRSAEncryption
-Issuer: CN=www.percona.com, O=Database Performance., C=US
-...
-Subject: CN=www.percona.com, O=Database Performance., C=AU
-...
-</code></pre></div>
-<p>To obtain a more compact output run <code>openssl</code> specifying -subject and -issuer parameters:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-noout
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>subject= /CN=www.percona.com/O=Database Performance./C=AU
-issuer= /CN=www.percona.com/O=Database Performance./C=US
-</code></pre></div>
-</details>
-<h3 id="deploy-keys-and-certificates">Deploy keys and certificates<a class="headerlink" href="#deploy-keys-and-certificates" title="Permanent link">&para;</a></h3>
-<p>Use a secure method (for example, <code>scp</code> or <code>sftp</code>)
-to send the key and certificate files to each node.
-Place them under the <code>/etc/mysql/certs/</code> directory
-or similar location where you can find them later.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Make sure that this directory is protected with proper permissions.
-Most likely, you only want to give read permissions to the user running <code>mysqld</code>.</p>
-</div>
-<p>The following files are required:</p>
-<ul>
-<li>Certificate Authority certificate file (<code>ca.pem</code>)</li>
-</ul>
-<p>This file is used to verify signatures.</p>
-<ul>
-<li>Server key and certificate files (<code>server-key.pem</code> and <code>server-cert.pem</code>)</li>
-</ul>
-<p>These files are used to secure database server activity
-  and write-set replication traffic.</p>
-<ul>
-<li>Client key and certificate files (<code>client-key.pem</code> and <code>client-cert.pem</code>)</li>
-</ul>
-<p>These files are required only if the node should act as a MySQL client.
-  For example, if you are planning to perform SST using <code>mysqldump</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><a href="#upgrade-certificates">Upgrade certificates</a> subsection covers the details on upgrading certificates, if necessary.</p>
-</div>
-<h3 id="upgrade-certificates">Upgrade certificates<a class="headerlink" href="#upgrade-certificates" title="Permanent link">&para;</a></h3>
-<p>The following procedure shows how to upgrade certificates
-used for securing replication traffic when there are two nodes in the cluster.</p>
-<ol>
-<li>
-<p>Restart the first node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
-<p>For example, you can merge contents of <code>old-ca.pem</code>
-and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
-cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
-</code></pre></div>
-<p>Set the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
-</code></pre></div>
-</li>
-<li>
-<p>Restart the second node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
-</code></pre></div>
-</li>
-<li>
-<p>Restart the first node with the new certificate files, as in the previous step.</p>
-</li>
-<li>
-<p>You can remove the old certificate files.</p>
-</li>
-</ol>
+<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<p><a href="../install-index.html">Install Percona XtraDB Cluster</a></p>
+<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+<p>Download product binaries, packages, and tarballs at <a href="https://www.percona.com/downloads">Percona Product Downloads</a></p>
+<p><a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Contribute to the documentation</a></p>
+<p>For <a href="https://www.percona.com/training">training</a>, contact <a href="https://learn.percona.com/contact-me">Percona Training - Start learning now</a>.</p>
 
                 
 
@@ -3106,7 +2629,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
   <small>
     
       Last update:
-      2023-07-21
+      2023-11-01
     
   </small>
 </div>
@@ -3229,14 +2752,14 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
       
-        <script src="js/version-select.js"></script>
+        <script src="../js/version-select.js"></script>
       
-        <script src="js/promptremover.js"></script>
+        <script src="../js/promptremover.js"></script>
       
     
   </body>
