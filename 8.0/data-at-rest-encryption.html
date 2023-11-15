@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.7">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
     
     
       
@@ -2689,7 +2689,7 @@
                 <!-- Markdown content -->
                 <h1 id="data-at-rest-encryption">Data at Rest Encryption<a class="headerlink" href="#data-at-rest-encryption" title="Permanent link">&para;</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>The <em>data at rest</em> encryption refers to encrypting data stored on a disk on a
+<p>Data at rest encryption refers to encrypting data stored on a disk on a
 server. If an unauthorized user accesses the data files from the file system,
 encryption ensures the user cannot read the file contents. Percona Server allows you to enable, disable, and apply encryptions to the following objects:</p>
 <ul>
@@ -2722,13 +2722,16 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 </li>
 </ul>
 <p>The transit data is defined as data that is transmitted to another node or client. Encrypted transit data uses an SSL connection.</p>
-<p>Percona XtraDB Cluster 8.0 supports all <em>data at rest</em> generally-available encryption
-features available from Percona Server for MySQL 8.0.</p>
+<p>Percona XtraDB Cluster 8.0 supports all data at rest generally-available encryption features available from Percona Server for MySQL 8.0.</p>
 <h2 id="configure-pxc-to-use-keyring_file-plugin">Configure PXC to use keyring_file plugin<a class="headerlink" href="#configure-pxc-to-use-keyring_file-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the <code>keyring_file</code>
-plugin. <a href="https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html">Install the plugin</a> and add the following options in the configuration file:</p>
+configure the <code>keyring_file</code> plugin. The following example illustrates using the plugin. Review <a href="https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html">Use the kerying component or keyring plugin</a> for the latest information on the keyring component and plugin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The keyring_file plugin should not be used for regulatory compliance. </p>
+</div>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html">Install the plugin</a> and add the following options in the configuration file:</p>
 <div class="no-copy highlight"><pre><span></span><code>[mysqld]
 early-plugin-load=keyring_file.so
 keyring_file_data=&lt;PATH&gt;/keyring
@@ -3003,7 +3006,7 @@ port=16400
   <small>
     
       Last update:
-      2023-07-21
+      2023-11-12
     
   </small>
 </div>
@@ -3129,7 +3132,7 @@ port=16400
     <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="assets/javascripts/bundle.81fa17fe.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
