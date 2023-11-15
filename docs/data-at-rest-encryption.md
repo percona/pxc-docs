@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The *data at rest* encryption refers to encrypting data stored on a disk on a
+Data at rest encryption refers to encrypting data stored on a disk on a
 server. If an unauthorized user accesses the data files from the file system,
 encryption ensures the user cannot read the file contents. Percona Server allows you to enable, disable, and apply encryptions to the following objects:
 
@@ -26,16 +26,20 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 
 The transit data is defined as data that is transmitted to another node or client. Encrypted transit data uses an SSL connection.
 
-Percona XtraDB Cluster 8.0 supports all *data at rest* generally-available encryption
-features available from Percona Server for MySQL 8.0.
+Percona XtraDB Cluster 8.0 supports all data at rest generally-available encryption features available from Percona Server for MySQL 8.0.
 
 ## Configure PXC to use keyring_file plugin
 
 ### Configuration
 
 Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the `keyring_file`
-plugin. [Install the plugin](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) and add the following options in the configuration file:
+configure the `keyring_file` plugin. The following example illustrates using the plugin. Review [Use the kerying component or keyring plugin] for the latest information on the keyring component and plugin.
+
+!!! note
+
+    The keyring_file plugin should not be used for regulatory compliance. 
+
+[Install the plugin](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) and add the following options in the configuration file:
 
 ```{.text .no-copy}
 [mysqld]
@@ -329,3 +333,5 @@ port=16400
     [Encrypt traffic documentation](encrypt-traffic.md)
 
     Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/8.0/security/data-at-rest-encryption.html#data-at-rest-encryption
+
+[Use the kerying component or keyring plugin]: https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html
