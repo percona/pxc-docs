@@ -50,6 +50,10 @@ extra_css:
   - css/nocopy.css\
   - css/extra.css
 
+#Copyright
+copyright: >
+  <a href="https://www.percona.com/about">Percona LLC</a> and/or its affiliates © 2023 — <a href="#__consent">Cookie Consent</a>
+
 extra_javascript:
   - js/version-select.js
   - js/promptremover.js
@@ -101,7 +105,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaXtradbCluster-5.7.pdf'
           cover_title: 'Percona XtraDB Cluster Documentation'
-          cover_subtitle: 5.7.44-31.66 (2023-12-)
+          cover_subtitle: 5.7.44-31.65 (2023-12-26)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
@@ -125,6 +129,8 @@ extra:
       as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
       make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.
+  edit_page_text: '<i class="uil uil-pen"></i> <b>Edit this page</b>'
+  updated_text: '<i class="uil uil-refresh"></i> Page updated'
 
 nav:
   - Home: index.md
