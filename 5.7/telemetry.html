@@ -9,35 +9,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
-on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
+        <meta name="description" content="Percona telemetry fills in the gaps in our understanding of how you use the Percona XtraDB Cluster to improve our products. Participation in the anonymous program is optional. You can opt out if you prefer to not share this information.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/5.7/howtos/ubuntu_howto.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/5.7/telemetry.html">
       
       
-        <link rel="prev" href="centos_howto.html">
+        <link rel="prev" href="xtradb-cluster-version-numbers.html">
       
       
-        <link rel="next" href="garbd_howto.html">
+        <link rel="next" href="overview.html">
       
       
-      <link rel="icon" href="../_static/percona-favicon.ico">
+      <link rel="icon" href="_static/percona-favicon.ico">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>Configuring Percona XtraDB Cluster on Ubuntu - Percona XtraDB Cluster</title>
+        <title>Telemetry on Percona XtraDB Cluster - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -60,13 +59,13 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/percona.css">
+      <link rel="stylesheet" href="css/percona.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css/">
+      <link rel="stylesheet" href="css/nocopy.css/">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="css/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -89,7 +88,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
               
               
               <meta property="og:type" content="website" />
-              <meta property="og:title" content="Percona XtraDB Cluster - Configuring Percona XtraDB Cluster on Ubuntu" />
+              <meta property="og:title" content="Percona XtraDB Cluster - Telemetry on Percona XtraDB Cluster" />
               <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/5.7/_static/percona-mysql-logo.png">
               <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/5.7/">
               
@@ -112,7 +111,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
     <div data-md-component="skip">
       
         
-        <a href="#configuring-percona-xtradb-cluster-on-ubuntu" class="md-skip">
+        <a href="#telemetry-on-percona-xtradb-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -134,7 +133,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-header__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -151,7 +150,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configuring Percona XtraDB Cluster on Ubuntu
+              Telemetry on Percona XtraDB Cluster
             
           </span>
         </div>
@@ -266,7 +265,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   <label class="md-nav__title" for="__drawer">
     <a href="https://docs.percona.com" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../_static/percona-logo.svg" alt="logo">
+  <img src="_static/percona-logo.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -293,7 +292,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -350,7 +349,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -371,7 +370,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.html" class="md-nav__link">
+      <a href="release-notes/5.7.44-31.65.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -392,7 +391,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.43-31.65.html" class="md-nav__link">
+      <a href="release-notes/5.7.43-31.65.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -413,7 +412,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.42-31.65.html" class="md-nav__link">
+      <a href="release-notes/5.7.42-31.65.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -434,7 +433,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.41-31.65.html" class="md-nav__link">
+      <a href="release-notes/5.7.41-31.65.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -455,7 +454,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.40-31.63.html" class="md-nav__link">
+      <a href="release-notes/5.7.40-31.63.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -476,7 +475,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.39-31.61.html" class="md-nav__link">
+      <a href="release-notes/5.7.39-31.61.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -497,7 +496,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.38-31.59.html" class="md-nav__link">
+      <a href="release-notes/5.7.38-31.59.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -518,7 +517,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.37-31.57.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.37-31.57.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -539,7 +538,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.36-31.55.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.36-31.55.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -560,7 +559,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.35-31.53.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.35-31.53.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -581,7 +580,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.34-31.51.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.34-31.51.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -602,7 +601,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.33-31.49.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.33-31.49.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -623,7 +622,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.32-31.47.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.32-31.47.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -644,7 +643,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -665,7 +664,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -686,7 +685,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31-45.3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.31-31-45.3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -707,7 +706,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.30-31.43.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.30-31.43.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -728,7 +727,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.29-31.43.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.29-31.43.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -749,7 +748,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -770,7 +769,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,7 +790,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.27-31.39.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.27-31.39.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -812,7 +811,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.26-31.37.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.26-31.37.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -833,7 +832,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.25-31.35.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.25-31.35.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -854,7 +853,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.24-31.33.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.24-31.33.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -875,7 +874,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -896,7 +895,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -917,7 +916,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.22-29.26.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.22-29.26.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -938,7 +937,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.21-29.26.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.21-29.26.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -959,7 +958,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.20-29.24.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.20-29.24.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -980,7 +979,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.19-29.22.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.19-29.22.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1001,7 +1000,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.19-29.22-3.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.19-29.22-3.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1022,7 +1021,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.18-29.20.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.18-29.20.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1043,7 +1042,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.17-29.20.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.17-29.20.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1064,7 +1063,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.17-27.20.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.17-27.20.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1085,7 +1084,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.16-27.19.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.16-27.19.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1106,7 +1105,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.14-26.17.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.14-26.17.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1127,7 +1126,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.12-5rc1-26.16.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.12-5rc1-26.16.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1148,7 +1147,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.11-4beta-25.14.2.html" class="md-nav__link">
+      <a href="release-notes/Percona-XtraDB-Cluster-5.7.11-4beta-25.14.2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1173,19 +1172,21 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -1199,7 +1200,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Introduction
@@ -1213,7 +1214,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../intro.html" class="md-nav__link">
+      <a href="intro.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1234,7 +1235,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../limitation.html" class="md-nav__link">
+      <a href="limitation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1255,7 +1256,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,10 +1274,30 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../telemetry.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Telemetry on Percona XtraDB Cluster
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="telemetry.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1285,6 +1306,46 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-information-is-collected" class="md-nav__link">
+    <span class="md-ellipsis">
+      What information is collected
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable telemetry
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1341,7 +1402,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1362,7 +1423,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../install/index.html" class="md-nav__link">
+      <a href="install/index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1383,7 +1444,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../configure.html" class="md-nav__link">
+      <a href="configure.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1404,7 +1465,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../bootstrap.html" class="md-nav__link">
+      <a href="bootstrap.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1425,7 +1486,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../add-node.html" class="md-nav__link">
+      <a href="add-node.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1446,7 +1507,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../verify.html" class="md-nav__link">
+      <a href="verify.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1511,7 +1572,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../features/highavailability.html" class="md-nav__link">
+      <a href="features/highavailability.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1532,7 +1593,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../features/multimaster-replication.html" class="md-nav__link">
+      <a href="features/multimaster-replication.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1553,7 +1614,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../features/pxc-strict-mode.html" class="md-nav__link">
+      <a href="features/pxc-strict-mode.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1618,7 +1679,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../security/index.html" class="md-nav__link">
+      <a href="security/index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1639,7 +1700,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../security/secure-network.html" class="md-nav__link">
+      <a href="security/secure-network.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1660,7 +1721,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../security/encrypt-traffic.html" class="md-nav__link">
+      <a href="security/encrypt-traffic.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1725,7 +1786,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/state_snapshot_transfer.html" class="md-nav__link">
+      <a href="manual/state_snapshot_transfer.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1746,7 +1807,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/xtrabackup_sst.html" class="md-nav__link">
+      <a href="manual/xtrabackup_sst.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1767,7 +1828,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/restarting_nodes.html" class="md-nav__link">
+      <a href="manual/restarting_nodes.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1788,7 +1849,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/failover.html" class="md-nav__link">
+      <a href="manual/failover.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1809,7 +1870,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/monitoring.html" class="md-nav__link">
+      <a href="manual/monitoring.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1830,7 +1891,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/certification.html" class="md-nav__link">
+      <a href="manual/certification.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1851,7 +1912,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/threading_model.html" class="md-nav__link">
+      <a href="manual/threading_model.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1872,7 +1933,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/gcache_record-set_cache_difference.html" class="md-nav__link">
+      <a href="manual/gcache_record-set_cache_difference.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1893,7 +1954,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../manual/performance_schema_instrumentation.html" class="md-nav__link">
+      <a href="manual/performance_schema_instrumentation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1914,7 +1975,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../management/data_at_rest_encryption.html" class="md-nav__link">
+      <a href="management/data_at_rest_encryption.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1935,7 +1996,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../management/configure-timeoutstartsec.html" class="md-nav__link">
+      <a href="management/configure-timeoutstartsec.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2000,7 +2061,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/binlogging_replication_improvements.html" class="md-nav__link">
+      <a href="flexibility/binlogging_replication_improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2021,7 +2082,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../flexibility/innodb_fts_improvements.html" class="md-nav__link">
+      <a href="flexibility/innodb_fts_improvements.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2042,7 +2103,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../performance/aio_page_requests.html" class="md-nav__link">
+      <a href="performance/aio_page_requests.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2107,7 +2168,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
+      <a href="diagnostics/innodb_fragmentation_count.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2128,7 +2189,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/libcoredumper.html" class="md-nav__link">
+      <a href="diagnostics/libcoredumper.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2149,7 +2210,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../diagnostics/stacktrace.html" class="md-nav__link">
+      <a href="diagnostics/stacktrace.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2174,21 +2235,19 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -2202,7 +2261,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             How-tos
@@ -2216,7 +2275,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade_guide.html" class="md-nav__link">
+      <a href="howtos/upgrade_guide.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2237,7 +2296,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="crash-recovery.html" class="md-nav__link">
+      <a href="howtos/crash-recovery.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2258,7 +2317,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="centos_howto.html" class="md-nav__link">
+      <a href="howtos/centos_howto.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2276,30 +2335,10 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Configuring Percona XtraDB Cluster on Ubuntu
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="ubuntu_howto.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="howtos/ubuntu_howto.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2308,82 +2347,6 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-installing-pxc" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 1. Installing PXC
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-configuring-the-first-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 2. Configuring the first node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-configuring-the-second-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 3. Configuring the second node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-configuring-the-third-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 4. Configuring the third node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-replication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Testing replication
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2396,7 +2359,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="garbd_howto.html" class="md-nav__link">
+      <a href="howtos/garbd_howto.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2417,7 +2380,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
+      <a href="howtos/singlebox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2438,7 +2401,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="3nodesec2.html" class="md-nav__link">
+      <a href="howtos/3nodesec2.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2459,7 +2422,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="haproxy.html" class="md-nav__link">
+      <a href="howtos/haproxy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2480,7 +2443,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="proxysql.html" class="md-nav__link">
+      <a href="howtos/proxysql.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2501,7 +2464,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="virt_sandbox.html" class="md-nav__link">
+      <a href="howtos/virt_sandbox.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2566,7 +2529,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-status-index.html" class="md-nav__link">
+      <a href="wsrep-status-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2587,7 +2550,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-system-index.html" class="md-nav__link">
+      <a href="wsrep-system-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2608,7 +2571,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-provider-index.html" class="md-nav__link">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2629,7 +2592,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-files-index.html" class="md-nav__link">
+      <a href="wsrep-files-index.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2650,7 +2613,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2671,7 +2634,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2692,7 +2655,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2713,7 +2676,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2769,54 +2732,18 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#what-information-is-collected" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      What information is collected
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-installing-pxc" class="md-nav__link">
+  <a href="#disable-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 1. Installing PXC
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-configuring-the-first-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 2. Configuring the first node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-configuring-the-second-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 3. Configuring the second node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-configuring-the-third-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 4. Configuring the third node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-replication" class="md-nav__link">
-    <span class="md-ellipsis">
-      Testing replication
+      Disable telemetry
     </span>
   </a>
   
@@ -2837,7 +2764,7 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
                   
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/5.7/docs/howtos/ubuntu_howto.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/5.7/docs/telemetry.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -2846,330 +2773,50 @@ on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.">
     
       
     
-    <a href="https://github.com/percona/pxc-docs/raw/5.7/docs/howtos/ubuntu_howto.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/raw/5.7/docs/telemetry.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-<h1 id="configuring-percona-xtradb-cluster-on-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu<a class="headerlink" href="#configuring-percona-xtradb-cluster-on-ubuntu" title="Permanent link">&para;</a></h1>
-<p>This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
-on Ubuntu 12.04.2 LTS servers, using the packages from Percona repositories.</p>
-<ul>
-<li>
-<p>Node 1</p>
-</li>
-<li>
-<p>Host name: <code>pxc1</code></p>
-</li>
-<li>
-<p>IP address: <code>192.168.70.61</code></p>
-</li>
-<li>
-<p>Node 2</p>
-</li>
-<li>
-<p>Host name: <code>pxc2</code></p>
-</li>
-<li>
-<p>IP address: <code>192.168.70.62</code></p>
-</li>
-<li>
-<p>Node 3</p>
-</li>
-<li>
-<p>Host name: <code>pxc3</code></p>
-</li>
-<li>
-<p>IP address: <code>192.168.70.63</code></p>
-</li>
-</ul>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>The procedure described in this tutorial requires he following:</p>
-<ul>
-<li>
-<p>All three nodes have Ubuntu 12.04.2 LTS installed.</p>
-</li>
-<li>
-<p>Firewall on all nodes is configured to allow connecting
-to ports 3306, 4444, 4567 and 4568.</p>
-</li>
-<li>
-<p>AppArmor profile for <em>MySQL</em> is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled</a>.</p>
-</li>
-</ul>
-<h2 id="step-1-installing-pxc">Step 1. Installing PXC<a class="headerlink" href="#step-1-installing-pxc" title="Permanent link">&para;</a></h2>
-<p>Install Percona XtraDB Cluster on all three nodes as described in <a href="../install/apt.html#apt">Installing Percona XtraDB Cluster on Debian or Ubuntu</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Debian/Ubuntu installation prompts for root password.
-For this tutorial, set it to <code>Passw0rd</code>.
-After the packages have been installed,
-<code>mysqld</code> will start automatically.
-Stop <code>mysqld</code> on all three nodes using <code>/etc/init.d/mysql stop</code>.</p>
+<h1 id="telemetry-on-percona-xtradb-cluster">Telemetry on Percona XtraDB Cluster<a class="headerlink" href="#telemetry-on-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<p>Percona telemetry fills in the gaps in our understanding of how you use the Percona XtraDB Cluster to improve our products. Participation in the anonymous program is optional. You can opt out if you prefer to not share this information.</p>
+<h2 id="what-information-is-collected">What information is collected<a class="headerlink" href="#what-information-is-collected" title="Permanent link">&para;</a></h2>
+<p>At this time, telemetry is added only to the Percona packages and Docker images. Percona XtraDB Cluster collects only information about the installation environment. Future releases may add additional metrics.</p>
+<p>Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy statement</a>.</p>
+<p>An example of the data collected is the following:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;</span><span class="p">,</span>
+<span class="nt">&quot;product_family&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PXC&quot;</span><span class="p">,</span>
+<span class="nt">&quot;instanceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;</span><span class="p">,</span>
+<span class="nt">&quot;createTime&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-16T10:46:23Z&quot;</span><span class="p">,</span>
+<span class="nt">&quot;metrics&quot;</span><span class="p">:</span>
+<span class="p">[{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deployment&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PACKAGE&quot;</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.7.44-31.65&quot;</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oracle Linux Server 8.8&quot;</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hardware_arch&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64 x86_64&quot;</span><span class="p">}]}]</span>
+</code></pre></div>
+<h2 id="disable-telemetry">Disable telemetry<a class="headerlink" href="#disable-telemetry" title="Permanent link">&para;</a></h2>
+<p>Starting with Percona XtraDB Cluster 5.7.44-31.65, telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the <code>PERCONA_TELEMETRY_DISABLE=1</code> environment variable for either the root user or the operating system before the installation process.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian-derived distribution</label><label for="__tabbed_1_2">Red Hat-derived distribution</label><label for="__tabbed_1_3">DOCKER</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Add the environment variable before the installation process.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+</code></pre></div>
 </div>
-<h2 id="step-2-configuring-the-first-node">Step 2. Configuring the first node<a class="headerlink" href="#step-2-configuring-the-first-node" title="Permanent link">&para;</a></h2>
-<p>Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see <a href="../bootstrap.html#bootstrap">Bootstrapping the First Node</a>.</p>
-<ul>
-<li>Make sure that the configuration file <code>/etc/mysql/my.cnf</code>
-for the first node (<code>pxc1</code>) contains the following:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
-
-datadir=/var/lib/mysql
-user=mysql
-
-# Path to Galera library
-wsrep_provider=/usr/lib/libgalera_smm.so
-
-# Cluster connection URL contains the IPs of node#1, node#2 and node#3
-wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-# In order for Galera to work correctly, the binary log format should be ROW
-binlog_format=ROW
-
-# MyISAM storage engine has only experimental support
-default_storage_engine=InnoDB
-
-# This InnoDB autoincrement locking mode is a requirement for Galera
-innodb_autoinc_lock_mode=2
-
-# Node #1 address
-wsrep_node_address=192.168.70.61
-
-# SST method
-wsrep_sst_method=xtrabackup-v2
-
-# Cluster name
-wsrep_cluster_name=my_ubuntu_cluster
-
-# Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cretPass&quot;
+<div class="tabbed-block">
+<p>Add the environment variable before the install process.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
-<ul>
-<li>Start the first node with the following command:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># /etc/init.d/mysql bootstrap-pxc</span>
-</code></pre></div>
-<p>This command will start the first node and bootstrap the cluster.</p>
-<ul>
-<li>After the first node has been started, cluster status can be checked with the following command:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>This output shows that the cluster has been successfully bootstrapped.</p>
-<div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
-| Variable_name              | Value                                |
-+----------------------------+--------------------------------------+
-| wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-...
-| wsrep_local_state          | 4                                    |
-| wsrep_local_state_comment  | Synced                               |
-...
-| wsrep_cluster_size         | 1                                    |
-| wsrep_cluster_status       | Primary                              |
-| wsrep_connected            | ON                                   |
-...
-| wsrep_ready                | ON                                   |
-+----------------------------+--------------------------------------+
-40 rows in set (0.01 sec)
-</code></pre></div>
-<p>To perform <a href="../manual/state_snapshot_transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
-set up a new user with proper <a href="https://www.percona.com/doc/percona-xtrabackup/2.2/innobackupex/privileges.html">privileges</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;sstuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="n">PROCESS</span><span class="p">,</span><span class="w"> </span><span class="n">RELOAD</span><span class="p">,</span><span class="w"> </span><span class="k">LOCK</span><span class="w"> </span><span class="n">TABLES</span><span class="p">,</span><span class="w"> </span><span class="n">REPLICATION</span><span class="w"> </span><span class="n">CLIENT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;sstuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-<span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>MySQL root account can also be used for performing SST,
-but it is more secure to use a different (non-root) user for this.</p>
 </div>
-<h2 id="step-3-configuring-the-second-node">Step 3. Configuring the second node<a class="headerlink" href="#step-3-configuring-the-second-node" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Make sure that the configuration file <code>/etc/mysql/my.cnf</code> on the second node (<code>pxc2</code>) contains the following:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
-
-datadir=/var/lib/mysql
-user=mysql
-
-# Path to Galera library
-wsrep_provider=/usr/lib/libgalera_smm.so
-
-# Cluster connection URL contains IPs of node#1, node#2 and node#3
-wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
-# MyISAM storage engine has only experimental support
-default_storage_engine=InnoDB
-
-# This InnoDB autoincrement locking mode is a requirement for Galera
-innodb_autoinc_lock_mode=2
-
-# Node #2 address
-wsrep_node_address=192.168.70.62
-
-# Cluster name
-wsrep_cluster_name=my_ubuntu_cluster
-
-# SST method
-wsrep_sst_method=xtrabackup-v2
-
-# Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cretPass&quot;
+<div class="tabbed-block">
+<p>Add the environment variable when running a command in a new container.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span>percona/percona-xtradb-cluster:5.7
 </code></pre></div>
-<ul>
-<li>Start the second node with the following command:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># /etc/init.d/mysql start</span>
-</code></pre></div>
-<ul>
-<li>After the server has been started, it should receive <a href="../glossary.html#sst">SST</a> automatically.
-  Cluster status can now be checked on both nodes.
-  The following is an example of status from the second node (<code>pxc2</code>):</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>This output shows that the new node has been successfully added to the cluster. </p>
-<div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
-| Variable_name              | Value                                |
-+----------------------------+--------------------------------------+
-| wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-...
-| wsrep_local_state          | 4                                    |
-| wsrep_local_state_comment  | Synced                               |
-...
-| wsrep_cluster_size         | 2                                    |
-| wsrep_cluster_status       | Primary                              |
-| wsrep_connected            | ON                                   |
-...
-| wsrep_ready                | ON                                   |
-+----------------------------+--------------------------------------+
-40 rows in set (0.01 sec)
-</code></pre></div>
-<h2 id="step-4-configuring-the-third-node">Step 4. Configuring the third node<a class="headerlink" href="#step-4-configuring-the-third-node" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Make sure that the MySQL configuration file <code>/etc/mysql/my.cnf</code>
-on the third node (<code>pxc3</code>) contains the following:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
-
-datadir=/var/lib/mysql
-user=mysql
-
-# Path to Galera library
-wsrep_provider=/usr/lib/libgalera_smm.so
-
-# Cluster connection URL contains IPs of node#1, node#2 and node#3
-wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
-# MyISAM storage engine has only experimental support
-default_storage_engine=InnoDB
-
-# This InnoDB autoincrement locking mode is a requirement for Galera
-innodb_autoinc_lock_mode=2
-
-# Node #3 address
-wsrep_node_address=192.168.70.63
-
-# Cluster name
-wsrep_cluster_name=my_ubuntu_cluster
-
-# SST method
-wsrep_sst_method=xtrabackup-v2
-
-#Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cretPass&quot;
-</code></pre></div>
-<ul>
-<li>Start the third node with the following command:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># /etc/init.d/mysql start</span>
-</code></pre></div>
-<ul>
-<li>After the server has been started, it should receive SST automatically.
-  Cluster status can be checked on all nodes.
-  The following is an example of status from the third node (<code>pxc3</code>):</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>This output confirms that the third node has joined the cluster.</p>
-<div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
-| Variable_name              | Value                                |
-+----------------------------+--------------------------------------+
-| wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
-...
-| wsrep_local_state          | 4                                    |
-| wsrep_local_state_comment  | Synced                               |
-...
-| wsrep_cluster_size         | 3                                    |
-| wsrep_cluster_status       | Primary                              |
-| wsrep_connected            | ON                                   |
-...
-| wsrep_ready                | ON                                   |
-+----------------------------+--------------------------------------+
-40 rows in set (0.01 sec)
-</code></pre></div>
-<p>This output confirms that the third node has joined the cluster.</p>
-<h2 id="testing-replication">Testing replication<a class="headerlink" href="#testing-replication" title="Permanent link">&para;</a></h2>
-<p>To test replication, lets create a new database on the second node,
-create a table for that database on the third node,
-and add some records to the table on the first node.</p>
-<ul>
-<li>Create a new database on the second node:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
-</code></pre></div>
-<p>The following output confirms that a new database has been created:</p>
-<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
-</code></pre></div>
-<ul>
-<li>Switch to a newly created database:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">percona3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">USE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
-</code></pre></div>
-<p>The following output confirms that a database has been changed:</p>
-<div class="highlight"><pre><span></span><code>Database changed
-</code></pre></div>
-<ul>
-<li>Create a table on the third node:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc3</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span><span class="n">node_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">));</span>
-</code></pre></div>
-<p>The following output confirms that a table has been created:</p>
-<div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.05 sec)
-</code></pre></div>
-<ul>
-<li>Insert records on the first node:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="p">);</span>
-</code></pre></div>
-<p>The following output confirms that the records have been inserted:</p>
-<div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
-</code></pre></div>
-<ul>
-<li>Retrieve all the rows from that table on the second node:</li>
-</ul>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">percona2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="p">;</span>
-</code></pre></div>
-<p>The following output confirms that all the rows have been retrieved:</p>
-<div class="highlight"><pre><span></span><code>+---------+-----------+
-| node_id | node_name |
-+---------+-----------+
-|       1 | percona1  |
-+---------+-----------+
-1 row in set (0.00 sec)
-</code></pre></div>
-<p>This simple procedure should ensure that all nodes in the cluster
-  are synchronized and working as intended.</p>
+</div>
+</div>
+</div>
 
 
 
@@ -3190,7 +2837,7 @@ and add some records to the table on the first node.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    2022-07-20
+    2023-12-26
   </span>
 
     
@@ -3323,14 +2970,14 @@ and add some records to the table on the first node.</p>
       </div>
       <script>var consent=__md_get("__consent");if(consent)for(var input of document.forms.consent.elements)input.name&&(input.checked=consent[input.name]||!1);else"file:"!==location.protocol&&setTimeout(function(){document.querySelector("[data-md-component=consent]").hidden=!1},250);var action,form=document.forms.consent;for(action of["submit","reset"])form.addEventListener(action,function(e){if(e.preventDefault(),"reset"===e.type)for(var n of document.forms.consent.elements)n.name&&(n.checked=!1);__md_set("__consent",Object.fromEntries(Array.from(new FormData(form).keys()).map(function(e){return[e,!0]}))),location.hash="",location.reload()})</script>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy"], "search": "assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="assets/javascripts/bundle.d7c377c4.min.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
     
   </body>
