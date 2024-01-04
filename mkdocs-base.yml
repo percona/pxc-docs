@@ -3,7 +3,6 @@
 site_name: Percona XtraDB Cluster
 site_description: Documentation
 site_author: Percona LLC
-copyright: Percona LLC, &#169; 2023
 
 repo_name: percona/pxc-docs
 repo_url: https://github.com/percona/pxc-docs
@@ -51,6 +50,10 @@ extra_css:
   - css/percona.css
   - css/nocopy.css\
   - css/extra.css
+
+#Copyright
+copyright: >
+  "<a href='https://www.percona.com/about'>Percona LLC</a> and/or its affiliates &copy; <script>document.write(new Date().getFullYear())</script> — <a href='#__consent'>Cookie Consent</a>"
 
 extra_javascript:
   - js/version-select.js
