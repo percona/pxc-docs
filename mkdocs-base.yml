@@ -107,7 +107,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaXtradbCluster-8.0.pdf'
           cover_title: 'Percona XtraDB Cluster Documentation'
-          cover_subtitle: 8.0.35-27 (2024-01-16)
+          cover_subtitle: 8.0.35-27 (2024-01-17)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
