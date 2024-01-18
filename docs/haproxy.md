@@ -170,7 +170,7 @@ mysqlchk        9200/tcp                # mysqlchk
 
 !!! important
 
-    In Percona XtraDB Cluster 8.0, the default authentication plugin is
+    In Percona XtraDB Cluster {{vers}}, the default authentication plugin is
     ``caching_sha2_password``. HAProxy does not support this authentication
     plugin. Create a mysql user using the ``mysql_native_password``
     authentication plugin.
@@ -181,4 +181,4 @@ mysqlchk        9200/tcp                # mysqlchk
 
     !!! admonition "See also"
 
-        [MySQL Documentation: CREATE USER statement](https://dev.mysql.com/doc/refman/8.0/en/create-user.html)
+        [MySQL Documentation: CREATE USER statement](https://dev.mysql.com/doc/refman/{{vers}}/en/create-user.html)

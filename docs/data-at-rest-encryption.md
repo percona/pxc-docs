@@ -26,7 +26,7 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 
 The transit data is defined as data that is transmitted to another node or client. Encrypted transit data uses an SSL connection.
 
-Percona XtraDB Cluster 8.0 supports all data at rest generally-available encryption features available from Percona Server for MySQL 8.0.
+Percona XtraDB Cluster {{vers}} supports all data at rest generally-available encryption features available from Percona Server for MySQL {{vers}}.
 
 ## Configure PXC to use keyring_file plugin
 
@@ -39,7 +39,7 @@ configure the `keyring_file` plugin. The following example illustrates using the
 
     The keyring_file plugin should not be used for regulatory compliance. 
 
-[Install the plugin](https://dev.mysql.com/doc/refman/8.0/en/install-plugin.html) and add the following options in the configuration file:
+[Install the plugin](https://dev.mysql.com/doc/refman/{{vers}}/en/install-plugin.html) and add the following options in the configuration file:
 
 ```{.text .no-copy}
 [mysqld]
@@ -106,7 +106,7 @@ The `keyring_vault` plugin allows storing the master-key in vault-server
 ### Configuration
 
 Configuration options are the same as
-[upstream](https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html).
+[upstream](https://www.percona.com/doc/percona-server/{{vers}}/security/using-keyring-plugin.html).
 The `my.cnf` configuration file should contain the following options:
 
 ```text
@@ -125,7 +125,7 @@ vault_ca = /data/keyring_vault_confs/vault_ca.crt
 ```
 
 The detailed description of these options can be found in the [upstream
-documentation](https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html).
+documentation](https://www.percona.com/doc/percona-server/{{vers}}/security/using-keyring-plugin.html).
 
 Vault-server is an external server, so make sure the PXC node can reach the
 server.
@@ -332,6 +332,6 @@ port=16400
 
     [Encrypt traffic documentation](encrypt-traffic.md)
 
-    Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/8.0/security/data-at-rest-encryption.html#data-at-rest-encryption
+    Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/{{vers}}/security/data-at-rest-encryption.html#data-at-rest-encryption
 
-[Use the kerying component or keyring plugin]: https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html
+[Use the kerying component or keyring plugin]: https://docs.percona.com/percona-server/{{vers}}/using-keyring-plugin.html

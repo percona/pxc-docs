@@ -24,7 +24,7 @@ production environment because the MySQL certificates generated in this
 procedure are self-signed. For a
 production environment, you should generate and store the certificates to be used by Docker.
 
-In this procedure, all of the nodes run Percona XtraDB Cluster 8.0 in separate containers on one host:
+In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separate containers on one host:
 
 1. Create a ~/pxc-docker-test/config directory.
 
@@ -54,7 +54,7 @@ file in the new directory:
     ```{.bash data-prompt="$"}
     $ mkdir -m 777 -p ~/pxc-docker-test/cert
     docker run --name pxc-cert --rm -v ~/pxc-docker-test/cert:/cert
-    percona/percona-xtradb-cluster:8.0 mysql_ssl_rsa_setup -d /cert
+    percona/percona-xtradb-cluster:{{vers}} mysql_ssl_rsa_setup -d /cert
     ```
 
 4. Create a Docker network:
@@ -73,7 +73,7 @@ file in the new directory:
       --net=pxc-network \
       -v ~/pxc-docker-test/cert:/cert \
       -v ~/pxc-docker-test/config:/etc/percona-xtradb-cluster.conf.d \
-      percona/percona-xtradb-cluster:8.0
+      percona/percona-xtradb-cluster:{{vers}}
     ```
 
 6. Join the second node:
@@ -87,7 +87,7 @@ file in the new directory:
       --net=pxc-network \
       -v ~/pxc-docker-test/cert:/cert \
       -v ~/pxc-docker-test/config:/etc/percona-xtradb-cluster.conf.d \
-      percona/percona-xtradb-cluster:8.0
+      percona/percona-xtradb-cluster:{{vers}}
     ```
 
 7. Join the third node:
@@ -101,7 +101,7 @@ file in the new directory:
       --net=pxc-network \
       -v ~/pxc-docker-test/cert:/cert \
       -v ~/pxc-docker-test/config:/etc/percona-xtradb-cluster.conf.d \
-      percona/percona-xtradb-cluster:8.0
+      percona/percona-xtradb-cluster:{{vers}}
     ```
 
 To verify the cluster is available, do the following:

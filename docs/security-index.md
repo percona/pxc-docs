@@ -13,7 +13,7 @@ several considerations to take into account for securing Percona XtraDB Cluster:
 * [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic)
 
    Unencrypted traffic can potentially be viewed by anyone monitoring your
-   network. In Percona XtraDB Cluster 8.0 traffic encryption is enabled by default.
+   network. In Percona XtraDB Cluster {{vers}} traffic encryption is enabled by default.
 
 * Data-at-rest encryption
 

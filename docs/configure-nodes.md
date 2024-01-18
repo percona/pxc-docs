@@ -69,7 +69,7 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 !!! important
 
-    In Percona XtraDB Cluster 8.0, the [Encrypting Replication Traffic](encrypt-traffic.md#encrypt-replication-traffic) is
+    In Percona XtraDB Cluster {{vers}}, the [Encrypting Replication Traffic](encrypt-traffic.md#encrypt-replication-traffic) is
     enabled by default (via the `pxc-encrypt-cluster-traffic` variable).
 
     The replication traffic encryption cannot be enabled on a running cluster. If
@@ -182,18 +182,18 @@ This method requires a user for SST to be set up on the initial node.
 
 [PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default and set to `ENFORCING`, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.
 
-[`binlog_format`](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_format)
+[`binlog_format`](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_binlog_format)
 
 Galera supports only row-level replication, so set `binlog_format=ROW`.
 
-[`default_storage_engine`](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_default_storage_engine)
+[`default_storage_engine`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_default_storage_engine)
 
 Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
 or any other non-transactional storage engines.
 Set this variable to `default_storage_engine=InnoDB`.
 
-[`innodb_autoinc_lock_mode`](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode)
+[`innodb_autoinc_lock_mode`](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode)
 
 Galera supports only interleaved (`2`) lock mode for InnoDB.
 Setting the traditional (`0`) or consecutive (`1`) lock mode

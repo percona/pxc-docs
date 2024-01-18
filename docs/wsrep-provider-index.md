@@ -597,8 +597,6 @@ rr
 | Dynamic: | No |
 | Default value: | 0.75 |
 
-Implemented in Percona XtraDB Cluster 8.0.33-25.
-
 Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcs.fc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
 
 ### `gcs.fc_auto_evict_window`
@@ -610,8 +608,6 @@ Defines the threshold that must be reached or crossed before a node is evicted f
 | Scope: | Global |
 | Dynamic: | No |
 | Default value: | 0 |
-
-Implemented in Percona XtraDB Cluster 8.0.33-25.
 
 The variable defines the time window width within which flow controls are observed. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time >= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.
 
@@ -979,8 +975,6 @@ This variable is used to specify the period of time to wait for a primary
 component.
 
 ### `pc.wait_restored_prim_timeout`
-
-**Introduced in Percona XtraDB Cluster 8.0.33-25.**
 
 | Option   | Description   |
 | ---| ---|

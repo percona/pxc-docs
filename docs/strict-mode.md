@@ -87,7 +87,7 @@ clustering product, and we only support migration from/to, not
 actively running them together), and how (disabled - allowed,
 permission - warnings, enforcing/master - can't be turned on) -->
 *Group replication* is a feature of MySQL that [provides distributed state
-machine replication with strong coordination between servers](https://dev.mysql.com/doc/refman/8.0/en/group-replication.html). It is
+machine replication with strong coordination between servers](https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication.html). It is
 implemented as a plugin which, if activated, may conflict with PXC. Group
 replication cannot be activated to run alongside PXC. However, you can migrate
 to PXC from the environment that uses group replication.
@@ -198,7 +198,7 @@ At runtime, any attempt to change [`wsrep_replicate_myisam`](wsrep-system-index.
 ### Binary log format
 
 Percona XtraDB Cluster supports only the default row-based binary logging format.  In
-8.0, setting the [binlog_format](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_format) variable to anything but
+{{vers}}, setting the [binlog_format](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_binlog_format) variable to anything but
 `ROW` at startup or runtime is not allowed regardless of the value of the `pxc_strict_mode` variable.
 
 ### Tables without primary keys
@@ -237,7 +237,7 @@ is denied and an error is logged.
 Percona XtraDB Cluster does not support tables in the MySQL database
 as the destination for log output.
 By default, log entries are written to file.
-This validation checks the value of the [log_output](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_output) variable.
+This validation checks the value of the [log_output](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_output) variable.
 
 Depending on the selected mode, the following happens:
 
@@ -304,7 +304,7 @@ At runtime, any undesirable operation is denied and an error is logged.
 The lock mode for generating auto-increment values must be *interleaved*
 to ensure that each node generates a unique (but non-sequential) identifier.
 
-This validation checks the value of the [innodb_autoinc_lock_mode](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode) variable.
+This validation checks the value of the [innodb_autoinc_lock_mode](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode) variable.
 By default, the variable is set to `1` (*consecutive* lock mode),
 but it should be set to `2` (*interleaved* lock mode).
 

@@ -34,7 +34,7 @@ to ports 3306, 4444, 4567 and 4568.
 
 !!! admonition "Different from previous versions"
 
-   The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster 8.0 automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
+   The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster {{vers}} automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
 
 ## Step 1. Installing PXC
 

@@ -57,15 +57,15 @@ To compile Percona XtraDB Cluster from source code:
         Clone the latest repository or update it to the latest state.
         Old codebase may not be compatible with the build script.
 
-2. Check out the `8.0` branch and initialize submodules:
+2. Check out the `{{vers}}` branch and initialize submodules:
 
     ```{.bash data-prompt="$"}
     $ cd percona-xtradb-cluster
-    $ git checkout 8.0
+    $ git checkout {{vers}}
     $ git submodule update --init --recursive
     ```
 
-3. Download the matching Percona XtraBackup 8.0 tarball (*.tar.gz) for your operating system from [Percona Downloads](https://www.percona.com/downloads/). 
+3. Download the matching Percona XtraBackup {{vers}} tarball (*.tar.gz) for your operating system from [Percona Downloads](https://www.percona.com/downloads/). 
 
    The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory `./pxc-build`:
 

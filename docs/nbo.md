@@ -4,7 +4,7 @@ An [Online Schema Upgrade](online-schema-upgrade.md#online-schema-upgrade) can b
 
 The Non-Blocking Operations (NBO) method is similar to the `TOI` method (see [Online Schema Upgrade](online-schema-upgrade.md#online-schema-upgrade) for more information on the available types of online schema upgrades). Every replica processes the DDL statement at the same point in the cluster transaction stream, and other transactions cannot commit during the operation. The `NBO` method provides a more efficient locking strategy and avoids the `TOI` issue of long-running DDL statements blocking cluster updates.
 
-In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The [`lock_wait_timeout`](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_lock_wait_timeout) system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause `infinite` waits and should not be used with the `NBO` method.
+In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The [`lock_wait_timeout`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_lock_wait_timeout) system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause `infinite` waits and should not be used with the `NBO` method.
 
 Attempting a State Snapshot Transfer (SST) fails during the NBO operation.
 

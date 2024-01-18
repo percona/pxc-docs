@@ -1,8 +1,8 @@
-# Percona XtraDB Cluster 8.0 Documentation
+# Percona XtraDB Cluster {{vers}} Documentation
 
 !!! note ""
 
-    This documentation is for the latest release: Percona XtraDB Cluster {{release}} ([Release Notes](release-notes/{{release}}.md)).
+    This documentation is for the latest release: [Percona XtraDB Cluster {{release}}](release-notes/{{release}}.md) release notes.
 
 [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
 
@@ -20,7 +20,7 @@
 | Automatic configuration of SSL encryption| Percona XtraDB Cluster includes the `pxc-encrypt-cluster-traffic` variable that enables automatic configuration of SSL encryption |
 | Optimized Performance| Percona XtraDB Cluster performance is optimized to scale with a growing production workload|
 
-Percona XtraDB Cluster 8.0 is fully compatible with MySQL Server Community Edition 8.0 and Percona Server for MySQL 8.0. The cluster has the following compatibilities:
+Percona XtraDB Cluster {{vers}} is fully compatible with MySQL Server Community Edition {{vers}} and Percona Server for MySQL {{vers}}. The cluster has the following compatibilities:
 
 * Data - use the data created by any MySQL variant.
 
@@ -30,7 +30,7 @@ Percona XtraDB Cluster 8.0 is fully compatible with MySQL Server Community Editi
 
     Overview of changes in the most recent PXC release
 
-     * [Important changes in Percona XtraDB Cluster 8.0](upgrade-guide.md#upgrade-guide-changed)
+     * [Important changes in Percona XtraDB Cluster {{vers}}](upgrade-guide.md#upgrade-guide-changed)
 
      * [MySQL Community Edition](https://www.mysql.com/products/community/)
      

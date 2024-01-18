@@ -6,22 +6,29 @@ site_author: Percona LLC
 
 repo_name: percona/pxc-docs
 repo_url: https://github.com/percona/pxc-docs
-edit_uri: edit/8.0/docs/
+edit_uri: edit/8.4/docs/
 
 use_directory_urls: false
 
-# Theme for netlify testing
+# Theme setup
 theme:
   name: material
   logo: _static/percona-logo.svg
   favicon: _static/percona-favicon.ico
   font:
-    text: Poppins
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    edit: material/file-edit-outline
+    view: material/file-eye-outline
+  
   palette:
 
     # Light mode
     - media: "(prefers-color-scheme: light)"
       scheme: percona-light
+      primary: custom
+      accent: custom
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
@@ -29,6 +36,8 @@ theme:
     # Dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: custom
+      accent: custom
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
@@ -48,7 +57,8 @@ extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css
   - css/percona.css
-  - css/nocopy.css\
+  - css/nocopy.css
+  - css/design.css
   - css/extra.css
 
 #Copyright
@@ -62,9 +72,10 @@ extra_javascript:
 markdown_extensions:
   attr_list: {}
   toc:
-    permalink: True
+    permalink: true
     title: On this page
     toc_depth: 3
+  md_in_html: {}
   admonition: {}
   footnotes: {}
   def_list: {} # https://michelf.ca/projects/php-markdown/extra/#def-list
@@ -79,14 +90,22 @@ markdown_extensions:
       {alternate_style: true}
   pymdownx.tilde: {}
   pymdownx.superfences: {}
+  pymdownx.tabbed:
+    alternate_style: true
+  pymdownx.tasklist:
+    custom_checkbox: true
+  pymdownx.snippets:
+      base_path: ["snippets"]
+      auto_append:
+        - services-banner.md
   pymdownx.highlight:
-      linenums: false
-  pymdownx.inlinehilite: {}
-  pymdownx.snippets: {}
+    use_pygments: true
   pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    options:
+      custom_icons:
+        - _resource/.icons
 
 plugins:
   search: 
@@ -105,9 +124,9 @@ plugins:
 #      glob:
 #         - file.md
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
-          output_path: '_pdf/PerconaXtradbCluster-8.0.pdf'
+          output_path: '_pdf/PerconaXtradbCluster-8.4.pdf'
           cover_title: 'Percona XtraDB Cluster Documentation'
-          cover_subtitle: 8.0.35-27 (2024-01-17)
+          cover_subtitle: 8.4 (2024-)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
@@ -122,42 +141,23 @@ plugins:
 extra:
   version: 
     provider: mike
+    default: latest
   homepage:
     https://docs.percona.com
   consent:
     title: Cookie consent
     description: >- 
-      We use cookies to recognize your repeated visits and preferences, as well
-      as to measure the effectiveness of our documentation and whether users
+      We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users
       find what they're searching for. With your consent, you're helping us to
       make our documentation better. Read more about <a class="reference external" href="https://www.percona.com/20180524-cookie-policy" target="_blank">Percona Cookie Policy</a>.
+  edit_page_text: '<i class="uil uil-pen"></i> <b>Edit this page</b>'
+  updated_text: '<i class="uil uil-refresh"></i> Page updated'
 
 nav:
   - Home: index.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
-      - release-notes/8.0.35-27.md
-      - release-notes/8.0.34-26.md
-      - release-notes/8.0.33-25.upd.md
-      - release-notes/8.0.33-25.md
-      - release-notes/8.0.32-24.2.md
-      - release-notes/8.0.32-24.md
-      - release-notes/8.0.31-23.2.md
-      - release-notes/8.0.31-23.md
-      - release-notes/8.0.30-22.md
-      - release-notes/8.0.29-21.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.28-19.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.27-18.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.26-16.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.23-14.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.22-13.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.21-12.1.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.3.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.20-11.2.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.19-10.md
-      - release-notes/Percona-XtraDB-Cluster-8.0.18-9.3.md
+      - release-notes/8.4.md
   - Introduction:
       - intro.md
       - limitation.md
@@ -213,7 +213,6 @@ nav:
       - load-balance-proxysql.md
       - proxysql-v2.md
       - virtual-sandbox.md
-
   - Reference:
       - wsrep-status-index.md
       - wsrep-system-index.md

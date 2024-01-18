@@ -188,7 +188,7 @@ This information is stored in the [runtime_]mysql_galera_hostgroups table.
 |comment|Helpful extra information about the given node|
 
 Make sure that the variable mysql-server_version refers to the correct
-version. For Percona XtraDB Cluster 8.0, set it to 8.0 accordingly:
+version. For Percona XtraDB Cluster {{vers}}, set it to {{vers}} accordingly:
 
 ```{.bash data-prompt="mysql>"}
 mysql> UPDATE GLOBAL_VARIABLES
@@ -412,7 +412,7 @@ The example of the output is the following:
 
     !!! admonition "See also"
 
-        [More information about password encryption in ProxySQL](https://github.com/sysown/proxysql/wiki/MySQL-8.0)
+        [More information about password encryption in ProxySQL](https://github.com/sysown/proxysql/wiki/MySQL-{{vers}})
 		
 Load the user into runtime space and save these changes to disk (ensuring that
 they persist after ProxySQL shuts down):

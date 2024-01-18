@@ -21,7 +21,7 @@ grouping, and traffic-related settings.
 
 !!! important
 
-    In version 8.0, Percona XtraDB Cluster does not support ProxySQL v1.  
+    In version {{vers}}, Percona XtraDB Cluster does not support ProxySQL v1.  
 
 ## Manual configuration
 
@@ -45,7 +45,7 @@ For this tutorial, install Percona XtraDB Cluster on Node 4:
 
 **Changes in the installation procedure**
 
-In Percona XtraDB Cluster 8.0, ProxySQL is not installed automatically as a dependency of the ``percona-xtradb-cluster-client-8.0`` package. You should install the ``proxysql`` package separately.
+In Percona XtraDB Cluster {{vers}}, ProxySQL is not installed automatically as a dependency of the ``percona-xtradb-cluster-client-8.0`` package. You should install the ``proxysql`` package separately.
 
 !!! note 
 

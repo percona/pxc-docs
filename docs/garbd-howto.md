@@ -32,7 +32,7 @@ root@ubuntu:~# apt install percona-xtradb-cluster-garbd
 
 !!! note 
 
-    On **Percona XtraDB Cluster** 8.0, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure `garbd` to use the certificates.
+    On **Percona XtraDB Cluster** {{vers}}, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure `garbd` to use the certificates.
 
     It is necessary to specify the cipher. In this example, it is `AES128-SHA256`. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.
 

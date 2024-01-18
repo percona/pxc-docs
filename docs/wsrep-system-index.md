@@ -541,7 +541,7 @@ To avoid deadlock errors,
 set the [`wsrep_sync_wait`](wsrep-system-index.md#wsrep_sync_wait) variable to `0`
 if you enable `wsrep_dirty_reads`.
 
-As of Percona XtraDB Cluster 8.0.26-16, you can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT @@wsrep_dirty_reads;
@@ -606,7 +606,7 @@ when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
 | Default Value: | ``NONE`` |
 
 Defines a binary log format that will always be effective,
-regardless of the client session [`binlog_format`](https://dev.mysql.com/doc/refman/8.0/en/binary-log-setting.html) variable value.
+regardless of the client session [`binlog_format`](https://dev.mysql.com/doc/refman/{{vers}}/en/binary-log-setting.html) variable value.
 
 Possible values for this variable are:
 
@@ -633,10 +633,6 @@ Possible values for this variable are:
 | Default Value: | 0 |
 
 Defines the rules of wsrep applier behavior on errors. You can change the settings by editing the ``my.cnf`` file under ``[mysqld]`` or at runtime.
-
-!!! note
- 
-    In Percona XtraDB Cluster version 8.0.19-10, the default value has changed from ``7`` to ``0``. If you have been working with an earlier version of the PXC 8.0 series, you may see different behavior when upgrading to this version or later.
 
 The variable has the following options:
 
@@ -693,7 +689,7 @@ Note the case where ``log_error_verbosity=3`` and ``wsrep_min_log_verbosity=1``.
 
 !!! admonition "See also"
 
-    [MySQL Documentation: log_error_verbosity](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity)
+    [MySQL Documentation: log_error_verbosity](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_error_verbosity)
 
     [Galera Cluster Documentation: Database Server Logs](https://galeracluster.com/library/documentation/log.html)
 
@@ -790,8 +786,6 @@ You can set it to any value between `1024` and the default `2147483647`.
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Default Value: |                    |
-
-This variable has been implemented in [Percona XtraDB Cluster 8.0.31](./release-notes/8.0.31-23.md).
 
 Defines the node behavior according to a specified value. The value is empty or disabled by default.
 
@@ -1072,7 +1066,7 @@ the whole DDL statement is not put under TOI.
 
      * SST will get full transfer irrespective of [`wsrep_replicate_myisam`](wsrep-system-index.md#wsrep_replicate_myisam)value (it will get MyISAM tables from donor)
 
-     * Difference in configuration of `pxc-cluster` node on [enforce_storage_engine](https://www.percona.com/doc/percona-server/8.0/management/enforce_engine.html) front may result in picking up different engine for the same table on different nodes
+     * Difference in configuration of `pxc-cluster` node on [enforce_storage_engine](https://www.percona.com/doc/percona-server/{{vers}}/management/enforce_engine.html) front may result in picking up different engine for the same table on different nodes
 
      * `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to **ON**.
 
@@ -1262,8 +1256,6 @@ Defines storage for streaming replication fragments. The available values are `t
 | Dynamic:       | No                 |
 | Default Value: | ``xtrabackup-v2`` |
 
-Percona XtraDB Cluster 8.0.20-11.3 adds this variable.
-
 This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2`.
 
 ### `wsrep_sst_donor`
@@ -1400,7 +1392,7 @@ Controls cluster-wide causality checks on certain statements.
 Checks ensure that the statement is executed on a node
 that is fully synced with the cluster.
 
-As of Percona XtraDB Cluster 8.0.26-16, you are able to update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
 ```{.bash data-prompt="mysql>"}
    mysql> SELECT @@wsrep_sync_wait;
@@ -1474,7 +1466,7 @@ and `REPLACE` statements.
 
 Defines the the streaming replication fragment size. This variable is measured in the value defined by ``wsrep_trx_fragment_unit``. The minimum value is 0 and the maximum value is 2147483647.
 
-As of *Percona XtraDB Cluster for MySQL* 8.0.26-16, you can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
@@ -1555,7 +1547,7 @@ Query OK, 131072 rows affected (15.09 sec)
 
 Defines the type of measure for the ``wsrep_trx_fragment_size``. The possible values are: bytes, rows, statements. 
 
-As of *Percona XtraDB Cluster for MySQL* 8.0.26-16, you can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
 ```{.bash data-prompt="mysql>"}
 mysql> SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;

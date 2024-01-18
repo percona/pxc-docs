@@ -158,7 +158,7 @@ Percona XtraDB Cluster: uses the `xtrabackup` program for this purpose. `xtrabac
 
 The SST method is configured with the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable.
   
-In PXC 8.0, the **mysql-upgrade** command is now run
+In PXC {{vers}}, the **mysql-upgrade** command is now run
 automatically as part of [`SST`](glossary.md#sst). You do not have to run it
 manually when upgrading your system from an older version.
 

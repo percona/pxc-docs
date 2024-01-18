@@ -33,7 +33,7 @@ under `[sst]`.
 
 Used to specify the Percona XtraBackup streaming format. The only option is the `xbstream` format. SST fails and generates an error when another format, such as `tar`, is used.
 
-For more information about the `xbstream` format, see [The xbstream Binary](https://docs.percona.com/percona-xtrabackup/8.0/xbstream-binary-overview.html).
+For more information about the `xbstream` format, see [The xbstream Binary](https://docs.percona.com/percona-xtrabackup/{{vers}}/xbstream-binary-overview.html).
 
 ### transferfmt
 
@@ -203,7 +203,7 @@ For more information, see [pv(1)](https://linux.die.net/man/1/pv).
 | Default:       | 0                  |
 
 Used to force SST to use the thread pool’s
-[extra_port](https://www.percona.com/doc/percona-server/8.0/performance/threadpool.html#extra_port).
+[extra_port](https://www.percona.com/doc/percona-server/{{vers}}/performance/threadpool.html#extra_port).
 Make sure that thread pool is enabled and the `extra_port` option is set
 in `my.cnf` before you enable this option.
 
@@ -422,7 +422,7 @@ introduced by `wsrep_sst_xtrabackup-v2`
 
 ## XtraBackup-based encryption
 
-Settings related to XtraBackup-based Encryption are no longer allowed in PXC 8.0
+Settings related to XtraBackup-based Encryption are no longer allowed in PXC {{vers}}
 when used for [SST](glossary.md#sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
 
 The XtraBackup-based Encryption is enabled when you specify any of the following options

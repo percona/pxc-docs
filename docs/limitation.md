@@ -93,10 +93,10 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        [MySQL Documentation: Problems with temporary tables](https://dev.mysql.com/doc/refman/8.0/en/temporary-table-problems.html)
+        [MySQL Documentation: Problems with temporary tables](https://dev.mysql.com/doc/refman/{{vers}}/en/temporary-table-problems.html)
 
 
-As of version 8.0.21, an INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. The `LOCK=NONE` clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.
+As of version 8.0.21, an INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. The `LOCK=NONE` clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.
 
 This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:
 
@@ -106,8 +106,8 @@ This change addresses a deadlock, which could cause a cluster node to hang in th
 
 Do not use one or more dot characters (.) when defining the values for the following variables:
 
-* [log_bin](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin)
+* [log_bin](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-* [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
+* [log_bin_index](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
 MySQL and **XtraBackup** handles the value in different ways and this difference causes unpredictable behavior.
