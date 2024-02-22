@@ -33,7 +33,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
     Due to cluster-level optimistic concurrency control,  there can be two
     transactions writing to the same rows and committing in separate Percona XtraDB Cluster nodes,
-    and only one of the them can successfully commit. The failing one will be
+    and only one of them can successfully commit. The failing one will be
     aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock error code:
 
     ??? example "Error message"
