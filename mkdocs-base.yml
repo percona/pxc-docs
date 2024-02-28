@@ -209,7 +209,9 @@ nav:
       - singlebox.md
       - set-up-3nodes-ec2.md
       - haproxy.md
+      - haproxy-config.md
       - load-balance-proxysql.md
+
       - proxysql-v2.md
       - virtual-sandbox.md
 
