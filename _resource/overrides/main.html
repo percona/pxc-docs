@@ -1,12 +1,18 @@
 {#
-MkDocs template for Netlify builds to customize docs layout 
-by adding marketing-requested elements
-#}
-
-{% extends "base.html" %}
-     
-{% block extrahead %}
-{{ super() }}
+  MkDocs template for builds with Material Theme to customize docs layout 
+  by adding marketing-requested elements
+  #}
+  
+  {# Import the theme's layout. #}
+  {% extends "base.html" %}
+  
+  {% block scripts %}
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  {{ super() }}
+  {% endblock %}
+  
+  {% block extrahead %}
+  {{ super() }}
                  {% set title = config.site_name %}
                  {% if page and page.meta and page.meta.title %}
                  {% set title = title ~ " - " ~ page.meta.title %}
@@ -30,9 +36,6 @@ by adding marketing-requested elements
                       {% include "partials/nav.html" %}
                       <br>
                       <label class="md-nav__title" for="__drawer">
-      <a href="https://learn.percona.com/download-percona-xtradb-cluster-8-manual" onclick="_gaq.push(['b._trackEvent', 'Percona XtraDB Cluster', 'Download', 'Download Manual Percona XtraDB Cluster']);" class="md-nav__link md-nav__link--active" style="font-size: .7rem;">
-        Download PDF
-      </a>
     </label> 
                     </div>
                   </div>
