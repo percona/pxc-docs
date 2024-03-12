@@ -14,18 +14,6 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 * You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).
 
-* Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.
-
-    * 3306
-
-
-    * 4444
-
-
-    * 4567
-
-
-    * 4568
 
 !!! admonition "See also"
 
@@ -36,43 +24,43 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 1. Update the sytem:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo apt update
     ```
 
 2. Install the necessary packages:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo apt install -y wget gnupg2 lsb-release curl
     ```
 
 3. Download the repository package
 
-    ```shell
+    ```{.bash data-prompt="$"}
     wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
     ```
 
 4. Install the package with `dpkg`:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo dpkg -i percona-release_latest.generic_all.deb
     ```
 
 5. Refresh the local cache to update the package information:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo apt update
     ```
 
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo percona-release setup pxc80
     ```
 
 7. Install the cluster:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     sudo apt install -y percona-xtradb-cluster
     ```
 

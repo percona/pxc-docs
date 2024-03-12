@@ -14,7 +14,7 @@
     To be able to analyze these files binlog header needs to be added to the log
     file. To create the `GRA_HEADER` file you need an instance running with `binlog_checksum` set to `NONE` and extract first 120 bytes from the binlog file:
 
-    ```shell
+    ```{.bash data-prompt="$"}
     $ head -c 123 mysqld-bin.000001 > GRA_HEADER
     $ cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
     $ cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
@@ -98,7 +98,7 @@
 
     In case server node has this state when not running it means that that node crashed during the transaction processing.
 
-    ```shell
+    ```{.bash data-prompt="#"}
     # GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -109,7 +109,7 @@
     In case server node has this state when not running it means that the node
     was gracefully shut down.
 
-    ```shell
+    ```{.bash data-prompt="#"}
     # GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -119,7 +119,7 @@
 
     In case server node has this state when not running it means that the node crashed during the DDL.
 
-    ```shell
+    ```{.bash data-prompt="#"}
     # GALERA saved state
     version: 2.1
     uuid:    00000000-0000-0000-0000-000000000000

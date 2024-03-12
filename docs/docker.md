@@ -59,14 +59,14 @@ file in the new directory:
 
 4. Create a Docker network:
 
-    ```shell
-    docker network create pxc-network
+    ```{.bash data-prompt="$"}
+    $ docker network create pxc-network
     ```
 
 5. Bootstrap the cluster (create the first node):
 
-    ```shell
-    docker run -d \
+    ```{.bash data-prompt="$"}
+    $ docker run -d \
       -e MYSQL_ROOT_PASSWORD=test1234# \
       -e CLUSTER_NAME=pxc-cluster1 \
       --name=pxc-node1 \
@@ -78,8 +78,8 @@ file in the new directory:
 
 6. Join the second node:
 
-    ```shell
-    docker run -d \
+    ```{.bash data-prompt="$"}
+    $ docker run -d \
       -e MYSQL_ROOT_PASSWORD=test1234# \
       -e CLUSTER_NAME=pxc-cluster1 \
       -e CLUSTER_JOIN=pxc-node1 \
@@ -92,8 +92,8 @@ file in the new directory:
 
 7. Join the third node:
 
-    ```shell
-    docker run -d \
+    ```{.bash data-prompt="$"}
+    $ docker run -d \
       -e MYSQL_ROOT_PASSWORD=test1234# \
       -e CLUSTER_NAME=pxc-cluster1 \
       -e CLUSTER_JOIN=pxc-node1 \

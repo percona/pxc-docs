@@ -16,7 +16,7 @@ To set up the cluster:
 
     * `/etc/my.4000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 4000
     socket=/tmp/mysql.4000.sock
@@ -38,7 +38,7 @@ To set up the cluster:
 
     * `/etc/my.5000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 5000
     socket=/tmp/mysql.5000.sock
@@ -61,7 +61,7 @@ To set up the cluster:
 
     * `/etc/my.6000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 6000
     socket=/tmp/mysql.6000.sock
@@ -114,15 +114,15 @@ To set up the cluster:
 
 4. Start the second and third nodes:
 
-    ```shell
-    bin/mysqld_safe --defaults-file=/etc/my.5000.cnf
-    bin/mysqld_safe --defaults-file=/etc/my.6000.cnf
+    ```{.bash data-prompt="$"}
+    $ bin/mysqld_safe --defaults-file=/etc/my.5000.cnf
+    $ bin/mysqld_safe --defaults-file=/etc/my.6000.cnf
     ```
 
     If the nodes start and join the cluster successful,
     you should see the following output:
 
-    ```shell
+    ```{.text .no-copy}
     111215 19:22:26 [Note] WSREP: Shifting JOINER -> JOINED (TO: 2)
     111215 19:22:26 [Note] WSREP: Shifting JOINED -> SYNCED (TO: 2)
     111215 19:22:26 [Note] WSREP: Synchronized with group, ready for connections

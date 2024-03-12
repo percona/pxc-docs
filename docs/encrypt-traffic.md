@@ -25,7 +25,7 @@ should use the same key and certificate files on all nodes.
 Specify the following settings in the `my.cnf` configuration file
 for each node:
 
-```text
+```{.text .no-copy}
 [mysqld]
 ssl-ca=/etc/mysql/certs/ca.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
@@ -85,7 +85,7 @@ settings: [encrypt](xtrabackup-sst.md#encrypt), ssl_key, ssl-ca, ssl-cert.
 
 Setting `pxc-encrypt-cluster-traffic=ON` has the effect of applying the following settings in the `my.cnf` configuration file:
 
-```text
+```{.text no-copy}
 [mysqld]
 wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
 
@@ -175,7 +175,7 @@ For more information, see [State snapshot transfer](state-snapshot-transfer.md#s
 
     If `keyring_file` plugin is used, then SST encryption is mandatory: when copying encrypted data via SST, the keyring must be sent over with the files for decryption. In this case following options are to be set in `my.cnf` on all nodes:
 
-    ```text
+    ```{.text .no-copy}
     early-plugin-load=keyring_file.so
     keyring-file-data=/path/to/keyring/file
     ```
@@ -199,7 +199,7 @@ Encryption mode for this method is selected using the [`encrypt`](xtrabackup-sst
   specify the location of the keys and certificate files
   in the each node’s configuration under `[sst]`:
 
-  ```text
+  ```{.text .no-copy}
   [sst]
   encrypt=4
   ssl-ca=/etc/mysql/certs/ca.pem
@@ -214,8 +214,8 @@ Encryption mode for this method is selected using the [`encrypt`](xtrabackup-sst
     If a `dhparams.pem` file of required length is not found during SST in the data directory, it is generated with 2048 bits, which can take several minutes.
     To avoid this delay, create the `dhparams.pem` file manually and place it in the data directory before joining the node to the cluster:
 
-    ```shell
-    openssl dhparam -out /path/to/datadir/dhparams.pem 2048
+    ```{.bash data-prompt="$"}
+    $ openssl dhparam -out /path/to/datadir/dhparams.pem 2048
     ```
 
     For more information, see [this blog post](https://www.percona.com/blog/2017/04/23/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
@@ -251,8 +251,8 @@ using the following [wsrep provider options](wsrep-provider-index.md#wsrep-provi
 
 To set these options, use the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable in the configuration file:
 
-```shell
-wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
+```{.bash data-prompt="$"}
+$ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
 ```
 
 !!! note 
@@ -439,21 +439,21 @@ used for securing replication traffic when there are two nodes in the cluster.
     For example, you can merge contents of `old-ca.pem`
     and `new-ca.pem` into `upgrade-ca.pem` as follows:
 
-    ```shell
-    cat old-ca.pem > upgrade-ca.pem && \
+    ```{.bash data-prompt="$"}
+    $ cat old-ca.pem > upgrade-ca.pem && \
     cat new-ca.pem >> upgrade-ca.pem
     ```
 
     Set the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable as follows:
 
-    ```shell
-    wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
+    ```{.bash data-prompt="$"}
+    $ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
     ```
 
 2. Restart the second node with the [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca), [`socket.ssl_cert`](wsrep-provider-index.md#socket.ssl_cert), and [`socket.ssl_key`](wsrep-provider-index.md#socket.ssl_cert) options set to the corresponding new certificate files.
 
-    ```shell
-    wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"
+    ```{.bash data-prompt="$"}
+    $ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"
     ```
 
 3. Restart the first node with the new certificate files, as in the previous step.

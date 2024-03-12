@@ -56,15 +56,15 @@ To set up Percona XtraDB Cluster:
 
         Alternatively, you can keep the firewall running, but open ports 3306, 4444, 4567, 4568. For example to open port 4567 on 192.168.0.1:
 
-        ```shell
-        iptables -A INPUT -i eth0 -p tcp -m tcp --source 192.168.0.1/24 --dport 4567 -j ACCEPT
+        ```{.bash data-prompt="$"}
+        $ iptables -A INPUT -i eth0 -p tcp -m tcp --source 192.168.0.1/24 --dport 4567 -j ACCEPT
         ```
 
 5. Create `/etc/my.cnf` files:
 
     Contents of the configuration file on the first node:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     datadir=/mnt/data
     user=mysql
@@ -83,7 +83,7 @@ To set up Percona XtraDB Cluster:
 
     For the second and third nodes change the following lines:
 
-    ```text
+    ```{.text .no-copy}
     wsrep_node_name=node2
 
     wsrep_node_name=node3
@@ -91,7 +91,7 @@ To set up Percona XtraDB Cluster:
 
 6. Start and bootstrap Percona XtraDB Cluster on the first node:
 
-    ```shell
+    ```{.bash data-prompt="#"}
     [root@pxc1 ~]# systemctl start mysql@bootstrap.service
     ```
 

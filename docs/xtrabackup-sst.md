@@ -118,6 +118,7 @@ For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-tr
 
 ### sockopt
 
+
 Used to specify key/value pairs of socket options, separated by commas,
 for example:
 
@@ -257,7 +258,7 @@ decompressor=’gzip -dc’
 To revert to the XtraBackup-based compression,
 set `compress` under `[xtrabackup]`. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.
 
-```shell
+```{.bash data-prompt="$"}
 [xtrabackup]
 compress
 
@@ -441,7 +442,7 @@ is defined by the `--use-memory` option.
 You can pass it using the `inno-apply-opts` option
 under `[sst]` as follows:
 
-```shell
+```{.bash data-prompt="$"}
 [sst]
 inno-apply-opts="--use-memory=500M"
 ```
@@ -449,7 +450,7 @@ inno-apply-opts="--use-memory=500M"
 If it is not specified,
 the `use-memory` option under `[xtrabackup]` will be used:
 
-```shell
+```{.bash data-prompt="$"}
 [xtrabackup]
 use-memory=32M
 ```
@@ -457,7 +458,7 @@ use-memory=32M
 If neither of the above are specified,
 the size of the InnoDB memory buffer will be used:
 
-```shell
+```{.bash data-prompt="$"}
 [mysqld]
 innodb_buffer_pool_size=24M
 ```

@@ -23,8 +23,8 @@ it will copy the whole dataset from another node
 
 To check the health of a Galera node, use the following query:
 
-```sql
-SELECT 1 FROM dual;
+```{.bash data-prompt="mysql>"}
+mysql> SELECT 1 FROM dual;
 ```
 
 The following results of the previous query are possible:
@@ -55,8 +55,8 @@ mysql> GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
 
 You can then check a node’s health by running the `clustercheck` script:
 
-```shell
-/usr/bin/clustercheck clustercheck password 0
+```{.bash data-prompt="$"}
+$ /usr/bin/clustercheck clustercheck password 0
 ```
 
 If the node is running, you should get the following status:
@@ -189,8 +189,8 @@ you should enable `log-bin` and `log-slave-update` options.
 
 Try to disable SELinux with the following command:
 
-```shell
-echo 0 > /selinux/enforce
+```{.bash data-prompt="$"}
+$ echo 0 > /selinux/enforce
 ```
 
 ## What does “nc: invalid option – ‘d’” in the sst.err log file mean?

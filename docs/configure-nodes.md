@@ -11,78 +11,78 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 1. Stop the Percona XtraDB Cluster server. After the installation completes the server is not started. You need this step if you have started the server manually.
 
-    ```{.bash data-prompt="$"}
-    $ sudo service mysql stop
-    ```
+	```{.bash data-prompt="$"}
+	$ sudo service mysql stop
+	```
 
 2. Edit the configuration file of the first node to provide the cluster settings.
 
-    *If you use Debian or Ubuntu*, edit `/etc/mysql/mysql.conf.d/mysqld.cnf`:
+	*If you use Debian or Ubuntu*, edit `/etc/mysql/mysql.conf.d/mysqld.cnf`:
 
-    ```shell
-    wsrep_provider=/usr/lib/galera4/libgalera_smm.so
-    wsrep_cluster_name=pxc-cluster
-    wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-    ```
+	```{.bash data-prompt="$"}
+	wsrep_provider=/usr/lib/galera4/libgalera_smm.so
+	wsrep_cluster_name=pxc-cluster
+	wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+	```
 
-    *If you use Red Hat or CentOS*, edit `/etc/my.cnf`. Note that on these systems you set
-    the wsrep_provider option to a different value:
+	*If you use Red Hat or CentOS*, edit `/etc/my.cnf`. Note that on these systems you set
+	the wsrep_provider option to a different value:
 
-    ```shell
-    wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-    wsrep_cluster_name=pxc-cluster
-    wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-    ```
+	```{.bash data-prompt="$"}
+	wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
+	wsrep_cluster_name=pxc-cluster
+	wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+	```
 
 3. Configure *node 1*.
 
-    ```shell
-    wsrep_node_name=pxc1
-    wsrep_node_address=192.168.70.61
-    pxc_strict_mode=ENFORCING
-    ```
+	```{.bash data-prompt="$"}
+	wsrep_node_name=pxc1
+	wsrep_node_address=192.168.70.61
+	pxc_strict_mode=ENFORCING
+	```
 
 4. Set up *node 2* and *node 3* in the same way: Stop the server and update the configuration file applicable to your system. All settings are the same except for [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name) and [`wsrep_node_address`](wsrep-system-index.md#wsrep_node_address).
 
-    For node 2
+	For node 2
 
-        wsrep_node_name=pxc2
-        wsrep_node_address=192.168.70.62
+		wsrep_node_name=pxc2
+		wsrep_node_address=192.168.70.62
 
-    For node 3
+	For node 3
 
-        wsrep_node_name=pxc3
-        wsrep_node_address=192.168.70.63
+		wsrep_node_name=pxc3
+		wsrep_node_address=192.168.70.63
 
 5. Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates.
 
-    ```shell
-    [mysqld]
-    wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
+	```{.bash data-prompt="$"}
+	[mysqld]
+	wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
 
-    [sst]
-    encrypt=4
-    ssl-key=server-key.pem
-    ssl-ca=ca.pem
-    ssl-cert=server-cert.pem
-    ```
+	[sst]
+	encrypt=4
+	ssl-key=server-key.pem
+	ssl-ca=ca.pem
+	ssl-cert=server-cert.pem
+	```
 
 !!! important
 
-    In Percona XtraDB Cluster 8.0, the [Encrypting Replication Traffic](encrypt-traffic.md#encrypt-replication-traffic) is
-    enabled by default (via the `pxc-encrypt-cluster-traffic` variable).
+	In Percona XtraDB Cluster 8.0, the [Encrypting Replication Traffic](encrypt-traffic.md#encrypt-replication-traffic) is
+	enabled by default (via the `pxc-encrypt-cluster-traffic` variable).
 
-    The replication traffic encryption cannot be enabled on a running cluster. If
-    it was disabled before the cluster was bootstrapped, the cluster must to
-    stopped. Then set up the encryption, and bootstrap (see [`Bootstrapping the First Node`](bootstrap.md#bootstrap))
-    again.
+	The replication traffic encryption cannot be enabled on a running cluster. If
+	it was disabled before the cluster was bootstrapped, the cluster must to
+	stopped. Then set up the encryption, and bootstrap (see [`Bootstrapping the First Node`](bootstrap.md#bootstrap))
+	again.
 
-    !!! admonition "See also"
+	!!! admonition "See also"
 
-        More information about the security settings in Percona XtraDB Cluster
-         * [`Security Basics`](security-index.md#security)
-	     * [`Encrypting PXC Traffic`](encrypt-traffic.md#encrypt-traffic)
-	     * [`SSL Automatic Configuration`](encrypt-traffic.md#ssl-auto-conf)
+		More information about the security settings in Percona XtraDB Cluster
+		* [`Security Basics`](security-index.md#security)
+		* [`Encrypting PXC Traffic`](encrypt-traffic.md#encrypt-traffic)
+		* [`SSL Automatic Configuration`](encrypt-traffic.md#ssl-auto-conf)
 
 
 ## Template of the configuration file
@@ -90,7 +90,7 @@ In this section, we will demonstrate how to configure a three node cluster:
 Here is an example of a full configuration file installed on CentOS to
 `/etc/my.cnf`.
 
-```text
+```{.text .no-copy}
 # Template my.cnf for PXC
 # Edit to your requirements.
 [client]
@@ -159,10 +159,10 @@ the joining node can use other addresses.
 
 !!! note
 
-    No addresses are required for the initial node in the cluster.
-    However, it is recommended to specify them
-    and [properly bootstrap the first node](bootstrap.md#bootstrap).
-    This will ensure that the node is able to rejoin the cluster if it goes down in the future.
+	No addresses are required for the initial node in the cluster.
+	However, it is recommended to specify them
+	and [properly bootstrap the first node](bootstrap.md#bootstrap).
+	This will ensure that the node is able to rejoin the cluster if it goes down in the future.
 
 [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)
 
