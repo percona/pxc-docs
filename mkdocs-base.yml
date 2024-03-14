@@ -170,7 +170,7 @@ nav:
   - Introduction:
       - intro.md
       - limitation.md
-      - xtradb-cluster-version-numbers.md
+      
   - Features:
       - high-availability.md
       - strict-mode.md
@@ -229,6 +229,7 @@ nav:
       - wsrep-provider-index.md
       - wsrep-files-index.md
       - telemetry.md
+      - xtradb-cluster-version-numbers.md
       - faq.md
       - glossary.md
       - copyright-and-licensing-information.md

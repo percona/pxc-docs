@@ -52,8 +52,8 @@ in Red Hat Enterprise Linux and derivatives (including CentOS). SELinux helps pr
 To help with troubleshooting, during installation and configuration,
 you can set the mode to `permissive`:
 
-```shell
-setenforce 0
+```{.bash data-prompt="$"}
+$ setenforce 0
 ```
 
 !!! note

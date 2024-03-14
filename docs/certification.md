@@ -84,8 +84,8 @@ The following example shows what happens in a common situation.
 `act_id` is incremented and assigned only for totally ordered actions,
 and only in primary state (skip messages while in state exchange).
 
-```shell
-rcvd->id = ++group->act_id_;
+```{.bash data-prompt="$"}
+$ rcvd->id = ++group->act_id_;
 ```
 
 !!! note
@@ -100,8 +100,8 @@ The following happens if two nodes get ready with their packet at same time:
 
 2. The following example shows what happens if two nodes modify same set of rows. Nodes are in sync until this point:
 
-    ```shell
-    create -> insert (1,2,3,4)
+    ```{.bash data-prompt="$"}
+    $ create -> insert (1,2,3,4)
     ```
 
      * Node 1: `update i = i + 10;`
@@ -165,8 +165,8 @@ and the local conflicting transaction will be rolled back.
 The following example shows what happens
 if one of the nodes has local changes that are not synced with the group:
 
-```sql
-create (id primary key) -> insert (1), (2), (3), (4);
+```{.bash data-prompt="mysql>"}
+mysql> create (id primary key) -> insert (1), (2), (3), (4);
 ```
 
 ??? example "Expected output"

@@ -5,7 +5,27 @@ and ensure that you have root access to the MySQL server on each one.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-It is recommended to install Percona XtraDB Cluster from official Percona software repositories
+## Ports required
+
+Open specific ports for the Percona XtraDB Cluster to function correctly. 
+
+* Port 3306 is the default port for MySQL. This port
+ facilitates communication and data transfer between nodes and applications.
+
+* Port 4567 is used for Galera replication traffic, which is vital for synchronizing data across the cluster nodes. 
+
+* Port 4568 is used for Incremental State Transfer (IST), allowing nodes to
+ transfer only the missing blocks of data. 
+
+* Port 4444 is for State Snapshot Transfer (SST), which involves a complete data snapshot 
+transfer from one node to another. 
+
+* Port 9200 if you use Percona Monitoring and Management (PMM)
+ for cluster monitoring.
+
+## Recommendations
+
+We recommend installing Percona XtraDB Cluster from official Percona software repositories
 using the corresponding package manager for your system:
 
 * [Debian or Ubuntu](apt.md#apt)
@@ -14,7 +34,7 @@ using the corresponding package manager for your system:
 
 !!! important
 
-    After installing Percona XtraDB Cluster the ``mysql`` service is *stopped* but *enabled* so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of ``seqno`` is not **-1**.
+    After installing Percona XtraDB Cluster, the ``mysql`` service is stopped but enabled so that it may start the next time you restart the system. The service starts if the the `grastate.dat` file exists and the value of ``seqno`` is not **-1**.
 
     !!! admonition "See also"
 
@@ -31,15 +51,5 @@ If you want to build Percona XtraDB Cluster from source, see [Compiling and Inst
 
 If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#docker).
 
-## Product version numbering
-
-The version number in PXC releases contains the following components:
-
-* The version of Percona Server for MySQL that the given PXC release is based on
-
-* The sequence number which represents the PXC built.
-
-For example, version number *8.0.18-9.3* means that this is the third PXC
-build based on Percona Server for MySQL 8.0.18-9.
 
 [Telemetry data]: telemetry.md

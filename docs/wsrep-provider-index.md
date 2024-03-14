@@ -5,14 +5,14 @@ changed in the *MySQL* configuration file, `my.cnf`, or by setting the variable 
 
 To change the value in `my.cnf`, the following syntax should be used:
 
-```shell
-wsrep_provider_options="variable1=value1;[variable2=value2]"
+```{.bash data-prompt="$"}
+$ wsrep_provider_options="variable1=value1;[variable2=value2]"
 ```
 
 For example to set the size of the Galera buffer storage to 512 MB, specify the following in `my.cnf`:
 
-```shell
-wsrep_provider_options="gcache.size=512M"
+```{.bash data-prompt="$"}
+$ wsrep_provider_options="gcache.size=512M"
 ```
 
 Dynamic variables can be changed from the *MySQL* client using the `SET GLOBAL` command. For example, to change the value of the [`pc.ignore_sb`](wsrep-provider-index.md#pcignore_sb), use the following command:
