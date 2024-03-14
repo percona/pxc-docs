@@ -916,27 +916,6 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -3106,6 +3085,27 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -4011,10 +4011,10 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 <p>The following variables can be set and checked in the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be
 changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
 <p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
 </code></pre></div>
 <p>For example to set the size of the Galera buffer storage to 512 MB, specify the following in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;gcache.size=512M&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;gcache.size=512M&quot;</span>
 </code></pre></div>
 <p>Dynamic variables can be changed from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command. For example, to change the value of the <a href="wsrep-provider-index.html#pcignore_sb"><code>pc.ignore_sb</code></a>, use the following command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;pc.ignore_sb=true&quot;</span><span class="p">;</span>
@@ -6808,7 +6808,7 @@ to the server’s private key file (in PEM format).</p>
   <small>
     
       Last update:
-      2023-08-02
+      2024-03-14
     
   </small>
 </div>

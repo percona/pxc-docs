@@ -916,27 +916,6 @@ In this section, we will demonstrate how to configure a three node cluster:">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2389,6 +2368,27 @@ In this section, we will demonstrate how to configure a three node cluster:">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2611,20 +2611,20 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 <li>
 <p>Edit the configuration file of the first node to provide the cluster settings.</p>
 <p><em>If you use Debian or Ubuntu</em>, edit <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib/galera4/libgalera_smm.so
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib/galera4/libgalera_smm.so
 <span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
 <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 </code></pre></div>
 <p><em>If you use Red Hat or CentOS</em>, edit <code>/etc/my.cnf</code>. Note that on these systems you set
 the wsrep_provider option to a different value:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/galera4/libgalera_smm.so
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/galera4/libgalera_smm.so
 <span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
 <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 </code></pre></div>
 </li>
 <li>
 <p>Configure <em>node 1</em>.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_node_name</span><span class="o">=</span>pxc1
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="nv">wsrep_node_name</span><span class="o">=</span>pxc1
 <span class="nv">wsrep_node_address</span><span class="o">=</span><span class="m">192</span>.168.70.61
 <span class="nv">pxc_strict_mode</span><span class="o">=</span>ENFORCING
 </code></pre></div>
@@ -2642,7 +2642,7 @@ wsrep_node_address=192.168.70.63
 </li>
 <li>
 <p>Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">wsrep_provider_options</span><span class="o">=</span>”socket.ssl_key<span class="o">=</span>server-key.pem<span class="p">;</span>socket.ssl_cert<span class="o">=</span>server-cert.pem<span class="p">;</span>socket.ssl_ca<span class="o">=</span>ca.pem”
 
 <span class="o">[</span>sst<span class="o">]</span>
@@ -2664,15 +2664,15 @@ again.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>More information about the security settings in Percona XtraDB Cluster
- * <a href="security-index.html#security"><code>Security Basics</code></a>
- * <a href="encrypt-traffic.html#encrypt-traffic"><code>Encrypting PXC Traffic</code></a>
- * <a href="encrypt-traffic.html#ssl-auto-conf"><code>SSL Automatic Configuration</code></a></p>
+* <a href="security-index.html#security"><code>Security Basics</code></a>
+* <a href="encrypt-traffic.html#encrypt-traffic"><code>Encrypting PXC Traffic</code></a>
+* <a href="encrypt-traffic.html#ssl-auto-conf"><code>SSL Automatic Configuration</code></a></p>
 </div>
 </div>
 <h2 id="template-of-the-configuration-file">Template of the configuration file<a class="headerlink" href="#template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
 <p>Here is an example of a full configuration file installed on CentOS to
 <code>/etc/my.cnf</code>.</p>
-<div class="highlight"><pre><span></span><code># Template my.cnf for PXC
+<div class="no-copy highlight"><pre><span></span><code># Template my.cnf for PXC
 # Edit to your requirements.
 [client]
 socket=/var/lib/mysql/mysql.sock
@@ -2775,7 +2775,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
   <small>
     
       Last update:
-      2023-10-19
+      2024-03-14
     
   </small>
 </div>

@@ -916,27 +916,6 @@ https://hub.docker.com/r/percona/percona-xtradb-cluster/.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2362,6 +2341,27 @@ https://hub.docker.com/r/percona/percona-xtradb-cluster/.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2573,12 +2573,12 @@ percona/percona-xtradb-cluster:8.0<span class="w"> </span>mysql_ssl_rsa_setup<sp
 </li>
 <li>
 <p>Create a Docker network:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>pxc-network
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>pxc-network
 </code></pre></div>
 </li>
 <li>
 <p>Bootstrap the cluster (create the first node):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span><span class="se">\</span>
@@ -2590,7 +2590,7 @@ percona/percona-xtradb-cluster:8.0<span class="w"> </span>mysql_ssl_rsa_setup<sp
 </li>
 <li>
 <p>Join the second node:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_JOIN</span><span class="o">=</span>pxc-node1<span class="w"> </span><span class="se">\</span>
@@ -2603,7 +2603,7 @@ percona/percona-xtradb-cluster:8.0<span class="w"> </span>mysql_ssl_rsa_setup<sp
 </li>
 <li>
 <p>Join the third node:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_JOIN</span><span class="o">=</span>pxc-node1<span class="w"> </span><span class="se">\</span>
@@ -2677,7 +2677,7 @@ mysql&gt;
   <small>
     
       Last update:
-      2023-11-01
+      2024-03-14
     
   </small>
 </div>

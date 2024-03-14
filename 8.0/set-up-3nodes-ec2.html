@@ -916,27 +916,6 @@ with Red Hat Enterprise Linux 7 64-bit.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2371,6 +2350,27 @@ with Red Hat Enterprise Linux 7 64-bit.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2610,14 +2610,14 @@ $<span class="w"> </span>mysql_install_db<span class="w"> </span>--datadir<span 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Alternatively, you can keep the firewall running, but open ports 3306, 4444, 4567, 4568. For example to open port 4567 on 192.168.0.1:</p>
-<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--dport<span class="w"> </span><span class="m">4567</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--dport<span class="w"> </span><span class="m">4567</span><span class="w"> </span>-j<span class="w"> </span>ACCEPT
 </code></pre></div>
 </div>
 </li>
 <li>
 <p>Create <code>/etc/my.cnf</code> files:</p>
 <p>Contents of the configuration file on the first node:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 datadir=/mnt/data
 user=mysql
 
@@ -2633,14 +2633,14 @@ wsrep_node_name=node1
 innodb_autoinc_lock_mode=2
 </code></pre></div>
 <p>For the second and third nodes change the following lines:</p>
-<div class="highlight"><pre><span></span><code>wsrep_node_name=node2
+<div class="no-copy highlight"><pre><span></span><code>wsrep_node_name=node2
 
 wsrep_node_name=node3
 </code></pre></div>
 </li>
 <li>
 <p>Start and bootstrap Percona XtraDB Cluster on the first node:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<div class="highlight" data-prompt="#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -2714,7 +2714,7 @@ The new database will be propagated to all nodes.</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

@@ -18,7 +18,7 @@
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/faq.html">
       
       
-        <link rel="prev" href="telemetry.html">
+        <link rel="prev" href="xtradb-cluster-version-numbers.html">
       
       
         <link rel="next" href="glossary.html">
@@ -906,27 +906,6 @@
   
   <span class="md-ellipsis">
     Percona XtraDB Cluster limitations
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
   </span>
   
 
@@ -2307,6 +2286,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -2804,7 +2804,7 @@ it will copy the whole dataset from another node
 (if there were changes to data since the crash).</p>
 <h2 id="how-can-i-check-the-galera-node-health">How can I check the Galera node health?<a class="headerlink" href="#how-can-i-check-the-galera-node-health" title="Permanent link">&para;</a></h2>
 <p>To check the health of a Galera node, use the following query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span><span class="m">1</span><span class="w"> </span>FROM<span class="w"> </span>dual<span class="p">;</span>
 </code></pre></div>
 <p>The following results of the previous query are possible:</p>
 <ul>
@@ -2831,7 +2831,7 @@ First set up the <code>clustercheck</code> user:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>You can then check a node’s health by running the <code>clustercheck</code> script:</p>
-<div class="highlight"><pre><span></span><code>/usr/bin/clustercheck<span class="w"> </span>clustercheck<span class="w"> </span>password<span class="w"> </span><span class="m">0</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>/usr/bin/clustercheck<span class="w"> </span>clustercheck<span class="w"> </span>password<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 <p>If the node is running, you should get the following status:</p>
 <div class="no-copy highlight"><pre><span></span><code>HTTP/1.1 200 OK
@@ -2934,7 +2934,7 @@ with other transactions on the corresponding node.</p>
 you should enable <code>log-bin</code> and <code>log-slave-update</code> options.</p>
 <h2 id="why-the-init-script-etcinitdmysql-does-not-start">Why the init script (/etc/init.d/mysql) does not start?<a class="headerlink" href="#why-the-init-script-etcinitdmysql-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Try to disable SELinux with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>/selinux/enforce
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>/selinux/enforce
 </code></pre></div>
 <h2 id="what-does-nc-invalid-option-d-in-the-ssterr-log-file-mean">What does “nc: invalid option – ‘d’” in the sst.err log file mean?<a class="headerlink" href="#what-does-nc-invalid-option-d-in-the-ssterr-log-file-mean" title="Permanent link">&para;</a></h2>
 <p>This error is specific to Debian and Ubuntu. Percona XtraDB Cluster uses <code>netcat-openbsd</code>
@@ -2954,7 +2954,7 @@ compatible with any <code>netcat</code> (see bug <a href="https://jira.percona.c
   <small>
     
       Last update:
-      2023-01-20
+      2024-03-14
     
   </small>
 </div>

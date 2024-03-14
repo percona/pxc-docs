@@ -915,27 +915,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2619,6 +2598,27 @@
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -3360,7 +3360,7 @@ decompressor=’pigz -dc’</p>
 decompressor=’gzip -dc’</p>
 <p>To revert to the XtraBackup-based compression,
 set <code>compress</code> under <code>[xtrabackup]</code>. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
 compress
 
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
@@ -3610,17 +3610,17 @@ under <code>[xtrabackup]</code> in <code>my.cnf</code>:</p>
 is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
 under <code>[sst]</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
 inno-apply-opts<span class="o">=</span><span class="s2">&quot;--use-memory=500M&quot;</span>
 </code></pre></div>
 <p>If it is not specified,
 the <code>use-memory</code> option under <code>[xtrabackup]</code> will be used:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
 use-memory<span class="o">=</span>32M
 </code></pre></div>
 <p>If neither of the above are specified,
 the size of the InnoDB memory buffer will be used:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">innodb_buffer_pool_size</span><span class="o">=</span>24M
 </code></pre></div>
 <div data-banner="data-banner">
@@ -3637,7 +3637,7 @@ the size of the InnoDB memory buffer will be used:</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

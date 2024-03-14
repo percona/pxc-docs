@@ -915,27 +915,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2496,6 +2475,27 @@
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2811,7 +2811,7 @@ described in the section <a href="#generate-keys-and-certificates-manually">Gene
 should use the same key and certificate files on all nodes.</p>
 <p>Specify the following settings in the <code>my.cnf</code> configuration file
 for each node:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 ssl-ca=/etc/mysql/certs/ca.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
 ssl-key=/etc/mysql/certs/server-key.pem
@@ -2930,7 +2930,7 @@ and receives data from an existing node (DONOR).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If <code>keyring_file</code> plugin is used, then SST encryption is mandatory: when copying encrypted data via SST, the keyring must be sent over with the files for decryption. In this case following options are to be set in <code>my.cnf</code> on all nodes:</p>
-<div class="highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
+<div class="no-copy highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
 keyring-file-data=/path/to/keyring/file
 </code></pre></div>
 <p>The cluster will not work if keyring configuration across nodes is
@@ -2951,7 +2951,7 @@ different.</p>
 <p>To enable encryption for SST using XtraBackup,
   specify the location of the keys and certificate files
   in the each node’s configuration under <code>[sst]</code>:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="no-copy highlight"><pre><span></span><code>[sst]
 encrypt=4
 ssl-ca=/etc/mysql/certs/ca.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
@@ -2963,7 +2963,7 @@ ssl-key=/etc/mysql/certs/server-key.pem
 However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameters.
 If a <code>dhparams.pem</code> file of required length is not found during SST in the data directory, it is generated with 2048 bits, which can take several minutes.
 To avoid this delay, create the <code>dhparams.pem</code> file manually and place it in the data directory before joining the node to the cluster:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/2017/04/23/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">this blog post</a>.</p>
 </div>
@@ -3002,7 +3002,7 @@ using the following <a href="wsrep-provider-index.html#wsrep-provider-index">wsr
 </li>
 </ul>
 <p>To set these options, use the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable in the configuration file:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3165,16 +3165,16 @@ used for securing replication traffic when there are two nodes in the cluster.</
 <p>Restart the first node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
 <p>For example, you can merge contents of <code>old-ca.pem</code>
 and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
 <p>Set the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart the second node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
 </code></pre></div>
 </li>
 <li>
@@ -3198,7 +3198,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

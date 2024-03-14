@@ -916,27 +916,6 @@ is described in Percona Software and Platform Lifecycle.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2389,6 +2368,27 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2583,26 +2583,7 @@ using APT.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p>You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).</p>
-</li>
-<li>
-<p>Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.</p>
-<ul>
-<li>
-<p>3306</p>
-</li>
-<li>
-<p>4444</p>
-</li>
-<li>
-<p>4567</p>
-</li>
-<li>
-<p>4568</p>
-</li>
-</ul>
-</li>
+<li>You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).</li>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -2612,37 +2593,37 @@ using APT.</p>
 <ol>
 <li>
 <p>Update the sytem:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Install the necessary packages:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
 <p>Download the repository package</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+<div class="highlight" data-prompt="$"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Install the package with <code>dpkg</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Refresh the local cache to update the package information:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Enable the <code>release</code> repository for <em>Percona XtraDB Cluster</em>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc80
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc80
 </code></pre></div>
 </li>
 <li>
 <p>Install the cluster:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
+<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 </li>
 </ol>
@@ -2709,7 +2690,7 @@ configure the node according to the procedure described in <a href="configure-no
   <small>
     
       Last update:
-      2023-11-01
+      2024-03-14
     
   </small>
 </div>

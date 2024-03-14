@@ -918,27 +918,6 @@ as if it is synchronous (virtually synchronous).">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2400,6 +2379,27 @@ as if it is synchronous (virtually synchronous).">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2685,7 +2685,7 @@ which is then processed through different action handlers.</p>
 <p>The following example shows what happens in a common situation.
 <code>act_id</code> is incremented and assigned only for totally ordered actions,
 and only in primary state (skip messages while in state exchange).</p>
-<div class="highlight"><pre><span></span><code>rcvd-&gt;id<span class="w"> </span><span class="o">=</span><span class="w"> </span>++group-&gt;act_id_<span class="p">;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>rcvd-&gt;id<span class="w"> </span><span class="o">=</span><span class="w"> </span>++group-&gt;act_id_<span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2699,7 +2699,7 @@ and only in primary state (skip messages while in state exchange).</p>
 </li>
 <li>
 <p>The following example shows what happens if two nodes modify same set of rows. Nodes are in sync until this point:</p>
-<div class="highlight"><pre><span></span><code>create<span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,3,4<span class="o">)</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>create<span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,3,4<span class="o">)</span>
 </code></pre></div>
 <ul>
 <li>
@@ -2768,7 +2768,7 @@ The applier transaction will always win
 and the local conflicting transaction will be rolled back.</p>
 <p>The following example shows what happens
 if one of the nodes has local changes that are not synced with the group:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>create<span class="w"> </span><span class="o">(</span>id<span class="w"> </span>primary<span class="w"> </span>key<span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -2804,7 +2804,7 @@ but they are not related.</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

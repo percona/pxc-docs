@@ -916,27 +916,6 @@ and ensure that you have root access to the MySQL server on each one.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1246,18 +1225,27 @@ and ensure that you have root access to the MySQL server on each one.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-alternatives" class="md-nav__link">
+  <a href="#ports-required" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation alternatives
+      Ports required
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#product-version-numbering" class="md-nav__link">
+  <a href="#recommendations" class="md-nav__link">
     <span class="md-ellipsis">
-      Product version numbering
+      Recommendations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation alternatives
     </span>
   </a>
   
@@ -2380,6 +2368,27 @@ and ensure that you have root access to the MySQL server on each one.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2498,18 +2507,27 @@ and ensure that you have root access to the MySQL server on each one.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-alternatives" class="md-nav__link">
+  <a href="#ports-required" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation alternatives
+      Ports required
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#product-version-numbering" class="md-nav__link">
+  <a href="#recommendations" class="md-nav__link">
     <span class="md-ellipsis">
-      Product version numbering
+      Recommendations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation alternatives
     </span>
   </a>
   
@@ -2559,7 +2577,31 @@ and ensure that you have root access to the MySQL server on each one.">
 <p>Install Percona XtraDB Cluster on all hosts that you are planning to use as cluster nodes
 and ensure that you have root access to the MySQL server on each one.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
-<p>It is recommended to install Percona XtraDB Cluster from official Percona software repositories
+<h2 id="ports-required">Ports required<a class="headerlink" href="#ports-required" title="Permanent link">&para;</a></h2>
+<p>Open specific ports for the Percona XtraDB Cluster to function correctly. </p>
+<ul>
+<li>
+<p>Port 3306 is the default port for MySQL. This port
+ facilitates communication and data transfer between nodes and applications.</p>
+</li>
+<li>
+<p>Port 4567 is used for Galera replication traffic, which is vital for synchronizing data across the cluster nodes. </p>
+</li>
+<li>
+<p>Port 4568 is used for Incremental State Transfer (IST), allowing nodes to
+ transfer only the missing blocks of data. </p>
+</li>
+<li>
+<p>Port 4444 is for State Snapshot Transfer (SST), which involves a complete data snapshot 
+transfer from one node to another. </p>
+</li>
+<li>
+<p>Port 9200 if you use Percona Monitoring and Management (PMM)
+ for cluster monitoring.</p>
+</li>
+</ul>
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">&para;</a></h2>
+<p>We recommend installing Percona XtraDB Cluster from official Percona software repositories
 using the corresponding package manager for your system:</p>
 <ul>
 <li>
@@ -2571,7 +2613,7 @@ using the corresponding package manager for your system:</p>
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>After installing Percona XtraDB Cluster the <code>mysql</code> service is <em>stopped</em> but <em>enabled</em> so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of <code>seqno</code> is not <strong>-1</strong>.</p>
+<p>After installing Percona XtraDB Cluster, the <code>mysql</code> service is stopped but enabled so that it may start the next time you restart the system. The service starts if the the <code>grastate.dat</code> file exists and the value of <code>seqno</code> is not <strong>-1</strong>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>More information about Galera state information in <a href="wsrep-files-index.html#wsrep-file-index">Index of files created by PXC grastat.dat</a></p>
@@ -2585,18 +2627,6 @@ for manual installation:</p>
 </ul>
 <p>If you want to build Percona XtraDB Cluster from source, see <a href="compile.html#compile">Compiling and Installing from Source Code</a>.</p>
 <p>If you want to run Percona XtraDB Cluster using Docker, see <a href="docker.html#docker">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
-<h2 id="product-version-numbering">Product version numbering<a class="headerlink" href="#product-version-numbering" title="Permanent link">&para;</a></h2>
-<p>The version number in PXC releases contains the following components:</p>
-<ul>
-<li>
-<p>The version of Percona Server for MySQL that the given PXC release is based on</p>
-</li>
-<li>
-<p>The sequence number which represents the PXC built.</p>
-</li>
-</ul>
-<p>For example, version number <em>8.0.18-9.3</em> means that this is the third PXC
-build based on Percona Server for MySQL 8.0.18-9.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -2611,7 +2641,7 @@ build based on Percona Server for MySQL 8.0.18-9.</p>
   <small>
     
       Last update:
-      2023-11-01
+      2024-03-14
     
   </small>
 </div>

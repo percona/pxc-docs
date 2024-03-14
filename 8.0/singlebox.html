@@ -916,27 +916,6 @@ on a single physical box.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2362,6 +2341,27 @@ on a single physical box.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2539,7 +2539,7 @@ on a single physical box.</p>
 <ul>
 <li><code>/etc/my.4000.cnf</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 port = 4000
 socket=/tmp/mysql.4000.sock
 datadir=/data/bench/d1
@@ -2560,7 +2560,7 @@ innodb_autoinc_lock_mode=2
 <ul>
 <li><code>/etc/my.5000.cnf</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 port = 5000
 socket=/tmp/mysql.5000.sock
 datadir=/data/bench/d2
@@ -2582,7 +2582,7 @@ innodb_autoinc_lock_mode=2
 <ul>
 <li><code>/etc/my.6000.cnf</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
 port = 6000
 socket=/tmp/mysql.6000.sock
 datadir=/data/bench/d3
@@ -2634,14 +2634,14 @@ tcp<span class="w">        </span><span class="m">0</span><span class="w">      
 </li>
 <li>
 <p>Start the second and third nodes:</p>
-<div class="highlight"><pre><span></span><code>bin/mysqld_safe<span class="w"> </span>--defaults-file<span class="o">=</span>/etc/my.5000.cnf
-bin/mysqld_safe<span class="w"> </span>--defaults-file<span class="o">=</span>/etc/my.6000.cnf
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>bin/mysqld_safe<span class="w"> </span>--defaults-file<span class="o">=</span>/etc/my.5000.cnf
+$<span class="w"> </span>bin/mysqld_safe<span class="w"> </span>--defaults-file<span class="o">=</span>/etc/my.6000.cnf
 </code></pre></div>
 <p>If the nodes start and join the cluster successful,
 you should see the following output:</p>
-<div class="highlight"><pre><span></span><code><span class="m">111215</span><span class="w"> </span><span class="m">19</span>:22:26<span class="w"> </span><span class="o">[</span>Note<span class="o">]</span><span class="w"> </span>WSREP:<span class="w"> </span>Shifting<span class="w"> </span>JOINER<span class="w"> </span>-&gt;<span class="w"> </span>JOINED<span class="w"> </span><span class="o">(</span>TO:<span class="w"> </span><span class="m">2</span><span class="o">)</span>
-<span class="m">111215</span><span class="w"> </span><span class="m">19</span>:22:26<span class="w"> </span><span class="o">[</span>Note<span class="o">]</span><span class="w"> </span>WSREP:<span class="w"> </span>Shifting<span class="w"> </span>JOINED<span class="w"> </span>-&gt;<span class="w"> </span>SYNCED<span class="w"> </span><span class="o">(</span>TO:<span class="w"> </span><span class="m">2</span><span class="o">)</span>
-<span class="m">111215</span><span class="w"> </span><span class="m">19</span>:22:26<span class="w"> </span><span class="o">[</span>Note<span class="o">]</span><span class="w"> </span>WSREP:<span class="w"> </span>Synchronized<span class="w"> </span>with<span class="w"> </span>group,<span class="w"> </span>ready<span class="w"> </span><span class="k">for</span><span class="w"> </span>connections
+<div class="no-copy highlight"><pre><span></span><code>111215 19:22:26 [Note] WSREP: Shifting JOINER -&gt; JOINED (TO: 2)
+111215 19:22:26 [Note] WSREP: Shifting JOINED -&gt; SYNCED (TO: 2)
+111215 19:22:26 [Note] WSREP: Synchronized with group, ready for connections
 </code></pre></div>
 <p>To check the cluster size, run the following command:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;show global status like &#39;wsrep_cluster_size&#39;;&quot;</span>
@@ -2677,7 +2677,7 @@ you can run the following command:</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

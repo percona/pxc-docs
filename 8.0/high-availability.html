@@ -9,14 +9,10 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="In a basic setup with 3 nodes, Percona XtraDB Cluster will continue to function
-if you take any of the nodes down.
-At any point in time, you can shut down any node to perform maintenance
-or make configuration changes.
-Even in unplanned situations
-(like a node crashing or if it becomes unavailable over the network),
-the Percona XtraDB Cluster will continue to work
-and you’ll be able to run queries on working nodes.">
+        <meta name="description" content="In a basic setup with three nodes, if you take any of the nodes down, Percona
+ XtraDB Cluster continues to function.
+At any point, you can shut down any node to perform maintenance
+or configuration changes.">
       
       
         <meta name="author" content="Percona LLC">
@@ -25,7 +21,7 @@ and you’ll be able to run queries on working nodes.">
         <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.0/high-availability.html">
       
       
-        <link rel="prev" href="xtradb-cluster-version-numbers.html">
+        <link rel="prev" href="limitation.html">
       
       
         <link rel="next" href="strict-mode.html">
@@ -922,27 +918,6 @@ and you’ll be able to run queries on working nodes.">
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1040,6 +1015,33 @@ and you’ll be able to run queries on working nodes.">
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sst" class="md-nav__link">
+    <span class="md-ellipsis">
+      SST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ist" class="md-nav__link">
+    <span class="md-ellipsis">
+      IST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitor-the-node-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor the node state
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
@@ -2368,6 +2370,27 @@ and you’ll be able to run queries on working nodes.">
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2486,6 +2509,33 @@ and you’ll be able to run queries on working nodes.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sst" class="md-nav__link">
+    <span class="md-ellipsis">
+      SST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ist" class="md-nav__link">
+    <span class="md-ellipsis">
+      IST
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitor-the-node-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor the node state
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -2526,44 +2576,80 @@ and you’ll be able to run queries on working nodes.">
 
 
 <h1 id="high-availability">High availability<a class="headerlink" href="#high-availability" title="Permanent link">&para;</a></h1>
-<p>In a basic setup with 3 nodes, Percona XtraDB Cluster will continue to function
-if you take any of the nodes down.
-At any point in time, you can shut down any node to perform maintenance
-or make configuration changes.
-Even in unplanned situations
-(like a node crashing or if it becomes unavailable over the network),
-the Percona XtraDB Cluster will continue to work
-and you’ll be able to run queries on working nodes.</p>
-<p>If there were changes to data while a node was down,
-there are two options that the node may use when it joins the cluster again:</p>
+<p>In a basic setup with three nodes, if you take any of the nodes down, Percona
+ XtraDB Cluster continues to function.
+At any point, you can shut down any node to perform maintenance
+or configuration changes.</p>
+<p>Even in unplanned situations (like a node crashing or if it becomes unavailable
+ over the network), you can run queries on working nodes. If a node is down and
+ the data has changed, there are two methods that the node may use when it
+ joins the cluster again:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What happens</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SST</td>
+<td>The joiner node receives a full copy of the database state from the donor node.</td>
+<td>You initiate a Solid State Transfer (SST) when adding a new node to a Galera cluster or when a node has fallen too far out of sync</td>
+</tr>
+<tr>
+<td>IST</td>
+<td>Only incremental changes are copied from one node to another.</td>
+<td>This operation can be used when a node is down for a short period.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sst">SST<a class="headerlink" href="#sst" title="Permanent link">&para;</a></h2>
+<p>The primary benefit of SST is that it ensures data consistency across the
+ cluster by providing a complete snapshot of the database at a point in time.
+However, SST can be resource-intensive and time-consuming if the operation transfers significant data. The donor node is locked during this transfer, impacting cluster performance.</p>
+<p>You initiate a state snapshot transfer (SST) when a node joins a cluster
+ without the complete data set. This process involves transferring a full data
+ copy from one node to another, ensuring that the joining node has an exact
+ replica of the cluster&rsquo;s current state. Technically, SST is performed by
+ halting the donor node&rsquo;s database operations momentarily to create a consistent
+ snapshot of its data. The snapshot is then transferred over the network to the
+ joining node, which applies it to its database system.</p>
+<p>Even without locking your cluster in a read-only state, SST may be intrusive
+ and disrupt the regular operation of your services.
+IST avoids disruption. A node fetches only the changes that happened while that
+node was unavailable. IST uses a caching mechanism on nodes.</p>
+<h2 id="ist">IST<a class="headerlink" href="#ist" title="Permanent link">&para;</a></h2>
+<p>Incremental State Transfer (IST) is a method that allows a node to request only
+ the missing transactions from another node in the cluster. This process is
+ beneficial because it reduces the amount of data that must be transferred,
+ leading to faster recovery times for nodes that are out of sync. Additionally,
+ IST minimizes the network bandwidth required for state transfer, which is
+ particularly advantageous in environments with limited resources.</p>
+<p>However, there are drawbacks to consider. Reliance on another node&rsquo;s state means that an SST operation is necessary if no node in the cluster has the required information. </p>
+<p>When a node joins the cluster with a state slightly behind the current cluster state, IST does not require the joining node to copy the entire database state. Technically, IST transfers only the missing write-sets that the joining node needs to catch up with the cluster. The donor node, the node with the most recent state, sends the write-sets to the joining node through a dedicated channel. The joining node then applies these write-sets to its database state incrementally until it synchronizes with the cluster&rsquo;s current state. The donor node can experience a performance impact during an IST operation, typically less severe than during SST.</p>
+<h2 id="monitor-the-node-state">Monitor the node state<a class="headerlink" href="#monitor-the-node-state" title="Permanent link">&para;</a></h2>
+<p>The <code>wsrep_state_comment</code> variable returns the current state of a Galera node in the cluster, providing information about the node&rsquo;s role and status. The value can vary depending on the specific state of the Galera node, such as the following: </p>
 <ul>
-<li><strong>State Snapshot Transfer</strong> (SST) is when all data is copied
-from one node to another.</li>
+<li>
+<p>&ldquo;Synced&rdquo; </p>
+</li>
+<li>
+<p>&ldquo;Donor/Desynced&rdquo; </p>
+</li>
+<li>
+<p>&ldquo;Donor/Joining&rdquo;</p>
+</li>
+<li>
+<p>&ldquo;Joined&rdquo;</p>
+</li>
 </ul>
-<p>SST is usually used when a new node joins the cluster
-  and receives all data from an existing node.
-  Percona XtraDB Cluster uses <strong>xtrabackup</strong> for SST.</p>
-<p>SST using <code>xtrabackup</code> does not require the <code>READ LOCK</code> command
-  for the entire syncing process, only for syncing <a href="glossary.html#frm">.frm</a> files (the same as with a regular backup).</p>
-<ul>
-<li>Incremental State Transfer (IST) is when only incremental changes
-are copied from one node to another.</li>
-</ul>
-<p>Even without locking your cluster in read-only state, SST may be intrusive
-  and disrupt normal operation of your services.
-  IST lets you avoid that.
-  If a node goes down for a short period of time,
-  it can fetch only those changes that happened while it was down.
-  IST is implemeted using a caching mechanism on nodes.
-  Each node contains a cache, ring-buffer (the size is configurable)
-  of last N changes, and the node is able to transfer part of this cache.
-  Obviously, IST can be done only if the amount of changes needed to transfer
-  is less than N. If it exceeds N, then the joining node has to perform SST.</p>
 <p>You can monitor the current state of a node using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>When a node is in <code>Synced (6)</code> state, it is part of the cluster
-and ready to handle traffic.</p>
+<p>If the node is in <code>Synced (6)</code> state, that node is part of the cluster
+and can handle the traffic.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -2578,7 +2664,7 @@ and ready to handle traffic.</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-14
     
   </small>
 </div>

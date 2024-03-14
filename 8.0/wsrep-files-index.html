@@ -915,27 +915,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Understand version numbers
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2361,6 +2340,27 @@
   
   
     <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="faq.html" class="md-nav__link">
         
   
@@ -2531,7 +2531,7 @@ exists for example) and therefore nothing to worry about. However it’s
 always recommended to check these log to understand what’s is happening.</p>
 <p>To be able to analyze these files binlog header needs to be added to the log
 file. To create the <code>GRA_HEADER</code> file you need an instance running with <code>binlog_checksum</code> set to <code>NONE</code> and extract first 120 bytes from the binlog file:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>head<span class="w"> </span>-c<span class="w"> </span><span class="m">123</span><span class="w"> </span>mysqld-bin.000001<span class="w"> </span>&gt;<span class="w"> </span>GRA_HEADER
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>head<span class="w"> </span>-c<span class="w"> </span><span class="m">123</span><span class="w"> </span>mysqld-bin.000001<span class="w"> </span>&gt;<span class="w"> </span>GRA_HEADER
 $<span class="w"> </span>cat<span class="w"> </span>GRA_HEADER<span class="w"> </span>&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 $<span class="w"> </span>cat<span class="w"> </span>/var/lib/mysql/GRA_1_2.log<span class="w"> </span>&gt;&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 $<span class="w"> </span>mysqlbinlog<span class="w"> </span>-vvv<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
@@ -2613,7 +2613,7 @@ with the <a href="wsrep-provider-index.html#gcachename"><code>gcache.name</code>
 </ul>
 <p>Examples of this file look like this:</p>
 <p>In case server node has this state when not running it means that that node crashed during the transaction processing.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># GALERA saved state</span>
+<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># GALERA saved state</span>
 version:<span class="w"> </span><span class="m">2</span>.1
 uuid:<span class="w">    </span>1917033b-7081-11e2-0800-707f5d3b106b
 seqno:<span class="w">   </span>-1
@@ -2621,14 +2621,14 @@ cert_index:
 </code></pre></div>
 <p>In case server node has this state when not running it means that the node
 was gracefully shut down.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># GALERA saved state</span>
+<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># GALERA saved state</span>
 version:<span class="w"> </span><span class="m">2</span>.1
 uuid:<span class="w">    </span>1917033b-7081-11e2-0800-707f5d3b106b
 seqno:<span class="w">   </span><span class="m">5192193423942</span>
 cert_index:
 </code></pre></div>
 <p>In case server node has this state when not running it means that the node crashed during the DDL.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># GALERA saved state</span>
+<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># GALERA saved state</span>
 version:<span class="w"> </span><span class="m">2</span>.1
 uuid:<span class="w">    </span><span class="m">00000000</span>-0000-0000-0000-000000000000
 seqno:<span class="w">   </span>-1
@@ -2678,7 +2678,7 @@ cert_index:
   <small>
     
       Last update:
-      2023-01-20
+      2024-03-14
     
   </small>
 </div>
