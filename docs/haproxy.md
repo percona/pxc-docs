@@ -1,32 +1,80 @@
 # Load balancing with HAProxy
 
-This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.
+The free and open source software, HAProxy, provides a high-availability load balancer and reverse proxy for TCP and HTTP-based applications. HAProxy can distribute requests across multiple servers, ensuring optimal performance and security.
 
-Start by installing HAProxy on a [node](glossary.md#node) that you intend to use
-for load balancing. The operating systems that support Percona XtraDB Cluster provide
-the haproxy package and you can install it using the package manager.
+Here are the benefits of using HAProxy:
 
-Debian or Ubuntu
+ - HAProxy supports layer 4 (TCP) and layer 7 (HTTP) load balancing, which means it can handle different network traffic and protocols. HAProxy requires patched backends to tunnel IP traffic in layer 4 load-balancing tunnel mode. This mode also disables some layer 7 advanced features.
+
+- HAProxy has rich features, such as URL rewriting, SSL/TLS termination, gzip compression, caching, observability, health checks, retries, circuit breakers, WebSocket, HTTP/2 and HTTP/3 support, and more.
+
+- HAProxy has a reputation for being fast and efficient in terms of processor and memory usage. The software is written in C and has an event-driven and multithreaded architecture.
+
+- HAProxy has a user-friendly status page that shows detailed information about the load balancer and the backends. The software also integrates well with third-party monitoring tools and services.
+
+- HAProxy supports session retention and cookie guidance, which can help with sticky sessions and affinity.
+
+
+## Create a user
+
+Access the server as a user with administrative privileges, either `root` or use sudo.
+
+Create a Dedicated HAProxy user account for HAProxy to interact with your MySQL instance. This account enhances security.
+
+Make the following changes to the example `CREATE USER` command to replace the placeholders:
+
+* Replace haproxy_user with your preferred username.
+
+* Substitute `haproxy_server_ip` with the actual IP address of your HAProxy server.
+
+* Choose a robust password for the 'strong_password'.
+
+Execute the following command:
+
+```{.bash data-prompt="mysql>"}
+mysql> CREATE USER 'haproxy_user'@'haproxy_server_ip' IDENTIFIED BY 'strong_password';
+```
+
+Grant the minimal set of privileges necessary for HAProxy to perform its health checks and monitoring.
+
+Execute the following:
+
+```{.bash data-prompt="mysql>"}
+GRANT SELECT ON `mysql`.* TO 'haproxy_user'@'haproxy_server_ip';
+FLUSH PRIVILEGES;
+```
+
+### Important Considerations
+
+If your MySQL servers are part of a replication cluster, create the user and grant privileges on each node to ensure consistency.
+
+For enhanced security, consider restricting the `haproxy_user` to specific databases or tables to monitor rather than granting permissions to the entire `mysql` database schema.
+
+
+## Install
+
+Add the HAProxy Enterprise repository to your system by following the instructions for [your operating system](https://www.haproxy.com/documentation/hapee/latest/getting-started/installation/).
+
+Install HAProxy on the [node](glossary.md#node) you intend to use
+for load balancing. You can install it using the package manager.
+
+=== "On a Debian-derived distribution"
 
     ```{.bash data-prompt="$"}
     $ sudo apt update
     $ sudo apt install haproxy
     ```
 
-Red Hat or CentOS:
+=== "On a Red Hat-derived distribution"
 
     ```{.bash data-prompt="$"}
     $ sudo yum update
     $ sudo yum install haproxy
     ```
 
-**Supported versions of HAProxy**
-
-   The lowest supported version of HAProxy is 1.4.20. 
-
 To start HAProxy, use the `haproxy` command. You may pass any
 number of configuration parameters on the command line. To use a
-configuration file, use the `-f` option.
+configuration file, add the `-f` option.
 
 ```{.bash data-prompt="$"}
 $ # Passing one configuration file
@@ -40,133 +88,13 @@ $ sudo haproxy -f conf-dir
 ```
 
 You can pass the name of an existing configuration file or a
-directory. HAProxy includes all files with the *.cfg* extension in the the
-supplied directory. Another way to pass multiple files is to use `-f`
+directory. HAProxy includes all files with the *.cfg* extension in the supplied directory. Another way to pass multiple files is to use `-f`
 multiple times.
 
-!!! admonition "See also"
+For more information, see [`HAProxy Management Guide`](https://docs.haproxy.org/2.5/management.html)
+ 
+For information, see [HAProxy configuration file](haproxy-config.md)
 
-    HAProxy Documentation:
-     * [`Managing HAProxy (including available options)`](http://cbonte.github.io/haproxy-dconv/2.0/management.html)
-     * [`More information about how to configure HAProxy`](http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2)
-
-??? example "Example of the HAProxy configuration file"
-
-        ```{.text .no-copy}
-        global
-                log 127.0.0.1   local0
-                log 127.0.0.1   local1 notice
-                maxconn 4096
-                uid 99
-                gid 99
-                daemon
-                #debug
-                #quiet
-
-        defaults
-                log     global
-                mode    http
-                option  tcplog
-                option  dontlognull
-                retries 3
-                redispatch
-                maxconn 2000
-                contimeout      5000
-                clitimeout      50000
-                srvtimeout      50000
-
-        listen mysql-cluster 0.0.0.0:3306
-            mode tcp
-            balance roundrobin
-            option mysql-check user root
-
-            server db01 10.4.29.100:3306 check
-            server db02 10.4.29.99:3306 check
-            server db03 10.4.29.98:3306 check
-
-Options set in the configuration file
-
-|HAProxy option (with links to HAProxy documentation)|Description|
-| -------------------------------------------------- |-----------|
-|global|A section in the configuration file for process-wide parameters|
-|defaults|A section in the configuration file for default parameters for all other following sections|
-|listen|A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section|
-|[balance](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance)|Load balancing algorithm to be used in a backend|
-|[clitimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout)|Set the maximum inactivity time on the client side|
-|[contimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout)|Set the maximum time to wait for a connection attempt to a server to succeed.|
-|[daemon](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon)| Makes the process fork into background (recommended mode of operation)|
-|[gid](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid)|Changes the process' group ID to &#60;number&#62;|
-|[log](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log)|Adds a global syslog server|
-|[maxconn](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn)|Sets the maximum per-process number of concurrent connections to &#60;number&#62;|
-|[mode](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode)|Set the running mode or protocol of the instance|
-|option dontlognull|Disable logging of null connections|
-|[option tcplog](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog)|Enable advanced logging of TCP connections with session state and timers|
-|[redispatch](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch)|Enable or disable session redistribution in case of connection failure|
-|[retries](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Set the number of retries to perform on a server after a connection failure|
-|[server](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Declare a server in a backend|
-|[srvtimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout)|Set the maximum inactivity time on the server side|
-|[uid](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid)|Changes the process' user ID to &#60;number&#62;|
-
-With this configuration, HAProxy will balance the load between three nodes.
-In this case, it only checks if `mysqld` listens on port 3306,
-but it doesn’t take into an account the state of the node.
-So it could be sending queries to the node that has `mysqld` running
-even if it’s in `JOINING` or `DISCONNECTED` state.
-
-To check the current status of a node we need a more complex check.
-This idea was taken from [codership-team google groups](https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6).
-
-To implement this setup, you will need two scripts:
-
-* **clustercheck** (located in `/usr/local/bin`) and a config for `xinetd`
-
-* **mysqlchk** (located in `/etc/xinetd.d`) on each node
-
-Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.
-
-Change the `/etc/services` file
-by adding the following line on each node:
-
-```text
-mysqlchk        9200/tcp                # mysqlchk
-```
-
-??? example "Example of the HAProxy configuration file"
-
-        ```{.text .no-copy}
-        # this config needs haproxy-1.4.20
-
-        global
-                log 127.0.0.1   local0
-                log 127.0.0.1   local1 notice
-                maxconn 4096
-                uid 99
-                gid 99
-                #daemon
-                debug
-                #quiet
-
-        defaults
-                log     global
-                mode    http
-                option  tcplog
-                option  dontlognull
-                retries 3
-                redispatch
-                maxconn 2000
-                contimeout      5000
-                clitimeout      50000
-                srvtimeout      50000
-
-        listen mysql-cluster 0.0.0.0:3306
-            mode tcp
-            balance roundrobin
-            option  httpchk
-
-            server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-            server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-            server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-        ```
 
 !!! important
 
@@ -182,3 +110,7 @@ mysqlchk        9200/tcp                # mysqlchk
     !!! admonition "See also"
 
         [MySQL Documentation: CREATE USER statement](https://dev.mysql.com/doc/refman/8.0/en/create-user.html)
+
+## Uninstall
+
+To uninstall haproxy version 2 from a Linux system, follow the [latest instructions](https://www.haproxy.com/documentation/haproxy-enterprise/getting-started/uninstallation/).
