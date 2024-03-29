@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.">
+        <meta name="description" content="The free and open source software, HAProxy, provides a high-availability load balancer and reverse proxy for TCP and HTTP-based applications. HAProxy can distribute requests across multiple servers, ensuring optimal performance and security.">
       
       
         <meta name="author" content="Percona LLC">
@@ -21,11 +21,11 @@
         <link rel="prev" href="set-up-3nodes-ec2.html">
       
       
-        <link rel="next" href="load-balance-proxysql.html">
+        <link rel="next" href="haproxy-config.html">
       
       
       <link rel="icon" href="_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
       
@@ -2106,6 +2106,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a user
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -2118,6 +2160,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="haproxy-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HAProxy configuration file
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -2479,6 +2542,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a user
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -2519,27 +2624,72 @@
 
 
 <h1 id="load-balancing-with-haproxy">Load balancing with HAProxy<a class="headerlink" href="#load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
-<p>This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
-<p>Start by installing HAProxy on a <a href="glossary.html#node">node</a> that you intend to use
-for load balancing. The operating systems that support Percona XtraDB Cluster provide
-the haproxy package and you can install it using the package manager.</p>
-<p>Debian or Ubuntu</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ sudo apt update
-$ sudo apt install haproxy
-```
+<p>The free and open source software, HAProxy, provides a high-availability load balancer and reverse proxy for TCP and HTTP-based applications. HAProxy can distribute requests across multiple servers, ensuring optimal performance and security.</p>
+<p>Here are the benefits of using HAProxy:</p>
+<ul>
+<li>
+<p>HAProxy supports layer 4 (TCP) and layer 7 (HTTP) load balancing, which means it can handle different network traffic and protocols. HAProxy requires patched backends to tunnel IP traffic in layer 4 load-balancing tunnel mode. This mode also disables some layer 7 advanced features.</p>
+</li>
+<li>
+<p>HAProxy has rich features, such as URL rewriting, SSL/TLS termination, gzip compression, caching, observability, health checks, retries, circuit breakers, WebSocket, HTTP/2 and HTTP/3 support, and more.</p>
+</li>
+<li>
+<p>HAProxy has a reputation for being fast and efficient in terms of processor and memory usage. The software is written in C and has an event-driven and multithreaded architecture.</p>
+</li>
+<li>
+<p>HAProxy has a user-friendly status page that shows detailed information about the load balancer and the backends. The software also integrates well with third-party monitoring tools and services.</p>
+</li>
+<li>
+<p>HAProxy supports session retention and cookie guidance, which can help with sticky sessions and affinity.</p>
+</li>
+</ul>
+<h2 id="create-a-user">Create a user<a class="headerlink" href="#create-a-user" title="Permanent link">&para;</a></h2>
+<p>Access the server as a user with administrative privileges, either <code>root</code> or use sudo.</p>
+<p>Create a Dedicated HAProxy user account for HAProxy to interact with your MySQL instance. This account enhances security.</p>
+<p>Make the following changes to the example <code>CREATE USER</code> command to replace the placeholders:</p>
+<ul>
+<li>
+<p>Replace haproxy_user with your preferred username.</p>
+</li>
+<li>
+<p>Substitute <code>haproxy_server_ip</code> with the actual IP address of your HAProxy server.</p>
+</li>
+<li>
+<p>Choose a robust password for the &lsquo;strong_password&rsquo;.</p>
+</li>
+</ul>
+<p>Execute the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;haproxy_server_ip&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;strong_password&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>Red Hat or CentOS:</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ sudo yum update
-$ sudo yum install haproxy
-```
+<p>Grant the minimal set of privileges necessary for HAProxy to perform its health checks and monitoring.</p>
+<p>Execute the following:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>GRANT<span class="w"> </span>SELECT<span class="w"> </span>ON<span class="w"> </span><span class="sb">`</span>mysql<span class="sb">`</span>.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;haproxy_server_ip&#39;</span><span class="p">;</span>
+FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
-<p><strong>Supported versions of HAProxy</strong></p>
-<p>The lowest supported version of HAProxy is 1.4.20. </p>
+<h3 id="important-considerations">Important Considerations<a class="headerlink" href="#important-considerations" title="Permanent link">&para;</a></h3>
+<p>If your MySQL servers are part of a replication cluster, create the user and grant privileges on each node to ensure consistency.</p>
+<p>For enhanced security, consider restricting the <code>haproxy_user</code> to specific databases or tables to monitor rather than granting permissions to the entire <code>mysql</code> database schema.</p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>Add the HAProxy Enterprise repository to your system by following the instructions for <a href="https://www.haproxy.com/documentation/hapee/latest/getting-started/installation/">your operating system</a>.</p>
+<p>Install HAProxy on the <a href="glossary.html#node">node</a> you intend to use
+for load balancing. You can install it using the package manager.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">On a Debian-derived distribution</label><label for="__tabbed_1_2">On a Red Hat-derived distribution</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>haproxy
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>haproxy
+</code></pre></div>
+</div>
+</div>
+</div>
 <p>To start HAProxy, use the <code>haproxy</code> command. You may pass any
 number of configuration parameters on the command line. To use a
-configuration file, use the <code>-f</code> option.</p>
+configuration file, add the <code>-f</code> option.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="c1"># Passing one configuration file</span>
 $<span class="w"> </span>sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg
 
@@ -2550,192 +2700,10 @@ $<span class="w"> </span><span class="c1"># Passing a directory</span>
 $<span class="w"> </span>sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>conf-dir
 </code></pre></div>
 <p>You can pass the name of an existing configuration file or a
-directory. HAProxy includes all files with the <em>.cfg</em> extension in the the
-supplied directory. Another way to pass multiple files is to use <code>-f</code>
+directory. HAProxy includes all files with the <em>.cfg</em> extension in the supplied directory. Another way to pass multiple files is to use <code>-f</code>
 multiple times.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>HAProxy Documentation:
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/management.html"><code>Managing HAProxy (including available options)</code></a>
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2"><code>More information about how to configure HAProxy</code></a></p>
-</div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```{.text .no-copy}
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        daemon
-        #debug
-        #quiet
-
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option mysql-check user root
-
-    server db01 10.4.29.100:3306 check
-    server db02 10.4.29.99:3306 check
-    server db03 10.4.29.98:3306 check
-</code></pre></div>
-</details>
-<p>Options set in the configuration file</p>
-<table>
-<thead>
-<tr>
-<th>HAProxy option (with links to HAProxy documentation)</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>global</td>
-<td>A section in the configuration file for process-wide parameters</td>
-</tr>
-<tr>
-<td>defaults</td>
-<td>A section in the configuration file for default parameters for all other following sections</td>
-</tr>
-<tr>
-<td>listen</td>
-<td>A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance">balance</a></td>
-<td>Load balancing algorithm to be used in a backend</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout">clitimeout</a></td>
-<td>Set the maximum inactivity time on the client side</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout">contimeout</a></td>
-<td>Set the maximum time to wait for a connection attempt to a server to succeed.</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon">daemon</a></td>
-<td>Makes the process fork into background (recommended mode of operation)</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid">gid</a></td>
-<td>Changes the process&rsquo; group ID to &#60;number&#62;</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log">log</a></td>
-<td>Adds a global syslog server</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn">maxconn</a></td>
-<td>Sets the maximum per-process number of concurrent connections to &#60;number&#62;</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode">mode</a></td>
-<td>Set the running mode or protocol of the instance</td>
-</tr>
-<tr>
-<td>option dontlognull</td>
-<td>Disable logging of null connections</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog">option tcplog</a></td>
-<td>Enable advanced logging of TCP connections with session state and timers</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch">redispatch</a></td>
-<td>Enable or disable session redistribution in case of connection failure</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">retries</a></td>
-<td>Set the number of retries to perform on a server after a connection failure</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">server</a></td>
-<td>Declare a server in a backend</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout">srvtimeout</a></td>
-<td>Set the maximum inactivity time on the server side</td>
-</tr>
-<tr>
-<td><a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid">uid</a></td>
-<td>Changes the process&rsquo; user ID to &#60;number&#62;</td>
-</tr>
-</tbody>
-</table>
-<p>With this configuration, HAProxy will balance the load between three nodes.
-In this case, it only checks if <code>mysqld</code> listens on port 3306,
-but it doesn’t take into an account the state of the node.
-So it could be sending queries to the node that has <code>mysqld</code> running
-even if it’s in <code>JOINING</code> or <code>DISCONNECTED</code> state.</p>
-<p>To check the current status of a node we need a more complex check.
-This idea was taken from <a href="https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6">codership-team google groups</a>.</p>
-<p>To implement this setup, you will need two scripts:</p>
-<ul>
-<li>
-<p><strong>clustercheck</strong> (located in <code>/usr/local/bin</code>) and a config for <code>xinetd</code></p>
-</li>
-<li>
-<p><strong>mysqlchk</strong> (located in <code>/etc/xinetd.d</code>) on each node</p>
-</li>
-</ul>
-<p>Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.</p>
-<p>Change the <code>/etc/services</code> file
-by adding the following line on each node:</p>
-<div class="highlight"><pre><span></span><code>mysqlchk        9200/tcp                # mysqlchk
-</code></pre></div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```{.text .no-copy}
-# this config needs haproxy-1.4.20
-
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        #daemon
-        debug
-        #quiet
-
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option  httpchk
-
-    server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-```
-</code></pre></div>
-</details>
+<p>For more information, see <a href="https://docs.haproxy.org/2.5/management.html"><code>HAProxy Management Guide</code></a></p>
+<p>For information, see <a href="haproxy-config.html">HAProxy configuration file</a></p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In Percona XtraDB Cluster 8.0, the default authentication plugin is
@@ -2749,6 +2717,8 @@ authentication plugin.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/create-user.html">MySQL Documentation: CREATE USER statement</a></p>
 </div>
 </div>
+<h2 id="uninstall">Uninstall<a class="headerlink" href="#uninstall" title="Permanent link">&para;</a></h2>
+<p>To uninstall haproxy version 2 from a Linux system, follow the <a href="https://www.haproxy.com/documentation/haproxy-enterprise/getting-started/uninstallation/">latest instructions</a>.</p>
 <div data-banner="data-banner">
 <h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
 <p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
@@ -2763,7 +2733,7 @@ authentication plugin.</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-03-29
     
   </small>
 </div>
@@ -2863,7 +2833,7 @@ authentication plugin.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="assets/javascripts/bundle.bd41221c.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
