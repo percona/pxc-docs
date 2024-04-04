@@ -4,6 +4,21 @@ Percona provides generic tarballs with all required files and binaries
 for manual installation. Download the appropriate tarball package from
 [https://www.percona.com/downloads/Percona-XtraDB-Cluster-57](https://www.percona.com/downloads/Percona-XtraDB-Cluster-57)
 
+## Download a {{post}} binary tarball
+
+You can download the binary tarball for Percona Server for MySQL release in the {{post}} program using your `CLIENTID` and `TOKEN`.
+
+| Type    | Name                                                                |Description         |
+|---------|---------------------------------------------------------------------|--------------------|
+| Full    | Percona-XtraDB-Cluster-&lt;release&gt;/private/[CLIENTID]-[TOKEN]/Percona-XtraDB-Cluster-5.7/Percona-XtraDB-Cluster-&lt;release&gt;/binary/tarball/Percona-XtraDB-Cluster-&lt;release&gt;-Linux.x86_64.glibc2.17.tar.gz   | Contains binaries, libraries, test files, and debug symbols   |
+| Minimal | Percona-XtraDB-Cluster-&lt;release&gt;/private/[CLIENTID]-[TOKEN]/Percona-XtraDB-Cluster-5.7/Percona-XtraDB-Cluster-&lt;release&gt;-Linux.x86_64.glibc2.12-minimal.tar.gz | Contains binaries, and libraries but does not include test files, or debug symbols. |
+
+Fetch and extract the correct binary tarball using your `CLIENTID` and `TOKEN`. For example, for Oracle Linux 9, use the following command:
+
+```{.bash data-prompt="$"}
+ $ wget https://repo.percona.com/private/[CLIENTID-[TOKEN]/Percona-XtraDB-Cluster-5.7/Percona-XtraDB-Cluster-{{release}}/binary/tarball/Percona-XtraDB-Cluster-{{release}}-Linux.x86_64.glibc2.17.tar.gz 
+```
+
 In *Percona XtraDB Cluster* 5.7.31-31.45 and later, the multiple binary tarballs available in the **Linux - Generic** section are replaced with the following:
 
 | Named | Type| Description|
@@ -16,7 +31,7 @@ Both binary tarballs support all distributions.
 For installations before *Percona XtraDB Cluster* 5.7.31-31.45, the **Linux - Generic** section contains multiple tarballs which are based on the *OpenSSL* library available in your distribution:
 
 
-* `ssl100`: for Debian prior to 9 and Ubuntu prior to 14.04 versions
+* `ssl100`: for Debian before 9 and Ubuntu before 14.04 versions
 
 
 * `ssl101`: for CentOS 6 and CentOS 7
