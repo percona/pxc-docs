@@ -2675,7 +2675,7 @@ In order to be synchronized with the cluster,
 the new node has to receive data from a node
 that is already part of the cluster.</p>
 <p>Percona XtraDB Cluster enables  via <strong>xtrabackup</strong>.</p>
-<p>Xtrabackup SST uses <a href="https://www.percona.com/doc/percona-server/8.0/management/backup_locks.html">backup locks</a>, which means the Galera provider is not paused at all as with  earlier.
+<p>Xtrabackup SST uses <a href="https://docs.percona.com/percona-server/8.0/backup-locks.html">backup locks</a>, which means the Galera provider is not paused at all as with  earlier.
 The SST method can be configured using the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2693,7 +2693,7 @@ the cluster chooses a remote node to serve as the donor.</p>
 the cluster chooses the node with the highest <code>seqno</code> to serve as the donor.</p>
 <h2 id="use-percona-xtrabackup">Use Percona Xtrabackup<a class="headerlink" href="#use-percona-xtrabackup" title="Permanent link">&para;</a></h2>
 <p>The default SST method is <code>xtrabackup-v2</code> which uses <em>Percona XtraBackup</em>.
-This is the least blocking method that leverages <a href="https://www.percona.com/doc/percona-server/8.0/management/backlocks.html">backup locks</a>.
+This is the least blocking method that leverages <a href="https://docs.percona.com/percona-xtrabackup/8.0/xtrabackup-option-reference.html#backup-locks">backup locks</a>.
 XtraBackup is run locally on the donor node.</p>
 <p>The <a href="glossary.html#datadir">datadir</a> needs to be specified in the server configuration file <code>my.cnf</code>, otherwise the transfer process will fail.</p>
 <p>Detailed information on this method is provided in <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a> documentation.</p>
@@ -2729,7 +2729,7 @@ tablespaces not in the data directory.</p>
   <small>
     
       Last update:
-      2023-07-21
+      2024-04-09
     
   </small>
 </div>

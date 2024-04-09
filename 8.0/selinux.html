@@ -2627,7 +2627,7 @@
 <p>Used as a role-based access control system</p>
 </li>
 </ul>
-<p>For more information, see <a href="https://www.percona.com/doc/percona-server/LATEST/security/selinux.html">Percona Server and SELinux</a></p>
+<p>For more information, see <a href="https://docs.percona.com/percona-server/8.0/selinux.html">Percona Server and SELinux</a></p>
 <p>Red Hat and CentOS distributes a policy module to extend the SELinux policy module for mysqld. We provide the following:</p>
 <ul>
 <li>
@@ -2638,7 +2638,7 @@
 </li>
 </ul>
 <h2 id="modify-policies">Modify policies<a class="headerlink" href="#modify-policies" title="Permanent link">&para;</a></h2>
-<p>Modifications described in <a href="https://www.percona.com/doc/percona-server/LATEST/security/selinux.html">Percona Server and SELinux</a> can also be applied for <em>Percona XtraDB Cluster</em>.</p>
+<p>Modifications described in <a href="https://docs.percona.com/percona-server/8.0/selinux.html">Percona Server and SELinux</a> can also be applied for <em>Percona XtraDB Cluster</em>.</p>
 <p>To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as <code>root</code>:</p>
 <p>To enable port <code>14567</code> instead of the default port <code>4567</code>:</p>
 <p>Find the tag associated with the <code>4567</code> port:</p>
@@ -2691,7 +2691,7 @@ allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<sp
 </ul>
 <h2 id="work-with-pxc_encrypt_cluster_traffic">Work with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#work-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
 <p>By default, the <code>pxc_encrypt_cluster_traffic</code> is <code>ON</code>, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.</p>
-<p>Review <a href="https://www.percona.com/doc/percona-xtradb-cluster/LATEST/security/encrypt-traffic.html#encrypt-replication">How to set up the certificates</a>. When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:</p>
+<p>Review <a href="https://docs.percona.com/percona-xtradb-cluster/8.0/encrypt-traffic.html#encrypt-replication">How to set up the certificates</a>. When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:</p>
 <ul>
 <li>
 <p>Certificates inside <code>/etc/mysql/certs/</code> directory must use the <code>mysqld_etc_t</code> tag. This tag is applied automatically when the files are copied into the directory. When they are moved, the files retain their original context.</p>
@@ -2732,7 +2732,7 @@ permissivedomains
   <small>
     
       Last update:
-      2023-07-21
+      2024-04-09
     
   </small>
 </div>
