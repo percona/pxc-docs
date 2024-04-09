@@ -102,6 +102,6 @@ in the same order on different [nodes](glossary.md#node). The `DELETE` statement
 
 * [log_bin](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-* [log_bin_index](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-loghtml#option_mysqld_log-bin-index)
+* [log_bin_index](https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
   MySQL and **XtraBackup** handles the value in different ways and this difference causes unpredictable behavior.

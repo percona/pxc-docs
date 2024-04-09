@@ -33,7 +33,7 @@ The procedure described in this tutorial requires he following:
 * Firewall on all nodes is configured to allow connecting
 to ports 3306, 4444, 4567 and 4568.
 
-* AppArmor profile for *MySQL* is [disabled](https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/).
+* AppArmor profile for *MySQL* is [disabled](https://www.percona.com/blog/percona-xtradb-cluster-selinux-is-not-always-the-culprit/).
 
 ## Step 1. Installing PXC
 

@@ -907,7 +907,7 @@ Review the [Galera Cluster documentation for flow control](https://galeracluster
 
 You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the Galera Cluster documentation](https://galeracluster.com/library/training/tutorials/galera-monitoring.html).
 
-For more configuration tips, see [this document](https://galeracluster.com/library/kb/parallel-slave-threads.html).
+For more configuration tips, see [this document](https://galeracluster.com/library/kb/parallel-applier-threads.html).
 
 ### `wsrep_slave_UK_checks`
 | Option         | Description        |
