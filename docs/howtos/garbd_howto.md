@@ -1,6 +1,6 @@
 # Setting up Galera Arbitrator
 
-[Galera Arbitrator](https://galeracluster.com/documentation-webpages/arbitrator.html) is a member of *Percona XtraDB Cluster* that is used for voting
+[Galera Arbitrator](https://galeracluster.com/library/documentation/arbitrator.html) is a member of *Percona XtraDB Cluster* that is used for voting
 in case you have a small number of servers (usually two)
 and don’t want to add any more resources.
 Galera Arbitrator does not need a dedicated server.

@@ -54,7 +54,7 @@ Used to specify the data transfer format.
 The recommended value is the default `transferfmt=socat`
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see [socat(1)](https://www.dest-unreach.org/socat/doc/socat.html).
+For more information, see [socat(1)](https://www.redhat.com/sysadmin/getting-started-socat).
 
 !!! note
 
