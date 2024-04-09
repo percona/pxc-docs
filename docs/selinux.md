@@ -8,7 +8,7 @@ SELinux helps protects the user’s home directory data. SELinux provides the fo
 
 * Used as a role-based access control system
 
-For more information, see [Percona Server and SELinux](https://www.percona.com/doc/percona-server/LATEST/security/selinux.html)
+For more information, see [Percona Server and SELinux](https://docs.percona.com/percona-server/8.0/selinux.html)
 
 Red Hat and CentOS distributes a policy module to extend the SELinux policy module for mysqld. We provide the following:
 
@@ -18,7 +18,7 @@ Red Hat and CentOS distributes a policy module to extend the SELinux policy modu
 
 ## Modify policies
 
-Modifications described in [Percona Server and SELinux](https://www.percona.com/doc/percona-server/LATEST/security/selinux.html) can also be applied for *Percona XtraDB Cluster*.
+Modifications described in [Percona Server and SELinux](https://docs.percona.com/percona-server/8.0/selinux.html) can also be applied for *Percona XtraDB Cluster*.
 
 To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as `root`:
 
@@ -92,7 +92,7 @@ If you must use a port that is already tagged, you can use either of the followi
 
 By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.
 
-Review [How to set up the certificates](https://www.percona.com/doc/percona-xtradb-cluster/LATEST/security/encrypt-traffic.html#encrypt-replication). When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:
+Review [How to set up the certificates](https://docs.percona.com/percona-xtradb-cluster/8.0/encrypt-traffic.html#encrypt-replication). When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:
 
 * Certificates inside `/etc/mysql/certs/` directory must use the `mysqld_etc_t` tag. This tag is applied automatically when the files are copied into the directory. When they are moved, the files retain their original context.
 
