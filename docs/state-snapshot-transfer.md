@@ -9,7 +9,7 @@ that is already part of the cluster.
 
 Percona XtraDB Cluster enables  via **xtrabackup**.
 
-Xtrabackup SST uses [backup locks](https://www.percona.com/doc/percona-server/8.0/management/backup_locks.html), which means the Galera provider is not paused at all as with  earlier.
+Xtrabackup SST uses [backup locks](https://docs.percona.com/percona-server/8.0/backup-locks.html), which means the Galera provider is not paused at all as with  earlier.
 The SST method can be configured using the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable.
 
 !!! note 
@@ -34,7 +34,7 @@ the cluster chooses the node with the highest `seqno` to serve as the donor.
 ## Use Percona Xtrabackup
 
 The default SST method is `xtrabackup-v2` which uses *Percona XtraBackup*.
-This is the least blocking method that leverages [backup locks](https://www.percona.com/doc/percona-server/8.0/management/backlocks.html).
+This is the least blocking method that leverages [backup locks](https://docs.percona.com/percona-xtrabackup/8.0/xtrabackup-option-reference.html#backup-locks).
 XtraBackup is run locally on the donor node.
 
 The [datadir](glossary.md#datadir) needs to be specified in the server configuration file `my.cnf`, otherwise the transfer process will fail.

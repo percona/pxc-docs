@@ -69,7 +69,7 @@ at least for the following:
 
 ## Use Percona Monitoring and Management
 
-[Percona Monitoring and Management](https://www.percona.com/doc/percona-monitoring-and-management/index.html) includes two dashboards to monitor PXC:
+[Percona Monitoring and Management](https://docs.percona.com/percona-monitoring-and-management/index.html) includes two dashboards to monitor PXC:
 
 1. PXC/Galera Cluster Overview:
 
@@ -83,9 +83,9 @@ at least for the following:
 
     ![image](_static/pmm.menu.ha.png)
 
-Please refer to the [official documentation](https://www.percona.com/doc/percona-monitoring-and-management/index.html) for details on Percona Monitoring and Management installation and setup.
+Please refer to the [official documentation](https://docs.percona.com/percona-monitoring-and-management/index.html) for details on Percona Monitoring and Management installation and setup.
 
 ## Other reading
 
-* [Realtime stats to pay attention to in PXC and Galera](https://www.mysqlperformanceblog.com/2012/11/26/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/)
+* [Realtime stats to pay attention to in PXC and Galera](https://www.percona.com/blog/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/)
 

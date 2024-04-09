@@ -9,7 +9,7 @@
 
 * **Installation**
 
-    [Installing Percona XtraDB Cluster](https://www.percona.com/doc/percona-xtradb-cluster/8.0/install/index.html)
+    [Installing Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html)
 
 
 ## Bugs Fixed

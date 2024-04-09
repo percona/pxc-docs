@@ -9,7 +9,7 @@
 
 * **Installation**
 
-    [Installing Percona XtraDB Cluster](https://www.percona.com/doc/percona-xtradb-cluster/8.0/install/index.html)
+    [Installing Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html)
 
 
 Percona XtraDB Cluster 8.0.19-10 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding [release notes for Percona Server for MySQL 8.0.19-10](https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.19-10.html) for more details on these changes.
