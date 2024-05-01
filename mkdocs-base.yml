@@ -117,7 +117,7 @@ extra:
   version: 
     provider: mike
   homepage:
-    https://docs.percona.com
+    https://docs.percona.com/percona-for-mysql/
 
 nav:
   - Home: index.md
