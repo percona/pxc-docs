@@ -1,5 +1,7 @@
 # variables for HTML output
 
-release: '5.7.44-31.65'
+release: '5.7.44-31.65.2'
 version: '5.7'
-release-date: 2023-12-26
+release-date: 2024-05-02
+post: 'MySQL 5.7 Post-EOL Support from Percona'
+repo-post: 'ps-post-eol'
