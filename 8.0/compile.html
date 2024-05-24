@@ -2761,18 +2761,14 @@ $<span class="w"> </span>git<span class="w"> </span>submodule<span class="w"> </
 </li>
 <li>
 <p>Download the matching Percona XtraBackup 8.0 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Downloads</a>. </p>
-</li>
-</ol>
 <p>The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory <code>./pxc-build</code>:</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ tar -xvf percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz -C ./pxc-build
-```
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
 </code></pre></div>
-<ol>
+</li>
 <li>
-<p>Run the build script <code>./build-ps/build-binary.sh</code>.
-    By default, it attempts building into the current directory. Specify
-    the target output directory, such as <code>./pxc-build</code>:</p>
+<p>Run the build script <code>./build-ps/build-binary.sh</code>.</p>
+<p>By default, it attempts building into the current directory. Specify
+the target output directory, such as <code>./pxc-build</code>:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>./pxc-build
 $<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc-build
 </code></pre></div>
@@ -2797,7 +2793,7 @@ $<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc
   <small>
     
       Last update:
-      2023-07-21
+      2024-05-24
     
   </small>
 </div>
