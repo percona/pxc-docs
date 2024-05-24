@@ -67,13 +67,14 @@ To compile Percona XtraDB Cluster from source code:
 
 3. Download the matching Percona XtraBackup 8.0 tarball (*.tar.gz) for your operating system from [Percona Downloads](https://www.percona.com/downloads/). 
 
-   The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory `./pxc-build`:
+    The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory `./pxc-build`:
 
     ```{.bash data-prompt="$"}
     $ tar -xvf percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz -C ./pxc-build
     ```
 
 4. Run the build script `./build-ps/build-binary.sh`.
+
     By default, it attempts building into the current directory. Specify
     the target output directory, such as `./pxc-build`:
 
