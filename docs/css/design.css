@@ -635,35 +635,6 @@ i[warning] [class*="moji"] {
     vertical-align: -0.3125em;
 }
 
-/* Version Select */
-
-.version-select::after {
-    content: "\25BE";
-    display: inline-block;
-    margin-left: -1em;
-    transform: translate(-0.625em, -0.0625em);
-    pointer-events: none;
-}
-#versionSelect {
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-    align-self: center;
-    font-family: var(--fHeading);
-    font-size: 0.9rem;
-    line-height: 1;
-    font-weight: 700;
-    padding: 0.5em 1.375em 0.5em 0.5em;
-    margin: 0 0.25em;
-    background-color: rgba(0,0,0,0.2);
-    color: inherit;
-    border: none;
-    border-radius: 0.1rem;
-}
-#versionSelect::-ms-expand {
-    display: none;
-}
-
 /* Media queries */
 
 @media screen and (max-width: 76.1875em) {
