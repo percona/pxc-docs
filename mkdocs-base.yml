@@ -3,7 +3,8 @@
 site_name: Percona XtraDB Cluster
 site_description: Documentation
 site_author: Percona LLC
-
+copyright: >-
+  <a href="https://www.percona.com/about">Percona LLC</a> and its affiliates &copy; 2024 — <a href="#" onclick="Osano.cm.showDrawer('osano-cm-dom-info-dialog-open')">Cookie Preferences</a>
 repo_name: percona/pxc-docs
 repo_url: https://github.com/percona/pxc-docs
 edit_uri: edit/8.4/docs/
@@ -42,6 +43,7 @@ theme:
         icon: material/brightness-4
         name: Color theme set to Dark Mode. Click to change
 
+
 # Theme features
 
   features:
@@ -66,7 +68,6 @@ extra_javascript:
   - js/version-select.js
   - js/promptremover.js
   - js/consent.js
-
 
 markdown_extensions:
   attr_list: {}
