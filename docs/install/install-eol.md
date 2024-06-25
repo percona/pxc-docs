@@ -29,7 +29,7 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
             To get the `OPERATING_SYSTEM` value, run `lsb_release -sc`.
 
             ```ini title="/etc/apt/sources.list.d/post-eol.list"
-            deb http://repo.percona.com/private/[CLIENTID]-[TOKEN]/pxc-57-eol/apt/OPERATING_SYSTEM main
+            deb http://repo.percona.com/private/[CLIENTID]-[TOKEN]/pxc-57-eol/apt/ OPERATING_SYSTEM main
             ```
 
         4. Update the local cache
