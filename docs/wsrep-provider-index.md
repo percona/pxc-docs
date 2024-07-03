@@ -851,8 +851,32 @@ State Transfer ([IST](glossary.md#ist)).
 | Dynamic:       | No                 |
 | Default Value: | PT3S   |
 
-Cluster joining announcements are sent every 1/2 second for this period of time
-or less if other nodes are discovered.
+Cluster joining announcements are sent every 1/2 second for this period or less if other nodes are discovered.
+
+### `pc.bootstrap`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | No                |
+| Config File:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
+| Default Value: | FALSE   |
+
+`pc.bootstrap` is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.
+
+```text
+wsrep_provider_options="pc.bootstrap=TRUE"
+```
+
+You can use `pc.bootstrap` in the following:
+
+| Action | Description |
+|---|---|
+| Bootstrap a New Cluster | When setting up a new Galera cluster, designate one node as the bootstrap node by setting `pc.bootstrap=YES` on that node. This allows the node to initialize the cluster and become the primary component. Other nodes can then discover and join this primary node. |
+| Rejoining a Cluster (Use with Caution) | If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use `pc.bootstrap=TRUE`. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline. |
+
+By default, pc.bootstrap is disabled (FALSE).
 
 ### `pc.checksum`
 
