@@ -26,7 +26,7 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
@@ -278,7 +278,7 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -2891,6 +2891,15 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 </li>
         
           <li class="md-nav__item">
+  <a href="#pcbootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      pc.bootstrap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pcchecksum" class="md-nav__link">
     <span class="md-ellipsis">
       pc.checksum
@@ -3834,6 +3843,15 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   <a href="#pcannounce_timeout" class="md-nav__link">
     <span class="md-ellipsis">
       pc.announce_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcbootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      pc.bootstrap
     </span>
   </a>
   
@@ -6038,8 +6056,61 @@ State Transfer (<a href="glossary.html#ist">IST</a>).</p>
 </tr>
 </tbody>
 </table>
-<p>Cluster joining announcements are sent every &frac12; second for this period of time
-or less if other nodes are discovered.</p>
+<p>Cluster joining announcements are sent every &frac12; second for this period or less if other nodes are discovered.</p>
+<h3 id="pcbootstrap"><code>pc.bootstrap</code><a class="headerlink" href="#pcbootstrap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<p><code>pc.bootstrap</code> is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=TRUE&quot;
+</code></pre></div>
+<p>You can use <code>pc.bootstrap</code> in the following:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bootstrap a New Cluster</td>
+<td>When setting up a new Galera cluster, designate one node as the bootstrap node by setting <code>pc.bootstrap=YES</code> on that node. This allows the node to initialize the cluster and become the primary component. Other nodes can then discover and join this primary node.</td>
+</tr>
+<tr>
+<td>Rejoining a Cluster (Use with Caution)</td>
+<td>If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use <code>pc.bootstrap=TRUE</code>. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline.</td>
+</tr>
+</tbody>
+</table>
+<p>By default, pc.bootstrap is disabled (FALSE).</p>
 <h3 id="pcchecksum"><code>pc.checksum</code><a class="headerlink" href="#pcchecksum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6914,7 +6985,7 @@ to the server’s private key file (in PEM format).</p>
   <small>
     
       Last update:
-      2024-03-14
+      2024-06-24
     
   </small>
 </div>
@@ -7015,7 +7086,7 @@ to the server’s private key file (in PEM format).</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
