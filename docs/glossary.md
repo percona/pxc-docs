@@ -17,6 +17,10 @@ Asynchronous replication is a technique where data is first written to the prima
 
 This property guarantees that all updates of a transaction occur in the database or no updates occur. This guarantee also applies with a server exit. If a transaction fails, the entire operation rolls back.
 
+## Cluster
+
+A group of interconnected computers or servers that work together as a single system to ensure high availability and scalability of applications and databases.
+
 ## Cluster replication
 
 Normal replication path for cluster members. Can be encrypted (not by
@@ -26,17 +30,45 @@ default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by
 
 This property guarantees that each transaction that modifies the database takes it from one consistent state to another. Consistency is implied with [Isolation](#isolation).
 
+## Data definition language (DDL)
+
+A subset of SQL commands used to define, alter, and manage database schema objects like tables, indexes, and columns.
+
+## Data inconsistencies
+
+Situations where data is not uniform across different nodes or parts of a system, potentially leading to errors or incorrect results.
+
+## Data integrity
+
+The accuracy and consistency of data stored in a database, ensuring that data is reliable and correct over its lifecycle.
+
+## Database Schema
+
+The structure that defines the organization of data in a database, including tables, columns, and relationships.
+
 ## datadir
 
 The directory in which the database server stores its databases. Most Linux distribution use `/var/lib/mysql` by default.
+
+## Deadlocks
+
+A situation where two or more transactions are unable to proceed because each is waiting for the other to release resources, causing a standstill.
 
 ## donor node
 
 The node elected to provide a state transfer (SST or IST).
 
+## Downtime
+
+The period during which a system or service is unavailable or not operational.
+
 ## Durability
 
 Once a transaction is committed, it will remain so and is resistant to a server exit.
+
+## Flow control
+
+A mechanism to manage the rate of data replication in a cluster.
 
 ## Foreign Key
 
@@ -57,7 +89,7 @@ Global Transaction ID, in Percona XtraDB Cluster it consists of [`UUID`](glossar
 ## ibdata
 
 Default prefix for tablespace files, e.g., `ibdata1` is a 10MB
-auto-extendable file that *MySQL* creates for the shared tablespace by
+auto-extendable file that MySQL creates for the shared tablespace by
 default.
 
 ## Isolation
@@ -72,12 +104,9 @@ Incremental State Transfer. Functionality which instead of whole state snapshot 
 
 [`Storage Engine`](glossary.md#storage-engine) for MySQL and derivatives ([`Percona Server`](glossary.md#percona-server), [`MariaDB`](glossary.md#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [`ACID`](glossary.md#acid) compliant storage engine with [`foreign key`](glossary.md#foreign-key) support. InnoDB is the default storage engine on all platforms.
 
-## Jenkins
+## Isolation
 
-[Jenkins](https://www.jenkins-ci.org) is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:
-* no failed tests in trunk on any platform 
-* aid developers in ensuring merge requests build and test on all platforms
-* no known performance regressions (without a damn good explanation)
+Temporarily removing a node from the cluster to perform operations without affecting the rest of the cluster.
 
 ## joiner node
 
@@ -87,10 +116,13 @@ The node joining the cluster, usually a state transfer target.
 
 Log Serial Number. A term used in relation to the [`InnoDB`](glossary.md#innodb) or [`XtraDB`](glossary.md#xtradb) storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.
 
-
 ## MariaDB
 
 A fork of [`MySQL`](glossary.md#mysql) that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.
+
+## Metadata lock
+
+A type of lock in a database that prevents changes to the structure of database objects while certain operations are being performed.
 
 ## my.cnf
 
@@ -99,7 +131,6 @@ This file refers to the database server’s main configuration file. Most Linux 
 installation. Note that this is not the only way of configuring the
 server, some systems does not have one even and rely on the command
 options to start the server and its defaults values.
-
 
 ## MyISAM
 
@@ -123,7 +154,15 @@ This user (set up on the donor node) is assigned the [`mysql.pxc.sst.role`](glos
 
 ## node
 
-A cluster node – a single mysql instance that is in the cluster.
+An individual server or computer within a cluster that stores and processes data.
+
+## Non-production environment
+
+A testing environment where new features or changes are tested before being deployed to the live production environment. It simulates the production environment but does not impact actual users or live data.
+
+## Non-transactional
+
+Operations that cannot be rolled back once executed.
 
 ## NUMA
 
@@ -143,32 +182,179 @@ A cluster with [quorum](glossary.md#quorum). A non-primary cluster will not all
 operations and will give `Unknown command` errors on any clients
 attempting to read or write from the database.
 
+## Production environment
+
+The live environment where applications and databases are used by end-users, containing real data and running actual workloads.
+
 ## quorum
 
 A majority (> 50%) of nodes. In the event of a network partition, only the cluster partition that retains a quorum (if any) will remain Primary by default.
+
+## Rejoining the cluster
+
+The process of reintegrating an isolated node back into the cluster after completing an update or maintenance task.
+
+## Replica
+
+A copy of a database node in a cluster that keeps the data synchronized with other nodes.
+
+## Replication
+
+The process of copying data from one database to another to ensure consistency and redundancy across multiple nodes.
+
+## Rolling Schema Upgrade (RSU)
+
+ A method for altering the structure of a database schema without bringing down the entire cluster. It updates one database at a time, reducing downtime but potentially causing temporary differences in database structures across the cluster.
+
+## Schema change
+
+Modifications to the database schema, such as adding, removing, or altering tables and columns.
 
 ## split brain
 
 Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.
 
-## SST
+## State Snapshot Transfer (SST)
 
-State Snapshot Transfer is the full copy of data from one node to another.  It's used when a new node joins the cluster, it has to transfer data from an existing node.
-Percona XtraDB Cluster: uses the `xtrabackup` program for this purpose. `xtrabackup` does not require `READ LOCK` for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).
+State Snapshot Transfer (SST) is a process that copies all data from one node to another in a database cluster. It happens when a new node joins the cluster and needs to get data from an existing node.
 
-The SST method is configured with the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable.
+Percona XtraDB Cluster uses a program called `xtrabackup` for State Snapshot Transfer. This program has some advantages:
+
+* It doesn't need to lock the entire database for reading during the sync process
+
+* It only needs to lock the database briefly to sync MySQL system tables
+
+* It also locks briefly to write information about the binlog, galera, and replica
+
+These brief locks are similar to what happens during a regular Percona XtraBackup backup.
+
+The SST process involves several steps:
+
+1. The new node (joiner) contacts an existing node (donor) in the cluster
+
+2. The donor node starts the `xtrabackup` program
+
+3. `xtrabackup` creates a consistent copy of all the data
+
+4. This data is transferred to the joiner node
+
+5. The joiner node applies the received data
+
+6. Once finished, the joiner node becomes an active part of the cluster
+
+SST ensures that all nodes in the cluster have the same data. This is crucial for maintaining consistency across the database cluster.
   
-In PXC 8.0, the **mysql-upgrade** command is now run
-automatically as part of [`SST`](glossary.md#sst). You do not have to run it
-manually when upgrading your system from an older version.
-
 ## Storage Engine
 
-A [`Storage Engine`](glossary.md#storage-engine) is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [`MySQL`](glossary.md#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. [`MyISAM`](glossary.md#myisam), InnoDB).
+A Storage Engine manages how data is stored and retrieved in a database system. It's a key component in the [MySQL](glossary.md#mysql) database ecosystem.
+
+Storage Engines handle:
+
+* Data storage on disk
+
+* Data retrieval from disk
+
+* Index management
+
+* Transaction processing
+
+* Caching mechanisms
+
+MySQL introduced the pluggable storage engines, allowing users to choose different engines for different tables. This flexibility lets developers optimize their database performance based on specific needs.
+
+Common MySQL Storage Engines include:
+
+* [InnoDB](glossary.md#innodb): The default engine since MySQL 5.5
+
+* [MyISAM](glossary.md#myisam): An older engine, still used in some scenarios
+
+* Memory: Stores data in RAM for fast access
+
+Each Storage Engine has its own strengths and weaknesses. For example:
+
+* InnoDB supports transactions and foreign keys
+
+* MyISAM is faster for read-heavy workloads but doesn't support transactions
+
+* Memory is extremely fast, but data is lost when the server restarts
+
+When creating a table in MySQL, you can specify which Storage Engine to use:
+
+```sql
+CREATE TABLE example_table (
+    id INT PRIMARY KEY,
+    name VARCHAR(50)
+) ENGINE = InnoDB;
+```
+
+
+## Synchronization Point
+
+A synchronization point in a database cluster represents a specific moment when all nodes in the cluster have reached the same state. This state includes:
+
+* The same data content
+
+* The same schema structure
+
+* The same transaction history
+
+Synchronization points serve several essential purposes in a cluster:
+
+* Ensuring consistency across all nodes
+
+* Facilitating node recovery after failures
+
+* Enabling new nodes to join the cluster seamlessly
+
+* Supporting backup operations
+
+The replication system creates synchronization points automatically at regular intervals. These points are also known as Global Transaction IDs (GTIDs).
+
+When a node reaches a synchronization point, the following occurs:
+
+1. The node saves its current state
+
+2. The node communicates this state to other nodes in the cluster
+
+3. Other nodes confirm they have reached the same state
+
+Synchronization points allow a cluster to maintain strong consistency. If a node fails or becomes disconnected, the cluster can use the most recent synchronization point to bring that node back into sync when the node rejoins the cluster.
+
+## Synchronous cluster
+
+A synchronous cluster in a Percona XtraDB Cluster database cluster is a group of servers that work together to maintain consistent data across all nodes. In this type of cluster:
+
+* All nodes contain the same data at all times.
+
+* When a write operation occurs on one node, the change is immediately replicated to all other nodes before the transaction is considered complete.
+
+* Read operations can be performed on any node in the cluster, as they all have identical data.
+
+* The cluster ensures strong consistency, meaning that any read operation will always return the most up-to-date data, regardless of which node processes the request.
+
+* If a node fails or becomes unavailable, the cluster continues to operate with the remaining nodes, maintaining data integrity and availability.
+
+* New nodes can be added to the cluster dynamically, and they will automatically synchronize with the existing nodes to obtain the current data set.
+
+* The cluster uses a certification-based replication mechanism to ensure that conflicting writes are detected and resolved across all nodes.
+
+Synchronous clusters provide high availability and data consistency but may have slightly higher latency for write operations than asynchronous replication methods. This trade-off is often acceptable for applications requiring strong data consistency and cannot tolerate data loss or inconsistencies between nodes.
 
 ## Tech preview 
 
 A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item’s functionality can change from tech preview to GA.
+
+## Total Order Isolation (TOI)
+
+A method for performing schema changes, where the entire cluster is taken offline to apply the changes, resulting in complete downtime during the upgrade.
+
+## Transaction stream
+
+A sequence of transactions processed by a database cluster.
+
+## Up-front locking
+
+A mechanism to prevent other operations from modifying data while a specific operation is being executed, to avoid conflicts.
 
 ## UUID
 
