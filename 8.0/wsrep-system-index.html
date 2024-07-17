@@ -2356,6 +2356,15 @@ related to write-set replication.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#log_query_errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_query_errors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pxc_encrypt_cluster_traffic" class="md-nav__link">
     <span class="md-ellipsis">
       pxc_encrypt_cluster_traffic
@@ -2386,6 +2395,24 @@ related to write-set replication.">
   <a href="#pxc_strict_mode" class="md-nav__link">
     <span class="md-ellipsis">
       pxc_strict_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replica-enable-eventname" class="md-nav__link">
+    <span class="md-ellipsis">
+      replica-enable-event=name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tf_sequence_table_max_upper_bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      tf_sequence_table_max_upper_bound
     </span>
   </a>
   
@@ -2518,6 +2545,15 @@ related to write-set replication.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#wsrep_disk_pages_encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_disk_pages_encrypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wsrep_drupal_282555_workaround" class="md-nav__link">
     <span class="md-ellipsis">
       wsrep_drupal_282555_workaround
@@ -2530,6 +2566,15 @@ related to write-set replication.">
   <a href="#wsrep_forced_binlog_format" class="md-nav__link">
     <span class="md-ellipsis">
       wsrep_forced_binlog_format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_gcache_encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_gcache_encrypt
     </span>
   </a>
   
@@ -3068,6 +3113,15 @@ related to write-set replication.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#log_query_errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      log_query_errors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pxc_encrypt_cluster_traffic" class="md-nav__link">
     <span class="md-ellipsis">
       pxc_encrypt_cluster_traffic
@@ -3098,6 +3152,24 @@ related to write-set replication.">
   <a href="#pxc_strict_mode" class="md-nav__link">
     <span class="md-ellipsis">
       pxc_strict_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replica-enable-eventname" class="md-nav__link">
+    <span class="md-ellipsis">
+      replica-enable-event=name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tf_sequence_table_max_upper_bound" class="md-nav__link">
+    <span class="md-ellipsis">
+      tf_sequence_table_max_upper_bound
     </span>
   </a>
   
@@ -3230,6 +3302,15 @@ related to write-set replication.">
 </li>
       
         <li class="md-nav__item">
+  <a href="#wsrep_disk_pages_encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_disk_pages_encrypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wsrep_drupal_282555_workaround" class="md-nav__link">
     <span class="md-ellipsis">
       wsrep_drupal_282555_workaround
@@ -3242,6 +3323,15 @@ related to write-set replication.">
   <a href="#wsrep_forced_binlog_format" class="md-nav__link">
     <span class="md-ellipsis">
       wsrep_forced_binlog_format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_gcache_encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_gcache_encrypt
     </span>
   </a>
   
@@ -3600,6 +3690,30 @@ related to write-set replication.">
 <h1 id="index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster introduces a number of MySQL system variables
 related to write-set replication.</p>
+<h3 id="log_query_errors"><code>log_query_errors</code><a class="headerlink" href="#log_query_errors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope:</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Shows log queries that failed with the specified error code. Multiple error codes are allowed in comma-separated strings. Set this variable to ALL to match all possible error codes. The default value is empty. To use this variable, first configure the <a href="https://docs.percona.com/percona-server/8.0/slow-extended.html">&ndash;slow-query-log</a> variable. You can only set and update this variable through the client via <code>SET GLOBAL/SESSION</code>.</p>
 <h3 id="pxc_encrypt_cluster_traffic"><code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3810,6 +3924,87 @@ ensure that the following configuration is used:</p>
 <p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
 </div>
 <p>For more information, see <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a>.</p>
+<h3 id="replica-enable-eventname"><code>replica-enable-event=name</code><a class="headerlink" href="#replica-enable-eventname" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--replica-enable-event</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Text</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Tells the replication applier thread to enable the events that match the specified wildcard pattern without setting it as <code>SLAVESIDE_DISABLED</code>. To specify more than one event, use the directive multiple times, once for each event. This will work for cross-database events.</p>
+<p>For example, replica-enable-event=foo%.bar% will enable the events in all databases on the replica server that start with &lsquo;foo&rsquo; and which event names start with &lsquo;bar&rsquo;. It is recommended to use this feature only for read-only events to avoid data inconsistency.</p>
+<h3 id="tf_sequence_table_max_upper_bound"><code>tf_sequence_table_max_upper_bound</code><a class="headerlink" href="#tf_sequence_table_max_upper_bound" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--tf_sequence_table_max_upper_bound</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Min:</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>Max:</td>
+<td>18446744073709551615</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>1048576</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the maximum number of records that <a href="https://docs.percona.com/percona-server/8.0/percona-sequence-table.html">PERCONA_SEQUENCE_TABLE()</a> table function is allowed to generate. The default value is <code>1048576</code>.</p>
 <h3 id="wsrep_applier_fk_checks"><code>wsrep_applier_FK_checks</code><a class="headerlink" href="#wsrep_applier_fk_checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4500,6 +4695,9 @@ if you enable <code>wsrep_dirty_reads</code>.</p>
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dirty-reads">MySQL wsrep option: wsrep_dirty_reads</a></p>
 </div>
+<h3 id="wsrep_disk_pages_encrypt"><code>wsrep_disk_pages_encrypt</code><a class="headerlink" href="#wsrep_disk_pages_encrypt" title="Permanent link">&para;</a></h3>
+<p>This variable is solely for testing purposes. The <code>wsrep_provider_options</code> should be used on production.</p>
+<p>The available values are <code>ON</code>, <code>OFF</code>, and <code>NONE</code>.</p>
 <h3 id="wsrep_drupal_282555_workaround"><code>wsrep_drupal_282555_workaround</code><a class="headerlink" href="#wsrep_drupal_282555_workaround" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4592,6 +4790,9 @@ regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.0/e
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-forced-binlog-format">MySQL wsrep option: wsrep_forced_binlog_format</a></p>
 </div>
+<h3 id="wsrep_gcache_encrypt"><code>wsrep_gcache_encrypt</code><a class="headerlink" href="#wsrep_gcache_encrypt" title="Permanent link">&para;</a></h3>
+<p>This variable is solely for testing purposes. The <code>wsrep_provider_options</code> should be used on production.</p>
+<p>The available values are <code>ON</code>, <code>OFF</code>, and <code>NONE</code>.</p>
 <h3 id="wsrep_ignore_apply_errors"><code>wsrep_ignore_apply_errors</code><a class="headerlink" href="#wsrep_ignore_apply_errors" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5325,7 +5526,7 @@ the node will behave as standalone instance of MySQL.</p>
 </tbody>
 </table>
 <p>Specifies optional settings for the replication provider
-documented in <a href="wsrep-provider-index.html#wsrep-provider-index">Index of :variable:`wsrep_provider` options</a>.
+documented in <a href="wsrep-provider-index.html#wsrep-provider-index">Index of wsrep_provider options</a>.
 These options affect how various situations are handled during replication.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -6306,7 +6507,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2023-08-02
+      2024-07-17
     
   </small>
 </div>
