@@ -3,6 +3,16 @@
 Percona XtraDB Cluster introduces a number of MySQL system variables
 related to write-set replication.
 
+### `log_query_errors`
+
+| Option         | Description            |
+| -------------- | ---------------------- |
+| Scope:         | Global, Session        |
+| Dynamic:       | Yes                    |
+| Default Value: |                        |
+
+Shows log queries that failed with the specified error code. Multiple error codes are allowed in comma-separated strings. Set this variable to ALL to match all possible error codes. The default value is empty. To use this variable, first configure the [--slow-query-log](https://docs.percona.com/percona-server/8.0/slow-extended.html) variable. You can only set and update this variable through the client via `SET GLOBAL/SESSION`.
+
 ### `pxc_encrypt_cluster_traffic`
 
 | Option         | Description        |
@@ -121,6 +131,36 @@ or the node is bootstrapping, then [`pxc_strict_mode`](wsrep-system-index.md#pxc
     The `SERIALIZABLE` method of isolation is not allowed in `ENFORCING` mode.
 
 For more information, see [PXC Strict Mode](strict-mode.md#pxc-strict-mode).
+
+### `replica-enable-event=name`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | ``--replica-enable-event`` |
+| Config File:   | Yes                 |
+| Scope:         | Global              |
+| Dynamic:       | No                  |
+| Type:          | Text               |
+| Default Value: |                     |
+
+Tells the replication applier thread to enable the events that match the specified wildcard pattern without setting it as ``SLAVESIDE_DISABLED``. To specify more than one event, use the directive multiple times, once for each event. This will work for cross-database events.
+
+For example, replica-enable-event=foo%.bar% will enable the events in all databases on the replica server that start with 'foo' and which event names start with 'bar'. It is recommended to use this feature only for read-only events to avoid data inconsistency.
+
+### `tf_sequence_table_max_upper_bound`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | ``--tf_sequence_table_max_upper_bound`` |
+| Config File:   | Yes                 |
+| Scope:         | Global              |
+| Dynamic:       | Yes                 |
+| Type:          | Integer             |
+| Min:           | 1024                |
+| Max:           | 18446744073709551615 |
+| Default Value: | 1048576            |
+
+Defines the maximum number of records that [PERCONA_SEQUENCE_TABLE()](https://docs.percona.com/percona-server/8.0/percona-sequence-table.html) table function is allowed to generate. The default value is ``1048576``.
 
 ### `wsrep_applier_FK_checks`
 
@@ -575,6 +615,12 @@ mysql> SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 
     [MySQL wsrep option: wsrep_dirty_reads](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dirty-reads)
 
+### `wsrep_disk_pages_encrypt`
+
+This variable is solely for testing purposes. The ``wsrep_provider_options`` should be used on production.
+
+The available values are `ON`, `OFF`, and `NONE`.
+
 ### `wsrep_drupal_282555_workaround`
 
 | Option         | Description        |
@@ -621,6 +667,12 @@ Possible values for this variable are:
 !!! admonition "See also"
 
     [MySQL wsrep option: wsrep_forced_binlog_format](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-forced-binlog-format)
+
+### `wsrep_gcache_encrypt`
+
+This variable is solely for testing purposes. The ``wsrep_provider_options`` should be used on production.
+
+The available values are `ON`, `OFF`, and `NONE`.
 
 ### `wsrep_ignore_apply_errors`
 
@@ -981,7 +1033,7 @@ the node will behave as standalone instance of MySQL.
 | Dynamic:       | No                 |
 
 Specifies optional settings for the replication provider
-documented in [Index of :variable:\`wsrep_provider\` options](wsrep-provider-index.md#wsrep-provider-index).
+documented in [Index of wsrep_provider options](wsrep-provider-index.md#wsrep-provider-index).
 These options affect how various situations are handled during replication.
 
 !!! admonition "See also"
