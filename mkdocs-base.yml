@@ -101,7 +101,7 @@ plugins:
   with-pdf: # https://github.com/orzih/mkdocs-with-pdf
           output_path: '_pdf/PerconaXtradbCluster-5.7.pdf'
           cover_title: 'Percona XtraDB Cluster Documentation'
-          cover_subtitle: 5.7.44-31.65.2 (2024-05-02)
+          cover_subtitle: 5.7.44-31.65.3 (2024-07-23)
           author: 'Percona Technical Documentation Team'
           cover_logo: docs/_static/Percona_Logo_Color.png
           debug_html: false
@@ -123,6 +123,7 @@ nav:
   - Home: index.md
   - Release notes:
       - release-notes/release-notes_index.md
+      - release-notes/5.7.44-31.65.3.md
       - release-notes/5.7.44-31.65.2.md
       - release-notes/5.7.44-31.65.md
       - release-notes/5.7.43-31.65.md
@@ -179,6 +180,7 @@ nav:
       - bootstrap.md
       - add-node.md
       - verify.md
+      - upgrade-third-party-lib.md
   - Features:
       - features/highavailability.md
       - features/multimaster-replication.md
