@@ -8,22 +8,21 @@ jobs:
     name: Deploy docs
     runs-on: ubuntu-latest
 
-    steps: 
-      #Pull the latest changes
-      - name: Chekout code
-        uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      #Node version
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+         fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      #Prepare the env
-      - name: Set up Python
-        uses: actions/setup-python@v3
+         node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+         python-version: '3.x'
       
       #Configure git
       - name: Configure git
