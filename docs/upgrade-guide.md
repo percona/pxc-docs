@@ -109,8 +109,10 @@ and CentOS) to the new location accordingly.
 ### caching_sha2_password is the default authentication plugin
 
 In Percona XtraDB Cluster 8.0, the default authentication plugin is
-`caching_sha2_password`. The ProxySQL option
-[–syncusers](proxysql-v2.md#pxc-proxysql-v2-admin-tool-syncusers) will not work if the Percona XtraDB Cluster user is
+`caching_sha2_password`. In ProxySQL 2.6.2 or later, use the `caching_sha2_password` authentication method.
+
+If you are using a version before ProxySQL 2.6.2, the option
+[–syncusers](proxysql-v2.md#pxc-proxysql-v2-admin-tool-syncusers) would not work if the Percona XtraDB Cluster user is
 created using `caching_sha2_password`. Use the `mysql_native_password`
 authentication plugin in these cases.
 
