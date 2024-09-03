@@ -309,10 +309,23 @@ elected for write requests.
 To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with `USAGE`
 privilege on any node in the cluster and configure the user in ProxySQL.
 
-The following example shows how to add a monitoring user on Node 2:
+The following example shows how to add a monitoring user on Node 2 if you are using the deprecated `mysql_native_password` authentication method:
 
 ```{.bash data-prompt="mysql>"}
 mysql> CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password BY 'ProxySQLPa55';
+```
+
+The following example adds a monitoring user on Node 2 if you are using the  `caching_sha2_password` authentication method:
+
+```{.bash data-prompt="mysql>"}
+mysql> CREATE USER 'proxysql'@'%' \
+        IDENTIFIED WITH caching_sha2_password \
+        BY 'ProxySQLPa55';
+```
+
+For either authentication method, run the following command to give the user account named 'proxysql' permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.
+
+```{.bash data-prompt="mysql>"}
 mysql> GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
@@ -448,10 +461,25 @@ root@proxysql:~# mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
     To provide read/write access to the cluster for ProxySQL, add this user on one
     of the Percona XtraDB Cluster nodes:
 
+The following example adds an `appuser` user account, if you are using the deprecated `mysql_native_password` authentication method:
+
 ```{.bash data-prompt="mysql>"}
 mysql> CREATE USER 'appuser'@'192.168.70.74'
 IDENTIFIED WITH mysql_native_password by '$3kRetp@$sW0rd';
+```
 
+The following example adds an `appuser` user account if you are using the  `caching_sha2_password` authentication method:
+
+```{.bash data-prompt="mysql>"}
+mysql> CREATE USER 'appuser'@'192.168.70.74' \
+        IDENTIFIED WITH caching_sha2_password \
+        BY '$3kRetp@$sW0rd';
+```
+
+The following example command grants the `appuser` account all privileges on all databases and tables.
+
+
+```{.bash data-prompt="mysql>"}
 mysql> GRANT ALL ON *.* TO 'appuser'@'192.168.70.74';
 ```
 

@@ -217,10 +217,21 @@ To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL,
 create a user with `USAGE` privilege on any node in the cluster
 and configure the user in ProxySQL.
 
-The following example shows how to add a monitoring user on Node 2:
+The following example adds a monitoring user on Node 2 if you are using the deprecated `mysql_native_password` authentication method:
 
 ```{.bash data-prompt="mysql@pxc2>"}
 mysql@pxc2> CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
+```
+
+The following example adds a monitoring user on Node 2 if you are using the  `caching_sha2_password` authentication method:
+
+```{.bash data-prompt="mysql@pxc2>"}
+mysql@pxc2> CREATE USER 'proxysql'@'%' IDENTIFIED WITH caching_sha2_password by '$3Kr$t';
+```
+
+Grant the user account privileges:
+
+```{.bash data-prompt="mysql@pxc2>"}
 mysql@pxc2> GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
