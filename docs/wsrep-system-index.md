@@ -666,19 +666,22 @@ when the node tries to join again but the change will be undone.
 | Dynamic:       | Yes                 |
 | Default Value: | ``OFF`` |
 
-This variable has been announced as deprecated in `5.7.24-31.33`. Defines whether the node should use transparent handling
-of preordered replication events (like replication from traditional source).
-By default, this is disabled.
+This variable has been announced as deprecated in `5.7.24-31.33`.
 
-If you enable this variable, such events will be applied locally first
-before being replicated to other nodes in the cluster.
-This could increase the rate at which they can be processed,
-which would be otherwise limited by the latency
-between the nodes in the cluster.
+Defines whether the node should use transparent handling of preordered replication events (like replication from traditional source). By default, this variable is disabled.
 
-Preordered events should not interfere with events that originate on the local
-node. Therefore, you should not run local update queries on a table that is
+If you enable this variable, preordered replication events are first applied locally before the events are replicated to other nodes. This behavior could increase the rate at which they can be processed, which would be otherwise limited by the latency between the nodes in the cluster.
+
+Preordered events should not interfere with events that originate on the local node. Do not run local update queries on a table that is
 also being updated through asynchronous replication.
+
+#### Limitations
+
+* `Cluster instabilities`: Due to Galera’s asynchronous processing of preordered events and its internal architecture, any network issues or changes in cluster configuration (such as nodes joining or leaving) may cause unrecoverable disruptions in the preordered events stream processing. These disruptions can result in a node self-aborting and leaving the cluster.
+
+* `Writeset certification process`: The simplified writeset certification process, which assumes events are already preordered, imposes a restriction that the `wsrep_preordered` setting can only be enabled when `wsrep_slave_threads=1`.
+
+Due to these limitations, this variable must only be used for quickly loading data and must be disabled once the data is loaded.
 
 ### `wsrep_provider`
 | Option         | Description        |
