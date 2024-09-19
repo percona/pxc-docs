@@ -2969,6 +2969,21 @@ related to write-set replication.">
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="wsrep_preordered">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3558,6 +3573,21 @@ related to write-set replication.">
       wsrep_preordered
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="wsrep_preordered">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4995,17 +5025,21 @@ when the node tries to join again but the change will be undone.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been announced as deprecated in <code>5.7.24-31.33</code>. Defines whether the node should use transparent handling
-of preordered replication events (like replication from traditional source).
-By default, this is disabled.</p>
-<p>If you enable this variable, such events will be applied locally first
-before being replicated to other nodes in the cluster.
-This could increase the rate at which they can be processed,
-which would be otherwise limited by the latency
-between the nodes in the cluster.</p>
-<p>Preordered events should not interfere with events that originate on the local
-node. Therefore, you should not run local update queries on a table that is
+<p>This variable has been announced as deprecated in <code>5.7.24-31.33</code>.</p>
+<p>Defines whether the node should use transparent handling of preordered replication events (like replication from traditional source). By default, this variable is disabled.</p>
+<p>If you enable this variable, preordered replication events are first applied locally before the events are replicated to other nodes. This behavior could increase the rate at which they can be processed, which would be otherwise limited by the latency between the nodes in the cluster.</p>
+<p>Preordered events should not interfere with events that originate on the local node. Do not run local update queries on a table that is
 also being updated through asynchronous replication.</p>
+<h4 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>Cluster instabilities</code>: Due to Galera’s asynchronous processing of preordered events and its internal architecture, any network issues or changes in cluster configuration (such as nodes joining or leaving) may cause unrecoverable disruptions in the preordered events stream processing. These disruptions can result in a node self-aborting and leaving the cluster.</p>
+</li>
+<li>
+<p><code>Writeset certification process</code>: The simplified writeset certification process, which assumes events are already preordered, imposes a restriction that the <code>wsrep_preordered</code> setting can only be enabled when <code>wsrep_slave_threads=1</code>.</p>
+</li>
+</ul>
+<p>Due to these limitations, this variable must only be used for quickly loading data and must be disabled once the data is loaded.</p>
 <h3 id="wsrep_provider"><code>wsrep_provider</code><a class="headerlink" href="#wsrep_provider" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5845,7 +5879,7 @@ and <code>REPLACE</code> statements.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-04-09
+    2024-09-19
   </span>
 
     
