@@ -145,6 +145,10 @@
          <lastmod>2024-09-19</lastmod>
     </url>
     <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.0/rsu.html</loc>
+         <lastmod>2024-09-19</lastmod>
+    </url>
+    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.0/secure-network.html</loc>
          <lastmod>2024-09-19</lastmod>
     </url>
@@ -182,6 +186,10 @@
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.0/threading-model.html</loc>
+         <lastmod>2024-09-19</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.0/toi.html</loc>
          <lastmod>2024-09-19</lastmod>
     </url>
     <url>

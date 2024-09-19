@@ -21,7 +21,7 @@
         <link rel="prev" href="online-schema-upgrade.html">
       
       
-        <link rel="next" href="quickstart-overview.html">
+        <link rel="next" href="rsu.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU) - Percona XtraDB Cluster</title>
+        <title>Non-Blocking Operations (NBO) - Percona XtraDB Cluster</title>
       
     
     
@@ -93,7 +93,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Non-Blocking Operations (NBO)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -119,7 +119,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu" class="md-skip">
+        <a href="#non-blocking-operations-nbo" class="md-skip">
           Skip to content
         </a>
       
@@ -194,7 +194,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
+              Non-Blocking Operations (NBO)
             
           </span>
         </div>
@@ -1028,19 +1028,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1054,7 +1052,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -1098,117 +1096,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="online-schema-upgrade.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Online schema upgrade
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="nbo.html" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
-  </span>
-  
-
-      </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#supported-ddl-statements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Supported DDL statements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Limitations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-expert-help" class="md-nav__link">
-    <span class="md-ellipsis">
-      Get expert help
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2065,17 +1952,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
           <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
@@ -2089,7 +1978,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             How-tos
@@ -2187,48 +2076,6 @@
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    How to set up a three-node cluster on a single box
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    How to set up a three-node cluster in EC2 environment
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="haproxy.html" class="md-nav__link">
         
   
@@ -2289,6 +2136,204 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10_8" id="__nav_10_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Online schema upgrade
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10_8">
+            <span class="md-nav__icon md-icon"></span>
+            Online schema upgrade
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="online-schema-upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online schema upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Non-Blocking Operations (NBO)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="nbo.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Non-Blocking Operations (NBO)
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-ddl-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported DDL statements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="rsu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rolling schema upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="toi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Total Order Isolation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -2297,6 +2342,48 @@
   
   <span class="md-ellipsis">
     ProxySQL admin utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="singlebox.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to set up a three-node cluster on a single box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to set up a three-node cluster in EC2 environment
   </span>
   
 
@@ -2681,7 +2768,7 @@
   
 
 
-<h1 id="non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu">Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)<a class="headerlink" href="#non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu" title="Permanent link">&para;</a></h1>
+<h1 id="non-blocking-operations-nbo">Non-Blocking Operations (NBO)<a class="headerlink" href="#non-blocking-operations-nbo" title="Permanent link">&para;</a></h1>
 <p>An <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> can be a daily issue in an environment with accelerated development and deployment. The task becomes more difficult as the data grows. An <code>ALTER TABLE</code> statement is a multi-step operation and must run until it is complete. Aborting the statement may be more expensive than letting it complete.</p>
 <p>The Non-Blocking Operations (NBO) method is similar to the <code>TOI</code> method (see <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> for more information on the available types of online schema upgrades). Every replica processes the DDL statement at the same point in the cluster transaction stream, and other transactions cannot commit during the operation. The <code>NBO</code> method provides a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking cluster updates.</p>
 <p>In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_lock_wait_timeout"><code>lock_wait_timeout</code></a> system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause <code>infinite</code> waits and should not be used with the <code>NBO</code> method.</p>
@@ -2731,7 +2818,7 @@
   <small>
     
       Last update:
-      2023-07-21
+      2024-07-15
     
   </small>
 </div>
