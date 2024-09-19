@@ -177,8 +177,7 @@ nav:
   - Features:
       - high-availability.md
       - strict-mode.md
-      - online-schema-upgrade.md
-      - nbo.md
+     
   - Quickstart guide:
       - quickstart-overview.md
       - get-started-cluster.md
@@ -219,13 +218,21 @@ nav:
       - configure-cluster-rhel.md
       - configure-cluster-ubuntu.md
       - garbd-howto.md
-      - singlebox.md
-      - set-up-3nodes-ec2.md
       - haproxy.md
       - haproxy-config.md
       - load-balance-proxysql.md
-
+      - Online schema upgrade:
+        - online-schema-upgrade.md
+        - nbo.md
+        - rsu.md
+        - toi.md
       - proxysql-v2.md
+      - singlebox.md
+      - set-up-3nodes-ec2.md
+
+  
+
+
       - virtual-sandbox.md
 
   - Reference:
