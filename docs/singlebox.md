@@ -152,3 +152,27 @@ To set up the cluster:
     ```{.bash data-prompt="$"}
     $ mysql -h127.0.0.1 -P5000 -e "CREATE DATABASE hello_peter"
     ```
+
+## Troubleshoot
+
+`mysqld_safe` has its own section in the MySQL configuration file, and can use the log_error option from that section. If the log_error option is not specified in the [mysqld_safe] section, `mysqld_safe` does not default to the log_error option from the [mysqld] section. 
+Instead, it redirects the error output to `syslog` if no error log file is specified.
+
+```text
+
+Jun 19 12:34:56 hostname mysqld_safe: 2024-06-19T12:34:56.789012Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [Note] /usr/sbin/mysqld (mysqld 8.0.35) starting as process 12345 ...
+Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Failed to open the error log file (file '/var/log/mysql/mysql-error.log'). Error: 2 - No such file or directory
+Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Could not use /var/log/mysql/mysql-error.log for logging (error 13 - Permission denied). Turning logging off for the duration of the session.
+```
+
+### Check and fix missing error logs
+
+
+| Action                  | Description                                                                                          |
+|-------------------------|------------------------------------------------------------------------------------------------------|
+| Verify the configuration| Ensure that the `log_error` option in the MySQL configuration file (`my.cnf` or `my.ini`) is correctly set. |
+| Check permissions       | Make sure the MySQL user has the correct permissions to write to the specified log file and its directory. |
+| Create missing directories | If the directory specified in `log_error` does not exist, create it with the appropriate permissions. |
+
+If you have made changes, restart the server.
