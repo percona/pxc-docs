@@ -7,9 +7,9 @@ of a crash to minimize downtime.
 The daemon accepts incoming traffic from MySQL clients and forwards it to
 backend MySQL servers.
 
-The proxy is designed to run continuously without needing to be restarted.  Most
+The proxy is designed to run continuously without needing to be restarted. Most
 configuration can be done at runtime using queries similar to SQL statements in
-the ProxySQL admin interface.  These include runtime parameters, server
+the ProxySQL admin interface. These include runtime parameters, server
 grouping, and traffic-related settings.
 
 !!! admonition "See also"
@@ -21,18 +21,18 @@ grouping, and traffic-related settings.
 
 !!! important
 
-    In version {{vers}}, Percona XtraDB Cluster does not support ProxySQL v1.  
+    In version {{vers}}, Percona XtraDB Cluster does not support ProxySQL v1.
 
 ## Manual configuration
 
 This section describes how to configure ProxySQL with three Percona XtraDB Cluster nodes.
 
-| Node| Host Name| IP address|
-| ---- | -------- | --------- |
-| Node 1| pxc1| 192.168.70.71|
-| Node 2| pxc2| 192.168.70.72|
-| Node 3| pxc3 | 192.168.70.73|
-| Node 4| proxysql| 192.168.70.74|
+| Node   | Host Name | IP address    |
+| ------ | --------- | ------------- |
+| Node 1 | pxc1      | 192.168.70.71 |
+| Node 2 | pxc2      | 192.168.70.72 |
+| Node 3 | pxc3      | 192.168.70.73 |
+| Node 4 | proxysql  | 192.168.70.74 |
 
 ProxySQL can be configured either using the `/etc/proxysql.cnf` file or
 through the admin interface. The admin interface is recommended because this interface can dynamically change the configuration without restarting the proxy.
@@ -45,20 +45,20 @@ For this tutorial, install Percona XtraDB Cluster on Node 4:
 
 **Changes in the installation procedure**
 
-In Percona XtraDB Cluster {{vers}}, ProxySQL is not installed automatically as a dependency of the ``percona-xtradb-cluster-client-8.0`` package. You should install the ``proxysql`` package separately.
+In Percona XtraDB Cluster {{vers}}, ProxySQL is not installed automatically as a dependency of the `percona-xtradb-cluster-client-8.4` package. You should install the `proxysql` package separately.
 
-!!! note 
+!!! note
 
     ProxySQL has multiple versions in the version 2 series.
 
-* On Debian or Ubuntu for ProxySQL 2.x:
+- On Debian or Ubuntu for ProxySQL 2.x:
 
 ```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# apt install percona-xtradb-cluster-client
 root@proxysql:~# apt install proxysql2
 ```
 
-* On Red Hat Enterprise Linux or CentOS for ProxySQL 2.x:
+- On Red Hat Enterprise Linux or CentOS for ProxySQL 2.x:
 
 ```{.bash data-prompt="$"}
 $ sudo yum install Percona-XtraDB-Cluster-client-80
@@ -150,8 +150,8 @@ The following output shows the ProxySQL tables:
 For more information about admin databases and tables,
 see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md)
 
-!!! note 
-    
+!!! note
+
     The ProxySQL configuration can reside in the following areas:
 
 
@@ -172,8 +172,8 @@ see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tabl
 To configure the backend Percona XtraDB Cluster nodes in ProxySQL,
 insert corresponding records into the `mysql_servers` table.
 
-!!! note 
-    
+!!! note
+
     ProxySQL uses the concept of *hostgroups* to group cluster nodes.
     This enables you to balance the load in a cluster by
     routing different types of traffic to different groups.
@@ -217,10 +217,21 @@ To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL,
 create a user with `USAGE` privilege on any node in the cluster
 and configure the user in ProxySQL.
 
-The following example shows how to add a monitoring user on Node 2:
+The following example shows how to add a monitoring user on Node 2 if you are using the depreated`mysql_native_password` authentication method:
 
 ```{.bash data-prompt="mysql@pxc2>"}
 mysql@pxc2> CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
+```
+
+The following example adds a monitoring user on Node 2 if you are using the `caching_sha2_password` authentication method:
+
+```{.bash data-prompt="mysql@pxc2>"}
+mysql@pxc2> CREATE USER 'proxysql'@'%' IDENTIFIED WITH caching_sha2_password by '$3Kr$t';
+```
+
+Grant the user account privileges:
+
+```{.bash data-prompt="mysql@pxc2>"}
 mysql@pxc2> GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
@@ -373,13 +384,13 @@ mysql@pxc3> GRANT ALL ON *.* TO 'sbuser'@'192.168.70.74';
 
 You can install `sysbench` from Percona software repositories:
 
-* For Debian or Ubuntu:
+- For Debian or Ubuntu:
 
 ```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# apt install sysbench
 ```
 
-* For Red Hat Enterprise Linux or CentOS
+- For Red Hat Enterprise Linux or CentOS
 
 ```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# yum install sysbench
@@ -391,31 +402,31 @@ root@proxysql:~# yum install sysbench
 
 1. Create the database that will be used for testing on one of the Percona XtraDB Cluster nodes:
 
-    ```{.bash data-prompt="mysql@pxc1>"}
-    mysql@pxc1> CREATE DATABASE sbtest;
-    ```
+   ```{.bash data-prompt="mysql@pxc1>"}
+   mysql@pxc1> CREATE DATABASE sbtest;
+   ```
 
 2. Populate the table with data for the benchmark on the ProxySQL node:
 
-    ```{.bash data-prompt="root@proxysql:~#"}
-    root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
-    --num-requests=0 --max-time=20 \
-    --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
-    --mysql-user='sbuser' --mysql-password='sbpass' \
-    --oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
-    prepare
-    ```
+   ```{.bash data-prompt="root@proxysql:~#"}
+   root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
+   --num-requests=0 --max-time=20 \
+   --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
+   --mysql-user='sbuser' --mysql-password='sbpass' \
+   --oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
+   prepare
+   ```
 
 3. Run the benchmark on the ProxySQL node:
 
-    ```{.bash data-prompt="root@proxysql:~#"}
-    root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
-    --num-requests=0 --max-time=20 \
-    --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
-    --mysql-user='sbuser' --mysql-password='sbpass' \
-    --oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
-    run
-    ```
+   ```{.bash data-prompt="root@proxysql:~#"}
+   root@proxysql:~# sysbench --report-interval=5 --num-threads=4 \
+   --num-requests=0 --max-time=20 \
+   --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
+   --mysql-user='sbuser' --mysql-password='sbpass' \
+   --oltp-table-size=10000 --mysql-host=127.0.0.1 --mysql-port=6033 \
+   run
+   ```
 
 ProxySQL stores collected data in the `stats` schema:
 
@@ -567,51 +578,51 @@ Initiating `pxc_maint_mode=MAINTENANCE` does not disconnect existing connections
 Assisted maintenance mode is controlled via the `pxc_maint_mode` variable,
 which is monitored by ProxySQL and can be set to one of the following values:
 
-* `DISABLED`: This value is the default state
-that tells ProxySQL to route traffic to the node as usual.
+- `DISABLED`: This value is the default state
+  that tells ProxySQL to route traffic to the node as usual.
 
-* `SHUTDOWN`: This state is set automatically when you initiate node shutdown.
+- `SHUTDOWN`: This state is set automatically when you initiate node shutdown.
 
-    You may need to shut down a node when upgrading the OS, adding resources,
-    changing hardware parts, relocating the server, etc.
+  You may need to shut down a node when upgrading the OS, adding resources,
+  changing hardware parts, relocating the server, etc.
 
-    When you initiate node shutdown, Percona XtraDB Cluster does not send the signal immediately.
-    Intead, it changes the state to `pxc_maint_mode=SHUTDOWN`
-    and waits for a predefined period (10 seconds by default).
-    When ProxySQL detects that the mode is set to `SHUTDOWN`,
-    it changes the status of this node to `OFFLINE_SOFT`. This status stops creating new node connections.
-    After the transition period, long-running active transactions are aborted.
+  When you initiate node shutdown, Percona XtraDB Cluster does not initiate the server shutdown process immediately.
+  Intead, it changes the state to `pxc_maint_mode=SHUTDOWN`
+  and waits for a predefined period (10 seconds by default).
+  When ProxySQL detects that the mode is set to `SHUTDOWN`,
+  it changes the status of this node to `OFFLINE_SOFT`. This status stops creating new node connections.
+  After the transition period, long-running active transactions are aborted.
 
-* `MAINTENANCE`: You can change to this state
-if you need to perform maintenance on a node without shutting it down.
+- `MAINTENANCE`: You can change to this state
+  if you need to perform maintenance on a node without shutting it down.
 
-    You may need to isolate the node for a specific time
-    so that it does not receive traffic from ProxySQL
-    while you resize the buffer pool, truncate the undo log,
-    defragment, or check disks, etc.
+      You may need to isolate the node for a specific time
+      so that it does not receive traffic from ProxySQL
+      while you resize the buffer pool, truncate the undo log,
+      defragment, or check disks, etc.
 
-    To do this, manually set `pxc_maint_mode=MAINTENANCE`.
-    Control is not returned to the user for a predefined period
-    (10 seconds by default). You can increase the transition period
-    using the `pxc_maint_transition_period` variable
-    to accommodate long-running transactions.
-    If the period is long enough for all transactions to finish,
-    there should be little disruption in the cluster workload. If you increase 
-    the transition period, the packaging script may determine the wait as a server stall.
+      To do this, manually set `pxc_maint_mode=MAINTENANCE`.
+      Control is not returned to the user for a predefined period
+      (10 seconds by default). You can increase the transition period
+      using the `pxc_maint_transition_period` variable
+      to accommodate long-running transactions.
+      If the period is long enough for all transactions to finish,
+      there should be little disruption in the cluster workload. If you increase
+      the transition period, the packaging script may determine the wait as a server stall.
 
-    When ProxySQL detects that the mode is set to `MAINTENANCE`,
-    it stops routing traffic to the node. During the transition period,
-    any existing connections continue, but ProxySQL avoids opening new connections and starting transactions.
-    Still, the user can open connections to monitor status.
-    
-    Once control is returned, you can perform maintenance activity.
+      When ProxySQL detects that the mode is set to `MAINTENANCE`,
+      it stops routing traffic to the node. During the transition period,
+      any existing connections continue, but ProxySQL avoids opening new connections and starting transactions.
+      Still, the user can open connections to monitor status.
 
-    !!! note
+      Once control is returned, you can perform maintenance activity.
 
-        Data changes continue to be replicated across the cluster.
+      !!! note
 
-    After you finish maintenance, set the mode back to `DISABLED`.
-    When ProxySQL detects this, it starts routing traffic to the node again.
+          Data changes continue to be replicated across the cluster.
+
+      After you finish maintenance, set the mode back to `DISABLED`.
+      When ProxySQL detects this, it starts routing traffic to the node again.
 
 **Related sections**
 
