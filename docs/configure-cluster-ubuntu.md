@@ -122,19 +122,6 @@ cluster status can be checked with the following command:
 
     This output shows that the cluster has been successfully bootstrapped.
 
-To perform [State Snapshot Transfer](state-snapshot-transfer.md#state-snapshot-transfer) using *XtraBackup*,
-set up a new user with proper [privileges](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html):
-
-```{.bash data-prompt="mysql@pxc1>"}
-mysql@pxc1> CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cretPass';
-mysql@pxc1> GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
-mysql@pxc1> FLUSH PRIVILEGES;
-```
-
-!!! note
-
-    MySQL root account can also be used for performing SST, but it is more secure to use a different (non-root) user for this.
-
 ## Step 3. Configure the second node
 
 1. Make sure that the configuration file `/etc/mysql/my.cnf`
