@@ -26,7 +26,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -34,7 +34,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.">
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -2972,16 +2972,6 @@ cluster status can be checked with the following command:</p>
 <p>This output shows that the cluster has been successfully bootstrapped.</p>
 </li>
 </ol>
-<p>To perform <a href="state-snapshot-transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
-set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">privileges</a>:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>MySQL root account can also be used for performing SST, but it is more secure to use a different (non-root) user for this.</p>
-</div>
 <h2 id="step-3-configure-the-second-node">Step 3. Configure the second node<a class="headerlink" href="#step-3-configure-the-second-node" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -3202,7 +3192,7 @@ are synchronized and working as intended.</p>
   <small>
     
       Last update:
-      2024-04-09
+      2024-10-08
     
   </small>
 </div>
@@ -3303,7 +3293,7 @@ are synchronized and working as intended.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
