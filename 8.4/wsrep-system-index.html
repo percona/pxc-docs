@@ -1,0 +1,5933 @@
+
+  
+  
+  
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Percona XtraDB Cluster introduces a number of MySQL system variables
+related to write-set replication.">
+      
+      
+        <meta name="author" content="Percona LLC">
+      
+      
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html">
+      
+      
+        <link rel="prev" href="wsrep-status-index.html">
+      
+      
+        <link rel="next" href="wsrep-provider-index.html">
+      
+      
+      <link rel="icon" href="assets/mysql-fav.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>Index of wsrep system variables - Percona XtraDB Cluster</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+      <link rel="stylesheet" href="css/design.css">
+    
+      <link rel="stylesheet" href="css/osano.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="css/nocopy.css">
+    
+      <link rel="stylesheet" href="css/mysql.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-J4J70BNH0G"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-J4J70BNH0G",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-J4J70BNH0G",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  
+
+               
+               
+               
+               
+               <meta property="og:type" content="website" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Index of wsrep system variables" />
+               <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
+               <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
+            </head>
+            </html>
+
+            
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#index-of-wsrep-system-variables" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      <!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow" data-md-component="header">
+
+  <!-- Super Nav -->
+  <div class="superNav">
+    <div class="md-header__inner md-grid">
+      <a href="https://docs.percona.com/percona-for-mysql/" title="Percona Software for MySQL Documentation">
+        <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <mask id="a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+            <path d="M0 0h24v24H0z"/>
+          </mask>
+          <g mask="url(#a)">
+            <path d="m7.825 13 5.6 5.6L12 20l-8-8 8-8 1.425 1.4-5.6 5.6H20v2H7.825Z"/>
+          </g>
+        </svg>
+        <span>Percona Software for MySQL Documentation</span>
+      </a>
+    </div>
+  </div>
+
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="index.html"
+      title="Percona XtraDB Cluster"
+      class="md-header__button md-logo"
+      aria-label="Percona XtraDB Cluster"
+      data-md-component="logo"
+    >
+      
+  <img src="assets/mysql-mark.svg" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title">
+      <div class="md-header__ellipsis">
+        <a href="index.html" class="md-header__topic">
+          <span class="md-ellipsis">
+            Percona XtraDB Cluster
+          </span>
+        </a>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Index of wsrep system variables
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Color theme set to Automatic. Click to change"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Color theme set to Automatic. Click to change" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="percona-light" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Color theme set to Light Mode. Click to change"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Color theme set to Light Mode. Click to change" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="percona-dark" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Color theme set to Dark Mode. Click to change"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Color theme set to Dark Mode. Click to change" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+      
+  <img src="assets/mysql-mark.svg" alt="logo">
+
+    </a>
+    Percona XtraDB Cluster
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/percona/pxc-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    percona/pxc-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Release notes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Release notes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Release notes index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Introduction
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="intro.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="limitation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster limitations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand version numbers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="high-availability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High availability
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="strict-mode.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster strict mode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="online-schema-upgrade.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online schema upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nbo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Quickstart guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Quickstart guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quickstart-overview.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quickstart Guide for Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="get-started-cluster.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get started with Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Get started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Get started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="install-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apt.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona XtraDB Cluster on Debian or Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="yum.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tarball.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Percona XtraDB Cluster from Binary Tarball
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="compile.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile and install from Source Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Percona XtraDB Cluster in a Docker Container
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure-nodes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure nodes for write-set replication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bootstrap the first node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="add-node.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Add nodes to cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="verify-replication.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Verify replication
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Upgrade
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Upgrade
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrade-guide.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrade-from-backup.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade from backup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PXC security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            PXC security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="security-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security basics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure-network.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure the network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="encrypt-traffic.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt PXC traffic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apparmor.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enable AppArmor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="selinux.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enable SELinux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User's manual
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            User's manual
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="state-snapshot-transfer.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    State snapshot transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="xtrabackup-sst.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona XtraBackup SST configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="restarting-nodes.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restart the cluster nodes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="failover.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cluster failover
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="monitoring.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor the cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="certification.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Certification in Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="threading-model.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster threading model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcache-record-set-cache-difference.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Understand GCache and Record-Set cache
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GCache encryption and Write-Set cache encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance-schema-instrumentation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Perfomance Schema instrumentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data at Rest Encryption
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    How-tos
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            How-tos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="crash-recovery.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crash recovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure-cluster-rhel.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure a cluster on Red Hat-based distributions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="configure-cluster-ubuntu.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configure a cluster on Debian or Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="garbd-howto.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Set up Galera arbitrator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="singlebox.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to set up a three-node cluster on a single box
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to set up a three-node cluster in EC2 environment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="haproxy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load balancing with HAProxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="load-balance-proxysql.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load balance with ProxySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="proxysql-v2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ProxySQL admin utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual-sandbox.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Set up a testing environment with ProxySQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wsrep-status-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index of wsrep status variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Index of wsrep system variables
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="wsrep-system-index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Index of wsrep system variables
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_encrypt_cluster_traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_encrypt_cluster_traffic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_maint_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_maint_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_maint_transition_period" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_maint_transition_period
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_strict_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_strict_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_fk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_FK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_threads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_uk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_UK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_auto_increment_control" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_auto_increment_control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_causal_reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_causal_reads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_certification_rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_certification_rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_certify_nonpk" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_certify_nonPK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_cluster_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_cluster_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_cluster_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_cluster_name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_data_home_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_data_home_dir
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_dbug_option" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_dbug_option
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_debug
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_desync" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_desync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_dirty_reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_dirty_reads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_drupal_282555_workaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_drupal_282555_workaround
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_forced_binlog_format" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_forced_binlog_format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_ignore_apply_errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_ignore_apply_errors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_min_log_verbosity" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_min_log_verbosity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_load_data_splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_load_data_splitting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_log_conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_log_conflicts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_max_ws_rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_max_ws_rows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_max_ws_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_max_ws_size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_incoming_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_incoming_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_notify_cmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_notify_cmd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_on
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_osu_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_OSU_method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_provider
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_provider_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_provider_options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_recover" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_recover
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_reject_queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_reject_queries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_replicate_myisam" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_replicate_myisam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_restart_replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_restart_replica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_restart_slave" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_restart_slave
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_retry_autocommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_retry_autocommit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_rsu_commit_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_RSU_commit_timeout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_fk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_FK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_threads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_uk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_UK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sr_store" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_SR_store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_allowed_methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_allowed_methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_donor" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_donor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_receive_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_receive_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_start_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_start_position
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sync_wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sync_wait
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_trx_fragment_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_trx_fragment_size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_trx_fragment_unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_trx_fragment_unit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index of wsrep_provider options
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wsrep-files-index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index of files created by PXC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="telemetry.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Telemetry on Percona XtraDB Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently asked questions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="glossary.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copyright and licensing information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trademark-policy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Trademark policy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                    <br>
+                    <label class="md-nav__title" for="__drawer">
+                      <a href="https://learn.percona.com/download-percona-xtradb-cluster-8.4-manual" onclick="_gaq.push(['b._trackEvent', 'Percona XtraDB Cluster', 'Download', 'Download Manual Percona XtraDB Cluster']);" class="md-nav__link md-nav__link--active" style="font-size: .7rem;"> Download PDF
+                      </a>
+                    </label> 
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_encrypt_cluster_traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_encrypt_cluster_traffic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_maint_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_maint_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_maint_transition_period" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_maint_transition_period
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pxc_strict_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      pxc_strict_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_fk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_FK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_threads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_applier_uk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_applier_UK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_auto_increment_control" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_auto_increment_control
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_causal_reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_causal_reads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_certification_rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_certification_rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_certify_nonpk" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_certify_nonPK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_cluster_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_cluster_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_cluster_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_cluster_name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_data_home_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_data_home_dir
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_dbug_option" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_dbug_option
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_debug
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_desync" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_desync
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_dirty_reads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_dirty_reads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_drupal_282555_workaround" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_drupal_282555_workaround
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_forced_binlog_format" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_forced_binlog_format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_ignore_apply_errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_ignore_apply_errors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_min_log_verbosity" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_min_log_verbosity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_load_data_splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_load_data_splitting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_log_conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_log_conflicts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_max_ws_rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_max_ws_rows
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_max_ws_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_max_ws_size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_incoming_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_incoming_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_node_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_node_name
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_notify_cmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_notify_cmd
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_on
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_osu_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_OSU_method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_provider
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_provider_options" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_provider_options
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_recover" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_recover
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_reject_queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_reject_queries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_replicate_myisam" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_replicate_myisam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_restart_replica" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_restart_replica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_restart_slave" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_restart_slave
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_retry_autocommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_retry_autocommit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_rsu_commit_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_RSU_commit_timeout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_fk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_FK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_threads
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_slave_uk_checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_slave_UK_checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sr_store" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_SR_store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_allowed_methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_allowed_methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_donor" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_donor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_method" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sst_receive_address" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sst_receive_address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_start_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_start_position
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_sync_wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_sync_wait
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_trx_fragment_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_trx_fragment_size
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsrep_trx_fragment_unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      wsrep_trx_fragment_unit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-expert-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get expert help
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            <script>
+              !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+              posthog.init('phc_7unoI9J6Fm0SMrfDp35xNOpCRTkOAibbffQwdGWbHnL',{api_host:'https://eu.posthog.com'})
+          </script>
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/wsrep-system-index.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/wsrep-system-index.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster introduces a number of MySQL system variables
+related to write-set replication.</p>
+<h3 id="pxc_encrypt_cluster_traffic"><code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--pxc-encrypt-cluster-traffic</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>Enables automatic configuration of SSL encryption.
+When disabled, you need to configure SSL manually to encrypt Percona XtraDB Cluster traffic.</p>
+<p>Possible values:</p>
+<ul>
+<li>
+<p><code>ON</code>, <code>1</code>, <code>true</code>: Enabled (default)</p>
+</li>
+<li>
+<p><code>OFF</code>, <code>0</code>, <code>false</code>: Disabled </p>
+</li>
+</ul>
+<p>For more information, see <a href="encrypt-traffic.html#ssl-auto-conf">SSL Automatic Configuration</a>.</p>
+<h3 id="pxc_maint_mode"><code>pxc_maint_mode</code><a class="headerlink" href="#pxc_maint_mode" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--pxc-maint-mode</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>DISABLED</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the maintenance mode for taking a node down
+without adjusting settings in ProxySQL.</p>
+<p>The following values are available:</p>
+<ul>
+<li>
+<p><code>DISABLED</code>: This is the default state
+that tells ProxySQL to route traffic to the node as usual.</p>
+</li>
+<li>
+<p><code>SHUTDOWN</code>: This state is set automatically
+when you initiate node shutdown.</p>
+</li>
+<li>
+<p><code>MAINTENANCE</code>: You can manually change to this state
+if you need to perform maintenance on a node without shutting it down.</p>
+</li>
+</ul>
+<p>For more information, see <a href="load-balance-proxysql.html#pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<h3 id="pxc_maint_transition_period"><code>pxc_maint_transition_period</code><a class="headerlink" href="#pxc_maint_transition_period" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--pxc-maint-transition-period</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>10</code> (ten seconds)</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the transition period when you change <a href="wsrep-system-index.html#pxc_maint_mode"><code>pxc_maint_mode</code></a> to <code>SHUTDOWN</code> or <code>MAINTENANCE</code>.
+By default, the period is set to 10 seconds,
+which should be enough for most transactions to finish.
+You can increase the value to accommodate for longer-running transactions.</p>
+<p>For more information, see <a href="load-balance-proxysql.html#pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<h3 id="pxc_strict_mode"><code>pxc_strict_mode</code><a class="headerlink" href="#pxc_strict_mode" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--pxc-strict-mode</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ENFORCING</code> or <code>DISABLED</code></td>
+</tr>
+</tbody>
+</table>
+<p>Controls <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
+<p>Depending on the actual mode you select,
+upon encountering a failed validation,
+the server will either throw an error
+(halting startup or denying the operation),
+or log a warning and continue running as normal.
+The following modes are available:</p>
+<ul>
+<li>
+<p><code>DISABLED</code>: Do not perform strict mode validations
+and run as normal.</p>
+</li>
+<li>
+<p><code>PERMISSIVE</code>: If a validation fails, log a warning and continue running
+as normal.</p>
+</li>
+<li>
+<p><code>ENFORCING</code>: If a validation fails during startup,
+halt the server and throw an error.
+If a validation fails during runtime,
+deny the operation and throw an error.</p>
+</li>
+<li>
+<p><code>MASTER</code>: The same as <code>ENFORCING</code> except that the validation of
+<a href="strict-mode.html#explicit-table-locking">explicit table locking</a> is not performed.
+This mode can be used with clusters
+in which write operations are isolated to a single node.</p>
+</li>
+</ul>
+<p>By default, <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>,
+except if the node is acting as a standalone server
+or the node is bootstrapping, then <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> defaults to <code>DISABLED</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When changing the value of <code>pxc_strict_mode</code>
+from <code>DISABLED</code> or <code>PERMISSIVE</code> to <code>ENFORCING</code> or <code>MASTER</code>,
+ensure that the following configuration is used:</p>
+<ul>
+<li>
+<p><code>wsrep_replicate_myisam=OFF</code></p>
+</li>
+<li>
+<p><code>binlog_format=ROW</code></p>
+</li>
+<li>
+<p><code>log_output=FILE</code> or <code>log_output=NONE</code> or <code>log_output=FILE,NONE</code></p>
+</li>
+</ul>
+<p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
+</div>
+<p>For more information, see <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a>.</p>
+<h3 id="wsrep_applier_fk_checks"><code>wsrep_applier_FK_checks</code><a class="headerlink" href="#wsrep_applier_fk_checks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-applier-FK-checks</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_slave_FK_checks</code> variable is deprecated in favor of this variable.</p>
+<p>Defines whether foreign key checking is done for applier threads.
+This is enabled by default.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-fk-checks"><code>MySQL wsrep option: wsrep_applier_FK_checks</code></a></p>
+</div>
+<h3 id="wsrep_applier_threads"><code>wsrep_applier_threads</code><a class="headerlink" href="#wsrep_applier_threads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-applier-threads</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_slave_threads</code> variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_threads</code> variable.</p>
+<p>Specifies the number of threads
+that can apply replication transactions in parallel.
+Galera supports true parallel replication
+that applies transactions in parallel only when it is safe to do so.
+This variable is dynamic.
+You can increase/decrease it at any time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you decrease the number of threads,
+it won&rsquo;t kill the threads immediately,
+but stop them after they are done applying current transaction
+(the effect with an increase is immediate though).</p>
+</div>
+<p>If any replication consistency problems are encountered,
+it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
+The default value can be increased for better throughput.</p>
+<p>You may want to increase it as suggested in <a href="https://galeracluster.com/library/documentation/node-states.html"><code>Codership documentation for flow control</code></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
+<p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://galeracluster.com/library/training/tutorials/galera-monitoring.html">in the Galera Cluster documentation</a>.</p>
+<p>For more configuration tips, see <a href="https://galeracluster.com/library/kb/parallel-applier-threads.html">Setting Parallel Slave Threads`</a>.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-threads"><code>MySQL wsrep option: wsrep_applier_threads</code></a></p>
+</div>
+<h3 id="wsrep_applier_uk_checks"><code>wsrep_applier_UK_checks</code><a class="headerlink" href="#wsrep_applier_uk_checks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-applier-UK-checks</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_slave_UK_checks</code> variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_UK_checks</code> variable.</p>
+<p>Defines whether unique key checking is done for applier threads.
+This is disabled by default.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-uk-checks"><code>MySQL wsrep option: wsrep_applier_UK_checks</code></a></p>
+</div>
+<h3 id="wsrep_auto_increment_control"><code>wsrep_auto_increment_control</code><a class="headerlink" href="#wsrep_auto_increment_control" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-auto-increment-control</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>Enables automatic adjustment of auto-increment system variables
+depending on the size of the cluster:</p>
+<ul>
+<li>
+<p><code>auto_increment_increment</code> controls the interval
+between successive <code>AUTO_INCREMENT</code> column values</p>
+</li>
+<li>
+<p><code>auto_increment_offset</code> determines the starting point
+for the <code>AUTO_INCREMENT</code> column value</p>
+</li>
+</ul>
+<p>This helps prevent auto-increment replication conflicts across the cluster
+by giving each node its own range of auto-increment values.
+It is enabled by default.</p>
+<p>Automatic adjustment may not be desirable depending on application’s use
+and assumptions of auto-increments.
+It can be disabled in source-replica clusters.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-auto-increment-control"><code>MySQL wsrep option: wsrep_auto_increment_control</code></a></p>
+</div>
+<h3 id="wsrep_causal_reads"><code>wsrep_causal_reads</code><a class="headerlink" href="#wsrep_causal_reads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-causal-reads</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>In some cases, the source may apply events faster than a replica,
+which can cause source and replica to become out of sync for a brief moment.
+When this variable is set to <code>ON</code>, the replica will wait
+until that event is applied before doing any other queries.
+Enabling this variable will result in larger latencies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This variable was deprecated because enabling it is the equivalent of setting
+<a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait</code></a> to <code>1</code>.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-causal-reads"><code>MySQL wsrep option: wsrep_causal_reads</code></a></p>
+</div>
+<h3 id="wsrep_certification_rules"><code>wsrep_certification_rules</code><a class="headerlink" href="#wsrep_certification_rules" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-certification-rules</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Values:</td>
+<td>STRICT, OPTIMIZED</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>STRICT</td>
+</tr>
+</tbody>
+</table>
+<p>This variable controls how certification is done in the cluster, in particular
+this affects how foreign keys are handled.</p>
+<p><strong>STRICT</strong>
+   Two INSERTs that happen at about the same time on two different nodes in a
+   child table, that insert different (non conflicting rows), but both rows
+   point to the same row in the parent table <strong>may result</strong> in the certification
+   failure.</p>
+<p><strong>OPTIMIZED</strong>
+   Two INSERTs that happen at about the same time on two different nodes in a
+   child table, that insert different (non conflicting rows), but both rows
+   point to the same row in the parent table <strong>will not result</strong> in the
+   certification failure.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-certification-rules">Galera Cluster Documentation: MySQL wsrep options</a></p>
+</div>
+<h3 id="wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code><a class="headerlink" href="#wsrep_certify_nonpk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-certify-nonpk</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>Enables automatic generation of primary keys for rows that don’t have them.
+Write set replication requires primary keys on all tables
+to allow for parallel applying of transactions.
+This variable is enabled by default.
+As a rule, make sure that all tables have primary keys.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-certify-nonpk">MySQL wsrep option: wsrep_certify_nonPK</a></p>
+</div>
+<h3 id="wsrep_cluster_address"><code>wsrep_cluster_address</code><a class="headerlink" href="#wsrep_cluster_address" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-cluster-address</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the back-end schema, IP addresses, ports, and options
+that the node uses when connecting to the cluster.
+This variable needs to specify at least one other node’s address,
+which is alive and a member of the cluster.
+In practice, it is best (but not necessary) to provide a complete list
+of all possible cluster nodes.
+The value should be of the following format:</p>
+<div class="highlight"><pre><span></span><code>&lt;schema&gt;://&lt;address&gt;[?&lt;option1&gt;=&lt;value1&gt;[&amp;&lt;option2&gt;=&lt;value2&gt;]],...
+</code></pre></div>
+<p>The only back-end schema currently supported is <code>gcomm</code>.
+The IP address can contain a port number after a colon.
+Options are specified after <code>?</code> and separated by <code>&amp;</code>.
+You can specify multiple addresses separated by commas.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code>wsrep_cluster_address=&quot;gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678&quot;
+</code></pre></div>
+<p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
+(that is, form a new cluster).
+It is not recommended to have empty cluster address in production config
+after the cluster has been bootstrapped initially.
+If you want to bootstrap a new cluster with a node,
+you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-address">MySQL wsrep option: wsrep_cluster_address</a></p>
+</div>
+<h3 id="wsrep_cluster_name"><code>wsrep_cluster_name</code><a class="headerlink" href="#wsrep_cluster_name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-cluster-name</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>my_wsrep_cluster</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the name of the cluster and must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
+<p>Edit the value in the <code>my.cnf</code> in the [galera] section.</p>
+<div class="no-copy highlight"><pre><span></span><code>[galera]
+
+    wsrep_cluster_name=simple-cluster
+</code></pre></div>
+<p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------+----------------+
+| Variable_name      | Value          |
++--------------------+----------------+
+| wsrep_cluster_name | simple-cluster |
++--------------------+----------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It should not exceed 32 characters. A node cannot join the cluster if the cluster names do not match. You must re-bootstrap the cluster after a name change.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-name">MySQL wsrep option: wsrep_cluster_name</a></p>
+</div>
+<h3 id="wsrep_data_home_dir"><code>wsrep_data_home_dir</code><a class="headerlink" href="#wsrep_data_home_dir" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>/var/lib/mysql</code> (or whatever path is specified by <code>datadir</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the path to the directory where the wsrep provider stores its files
+(such as <code>grastate.dat</code>).</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-data-home-dir">MySQL wsrep option: wsrep_data_home_dir</a></p>
+</div>
+<h3 id="wsrep_dbug_option"><code>wsrep_dbug_option</code><a class="headerlink" href="#wsrep_dbug_option" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-dbug-option</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Defines <code>DBUG</code> options to pass to the wsrep provider.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dbug-option">MySQL wsrep option: wsrep_dbug_option</a></p>
+</div>
+<h3 id="wsrep_debug"><code>wsrep_debug</code><a class="headerlink" href="#wsrep_debug" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-debug</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>NONE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Enables debug level logging for the database server and <a href="https://github.com/codership/wsrep-lib"><code>wsrep-lib</code></a> - an integration library for WSREP
+API with additional convenience for transaction processing. By default,
+<code>--wsrep-debug</code> variable is disabled.</p>
+<p>This variable can be used when trying to diagnose problems or when submitting a
+bug.</p>
+<p>You can set <code>wsrep_debug</code> in the following <code>my.cnf</code> groups:</p>
+<ul>
+<li>
+<p>Under <code>[mysqld]</code> it enables debug logging for <code>mysqld</code> and the SST script.</p>
+</li>
+<li>
+<p>Under <code>[sst]</code> it enables debug logging for the SST script only.</p>
+</li>
+</ul>
+<p>This variable may be set to one of the following values:</p>
+<p><strong>NONE</strong></p>
+<p>No debug-level messages.</p>
+<p><strong>SERVER</strong></p>
+<p><code>wsrep-lib</code> general debug-level messages and detailed debug-level messages
+from the <em>server_state</em> part are printed out.  Galera debug-level logs are
+printed out.</p>
+<p><strong>TRANSACTION</strong></p>
+<p>Same as SERVER + wsrep-lib <em>transaction</em> part</p>
+<p><strong>STREAMING</strong></p>
+<p>Same as TRANSACTION + wsrep-lib <em>streaming</em> part</p>
+<p><strong>CLIENT</strong></p>
+<p>Same as STREAMING + wsrep-lib <em>client_service</em> part</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not enable debugging in production environments, because it logs authentication info (that is, passwords).</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-debug">MySQL wsrep option: wsrep_debug</a></p>
+</div>
+<h3 id="wsrep_desync"><code>wsrep_desync</code><a class="headerlink" href="#wsrep_desync" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether the node should participate in Flow Control.
+By default, this variable is disabled,
+meaning that if the receive queue becomes too big,
+the node engages in Flow Control:
+it works through the receive queue until it reaches a more manageable size.
+For more information, see <a href="wsrep-status-index.html#wsrep_local_recv_queue"><code>wsrep_local_recv_queue</code></a> and <a href="wsrep-status-index.html#wsrep_flow_control_interval"><code>wsrep_flow_control_interval</code></a>.</p>
+<p>Enabling this variable will disable Flow Control for the node.
+It will continue to receive write-sets that it is not able to apply,
+the receive queue will keep growing,
+and the node will keep falling behind the cluster indefinitely.</p>
+<p>Toggling this back to <code>OFF</code> will require an IST or an SST,
+depending on how long it was desynchronized.
+This is similar to cluster desynchronization, which occurs during RSU TOI.
+Because of this, it’s not a good idea to enable <code>wsrep_desync</code>
+for a long period of time or for several nodes at once.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also desync a node using the <code>/\*! WSREP_DESYNC \*/</code> query comment.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-desync">MySQL wsrep option: wsrep_desync</a></p>
+</div>
+<h3 id="wsrep_dirty_reads"><code>wsrep_dirty_reads</code><a class="headerlink" href="#wsrep_dirty_reads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-dirty-reads</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Session, Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether the node accepts read queries when in a non-operational state,
+that is, when it loses connection to the Primary Component.
+By default, this variable is disabled and the node rejects all queries,
+because there is no way to tell if the data is correct.</p>
+<p>If you enable this variable, the node will permit read queries
+(<code>USE</code>, <code>SELECT</code>, <code>LOCK TABLE</code>, and <code>UNLOCK TABLES</code>),
+but any command that modifies or updates the database
+on a non-operational node will still be rejected
+(including DDL and DML statements,
+such as <code>INSERT</code>, <code>DELETE</code>, and <code>UPDATE</code>).</p>
+<p>To avoid deadlock errors,
+set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait</code></a> variable to <code>0</code>
+if you enable <code>wsrep_dirty_reads</code>.</p>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var"><code>set_var hint</code></a>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_dirty_reads<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------+
+| @@wsrep_dirty_reads   |
++=======================+
+| OFF                   |
++-----------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_dirty_reads</span><span class="o">=</span>ON<span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_dirty_reads<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+-----------------------+
+| @@wsrep_dirty_reads   |
++=======================+
+| ON                    |
++-----------------------+
+</code></pre></div>
+</details>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dirty-reads">MySQL wsrep option: wsrep_dirty_reads</a></p>
+</div>
+<h3 id="wsrep_drupal_282555_workaround"><code>wsrep_drupal_282555_workaround</code><a class="headerlink" href="#wsrep_drupal_282555_workaround" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-drupal-282555-workaround</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Enables a workaround for MySQL InnoDB bug that affects Drupal
+(<a href="http://drupal.org/node/282555">Drupal bug #282555</a>
+and <a href="http://bugs.mysql.com/bug.php?id=41984">MySQL bug #41984</a>).
+In some cases, duplicate key errors would occur
+when inserting the <code>DEFAULT</code> value into an <code>AUTO_INCREMENT</code> column.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-drupal-282555-workaround">MySQL wsrep option: wsrep_drupal_282555_workaround</a></p>
+</div>
+<h3 id="wsrep_forced_binlog_format"><code>wsrep_forced_binlog_format</code><a class="headerlink" href="#wsrep_forced_binlog_format" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-forced-binlog-format</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>NONE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines a binary log format that will always be effective,
+regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.4/en/binary-log-setting.html"><code>binlog_format</code></a> variable value.</p>
+<p>Possible values for this variable are:</p>
+<ul>
+<li>
+<p><code>ROW</code>: Force row-based logging format</p>
+</li>
+<li>
+<p><code>STATEMENT</code>: Force statement-based logging format</p>
+</li>
+<li>
+<p><code>MIXED</code>: Force mixed logging format</p>
+</li>
+<li>
+<p><code>NONE</code>: Do not force the binary log format and use whatever is set by the <code>binlog_format</code> variable (default)</p>
+</li>
+</ul>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-forced-binlog-format">MySQL wsrep option: wsrep_forced_binlog_format</a></p>
+</div>
+<h3 id="wsrep_ignore_apply_errors"><code>wsrep_ignore_apply_errors</code><a class="headerlink" href="#wsrep_ignore_apply_errors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-ignore-apply-errors</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the rules of wsrep applier behavior on errors. You can change the settings by editing the <code>my.cnf</code> file under <code>[mysqld]</code> or at runtime.</p>
+<p>The variable has the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WSREP_IGNORE_ERRORS_NONE</td>
+<td>All replication errors are treated as errors and will shutdown the node (default behavior)</td>
+</tr>
+<tr>
+<td>WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL</td>
+<td>DROP DATABASE, DROP TABLE, DROP INDEX, ALTER TABLE are converted to a warning if they result in ER_DB_DROP_EXISTS, ER_BAD_TABLE_ERROR OR ER_CANT_DROP_FIELD_OR_KEY errors</td>
+</tr>
+<tr>
+<td>WSREP_IGNORE_ERRORS_ON_RECONCILING_DML</td>
+<td>DELETE events are treated as warnings if they failed because the deleted row was not found (ER_KEY_NOT_FOUND)</td>
+</tr>
+<tr>
+<td>WSREP_IGNORE_ERRORS_ON_DDL</td>
+<td>All DDL errors will be treated as a warning</td>
+</tr>
+<tr>
+<td>WSREP_IGNORE_ERRORS_MAX</td>
+<td>Infers WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML and WSREP_IGNORE_ERRORS_ON_DDL</td>
+</tr>
+</tbody>
+</table>
+<p>Setting the variable between <code>0</code> and <code>7</code> has the following behavior:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>WSREP_IGNORE_ERRORS_NONE</td>
+</tr>
+<tr>
+<td>1</td>
+<td>WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL</td>
+</tr>
+<tr>
+<td>2</td>
+<td>WSREP_IGNORE_ERRORS_ON_RECONCILING_DML</td>
+</tr>
+<tr>
+<td>3</td>
+<td>WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML</td>
+</tr>
+<tr>
+<td>4</td>
+<td>WSREP_IGNORE_ERRORS_ON_DDL</td>
+</tr>
+<tr>
+<td>5</td>
+<td>WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL</td>
+</tr>
+<tr>
+<td>6</td>
+<td>WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML</td>
+</tr>
+<tr>
+<td>7</td>
+<td>WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML, WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep_min_log_verbosity"><code>wsrep_min_log_verbosity</code><a class="headerlink" href="#wsrep_min_log_verbosity" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-min-log-verbosity</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>This variable defines the <em>minimum</em> logging verbosity of wsrep/Galera and acts
+in conjunction with the <code>log_error_verbosity</code> variable. The
+<a href=""><code>wsrep_min_log_verbosity</code></a> has the same values as
+<code>log_error_verbosity</code>.</p>
+<p>The actual log verbosity of wsrep/Galera can be greater than the value of
+<a href=""><code>wsrep_min_log_verbosity</code></a> if <code>log_error_verbosity</code> is greater than
+<a href=""><code>wsrep_min_log_verbosity</code></a>.</p>
+<p>A few examples:</p>
+<table>
+<thead>
+<tr>
+<th>log_error_verbosity</th>
+<th>wsrep_min_log_verbosity</th>
+<th>MySQL Logs Verbosity</th>
+<th>wsrep Logs Verbosity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>system error, warning</td>
+<td>system error, warning, info</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>system error</td>
+<td>system error, warning, info</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>system error</td>
+<td>system error, warning</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>system error, warning, info</td>
+<td>system error, warning, info</td>
+</tr>
+</tbody>
+</table>
+<p>Note the case where <code>log_error_verbosity=3</code> and <code>wsrep_min_log_verbosity=1</code>. The actual log verbosity of wsrep/Galera is <em>3</em> (system error, warning, info) because <code>log_error_verbosity</code> is greater.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_log_error_verbosity">MySQL Documentation: log_error_verbosity</a></p>
+<p><a href="https://galeracluster.com/library/documentation/log.html">Galera Cluster Documentation: Database Server Logs</a></p>
+</div>
+<h3 id="wsrep_load_data_splitting"><code>wsrep_load_data_splitting</code><a class="headerlink" href="#wsrep_load_data_splitting" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-load-data-splitting</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether the node should split large <code>LOAD DATA</code> transactions.
+This variable is enabled by default, meaning that <code>LOAD DATA</code> commands
+are split into transactions of 10 000 rows or less.</p>
+<p>If you disable this variable, then huge data loads may prevent the node
+from completely rolling the operation back in the event of a conflict,
+and whatever gets committed stays committed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It doesn’t work as expected with <code>autocommit=0</code> when enabled.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-load-data-splitting">MySQL wsrep option: wsrep_load_data_splitting</a></p>
+</div>
+<h3 id="wsrep_log_conflicts"><code>wsrep_log_conflicts</code><a class="headerlink" href="#wsrep_log_conflicts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-log-conflicts</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether the node should log additional information about conflicts.
+By default, this variable is disabled
+and Percona XtraDB Cluster uses standard logging features in MySQL.</p>
+<p>If you enable this variable, it will also log table and schema
+where the conflict occurred, as well as the actual values for keys
+that produced the conflict.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-log-conflicts">MySQL wsrep option: wsrep_log_conflicts</a></p>
+</div>
+<h3 id="wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code><a class="headerlink" href="#wsrep_max_ws_rows" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-max-ws-rows</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>0</code> (no limit)</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the maximum number of rows each write-set can contain.</p>
+<p>By default, there is no limit for the maximum number of rows in a write-set.
+The maximum allowed value is <code>1048576</code>.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-max-ws-rows">MySQL wsrep option: wsrep_max_ws_rows</a></p>
+</div>
+<h3 id="wsrep_max_ws_size"><code>wsrep_max_ws_size</code><a class="headerlink" href="#wsrep_max_ws_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep_max_ws_size</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>2147483647</code> (2 GB)</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the maximum write-set size (in bytes).
+Anything bigger than the specified value will be rejected.</p>
+<p>You can set it to any value between <code>1024</code> and the default <code>2147483647</code>.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-max-ws-size">MySQL wsrep option: wsrep_max_ws_size</a></p>
+</div>
+<h3 id="wsrep_mode"><code>wsrep_mode</code><a class="headerlink" href="#wsrep_mode" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-mode</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Defines the node behavior according to a specified value. The value is empty or disabled by default.</p>
+<p>The available values are:</p>
+<ul>
+<li>
+<p><code>Empty</code> - does not change the node behavior.</p>
+</li>
+<li>
+<p><code>IGNORE_NATIVE_REPLICATION_FILTER_RULES</code> - changes the <code>wsrep</code> behavior to ignore native replication filter rules.</p>
+</li>
+</ul>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-mode">MySQL wsrep option: wsrep_mode</a></p>
+</div>
+<h3 id="wsrep_node_address"><code>wsrep_node_address</code><a class="headerlink" href="#wsrep_node_address" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-node-address</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>IP of the first network interface (<code>eth0</code>) and default port (<code>4567</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the network address of the node.
+By default, this variable is set to the IP address
+of the first network interface (usually <code>eth0</code> or <code>enp2s0</code>)
+and the default port (<code>4567</code>).</p>
+<p>While default value should be correct in most cases,
+there are situations when you need to specify it manually.
+For example:</p>
+<ul>
+<li>
+<p>Servers with multiple network interfaces</p>
+</li>
+<li>
+<p>Servers that run multiple nodes</p>
+</li>
+<li>
+<p>Network Address Translation (NAT)</p>
+</li>
+<li>
+<p>Clusters with nodes in more than one region</p>
+</li>
+<li>
+<p>Container deployments, such as Docker</p>
+</li>
+<li>
+<p>Cloud deployments, such as Amazon EC2
+(use the global DNS name instead of the local IP address)</p>
+</li>
+</ul>
+<p>The value should be specified in the following format:</p>
+<div class="highlight"><pre><span></span><code>&lt;ip_address&gt;[:port]
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The value of this variable is also used as the default value
+for the <a href="wsrep-system-index.html#wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code></a> variable and the <a href="wsrep-provider-index.html#ist.recv_addr"><code>ist.recv_addr</code></a> option.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-node-address">MySQL wsrep option: wsrep_node_address</a></p>
+</div>
+<h3 id="wsrep_node_incoming_address"><code>wsrep_node_incoming_address</code><a class="headerlink" href="#wsrep_node_incoming_address" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-node-incoming-address</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>AUTO</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the network address from which the node expects client connections.
+By default, it uses the IP address from <a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a> and port number 3306.</p>
+<p>This information is used for the <a href="wsrep-status-index.html#wsrep_incoming_addresses"><code>wsrep_incoming_addresses</code></a> variable
+which shows all active cluster nodes.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-node-incoming-address">MySQL wsrep option: wsrep_node_incoming_address</a></p>
+</div>
+<h3 id="wsrep_node_name"><code>wsrep_node_name</code><a class="headerlink" href="#wsrep_node_name" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-node-name</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>The node&rsquo;s host name</td>
+</tr>
+</tbody>
+</table>
+<p>Defines a unique name for the node. Defaults to the host name.</p>
+<p>In many situations, you may use the value of this variable as a means to
+identify the given node in the cluster as the alternative to using the node address
+(the value of the <a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The variable <a href="wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a> is an example where you may only use
+the value of <a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_name</code></a> and the node address is not permitted.</p>
+</div>
+<h3 id="wsrep_notify_cmd"><code>wsrep_notify_cmd</code><a class="headerlink" href="#wsrep_notify_cmd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-notify-cmd</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the <a href="https://galeracluster.com/library/documentation/notification-cmd.html">notification command</a>
+that the node should execute
+whenever cluster membership or local node status changes.
+This can be used for alerting or to reconfigure load balancers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The node will block and wait
+until the command or script completes and returns before it can proceed.
+If the script performs any potentially blocking
+or long-running operations, such as network communication,
+you should consider initiating such operations in the background
+and have the script return immediately.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-notify-cmd">MySQL wsrep option: wsrep_notify_cmd</a></p>
+</div>
+<h3 id="wsrep_on"><code>wsrep_on</code><a class="headerlink" href="#wsrep_on" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines if current session transaction changes for a node are replicated to the cluster.</p>
+<p>If set to <code>OFF</code> for a session, no transaction changes are replicated in that session. The setting does not cause the node to leave the cluster, and the node communicates with other nodes.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-on">MySQL wsrep option: wsrep_on</a></p>
+</div>
+<h3 id="wsrep_osu_method"><code>wsrep_OSU_method</code><a class="headerlink" href="#wsrep_osu_method" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-OSU-method</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>TOI</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines the method for Online Schema Upgrade
+that the node uses to replicate DDL statements.</p>
+<p>For information on the available methods, see <a href="online-schema-upgrade.html">Online Schema upgrade</a> and for information on Non-blocking operations, see <a href="nbo.html">NBO</a>.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-osu-method">MySQL wsrep option: wsrep_OSU_method</a></p>
+</div>
+<h3 id="wsrep_provider"><code>wsrep_provider</code><a class="headerlink" href="#wsrep_provider" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-provider</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the path to the Galera library.
+This is usually
+<code>/usr/lib64/libgalera_smm.so</code> on <em>CentOS</em>/<em>RHEL</em> and
+<code>/usr/lib/libgalera_smm.so</code> on <em>Debian</em>/<em>Ubuntu</em>.</p>
+<p>If you do not specify a path or the value is not valid,
+the node will behave as standalone instance of MySQL.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider">MySQL wsrep option: wsrep_provider</a></p>
+</div>
+<h3 id="wsrep_provider_options"><code>wsrep_provider_options</code><a class="headerlink" href="#wsrep_provider_options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-provider-options</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies optional settings for the replication provider
+documented in <a href="wsrep-provider-index.html#wsrep-provider-index">Index of :variable:`wsrep_provider` options</a>.
+These options affect how various situations are handled during replication.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider-options">MySQL wsrep option: wsrep_provider_options</a></p>
+</div>
+<h3 id="wsrep_recover"><code>wsrep_recover</code><a class="headerlink" href="#wsrep_recover" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-recover</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+<tr>
+<td>Location:</td>
+<td>mysqld_safe`</td>
+</tr>
+</tbody>
+</table>
+<p>Recovers database state after crash by parsing GTID from the log.
+If the GTID is found, it will be assigned as the initial position for server.</p>
+<h3 id="wsrep_reject_queries"><code>wsrep_reject_queries</code><a class="headerlink" href="#wsrep_reject_queries" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>NONE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether the node should reject queries from clients.
+Rejecting queries can be useful during upgrades,
+when you want to keep the node up and apply write-sets
+without accepting queries.</p>
+<p>When a query is rejected, the following error is returned:</p>
+<div class="highlight"><pre><span></span><code>Error 1047: Unknown command
+</code></pre></div>
+<p>The following values are available:</p>
+<ul>
+<li>
+<p><code>NONE</code>: Accept all queries from clients (default)</p>
+</li>
+<li>
+<p><code>ALL</code>: Reject all new queries from clients, but maintain existing client connections</p>
+</li>
+<li>
+<p><code>ALL_KILL</code>: Reject all new queries from clients and kill existing client connections</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This variable doesn’t affect Galera replication in any way,
+only the applications that connect to the database are affected.
+If you want to desync a node, use <a href="wsrep-system-index.html#wsrep_desync"><code>wsrep_desync</code></a>.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-reject-queries">MySQL wsrep option: wsrep_reject_queries</a></p>
+</div>
+<h3 id="wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code><a class="headerlink" href="#wsrep_replicate_myisam" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-replicate-myisam</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Session, Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines whether DML statements for MyISAM tables should be replicated.
+It is disabled by default, because MyISAM replication is still experimental.</p>
+<p>On the global level, <code>wsrep_replicate_myisam</code> can be set only during startup.
+On session level, you can change it during runtime as well.</p>
+<p>For older nodes in the cluster, <code>wsrep_replicate_myisam</code> should work
+since the TOI decision (for MyISAM DDL) is done on origin node.
+Mixing of non-MyISAM and MyISAM tables in the same DDL statement
+is not recommended when <code>wsrep_replicate_myisam</code> is disabled,
+since if any table in the list is MyISAM,
+the whole DDL statement is not put under TOI.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You should keep in mind the following when using MyISAM replication:</p>
+<ul>
+<li>
+<p>DDL (CREATE/DROP/TRUNCATE) statements on MyISAM will be replicated irrespective of <a href="wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> value</p>
+</li>
+<li>
+<p>DML (INSERT/UPDATE/DELETE) statements on MyISAM will be replicated only if<a href="wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> is enabled</p>
+</li>
+<li>
+<p>SST will get full transfer irrespective of <a href="wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a>value (it will get MyISAM tables from donor)</p>
+</li>
+<li>
+<p>Difference in configuration of <code>pxc-cluster</code> node on <a href="https://www.percona.com/doc/percona-server/8.4/management/enforce_engine.html">enforce_storage_engine</a> front may result in picking up different engine for the same table on different nodes</p>
+</li>
+<li>
+<p><code>CREATE TABLE AS SELECT</code> (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> is set to <strong>ON</strong>.</p>
+</li>
+</ul>
+</div>
+<h3 id="wsrep_restart_replica"><code>wsrep_restart_replica</code><a class="headerlink" href="#wsrep_restart_replica" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-restart-replica</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_restart_slave</code> variable is deprecated in favor of this variable. </p>
+<p>Defines whether replication replica should be restarted
+when the node joins back to the cluster.
+Enabling this can be useful because asynchronous replication replica thread
+is stopped when the node tries to apply the next replication event
+while the node is in non-primary state.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-restart-replica">MySQL wsrep option: wsrep_restart_slave</a></p>
+</div>
+<h3 id="wsrep_restart_slave"><code>wsrep_restart_slave</code><a class="headerlink" href="#wsrep_restart_slave" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-restart-slave</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_restart_slave</code> variable is deprecated and may be removed in later versions. Use <code>wsrep_restart_replica</code>.</p>
+<p>Defines whether replication replica should be restarted
+when the node joins back to the cluster.
+Enabling this can be useful because asynchronous replication replica thread
+is stopped when the node tries to apply the next replication event
+while the node is in non-primary state.</p>
+<h3 id="wsrep_retry_autocommit"><code>wsrep_retry_autocommit</code><a class="headerlink" href="#wsrep_retry_autocommit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-retry-autocommit</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the number of times autocommit transactions will be retried
+in the cluster if it encounters certification errors.
+In case there is a conflict, it should be safe for the cluster node
+to simply retry the statement without returning an error to the client,
+hoping that it will pass next time.</p>
+<p>This can be useful to help an application using autocommit
+to avoid deadlock errors that can be triggered by replication conflicts.</p>
+<p>If this variable is set to <code>0</code>,
+autocommit transactions won’t be retried.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-retry-autocommit">MySQL wsrep option: wsrep_retry_autocommit</a></p>
+</div>
+<h3 id="wsrep_rsu_commit_timeout"><code>wsrep_RSU_commit_timeout</code><a class="headerlink" href="#wsrep_rsu_commit_timeout" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-RSU-commit-timeout</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>5000</code></td>
+</tr>
+<tr>
+<td>Range:</td>
+<td>From <code>5000</code> (5 milliseconds) to <code>31536000000000</code> (365 days)</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the timeout in microseconds to allow active connection to complete
+COMMIT action before starting RSU.</p>
+<p>While running RSU it is expected that user has isolated the node and there is
+no active traffic executing on the node. RSU has a check to ensure this, and
+waits for any active connection in <code>COMMIT</code> state before starting RSU.</p>
+<p>By default this check has timeout of 5 milliseconds, but in some cases
+COMMIT is taking longer. This variable sets the timeout, and has allowed values
+from the range of (5 milliseconds, 365 days). The value is to be set in
+microseconds. Unit of variable is in micro-secs so set accordingly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RSU operation will not auto-stop node from receiving active traffic.
+So there could be a continuous flow of active traffic while RSU continues to
+wait, and that can result in RSU starvation. User is expected to block
+active RSU traffic while performing operation.</p>
+</div>
+<h3 id="wsrep_slave_fk_checks"><code>wsrep_slave_FK_checks</code><a class="headerlink" href="#wsrep_slave_fk_checks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-slave-FK-checks</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>ON</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_FK_checks</code> variable.</p>
+<p>Defines whether foreign key checking is done for applier threads.
+This is enabled by default.</p>
+<h3 id="wsrep_slave_threads"><code>wsrep_slave_threads</code><a class="headerlink" href="#wsrep_slave_threads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-slave-threads</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_threads</code> variable.</p>
+<p>Specifies the number of threads
+that can apply replication transactions in parallel.
+Galera supports true parallel replication
+that applies transactions in parallel only when it is safe to do so.
+This variable is dynamic.
+You can increase/decrease it at any time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you decrease the number of threads,
+it won’t kill the threads immediately,
+but stop them after they are done applying current transaction
+(the effect with an increase is immediate though).</p>
+</div>
+<p>If any replication consistency problems are encountered,
+it’s recommended to set this back to <code>1</code> to see if that resolves the issue.
+The default value can be increased for better throughput.</p>
+<p>You may want to increase it as suggested
+in <a href="https://galeracluster.com/library/documentation/node-states.html"><code>Codership documentation for flow control</code></a>:
+when the node is in <code>JOINED</code> state,
+increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
+<p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://galeracluster.com/library/training/tutorials/galera-monitoring.html">in the Galera Cluster documentation</a>.</p>
+<p>For more configuration tips, see <a href="https://galeracluster.com/library/kb/parallel-applier-threads.html">this document</a>.</p>
+<h3 id="wsrep_slave_uk_checks"><code>wsrep_slave_UK_checks</code><a class="headerlink" href="#wsrep_slave_uk_checks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-slave-UK-checks</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>OFF</code></td>
+</tr>
+</tbody>
+</table>
+<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_UK_checks</code> variable.</p>
+<p>Defines whether unique key checking is done for applier threads.
+This is disabled by default.</p>
+<h3 id="wsrep_sr_store"><code>wsrep_SR_store</code><a class="headerlink" href="#wsrep_sr_store" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-sr-store</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>table</code></td>
+</tr>
+</tbody>
+</table>
+<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>, which disables the variable. </p>
+<h3 id="wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code><a class="headerlink" href="#wsrep_sst_allowed_methods" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep_sst_allowed_methods</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>xtrabackup-v2</code></td>
+</tr>
+</tbody>
+</table>
+<p>This variable limits SST methods accepted by the server for <a href="#wsrep_sst_method">wsrep_sst_method</a> variable. The default value is <code>xtrabackup-v2</code>.</p>
+<h3 id="wsrep_sst_donor"><code>wsrep_sst_donor</code><a class="headerlink" href="#wsrep_sst_donor" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Specifies a list of nodes (using their <code>wsrep_node_name</code> values)
+that the current node should prefer as donors for <a href="glossary.html#sst">SST</a> and <a href="glossary.html#ist">IST</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Using IP addresses of nodes instead of node names (the value of <a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_name</code></a>) as values of <a href="wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a> results in an error.</p>
+<div class="no-copy highlight"><pre><span></span><code>ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
+to host). Most likely it is due to inability to communicate with the
+cluster primary component. Restart required.
+</code></pre></div>
+</div>
+<p>If the value is empty, the first node in SYNCED state in the index
+becomes the donor and will not be able to serve requests during the state transfer.</p>
+<p>To consider other nodes if the listed nodes are not available,
+add a comma at the end of the list, for example:</p>
+<div class="highlight"><pre><span></span><code>wsrep_sst_donor=node1,node2,
+</code></pre></div>
+<p>If you remove the trailing comma from the previous example,
+then the joining node will consider <em>only</em> <code>node1</code> and <code>node2</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the joiner node does not wait for more than 100 seconds
+to receive the first packet from a donor.
+This is implemented via the <a href="xtrabackup-sst.html#cmdoption-arg-sst-initial-timeout"><code>sst-initial-timeout</code></a> option.
+If you set the list of preferred donors without the trailing comma
+or believe that all nodes in the cluster can often be unavailable for SST
+(this is common for small clusters),
+then you may want to increase the initial timeout
+(or disable it completely
+if you don’t mind the joiner node waiting for the state transfer indefinitely).</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-donor">MySQL wsrep option: wsrep_sst_donor</a></p>
+</div>
+<h3 id="wsrep_sst_method"><code>wsrep_sst_method</code><a class="headerlink" href="#wsrep_sst_method" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-sst-method</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>xtrabackup-v2</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the method or script for <a href="state-snapshot-transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> (SST).</p>
+<p>Available values are:</p>
+<ul>
+<li>
+<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST. This value is the default.
+Privileges and permissions for running <em>Percona XtraBackup</em>
+can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
+</li>
+<li>
+<p><code>skip</code>: Use this to skip SST.
+<strong>Removed in Percona XtraDB Cluster 8.0.33-25.</strong> This value can be used when initially starting the cluster
+and manually restoring the same data to all nodes.
+This value should not be used permanently because it could lead to data inconsistency across the nodes.</p>
+</li>
+<li>
+<p><code>ist_only</code> : <strong>Introduced in Percona XtraDB Cluster 8.0.33-25.</strong> This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node&rsquo;s start. This action leaves the data directory unchanged. This value prevents starting a node, after a manual backup restoration, that does not have a <code>grastate.dat</code> file. This missing file could initiate a full-state transfer (SST) which can be a more time and resource-intensive operation.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>xtrabackup-v2</code> provides support for clusters with GTIDs and async replicas.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-method">MySQL wsrep option: wsrep_sst_method</a></p>
+</div>
+<h3 id="wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code><a class="headerlink" href="#wsrep_sst_receive_address" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-sst-receive-address</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>AUTO</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the network address where donor node should send state transfers.
+By default, this variable is set to <code>AUTO</code>,
+meaning that the IP address from <a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a> is used.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-receive-address">MySQL wsrep option: wsrep_sst_receive_address</a></p>
+</div>
+<h3 id="wsrep_start_position"><code>wsrep_start_position</code><a class="headerlink" href="#wsrep_start_position" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-start-position</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>00000000-0000-0000-0000-00000000000000:-1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Specifies the node’s start position as <code>UUID:seqno</code>.
+By setting all the nodes to have the same value for this variable,
+the cluster can be set up without the state transfer.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-start-position">MySQL wsrep option: wsrep_start_position</a></p>
+</div>
+<h3 id="wsrep_sync_wait"><code>wsrep_sync_wait</code><a class="headerlink" href="#wsrep_sync_wait" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-sync-wait</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Session, Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>Controls cluster-wide causality checks on certain statements.
+Checks ensure that the statement is executed on a node
+that is fully synced with the cluster.</p>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w">   </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_sync_wait<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+| @@wsrep_sync_wait   |
++=====================+
+| 3                   |
++---------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w">   </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_sync_wait</span><span class="o">=</span><span class="m">7</span><span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_sync_wait<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+| @@wsrep_sync_wait   |
++=====================+
+| 7                   |
++---------------------+
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Causality checks of any type can result in increased latency.</p>
+</div>
+<p>The type of statements to undergo checks
+is determined by bitmask:</p>
+<ul>
+<li>
+<p><code>0</code>: Do not run causality checks for any statements. This is the default.</p>
+</li>
+<li>
+<p><code>1</code>: Perform checks for <code>READ</code> statements (including <code>SELECT</code>, <code>SHOW</code>, and <code>BEGIN</code> or <code>START TRANSACTION</code>).</p>
+</li>
+<li>
+<p><code>2</code>: Perform checks for <code>UPDATE</code> and <code>DELETE</code> statements.</p>
+</li>
+<li>
+<p><code>3</code>: Perform checks for <code>READ</code>, <code>UPDATE</code>, and <code>DELETE</code> statements.</p>
+</li>
+<li>
+<p><code>4</code>: Perform checks for <code>INSERT</code> and <code>REPLACE</code> statements.</p>
+</li>
+<li>
+<p><code>5</code>: Perform checks for <code>READ</code>, <code>INSERT</code>, and <code>REPLACE</code> statements.</p>
+</li>
+<li>
+<p><code>6</code>: Perform checks for <code>UPDATE</code>, <code>DELETE</code>, <code>INSERT</code>,
+and <code>REPLACE</code> statements.</p>
+</li>
+<li>
+<p><code>7</code>: Perform checks for <code>READ</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>INSERT</code>, and <code>REPLACE</code> statements.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait</code></a> to <code>1</code> is the equivalent of setting the deprecated <a href="wsrep-system-index.html#wsrep_causal_reads"><code>wsrep_causal_reads</code></a> to <code>ON</code>.</p>
+</div>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sync-wait">MySQL wsrep option: wsrep_sync_wait</a></p>
+</div>
+<h3 id="wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code><a class="headerlink" href="#wsrep_trx_fragment_size" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-trx-fragment-size</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647.</p>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@@wsrep_trx_fragment_unit<span class="p">;</span><span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+| @@wsrep_trx_fragment_unit    |
++==============================+
+| statements                   |
++------------------------------+
+| @@wsrep_trx_fragment_size    |
++------------------------------+
+| 3                            |
++------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_trx_fragment_size</span><span class="o">=</span><span class="m">5</span><span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+| @@wsrep_trx_fragment_size    |
++==============================+
+| 5                            |
++------------------------------+
+</code></pre></div>
+</details>
+<p>You can also use set_var() in a data manipulation language (DML) statement. This ability is useful when streaming large statements within a transaction.</p>
+<div class="no-copy highlight"><pre><span></span><code>node1&gt; BEGIN;
+Query OK, 0 rows affected (0.00 sec)
+
+node1&gt; INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
+Query OK, 65536 rows affected (15.15 sec)
+Records: 65536 Duplicates: 0 Warnings: 0
+
+node1&gt; UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
+Query OK, 131072 rows affected (1 min 35.93 sec)
+Rows matched: 131072 Changed: 131072 Warnings: 0
+
+node2&gt; SET SESSION TRANSACTION_ISOLATION = &#39;READ-UNCOMMITTED&#39;;
+Query OK, 0 rows affected (0.00 sec)
+
+node2&gt; SELECT * FROM t1 LIMIT 5;
++---+
+| i |
++===+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+node1&gt; DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
+Query OK, 131072 rows affected (15.09 sec)
+</code></pre></div>
+<h3 id="wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code><a class="headerlink" href="#wsrep_trx_fragment_unit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td><code>--wsrep-trx-fragment-unit</code></td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global, Session</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>&ldquo;bytes&rdquo;</td>
+</tr>
+</tbody>
+</table>
+<p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements. </p>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_unit<span class="p">;</span><span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+| @@wsrep_trx_fragment_unit    |
++==============================+
+| statements                   |
++------------------------------+
+| @@wsrep_trx_fragment_size    |
++------------------------------+
+| 3                            |
++------------------------------+
+</code></pre></div>
+</details>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_trx_fragment_unit</span><span class="o">=</span>rows<span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_trx_fragment_unit<span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+| @@wsrep_trx_fragment_unit    |
++==============================+
+| rows                         |
++------------------------------+
+</code></pre></div>
+</details>
+<div data-banner="data-banner">
+<p><svg style="display:block;margin:-1em 0 0.75em" width="78" height="69" viewBox="0 0 78 69" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.7281 30.7666C62.6528 26.8938 64.5914 18.9942 61.0059 12.7854C59.2094 9.67113 56.3053 7.44082 52.8311 6.50951C49.6122 5.64535 46.2502 5.99872 43.2912 7.49366L39.251 0.5L30.8648 15.0245L11.4811 48.5937H67.021L56.7281 30.7666ZM51.881 10.0674C54.4064 10.7401 56.5079 12.3616 57.8168 14.6194C60.3895 19.0701 59.053 24.7153 54.8808 27.5665L45.1362 10.6905C47.2355 9.68104 49.6034 9.46087 51.881 10.0674ZM39.251 7.87125L60.6339 44.907H48.1228L32.9927 18.7102L39.2499 7.87235L39.251 7.87125ZM17.8682 44.907L30.8637 22.4035L43.8592 44.907H17.8682Z" fill="url(#paint0_linear_2899_1968)"/><path style="fill:var(--md-typeset-color)" d="M4.981 64.943H3.157V68.207H.756V57.323H5.217C7.822 57.323 9.397 58.861 9.397 61.086V61.116C9.397 63.635 7.433 64.94 4.984 64.94L4.981 64.943V64.943ZM6.961 61.134C6.961 60.061 6.213 59.485 5.011 59.485H3.154V62.812H5.056C6.258 62.812 6.958 62.096 6.958 61.163V61.134H6.961ZM10.738 68.208V57.323H18.973V59.455H13.124V61.664H18.27V63.796H13.124V66.082H19.051V68.214H10.738V68.208 68.208ZM27.557 68.208 25.218 64.726H23.332V68.208H20.931V57.323H25.921C28.496 57.323 30.039 58.677 30.039 60.915V60.945C30.039 62.702 29.088 63.807 27.7 64.32L30.367 68.207H27.556L27.557 68.208ZM27.605 61.041C27.605 60.016 26.887 59.485 25.719 59.485H23.333V62.61H25.767C26.936 62.61 27.605 61.987 27.605 61.071V61.042 61.041ZM36.922 68.499C33.668 68.499 31.249 65.994 31.249 62.825V62.795C31.249 59.659 33.619 57.091 37.019 57.091 39.105 57.091 40.356 57.783 41.383 58.792L39.834 60.571C38.98 59.798 38.113 59.327 37.004 59.327 35.141 59.327 33.795 60.871 33.795 62.762V62.793C33.795 64.684 35.107 66.257 37.004 66.257 38.268 66.257 39.043 65.753 39.913 64.964L41.462 66.524C40.322 67.738 39.059 68.493 36.925 68.493L36.922 68.499ZM47.885 68.499C44.47 68.499 42.021 65.962 42.021 62.825V62.795C42.021 59.659 44.503 57.091 47.915 57.091 51.327 57.091 53.779 59.628 53.779 62.765V62.795C53.779 65.931 51.297 68.499 47.885 68.499ZM51.237 62.795C51.237 60.904 49.846 59.331 47.885 59.331 45.925 59.331 44.567 60.874 44.567 62.766V62.796C44.567 64.688 45.959 66.261 47.919 66.261 49.879 66.261 51.237 64.717 51.237 62.826V62.795 62.795ZM67.001 68.217 72.374 57.091 77.746 68.218H75.052L72.374 62.681 69.705 68.218H67.001V68.217ZM66.007 57.327V68.5L57.813 61.884V68.199H55.264V57.091L63.458 63.681V57.327H66.007Z"/><defs><linearGradient id="paint0_linear_2899_1968" x1="18.1513" y1="44.7152" x2="61.4356" y2="20.9786" gradientUnits="userSpaceOnUse"><stop stop-color="#FC3519"/><stop offset="1" stop-color="#F0D136"/></linearGradient></defs></svg></p>
+<h2 class="title" id="get-expert-help">Get expert help<a class="headerlink" href="#get-expert-help" title="Permanent link">&para;</a></h2>
+<p>If you need assistance, visit the community forum for comprehensive and free database knowledge, or contact our Percona Database Experts for professional support and services.</p>
+<div class="actions">
+<p><a href="https://forums.percona.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 4v7H5.17L4 12.17V4zm1-2H3a1 1 0 0 0-1 1v14l4-4h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1m5 4h-2v9H6v2a1 1 0 0 0 1 1h11l4 4V7a1 1 0 0 0-1-1"/></svg></span> Community Forum</a> <a href="https://www.percona.com/about/contact"><span class="twemoji"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.3996 14.148C21.9082 12.5083 22.7289 9.16368 21.2109 6.53493C20.4502 5.21636 19.2207 4.27206 17.7497 3.87776C16.3868 3.51187 14.9634 3.6615 13.7106 4.29444L12 1.33337L8.44934 7.48295L0.242432 21.6959H23.7576L19.3996 14.148ZM17.3474 5.38416C18.4167 5.66894 19.3064 6.35548 19.8606 7.31143C20.9499 9.19582 20.384 11.5859 18.6176 12.7931L14.4917 5.64797C15.3806 5.22055 16.3831 5.12734 17.3474 5.38416ZM12 4.45432L21.0533 20.135H15.7562L9.35029 9.04341L11.9995 4.45478L12 4.45432ZM2.94667 20.135L8.44888 10.6071L13.9511 20.135H2.94667Z"/>
+</svg></span> Get a Percona Expert</a></p>
+</div>
+</div>
+<hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      2024-01-18
+    
+  </small>
+</div>
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thank you for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thank you for your feedback! Help us improve by following this <a href="https://docs.google.com/forms/d/1bkWACehjqlwA0AKf-qTJcXvYbOSYgze8iTPXjntqmNo/edit" target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <a href="https://www.percona.com/about">Percona LLC</a> and its affiliates &copy; 2024 — <a href="#" onclick="Osano.cm.showDrawer('osano-cm-dom-info-dialog-open')">Cookie Preferences</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "navigation.top", "content.tabs.link", "content.code.copy", "navigation.tracking", "content.action.edit", "content.action.view"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  
+      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="js/version-select.js"></script>
+      
+        <script src="js/promptremover.js"></script>
+      
+        <script src="js/consent.js"></script>
+      
+    
+  
+  </body>
+</html>
