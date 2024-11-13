@@ -2961,11 +2961,20 @@ Otherwise, you end up with two clusters having different data.</p>
 <p><a href="add-node.html#add-node">Adding Nodes to Cluster</a></p>
 </div>
 <h2 id="scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure">Scenario 6: All nodes went down without a proper shutdown procedure<a class="headerlink" href="#scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure" title="Permanent link">&para;</a></h2>
-<p>This scenario is possible in case of a datacenter power failure or when hitting
-a MySQL or Galera bug. Also, it may happen as a result of data consistency being
-compromised where the cluster detects that each node has different data. The
-<code>grastate.dat</code> file is not updated and does not contain a valid sequence
-number (seqno). It may look like this:</p>
+<p>This scenario is possible in the following cases:</p>
+<ul>
+<li>
+<p>A data center power failure</p>
+</li>
+<li>
+<p>A MySQL or Galera bug</p>
+</li>
+<li>
+<p>A cluster detects that each node has different data. </p>
+</li>
+</ul>
+<p>In each of these cases, the <code>grastate.dat</code> file is not updated and does not contain a valid sequence number (seqno).</p>
+<p>The <code>grastate.dat</code> file may look like this:</p>
 <div class="highlight"><pre><span></span><code>$ cat /var/lib/mysql/grastate.dat
 # GALERA saved state
 version: 2.1
@@ -2974,8 +2983,8 @@ seqno: -1
 safe_to_bootstrap: 0
 </code></pre></div>
 <p>In this case, you cannot be sure that all nodes are consistent with each
-other. We cannot use safe_to_bootstrap variable to determine the node that has
-the last transaction committed as it is set to <strong>0</strong> for each node. An attempt
+other. We cannot use <code>safe_to_bootstrap</code> variable to determine the node that has
+the last transaction committed as this variable is set to <strong>0</strong> for each node. An attempt
 to bootstrap from such a node will fail unless you start <code>mysqld</code> with the
 <code>--wsrep-recover</code> parameter:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep-recover
@@ -2992,19 +3001,11 @@ node UUID (<strong>1122</strong> in this case):</p>
 <p>The node where the recovered position is marked by the greatest number is the
 best bootstrap candidate. In its <code>grastate.dat</code> file, set the
 safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>After a shutdown, you can boostrap from the node which is marked as safe in the <code>grastate.dat</code> file.</p>
 <div class="no-copy highlight"><pre><span></span><code>...
 safe_to_bootstrap: 1
 ...
 </code></pre></div>
-</div>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>Galera Documentation <a href="https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/">Introducing the Safe-To-Bootstrap feature in Galera Cluster</a></p>
-</div>
-<hr />
 <p>In recent Galera versions, the option <a href="wsrep-provider-index.html#pc.recovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
 saves only a cluster being in the PRIMARY state. An example content of the file
 may look like this:</p>
@@ -3018,11 +3019,15 @@ member: 6d80ec1b-2aac-11e4-8d1e-b2b2f6caf018 0
 member: 76de8ad9-2aac-11e4-8089-d27fd06893b9 0
 #vwend
 </code></pre></div>
-<p>We can see a three node cluster with all members being up. Thanks to this new
-feature, the nodes will try to restore the primary component once all the
+<p>We can see a three node cluster with all members being up. The nodes will try to restore the primary component once all the
 members start to see each other. This makes the PXC cluster automatically
-recover from being powered down without any manual intervention! In the logs we
-will see:</p>
+recover from being powered down without any manual intervention.</p>
+<p>The log file shows recovery completion:</p>
+<div class="no-copy highlight"><pre><span></span><code>2024-11-08T12:35:05.890123Z 0 [Note] InnoDB: Waiting for purge to start
+2024-11-08T12:35:06.901234Z 0 [Note] InnoDB: Purge done
+2024-11-08T12:35:07.012345Z 0 [Note] InnoDB: Buffer pool(s) load completed at 2024-11-08T12:35:07.012345Z
+2024-11-08T12:35:07.123456Z 0 [Note] WSREP: Ready for connections.
+</code></pre></div>
 <h2 id="scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain">Scenario 7: The cluster loses its primary state due to split brain<a class="headerlink" href="#scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain" title="Permanent link">&para;</a></h2>
 <p>For the purpose of this example, let’s assume we have a cluster that consists of
 an even number of nodes: six, for example. Three of them are in one location
@@ -3069,7 +3074,7 @@ way to bring the nodes back to the cluster is via the full <a href="glossary.htm
   <small>
     
       Last update:
-      2023-07-21
+      2024-11-13
     
   </small>
 </div>
