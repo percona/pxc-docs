@@ -132,11 +132,17 @@ Otherwise, you end up with two clusters having different data.
 
 ## Scenario 6: All nodes went down without a proper shutdown procedure
 
-This scenario is possible in case of a datacenter power failure or when hitting
-a MySQL or Galera bug. Also, it may happen as a result of data consistency being
-compromised where the cluster detects that each node has different data. The
-`grastate.dat` file is not updated and does not contain a valid sequence
-number (seqno). It may look like this:
+This scenario is possible in the following cases:
+
+* A data center power failure
+
+* A MySQL or Galera bug
+
+* A cluster detects that each node has different data. 
+
+In each of these cases, the `grastate.dat` file is not updated and does not contain a valid sequence number (seqno).
+
+The `grastate.dat` file may look like this:
 
 ```text
 $ cat /var/lib/mysql/grastate.dat
@@ -148,8 +154,8 @@ safe_to_bootstrap: 0
 ```
 
 In this case, you cannot be sure that all nodes are consistent with each
-other. We cannot use safe_to_bootstrap variable to determine the node that has
-the last transaction committed as it is set to **0** for each node. An attempt
+other. We cannot use `safe_to_bootstrap` variable to determine the node that has
+the last transaction committed as this variable is set to **0** for each node. An attempt
 to bootstrap from such a node will fail unless you start `mysqld` with the
 `--wsrep-recover` parameter:
 
@@ -172,21 +178,13 @@ The node where the recovered position is marked by the greatest number is the
 best bootstrap candidate. In its `grastate.dat` file, set the
 safe_to_bootstrap variable to **1**. Then, bootstrap from this node.
 
-!!! note
+After a shutdown, you can boostrap from the node which is marked as safe in the `grastate.dat` file.
 
-    After a shutdown, you can boostrap from the node which is marked as safe in the `grastate.dat` file.
-
-    ```{.text .no-copy}
-    ...
-    safe_to_bootstrap: 1
-    ...
-    ```
-
-!!! admonition "See also"
-
-    Galera Documentation [Introducing the Safe-To-Bootstrap feature in Galera Cluster](https://galeracluster.com/2016/11/introducing-the-safe-to-bootstrap-feature-in-galera-cluster/)
-
----
+```{.text .no-copy}
+...
+safe_to_bootstrap: 1
+...
+```
 
 In recent Galera versions, the option [`pc.recovery`](wsrep-provider-index.md#pc.recovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it
 saves only a cluster being in the PRIMARY state. An example content of the file
@@ -204,11 +202,18 @@ member: 76de8ad9-2aac-11e4-8089-d27fd06893b9 0
 #vwend
 ```
 
-We can see a three node cluster with all members being up. Thanks to this new
-feature, the nodes will try to restore the primary component once all the
+We can see a three node cluster with all members being up. The nodes will try to restore the primary component once all the
 members start to see each other. This makes the PXC cluster automatically
-recover from being powered down without any manual intervention! In the logs we
-will see:
+recover from being powered down without any manual intervention.
+
+The log file shows recovery completion:
+
+```{.text .no-copy}
+2024-11-08T12:35:05.890123Z 0 [Note] InnoDB: Waiting for purge to start
+2024-11-08T12:35:06.901234Z 0 [Note] InnoDB: Purge done
+2024-11-08T12:35:07.012345Z 0 [Note] InnoDB: Buffer pool(s) load completed at 2024-11-08T12:35:07.012345Z
+2024-11-08T12:35:07.123456Z 0 [Note] WSREP: Ready for connections.
+```
 
 ## Scenario 7: The cluster loses its primary state due to split brain
 
