@@ -15,6 +15,14 @@ The SST method can be configured using the [`wsrep_sst_method`](wsrep-system-ind
 !!! note 
 
     If the [`gcs.sync_donor`](wsrep-provider-index.md#gcs.sync_donor) variable is set to `Yes` (default is `No`), the whole cluster will get blocked if the donor is blocked by SST.
+    
+## Limitation
+
+When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: `socket=`. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:
+  
+* Taking backup using Percona XtraBackup
+    
+* Detecting keyring component status
 
 ## Choose the SST Donor
 
