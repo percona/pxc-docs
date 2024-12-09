@@ -5,6 +5,8 @@ is available in [Percona Software and Platform Lifecycle](https://www.percona.co
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+--8<--- "get-help-snip.md"
+
 You can install Percona XtraDB Cluster with the following methods:
 
 * Use the official repository using YUM
