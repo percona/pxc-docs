@@ -10,6 +10,8 @@ using APT.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
+--8<--- "get-help-snip.md"
+
 ## Prerequisites
 
 * You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).
