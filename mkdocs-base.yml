@@ -194,6 +194,8 @@ nav:
       - bootstrap.md
       - add-node.md
       - verify-replication.md
+      - Troubleshoot install: 
+          - timeoutstarts.md
   - Upgrade:
       - upgrade-guide.md
       - upgrade-from-backup.md
