@@ -194,20 +194,6 @@ For more information, see [pv(1)](https://linux.die.net/man/1/pv).
 
     Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.
 
-
-### use_extra
-
-| Parameter      | Description        |
-| -------------- | ------------------ |
-| Values:        | 0, 1               |
-| Default:       | 0                  |
-
-Used to force SST to use the thread pool’s
-[extra_port](https://www.percona.com/doc/percona-server/{{vers}}/performance/threadpool.html#extra_port).
-Make sure that thread pool is enabled and the `extra_port` option is set
-in `my.cnf` before you enable this option.
-
-
 ### cpat
 
 **Default**: `'.\*\\.pem$\\|.\*init\\.ok$\\|.\*galera\\.cache$\\|.\*sst_in_progress$\\|.\*\\.sst$\\|.\*gvwstate\\.dat$\\|.\*grastate\\.dat$\\|.\*\\.err$\\|.\*\\.log$\\|.\*RPM_UPGRADE_MARKER$\\|.\*RPM_UPGRADE_HISTORY$'`
