@@ -206,6 +206,8 @@ For more information, see [pv(1)](https://linux.die.net/man/1/pv).
 | Values:        | 0, 1               |
 | Default:       | 0                  |
 
+Percona Server for MySQL 8.0.14 removed the `extra_port` variable. Since `extra_port` is obsolete, the `use_extra` variable is also obsolete and no longer works.
+
 Used to force SST to use the thread pool’s
 [extra_port](https://www.percona.com/doc/percona-server/8.0/performance/threadpool.html#extra_port).
 Make sure that thread pool is enabled and the `extra_port` option is set
