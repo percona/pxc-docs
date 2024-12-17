@@ -73,6 +73,16 @@ The following limitations apply to Percona XtraDB Cluster:
     !!! admonition "See also"
 
         [Galera Documentation: Tables without Primary Keys](https://galeracluster.com/library/training/tutorials/differences.html#tables-without-primary-keys)
+        
+* When configuring Percona XtraDB Cluster, your server must create a local socket.
+
+    You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: `socket=`. If you do, the server won’t create a socket.
+   
+    State Snapshot Transfer (SST) requires the socket for the following tasks:
+  
+    * Taking backup using Percona XtraBackup
+    
+    * Detecting keyring component status
 
 * Avoid reusing the names of persistent tables for temporary tables
 
@@ -110,4 +120,4 @@ Do not use one or more dot characters (.) when defining the values for the follo
 
 * [log_bin_index](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
-MySQL and **XtraBackup** handles the value in different ways and this difference causes unpredictable behavior.
+MySQL and Percona XtraBackup handle the character in different ways and this difference causes unpredictable behavior.
