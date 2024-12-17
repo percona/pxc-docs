@@ -14,6 +14,8 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 
 * [Upgrading from MySQL 5.7 to 8.0](https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html)
 
+--8<--- "get-help-snip.md"
+
 ## Important changes in Percona XtraDB Cluster 8.0
 
 - [Upgrade Percona XtraDB Cluster](#upgrade-percona-xtradb-cluster)

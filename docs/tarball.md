@@ -6,6 +6,8 @@ for manual installation.
 You can download the appropriate tarball package from
 [https://www.percona.com/downloads/Percona-XtraDB-Cluster-80](https://www.percona.com/downloads/Percona-XtraDB-Cluster-80)
 
+--8<--- "get-help-snip.md"
+
 ### Version updates
 
 Starting with *Percona XtraDB Cluster* 8.0.20-11, the **Linux - Generic**
