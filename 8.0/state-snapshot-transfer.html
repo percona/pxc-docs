@@ -30,7 +30,7 @@ that is already part of the cluster.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
     
     
       
@@ -1898,6 +1898,15 @@ that is already part of the cluster.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#limitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choose-the-sst-donor" class="md-nav__link">
     <span class="md-ellipsis">
       Choose the SST Donor
@@ -2869,6 +2878,15 @@ that is already part of the cluster.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#limitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choose-the-sst-donor" class="md-nav__link">
     <span class="md-ellipsis">
       Choose the SST Donor
@@ -2977,6 +2995,16 @@ The SST method can be configured using the <a href="wsrep-system-index.html#wsre
 <p class="admonition-title">Note</p>
 <p>If the <a href="wsrep-provider-index.html#gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
 </div>
+<h2 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h2>
+<p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
+<ul>
+<li>
+<p>Taking backup using Percona XtraBackup</p>
+</li>
+<li>
+<p>Detecting keyring component status</p>
+</li>
+</ul>
 <h2 id="choose-the-sst-donor">Choose the SST Donor<a class="headerlink" href="#choose-the-sst-donor" title="Permanent link">&para;</a></h2>
 <p>If there are no nodes available
 that can safely perform incremental state transfer (IST),
@@ -3026,7 +3054,7 @@ tablespaces not in the data directory.</p>
   <small>
     
       Last update:
-      2024-04-09
+      2024-12-06
     
   </small>
 </div>
@@ -3127,7 +3155,7 @@ tablespaces not in the data directory.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="assets/javascripts/bundle.88dd0f4e.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
