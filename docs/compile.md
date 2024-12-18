@@ -58,22 +58,19 @@ The glibc (GNU C Library) version can differ across software builds due to sever
 
 Practical Tip: Use `ldd --version` to check your current glibc version and understand potential compatibility constraints in your software ecosystem.
 
-To compile Percona XtraDB Cluster from source code:
-{.power-number}
+
 
 ## Compile
 
-1. Clone the Percona XtraDB Cluster repository:
+To compile Percona XtraDB Cluster from source code:
+{.power-number}
+
+1. Clone the latest repository or update it to the latest state. The old codebase may not be compatible with the build script. Clone the Percona XtraDB Cluster repository:
 
     ```{.bash data-prompt="$"}
     $ git clone https://github.com/percona/percona-xtradb-cluster.git
     ```
     
-    !!! important
-
-        Clone the latest repository or update it to the latest state.
-        The old codebase may not be compatible with the build script.
-
 2. Check out the `{{vers}}` branch and initialize submodules:
 
     ```{.bash data-prompt="$"}
@@ -82,17 +79,13 @@ To compile Percona XtraDB Cluster from source code:
     $ git submodule update --init --recursive
     ```
 
-3. Download the matching Percona XtraDB Cluster {{vers}} tarball (*.tar.gz) for your operating system from [Percona Software Downloads](https://www.percona.com/downloads/). 
-
-   The following example extract the Percona XtraDB Cluster {{vers}} tar.gz file to the target directory `./pxc-build`:
+3. Download the matching Percona XtraDB Cluster {{vers}} tarball (*.tar.gz) for your operating system from [Percona Software Downloads](https://www.percona.com/downloads/). The following example extracts the Percona XtraDB Cluster {{vers}} tar.gz file to the target directory `./pxc-build`:
 
     ```{.bash data-prompt="$"}
     $ tar -xvf percona-xtrabackup-{{vers}}-Linux-x86_64.glibc2.31.tar.gz -C ./pxc-build
     ```
 
-4. Run the build script `./build-ps/build-binary.sh`.
-    By default, it attempts to build into the current directory. Specify
-    the target output directory, such as `./pxc-build`:
+4. Run the build script `./build-ps/build-binary.sh`. By default, it attempts to build into the current directory. Specify the target output directory, such as `./pxc-build`:
 
     ```{.bash data-prompt="$"}
     $ mkdir ./pxc-build
