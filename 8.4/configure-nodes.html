@@ -905,7 +905,7 @@ In this section, we will demonstrate how to configure a three node cluster:">
         
   
   <span class="md-ellipsis">
-    Install Percona XtraDB Cluster from Binary Tarball
+    Install from Binary Tarball
   </span>
   
 
@@ -2259,8 +2259,8 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 <span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
 <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 </code></pre></div>
-<p><em>If you use Red Hat or CentOS</em>, edit <code>/etc/my.cnf</code>. Note that on these systems you set
-the wsrep_provider option to a different value:</p>
+<p><em>If you use Red Hat Enterprise Linux</em>, edit <code>/etc/my.cnf</code>. Note that on these systems you set
+the <code>wsrep_provider option</code> to a different value:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/galera4/libgalera_smm.so
 <span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
 <span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
@@ -2314,7 +2314,7 @@ again.</p>
 </div>
 </div>
 <h2 id="template-of-the-configuration-file">Template of the configuration file<a class="headerlink" href="#template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
-<p>Here is an example of a full configuration file installed on CentOS to
+<p>Here is an example of a full configuration file installed on Red Hat Enterprise Linux to
 <code>/etc/my.cnf</code>.</p>
 <div class="highlight"><pre><span></span><code># Template my.cnf for PXC
 # Edit to your requirements.
@@ -2364,7 +2364,7 @@ node according to the procedure described in <a href="bootstrap.html#bootstrap">
 <p>Debian and Ubuntu: <code>/usr/lib/galera4/libgalera_smm.so</code></p>
 </li>
 <li>
-<p>Red Hat and CentOS: <code>/usr/lib64/galera4/libgalera_smm.so</code></p>
+<p>Red Hat Enterprise Linux: <code>/usr/lib64/galera4/libgalera_smm.so</code></p>
 </li>
 </ul>
 <p><a href="wsrep-system-index.html#wsrep_cluster_name"><code>wsrep_cluster_name</code></a></p>
@@ -2420,7 +2420,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
   <small>
     
       Last update:
-      2024-01-18
+      2024-12-18
     
   </small>
 </div>

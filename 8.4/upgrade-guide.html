@@ -904,7 +904,7 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
         
   
   <span class="md-ellipsis">
-    Install Percona XtraDB Cluster from Binary Tarball
+    Install from Binary Tarball
   </span>
   
 
@@ -2467,7 +2467,7 @@ configuration file.</p>
 <p>Path on Debian and Ubuntu: <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
 </li>
 <li>
-<p>Path on Red Hat and CentOS: <code>/etc/my.cnf</code></p>
+<p>Path on Red Hat Enterprise Linux: <code>/etc/my.cnf</code></p>
 </li>
 </ul>
 <p>After you check the log for any tech preview features or unsupported features
@@ -2483,13 +2483,12 @@ back to <code>ENFORCING</code> at run time:</p>
 <p>Path on Debian and Ubuntu: <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
 </li>
 <li>
-<p>Path on Red Hat and CentOS: /etc/my.cnf</p>
+<p>Path on Red Hat Enterprise Linux: /etc/my.cnf</p>
 </li>
 </ul>
 <p>Before you start the upgrade, move your custom settings from
 <code>/etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf</code> (on Debian and
-Ubuntu) or from <code>/etc/percona-xtradb-cluster.conf.d/wsrep.cnf</code> (on Red Hat
-and CentOS) to the new location accordingly.</p>
+Ubuntu) or from <code>/etc/percona-xtradb-cluster.conf.d/wsrep.cnf</code> (on Red Hat Enterprise Linux) to the new location accordingly.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have moved your my.cnf file to a different location and added a symlink to <code>/etc/my.cnf</code>, the RPM package manager, when upgrading, can delete the symlink and put a default my.cnf file in /etc/.</p>
@@ -2522,7 +2521,7 @@ $ sudo service mysql stop -->
 
 For example, if you have Percona software repositories configured,
 you might use the following commands: -->
-<!-- * On CentOS or RHEL:
+<!-- * On RHEL:
 
 .. code-block: bash
 
@@ -2715,7 +2714,7 @@ previous configuration. For more information, see <a href="add-node.html#add-nod
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>On CentOS, the /etc/my.cnf configuration file is renamed to <code>my.cnf.rpmsave</code>. Make sure to rename it back before joining the upgraded node back to the cluster.</p>
+<p>On Red Hat Enterprise Linux, the /etc/my.cnf configuration file is renamed to <code>my.cnf.rpmsave</code>. Make sure to rename it back before joining the upgraded node back to the cluster.</p>
 </div>
 <p><a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
 unsupported operations and may halt the server. For more information, see
@@ -2745,7 +2744,7 @@ until you upgrade all nodes.</p>
   <small>
     
       Last update:
-      2024-01-18
+      2024-12-18
     
   </small>
 </div>

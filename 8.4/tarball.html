@@ -30,7 +30,7 @@ for manual installation.">
     
     
       
-        <title>Install Percona XtraDB Cluster from Binary Tarball - Percona XtraDB Cluster</title>
+        <title>Install from Binary Tarball - Percona XtraDB Cluster</title>
       
     
     
@@ -94,7 +94,7 @@ for manual installation.">
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Install Percona XtraDB Cluster from Binary Tarball" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Install from Binary Tarball" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -120,7 +120,7 @@ for manual installation.">
     <div data-md-component="skip">
       
         
-        <a href="#install-percona-xtradb-cluster-from-binary-tarball" class="md-skip">
+        <a href="#install-from-binary-tarball" class="md-skip">
           Skip to content
         </a>
       
@@ -195,7 +195,7 @@ for manual installation.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install Percona XtraDB Cluster from Binary Tarball
+              Install from Binary Tarball
             
           </span>
         </div>
@@ -914,7 +914,7 @@ for manual installation.">
           
   
   <span class="md-ellipsis">
-    Install Percona XtraDB Cluster from Binary Tarball
+    Install from Binary Tarball
   </span>
   
 
@@ -925,7 +925,7 @@ for manual installation.">
         
   
   <span class="md-ellipsis">
-    Install Percona XtraDB Cluster from Binary Tarball
+    Install from Binary Tarball
   </span>
   
 
@@ -967,9 +967,9 @@ for manual installation.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-red-hat-enterprise-linux-or-centos" class="md-nav__link">
+  <a href="#for-red-hat-enterprise-linux" class="md-nav__link">
     <span class="md-ellipsis">
-      For Red Hat Enterprise Linux or CentOS:
+      For Red Hat Enterprise Linux:
     </span>
   </a>
   
@@ -2165,9 +2165,9 @@ for manual installation.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#for-red-hat-enterprise-linux-or-centos" class="md-nav__link">
+  <a href="#for-red-hat-enterprise-linux" class="md-nav__link">
     <span class="md-ellipsis">
-      For Red Hat Enterprise Linux or CentOS:
+      For Red Hat Enterprise Linux:
     </span>
   </a>
   
@@ -2217,21 +2217,12 @@ for manual installation.">
   
 
 
-<h1 id="install-percona-xtradb-cluster-from-binary-tarball">Install Percona XtraDB Cluster from Binary Tarball<a class="headerlink" href="#install-percona-xtradb-cluster-from-binary-tarball" title="Permanent link">&para;</a></h1>
+<h1 id="install-from-binary-tarball">Install from Binary Tarball<a class="headerlink" href="#install-from-binary-tarball" title="Permanent link">&para;</a></h1>
 <p>Percona provides generic tarballs with all required files and binaries
 for manual installation.</p>
 <p>You can download the appropriate tarball package from
-<a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-80">https://www.percona.com/downloads/Percona-XtraDB-Cluster-80</a></p>
+<a href="https://www.percona.com/downloads">Percona Software Downloads</a>.</p>
 <h3 id="version-updates">Version updates<a class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h3>
-<p>Starting with <em>Percona XtraDB Cluster</em> 8.0.20-11, the <strong>Linux - Generic</strong>
-section lists only full or minimal tar files. Each tarball file replaces the
-multiple tar file listing used in earlier versions and supports all
-distributions.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Starting with <em>Percona XtraDB Cluster</em> 8.0.21, Percona does not provide a
-tarball for RHEL 6/CentOS 6 (glibc2.12).</p>
-</div>
 <p>The version number in the tarball name must be substituted with
 the appropriate version number for your system. To indicate that such a
 substitution is needed in statements, we use <code>&lt;version-number&gt;</code>.</p>
@@ -2256,14 +2247,6 @@ substitution is needed in statements, we use <code>&lt;version-number&gt;</code>
 </tr>
 </tbody>
 </table>
-<p>For installations before <em>Percona XtraDB Cluster</em> 8.0.20-11, the <strong>Linux - Generic</strong> section contains multiple tarballs based on the operating system names:</p>
-<div class="no-copy highlight"><pre><span></span><code>Percona-XtraDB-Cluster_8.0.18-9.3_Linux.x86_64.bionic.tar.gz
-Percona-XtraDB-Cluster_8.0.18-9.3_Linux.x86_64.buster.tar.gz
-...
-</code></pre></div>
-<p>For example, you can use <code>curl</code> as follows:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-O<span class="w"> </span>https://downloads.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/Percona-XtraDB-Cluster-8.0.27/binary/tarball/Percona-XtraDB-Cluster_8.0.27-18.1_Linux.x86_64.glibc2.17-minimal.tar.gz
-</code></pre></div>
 <p>Check your system to make sure the packages that the PXC
 version requires are installed.</p>
 <h3 id="for-debian-or-ubuntu">For Debian or Ubuntu:<a class="headerlink" href="#for-debian-or-ubuntu" title="Permanent link">&para;</a></h3>
@@ -2272,7 +2255,7 @@ socat<span class="w"> </span>libdbd-mysql-perl<span class="w"> </span><span clas
 libaio1<span class="w"> </span>libc6<span class="w"> </span>libcurl3<span class="w"> </span>libev4<span class="w"> </span>libgcc1<span class="w"> </span>libgcrypt20<span class="w"> </span><span class="se">\</span>
 libgpg-error0<span class="w"> </span>libssl1.1<span class="w"> </span>libstdc++6<span class="w"> </span>zlib1g<span class="w"> </span>libatomic1
 </code></pre></div>
-<h3 id="for-red-hat-enterprise-linux-or-centos">For Red Hat Enterprise Linux or CentOS:<a class="headerlink" href="#for-red-hat-enterprise-linux-or-centos" title="Permanent link">&para;</a></h3>
+<h3 id="for-red-hat-enterprise-linux">For Red Hat Enterprise Linux:<a class="headerlink" href="#for-red-hat-enterprise-linux" title="Permanent link">&para;</a></h3>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>socat<span class="w">  </span><span class="se">\</span>
 procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>procps-ng<span class="w"> </span>coreutils<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
 </code></pre></div>
@@ -2291,7 +2274,7 @@ procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>procps-ng<span
   <small>
     
       Last update:
-      2023-07-21
+      2024-12-18
     
   </small>
 </div>

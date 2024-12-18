@@ -904,7 +904,7 @@ tool.">
         
   
   <span class="md-ellipsis">
-    Install Percona XtraDB Cluster from Binary Tarball
+    Install from Binary Tarball
   </span>
   
 
@@ -2276,8 +2276,8 @@ tool.">
 <p>This section describes how to set up Percona XtraDB Cluster in a virtualized testing environment
 based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.</p>
-<p>It is assumed that each PXC node is installed on Amazon EC2 micro instances
-running CentOS 7.  However, the information in this section should apply if you
+<p>It is assumed that each PXC node is installed on Amazon T2.micro instances
+running RHEL 8.  However, the information in this section should apply if you
 used another virtualization technology (for example, VirtualBox) with any Linux
 distribution.</p>
 <p>Each of the tree Percona XtraDB Cluster nodes is installed on a separate virtual machine. One
@@ -2288,7 +2288,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 </div>
 <ol>
 <li>
-<p>Install Percona XtraDB Cluster on three cluster nodes, as described in <a href="configure-cluster-rhel.html#centos-howto">Configuring Percona XtraDB Cluster on CentOS</a>.</p>
+<p>Install Percona XtraDB Cluster on three cluster nodes, as described in <a href="configure-cluster-rhel.html#centos-howto">Configure on RHEL</a>.</p>
 </li>
 <li>
 <p>On the client node, install <a href="load-balance-proxysql.html#load-balancing-with-proxysql">ProxySQL</a> and <code>sysbench</code>:</p>
@@ -2723,7 +2723,7 @@ different name):</p>
 <p><strong>Related sections and additional reading</strong></p>
 <ul>
 <li><a href="load-balance-proxysql.html#load-balancing-with-proxysql">Load balancing with ProxySQL</a></li>
-<li><a href="configure-cluster-rhel.html#centos-howto">Configuring Percona XtraDB Cluster on CentOS</a></li>
+<li><a href="configure-cluster-rhel.html#centos-howto">Configure on RHEL</a></li>
 <li><a href="https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/">Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC)</a></li>
 <li><a href="https://github.com/akopytov/sysbench/">GitHub repository for the sysbench benchmarking tool</a></li>
 </ul>
@@ -2742,7 +2742,7 @@ different name):</p>
   <small>
     
       Last update:
-      2024-01-18
+      2024-12-18
     
   </small>
 </div>
