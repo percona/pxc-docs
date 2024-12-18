@@ -1,4 +1,4 @@
-# Compile and install from Source Code
+# Compile and install from source code
 
 If you want to compile Percona XtraDB Cluster, you can find the source code on
 [GitHub](https://github.com/percona/percona-xtradb-cluster).
