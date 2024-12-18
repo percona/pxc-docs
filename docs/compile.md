@@ -23,11 +23,12 @@ Before you begin, make sure that the following packages are installed:
 | socat| `socat` | `socat`|
 | curl | `libcurl-dev` | `libcurl-devel`|
 
-You will likely have all or most of the packages already installed. If you are
-not sure, run one of the following commands to install any missing
+## Check packages
+
+You may have already installed most of the packages. Run one of the following commands to install any missing
 dependencies:
 
-* For Debian or Ubuntu:
+=== "on Debian or Ubuntu"
 
     ```{.bash data-prompt="$"}
     $ sudo apt install -y git scons gcc g++ openssl check cmake bison \
@@ -35,7 +36,7 @@ dependencies:
     libpam-dev socat libcurl-dev
     ```
 
-* For Red Hat Enterprise Linux or CentOS:
+=== "on Red Hat Enterprise Linux"
 
     ```{.bash data-prompt="$"}
     $ sudo yum install -y git scons gcc gcc-c++ openssl check cmake bison \
@@ -43,8 +44,24 @@ dependencies:
     socat libcurl-devel
     ```
 
-To compile Percona XtraDB Cluster from source code:
+### glibc version
 
+The glibc (GNU C Library) version can differ across software builds due to several key factors:
+
+| Reason                          | Description                                                                                                                                                                                                                   |
+|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Operating System Variation      | When you build software on different Linux distributions or versions, each may ship with a different default glibc version. For example, Red Hat Enterprise Linux or Ubuntu might have distinct system library versions that impact compilation. |
+| Backward Compatibility Considerations | Some applications are compiled to support multiple glibc versions. <br> - Developers often create builds that can run on older systems. <br> - This means intentionally targeting a slightly older glibc version for wider compatibility. |
+| System Architecture Differences | 32-bit and 64-bit systems might require different glibc implementations. <br> - ARM, x86, and other processor architectures can have unique library requirements.                                                     |
+| Security and Patch Levels       | Distributions backport security patches at different rates. <br> - A system's glibc version reflects its current security update status. <br> - Critical security updates can prompt version changes.                        |
+| Compilation Environment         | The specific development environment and build tools used can directly influence which glibc version gets linked during compilation. Container environments, cross-compilation setups, and build servers might have unique library configurations. |
+
+Practical Tip: Use `ldd --version` to check your current glibc version and understand potential compatibility constraints in your software ecosystem.
+
+To compile Percona XtraDB Cluster from source code:
+{.power-number}
+
+## Compile
 
 1. Clone the Percona XtraDB Cluster repository:
 
@@ -55,7 +72,7 @@ To compile Percona XtraDB Cluster from source code:
     !!! important
 
         Clone the latest repository or update it to the latest state.
-        Old codebase may not be compatible with the build script.
+        The old codebase may not be compatible with the build script.
 
 2. Check out the `{{vers}}` branch and initialize submodules:
 
@@ -65,16 +82,16 @@ To compile Percona XtraDB Cluster from source code:
     $ git submodule update --init --recursive
     ```
 
-3. Download the matching Percona XtraBackup {{vers}} tarball (*.tar.gz) for your operating system from [Percona Downloads](https://www.percona.com/downloads/). 
+3. Download the matching Percona XtraDB Cluster {{vers}} tarball (*.tar.gz) for your operating system from [Percona Software Downloads](https://www.percona.com/downloads/). 
 
-   The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory `./pxc-build`:
+   The following example extract the Percona XtraDB Cluster {{vers}} tar.gz file to the target directory `./pxc-build`:
 
     ```{.bash data-prompt="$"}
-    $ tar -xvf percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz -C ./pxc-build
+    $ tar -xvf percona-xtrabackup-{{vers}}-Linux-x86_64.glibc2.31.tar.gz -C ./pxc-build
     ```
 
 4. Run the build script `./build-ps/build-binary.sh`.
-    By default, it attempts building into the current directory. Specify
+    By default, it attempts to build into the current directory. Specify
     the target output directory, such as `./pxc-build`:
 
     ```{.bash data-prompt="$"}
@@ -82,7 +99,7 @@ To compile Percona XtraDB Cluster from source code:
     $ ./build-ps/build-binary.sh ./pxc-build
     ```
 
-When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraDB-Cluster-8.0.x86_64.tar.gz`, that you can deploy on your system.
+When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraDB-Cluster-{{vers}}.tar.gz`, that you can deploy on your system.
 
 !!! note
 
