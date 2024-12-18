@@ -10,7 +10,7 @@ using the corresponding package manager for your system:
 
 * [Debian or Ubuntu](apt.md#apt)
 
-* [Red Hat or CentOS](yum.md#yum)
+* [Red Hat Enterprise Linux](yum.md#yum)
 
 !!! important
 

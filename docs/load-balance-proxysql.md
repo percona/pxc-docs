@@ -58,7 +58,7 @@ root@proxysql:~# apt install percona-xtradb-cluster-client
 root@proxysql:~# apt install proxysql2
 ```
 
-* On Red Hat Enterprise Linux or CentOS for ProxySQL 2.x:
+* On Red Hat Enterprise Linux for ProxySQL 2.x:
 
 ```{.bash data-prompt="$"}
 $ sudo yum install Percona-XtraDB-Cluster-client-80
@@ -379,7 +379,7 @@ You can install `sysbench` from Percona software repositories:
 root@proxysql:~# apt install sysbench
 ```
 
-* For Red Hat Enterprise Linux or CentOS
+* For Red Hat Enterprise Linux
 
 ```{.bash data-prompt="root@proxysql:~#"}
 root@proxysql:~# yum install sysbench

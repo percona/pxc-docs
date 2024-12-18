@@ -10,7 +10,7 @@ SELinux helps protects the user’s home directory data. SELinux provides the fo
 
 For more information, see [Percona Server and SELinux](https://www.percona.com/doc/percona-server/LATEST/security/selinux.html)
 
-Red Hat and CentOS distributes a policy module to extend the SELinux policy module for mysqld. We provide the following:
+Red Hat Enterprise Linux (RHEL) distributes a policy module to extend the SELinux policy module for `mysqld`. We provide the following:
 
 * Extended module for pxc - an extension of the default module for mysqld distributed by the operating system.
 
@@ -120,6 +120,3 @@ After ensuring that the system journal does not list any issues, the administrat
 $ semanage permissive -d mysqld_t
 ```
 
-!!! admonition "See also"
-
-    [MariaDB 10.2 Galera Cluster with SELinux-enabled on CentOS 7](https://ospi.fi/blog/mariadb-10-2-galera-cluster-with-selinux-enabled-on-centos-7.html)
