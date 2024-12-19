@@ -31,7 +31,7 @@ Before you begin, make sure that the following packages are installed:">
     
     
       
-        <title>Compile and install from Source Code - Percona XtraDB Cluster</title>
+        <title>Compile and install from source code - Percona XtraDB Cluster</title>
       
     
     
@@ -95,7 +95,7 @@ Before you begin, make sure that the following packages are installed:">
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Compile and install from Source Code" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Compile and install from source code" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -196,7 +196,7 @@ Before you begin, make sure that the following packages are installed:">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Compile and install from Source Code
+              Compile and install from source code
             
           </span>
         </div>
@@ -936,7 +936,7 @@ Before you begin, make sure that the following packages are installed:">
           
   
   <span class="md-ellipsis">
-    Compile and install from Source Code
+    Compile and install from source code
   </span>
   
 
@@ -947,7 +947,7 @@ Before you begin, make sure that the following packages are installed:">
         
   
   <span class="md-ellipsis">
-    Compile and install from Source Code
+    Compile and install from source code
   </span>
   
 
@@ -969,6 +969,39 @@ Before you begin, make sure that the following packages are installed:">
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#check-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glibc-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      glibc version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
@@ -2121,6 +2154,39 @@ Before you begin, make sure that the following packages are installed:">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#check-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check packages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#glibc-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      glibc version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-expert-help" class="md-nav__link">
     <span class="md-ellipsis">
       Get expert help
@@ -2164,7 +2230,7 @@ Before you begin, make sure that the following packages are installed:">
   
 
 
-<h1 id="compile-and-install-from-source-code">Compile and install from Source Code<a class="headerlink" href="#compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
+<h1 id="compile-and-install-from-source-code">Compile and install from source code<a class="headerlink" href="#compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
 <p>If you want to compile Percona XtraDB Cluster, you can find the source code on
 <a href="https://github.com/percona/percona-xtradb-cluster">GitHub</a>.
 Before you begin, make sure that the following packages are installed:</p>
@@ -2259,36 +2325,65 @@ Before you begin, make sure that the following packages are installed:</p>
 </tr>
 </tbody>
 </table>
-<p>You will likely have all or most of the packages already installed. If you are
-not sure, run one of the following commands to install any missing
+<h2 id="check-packages">Check packages<a class="headerlink" href="#check-packages" title="Permanent link">&para;</a></h2>
+<p>You may have already installed most of the packages. Run one of the following commands to install any missing
 dependencies:</p>
-<ul>
-<li>
-<p>For Debian or Ubuntu:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">on Debian or Ubuntu</label><label for="__tabbed_1_2">on Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
 libboost-all-dev<span class="w"> </span>libasio-dev<span class="w"> </span>libaio-dev<span class="w"> </span>libncurses5-dev<span class="w"> </span>libreadline-dev<span class="w"> </span><span class="se">\</span>
 libpam-dev<span class="w"> </span>socat<span class="w"> </span>libcurl-dev
 </code></pre></div>
-</li>
-<li>
-<p>For Red Hat Enterprise Linux or CentOS:</p>
+</div>
+<div class="tabbed-block">
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
 boost-devel<span class="w"> </span>asio-devel<span class="w"> </span>libaio-devel<span class="w"> </span>ncurses-devel<span class="w"> </span>readline-devel<span class="w"> </span>pam-devel<span class="w"> </span><span class="se">\</span>
 socat<span class="w"> </span>libcurl-devel
 </code></pre></div>
-</li>
-</ul>
-<p>To compile Percona XtraDB Cluster from source code:</p>
+</div>
+</div>
+</div>
+<h3 id="glibc-version">glibc version<a class="headerlink" href="#glibc-version" title="Permanent link">&para;</a></h3>
+<p>The glibc (GNU C Library) version can differ across software builds due to several key factors:</p>
+<table>
+<thead>
+<tr>
+<th>Reason</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating system variation</td>
+<td>When you build software on different Linux distributions or versions, each may ship with a different default glibc version. For example, Red Hat Enterprise Linux or Ubuntu might have distinct system library versions that impact compilation.</td>
+</tr>
+<tr>
+<td>Backward compatibility considerations</td>
+<td>Some applications are compiled to support multiple glibc versions. <br> - Developers often create builds that can run on older systems. <br> - This means intentionally targeting a slightly older glibc version for wider compatibility.</td>
+</tr>
+<tr>
+<td>System architecture differences</td>
+<td>32-bit and 64-bit systems might require different glibc implementations. <br> - ARM, x86, and other processor architectures can have unique library requirements.</td>
+</tr>
+<tr>
+<td>Security and patch levels</td>
+<td>Distributions backport security patches at different rates. <br> - A system&rsquo;s glibc version reflects its current security update status. <br> - Critical security updates can prompt version changes.</td>
+</tr>
+<tr>
+<td>Compilation environment</td>
+<td>The specific development environment and build tools used can directly influence which glibc version gets linked during compilation. Container environments, cross-compilation setups, and build servers might have unique library configurations.</td>
+</tr>
+</tbody>
+</table>
+<p>Practical Tip: Use <code>ldd --version</code> to check your current glibc version and understand potential compatibility constraints in your software ecosystem.</p>
+<h2 id="compile">Compile<a class="headerlink" href="#compile" title="Permanent link">&para;</a></h2>
+<p class="power-number">To compile Percona XtraDB Cluster from source code:</p>
 <ol>
 <li>
-<p>Clone the Percona XtraDB Cluster repository:</p>
+<p>Clone the latest repository or update it to the latest state. The old codebase may not be compatible with the build script. Clone the Percona XtraDB Cluster repository:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/percona/percona-xtradb-cluster.git
 </code></pre></div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Clone the latest repository or update it to the latest state.
-Old codebase may not be compatible with the build script.</p>
-</div>
 </li>
 <li>
 <p>Check out the <code>8.4</code> branch and initialize submodules:</p>
@@ -2298,25 +2393,18 @@ $<span class="w"> </span>git<span class="w"> </span>submodule<span class="w"> </
 </code></pre></div>
 </li>
 <li>
-<p>Download the matching Percona XtraBackup 8.4 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Downloads</a>. </p>
-</li>
-</ol>
-<p>The following example extract the Percona XtraBackup 8.0.32-25 tar.gz file to the target directory <code>./pxc-build</code>:</p>
-<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;$&quot;}
-$ tar -xvf percona-xtrabackup-8.0.32-25-Linux-x86_64.glibc2.17.tar.gz -C ./pxc-build
-```
+<p>Download the matching Percona XtraDB Cluster 8.4 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads</a>. The following example extracts the Percona XtraDB Cluster 8.4 tar.gz file to the target directory <code>./pxc-build</code>:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.31.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
 </code></pre></div>
-<ol>
+</li>
 <li>
-<p>Run the build script <code>./build-ps/build-binary.sh</code>.
-    By default, it attempts building into the current directory. Specify
-    the target output directory, such as <code>./pxc-build</code>:</p>
+<p>Run the build script <code>./build-ps/build-binary.sh</code>. By default, it attempts to build into the current directory. Specify the target output directory, such as <code>./pxc-build</code>:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>./pxc-build
 $<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc-build
 </code></pre></div>
 </li>
 </ol>
-<p>When the compilation completes, <code>pxc-build</code> contains a tarball, such as <code>Percona-XtraDB-Cluster-8.0.x86_64.tar.gz</code>, that you can deploy on your system.</p>
+<p>When the compilation completes, <code>pxc-build</code> contains a tarball, such as <code>Percona-XtraDB-Cluster-8.4.tar.gz</code>, that you can deploy on your system.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The exact version and release numbers may differ.</p>
@@ -2336,7 +2424,7 @@ $<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc
   <small>
     
       Last update:
-      2024-01-18
+      2024-12-19
     
   </small>
 </div>
