@@ -37,6 +37,12 @@ For information on SELinux, see [Enabling SELinux](selinux.md#selinux).
 
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
+RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:
+
+```{.bash data-prompt="$"}
+$ sudo yum module disable mysql
+```
+
 === "Install on Red Hat 7"
 
     ```{.bash data-prompt="$"}
