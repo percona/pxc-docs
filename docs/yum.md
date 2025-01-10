@@ -1,4 +1,4 @@
-# Install Percona XtraDB Cluster on Red Hat Enterprise Linux and CentOS
+# Install Percona XtraDB Cluster on Red Hat Enterprise Linux
 
 A list of the supported platforms by products and versions
 is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -35,22 +35,20 @@ For information on SELinux, see [Enabling SELinux](selinux.md#selinux).
 
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-=== "Install on Red Hat 7"
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release enable-only pxc-80 release
-    $ sudo percona-release enable tools release
-    $ sudo yum install percona-xtradb-cluster
-    ```
+## Install on Red Hat 8 or later
 
-=== "Install on Red Hat 8 or later"
+RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module: 
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-    $ sudo percona-release setup pxc-80
-    $ sudo yum install percona-xtradb-cluster
-    ```
+```{.bash data-prompt="$"} 
+$ sudo yum module disable mysql
+```
+
+```{.bash data-prompt="$"}
+$ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$ sudo percona-release setup pxc-84-lts
+$ sudo yum install percona-xtradb-cluster
+```
 
 ## After installation
 
