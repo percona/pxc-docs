@@ -173,8 +173,17 @@ nav:
       - add-node.md
       - verify-replication.md
   - Upgrade:
-      - upgrade-guide.md
-      - upgrade-from-backup.md
+      - upgrade-guide-8.0-version.md
+      - upgrade-from-backup-8.0-version.md
+      
+  - Upgrade-PS8.4:
+      - upgrade-ps-8.4.md
+      - upgrade-strategies-ps8.4.md
+      - upgrade-plugins-ps8.4.md
+      - upgrade-repositories-ps8.4.md
+      - upgrade-standalone-ps8.4.md
+      - downgrade-ps8.4.md
+      
   - PXC security:
       - security-index.md
       - secure-network.md
