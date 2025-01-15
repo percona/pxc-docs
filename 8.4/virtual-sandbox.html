@@ -2297,124 +2297,135 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 </li>
 <li>
 <p>When all cluster nodes are started, configure ProxySQL using the admin
-interface.</p>
-<div class="admonition admonition">
-<p class="admonition-title">Tip</p>
-<p>To connect to the ProxySQL admin interface, you need a <code>mysql</code> client.
-You can either connect to the admin interface from Percona XtraDB Cluster nodes
-that already have the <code>mysql</code> client installed (Node 1, Node 2, Node 3)
-or install the client on Node 4 and connect locally.</p>
-</div>
-<p>To connect to the admin interface, use the credentials, host name and port
-specified in the <a href="https://github.com/sysown/proxysql/blob/master/doc/global_variables.md">global variables</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not use default credentials in production!</p>
-</div>
-<p>The following example shows how to connect to the ProxySQL admin interface
-with default credentials (assuming that ProxySQL IP is 192.168.70.74):</p>
-<div class="highlight" data-prompt="root@proxysql:~#"><pre><span></span><code>root@proxysql:~#<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-padmin<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 2
-Server version: 5.5.30 (ProxySQL Admin Module)
+    interface.</p>
+<div class="highlight"><pre><span></span><code>!!! admonition &quot;Tip&quot;
 
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+    To connect to the ProxySQL admin interface, you need a ``mysql`` client.
+    You can either connect to the admin interface from Percona XtraDB Cluster nodes
+    that already have the ``mysql`` client installed (Node 1, Node 2, Node 3)
+    or install the client on Node 4 and connect locally.
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+To connect to the admin interface, use the credentials, host name and port
+specified in the [global variables](https://github.com/sysown/proxysql/blob/master/doc/global_variables.md).
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+!!! warning
 
-mysql&gt;
+    Do not use default credentials in production!
+
+The following example shows how to connect to the ProxySQL admin interface
+with default credentials (assuming that ProxySQL IP is 192.168.70.74):
+
+```{.bash data-prompt=&quot;root@proxysql:~#&quot;}
+root@proxysql:~# mysql -u admin -padmin -h 127.0.0.1 -P 6032
+```
+
+??? example &quot;Expected output&quot;
+
+    ```{.text .no-copy}
+    Welcome to the MySQL monitor.  Commands end with ; or \g.
+    Your MySQL connection id is 2
+    Server version: 5.5.30 (ProxySQL Admin Module)
+
+    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
+    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+    Oracle is a registered trademark of Oracle Corporation and/or its
+    affiliates. Other names may be trademarks of their respective
+    owners.
+
+    Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+    mysql&gt;
+    ```
+
+To see the ProxySQL databases and tables use the `SHOW DATABASES` and
+`SHOW TABLES` commands:
+
+```{.bash data-prompt=&quot;mysql&gt;&quot;}
+mysql&gt; SHOW DATABASES;
+```
+
+The following output shows the list of the ProxySQL databases:
+
+??? example &quot;Expected output&quot;
+
+    ```{.text .no-copy}
+    +-----+---------------+-------------------------------------+
+    | seq | name          | file                                |
+    +-----+---------------+-------------------------------------+
+    | 0   | main          |                                     |
+    | 2   | disk          | /var/lib/proxysql/proxysql.db       |
+    | 3   | stats         |                                     |
+    | 4   | monitor       |                                     |
+    | 5   | stats_monitor | /var/lib/proxysql/proxysql_stats.db |
+    +-----+---------------+-------------------------------------+
+    5 rows in set (0.00 sec)
+    ```
+
+```{.bash data-prompt=&quot;mysql&gt;&quot;}
+mysql&gt; SHOW TABLES;
+```
+
+The following output shows the list of tables:
+
+??? example &quot;Expected output&quot;
+
+    ```{.text .no-copy}
+    +----------------------------------------------------+
+    | tables                                             |
+    +----------------------------------------------------+
+    | global_variables                                   |
+    | mysql_aws_aurora_hostgroups                        |
+    | mysql_collations                                   |
+    | mysql_firewall_whitelist_rules                     |
+    | mysql_firewall_whitelist_sqli_fingerprints         |
+    | mysql_firewall_whitelist_users                     |
+    | mysql_galera_hostgroups                            |
+    | mysql_group_replication_hostgroups                 |
+    | mysql_query_rules                                  |
+    | mysql_query_rules_fast_routing                     |
+    | mysql_replication_hostgroups                       |
+    | mysql_servers                                      |
+    | mysql_users                                        |
+    | proxysql_servers                                   |
+    | restapi_routes                                     |
+    | runtime_checksums_values                           |
+    | runtime_global_variables                           |
+    | runtime_mysql_aws_aurora_hostgroups                |
+    | runtime_mysql_firewall_whitelist_rules             |
+    | runtime_mysql_firewall_whitelist_sqli_fingerprints |
+    | runtime_mysql_firewall_whitelist_users             |
+    | runtime_mysql_galera_hostgroups                    |
+    | runtime_mysql_group_replication_hostgroups         |
+    | runtime_mysql_query_rules                          |
+    | runtime_mysql_query_rules_fast_routing             |
+    | runtime_mysql_replication_hostgroups               |
+    | runtime_mysql_servers                              |
+    | runtime_mysql_users                                |
+    | runtime_proxysql_servers                           |
+    | runtime_restapi_routes                             |
+    | runtime_scheduler                                  |
+    | scheduler                                          |
+    +----------------------------------------------------+
+    32 rows in set (0.00 sec)
+    ```
+
+For more information about admin databases and tables, see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md)
+
+!!! note
+
+    ProxySQL has 3 areas where the configuration can reside:
+
+    * MEMORY (your current working place)
+
+    * RUNTIME (the production settings)
+
+    * DISK (durable configuration, saved inside an SQLITE database)
+
+    When you change a parameter, you change it in MEMORY area.
+    That is done by design to allow you to test the changes
+    before pushing to production (RUNTIME), or saving them to disk.
 </code></pre></div>
-</details>
-<p>To see the ProxySQL databases and tables use the <code>SHOW DATABASES</code> and
-<code>SHOW TABLES</code> commands:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>DATABASES<span class="p">;</span>
-</code></pre></div>
-<p>The following output shows the list of the ProxySQL databases:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----+---------------+-------------------------------------+
-| seq | name          | file                                |
-+-----+---------------+-------------------------------------+
-| 0   | main          |                                     |
-| 2   | disk          | /var/lib/proxysql/proxysql.db       |
-| 3   | stats         |                                     |
-| 4   | monitor       |                                     |
-| 5   | stats_monitor | /var/lib/proxysql/proxysql_stats.db |
-+-----+---------------+-------------------------------------+
-5 rows in set (0.00 sec)
-</code></pre></div>
-</details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>TABLES<span class="p">;</span>
-</code></pre></div>
-<p>The following output shows the list of tables:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
-| tables                                             |
-+----------------------------------------------------+
-| global_variables                                   |
-| mysql_aws_aurora_hostgroups                        |
-| mysql_collations                                   |
-| mysql_firewall_whitelist_rules                     |
-| mysql_firewall_whitelist_sqli_fingerprints         |
-| mysql_firewall_whitelist_users                     |
-| mysql_galera_hostgroups                            |
-| mysql_group_replication_hostgroups                 |
-| mysql_query_rules                                  |
-| mysql_query_rules_fast_routing                     |
-| mysql_replication_hostgroups                       |
-| mysql_servers                                      |
-| mysql_users                                        |
-| proxysql_servers                                   |
-| restapi_routes                                     |
-| runtime_checksums_values                           |
-| runtime_global_variables                           |
-| runtime_mysql_aws_aurora_hostgroups                |
-| runtime_mysql_firewall_whitelist_rules             |
-| runtime_mysql_firewall_whitelist_sqli_fingerprints |
-| runtime_mysql_firewall_whitelist_users             |
-| runtime_mysql_galera_hostgroups                    |
-| runtime_mysql_group_replication_hostgroups         |
-| runtime_mysql_query_rules                          |
-| runtime_mysql_query_rules_fast_routing             |
-| runtime_mysql_replication_hostgroups               |
-| runtime_mysql_servers                              |
-| runtime_mysql_users                                |
-| runtime_proxysql_servers                           |
-| runtime_restapi_routes                             |
-| runtime_scheduler                                  |
-| scheduler                                          |
-+----------------------------------------------------+
-32 rows in set (0.00 sec)
-</code></pre></div>
-</details>
-<p>For more information about admin databases and tables, see <a href="https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md">Admin Tables</a></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>ProxySQL has 3 areas where the configuration can reside:</p>
-<ul>
-<li>
-<p>MEMORY (your current working place)</p>
-</li>
-<li>
-<p>RUNTIME (the production settings)</p>
-</li>
-<li>
-<p>DISK (durable configuration, saved inside an SQLITE database)</p>
-</li>
-</ul>
-<p>When you change a parameter, you change it in MEMORY area.
-That is done by design to allow you to test the changes
-before pushing to production (RUNTIME), or saving them to disk.</p>
-</div>
 </li>
 </ol>
 <h3 id="adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a class="headerlink" href="#adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
@@ -2456,7 +2467,7 @@ different groups.</p>
 </tr>
 <tr>
 <td>active</td>
-<td><code>1</code> (Yes) to inidicate that this configuration should be used; <code>0</code>  (No) - otherwise</td>
+<td><code>1</code> (Yes) to inidicate that this configuration should be used; <code>0</code> (No) - otherwise</td>
 </tr>
 <tr>
 <td>max_writers</td>
@@ -2571,22 +2582,33 @@ becomes the mostly utilized node for reading requests. In case of a failback (a
 node is put back online), the node with the highest weight is automatically
 elected for write requests.</p>
 <!-- seealso: :ref:`proxysql.automatic-failover` -->
+
 <h3 id="creating-a-proxysql-monitoring-user">Creating a ProxySQL monitoring user<a class="headerlink" href="#creating-a-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
-<p>The following example shows how to add a monitoring user on Node 2:</p>
+<p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
+<p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>BY<span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>For either authentication method, run the following command to give the user account named &lsquo;proxysql&rsquo; permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="sb">```</span>
+
+The<span class="w"> </span>following<span class="w"> </span>example<span class="w"> </span>shows<span class="w"> </span>how<span class="w"> </span>to<span class="w"> </span>configure<span class="w"> </span>this<span class="w"> </span>user<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>ProxySQL<span class="w"> </span>node:
+
+<span class="sb">```</span><span class="o">{</span>.bash<span class="w"> </span>data-prompt<span class="o">=</span><span class="s2">&quot;mysql&gt;&quot;</span><span class="o">}</span>
+mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
 WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
 
 mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
 WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="saving-and-loading-the-configuration">Saving and loading the configuration<a class="headerlink" href="#saving-and-loading-the-configuration" title="Permanent link">&para;</a></h3>
-<p>To load this configuration at runtime, issue the <code>LOAD</code> command.  To save these
+<p>To load this configuration at runtime, issue the <code>LOAD</code> command. To save these
 changes to disk (ensuring that they persist after ProxySQL shuts down), issue
 the <code>SAVE</code> command.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>LOAD<span class="w"> </span>MYSQL<span class="w"> </span>VARIABLES<span class="w"> </span>TO<span class="w"> </span>RUNTIME<span class="p">;</span>
@@ -2674,13 +2696,18 @@ owners.
 
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 </code></pre></div>
-<p>To provide read/write access to the cluster for ProxySQL, add this user on one
-of the Percona XtraDB Cluster nodes:</p>
 </details>
+<p>The following example adds an <code>appuser</code> user account, if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span>
 IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
-
-mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The following example adds an <code>appuser</code> user account if you are using the <code>caching_sha2_password</code> authentication method:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>BY<span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a class="headerlink" href="#testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
 <p>After you set up Percona XtraDB Cluster in your testing environment, you can test it using
@@ -2688,15 +2715,19 @@ the <code>sysbench</code> benchmarking tool.</p>
 <ol>
 <li>
 <p>Create a database (sysbenchdb in this example; you can use a
-different name):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>sysbenchdb<span class="p">;</span>
+    different name):</p>
+<div class="highlight"><pre><span></span><code>```{.bash data-prompt=&quot;mysql&gt;&quot;}
+mysql&gt; CREATE DATABASE sysbenchdb;
+```
+
+The following output confirms that a new database has been created:
+
+??? example &quot;Expected output&quot;
+
+    ```{.text .no-copy}
+    Query OK, 1 row affected (0.01 sec)
+    ```
 </code></pre></div>
-<p>The following output confirms that a new database has been created:</p>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
-</code></pre></div>
-</details>
 </li>
 <li>
 <p>Populate the table with data for the benchmark. Note that you
@@ -2742,7 +2773,7 @@ different name):</p>
   <small>
     
       Last update:
-      2024-12-18
+      2025-01-15
     
   </small>
 </div>
