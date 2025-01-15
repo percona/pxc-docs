@@ -25,8 +25,8 @@ In this section, we will demonstrate how to configure a three node cluster:
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
     ```
 
-    *If you use Red Hat or CentOS*, edit `/etc/my.cnf`. Note that on these systems you set
-    the wsrep_provider option to a different value:
+    *If you use Red Hat Enterprise Linux*, edit `/etc/my.cnf`. Note that on these systems you set
+    the `wsrep_provider option` to a different value:
 
     ```shell
     wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
@@ -87,7 +87,7 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 ## Template of the configuration file
 
-Here is an example of a full configuration file installed on CentOS to
+Here is an example of a full configuration file installed on Red Hat Enterprise Linux to
 `/etc/my.cnf`.
 
 ```text
@@ -142,7 +142,7 @@ Specify the path to the Galera library. The location depends on the distribution
 
 * Debian and Ubuntu: `/usr/lib/galera4/libgalera_smm.so`
 
-* Red Hat and CentOS: `/usr/lib64/galera4/libgalera_smm.so`
+* Red Hat Enterprise Linux: `/usr/lib64/galera4/libgalera_smm.so`
 
 [`wsrep_cluster_name`](wsrep-system-index.md#wsrep_cluster_name)
 

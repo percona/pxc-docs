@@ -13,7 +13,7 @@ Debian or Ubuntu
     $ sudo apt install haproxy
     ```
 
-Red Hat or CentOS:
+Red Hat Enterprise Linux:
 
     ```{.bash data-prompt="$"}
     $ sudo yum update

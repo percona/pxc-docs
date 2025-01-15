@@ -10,7 +10,7 @@ is a lightweight member of a **Percona XtraDB Cluster**. This member can vote bu
 !!! note
 
     For more information on how to set up a cluster you can read in the
-    [Configuring Percona XtraDB Cluster on Ubuntu](configure-cluster-ubuntu.md#ubuntu-howto) or [Configuring Percona XtraDB Cluster on CentOS](configure-cluster-rhel.md#centos-howto) manuals.
+    [Configuring Percona XtraDB Cluster on Ubuntu](configure-cluster-ubuntu.md#ubuntu-howto) or [Configure on Red Hat Enterprise Linux](configure-cluster-rhel.md#centos-howto) manuals.
 
 ## Installation
 

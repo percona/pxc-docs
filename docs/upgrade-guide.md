@@ -81,7 +81,7 @@ All configuration settings are stored in the default MySQL configuration file:
 
 - Path on Debian and Ubuntu: `/etc/mysql/mysql.conf.d/mysqld.cnf`
 
-- Path on Red Hat and CentOS: `/etc/my.cnf`
+* Path on Red Hat Enterprise Linux: `/etc/my.cnf`
 
 After you check the log for any tech preview features or unsupported features
 and you have fixed any of the encountered incompatibilities, set the variable
@@ -99,12 +99,11 @@ All configuration settings are stored in the default MySQL configuration file:
 
 - Path on Debian and Ubuntu: `/etc/mysql/mysql.conf.d/mysqld.cnf`
 
-- Path on Red Hat and CentOS: /etc/my.cnf
+* Path on Red Hat Enterprise Linux: /etc/my.cnf
 
 Before you start the upgrade, move your custom settings from
 `/etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Debian and
-Ubuntu) or from `/etc/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Red Hat
-and CentOS) to the new location accordingly.
+Ubuntu) or from `/etc/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Red Hat Enterprise Linux) to the new location accordingly.
 
 !!! note
 
@@ -144,7 +143,7 @@ $ sudo service mysql stop -->
 
 For example, if you have Percona software repositories configured,
 you might use the following commands: -->
-<!-- * On CentOS or RHEL:
+<!-- * On RHEL:
 
 .. code-block: bash
 
@@ -352,11 +351,10 @@ To upgrade the cluster, follow these steps for each node:
         ```{.bash data-prompt="$"}
         $ sudo service mysql start
         ```
-
-        !!! note
+        
+        On Red Hat Enterprise Linux, the /etc/my.cnf configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename it back before joining the upgraded node back to the cluster.
 
             On CentOS, the /etc/my.cnf configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename it back before joining the upgraded node back to the cluster.
-
 
         [PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default, which may result in denying any
         unsupported operations and may halt the server. For more information, see
