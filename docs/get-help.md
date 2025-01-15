@@ -1,6 +1,6 @@
 # Get more help
 
-This guide is packed with information, but it can’t cover everything you need to know about Percona XtraBackup. It also won’t cover every scenario you might come across.
+This guide is packed with information, but it can’t cover everything you need to know about Percona XtraDB Cluster. It also won’t cover every scenario you might come across.
 
 Think of this guide as a solid starting point. There’s always more to learn, and you’ll keep discovering new things as you get hands-on experience. And remember, the more you experiment and work with Percona Server for MySQL, the more confident and skilled you’ll become. Don’t be afraid to try things out and ask questions when you get stuck.
 
