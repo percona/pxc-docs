@@ -1,369 +1,189 @@
-<!--------- Ask whether we need this doc or how to change it--------->
-
 # Upgrade Percona XtraDB Cluster
 
-<!-- This guide describes the procedure for upgrading Percona XtraDB Cluster without downtime
-(*rolling upgrade*) to the Percona XtraDB Cluster 8.0. -->
-<!-- A "rolling upgrade" means there is no need to take down the complete
-cluster during the upgrade. -->
+___You must make backups before attempting an upgrade.___
 
-The following documents contain details about relevant changes in the 8.0 series
-of MySQL and Percona Server for MySQL. Make sure you deal with any incompatible features
-and variables mentioned in these documents when upgrading to Percona XtraDB Cluster 8.0.
+This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 without causing downtime. This process is called a “rolling upgrade,” which means you can upgrade the cluster one node at a time without shutting down the whole cluster. Keep in mind that rolling upgrades to 8.4 are only supported if your current version is 8.0 or newer. Be sure you are running on the latest 8.0 version before you upgrade to 8.4.
 
-- [Upgrading MySQL](http://dev.mysql.com/doc/refman/8.0/en/upgrading.html)
+Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide](https://docs.percona.com/percona-server/8.4/upgrade.html).
 
-- [Upgrading from MySQL 5.7 to 8.0](https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html)
+## Upgrade from 5.7
 
-## Important changes in Percona XtraDB Cluster 8.0
+If you are using Percona XtraDB Cluster 5.7, it’s best to shut down all the nodes, remove the cluster, and create it again from scratch. Another option is to do a rolling upgrade from PXC 5.7 to 8.0 first. Once that’s done, you can follow the current steps to upgrade from 8.0 to 8.4.
 
-- [Upgrade Percona XtraDB Cluster](#upgrade-percona-xtradb-cluster)
-  - [Important changes in Percona XtraDB Cluster 8.0](#important-changes-in-percona-xtradb-cluster-80)
-    - [Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default)
-    - [Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes](#not-recommended-to-mix-pxc-57-nodes-with-pxc-80-nodes)
-    - [PXC strict mode is enabled by default](#strict-mode-is-enabled-by-default)
-    - [The configuration file layout has changed in PXC 8.0](#the-configuration-file-layout-has-changed-in-pxc-80)
-    - [caching_sha2_password is the default authentication plugin](#caching_sha2_password-is-the-default-authentication-plugin)
-    - [mysql_upgrade is part of SST](#mysql_upgrade-is-part-of-sst)
-  - [Major upgrade scenarios](#major-upgrade-scenarios)
-    - [Scenario: No active parallel workload or with read-only workload](#scenario-no-active-parallel-workload-or-with-read-only-workload)
-    - [Scenario: Upgrade from PXC 5.6 to PXC 8.0](#scenario-upgrade-from-pxc-56-to-pxc-80)
-  - [Minor upgrade](#minor-upgrade)
+## Important changes in Percona XtraDB Cluster 8.4
 
-### Traffic encryption is enabled by default
+### Keyring Plugin vs. Keyring Component
 
-The `pxc_encrypt_cluster_traffic` variable, which enables traffic
-encryption, is set to `ON` by default in Percona XtraDB Cluster 8.0.
+Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the keyring plugin. Instead, it uses the keyring component. 
 
-Unless you configure a node accordingly (each node in your cluster must use the
-same SSL certificates) or try to join a cluster running PXC 5.7 which
-unencrypted cluster traffic, the node will not be able to join resulting in an
-error.
-
-??? example "The error message"
-
-    ```{.text .no-copy}
-    ... [ERROR] ... [Galera] handshake with remote endpoint ...
-    This error is often caused by SSL issues. ...
-    ```
-
-!!! admonition "See also"
-
-    sections [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic), [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure)
-
-## <!-- Rolling upgrades to |version| from versions older than 5.7 are not supported
-
-Therefore, if you are running Percona XtraDB Cluster version 5.6, shut down all
-nodes, then remove and re-create the cluster from scratch. Alternatively,
-you can perform a `rolling upgrade from PXC 5.6 to 5.7 <https://www.percona.com/doc/percona-xtradb-cluster/5.7/howtos/upgrade_guide.html>`\_.
-and then follow the current procedure to upgrade from 5.7 to 8.0. -->
-
-### Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes
-
-Shut down the cluster and upgrade each node to PXC 8.0. It is
-important that you make backups before attempting an upgrade.
-
-<!-- If downtime is acceptable
-Shut down the cluster and upgrade all nodes to PXC
-8.0. It is important that you make backups before attempting an upgrade. -->
-<!-- If downtime is not possible
-The rolling upgrade is supported but ensure the
-traffic is controlled during the upgrade and writes are directed only to 5.7
-nodes until all nodes are upgraded to 8.0. -->
-
-### PXC strict mode is enabled by default
-
-Percona XtraDB Cluster in 8.0 runs with [PXC Strict Mode](strict-mode.md#pxc-strict-mode) enabled by default. This will deny any unsupported operations and may halt the server if [a strict mode validation fails](strict-mode.md#validations). It is recommended to first start the node with
-the `pxc_strict_mode` variable set to `PERMISSIVE` in the MySQL
-configuration file.
-
-All configuration settings are stored in the default MySQL configuration file:
-
-- Path on Debian and Ubuntu: `/etc/mysql/mysql.conf.d/mysqld.cnf`
-
-* Path on Red Hat Enterprise Linux: `/etc/my.cnf`
-
-After you check the log for any tech preview features or unsupported features
-and you have fixed any of the encountered incompatibilities, set the variable
-back to `ENFORCING` at run time:
-
-```{.bash data-prompt="mysql>"}
-mysql> SET pxc_strict_mode=ENFORCING;
-```
-
-Restarting the node with the updated configuration file also sets variable to `ENFORCING`.
-
-### The configuration file layout has changed in PXC 8.0
-
-All configuration settings are stored in the default MySQL configuration file:
-
-- Path on Debian and Ubuntu: `/etc/mysql/mysql.conf.d/mysqld.cnf`
-
-* Path on Red Hat Enterprise Linux: /etc/my.cnf
-
-Before you start the upgrade, move your custom settings from
-`/etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Debian and
-Ubuntu) or from `/etc/percona-xtradb-cluster.conf.d/wsrep.cnf` (on Red Hat Enterprise Linux) to the new location accordingly.
-
-!!! note
-
-    If you have moved your my.cnf file to a different location and added a symlink to `/etc/my.cnf`, the RPM package manager, when upgrading, can delete the symlink and put a default my.cnf file in /etc/.
+| Requirement | Details  |
+|---|---|
+| In-Place Upgrade     | During an in-place upgrade, you need to update your `my.cnf` configuration. Replace the keyring plugin settings with the keyring component configuration. This includes updating the manifest and the component configuration file. [Learn more about installing the keyring component here](https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html). |
+| Rolling Upgrade      | When performing a rolling upgrade, the donor node (running an older version) can still use the keyring plugin, while the 8.4 node uses the keyring component. Since both use the keyring for encryption, they remain compatible and work together seamlessly. |
+| Other Requirements   | All other requirements, such as ensuring the SST (State Snapshot Transfer) channel is SSL-encrypted when using the keyring plugin or component, remain the same as in version 8.0. |
 
 ### caching_sha2_password is the default authentication plugin
 
 In Percona XtraDB Cluster 8.4, the default authentication plugin is
 `caching_sha2_password`. In ProxySQL 2.6.2 or later, use the `caching_sha2_password` authentication method.
 
+### ProxySQL 2.6.2 or later
+
 If you are using a version before ProxySQL 2.6.2, the option [–syncusers](proxysql-v2.md#pxc-proxysql-v2-admin-tool-syncusers) would not work if the Percona XtraDB Cluster user is
 created using `caching_sha2_password`. Use the `mysql_native_password`
 authentication plugin in these cases. You must load the authentication plugin.
 
-Be sure you are running on the latest 8.0 version before you upgrade to 8.4.
+## Default Security and Compatibility Settings
 
-### mysql_upgrade is part of [SST](glossary.md#sst)
+[PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default, which may result in denying any
+unsupported operations and may halt the server. For more information, see
+[pxc-strict-mode is enabled by default](#pxc-strict-mode-is-enabled-by-default).
 
-**mysql_upgrade** is now run automatically as part of [SST](glossary.md#sst). You do not have
-to run it manually when upgrading your system from an older version.
-
-# <!-- Rolling Upgrade of a 3-Node PXC from 5.7 to 8.0
-
-The major upgrade involves upgrading the PXC from the previous major version
-5.7 to the new major version 8.0.
-
-To upgrade the cluster, follow these steps for each node:
-
-#. Make sure that all nodes are synchronized.
-
-#. Stop the `mysql` service: -->
-
-<!-- .. code-block: bash
-
-$ sudo service mysql stop -->
-<!-- #. Remove existing Percona XtraDB Cluster and Percona XtraBackup packages, then install Percona XtraDB Cluster version 8.0 packages.  For more information, see :ref:`install`.
-
-For example, if you have Percona software repositories configured,
-you might use the following commands: -->
-<!-- * On RHEL:
-
-.. code-block: bash
-
-   $ sudo yum remove percona-xtrabackup* Percona-XtraDB-Cluster*
-   $ sudo yum install percona-xtradb-cluster -->
-<!-- * On Debian or Ubuntu:
-
-.. code-block: bash
-
-   $ sudo apt-get remove percona-xtrabackup* percona-xtradb-cluster*
-   $ sudo apt-get install percona-xtradb-cluster -->
-<!-- #. Back up :file:`grastate.dat`, so that you can restore it
-if it is corrupted or zeroed out due to network issue. -->
-<!-- #. Now, start the cluster node with 8.0 packages installed, PXC will upgrade
-the data directory as needed - either as part of the startup process or a
-state transfer (IST/SST).
-
-In most cases, starting the ``mysql`` service should run the node with your
-previous configuration. For more information, see :ref:`add-node`.
-
-.. code-block: bash
-
-   $ sudo service mysql start
-
-.. note:
-
-   On CentOS, the `/etc/my.cnf` configuration file is renamed to
-   `my.cnf.rpmsave`.  Make sure to rename it back before
-   joining the upgraded node back to the cluster.
-
-|strict-mode| is enabled by default, which may result in denying any unsupported operations and may halt the server. For more information, see    :ref:`upgrade-guide-changed-strict-mode`.
-
-|opt.encrypt-cluster-traffic| is enabled by default. You need to configure
+`pxc-encrypt-cluster-traffic` is enabled by default. You need to configure
 each node accordingly and avoid joining a cluster with unencrypted cluster
-traffic: all nodes in your cluster must have traffic encryption enabled. For
-more information, see :ref:`upgrade-guide-changed-traffic-encryption`. -->
-<!-- #. Repeat this procedure for the next node in the cluster until you upgrade all nodes. -->
+traffic. For more information, see
+[Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default).
+
+## Do not mix PXC 8.0 nodes with PXC 8.4 nodes
+
+In Percona Server for MySQL versions 8.0 and 8.4, both use Galera 4, so there are no issues at the Galera protocol layer that would prevent any node from being a writer in a mixed-version cluster. However, 8.4 introduces changes that might not work on 8.0. If you run these changes on 8.4 and replicate them to 8.0, it could cause node inconsistencies, and the node might be evicted from the cluster due to the inconsistency voting protocol.
+
+Percona Server for MySQL 8.4 also introduces several DDL (Data Definition Language) enhancements that are not supported in 8.0. If you try to run these DDL statements on 8.0, you’ll get errors. A key difference is:
+
+* Foreign Keys Referencing Non-Unique or Partial Keys:
+
+    * 8.4: Supports foreign keys referencing non-unique or partial keys.
+
+    * 8.0: Doesn’t allow this and will fail the DDL statement.
+
+```{.bash data-prompt="mysql>"}
+mysql> CREATE TABLE parent (
+    id INT,
+    value INT,
+    INDEX (value)
+);
+
+mysql> CREATE TABLE child (
+    id INT,
+    parent_value INT,
+    FOREIGN KEY (parent_value) REFERENCES parent(value)
+);
+```
+
+Here, parent.value is indexed but not unique. In 8.4, the foreign key reference is allowed, but in 8.0, this operation fails.
+
+Since DDL is replicated as a TOI (transactional operation), it gets executed on all nodes. If it succeeds on 8.4 but fails on 8.0, the cluster will detect the inconsistency and evict the 8.0 node.
+
+In a mixed-version cluster, it’s better to use the lower version node as the writer. When executing DDL, make sure it behaves the same way on all nodes.
+
 
 ## Major upgrade scenarios
 
-Upgrading PXC from 5.7 to 8.0 may have slightly different strategies depending
-on the configuration and workload on your PXC cluster.
+Before upgrading your Percona XtraDB Cluster (PXC) to version 8.4, check your current version. You must run version 8.0 before upgrading to 8.4 - direct upgrades from older versions don't work.
+Here's what you need to know:
 
-Note that the new default value of `pxc-encrypt-cluster-traffic` (set to _ON_
-versus _OFF_ in PXC 5.7) requires additional care. You cannot join a 5.7 node
-to a PXC 8.0 cluster unless the node has traffic encryption enabled as the
-cluster may not have some nodes with traffic encryption enabled and some nodes
-with traffic encryption disabled. For more information, see
-[Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default).
+* If you run version 8.0, you can upgrade directly to 8.4
 
-### Scenario: No active parallel workload or with read-only workload
+* If you run a version older than 8.0, first upgrade to the latest 8.0 release
 
-If there is no active parallel workload or the cluster has read-only workload
-while upgrading the nodes, complete the following procedure for each node in the
-cluster:
+The exact upgrade steps depend on your cluster setup and database activity. Your specific configuration and workload will shape the upgrade process, so you'll need to plan accordingly.
 
-1. Shutdown one of the node 5.7 cluster nodes.
+### In-place rolling upgrade
 
-2. Remove 5.7 PXC packages without removing the data-directory.
+If you want to upgrade an N-node Percona XtraDB Cluster (PXC) cluster with minimal downtime, you can use an in-place rolling upgrade. This process updates the nodes one at a time. While upgrading, make sure your application sends writes only to lower-version nodes. You can use any node for reads.
 
-3. Install PXC 8.0 packages.
+Before upgrading, verify your application can function with a reduced cluster size. When a cluster operates with an even number of nodes, split-brain scenarios become possible.
 
-4. Restart the mysqld service.
+The upgrade process automatically detects the 8.0 data directory and initiates the upgrade during node bootup. The data directory transforms to be compatible with PXC 8.4. Afterward, the node joins the cluster and enters a synced state. The result is a N-node cluster with N-1 8.0 and 1 8.4.
 
-!!! important
+Here’s how to upgrade a node from Percona XtraDB Cluster (PXC) 8.0 to 8.4:
 
-    Before upgrading, make sure your application can work with a reduced cluster
-    size. If the cluster operates with an even number
-    of nodes, the cluster may have split-brain.
+1. Shut down an 8.0 node: Pick one of the nodes running PXC 8.0 and stop it.
 
-This upgrade flow auto-detects the presence of the 5.7 data directory and trigger
-the upgrade as part of the node bootup process. The data directory is upgraded
-to be compatible with PXC 8.0. Then the node joins the cluster and
-enters synced state. The 3-node cluster is restored with 2 nodes running PXC
-5.7 and 1 node running PXC 8.0.
+2. Remove PXC 8.0 packages: Uninstall the PXC 8.0 packages, but make sure you don’t delete the data directory.
 
-!!! note
+3. Install PXC 8.4 packages: Replace the old packages with PXC 8.4 packages.
 
-    Since [SST](glossary.md#sst) is not involved, [SST](glossary.md#sst) based auto-upgrade flow is not started.
+4. Restart the mysqld service: Start the node again.
 
-PXC 8.0 uses Galera 4 while PXC 5.7 uses Galera-3. The cluster will
-continue to use the protocol version 3 used in Galera 3 effectively limiting
-some of the functionality. With all nodes upgraded to version 8.0,
-protocol version 4 is applied.
+## Add 8.4 node to 8.0 cluster
 
-!!! admonition "Tip"
+You can upgrade a cluster by booting a fresh 8.4 node and joining it to the existing 8.0 cluster as an additional node instead of performing an in-place rolling upgrade.
 
-    The protocol version is stored in the ``protocol_version`` column of the ``wsrep_cluster`` table.
+In this scenario, you have an active 3-node 8.0 cluster.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> USE mysql;
-    ```
+1. Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a 4-node cluster: 3 nodes running 8.0 and 1 node running 8.4.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> SELECT protocol_version from wsrep_cluster;
-    ```
+2. Shut down one of the 8.0 nodes and repeat the procedure to replace each 8.0 node with 8.4.
 
-    The example of the output is the following:
+3. Once all nodes are running 8.4, the upgrade is complete.
 
-    ```{.text .no-copy}
-    +------------------+
-    | protocol_version |
-    +------------------+
-    |                4 |
-    +------------------+
-    1 row in set (0.00 sec)
-    ```
+!!! warning
 
-As soon as the last 5.7 node shuts down, the configuration of the remaining
-two nodes is updated to use protocol version 4. A new upgraded node will then join
-using protocol version 4 and the whole cluster will maintain
-protocol version 4 enabling the support for additional Galera 4 facilities.
+    * You cannot join an 8.0 node to a PXC 8.4 cluster.
+    
+    * You cannot join an 8.4 node to clusters older than 8.0.
 
-It may take longer to join the last upgraded node since it will invite
-[IST](glossary.md#ist) to obtain the configuration changes.
+Therefore, if you are running Percona XtraDB Cluster version 5.7, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.
 
-!!! note
+## Upgrade an async replication replica node
 
-    Starting from Galera 4, the configuration changes are cached to `gcache`
-    and the configuration changes are donated as part of [IST](glossary.md#ist) or
-    [SST](glossary.md#sst) to help build the certification queue on the JOINING node. As
-    other nodes (say n2 and n3), already using protocol version 4, donate the
-    configuration changes when the JOINER node is booted.
+If a given PXC node is an async replica of some other server, follow the procedure below:
 
-The situation was different for the previous and penultimate nodes since the
-donation of the configuration changes is not supported by protocol
-version 3 that they used.
+1. Stop async replication
 
-With [IST](glossary.md#ist) involved on joining the last node, the smart IST flow is triggered
-to take care of the upgrade even before MySQL starts to look at the
-data directory.
+2. Upgrade PXC node using any described method
 
-!!! important
+3. Start async replication
 
-    It is not recommended to restart the last node without upgrading it.
+4. Ensure async replication works
 
-<!-- Scenario: Upgrading with active parallel read-write workload
--------------------------------------------------------------------------------- -->
-<!-- The upgrade prosess is similar to that described in
-:ref:`upgrading-rolling-no-active-read-only-parallel-workload`: since
-the cluster state keeps changing while each node is taken down and
-upgraded, :term:`IST` or :term:`SST` is triggered when rejoining the
-node that you upgrading. In |version|, PXC clears the configuration
-of each replica node (via `RESET SLAVE ALL <https://dev.mysql.com/doc/refman/8.0/en/reset-slave.html>`_). -->
-<!-- important:
+### Downgrade
 
-It is important that the joining node have enough replica threads to catch up
-IST write-sets and cluster write-sets. -->
+Starting from version 8.0.34, MySQL-compatible database servers allow downgrades within the same Long-Term Support (LTS) version scope, provided the server has not applied any new server functionality to the data. While downgrading a node is not recommended, administrators can perform the downgrade using the established procedure.
+The key constraint is maintaining data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Administrators must carefully verify that no version-specific modifications have been made before attempting a downgrade.
 
-## <!-- Scenario: Adding 8.0 node to a 5.7 cluster
-
-Instead of upgrading a node in a 5.7 cluster to PXC 8.0, you are booting a
-fresh 8.0 node and try joining it as an additional node.
-
-Suppose the 5.7 cluster is already active and has processed write-sets. The new
-8.0 node joins the cluster and gets a dump of the cluster through :term:`SST`
-and remains part of the cluster.
-
-Since the underline protocol version negotiated in both cases is based on Galera 3,
-the 8.0 node will fail to service galera 4 features. As soon as all 5.7
-nodes leave the cluster, the 8.0 nodes re-negotiates using protocol version 4
-and gets a proper local index and other properties assigned.
-
-.. warning:
-
-Joining a 5.7 node to a PXC |version| cluster is not supported. -->
-
-## <!-- Scenario: Upgrading a node which is an async replication replica
-
-In this case, you need to configure the source-replica replication. Make one of the
-PXC nodes as an async replica. Upgrade the PXC async replica node and check the
-replication status. -->
-
-### Scenario: Upgrade from PXC 5.6 to PXC 8.0
-
-First, upgrade PXC from 5.6 to the latest version of PXC 5.7. Then proceed
-with the upgrade using the procedure described in
-[Scenario: No active parallel workload or with read-only workload](#scenario-no-active-parallel-workload-or-with-read-only-workload).
+While possible, downgrades carry inherent risks and should be approached with caution and thorough planning.
 
 ## Minor upgrade
 
+A minor upgrade for Percona XtraDB Cluster 8.4 means upgrading to a newer version within the 8.4 series. For example, moving from version 8.4.0 to 8.4.1. These upgrades include bug fixes and small improvements but don't change major functionality.
+
 To upgrade the cluster, follow these steps for each node:
 
-1.  Make sure that all nodes are synchronized.
+1. Make sure that all nodes are synchronized.
 
-2.  Stop the `mysql` service:
+2. Stop the mysql service:
 
     ```{.bash data-prompt="$"}
     $ sudo service mysql stop
     ```
+  
+3. Upgrade Percona XtraDB Cluster packages. For more information, see [Install Percona XtraDB Cluster](install-index.md).
 
-3.  Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
-    For more information, see [Installing Percona XtraDB Cluster](index.md#install).
+4. Back up `grastate.dat`, so that you can restore it if it is corrupted or zeroed out due to network issues.
 
-4.  Back up `grastate.dat`, so that you can restore it
-    if it is corrupted or zeroed out due to network issue.
+5. Start the Percona XtraDB Cluster node with the new packages. 
 
-5.  Now, start the cluster node with 8.0 packages installed, PXC will upgrade
-    the data directory as needed - either as part of the startup process or a
-    state transfer (IST/SST).
+    In most cases, starting the `mysql` service should run the node with your
+    previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-node).
+    
+    ```{.bash data-prompt="$"}
+    $ sudo service mysql start
+    ```
+  
+    On Red Hat Enterprise Linux, the `/etc/my.cnf` configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename this file back to the original name before joining the upgraded node back to the cluster.
+  
+    The node automatically upgrades its data directory. 
+  
+    This upgrade happens in one of two ways:
+      
+    * During the node startup process
+      
+    * Through a state transfer (either IST or SST) from another node
+      
+    The cluster handles the upgrade process automatically - you need to start the node with the new packages installed, and PXC manages the data directory upgrade process.
+  
+6. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
+  
 
-        In most cases, starting the `mysql` service should run the node with your
-        previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-node).
-
-        ```{.bash data-prompt="$"}
-        $ sudo service mysql start
-        ```
-        
-        On Red Hat Enterprise Linux, the /etc/my.cnf configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename it back before joining the upgraded node back to the cluster.
-
-            On CentOS, the /etc/my.cnf configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename it back before joining the upgraded node back to the cluster.
-
-        [PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default, which may result in denying any
-        unsupported operations and may halt the server. For more information, see
-        [pxc-strict-mode is enabled by default](#pxc-strict-mode-is-enabled-by-default).
-
-        `pxc-encrypt-cluster-traffic` is enabled by default. You need to configure
-        each node accordingly and avoid joining a cluster with unencrypted cluster
-        traffic. For more information, see
-        [Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default).
-
-6.  Repeat this procedure for the next node in the cluster
-    until you upgrade all nodes.
