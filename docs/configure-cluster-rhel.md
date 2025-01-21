@@ -1,7 +1,7 @@
 # Configure a cluster on Red Hat-based distributions
 
 This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
-on Red Hat or CentOS 7 servers, using the packages from Percona repositories.
+on Red Hat Enterprise Linux (RHEL) 8 servers, using the packages from Percona repositories.
 
 * Node 1
 
@@ -25,7 +25,7 @@ on Red Hat or CentOS 7 servers, using the packages from Percona repositories.
 
 The procedure described in this tutorial requires the following:
 
-* All three nodes have Red Hat or Red Hat or CentOS 7 installed.
+* All three nodes have Red Hat Enterprise Linux 8 installed.
 
 * The firewall on all nodes is configured to allow connecting
 to ports 3306, 4444, 4567 and 4568.
@@ -36,11 +36,11 @@ to ports 3306, 4444, 4567 and 4568.
 
    The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster {{vers}} automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
 
-## Step 1. Installing PXC
+## Step 1. Install 
 
-Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Red Hat Enterprise Linux or CentOS](yum.md#yum).
+Install Percona XtraDB Cluster on all three nodes as described in [Install on Red Hat Enterprise Linux](yum.md#yum).
 
-## Step 2. Configuring the first node
+## Step 2. Configure the first node
 
 Individual nodes should be configured to be able to bootstrap the cluster.
 For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap).
@@ -76,7 +76,7 @@ on the first node (`percona1`) contains the following:
     wsrep_sst_method=xtrabackup-v2
 
     # Cluster name
-    wsrep_cluster_name=my_centos_cluster
+    wsrep_cluster_name=my_rhel_cluster
     ```
 
 2. Start the first node with the following command:
@@ -140,7 +140,7 @@ on the first node (`percona1`) contains the following:
         Query OK, 0 rows affected (0.00 sec)
         ```
 
-## Step 3. Configuring the second node
+## Step 3. Configure the second node
 
 1. Make sure that the configuration file `/etc/my.cnf` on the second node (`percona2`) contains the following:
 
@@ -169,7 +169,7 @@ on the first node (`percona1`) contains the following:
     wsrep_node_address=192.168.70.72
 
     # Cluster name
-    wsrep_cluster_name=my_centos_cluster
+    wsrep_cluster_name=my_rhel_cluster
 
     # SST method
     wsrep_sst_method=xtrabackup-v2
@@ -211,7 +211,7 @@ on the first node (`percona1`) contains the following:
         40 rows in set (0.01 sec)
         ```
 
-## Step 4. Configuring the third node
+## Step 4. Configure the third node
 
 1. Make sure that the MySQL configuration file `/etc/my.cnf` on the third node (`percona3`) contains the following:
 
@@ -240,7 +240,7 @@ on the first node (`percona1`) contains the following:
     wsrep_node_address=192.168.70.73
 
     # Cluster name
-    wsrep_cluster_name=my_centos_cluster
+    wsrep_cluster_name=my_rhel_cluster
 
     # SST method
     wsrep_sst_method=xtrabackup-v2
@@ -282,7 +282,7 @@ on the first node (`percona1`) contains the following:
         40 rows in set (0.01 sec)
         ```
 
-## Testing replication
+## Test replication
 
 To test replication, lets create a new database on second node,
 create a table for that database on the third node,

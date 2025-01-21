@@ -96,8 +96,8 @@ markdown_extensions:
     custom_checkbox: true
   pymdownx.snippets:
       base_path: ["snippets"]
-      auto_append:
-        - services-banner.md
+#      auto_append:
+#        - services-banner.md
   pymdownx.highlight:
     use_pygments: true
   pymdownx.emoji:
@@ -145,7 +145,7 @@ extra:
 
 nav:
   - Home: index.md
-  - Get more help: get-help.md
+      - get-help.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
       - release-notes/8.4.2-2.md 

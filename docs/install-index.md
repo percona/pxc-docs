@@ -11,7 +11,7 @@ We recommended installing Percona XtraDB Cluster from official Percona software 
 
 * [Debian or Ubuntu](apt.md#apt)
 
-* [Red Hat or CentOS](yum.md#yum)
+* [Red Hat Enterprise Linux](yum.md#yum)
 
 !!! important
 
