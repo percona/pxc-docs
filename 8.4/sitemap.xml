@@ -2,246 +2,246 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/apparmor.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/apt.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/certification.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/compile.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/copyright-and-licensing-information.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/docker.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/failover.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/faq.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/garbd-howto.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-write-set-cache-encryption.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/get-help.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/get-started-cluster.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/haproxy.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/install-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/intro.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/nbo.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/online-schema-upgrade.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/proxysql-v2.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/quickstart-overview.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/restarting-nodes.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/security-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/selinux.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/set-up-3nodes-ec2.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/singlebox.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/state-snapshot-transfer.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/tarball.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/threading-model.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/trademark-policy.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-from-backup.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/virtual-sandbox.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/xtradb-cluster-version-numbers.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/yum.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.0-1.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.2-2.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/release-notes_index.html</loc>
-         <lastmod>2025-01-17</lastmod>
+         <lastmod>2025-01-21</lastmod>
     </url>
 </urlset>
