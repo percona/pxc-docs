@@ -6,6 +6,8 @@ for manual installation.
 You can download the appropriate tarball package from
 [Percona Software Downloads](https://www.percona.com/downloads).
 
+--8<--- "get-help-snip.md"
+
 ### Version updates
 
 The version number in the tarball name must be substituted with
