@@ -4,6 +4,8 @@
 
 Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.
 
+--8<--- "get-help-snip.md"
+
 [Downgrading is not supported](https://docs.percona.com/percona-server/8.0/downgrade.html).
 
 ## Restore a database with a different server version

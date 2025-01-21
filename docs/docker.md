@@ -9,14 +9,9 @@ provided via `apt` and `yum` may be outdated and cause errors.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-!!! note
+--8<--- "get-help-snip.md"
 
-    By default, Docker pulls the image from Docker Hub if the image is not
-    available locally.
-
-    The image contains only the most essential binaries for Percona XtraDB Cluster to
-    run. Some utilities included in a Percona Server for MySQL or MySQL
-    installation might be missing from the Percona XtraDB Cluster Docker image.
+By default, Docker pulls the image from Docker Hub if the image is not available locally. The image contains only the most essential Percona XtraDB Cluster binaries. Utilities included in a Percona Server for MySQL or MySQL installation might be missing from this image.
 
 The following procedure describes how to set up a simple 3-node cluster
 for evaluation and testing purposes. Do not use these instructions in a
@@ -25,6 +20,7 @@ procedure are self-signed. For a
 production environment, you should generate and store the certificates to be used by Docker.
 
 In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separate containers on one host:
+{.power-number}
 
 1. Create a ~/pxc-docker-test/config directory.
 

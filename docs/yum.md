@@ -1,9 +1,11 @@
-# Install Percona XtraDB Cluster on Red Hat Enterprise Linux
+# Install on Red Hat Enterprise Linux
 
 A list of the supported platforms by products and versions
 is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 We gather [Telemetry data] in the Percona packages and Docker images.
+
+--8<--- "get-help-snip.md"
 
 You can install Percona XtraDB Cluster with the following methods:
 
