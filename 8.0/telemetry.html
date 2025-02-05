@@ -3692,6 +3692,19 @@
 </ul>
 <h2 id="disable-continuous-telemetry">Disable continuous telemetry<a class="headerlink" href="#disable-continuous-telemetry" title="Permanent link">&para;</a></h2>
 <p>Percona software enables the continuous telemetry system by default. Disable the Telemetry agent and uninstall the DB component to turn off this telemetry completely.</p>
+<p>Percona XtraDB Cluster (PXC) requires all nodes to have the same configuration. If you perform an upgrade on all nodes and then try to uninstall the component, then all nodes must have the component installed initially, ensuring a consistent configuration. </p>
+<p>The potential consequences of configuration inconsistencies are:</p>
+<ul>
+<li>
+<p>Node evictions due to inconsistency voting</p>
+</li>
+<li>
+<p>Data corruption</p>
+</li>
+<li>
+<p>Unexpected behavior and instability</p>
+</li>
+</ul>
 <p>These actions do not affect Installation-time telemetry.</p>
 <h3 id="disable-the-telemetry-agent">Disable the telemetry agent<a class="headerlink" href="#disable-the-telemetry-agent" title="Permanent link">&para;</a></h3>
 <p>You can either disable the telemetry agent for a session or permanently.</p>
@@ -3731,7 +3744,7 @@ percona_telemetry_disable=1
   <small>
     
       Last update:
-      2024-09-03
+      2025-02-05
     
   </small>
 </div>
