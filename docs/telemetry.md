@@ -333,6 +333,16 @@ The package names must fit the following pattern:
 
 Percona software enables the continuous telemetry system by default. Disable the Telemetry agent and uninstall the DB component to turn off this telemetry completely.
 
+Percona XtraDB Cluster (PXC) requires all nodes to have the same configuration. If you perform an upgrade on all nodes and then try to uninstall the component, then all nodes must have the component installed initially, ensuring a consistent configuration. 
+
+The potential consequences of configuration inconsistencies are:
+
+* Node evictions due to inconsistency voting
+
+* Data corruption
+
+* Unexpected behavior and instability
+
 These actions do not affect Installation-time telemetry.
 
 ### Disable the telemetry agent
