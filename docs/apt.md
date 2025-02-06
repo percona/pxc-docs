@@ -1,4 +1,4 @@
-# Install Percona XtraDB Cluster on Debian or Ubuntu
+# Install on Debian or Ubuntu
 
 Specific information on the supported platforms, products, and versions
 is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
@@ -9,6 +9,8 @@ It is recommended to install Percona XtraDB Cluster from the official repository
 using APT.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
+
+--8<--- "get-help-snip.md"
 
 ## Prerequisites
 

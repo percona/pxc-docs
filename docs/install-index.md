@@ -5,8 +5,9 @@ and ensure that you have root access to the MySQL server on each one.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
 
-It is recommended to install Percona XtraDB Cluster from official Percona software repositories
-using the corresponding package manager for your system:
+--8<--- "get-help-snip.md"
+
+We recommended installing Percona XtraDB Cluster from official Percona software repositories using the appropriate package manager for your system:
 
 * [Debian or Ubuntu](apt.md#apt)
 
@@ -16,9 +17,9 @@ using the corresponding package manager for your system:
 
     After installing Percona XtraDB Cluster the ``mysql`` service is *stopped* but *enabled* so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of ``seqno`` is not **-1**.
 
-    !!! admonition "See also"
+    !!! admonition "For more information"
 
-        More information about Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#wsrep-file-index)
+        See the Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#wsrep-file-index)
 
 ## Installation alternatives
 
