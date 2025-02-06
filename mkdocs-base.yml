@@ -144,6 +144,13 @@ extra:
 
 nav:
   - Home: index.md
+  - Percona XtraDB Cluster PRO:
+      - pxc-pro.md
+      - Install Percona XtraDB Cluster Pro:
+        - install-pro.md
+        - pro-files.md
+      - Pro build features:
+        - fips.md
   - get-help.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
@@ -181,7 +188,7 @@ nav:
   - Features:
       - high-availability.md
       - strict-mode.md
-     
+
   - Quickstart guide:
       - quickstart-overview.md
       - get-started-cluster.md
@@ -198,6 +205,7 @@ nav:
       - verify-replication.md
       - Troubleshoot install: 
           - timeoutstarts.md
+
   - Upgrade:
       - upgrade-guide.md
       - upgrade-from-backup.md
