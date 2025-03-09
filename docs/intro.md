@@ -3,7 +3,7 @@
 Percona XtraDB [Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a fully open-source high-availability solution for MySQL.  It integrates Percona Server for [MySQL](https://www.mysql.com/) and Percona [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) with the [Galera](https://github.com/percona/galera) library to enable synchronous multi-source replication.
 
 A *cluster* consists of *nodes*, where each node contains the same set of data
-synchronized accross nodes.  The recommended configuration is to have at least 3
+synchronized across nodes.  The recommended configuration is to have at least 3
 nodes, but you can have 2 nodes as well.  Each node is a regular MySQL Server
 instance (for example, Percona Server).  You can convert an existing MySQL
 Server instance to a node and run the cluster using this node as a base.  You
