@@ -15,13 +15,13 @@
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-from-backup.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-backup.html">
       
       
         <link rel="prev" href="upgrade-guide.html">
       
       
-        <link rel="next" href="security-index.html">
+        <link rel="next" href="upgrade-packages.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Upgrade from backup - Percona XtraDB Cluster</title>
+        <title>Restore 8.0 backup to 8.4 cluster - Percona XtraDB Cluster</title>
       
     
     
@@ -93,7 +93,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Upgrade from backup" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Restore 8.0 backup to 8.4 cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -119,7 +119,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#restore-a-57-backup-to-an-80-cluster" class="md-skip">
+        <a href="#restore-80-backup-to-84-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -194,7 +194,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Upgrade from backup
+              Restore 8.0 backup to 8.4 cluster
             
           </span>
         </div>
@@ -1384,7 +1384,7 @@
         
   
   <span class="md-ellipsis">
-    Upgrade guide
+    Upgrade Percona XtraDB Cluster
     
   </span>
   
@@ -1415,7 +1415,7 @@
           
   
   <span class="md-ellipsis">
-    Upgrade from backup
+    Restore 8.0 backup to 8.4 cluster
     
   </span>
   
@@ -1423,11 +1423,11 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="upgrade-from-backup.html" class="md-nav__link md-nav__link--active">
+      <a href="upgrade-backup.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Upgrade from backup
+    Restore 8.0 backup to 8.4 cluster
     
   </span>
   
@@ -1460,10 +1460,50 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#upgrade-first-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade first node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-other-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade other nodes
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="upgrade-packages.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Upgrade cluster from packages
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -2460,6 +2500,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#upgrade-first-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade first node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-other-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade other nodes
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2491,7 +2549,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/upgrade-from-backup.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/upgrade-backup.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2500,38 +2558,20 @@
     
       
     
-    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/upgrade-from-backup.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/upgrade-backup.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<!--------- Ask whether we need to change this doc --------->
-
-<h1 id="restore-a-57-backup-to-an-80-cluster">Restore a 5.7 backup to an 8.0 cluster<a class="headerlink" href="#restore-a-57-backup-to-an-80-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="restore-80-backup-to-84-cluster">Restore 8.0 backup to 8.4 cluster<a class="headerlink" href="#restore-80-backup-to-84-cluster" title="Permanent link">&para;</a></h1>
 <p>Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.</p>
-<p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
-<p><a href="https://docs.percona.com/percona-server/8.0/downgrade.html">Downgrading is not supported</a>.</p>
 <h2 id="restore-a-database-with-a-different-server-version">Restore a database with a different server version<a class="headerlink" href="#restore-a-database-with-a-different-server-version" title="Permanent link">&para;</a></h2>
 <p>Review <a href="upgrade-guide.html">Upgrade Percona XtraDB cluster</a>.</p>
 <p>Upgrade the nodes one at a time. The primary node should be the last node to be upgraded. The following steps are required on each node.</p>
+<h2 id="upgrade-first-node">Upgrade first node<a class="headerlink" href="#upgrade-first-node" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>Back up the data on the source server.</p>
-</li>
-<li>
-<p>Install the same database version as the source server on the target server.</p>
-</li>
-<li>
-<p>Restore with a <code>copy-back</code> operation on the target server.</p>
-</li>
-<li>
-<p>Start the database server on the target server.</p>
-</li>
-<li>
-<p>Do a slow shutdown of the database server with the <code>SET GLOBAL innodb_fast_shutdown=0</code> statement. This shutdown type flushes InnoDB operations before completing and may take longer.</p>
-</li>
 <li>
 <p>Install the new database server version on the target server.</p>
 </li>
@@ -2542,13 +2582,50 @@
 <p>Perform any other upgrade steps as necessary.</p>
 </li>
 </ol>
-<p>To ensure the upgrade was successful, check the data.</p>
+<p>To ensure the upgrade was successful, verify the data by performing the following checks:</p>
+<table>
+<thead>
+<tr>
+<th>Areas to check</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data integrity</td>
+<td>Compare the data before and after the upgrade to ensure no data loss or corruption occurred.</td>
+</tr>
+<tr>
+<td>Application functionality</td>
+<td>Test the application to confirm it interacts correctly with the upgraded database.</td>
+</tr>
+<tr>
+<td>Performance metrics</td>
+<td>Monitor performance metrics to ensure the upgrade did not negatively impact database performance.</td>
+</tr>
+<tr>
+<td>Logs and errors</td>
+<td>Review logs for any errors or warnings that might indicate issues during the upgrade process.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="upgrade-other-nodes">Upgrade other nodes<a class="headerlink" href="#upgrade-other-nodes" title="Permanent link">&para;</a></h2>
+<p>To create the 2<sup>nd</sup> and subsequent nodes, follow these steps:</p>
+<ol>
+<li>
+<p>Install Percona XtraDB Cluster (PXC) 8.4.</p>
+</li>
+<li>
+<p>Join the cluster using State Snapshot Transfer (SST).</p>
+</li>
+</ol>
+<p>Starting from version 8.0.34, this procedure can also be used to downgrade within the same LTS version.</p>
 <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      2025-01-21
+      2025-03-11
     
   </small>
 </div>
