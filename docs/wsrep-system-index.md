@@ -1308,15 +1308,17 @@ Defines storage for streaming replication fragments. The available values are `t
 
 | Option         | Description        |
 | -------------- | ------------------ |
-| Command Line:  | ``--wsrep_sst_allowed_methods`` |
-| Config File:   | Yes                |
+| Command line:  | ``--wsrep_sst_allowed_methods`` |
+| Config file:   | Yes                |
 | Scope:         | Global            |
 | Dynamic:       | No                 |
-| Default Value: | ``xtrabackup-v2`` |
+| Default value: | ``xtrabackup-v2, clone`` |
+
+Percona XtraDB Cluster 8.0.41 includes `clone` to the default value. For older versions of Percona XtraDB Cluster, the default value is `xtrabackup-v2`.
 
 Percona XtraDB Cluster 8.0.20-11.3 adds this variable.
 
-This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2`.
+This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable.
 
 ### `wsrep_sst_donor`
 
@@ -1383,20 +1385,16 @@ Defines the method or script for [State Snapshot Transfer](state-snapshot-transf
 
 Available values are:
 
-* `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST. This value is the default.
-Privileges and permissions for running *Percona XtraBackup*
-can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).
+* * `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This is the default value.  
+Privileges and permissions required to run Percona XtraBackup are detailed in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For additional details, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).  
+The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
 
-* `skip`: Use this to skip SST.
-**Removed in Percona XtraDB Cluster 8.0.33-25.** This value can be used when initially starting the cluster
-and manually restoring the same data to all nodes.
-This value should not be used permanently because it could lead to data inconsistency across the nodes.
+* `clone`: Uses the [`clone`](clone-sst.md) method for SST, introduced in Percona XtraDB Cluster 8.0.41 and later versions.
+
+* `skip`: This value, which allows skipping SST, has been **removed as of Percona XtraDB Cluster 8.0.33-25.** It was previously used for initially starting the cluster and manually restoring the same data to all nodes. However, it is not suitable for permanent use, as it could cause data inconsistency across nodes.
 
 * `ist_only` : **Introduced in Percona XtraDB Cluster 8.0.33-25.** This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node's start. This action leaves the data directory unchanged. This value prevents starting a node, after a manual backup restoration, that does not have a `grastate.dat` file. This missing file could initiate a full-state transfer (SST) which can be a more time and resource-intensive operation.
 
-!!! note
-
-    ``xtrabackup-v2`` provides support for clusters with GTIDs and async replicas.
 
 !!! admonition "See also"
 

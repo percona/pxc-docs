@@ -216,8 +216,10 @@ nav:
       - apparmor.md
       - selinux.md
   - User's manual:
-      - state-snapshot-transfer.md
-      - xtrabackup-sst.md
+      - Solid State Transfer:
+        - state-snapshot-transfer.md
+        - xtrabackup-sst.md
+        - clone-sst.md
       - restarting-nodes.md
       - failover.md
       - monitoring.md
@@ -243,10 +245,6 @@ nav:
       - proxysql-v2.md
       - singlebox.md
       - set-up-3nodes-ec2.md
-
-  
-
-
       - virtual-sandbox.md
 
   - Reference:
