@@ -9,12 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="State Snapshot Transfer (SST) is a full data copy from one node (donor)
-to the joining node (joiner).
-It’s used when a new node joins the cluster.
-In order to be synchronized with the cluster,
-the new node has to receive data from a node
-that is already part of the cluster.">
+        <meta name="description" content="Here are the top three takeaways from the “State Snapshot Transfer” documentation:">
       
       
         <meta name="author" content="Percona LLC">
@@ -30,7 +25,7 @@ that is already part of the cluster.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
@@ -2154,6 +2149,44 @@ that is already part of the cluster.">
   
   
   
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Solid State Transfer
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_1">
+            <span class="md-nav__icon md-icon"></span>
+            Solid State Transfer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -2201,6 +2234,24 @@ that is already part of the cluster.">
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtrabackup-sst-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xtrabackup SST Method
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#limitation" class="md-nav__link">
@@ -2253,15 +2304,6 @@ that is already part of the cluster.">
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other reading
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2288,6 +2330,36 @@ that is already part of the cluster.">
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="clone-sst.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    State Snapshot Transfer (SST) Method using Clone plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -3233,6 +3305,24 @@ that is already part of the cluster.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtrabackup-sst-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Xtrabackup SST Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#limitation" class="md-nav__link">
     <span class="md-ellipsis">
       Limitation
@@ -3280,15 +3370,6 @@ that is already part of the cluster.">
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#other-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other reading
-    </span>
-  </a>
   
 </li>
       
@@ -3340,18 +3421,36 @@ that is already part of the cluster.">
 
 
 <h1 id="state-snapshot-transfer">State snapshot transfer<a class="headerlink" href="#state-snapshot-transfer" title="Permanent link">&para;</a></h1>
-<p>State Snapshot Transfer (SST) is a full data copy from one node (donor)
-to the joining node (joiner).
-It’s used when a new node joins the cluster.
-In order to be synchronized with the cluster,
-the new node has to receive data from a node
-that is already part of the cluster.</p>
-<p>Percona XtraDB Cluster enables  via <strong>xtrabackup</strong>.</p>
-<p>Xtrabackup SST uses <a href="https://docs.percona.com/percona-server/8.0/backup-locks.html">backup locks</a>, which means the Galera provider is not paused at all as with  earlier.
-The SST method can be configured using the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
+<details class="example">
+<summary>Key takeaways</summary>
+<p>Here are the top three takeaways from the &ldquo;State Snapshot Transfer&rdquo; documentation:</p>
+<ul>
+<li>
+<p><strong>Purpose of SST</strong>:<br />
+   State Snapshot Transfer (SST) is a critical process in Percona XtraDB Cluster that synchronizes a new or recovering node (joiner) with the cluster by transferring a consistent data snapshot from an existing node (donor).</p>
+</li>
+<li>
+<p><strong>Xtrabackup as the Recommended Method</strong>:<br />
+   The default and most recommended SST method is <code>xtrabackup-v2</code>, which uses Percona XtraBackup. It is a non-blocking method that ensures the donor node remains operational during the transfer, leveraging backup locks for efficiency and consistency.</p>
+</li>
+<li>
+<p><strong>Configuration and Variables</strong>:<br />
+   SST methods are configured using the <code>wsrep_sst_method</code> variable. Proper configuration of SST-related variables, such as <code>gcs.sync_donor</code>, is essential to avoid cluster-wide blocking and ensure smooth synchronization.</p>
+</li>
+</ul>
+</details>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>State Snapshot Transfer (SST) is essential in Percona XtraDB Cluster for synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. The SST process ensures data consistency and cluster integrity during these operations.  </p>
+<p>The <a href="xtrabackup-sst.html"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
+<p>The <a href="clone-sst.html"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
+<p>Choosing the appropriate SST method depends on your environment, requirements for performance, and resource considerations. Both options ensure consistency between nodes and support seamless cluster synchronization.</p>
+<h3 id="xtrabackup-sst-method">Xtrabackup SST Method<a class="headerlink" href="#xtrabackup-sst-method" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster supports the <strong>xtrabackup</strong> SST method, which is the recommended option for most use cases.  </p>
+<p>Xtrabackup SST uses <a href="https://docs.percona.com/percona-server/8.0/backup-locks.html">backup locks</a>, ensuring that the Galera provider remains operational without being paused, unlike earlier approaches. This method ensures a seamless data synchronization process during State Snapshot Transfers.  </p>
+<p>The SST method is configured using the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="wsrep-provider-index.html#gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
+<p>If the <a href="wsrep-provider-index.html#gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
 </div>
 <h2 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h2>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
@@ -3388,13 +3487,16 @@ XtraBackup is run locally on the donor node.</p>
 the target directory does not exist, it will be created.  If the target file
 already exists, an error will be returned, because XtraBackup cannot clear
 tablespaces not in the data directory.</p>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<p>For more information, see:  </p>
 <ul>
 <li>
-<p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a></p>
+<p><a href="clone-sst.html">Clone SST</a>  </p>
 </li>
 <li>
-<p><a href="xtrabackup-sst.html#xtrabackup-sst">Xtrabackup SST configuration</a></p>
+<p><a href="xtrabackup-sst.html#xtrabackup-sst">Xtrabackup SST configuration</a>  </p>
+</li>
+<li>
+<p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a>  </p>
 </li>
 </ul>
 <hr>
@@ -3402,7 +3504,7 @@ tablespaces not in the data directory.</p>
   <small>
     
       Last update:
-      2024-12-06
+      2025-03-13
     
   </small>
 </div>
@@ -3503,7 +3605,7 @@ tablespaces not in the data directory.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="js/version-select.js"></script>
       

@@ -26,7 +26,7 @@ related to write-set replication.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
     
     
       
@@ -2146,6 +2146,42 @@ related to write-set replication.">
   
   
   
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Solid State Transfer
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1">
+            <span class="md-nav__icon md-icon"></span>
+            Solid State Transfer
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="state-snapshot-transfer.html" class="md-nav__link">
         
@@ -2179,6 +2215,36 @@ related to write-set replication.">
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="clone-sst.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    State Snapshot Transfer (SST) Method using Clone plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -6618,11 +6684,11 @@ This is disabled by default.</p>
 </thead>
 <tbody>
 <tr>
-<td>Command Line:</td>
+<td>Command line:</td>
 <td><code>--wsrep_sst_allowed_methods</code></td>
 </tr>
 <tr>
-<td>Config File:</td>
+<td>Config file:</td>
 <td>Yes</td>
 </tr>
 <tr>
@@ -6634,13 +6700,14 @@ This is disabled by default.</p>
 <td>No</td>
 </tr>
 <tr>
-<td>Default Value:</td>
-<td><code>xtrabackup-v2</code></td>
+<td>Default value:</td>
+<td><code>xtrabackup-v2, clone</code></td>
 </tr>
 </tbody>
 </table>
+<p>Percona XtraDB Cluster 8.0.41 includes <code>clone</code> to the default value. For older versions of Percona XtraDB Cluster, the default value is <code>xtrabackup-v2</code>.</p>
 <p>Percona XtraDB Cluster 8.0.20-11.3 adds this variable.</p>
-<p>This variable limits SST methods accepted by the server for <a href="#wsrep_sst_method">wsrep_sst_method</a> variable. The default value is <code>xtrabackup-v2</code>.</p>
+<p>This variable limits SST methods accepted by the server for <a href="#wsrep_sst_method">wsrep_sst_method</a> variable.</p>
 <h3 id="wsrep_sst_donor"><code>wsrep_sst_donor</code><a class="headerlink" href="#wsrep_sst_donor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6737,24 +6804,22 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <p>Available values are:</p>
 <ul>
 <li>
-<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST. This value is the default.
-Privileges and permissions for running <em>Percona XtraBackup</em>
-can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
+<ul>
+<li><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This is the default value.<br />
+Privileges and permissions required to run Percona XtraBackup are detailed in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For additional details, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.<br />
+The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</li>
+</ul>
 </li>
 <li>
-<p><code>skip</code>: Use this to skip SST.
-<strong>Removed in Percona XtraDB Cluster 8.0.33-25.</strong> This value can be used when initially starting the cluster
-and manually restoring the same data to all nodes.
-This value should not be used permanently because it could lead to data inconsistency across the nodes.</p>
+<p><code>clone</code>: Uses the <a href="clone-sst.html"><code>clone</code></a> method for SST, introduced in Percona XtraDB Cluster 8.0.41 and later versions.</p>
+</li>
+<li>
+<p><code>skip</code>: This value, which allows skipping SST, has been <strong>removed as of Percona XtraDB Cluster 8.0.33-25.</strong> It was previously used for initially starting the cluster and manually restoring the same data to all nodes. However, it is not suitable for permanent use, as it could cause data inconsistency across nodes.</p>
 </li>
 <li>
 <p><code>ist_only</code> : <strong>Introduced in Percona XtraDB Cluster 8.0.33-25.</strong> This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node&rsquo;s start. This action leaves the data directory unchanged. This value prevents starting a node, after a manual backup restoration, that does not have a <code>grastate.dat</code> file. This missing file could initiate a full-state transfer (SST) which can be a more time and resource-intensive operation.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>xtrabackup-v2</code> provides support for clusters with GTIDs and async replicas.</p>
-</div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-method">MySQL wsrep option: wsrep_sst_method</a></p>
@@ -7088,7 +7153,7 @@ Query OK, 131072 rows affected (15.09 sec)
   <small>
     
       Last update:
-      2024-07-17
+      2025-03-13
     
   </small>
 </div>
@@ -7189,7 +7254,7 @@ Query OK, 131072 rows affected (15.09 sec)
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="js/version-select.js"></script>
       
