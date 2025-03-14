@@ -4,6 +4,10 @@
 
 This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro :material-arrow-right:](pro-files.md){.md-button}
 
+## Version changes
+
+Percona XtraDB Cluster 8.0.41-32 Pro build is available for the Amazon Linux 2023 (AL2023) platform. We support both AMD64 and ARM64 versions of Amazon Linux 2023.
+
 ## Prerequisites
 
 * You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).
@@ -68,18 +72,18 @@ This document provides guidelines how to install Pro packages of Percona XtraDB 
         6. Enable the specific percona-release product.
 
             ```{.bash .data-prompt="$"}
-            $ sudo percona-release setup pxc-84-pro --user_name=<Your PRO repository user name> --repo_token=<Your PRO repository token>
+            $ sudo percona-release setup pxc-80-pro --user_name=<Your PRO repository user name> --repo_token=<Your PRO repository token>
             ```
 
         7.  Install the cluster:
 
             ```{.bash .data-prompt="$"}
-            $ sudo apt install -y percona-xtradb-cluster-pro-84
+            $ sudo apt install -y percona-xtradb-cluster-pro-80
             ```
 
-        Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.4](apt-files.md).
+        Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.0](apt-files.md).
 
-    === "On RHEL or derivatives"
+    === "On RHEL or Amazon Linux 2023 or derivatives"
 
         RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages, and the module must be disabled to make these packages visible. The following command disables the module:
         
@@ -91,8 +95,8 @@ This document provides guidelines how to install Pro packages of Percona XtraDB 
 
         ```{.bash data-prompt="$"}
         $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-        $ sudo percona-release setup pxc-84-pro --user_name=<Your PRO repository user name> --repo_token=<Your PRO repository token>
-        $ sudo yum install percona-xtradb-cluster-pro-84
+        $ sudo percona-release setup pxc-80-pro --user_name=<Your PRO repository user name> --repo_token=<Your PRO repository token>
+        $ sudo yum install percona-xtradb-cluster-pro-80
         ```
 
 ## After installation
