@@ -195,6 +195,7 @@ nav:
       - get-started-cluster.md
   - Get started:
       - install-index.md
+      - download-instructions.md
       - apt.md 
       - yum.md 
       - tarball.md
