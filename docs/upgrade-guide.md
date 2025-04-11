@@ -4,6 +4,18 @@ ___You must make backups before attempting an upgrade.___
 
 This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 without causing downtime. This process is called a “rolling upgrade,” which means you can upgrade the cluster one node at a time without shutting down the whole cluster. Keep in mind that rolling upgrades to 8.4 are only supported if your current version is 8.0 or newer. Be sure you are running on the latest 8.0 version before you upgrade to 8.4.
 
+!!! warning
+
+    Upgrade to the newest 8.0 version, but ensure it is not newer than the corresponding 8.4 version you plan to upgrade to. 
+    
+    This precaution is necessary due to potential Galera Communication System (GCS) protocol upgrades. If a joining node uses a lower GCS protocol than the existing cluster, the cluster prevents the node from joining.
+    
+    Use the following command to verify the GCS protocol version on both versions: 
+    
+    ```{.bash data-prompt="mysql>"}
+    mysql> SHOW VARIABLES LIKE 'wsrep_provider_options';
+    ```
+
 Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide](https://docs.percona.com/percona-server/8.4/upgrade.html).
 
 --8<--- "get-help-snip.md"
