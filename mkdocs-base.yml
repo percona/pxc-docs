@@ -135,7 +135,7 @@ plugins:
       canonical_version: null
   print-site:
     add_to_navigation: false
-    print_page_title: 'Percona Server for MySQL documentation'
+    print_page_title: 'Percona XtraDB Cluster documentation'
     add_print_site_banner: false
     # Table of contents
     add_table_of_contents: true
