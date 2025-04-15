@@ -2,6 +2,10 @@
 
 This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro :material-arrow-right:](pro-files.md){.md-button}
 
+## Version changes
+
+Starting with Percona XtraDB Cluster 8.4.4-4 Pro, this build is also available for Amazon Linux 2023 (AL2023) platform. We support both AMD64 and ARM64 versions of Amazon Linux 2023.
+
 ## Prerequisites
 
 --8<--- "pro-build-announcement.md"
@@ -77,7 +81,7 @@ This document provides guidelines how to install Pro packages of Percona XtraDB 
 
             Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.4](apt-files.md).
 
-    === "On RHEL or derivatives"
+    === "On RHEL, Amazon Linux 2023, or their derivatives"
 
         ```{.bash data-prompt="$"}
         $ sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
