@@ -6,7 +6,7 @@ This document provides guidelines how to install Pro packages of Percona XtraDB 
 
 ## Version changes
 
-Percona XtraDB Cluster 8.0.41-32 Pro build is available for the Amazon Linux 2023 (AL2023) platform. We support both AMD64 and ARM64 versions of Amazon Linux 2023.
+Starting with Percona XtraDB Cluster 8.0.41-32 Pro, this build is also available for Amazon Linux 2023 (AL2023) platform. We support both AMD64 and ARM64 versions of Amazon Linux 2023.
 
 ## Prerequisites
 
@@ -83,7 +83,7 @@ Percona XtraDB Cluster 8.0.41-32 Pro build is available for the Amazon Linux 202
 
         Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.0](apt-files.md).
 
-    === "On RHEL or Amazon Linux 2023 or derivatives"
+    === "On RHEL, Amazon Linux 2023, or their derivatives"
 
         RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages, and the module must be disabled to make these packages visible. The following command disables the module:
         
