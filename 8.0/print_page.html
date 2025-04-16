@@ -5393,6 +5393,13 @@ $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </s
 <p><a href="https://perconadev.atlassian.net/browse/PXC-4573">PXC-4573</a>: The <code>mysql.pxc.sst.role</code> lacked the <code>INNODB_REDO_LOG_ARCHIVE</code> privilege when the State Snapshot Transfer (SST) required InnoDB redo log archiving.</p>
 </li>
 </ul>
+<h2 id="release-notes-8.0.41-32-known-issues">Known issues<a class="headerlink" href="#release-notes-8.0.41-32-known-issues" title="Permanent link">&para;</a></h2>
+<p>The Galera Communication System (GCS) protocol has been updated from version 4 to version 5 in recent releases. As a result, if there are plans to upgrade to version 8.4 at a later time, it is important to note that the upgrade will only be supported for versions 8.4.4 and above.</p>
+<p>This precaution is necessary due to potential Galera Communication System (GCS) protocol upgrades. If a joining node uses a lower GCS protocol than the existing cluster, the cluster prevents the node from joining.</p>
+<p>To check the GCS protocol version on your current setup, use the following command:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_provider_options&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>This command will display the options configured for the Galera provider, including the current protocol version. Ensure that both the source and target versions are compatible before proceeding with the upgrade.</p>
 <h2 id="release-notes-8.0.41-32-additional-resources">Additional resources<a class="headerlink" href="#release-notes-8.0.41-32-additional-resources" title="Permanent link">&para;</a></h2>
 <p>Download product binaries, packages, and tarballs at <a href="https://www.percona.com/downloads">Percona Product Downloads</a></p>
 <p><a href="#install-index">Install Percona XtraDB Cluster</a></p>
