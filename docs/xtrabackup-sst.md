@@ -1,5 +1,16 @@
 # Percona XtraBackup SST configuration
 
+??? example "Key takeaways"
+
+    * **Two-Stage Process**:  
+       The XtraBackup SST process operates in two stages. First, it identifies the type of data transfer (SST or IST) based on the presence of the `xtrabackup_ist` file on the joiner node. Then, it proceeds with the appropriate data transfer method. For SST, it clears the data directory (except for specific files like `galera.cache` and `grastate.dat`) before starting the transfer.  
+    
+    * **Configuration Options**:  
+       The SST process can be customized using various options in the `my.cnf` file under the `[sst]` section. Key options include `streamfmt` (to specify the streaming format, such as `xbstream`), `transferfmt` (to define the data transfer format, like `socat`), and encryption settings (`ssl-ca`, `ssl-cert`, and `ssl-key`) for secure transfers.  
+    
+    * **Encryption and Security**:  
+       XtraBackup SST supports encryption to secure data during transfer. The `encrypt` option in the configuration allows users to enable and specify the encryption mode. By default, encryption is disabled, but it can be configured for enhanced security using SSL-based certificates.  
+
 Percona XtraBackup SST works in two stages:
 
 1. First it identifies the type of data transfer based on the presence of `xtrabackup_ist` file on the joiner node.
