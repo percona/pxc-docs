@@ -9,7 +9,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona XtraBackup SST works in two stages:">
+        <meta name="description" content="Two-Stage Process:
+   The XtraBackup SST process operates in two stages. First, it identifies the type of data transfer (SST or IST) based on the presence of the xtrabackup_ist file on the joiner node. Then, it proceeds with the appropriate data transfer method. For SST, it clears the data directory (except for specific files like galera.cache and grastate.dat) before starting the transfer.">
       
       
         <meta name="author" content="Percona LLC">
@@ -21,7 +22,7 @@
         <link rel="prev" href="state-snapshot-transfer.html">
       
       
-        <link rel="next" href="restarting-nodes.html">
+        <link rel="next" href="clone-sst.html">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
@@ -1912,6 +1913,77 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_2" id="__nav_11_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Solid State Transfer (SST)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            Solid State Transfer (SST)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="state-snapshot-transfer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    State snapshot transfer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -2214,6 +2286,37 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="clone-sst.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    State Snapshot Transfer (SST) Method using Clone plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -3332,6 +3435,23 @@
 
 
 <h1 id="percona-xtrabackup-sst-configuration">Percona XtraBackup SST configuration<a class="headerlink" href="#percona-xtrabackup-sst-configuration" title="Permanent link">&para;</a></h1>
+<details class="example">
+<summary>Key takeaways</summary>
+<ul>
+<li>
+<p><strong>Two-Stage Process</strong>:<br />
+   The XtraBackup SST process operates in two stages. First, it identifies the type of data transfer (SST or IST) based on the presence of the <code>xtrabackup_ist</code> file on the joiner node. Then, it proceeds with the appropriate data transfer method. For SST, it clears the data directory (except for specific files like <code>galera.cache</code> and <code>grastate.dat</code>) before starting the transfer.  </p>
+</li>
+<li>
+<p><strong>Configuration Options</strong>:<br />
+   The SST process can be customized using various options in the <code>my.cnf</code> file under the <code>[sst]</code> section. Key options include <code>streamfmt</code> (to specify the streaming format, such as <code>xbstream</code>), <code>transferfmt</code> (to define the data transfer format, like <code>socat</code>), and encryption settings (<code>ssl-ca</code>, <code>ssl-cert</code>, and <code>ssl-key</code>) for secure transfers.  </p>
+</li>
+<li>
+<p><strong>Encryption and Security</strong>:<br />
+   XtraBackup SST supports encryption to secure data during transfer. The <code>encrypt</code> option in the configuration allows users to enable and specify the encryption mode. By default, encryption is disabled, but it can be configured for enhanced security using SSL-based certificates.  </p>
+</li>
+</ul>
+</details>
 <p>Percona XtraBackup SST works in two stages:</p>
 <ol>
 <li>
@@ -3917,7 +4037,7 @@ the size of the InnoDB memory buffer will be used:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-12-10
+    2025-04-16
   </span>
 
     
