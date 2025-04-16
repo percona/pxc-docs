@@ -4,7 +4,8 @@
 
 The Federal Information Processing Standards (FIPS) are a set of U.S. government standards that ensure the security of computer systems for non-military government agencies and contractors. These standards specify how to perform cryptographic operations, such as encryption, hashing, and digital signatures. FIPS mode is a mode of operation that enforces these standards and rejects any non-compliant algorithms or parameters.
 
-Percona XtraDB Cluster implements the same level of FIPS support as MySQL. Percona XtraDB Cluster can run in FIPS mode if a FIPS-enabled OpenSSL library and FIPS Object Module are available at runtime or if compiled using a FIPS-validated version of OpenSSL. You can also receive this functionality by [building Percona XtraDB Cluster from source code](compile.md).
+Starting with Percona XtraDB Cluster 8.0.40-31, the cluster delivers the same extensive FIPS support as offered in the Percona Server for MySQL Pro builds.
+Percona XtraDB Cluster can run in FIPS mode if a FIPS-enabled OpenSSL library and FIPS Object Module are available at runtime or if compiled using a FIPS-validated version of OpenSSL. You can also receive this functionality by [building Percona XtraDB Cluster from source code](compile.md).
 
 ## Prerequisites
 
