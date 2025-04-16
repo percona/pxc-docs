@@ -1254,7 +1254,9 @@ Defines storage for streaming replication fragments. The available values are `t
 | Config File:   | Yes                |
 | Scope:         | Global            |
 | Dynamic:       | No                 |
-| Default Value: | ``xtrabackup-v2`` |
+| Default Value: | ``xtrabackup-v2`, `clone`` |
+
+Percona XtraDB Cluster 8.4.4-1 adds `clone` to the default value. For older versions of Percona XtraDB Cluster, the default value is `xtrabackup-v2`.
 
 This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2`.
 
@@ -1325,7 +1327,9 @@ Available values are:
 
 * `xtrabackup-v2`: Uses *Percona XtraBackup* to perform SST. This value is the default.
 Privileges and permissions for running *Percona XtraBackup*
-can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).
+can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+
+* `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](clone-sst.md). 
 
 * `skip`: Use this to skip SST.
 **Removed in Percona XtraDB Cluster 8.0.33-25.** This value can be used when initially starting the cluster

@@ -210,7 +210,10 @@ nav:
       - selinux.md
   - User's manual:
       - state-snapshot-transfer.md
-      - xtrabackup-sst.md
+      - Solid State Transfer (SST):
+        - state-snapshot-transfer.md
+        - xtrabackup-sst.md
+        - clone-sst.md
       - restarting-nodes.md
       - failover.md
       - monitoring.md
