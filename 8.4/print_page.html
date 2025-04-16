@@ -5924,6 +5924,14 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
                     <section class="print-page" id="upgrade-guide" heading-number="9.1"><h1 id="upgrade-guide-upgrade-percona-xtradb-cluster">Upgrade Percona XtraDB Cluster<a class="headerlink" href="#upgrade-guide-upgrade-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <p><strong><em>You must make backups before attempting an upgrade.</em></strong></p>
 <p>This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 without causing downtime. This process is called a “rolling upgrade,” which means you can upgrade the cluster one node at a time without shutting down the whole cluster. Keep in mind that rolling upgrades to 8.4 are only supported if your current version is 8.0 or newer. Be sure you are running on the latest 8.0 version before you upgrade to 8.4.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Upgrade to the newest 8.0 version, but ensure it is not newer than the corresponding 8.4 version you plan to upgrade to. </p>
+<p>This precaution is necessary due to potential Galera Communication System (GCS) protocol upgrades. If a joining node uses a lower GCS protocol than the existing cluster, the cluster prevents the node from joining.</p>
+<p>Use the following command to verify the GCS protocol version on both versions: </p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_provider_options&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
 <p>Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: <a href="https://docs.percona.com/percona-server/8.4/upgrade.html">Percona Server for MySQL 8.4 Upgrade Guide</a>.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
 <h2 id="upgrade-guide-important-changes-in-percona-xtradb-cluster-84">Important changes in Percona XtraDB Cluster 8.4<a class="headerlink" href="#upgrade-guide-important-changes-in-percona-xtradb-cluster-84" title="Permanent link">&para;</a></h2>
