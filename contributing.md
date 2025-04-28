@@ -21,7 +21,7 @@ In the [Percona Product Documentation category](https://forums.percona.com/c/per
 - In the following fields, describe the issue:
     - In the Summary, provide a brief description of the issue
     - In the Description, provide more information about the issue, along with a Steps To Reproduce section, if needed
-    - In the Affects Version/s field, if you know this issue affects multiple versions, please enter the version numbers. It is OK to add the version number with an ".x" (such as ``8.0.x``) if you don't know the exact version that must be updated.
+    - In the Affects Version/s field, if you know this issue affects multiple versions, please enter the version numbers. It is OK to add the version number with an ".x" (such as ``8.4.x``) if you don't know the exact version that must be updated.
 
 ## Contribute to documentation yourself
 
@@ -36,8 +36,8 @@ To contribute to documentation, learn about the following:
 
 There are several active versions of the documentation. Each version has a branch in the repository named accordingly:
 
-- 5.7
 - 8.0
+- 8.4
 
 The `.md` files are in the ``docs/`` directory. 
 
@@ -79,9 +79,9 @@ The steps are the following:
 4. To be sure that you have the latest changes, checkout the appropriate branch and pull the latest changes from origin
 
     ```sh
-    git checkout 8.0 && git pull origin 8.0
+    git checkout 8.4 && git pull origin 8.4
     ```
-    Make sure that your local branch and the branch you merge changes from are the same. So if you are on ``8.0`` branch, pull changes from ``origin 8.0``.
+    Make sure that your local branch and the branch you merge changes from are the same. So if you are on ``8.4`` branch, pull changes from ``origin 8.4``.
 
 5. Create a separate branch for your changes
 
@@ -130,7 +130,7 @@ To verify how your changes look, generate the static site with the documentation
    docker run --rm -v $(pwd):/docs -p 8000:8000 perconalab/pmm-doc-md mkdocs serve --dev-addr=0.0.0.0:8000
    ```
 
-   Wait until you see the message `INFO    -  Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. The documentation automatically reloads after you save the changes in source files.
+   Wait until you see the message `INFO - Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. The documentation automatically reloads after you save the changes in source files.
 
 #### Build locally
 
@@ -147,25 +147,11 @@ To verify how your changes look, generate the static site with the documentation
    ```sh
    mkdocs serve
    ```
-   Wait until you see the message `INFO    -  Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. 
+   Wait until you see the message `INFO - Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. 
 
 ## PDF
 
-To create the PDF version of the documentation, use the following command:
-
-* With Docker:
-
-    ```sh
-    docker run --rm -v $(pwd):/docs -e ENABLE_PDF_EXPORT=1 perconalab/pmm-doc-md mkdocs build -f mkdocs-pdf.yml
-    ```
-
-* Without:
-
-    ```sh
-    ENABLE_PDF_EXPORT=1 mkdocs build -f mkdocs-pdf.yml
-    ```
-
-The PDF is in `site/_pdf`.
+To build the PDF documentation, open the `site/print_page.html` in your browser, for example, https://docs.percona.com/percona-xtradb-cluster/8.4/print_page.html. Save it as PDF. Depending on the browser, you may need to select the **Export to PDF**, **Print - Save as PDF** or just **Save** and select PDF as the output format.
 
 ## Repository structure
 
@@ -173,16 +159,20 @@ The repository includes the following directories and files:
 
 - `mkdocs-base.yml` - the base configuration file. It includes general settings and documentation structure.
 - `mkdocs.yml` - configuration file. Contains the settings for building the docs with Material theme.
-- `mkdocs-pdf.yml` - configuration file. Contains the settings for building the PDF docs.
 - `docs`:
   - `*.md` - source markdown files.
   - `_static` - images, logos and favicons
+  - `_templates` - the template for the PDF cover page
   - `css` - styles
   - `js` - Javascript files
 - `_resource`:
    - `templates`:
-     - ``styles.scss`` - Styling for PDF documents
+     - ``styles.scss`` - styling for PDF documents
    - `theme`:
       - `main.html` - the layout template for hosting the documentation on Percona website
    - `overrides` - the folder with the customized templates
+- `_resourcepdf` - the folder with customized templates for PDF output
+- `.github`:
+   - `workflows`:
+      - `main.yml` - the workflow configuration for building documentation with a GitHub action. (The documentation is built with `mike` tool to a dedicated `publish` branch)
 - `site` - this is where the output HTML files are put after the build
