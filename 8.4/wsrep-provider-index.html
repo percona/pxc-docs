@@ -3216,6 +3216,15 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 </li>
         
           <li class="md-nav__item">
+  <a href="#pcbootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      pc.bootstrap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#pcchecksum" class="md-nav__link">
     <span class="md-ellipsis">
       pc.checksum
@@ -4142,6 +4151,15 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   <a href="#pcannounce_timeout" class="md-nav__link">
     <span class="md-ellipsis">
       pc.announce_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pcbootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      pc.bootstrap
     </span>
   </a>
   
@@ -6347,6 +6365,60 @@ State Transfer (<a href="glossary.html#ist">IST</a>).</p>
 </table>
 <p>Cluster joining announcements are sent every &frac12; second for this period of time
 or less if other nodes are discovered.</p>
+<h3 id="pcbootstrap"><code>pc.bootstrap</code><a class="headerlink" href="#pcbootstrap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<p><code>pc.bootstrap</code> is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=TRUE&quot;
+</code></pre></div>
+<p>You can use <code>pc.bootstrap</code> in the following:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bootstrap a New Cluster</td>
+<td>When setting up a new Galera cluster, designate one node as the bootstrap node by setting <code>pc.bootstrap=YES</code> on that node. This allows the node to initialize the cluster and become the primary component. Other nodes can then discover and join this primary node.</td>
+</tr>
+<tr>
+<td>Rejoining a Cluster (Use with Caution)</td>
+<td>If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use <code>pc.bootstrap=TRUE</code>. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline.</td>
+</tr>
+</tbody>
+</table>
+<p>By default, pc.bootstrap is disabled (FALSE).</p>
 <h3 id="pcchecksum"><code>pc.checksum</code><a class="headerlink" href="#pcchecksum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -7226,7 +7298,7 @@ to the server’s private key file (in PEM format).</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-01-18
+    2025-04-29
   </span>
 
     

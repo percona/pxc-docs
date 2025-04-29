@@ -16955,6 +16955,60 @@ State Transfer (<a href="#glossary-ist">IST</a>).</p>
 </table>
 <p>Cluster joining announcements are sent every &frac12; second for this period of time
 or less if other nodes are discovered.</p>
+<h3 id="wsrep-provider-index-pcbootstrap"><code>pc.bootstrap</code><a class="headerlink" href="#wsrep-provider-index-pcbootstrap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<p><code>pc.bootstrap</code> is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=TRUE&quot;
+</code></pre></div>
+<p>You can use <code>pc.bootstrap</code> in the following:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bootstrap a New Cluster</td>
+<td>When setting up a new Galera cluster, designate one node as the bootstrap node by setting <code>pc.bootstrap=YES</code> on that node. This allows the node to initialize the cluster and become the primary component. Other nodes can then discover and join this primary node.</td>
+</tr>
+<tr>
+<td>Rejoining a Cluster (Use with Caution)</td>
+<td>If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use <code>pc.bootstrap=TRUE</code>. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline.</td>
+</tr>
+</tbody>
+</table>
+<p>By default, pc.bootstrap is disabled (FALSE).</p>
 <h3 id="wsrep-provider-index-pcchecksum"><code>pc.checksum</code><a class="headerlink" href="#wsrep-provider-index-pcchecksum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
