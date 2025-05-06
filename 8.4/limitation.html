@@ -2985,10 +2985,7 @@ key.</p>
 </li>
 <li>
 <p>Avoid reusing the names of persistent tables for temporary tables</p>
-<p>Although MySQL does allow having temporary tables named the same as
-persistent tables, this approach is not recommended.</p>
-<p>Galera Cluster blocks the replication of those persistent tables
-the names of which match the names of temporary tables.</p>
+<p>Even though MySQL allows temporary tables to have the same names as persistent tables, using this approach is discouraged. Galera Cluster prevents replication of persistent tables with the same names as temporary tables.</p>
 <p>With wsrep_debug set to <em>1</em>, the error log may contain the following message:</p>
 <details class="example">
 <summary>Error message</summary>
@@ -3002,7 +2999,7 @@ the names of which match the names of temporary tables.</p>
 </div>
 </li>
 </ul>
-<p>As of version 8.0.21, an INPLACE <a href="https://dev.mysql.com/doc/refman/8.4/en/alter-table.html">ALTER TABLE</a> query takes an internal shared lock on the table during the execution of the query. The <code>LOCK=NONE</code> clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.</p>
+<p>An INPLACE <a href="https://dev.mysql.com/doc/refman/8.4/en/alter-table.html">ALTER TABLE</a> query takes an internal shared lock on the table during the execution of the query. Due to this change, the <code>LOCK=NONE</code> clause is no longer allowed for all <code>INPLACE ALTER TABLE</code> queries.</p>
 <p>This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:</p>
 <ul>
 <li>
@@ -3021,7 +3018,7 @@ the names of which match the names of temporary tables.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#option_mysqld_log-bin-index">log_bin_index</a></p>
 </li>
 </ul>
-<p>MySQL and <strong>XtraBackup</strong> handles the value in different ways and this difference causes unpredictable behavior.</p>
+<p>MySQL and <strong>XtraBackup</strong> handle the value in different ways, and this difference causes unpredictable behavior.</p>
 
 
 
@@ -3042,7 +3039,7 @@ the names of which match the names of temporary tables.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-01-18
+    2025-04-21
   </span>
 
     
