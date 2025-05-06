@@ -76,11 +76,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
 * Avoid reusing the names of persistent tables for temporary tables
 
-    Although MySQL does allow having temporary tables named the same as
-    persistent tables, this approach is not recommended.
-
-    Galera Cluster blocks the replication of those persistent tables
-    the names of which match the names of temporary tables.
+    Even though MySQL allows temporary tables to have the same names as persistent tables, using this approach is discouraged. Galera Cluster prevents replication of persistent tables with the same names as temporary tables.
 
     With wsrep_debug set to *1*, the error log may contain the following message:
 
@@ -96,7 +92,7 @@ The following limitations apply to Percona XtraDB Cluster:
         [MySQL Documentation: Problems with temporary tables](https://dev.mysql.com/doc/refman/{{vers}}/en/temporary-table-problems.html)
 
 
-As of version 8.0.21, an INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. The `LOCK=NONE` clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.
+An INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. Due to this change, the `LOCK=NONE` clause is no longer allowed for all `INPLACE ALTER TABLE` queries.
 
 This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:
 
@@ -110,4 +106,4 @@ Do not use one or more dot characters (.) when defining the values for the follo
 
 * [log_bin_index](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
-MySQL and **XtraBackup** handles the value in different ways and this difference causes unpredictable behavior.
+MySQL and **XtraBackup** handle the value in different ways, and this difference causes unpredictable behavior.
