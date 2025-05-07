@@ -14608,12 +14608,12 @@ This is disabled by default.</p>
 </tr>
 <tr>
 <td>Default Value:</td>
-<td><code>xtrabackup-v2`, `clone</code></td>
+<td><code>xtrabackup-v2, clone</code></td>
 </tr>
 </tbody>
 </table>
 <p>Percona XtraDB Cluster 8.4.4-1 adds <code>clone</code> to the default value. For older versions of Percona XtraDB Cluster, the default value is <code>xtrabackup-v2</code>.</p>
-<p>This variable limits SST methods accepted by the server for <a href="#wsrep-system-index-wsrep_sst_method">wsrep_sst_method</a> variable. The default value is <code>xtrabackup-v2</code>.</p>
+<p>This variable limits SST methods accepted by the server for <a href="#wsrep-system-index-wsrep_sst_method">wsrep_sst_method</a> variable. The default value is <code>xtrabackup-v2</code> or <code>clone</code>.</p>
 <h3 id="wsrep-system-index-wsrep_sst_donor"><code>wsrep_sst_donor</code><a class="headerlink" href="#wsrep-system-index-wsrep_sst_donor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -14710,27 +14710,17 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <p>Available values are:</p>
 <ul>
 <li>
-<p><code>xtrabackup-v2</code>: Uses <em>Percona XtraBackup</em> to perform SST. This value is the default.
-Privileges and permissions for running <em>Percona XtraBackup</em>
+<p><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This value is the default.
+Privileges and permissions for running Percona XtraBackup
 can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="#xtrabackup-sst-xtrabackup-sst">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
 </li>
 <li>
 <p><code>clone</code>: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the <a href="#clone-sst">clone method for SST</a>. </p>
 </li>
 <li>
-<p><code>skip</code>: Use this to skip SST.
-<strong>Removed in Percona XtraDB Cluster 8.0.33-25.</strong> This value can be used when initially starting the cluster
-and manually restoring the same data to all nodes.
-This value should not be used permanently because it could lead to data inconsistency across the nodes.</p>
-</li>
-<li>
-<p><code>ist_only</code> : <strong>Introduced in Percona XtraDB Cluster 8.0.33-25.</strong> This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node&rsquo;s start. This action leaves the data directory unchanged. This value prevents starting a node, after a manual backup restoration, that does not have a <code>grastate.dat</code> file. This missing file could initiate a full-state transfer (SST) which can be a more time and resource-intensive operation.</p>
+<p><code>ist_only</code>: This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node&rsquo;s start. This action leaves the data directory unchanged. This value prevents starting a node that does not have a <code>grastate.dat</code> file after a manual backup restoration. This missing file could initiate a full-state transfer (SST), which can be more time- and resource-intensive.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>xtrabackup-v2</code> provides support for clusters with GTIDs and async replicas.</p>
-</div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-method">MySQL wsrep option: wsrep_sst_method</a></p>
