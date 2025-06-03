@@ -60,9 +60,6 @@ on the first node (`percona1`) contains the following:
     # Cluster connection URL contains the IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
 
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
-
     # Using the MyISAM storage engine is not recommended.
     default_storage_engine=InnoDB
 
@@ -156,9 +153,6 @@ on the first node (`percona1`) contains the following:
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
 
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
 
@@ -226,9 +220,6 @@ on the first node (`percona1`) contains the following:
 
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
 
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB

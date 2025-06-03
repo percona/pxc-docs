@@ -114,8 +114,6 @@ or the node is bootstrapping, then [`pxc_strict_mode`](wsrep-system-index.md#pxc
      
      * `wsrep_replicate_myisam=OFF`
      
-     * `binlog_format=ROW`
-     
      * `log_output=FILE` or `log_output=NONE` or `log_output=FILE,NONE`
      
     The `SERIALIZABLE` method of isolation is not allowed in `ENFORCING` mode.

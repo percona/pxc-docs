@@ -24,7 +24,6 @@ To set up the cluster:
     basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
     user=mysql
     log_error=error.log
-    binlog_format=ROW
     wsrep_cluster_address='gcomm://192.168.2.21:5030,192.168.2.21:6030'
     wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:4020
@@ -46,7 +45,6 @@ To set up the cluster:
     basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
     user=mysql
     log_error=error.log
-    binlog_format=ROW
     wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:6030'
     wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:5020
@@ -69,7 +67,6 @@ To set up the cluster:
     basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
     user=mysql
     log_error=error.log
-    binlog_format=ROW
     wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:5030'
     wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:6020
