@@ -69,7 +69,7 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
     ```shell
-    sudo percona-release setup pxc80
+    sudo percona-release setup pxc84-lts
     ```
 
 7. Install the cluster:
