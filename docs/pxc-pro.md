@@ -4,7 +4,7 @@
 
 ## Capabilities
 
-The following capabilities were introduced in the listed version of Percona XtraDB Cluster Pro and have been tested with the latest release to ensure reliability and performance:
+The following capabilities have been tested for {{release}} and are available in Percona XtraDB Cluster Pro:
 
 | Name                                | Available since | Description  | 
 | ----------------------------------- | ------------- | -------------|
