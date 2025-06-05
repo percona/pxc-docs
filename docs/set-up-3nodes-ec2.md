@@ -69,8 +69,6 @@ To set up Percona XtraDB Cluster:
     datadir=/mnt/data
     user=mysql
 
-    binlog_format=ROW
-
     wsrep_provider=/usr/lib64/libgalera_smm.so
     wsrep_cluster_address=gcomm://10.93.46.58,10.93.46.59,10.93.46.60
 

@@ -110,10 +110,8 @@ wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
 wsrep_cluster_address=gcomm://
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
 # Slave thread to use
-wsrep_slave_threads=8
+wsrep_applier_threads=8
 wsrep_log_conflicts
 # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
 innodb_autoinc_lock_mode=2
@@ -181,10 +179,6 @@ This method requires a user for SST to be set up on the initial node.
 [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode)
 
 [PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default and set to `ENFORCING`, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.
-
-[`binlog_format`](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_binlog_format)
-
-Galera supports only row-level replication, so set `binlog_format=ROW`.
 
 [`default_storage_engine`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_default_storage_engine)
 
