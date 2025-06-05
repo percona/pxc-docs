@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.2afb09e1.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
@@ -4884,10 +4884,6 @@ if you want to ensure data consistency.</p>
 <p class="admonition-title">Note</p>
 <p>The <a href="#wsrep-system-index-wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> variable controls <em>replication</em> for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.</p>
 </div>
-<h3 id="strict-mode-binary-log-format">Binary log format<a class="headerlink" href="#strict-mode-binary-log-format" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster supports only the default row-based binary logging format.  In
-8.4, setting the <a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#sysvar_binlog_format">binlog_format</a> variable to anything but
-<code>ROW</code> at startup or runtime is not allowed regardless of the value of the <code>pxc_strict_mode</code> variable.</p>
 <h3 id="strict-mode-tables-without-primary-keys">Tables without primary keys<a class="headerlink" href="#strict-mode-tables-without-primary-keys" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster cannot properly propagate certain write operations
 to tables that do not have primary keys defined.
@@ -5324,7 +5320,7 @@ using APT.</p>
 </li>
 <li>
 <p>Enable the <code>release</code> repository for <em>Percona XtraDB Cluster</em>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc80
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc84-lts
 </code></pre></div>
 </li>
 <li>
@@ -5916,10 +5912,8 @@ wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
 wsrep_cluster_address=gcomm://
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
 # Slave thread to use
-wsrep_slave_threads=8
+wsrep_applier_threads=8
 wsrep_log_conflicts
 # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
 innodb_autoinc_lock_mode=2
@@ -5974,8 +5968,6 @@ If this variable is not specified, the host name will be used.</p>
 This method requires a user for SST to be set up on the initial node.</p>
 <p><a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a></p>
 <p><a href="#strict-mode-pxc-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-binary-log.html#sysvar_binlog_format"><code>binlog_format</code></a></p>
-<p>Galera supports only row-level replication, so set <code>binlog_format=ROW</code>.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code></a></p>
 <p>Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
@@ -9654,9 +9646,6 @@ wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 # Cluster connection URL contains the IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
 
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
 # Using the MyISAM storage engine is not recommended.
 default_storage_engine=InnoDB
 
@@ -9735,9 +9724,6 @@ wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
 
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
 
@@ -9801,9 +9787,6 @@ wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
 
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
@@ -10001,9 +9984,6 @@ wsrep_provider=/usr/lib/libgalera_smm.so
 # Cluster connection URL contains the IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
 
@@ -10080,9 +10060,6 @@ wsrep_provider=/usr/lib/libgalera_smm.so
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
-
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
 
@@ -10147,9 +10124,6 @@ wsrep_provider=/usr/lib/libgalera_smm.so
 
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-# In order for Galera to work correctly binlog format should be ROW
-binlog_format=ROW
 
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
@@ -10422,7 +10396,6 @@ datadir=/data/bench/d1
 basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
-binlog_format=ROW
 wsrep_cluster_address=&#39;gcomm://192.168.2.21:5030,192.168.2.21:6030&#39;
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:4020
@@ -10443,7 +10416,6 @@ datadir=/data/bench/d2
 basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
-binlog_format=ROW
 wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:6030&#39;
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:5020
@@ -10465,7 +10437,6 @@ datadir=/data/bench/d3
 basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
-binlog_format=ROW
 wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:5030&#39;
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:6020
@@ -10621,8 +10592,6 @@ $<span class="w"> </span>mysql_install_db<span class="w"> </span>--datadir<span 
 <div class="highlight"><pre><span></span><code>[mysqld]
 datadir=/mnt/data
 user=mysql
-
-binlog_format=ROW
 
 wsrep_provider=/usr/lib64/libgalera_smm.so
 wsrep_cluster_address=gcomm://10.93.46.58,10.93.46.59,10.93.46.60
@@ -12568,9 +12537,6 @@ ensure that the following configuration is used:</p>
 <ul>
 <li>
 <p><code>wsrep_replicate_myisam=OFF</code></p>
-</li>
-<li>
-<p><code>binlog_format=ROW</code></p>
 </li>
 <li>
 <p><code>log_output=FILE</code> or <code>log_output=NONE</code> or <code>log_output=FILE,NONE</code></p>
@@ -18690,10 +18656,10 @@ manually when upgrading your system from an older version.</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "/percona-xtradb-cluster/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "/percona-xtradb-cluster/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
