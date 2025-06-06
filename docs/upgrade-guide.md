@@ -13,8 +13,18 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
     Use the following command to verify the GCS protocol version on both versions: 
     
     ```{.bash data-prompt="mysql>"}
-    mysql> SHOW VARIABLES LIKE 'wsrep_provider_options';
+    mysql> SHOW STATUS LIKE 'wsrep_protocol_version';
     ```
+    
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        +------------------------+-------+
+        | Variable_name          | Value |
+        +------------------------+-------+
+        | wsrep_protocol_version | 11    |
+        +------------------------+-------+
+        ```
 
 Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide](https://docs.percona.com/percona-server/8.4/upgrade.html).
 
