@@ -1,64 +1,56 @@
 # Security basics
 
-By default, Percona XtraDB Cluster does not provide any protection for stored data. There are
-several considerations to take into account for securing Percona XtraDB Cluster:
+By default, Percona XtraDB Cluster does not encrypt or protect stored data. To ensure the security of your deployment, you must take additional measures. Consider the following areas when securing a Percona XtraDB Cluster environment:
 
-* [Securing the Network](secure-network.md#secure-network)
-
-   Anyone with access to your network can connect to any Percona XtraDB Cluster node
-   either as a client or as another node joining the cluster.
-   You should consider restricting access using VPN
-   and filter traffic on ports used by Percona XtraDB Cluster.
-
-* [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic)
-
-   Unencrypted traffic can potentially be viewed by anyone monitoring your
-   network. In Percona XtraDB Cluster {{vers}} traffic encryption is enabled by default.
-
-* Data-at-rest encryption
-
-   Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files.
-
-   For more information, see the following blog post:
-
-
-      * [MySQL Data at Rest Encryption](https://www.percona.com/blog/2016/04/08/mysql-data-at-rest-encryption/)
+| Topic | Description |
+|-------|-------------|
+| [Securing the Network](secure-network.md#secure-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster. |
+| [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
+| Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html). |
 
 ## Security modules
 
-Most modern distributions include special security modules
-that control access to resources for users and applications.
-By default, these modules will most likely constrain communication
-between Percona XtraDB Cluster nodes.
+Most modern distributions include security modules that actively control resource access for users and applications. By default, these modules often restrict communication between Percona XtraDB Cluster nodes.
 
-The easiest solution is to disable or remove such programs,
-however, this is not recommended for production environments.
-You should instead create necessary security policies for Percona XtraDB Cluster.
+The simplest solution is to disable or remove these modules, but this approach is unsuitable for production environments. Instead, configure the required security policies to allow proper communication for Percona XtraDB Cluster.
 
 ### SELinux
 
-[SELinux](https://selinuxproject.org) is usually enabled by default
-in Red Hat Enterprise Linux and derivatives (including CentOS). SELinux helps protects the user’s home directory data and provides the following:
+SELinux, or Security-Enhanced Linux, commonly enabled by default on Red Hat Enterprise Linux and its derivatives, enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. 
 
+By implementing a policy-based approach, SELinux helps protect against unauthorized access and potential vulnerabilities, thereby strengthening the operating system's overall security posture. 
+
+This security module protects data in user home directories and offers the following key benefits:
 
 * Prevents unauthorized users from exploiting the system
 
-
 * Allows authorized users to access files
-
 
 * Used as a role-based access control system
 
-To help with troubleshooting, during installation and configuration,
-you can set the mode to `permissive`:
+SELinux operates in one of two modes that determine how it applies security policies:
 
-```shell
-setenforce 0
+*	Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.
+
+*	Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them but allows the actions to proceed.
+
+```{.bash data-prompt="$"}
+$ setenforce 0
 ```
+	
+The `setenforce 0` command does the following:
 
-!!! note
+*	Sets SELinux to permissive mode immediately (without reboot).
 
-    This action changes the mode only at runtime.
+* Useful for troubleshooting or testing, because the system logs potential SELinux policy violations without preventing the actions.
+
+This change is temporary. After a reboot, SELinux reverts to the mode defined in the configuration file (/etc/selinux/config).
+
+To restore enforcing mode, run:
+
+```{.bash data-prompt="$"}
+$ setenforce 1
+``` 
 
 !!! admonition "See also"
 
@@ -67,9 +59,7 @@ setenforce 0
 ### AppArmor
 
 [AppArmor](https://wiki.apparmor.net/) is included
-in Debian and Ubuntu. *Percona XtraDB Cluster* contains several AppArmor profiles which allows for easier maintenance.
-To help with troubleshooting, during the installation and configuration,
-you can set the mode to `complain` for `mysqld`.
+in Debian and Ubuntu. *Percona XtraDB Cluster* provides several AppArmor profiles to simplify maintenance. During installation and configuration, you can set the `mysqld` profile to `complain` mode to assist with troubleshooting.
 
 !!! admonition "See also"
 

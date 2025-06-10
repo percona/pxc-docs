@@ -18,7 +18,7 @@ Red Hat Enterprise Linux (RHEL) distributes a policy module to extend the SELinu
 
 ## Modify policies
 
-Modifications described in [Percona Server and SELinux](https://www.percona.com/doc/percona-server/LATEST/security/selinux.html) can also be applied for *Percona XtraDB Cluster*.
+Modifications described in [Percona Server and SELinux](https://docs.percona.com/percona-server/8.4/selinux.html) can also be applied for *Percona XtraDB Cluster*.
 
 To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as `root`:
 
