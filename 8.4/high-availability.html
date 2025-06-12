@@ -9,14 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="In a basic setup with 3 nodes, Percona XtraDB Cluster will continue to function
-if you take any of the nodes down.
-At any point in time, you can shut down any node to perform maintenance
-or make configuration changes.
-Even in unplanned situations
-(like a node crashing or if it becomes unavailable over the network),
-the Percona XtraDB Cluster will continue to work
-and you’ll be able to run queries on working nodes.">
+        <meta name="description" content="Percona XtraDB Cluster will continue to function in a basic setup with three nodes if you take any of the nodes down. At any point, you can shut down any node to perform maintenance or make configuration changes. Even in unplanned situations such as a node crash or a network failure that makes a node unavailable, Percona XtraDB Cluster continues to operate, and you can run queries on the remaining active nodes.">
       
       
         <meta name="author" content="Percona LLC">
@@ -2921,44 +2914,39 @@ and you’ll be able to run queries on working nodes.">
 
 
 <h1 id="high-availability">High availability<a class="headerlink" href="#high-availability" title="Permanent link">&para;</a></h1>
-<p>In a basic setup with 3 nodes, Percona XtraDB Cluster will continue to function
-if you take any of the nodes down.
-At any point in time, you can shut down any node to perform maintenance
-or make configuration changes.
-Even in unplanned situations
-(like a node crashing or if it becomes unavailable over the network),
-the Percona XtraDB Cluster will continue to work
-and you’ll be able to run queries on working nodes.</p>
-<p>If there were changes to data while a node was down,
-there are two options that the node may use when it joins the cluster again:</p>
-<ul>
-<li><strong>State Snapshot Transfer</strong> (SST) is when all data is copied
-from one node to another.</li>
-</ul>
-<p>SST is usually used when a new node joins the cluster
-  and receives all data from an existing node.
-  Percona XtraDB Cluster uses <strong>xtrabackup</strong> for SST.</p>
-<p>SST using <code>xtrabackup</code> does not require the <code>READ LOCK</code> command
-  for the entire syncing process, only for syncing <a href="glossary.html#frm">.frm</a> files (the same as with a regular backup).</p>
-<ul>
-<li>Incremental State Transfer (IST) is when only incremental changes
-are copied from one node to another.</li>
-</ul>
-<p>Even without locking your cluster in read-only state, SST may be intrusive
-  and disrupt normal operation of your services.
-  IST lets you avoid that.
-  If a node goes down for a short period of time,
-  it can fetch only those changes that happened while it was down.
-  IST is implemeted using a caching mechanism on nodes.
-  Each node contains a cache, ring-buffer (the size is configurable)
-  of last N changes, and the node is able to transfer part of this cache.
-  Obviously, IST can be done only if the amount of changes needed to transfer
-  is less than N. If it exceeds N, then the joining node has to perform SST.</p>
+<p>Percona XtraDB Cluster will continue to function in a basic setup with three nodes if you take any of the nodes down. At any point, you can shut down any node to perform maintenance or make configuration changes. Even in unplanned situations such as a node crash or a network failure that makes a node unavailable, Percona XtraDB Cluster continues to operate, and you can run queries on the remaining active nodes.</p>
+<p>If data changed while a node was down, the node has two options when rejoining the cluster:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State Snapshot Transfer (SST)</td>
+<td>SST copies all data from one node to another. The cluster typically uses it when a new node joins and needs to receive the full dataset from an existing node. Percona XtraDB Cluster performs SST using xtrabackup. During this process, xtrabackup does not lock the database for the entire sync; it uses the READ LOCK command only when syncing .frm files, just like in a regular backup.</td>
+</tr>
+<tr>
+<td>Incremental State Transfer (IST)</td>
+<td>IST transfers only incremental changes from one node to another. It avoids the disruption of SST by letting a briefly offline node fetch only the changes made during its downtime without setting the cluster to read-only. Each node implements IST using a caching mechanism. It maintains a ring buffer of a configurable size that stores the last N changes. If the node finds the needed changes within the buffer, it transfers them through IST. If the changes exceed the buffer size, the node falls back to using SST.</td>
+</tr>
+</tbody>
+</table>
 <p>You can monitor the current state of a node using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>When a node is in <code>Synced (6)</code> state, it is part of the cluster
-and ready to handle traffic.</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------+--------+
+| Variable_name             | Value  |
++---------------------------+--------+
+| wsrep_local_state_comment | Synced |
++---------------------------+--------+
+</code></pre></div>
+</details>
+<p>When a node reaches the <code>Synced</code> state, the node has completed the process of synchronizing its data with the rest of the cluster. At this point, the cluster considers the node to be fully integrated and operational. The node can now begin processing client requests, participating in read and write operations, and contributing to the overall workload distribution within the cluster.</p>
 
 
 
@@ -2979,7 +2967,7 @@ and ready to handle traffic.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-07-21
+    2025-06-09
   </span>
 
     
