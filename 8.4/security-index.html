@@ -9,8 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="By default, Percona XtraDB Cluster does not provide any protection for stored data. There are
-several considerations to take into account for securing Percona XtraDB Cluster:">
+        <meta name="description" content="By default, Percona XtraDB Cluster does not encrypt or protect stored data. To ensure the security of your deployment, you must take additional measures. Consider the following areas when securing a Percona XtraDB Cluster environment:">
       
       
         <meta name="author" content="Percona LLC">
@@ -3023,38 +3022,36 @@ several considerations to take into account for securing Percona XtraDB Cluster:
 
 
 <h1 id="security-basics">Security basics<a class="headerlink" href="#security-basics" title="Permanent link">&para;</a></h1>
-<p>By default, Percona XtraDB Cluster does not provide any protection for stored data. There are
-several considerations to take into account for securing Percona XtraDB Cluster:</p>
-<ul>
-<li><a href="secure-network.html#secure-network">Securing the Network</a></li>
-</ul>
-<p>Anyone with access to your network can connect to any Percona XtraDB Cluster node
-   either as a client or as another node joining the cluster.
-   You should consider restricting access using VPN
-   and filter traffic on ports used by Percona XtraDB Cluster.</p>
-<ul>
-<li><a href="encrypt-traffic.html#encrypt-traffic">Encrypting PXC Traffic</a></li>
-</ul>
-<p>Unencrypted traffic can potentially be viewed by anyone monitoring your
-   network. In Percona XtraDB Cluster 8.4 traffic encryption is enabled by default.</p>
-<ul>
-<li>Data-at-rest encryption</li>
-</ul>
-<p>Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files.</p>
-<p>For more information, see the following blog post:</p>
-<div class="highlight"><pre><span></span><code>  * [MySQL Data at Rest Encryption](https://www.percona.com/blog/2016/04/08/mysql-data-at-rest-encryption/)
-</code></pre></div>
+<p>By default, Percona XtraDB Cluster does not encrypt or protect stored data. To ensure the security of your deployment, you must take additional measures. Consider the following areas when securing a Percona XtraDB Cluster environment:</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="secure-network.html#secure-network">Securing the Network</a></td>
+<td>Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster.</td>
+</tr>
+<tr>
+<td><a href="encrypt-traffic.html#encrypt-traffic">Encrypting PXC Traffic</a></td>
+<td>Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster 8.4, traffic encryption is enabled by default.</td>
+</tr>
+<tr>
+<td>Data-at-rest encryption</td>
+<td>Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see <a href="https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html">Percona Server for MySQL Data at Rest Encryption</a>.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="security-modules">Security modules<a class="headerlink" href="#security-modules" title="Permanent link">&para;</a></h2>
-<p>Most modern distributions include special security modules
-that control access to resources for users and applications.
-By default, these modules will most likely constrain communication
-between Percona XtraDB Cluster nodes.</p>
-<p>The easiest solution is to disable or remove such programs,
-however, this is not recommended for production environments.
-You should instead create necessary security policies for Percona XtraDB Cluster.</p>
+<p>Most modern distributions include security modules that actively control resource access for users and applications. By default, these modules often restrict communication between Percona XtraDB Cluster nodes.</p>
+<p>The simplest solution is to disable or remove these modules, but this approach is unsuitable for production environments. Instead, configure the required security policies to allow proper communication for Percona XtraDB Cluster.</p>
 <h3 id="selinux">SELinux<a class="headerlink" href="#selinux" title="Permanent link">&para;</a></h3>
-<p><a href="https://selinuxproject.org">SELinux</a> is usually enabled by default
-in Red Hat Enterprise Linux and derivatives (including CentOS). SELinux helps protects the user’s home directory data and provides the following:</p>
+<p>SELinux, or Security-Enhanced Linux, commonly enabled by default on Red Hat Enterprise Linux and its derivatives, enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. </p>
+<p>By implementing a policy-based approach, SELinux helps protect against unauthorized access and potential vulnerabilities, thereby strengthening the operating system&rsquo;s overall security posture. </p>
+<p>This security module protects data in user home directories and offers the following key benefits:</p>
 <ul>
 <li>
 <p>Prevents unauthorized users from exploiting the system</p>
@@ -3066,23 +3063,37 @@ in Red Hat Enterprise Linux and derivatives (including CentOS). SELinux helps pr
 <p>Used as a role-based access control system</p>
 </li>
 </ul>
-<p>To help with troubleshooting, during installation and configuration,
-you can set the mode to <code>permissive</code>:</p>
-<div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">0</span>
+<p>SELinux operates in one of two modes that determine how it applies security policies:</p>
+<ul>
+<li>
+<p>Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.</p>
+</li>
+<li>
+<p>Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them but allows the actions to proceed.</p>
+</li>
+</ul>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This action changes the mode only at runtime.</p>
-</div>
+<p>The <code>setenforce 0</code> command does the following:</p>
+<ul>
+<li>
+<p>Sets SELinux to permissive mode immediately (without reboot).</p>
+</li>
+<li>
+<p>Useful for troubleshooting or testing, because the system logs potential SELinux policy violations without preventing the actions.</p>
+</li>
+</ul>
+<p>This change is temporary. After a reboot, SELinux reverts to the mode defined in the configuration file (/etc/selinux/config).</p>
+<p>To restore enforcing mode, run:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>For more information, see <a href="selinux.html#selinux">Enabling AppArmor</a></p>
 </div>
 <h3 id="apparmor">AppArmor<a class="headerlink" href="#apparmor" title="Permanent link">&para;</a></h3>
 <p><a href="https://wiki.apparmor.net/">AppArmor</a> is included
-in Debian and Ubuntu. <em>Percona XtraDB Cluster</em> contains several AppArmor profiles which allows for easier maintenance.
-To help with troubleshooting, during the installation and configuration,
-you can set the mode to <code>complain</code> for <code>mysqld</code>.</p>
+in Debian and Ubuntu. <em>Percona XtraDB Cluster</em> provides several AppArmor profiles to simplify maintenance. During installation and configuration, you can set the <code>mysqld</code> profile to <code>complain</code> mode to assist with troubleshooting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>For more information, see <a href="apparmor.html#apparmor">Enabling AppArmor</a></p>
@@ -3107,7 +3118,7 @@ you can set the mode to <code>complain</code> for <code>mysqld</code>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-01-18
+    2025-06-09
   </span>
 
     
