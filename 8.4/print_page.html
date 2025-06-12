@@ -8340,23 +8340,15 @@ mysql&gt;SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_sc
 </tr>
 </tbody>
 </table></section></section><section class="print-page" id="restarting-nodes" heading-number="11.3"><h1 id="restarting-nodes-restart-the-cluster-nodes">Restart the cluster nodes<a class="headerlink" href="#restarting-nodes-restart-the-cluster-nodes" title="Permanent link">&para;</a></h1>
-<p>To restart a cluster node, shut down MySQL and restarting it.
-The node should leave the cluster
-(and the total vote count for <a href="#glossary-quorum">quorum</a> should decrement).</p>
-<p>When it rejoins, the node should synchronize using <a href="#glossary-ist">IST</a>.
-If the set of changes needed for IST are not found in the <code>gcache</code> file
-on any other node in the entire cluster,
-then <a href="#glossary-sst">SST</a> will be performed instead.
-Therefore, restarting cluster nodes for rolling configuration changes
-or software upgrades is rather simple from the cluster’s perspective.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you restart a node with an invalid configuration change that prevents MySQL from loading, Galera will drop the node’s state and force an SST for that node.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If MySQL fails for any reason, it will not remove its PID file (which is by design deleted only on clean shutdown). Obviously server will not restart if existing PID file is present. So in case of encountered MySQL failure for any reason with the relevant records in log, PID file should be removed manually.</p>
-</div></section><section class="print-page" id="failover" heading-number="11.4"><h1 id="failover-cluster-failover">Cluster failover<a class="headerlink" href="#failover-cluster-failover" title="Permanent link">&para;</a></h1>
+<p>To restart a cluster node, shut down MySQL and restart the service. The node leaves the cluster, reducing the total vote count for quorum. </p>
+<p>The quorum refers to the minimum number of votes required for the cluster to operate effectively and make decisions. Each node in the cluster typically represents one vote. When a node leaves the cluster, the total number of votes decreases, affecting the cluster&rsquo;s ability to achieve quorum. If the cluster does not maintain quorum, it may become unable to process transactions or make changes, potentially leading to a split-brain scenario where different parts of the cluster operate independently.</p>
+<p>Upon rejoining, the node synchronizes using IST (Incremental State Transfer). IST allows the node to catch up with the current state of the cluster by transferring only the changes that occurred while the node was offline. If the necessary changes for IST do not exist in the <code>gcache</code> file on any other node within the cluster, the process will perform SST (State Snapshot Transfer) instead. SST involves transferring a complete database snapshot to the node, which can be more time-consuming but ensures that the node receives all data. This approach makes restarting cluster nodes for rolling configuration changes, or software upgrades straightforward from the cluster’s perspective. </p>
+<p>If a node restarts with an invalid configuration change that prevents MySQL from loading, Galera drops the node’s state and forces an SST for that node.</p>
+<p>In the event of a MySQL failure, the system does not remove the PID file because the system deletes this file only during a clean shutdown. As a result, the server does not restart if an existing PID file is present. When MySQL encounters a failure, check the log records for details. You must remove the PID file manually. </p>
+<p>Use the <code>rm</code> command in a Unix/Linux shell to do this:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>bash<span class="w"> </span>rm<span class="w"> </span>/path/to/mysql.pid
+</code></pre></div>
+<p>Replace <code>/path/to/mysql.pid</code> with the actual path to your MySQL PID file. The default location for the PID file is often <code>/var/run/mysqld/mysqld.pid</code> or <code>/var/lib/mysql/mysql.pid</code>, but this can vary based on your configuration. Before executing this command, ensure that MySQL is not running, as removing the PID file while the server is active can lead to issues.</p></section><section class="print-page" id="failover" heading-number="11.4"><h1 id="failover-cluster-failover">Cluster failover<a class="headerlink" href="#failover-cluster-failover" title="Permanent link">&para;</a></h1>
 <p>Cluster membership is determined simply by
 which nodes are connected to the rest of the cluster;
 there is no configuration setting
