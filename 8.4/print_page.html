@@ -8356,115 +8356,139 @@ mysql&gt;SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_sc
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>bash<span class="w"> </span>rm<span class="w"> </span>/path/to/mysql.pid
 </code></pre></div>
 <p>Replace <code>/path/to/mysql.pid</code> with the actual path to your MySQL PID file. The default location for the PID file is often <code>/var/run/mysqld/mysqld.pid</code> or <code>/var/lib/mysql/mysql.pid</code>, but this can vary based on your configuration. Before executing this command, ensure that MySQL is not running, as removing the PID file while the server is active can lead to issues.</p></section><section class="print-page" id="failover" heading-number="11.4"><h1 id="failover-cluster-failover">Cluster failover<a class="headerlink" href="#failover-cluster-failover" title="Permanent link">&para;</a></h1>
-<p>Cluster membership is determined simply by
-which nodes are connected to the rest of the cluster;
-there is no configuration setting
-explicitly defining the list of all possible cluster nodes.
-Therefore, every time a node joins the cluster,
-the total size of the cluster is increased
-and when a node leaves (gracefully) the size is decreased.</p>
-<p>The size of the cluster is used to determine
-the required votes to achieve <a href="#glossary-quorum">quorum</a>.
-A quorum vote is done when a node or nodes are suspected
-to no longer be part of the cluster (they do not respond).
-This no response timeout is the <a href="#wsrep-provider-index-evs.suspect_timeout"><code>evs.suspect_timeout</code></a> setting in the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> (default 5 sec),
-and when a node goes down ungracefully,
-write operations will be blocked on the cluster
-for slightly longer than that timeout.</p>
-<p>Once a node (or nodes) is determined to be disconnected,
-then the remaining nodes cast a quorum vote,
-and if the majority of nodes from before the disconnect
-are still still connected, then that partition remains up.
-In the case of a network partition,
-some nodes will be alive and active on each side of the network disconnect.
-In this case, only the quorum will continue.
-The partition(s) without quorum will change to non-primary state.</p>
-<p>As a consequence,
-it’s not possible to have safe automatic failover in a 2 node cluster,
-because failure of one node
-will cause the remaining node to become non-primary.
-Moreover, any cluster with an even number of nodes
-(say two nodes in two different switches)
-have some possibility of a <em>split brain</em> situation,
-when neither partition is able to retain quorum
-if connection between them is lost,
-and so they both become non-primary.</p>
-<p>Therefore, for automatic failover, the <em>rule of 3s</em> is recommended.
-It applies at various levels of your infrastructure,
-depending on how far the cluster is spread out
-to avoid single points of failure. For example:</p>
+<h2 id="failover-cluster-membership-and-size">Cluster membership and size<a class="headerlink" href="#failover-cluster-membership-and-size" title="Permanent link">&para;</a></h2>
+<p>Cluster membership depends on which nodes connect to the rest of the cluster; 
+no configuration setting explicitly defines the list of all possible cluster 
+nodes. Therefore, each time a node joins the cluster, the total size of the 
+cluster increases, and when a node leaves gracefully, the size decreases.</p>
+<h2 id="failover-influence-of-cluster-size-on-quorum">Influence of cluster size on quorum<a class="headerlink" href="#failover-influence-of-cluster-size-on-quorum" title="Permanent link">&para;</a></h2>
+<p>The cluster size directly influences the votes required to achieve a quorum. 
+Quorum refers to the minimum number of votes needed for a cluster to function 
+effectively and make decisions. Each node in the cluster typically represents 
+one vote. Achieving quorum ensures the cluster can operate safely and avoid 
+split-brain scenarios, where different parts operate independently without a 
+clear leader.</p>
+<h2 id="failover-quorum-voting-process">Quorum voting process<a class="headerlink" href="#failover-quorum-voting-process" title="Permanent link">&para;</a></h2>
+<p>A quorum vote occurs when the system suspects that one or more nodes are 
+disconnected due to a lack of response. This situation triggers a no-response 
+timeout defined by the <code>evs.suspect_timeout</code> setting in the 
+<code>wsrep_provider_options</code>, with a default value of five seconds. If a node goes 
+down ungracefully, write operations on the cluster block for slightly longer 
+than this timeout.</p>
+<p>Once the system identifies that a node or nodes are disconnected, the 
+remaining nodes cast a quorum vote. If most nodes connected before the 
+disconnect remain active, that partition continues to operate. However, in the 
+event of a network partition, some nodes may remain alive and active on each 
+side of the disconnect. In this case, only the partition that achieves quorum 
+continues to function, while any partitions without quorum transition to a 
+non-primary state.</p>
+<h2 id="failover-challenges-of-automatic-failover">Challenges of automatic failover<a class="headerlink" href="#failover-challenges-of-automatic-failover" title="Permanent link">&para;</a></h2>
+<p>As a consequence, safe automatic failover is not possible in a two-node 
+cluster. If one node fails, the remaining node becomes non-primary, which 
+prevents the cluster from functioning effectively. </p>
+<p>Additionally, any cluster with an even number of nodes, such as two nodes 
+located on different switches, faces the risk of a split-brain scenario. 
+In a split-brain scenario, a network partition occurs, isolating the nodes 
+from each other. Neither partition can achieve quorum because they lack 
+the majority of votes needed to make decisions. As a result, both partitions 
+transition to a non-primary state, leading to potential data inconsistencies 
+and operational issues. This situation highlights the importance of designing 
+clusters with an odd number of nodes to ensure reliable automatic failover 
+and maintain quorum during failures.</p>
+<h2 id="failover-best-practices-for-automatic-failover-in-cluster-environments">Best practices for automatic failover in cluster environments<a class="headerlink" href="#failover-best-practices-for-automatic-failover-in-cluster-environments" title="Permanent link">&para;</a></h2>
+<p>For automatic failover, the rule of threes is recommended. This rule applies 
+at various levels of your infrastructure, depending on how far the cluster is 
+spread out to avoid single points of failure. </p>
+<p>For example, the following guidelines illustrate best practices for automatic failover in cluster environments:</p>
 <ul>
 <li>
-<p>A cluster on a single switch should have 3 nodes</p>
+<p>Ensure three nodes on a single switch.</p>
 </li>
 <li>
-<p>A cluster spanning switches should be spread evenly across at least 3 switches</p>
+<p>Distribute nodes evenly across at least three switches.</p>
 </li>
 <li>
-<p>A cluster spanning networks should span at least 3 networks</p>
+<p>Cover at least three networks.</p>
 </li>
 <li>
-<p>A cluster spanning data centers should span at least 3 data centers</p>
+<p>Include at least three data centers.</p>
 </li>
 </ul>
-<p>These rules will prevent split brain situations
-and ensure automatic failover works correctly.</p>
-<h2 id="failover-use-an-arbitrator">Use an arbitrator<a class="headerlink" href="#failover-use-an-arbitrator" title="Permanent link">&para;</a></h2>
-<p>If it is too expensive to add a third node, switch, network, or datacenter,
-you should use an arbitrator.
-An arbitrator is a voting member of the cluster
-that can receive and relay replication,
-but it does not persist any data,
-and runs its own daemon instead of <code>mysqld</code>.
-Placing even a single arbitrator in a 3<sup>rd</sup> location
-can add split brain protection to a cluster
-that is spread across only two nodes/locations.</p>
-<h2 id="failover-recover-a-non-primary-cluster">Recover a non-primary cluster<a class="headerlink" href="#failover-recover-a-non-primary-cluster" title="Permanent link">&para;</a></h2>
-<p>It is important to note that the <em>rule of 3s</em> applies
-only to automatic failover.
-In the event of a 2-node cluster
-(or in the event of some other outage that leaves a minority of nodes active),
-the failure of one node will cause the other to become non-primary
-and refuse operations.
-However, you can recover the node from non-primary state
-using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<p>These guidelines help prevent split-brain situations and ensure that 
+automatic failover functions correctly.</p>
+<h2 id="failover-use-an-arbitrator-for-split-brain-protection">Use an arbitrator for split-brain protection<a class="headerlink" href="#failover-use-an-arbitrator-for-split-brain-protection" title="Permanent link">&para;</a></h2>
+<p>If adding a third node, switch, network, or data center proves too expensive, 
+you should consider using an arbitrator. An arbitrator acts as a voting member 
+of the cluster that helps maintain quorum without storing any data. It can 
+receive and relay replication messages between nodes, ensuring that the 
+cluster remains informed about the state of each node. Instead of running 
+the standard <code>mysqld</code> daemon, the arbitrator operates its lightweight 
+daemon designed explicitly for this purpose.</p>
+<p>Adding an arbitrator in a third location provides split-brain protection for a cluster that spans only two nodes or locations. This setup enhances the cluster&rsquo;s ability to maintain quorum and ensures 
+more reliable operation during failures.</p>
+<h2 id="failover-managing-automatic-failover-and-recovery-in-cluster-environments">Managing automatic failover and recovery in cluster environments<a class="headerlink" href="#failover-managing-automatic-failover-and-recovery-in-cluster-environments" title="Permanent link">&para;</a></h2>
+<p>The rule of threes applies exclusively to automatic failover. In a two-node 
+cluster or during an outage that leaves a minority of nodes active, the 
+failure of one node results in the other becoming non-primary and refusing 
+operations.</p>
+<p>The following command acts as a critical recovery tool in scenarios where 
+the cluster loses its Primary Component, which is the subset of nodes that 
+can accept write operations and maintain data consistency. When the cluster 
+loses this component, it cannot process write requests, leading to potential 
+data loss or inconsistency.</p>
+<p>This situation typically arises under these conditions:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Graceful shutdowns or crashes</td>
+<td>All nodes in the cluster shut down or crash gracefully.</td>
+</tr>
+<tr>
+<td>Network partition</td>
+<td>A majority of nodes become unreachable, leaving the remaining nodes in a Non-Primary state and unable to accept writes.</td>
+</tr>
+</tbody>
+</table>
+<p>Use the command with caution and only on one node at a time, as incorrect 
+usage can lead to split-brain scenarios. This results in multiple independent 
+clusters with differing data, causing inconsistencies and corruption.</p>
+<p>To recover the node from the non-primary state, execute the following command:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>This will tell the node (and all nodes still connected to its partition)
-that it can become a primary cluster.
-However, this is only safe to do when you are sure there is no other partition
-operating in primary as well,
-or else Percona XtraDB Cluster will allow those two partitions to diverge
-(and you will end up with two databases
-that are impossible to re-merge automatically).</p>
-<p>For example, assume there are two data centers,
-where one is primary and one is for disaster recovery,
-with an even number of nodes in each.
-When an extra arbitrator node is run only in the primary data center,
-the following high availability features will be available:</p>
+<p>This command enables the bootstrap process for the primary component, allowing
+the node and all connected nodes to become a primary cluster. By setting this
+option to true, a node can initialize itself as the primary node when it
+starts up without any other nodes available. However, ensure that no other
+partition is operating as primary to avoid divergence, which can lead to two
+databases that are impossible to re-merge automatically.</p>
+<p>For instance, consider two data centers, one designated as primary and the
+other for disaster recovery, each with an equal number of nodes. When an
+extra arbitrator node operates solely in the primary data center, the
+following high availability features become available:</p>
 <ul>
 <li>
-<p>Auto-failover of any single node or nodes
-within the primary or secondary data center</p>
+<p>Automatically fail over any single node or nodes within the primary or
+secondary data center.</p>
 </li>
 <li>
-<p>Failure of the secondary data center would not cause the primary to go down
-(because of the arbitrator)</p>
+<p>Prevent the primary data center from going down if the secondary fails,
+thanks to the arbitrator.</p>
 </li>
 <li>
-<p>Failure of the primary data center would leave the secondary
-in a non-primary state.</p>
+<p>Keep the secondary data center in a non-primary state if the primary
+data center fails.</p>
 </li>
 <li>
-<p>If a disaster-recovery failover has been executed,
-you can tell the secondary data center to bootstrap itself
-with a single command,
-but disaster-recovery failover remains in your control.</p>
+<p>Instruct the secondary data center to bootstrap itself with a single
+command after executing a disaster-recovery failover, while maintaining
+control over the disaster-recovery failover process.</p>
 </li>
-</ul>
-<h2 id="failover-other-reading">Other reading<a class="headerlink" href="#failover-other-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://www.mysqlperformanceblog.com/2012/07/25/percona-xtradb-cluster-failure-scenarios-with-only-2-nodes/">PXC - Failure Scenarios with only 2 nodes</a></li>
 </ul></section><section class="print-page" id="monitoring" heading-number="11.5"><h1 id="monitoring-monitor-the-cluster">Monitor the cluster<a class="headerlink" href="#monitoring-monitor-the-cluster" title="Permanent link">&para;</a></h1>
 <p>Each node can have a different view of the cluster.
 There is no centralized node to monitor.
