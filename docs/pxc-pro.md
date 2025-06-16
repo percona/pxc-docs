@@ -4,10 +4,10 @@
 
 ## Capabilities
 
-The following capabilities were introduced in the listed version of Percona XtraDB Cluster Pro and have been tested with the latest release to ensure reliability and performance:
+The following capabilities have been tested for {{release}} and are available in Percona XtraDB Cluster Pro:
 
 | Name                                | Available since | Description  | 
-| ----------------------------------- | ------------- | -------------|
+| ----------------------------------- | ------------- | ---------------|
 | Available on [Amazon Linux 2023](install-pro.md) | 8.0.41-32 |  Amazon Linux 2023 is a purpose-built Linux distribution optimized for AWS. It’s designed for performance, security, and seamless integration with the broader AWS ecosystem. We support both AMD64 and ARM64 versions of Amazon Linux 2023. |
 | [FIPS compliance](fips.md)| 8.0.40-31 | FIPS compliance allows commercial cloud service providers to expand their presence with US government entities. |
 
