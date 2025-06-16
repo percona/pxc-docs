@@ -216,7 +216,11 @@ nav:
         - clone-sst.md
       - restarting-nodes.md
       - failover.md
-      - monitoring.md
+      - Cluster monitoring: 
+        - monitoring.md
+        - variable-monitor.md
+        - log-monitor.md
+        
       - certification.md
       - threading-model.md
       - gcache-record-set-cache-difference.md
