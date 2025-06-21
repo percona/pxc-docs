@@ -1,8 +1,10 @@
-# Install {{post}} releases
+# Install {{eol}} packages
 
-This document provides guidelines on installing Percona Xtradb Cluster packages from Percona repositories. For more information, see [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life).
+This document provides guidelines on installing Percona Server for MySQL packages from Percona repositories. These packages are available exclusively for paying customers. For more information, refer to [{{post}}](https://www.percona.com/navigating-mysql-5-7-end-of-life). The current version is {{release}}. You can review the release notes to see what has changed.
 
-For instructions for binary tarballs, see [Install {{post}} release from a binary tarball](tarball.md#install-a-mysql-57-post-eol-support-release-from-a-binary-tarball).
+Community members can [compile and install from Source Code](compile.md#compile) from publicly available source code, which is released quarterly.
+
+For instructions on installing from a binary tarball, see [Install {{eol}} release from a binary tarball](tarball-eol.md).
 
 ## Procedure
 
@@ -61,3 +63,7 @@ For instructions for binary tarballs, see [Install {{post}} release from a binar
             ```{.bash .data-prompt="$"}
             $ sudo yum install -y percona-xtradb-cluster-5.7
             ```
+            
+[MySQL 5.7 Post-EOL Support from Percona]: https://www.percona.com/post-mysql-5-7-eol-support
+
+[build this release from the source]: https://docs.percona.com/percona-server/5.7/installation/git-source-tree.html
