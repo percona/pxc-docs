@@ -9,19 +9,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="This release is part of MySQL 5.7 Post-EOL Support from Percona. The fixes are available to MySQL 5.7 Post-EOL Support from Percona customers.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/5.7/install/docker.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/5.7/release-notes/5.7.44-31.65.7.html">
       
       
-        <link rel="prev" href="tarball.html">
+        <link rel="prev" href="release-notes_index.html">
       
       
-        <link rel="next" href="../configure.html">
+        <link rel="next" href="5.7.44-31.65.6.html">
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Running Percona XtraDB Cluster in a Docker Container - Percona XtraDB Cluster</title>
+        <title>Percona XtraDB Cluster 5.7.44-31.65.7 (2025-06-23) - Percona XtraDB Cluster</title>
       
     
     
@@ -90,7 +90,7 @@
               
               
               <meta property="og:type" content="website" />
-              <meta property="og:title" content="Percona XtraDB Cluster - Running Percona XtraDB Cluster in a Docker Container" />
+              <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 5.7.44-31.65.7 (2025-06-23)" />
               <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/5.7/_static/percona-mysql-logo.png">
               <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/5.7/">
               
@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#running-percona-xtradb-cluster-in-a-docker-container" class="md-skip">
+        <a href="#percona-xtradb-cluster-5744-31657-2025-06-23" class="md-skip">
           Skip to content
         </a>
       
@@ -162,7 +162,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Running Percona XtraDB Cluster in a Docker Container
+              Percona XtraDB Cluster 5.7.44-31.65.7 (2025-06-23)
             
           </span>
         </div>
@@ -326,18 +326,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -353,7 +355,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -367,7 +369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes_index.html" class="md-nav__link">
         
   
   
@@ -387,10 +389,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.7.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster 5.7.44-31.65.7 (2025-06-23)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="5.7.44-31.65.7.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -401,6 +425,64 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-security-bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-security bug fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -413,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.6.html" class="md-nav__link">
+      <a href="5.7.44-31.65.6.html" class="md-nav__link">
         
   
   
@@ -436,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.5.html" class="md-nav__link">
+      <a href="5.7.44-31.65.5.html" class="md-nav__link">
         
   
   
@@ -459,7 +541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.4.html" class="md-nav__link">
+      <a href="5.7.44-31.65.4.html" class="md-nav__link">
         
   
   
@@ -482,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.3.html" class="md-nav__link">
+      <a href="5.7.44-31.65.3.html" class="md-nav__link">
         
   
   
@@ -505,7 +587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.2.html" class="md-nav__link">
+      <a href="5.7.44-31.65.2.html" class="md-nav__link">
         
   
   
@@ -528,7 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.44-31.65.html" class="md-nav__link">
+      <a href="5.7.44-31.65.html" class="md-nav__link">
         
   
   
@@ -551,7 +633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.43-31.65.html" class="md-nav__link">
+      <a href="5.7.43-31.65.html" class="md-nav__link">
         
   
   
@@ -574,7 +656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.42-31.65.html" class="md-nav__link">
+      <a href="5.7.42-31.65.html" class="md-nav__link">
         
   
   
@@ -597,7 +679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.41-31.65.html" class="md-nav__link">
+      <a href="5.7.41-31.65.html" class="md-nav__link">
         
   
   
@@ -620,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.40-31.63.html" class="md-nav__link">
+      <a href="5.7.40-31.63.html" class="md-nav__link">
         
   
   
@@ -643,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.39-31.61.html" class="md-nav__link">
+      <a href="5.7.39-31.61.html" class="md-nav__link">
         
   
   
@@ -666,7 +748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/5.7.38-31.59.html" class="md-nav__link">
+      <a href="5.7.38-31.59.html" class="md-nav__link">
         
   
   
@@ -689,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.37-31.57.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.37-31.57.html" class="md-nav__link">
         
   
   
@@ -712,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.36-31.55.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.36-31.55.html" class="md-nav__link">
         
   
   
@@ -735,7 +817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.35-31.53.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.35-31.53.html" class="md-nav__link">
         
   
   
@@ -758,7 +840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.34-31.51.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.34-31.51.html" class="md-nav__link">
         
   
   
@@ -781,7 +863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.33-31.49.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.33-31.49.html" class="md-nav__link">
         
   
   
@@ -804,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.32-31.47.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.32-31.47.html" class="md-nav__link">
         
   
   
@@ -827,7 +909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.31-31.45.html" class="md-nav__link">
         
   
   
@@ -850,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31.45.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.31-31.45.2.html" class="md-nav__link">
         
   
   
@@ -873,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.31-31-45.3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.31-31-45.3.html" class="md-nav__link">
         
   
   
@@ -896,7 +978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.30-31.43.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.30-31.43.html" class="md-nav__link">
         
   
   
@@ -919,7 +1001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.29-31.43.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.29-31.43.html" class="md-nav__link">
         
   
   
@@ -942,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.28-31.41.html" class="md-nav__link">
         
   
   
@@ -965,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.28-31.41.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.28-31.41.2.html" class="md-nav__link">
         
   
   
@@ -988,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.27-31.39.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.27-31.39.html" class="md-nav__link">
         
   
   
@@ -1011,7 +1093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.26-31.37.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.26-31.37.html" class="md-nav__link">
         
   
   
@@ -1034,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.25-31.35.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.25-31.35.html" class="md-nav__link">
         
   
   
@@ -1057,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.24-31.33.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.24-31.33.html" class="md-nav__link">
         
   
   
@@ -1080,7 +1162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.23-31.31.html" class="md-nav__link">
         
   
   
@@ -1103,7 +1185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.23-31.31.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.23-31.31.2.html" class="md-nav__link">
         
   
   
@@ -1126,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.22-29.26.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.22-29.26.html" class="md-nav__link">
         
   
   
@@ -1149,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.21-29.26.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.21-29.26.html" class="md-nav__link">
         
   
   
@@ -1172,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.20-29.24.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.20-29.24.html" class="md-nav__link">
         
   
   
@@ -1195,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.19-29.22.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.19-29.22.html" class="md-nav__link">
         
   
   
@@ -1218,7 +1300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.19-29.22-3.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.19-29.22-3.html" class="md-nav__link">
         
   
   
@@ -1241,7 +1323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.18-29.20.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.18-29.20.html" class="md-nav__link">
         
   
   
@@ -1264,7 +1346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.17-29.20.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.17-29.20.html" class="md-nav__link">
         
   
   
@@ -1287,7 +1369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.17-27.20.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.17-27.20.html" class="md-nav__link">
         
   
   
@@ -1310,7 +1392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.16-27.19.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.16-27.19.html" class="md-nav__link">
         
   
   
@@ -1333,7 +1415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.14-26.17.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.14-26.17.html" class="md-nav__link">
         
   
   
@@ -1356,7 +1438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.12-5rc1-26.16.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.12-5rc1-26.16.html" class="md-nav__link">
         
   
   
@@ -1379,7 +1461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release-notes/Percona-XtraDB-Cluster-5.7.11-4beta-25.14.2.html" class="md-nav__link">
+      <a href="Percona-XtraDB-Cluster-5.7.11-4beta-25.14.2.html" class="md-nav__link">
         
   
   
@@ -1543,20 +1625,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1572,7 +1652,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Getting Started
@@ -1609,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
+      <a href="../install/index.html" class="md-nav__link">
         
   
   
@@ -1670,7 +1750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="install-eol.html" class="md-nav__link">
+      <a href="../install/install-eol.html" class="md-nav__link">
         
   
   
@@ -1693,7 +1773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tarball-eol.html" class="md-nav__link">
+      <a href="../install/tarball-eol.html" class="md-nav__link">
         
   
   
@@ -1724,7 +1804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="apt.html" class="md-nav__link">
+      <a href="../install/apt.html" class="md-nav__link">
         
   
   
@@ -1747,7 +1827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="yum.html" class="md-nav__link">
+      <a href="../install/yum.html" class="md-nav__link">
         
   
   
@@ -1770,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tarball.html" class="md-nav__link">
+      <a href="../install/tarball.html" class="md-nav__link">
         
   
   
@@ -1790,32 +1870,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Running Percona XtraDB Cluster in a Docker Container
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="docker.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../install/docker.html" class="md-nav__link">
         
   
   
@@ -1826,55 +1884,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mysql-57-post-eol-support-from-percona-docker-containers" class="md-nav__link">
-    <span class="md-ellipsis">
-      MySQL 5.7 Post-EOL Support from Percona Docker containers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-images-for-versions-that-are-not-mysql-57-post-eol-support-from-percona" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker images for versions that are not MySQL 5.7 Post-EOL Support from Percona
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-up-a-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set up a cluster
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3295,27 +3304,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mysql-57-post-eol-support-from-percona-docker-containers" class="md-nav__link">
+  <a href="#release-information" class="md-nav__link">
     <span class="md-ellipsis">
-      MySQL 5.7 Post-EOL Support from Percona Docker containers
+      Release information
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-images-for-versions-that-are-not-mysql-57-post-eol-support-from-percona" class="md-nav__link">
+  <a href="#security-fixes" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker images for versions that are not MySQL 5.7 Post-EOL Support from Percona
+      Security fixes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#set-up-a-cluster" class="md-nav__link">
+  <a href="#non-security-bug-fixes" class="md-nav__link">
     <span class="md-ellipsis">
-      Set up a cluster
+      Non-security bug fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional resources
     </span>
   </a>
   
@@ -3341,7 +3359,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/5.7/docs/install/docker.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/5.7/docs/release-notes/5.7.44-31.65.7.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3350,147 +3368,35 @@
     
       
     
-    <a href="https://github.com/percona/pxc-docs/raw/5.7/docs/install/docker.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/raw/5.7/docs/release-notes/5.7.44-31.65.7.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="running-percona-xtradb-cluster-in-a-docker-container">Running Percona XtraDB Cluster in a Docker Container<a class="headerlink" href="#running-percona-xtradb-cluster-in-a-docker-container" title="Permanent link">&para;</a></h1>
-<h2 id="mysql-57-post-eol-support-from-percona-docker-containers">MySQL 5.7 Post-EOL Support from Percona Docker containers<a class="headerlink" href="#mysql-57-post-eol-support-from-percona-docker-containers" title="Permanent link">&para;</a></h2>
-<p>You must request access to the MySQL 5.7 Post-EOL Support from Percona repository from <a href="https://www.percona.com/services/support">Percona Support</a> to be able to download the MySQL 5.7 Post-EOL Support from Percona Docker image. This request provides you with a client ID and an access token, which are required to download the binary tarball that contains the Docker image.</p>
-<p>After providing the access token, download the tar file. The following is an example of the download command. Provide a password before the download begins.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>load<span class="w"> </span>-i<span class="w"> </span>percona-xtradb-cluster-5.7.44-31.65.2.docker.tar
-</code></pre></div>
-<p>You can view the currently available Docker images on your local system. The following command lists these images. </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span>images
-</code></pre></div>
-<p>The result of the command contains the following information:</p>
-<ul>
-<li>
-<p>Repository name</p>
-</li>
-<li>
-<p>Tag - if the image is a specific version or latest</p>
-</li>
-<li>
-<p>Image ID - a unique identifier of the image</p>
-</li>
-<li>
-<p>Size - the size of the image on the disk</p>
-</li>
-</ul>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Repository                      TAG            IMAGE ID       CREATED       SIZE
-percona/percona-xtradb-cluster  5.7           (image number) (when created) (size of file)
-percona/percona-xtradb-cluster  5.7.44-31.65.2 
-</code></pre></div>
-</details>
-<p>After downloading, you can run the Docker image to <a href="#set-up-a-cluster">set up a cluster</a>.</p>
-<h2 id="docker-images-for-versions-that-are-not-mysql-57-post-eol-support-from-percona">Docker images for versions that are not MySQL 5.7 Post-EOL Support from Percona<a class="headerlink" href="#docker-images-for-versions-that-are-not-mysql-57-post-eol-support-from-percona" title="Permanent link">&para;</a></h2>
-<p>Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at
-<a href="https://hub.docker.com/r/percona/percona-xtradb-cluster/">https://hub.docker.com/r/percona/percona-xtradb-cluster/</a>.</p>
-<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs</a>.</p>
-<p>Be sure to install the latest official version of Docker for the latest features. The versions provided via <code>apt</code> and <code>yum</code> may lag behind the latest Docker features.</p>
-<p>By default, Docker pulls the image from Docker Hub if it is unavailable locally.</p>
-<h2 id="set-up-a-cluster">Set up a cluster<a class="headerlink" href="#set-up-a-cluster" title="Permanent link">&para;</a></h2>
-<p>The following procedure describes how to set up a simple 3-node cluster
-for evaluation and testing purposes, with all nodes running Percona XtraDB Cluster 5.7 in separate containers on one host:</p>
-<ol>
-<li>
-<p>Create a Docker network:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>pxc-network
-</code></pre></div>
-</li>
-<li>
-<p>Bootstrap the cluster (create the first node):</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>cluster1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="o">=</span>node1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--net<span class="o">=</span>pxc-network<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>percona/percona-xtradb-cluster:5.7
-</code></pre></div>
-</li>
-<li>
-<p>Join the second node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>cluster1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_JOIN</span><span class="o">=</span>node1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="o">=</span>node2<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--net<span class="o">=</span>pxc-network<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>percona/percona-xtradb-cluster:5.7
-</code></pre></div>
-</li>
-<li>
-<p>Join the third node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>cluster1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">CLUSTER_JOIN</span><span class="o">=</span>node1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="o">=</span>node3<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--net<span class="o">=</span>pxc-network<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>percona/percona-xtradb-cluster:5.7
-</code></pre></div>
-</li>
-</ol>
-<p>To ensure that the cluster is running:</p>
-<ol>
-<li>
-<p>Access the MySQL client. For example, on the first node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>node1<span class="w"> </span>/usr/bin/mysql<span class="w"> </span>-uroot<span class="w"> </span>-proot
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>mysql: [Warning] Using a password on the command line interface can be insecure.
-Welcome to the MySQL monitor. Commands end with ; or \g.
-Your MySQL connection id is 12
-Server version: 5.7.19-17-57-log Percona XtraDB Cluster (GPL), Release rel17, Revision c10027a, WSREP version 29.22, wsrep_29.22
-
-Copyright (c) 2009-2017 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
-
-mysql@node1&gt;
-</code></pre></div>
-</details>
-</li>
-<li>
-<p>View the wsrep status variables by running the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql@node1&gt; show status like &#39;wsrep%&#39;;
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+-------------------------------------------------+
-| Variable_name                | Value                                           |
-+------------------------------+-------------------------------------------------+
-| wsrep_local_state_uuid       | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
-    ...
-| wsrep_local_state_comment    | Synced                                          |
-...
-| wsrep_incoming_addresses     | 172.18.0.2:3306,172.18.0.3:3306,172.18.0.4:3306 |
-...
-| wsrep_cluster_conf_id        | 3                                               |
-| wsrep_cluster_size           | 3                                               |
-| wsrep_cluster_state_uuid     | 625318e2-9e1c-11e7-9d07-aee70d98d8ac            |
-| wsrep_cluster_status         | Primary                                         |
-| wsrep_connected              | ON                                              |
-...
-| wsrep_ready                  | ON                                              |
-+------------------------------+-------------------------------------------------+
-59 rows in set (0.02 sec)
-</code></pre></div>
-</details>
-</li>
-</ol>
+<h1 id="percona-xtradb-cluster-5744-31657-2025-06-23">Percona XtraDB Cluster 5.7.44-31.65.7 (2025-06-23)<a class="headerlink" href="#percona-xtradb-cluster-5744-31657-2025-06-23" title="Permanent link">&para;</a></h1>
+<p>This release is part of MySQL 5.7 Post-EOL Support from Percona. The fixes are available to <a href="https://www.percona.com/post-mysql-5-7-eol-support">MySQL 5.7 Post-EOL Support from Percona customers</a>.</p>
+<h2 id="release-information">Release information<a class="headerlink" href="#release-information" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster 5.7.44-31.65.7 contains the following fixes.</p>
+<h2 id="security-fixes">Security fixes<a class="headerlink" href="#security-fixes" title="Permanent link">&para;</a></h2>
+<p>The following is the final list of fixes which will be ported to 5.7:</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/5f3490aea8c"><code>Bug#22958632</code></a>: ASAN: NAME_CONST WITH INVALID IDENTIFIER, HEAP-BUFFER-OVERFLOW - Optimizer.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/dc0f623b217"><code>Bug#27618273</code></a>: BUFFER OVERFLOW IN USERVAR,USERNAME,HOSTNAME WITH BROKEN UTF8 - Optimizer.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/4c5e1f1f29ed6009f758ad82fb46dab6d1d464ce"><code>BUG#36421684</code></a>: mysql server 8.3.0 heap-buffer-overflow at Multisource - Optimizer.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/0491d9b4d93"><code>Bug#36593253</code></a>: MySQL server heap-use-after-free at int my_mb_wc_utf8_prototype - Optimizer.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/e4c825e0879e02966c2168fecb3ead7ae780b263"><code>Bug#37540722</code></a>: Missing string escaping in mysqldump - mysqldump.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/27d890619094b346c1bb7e941efd3004f0b8ffab"><code>Bug# 37607195</code></a>: fprintf_string not using the actual quote parameter (… - mysqldmup.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/df130daa135"><code>Bug#37403052</code></a>: Forgeting to call btr_pcur_t::close() leads to memory leak - InnoDB.</p>
+<h2 id="non-security-bug-fixes">Non-security bug fixes<a class="headerlink" href="#non-security-bug-fixes" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/mysql/mysql-server/commit/7269603666cab6a6ba3c4708b35f52e5f020007b"><code>Bug#36993445</code></a>: virtual index unstable after rollback when index_id is and Bug#36993445 : virtual index unstable after rollback when index_id is - InnoDB.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/e3c9955d236ac19bae4674fea46576aeb41e0d90"><code>Bug#36686351</code></a>: &lt;COMMAND_CLASS&gt; is empty for &lt;NAME&gt;Execute&lt;/NAME&gt; - Audit log/PS.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/002349f6cb7"><code>Bug#37227215</code></a>: Tests fails with memory issue - GR.</p>
+<p><a href="https://github.com/mysql/mysql-server/commit/bcc175a1381"><code>Bug#36480358</code></a>: Compile MySQL with GCC 14 [noclose 5.7]</p>
+<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.percona.com/percona-xtradb-cluster/5.7/install/install-eol.html">Install Percona XtraDB Cluster</a></p>
+<p><a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub repository</a></p>
+<p>For <a href="https://www.percona.com/training">training</a>, contact <a href="https://learn.percona.com/contact-me">Percona Training - Start learning now</a></p>
 
 
 
@@ -3511,7 +3417,7 @@ mysql@node1&gt;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-04-04
+    2025-06-23
   </span>
 
     
