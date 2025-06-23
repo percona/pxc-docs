@@ -174,7 +174,9 @@ nav:
   - Getting Started:
       - overview.md
       - install/index.md
-      - install/install-eol.md
+      - Post-EOL installations:
+        - install/install-eol.md
+        - install/tarball-eol.md
       - install/apt.md
       - install/yum.md
       - install/tarball.md
