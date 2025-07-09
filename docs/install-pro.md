@@ -27,7 +27,7 @@ Starting with Percona XtraDB Cluster 8.0.41-32 Pro, this build is also available
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](apparmor.md#apparmor).
+    For more information, see [Enabling AppArmor](apparmor.md#enable-apparmor).
 
 ## Procedure
 
@@ -81,7 +81,7 @@ Starting with Percona XtraDB Cluster 8.0.41-32 Pro, this build is also available
             $ sudo apt install -y percona-xtradb-cluster-pro-80
             ```
 
-        Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.0](apt-files.md).
+        Install other required packages. [Check files in the DEB package built for Percona XtraDB Cluster 8.0 PRO](pro-files.md#files-in-the-deb-package).
 
     === "On RHEL, Amazon Linux 2023, or their derivatives"
 

@@ -5,7 +5,7 @@ There are two kinds of traffic in Percona XtraDB Cluster:
 1. Client-server traffic (the one between client applications and cluster
 nodes),
 
-1. Replication traffic, that includes [SST](glossary.md#sst), [IST](glossary.md#ist), write-set replication, and various service messages.
+1. Replication traffic, that includes [SST](glossary.md#state-snapshot-transfer-sst), [IST](glossary.md#ist), write-set replication, and various service messages.
 
 Percona XtraDB Cluster supports encryption for all types of traffic. Replication traffic
 encryption can be configured either automatically or manually.
@@ -49,7 +49,7 @@ new certificates. For generation of new certificate please refer to
 ## Encrypt replication traffic
 
 *Replication traffic* refers to the inter-node traffic which includes
-the [SST](glossary.md#sst) traffic, [IST](glossary.md#ist) traffic, and replication traffic.
+the [SST](glossary.md#state-snapshot-transfer-sst) traffic, [IST](glossary.md#ist) traffic, and replication traffic.
 
 The traffic of each type is transferred via a different channel, and so it
 is important to configure secure channels for all 3 variants to
@@ -74,7 +74,7 @@ the data directory.
 
 Percona XtraDB Cluster includes the `pxc-encrypt-cluster-traffic` variable that
 enables automatic configuration of SSL encryption there-by encrypting
-[SST](glossary.md#sst), [IST](glossary.md#ist), and replication traffic.
+[SST](glossary.md#state-snapshot-transfer-sst), [IST](glossary.md#ist), and replication traffic.
 
 By default, `pxc-encrypt-cluster-traffic` is enabled thereby using a secured
 channel for replication. This variable is not dynamic and so it cannot be changed
@@ -151,7 +151,7 @@ There are three aspects of Percona XtraDB Cluster operation, where you can enabl
 
 * [Encrypt SST traffic](#encrypt-sst-traffic)
 
-    This refers to [SST](glossary.md#sst) traffic during full data copy
+    This refers to [SST](glossary.md#state-snapshot-transfer-sst) traffic during full data copy
     from one cluster node (donor) to the joining node (joiner).
 
 
@@ -187,9 +187,9 @@ The only available SST method is `xtrabackup-v2` which uses *Percona XtraBackup*
 
 ### xtrabackup
 
-This is the only available SST method (the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is always set to `xtrabackup-v2`), which uses Percona XtraBackup to perform non-blocking transfer of files. For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).
+This is the only available SST method (the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is always set to `xtrabackup-v2`), which uses Percona XtraBackup to perform non-blocking transfer of files. For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration).
 
-Encryption mode for this method is selected using the [`encrypt`](xtrabackup-sst.md#cmdoption-arg-encrypt) option:
+Encryption mode for this method is selected using the [`encrypt`](xtrabackup-sst.md#encrypt) option:
 
 * `encrypt=0` is the default value, meaning that encryption is disabled.
 
@@ -240,14 +240,14 @@ parameters, so 2 sections are described together).
 
 To enable encryption for all these processes,
 define the paths to the key, certificate and certificate authority files
-using the following [wsrep provider options](wsrep-provider-index.md#wsrep-provider-index):
+using the following [wsrep provider options](wsrep-provider-index.md):
 
 
-* [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca)
+* [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca)
 
-* [`socket.ssl_cert`](wsrep-provider-index.md#socket.ssl_cert)
+* [`socket.ssl_cert`](wsrep-provider-index.md#socketssl_cert)
 
-* [`socket.ssl_key`](wsrep-provider-index.md#socket.ssl_key)
+* [`socket.ssl_key`](wsrep-provider-index.md#socketssl_key)
 
 To set these options, use the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable in the configuration file:
 
@@ -434,7 +434,7 @@ The following procedure shows how to upgrade certificates
 used for securing replication traffic when there are two nodes in the cluster.
 
 
-1. Restart the first node with the [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca) option set to a combination of the the old and new certificates in a single file.
+1. Restart the first node with the [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca) option set to a combination of the the old and new certificates in a single file.
 
     For example, you can merge contents of `old-ca.pem`
     and `new-ca.pem` into `upgrade-ca.pem` as follows:
@@ -450,7 +450,7 @@ used for securing replication traffic when there are two nodes in the cluster.
     $ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
     ```
 
-2. Restart the second node with the [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca), [`socket.ssl_cert`](wsrep-provider-index.md#socket.ssl_cert), and [`socket.ssl_key`](wsrep-provider-index.md#socket.ssl_cert) options set to the corresponding new certificate files.
+2. Restart the second node with the [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca), [`socket.ssl_cert`](wsrep-provider-index.md#socketssl_cert), and [`socket.ssl_key`](wsrep-provider-index.md#socketssl_cert) options set to the corresponding new certificate files.
 
     ```{.bash data-prompt="$"}
     $ wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"

@@ -93,6 +93,6 @@ $ sudo service mysql stop
 
 ## Next steps
 
-Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure).
+Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure-nodes-for-write-set-replication).
 
 [Telemetry data]: telemetry.md

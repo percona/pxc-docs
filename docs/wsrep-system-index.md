@@ -32,7 +32,7 @@ Possible values:
 
 * `OFF`, `0`, `false`: Disabled 
 
-For more information, see [SSL Automatic Configuration](encrypt-traffic.md#ssl-auto-conf).
+For more information, see [SSL Automatic Configuration](encrypt-traffic.md#ssl-automatic-configuration).
 
 ### `pxc_maint_mode`
 
@@ -58,7 +58,7 @@ when you initiate node shutdown.
 * `MAINTENANCE`: You can manually change to this state
 if you need to perform maintenance on a node without shutting it down.
 
-For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#pxc-maint-mode).
+For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#assisted-maintenance-mode).
 
 ### `pxc_maint_transition_period`
 
@@ -75,7 +75,7 @@ By default, the period is set to 10 seconds,
 which should be enough for most transactions to finish.
 You can increase the value to accommodate for longer-running transactions.
 
-For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#pxc-maint-mode).
+For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#assisted-maintenance-mode).
 
 ### `pxc_strict_mode`
 
@@ -87,7 +87,7 @@ For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#p
 | Dynamic:       | Yes                 |
 | Default Value: | ``ENFORCING`` or ``DISABLED`` |
 
-Controls [PXC Strict Mode](strict-mode.md#pxc-strict-mode), which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.
+Controls [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode), which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.
 
 Depending on the actual mode you select,
 upon encountering a failed validation,
@@ -130,7 +130,7 @@ or the node is bootstrapping, then [`pxc_strict_mode`](wsrep-system-index.md#pxc
      
     The `SERIALIZABLE` method of isolation is not allowed in `ENFORCING` mode.
 
-For more information, see [PXC Strict Mode](strict-mode.md#pxc-strict-mode).
+For more information, see [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode).
 
 ### `replica-enable-event=name`
 
@@ -632,7 +632,7 @@ The available values are `ON`, `OFF`, and `NONE`.
 | Default Value: | ``OFF`` |
 
 Enables a workaround for MySQL InnoDB bug that affects Drupal
-([Drupal bug #282555](http://drupal.org/node/282555)
+(`Drupal bug #282555`
 and [MySQL bug #41984](http://bugs.mysql.com/bug.php?id=41984)).
 In some cases, duplicate key errors would occur
 when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
@@ -897,7 +897,7 @@ The value should be specified in the following format:
 !!! note
 
     The value of this variable is also used as the default value
-    for the [`wsrep_sst_receive_address`](wsrep-system-index.md#wsrep_sst_receive_address) variable and the [`ist.recv_addr`](wsrep-provider-index.md#ist.recv_addr) option.
+    for the [`wsrep_sst_receive_address`](wsrep-system-index.md#wsrep_sst_receive_address) variable and the [`ist.recv_addr`](wsrep-provider-index.md#istrecv_addr) option.
 
 !!! admonition "See also"
 
@@ -1033,7 +1033,7 @@ the node will behave as standalone instance of MySQL.
 | Dynamic:       | No                 |
 
 Specifies optional settings for the replication provider
-documented in [Index of wsrep_provider options](wsrep-provider-index.md#wsrep-provider-index).
+documented in [Index of wsrep_provider options](wsrep-provider-index.md).
 These options affect how various situations are handled during replication.
 
 !!! admonition "See also"
@@ -1330,7 +1330,7 @@ This variable limits SST methods accepted by the server for [wsrep_sst_method](#
 | Dynamic:       | Yes                 |
 
 Specifies a list of nodes (using their `wsrep_node_name` values)
-that the current node should prefer as donors for [SST](glossary.md#sst) and [IST](glossary.md#ist).
+that the current node should prefer as donors for [SST](glossary.md#state-snapshot-transfer-sst) and [IST](glossary.md#ist).
 
 !!! warning
 
@@ -1359,7 +1359,7 @@ then the joining node will consider *only* `node1` and `node2`.
 
     By default, the joiner node does not wait for more than 100 seconds
     to receive the first packet from a donor.
-    This is implemented via the [`sst-initial-timeout`](xtrabackup-sst.md#cmdoption-arg-sst-initial-timeout) option.
+    This is implemented via the [`sst-initial-timeout`](xtrabackup-sst.md#sst-initial-timeout) option.
     If you set the list of preferred donors without the trailing comma
     or believe that all nodes in the cluster can often be unavailable for SST
     (this is common for small clusters),
@@ -1386,7 +1386,7 @@ Defines the method or script for [State Snapshot Transfer](state-snapshot-transf
 Available values are:
 
 * * `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This is the default value.  
-Privileges and permissions required to run Percona XtraBackup are detailed in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For additional details, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst).  
+Privileges and permissions required to run Percona XtraBackup are detailed in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For additional details, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration).  
 The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
 
 * `clone`: Uses the [`clone`](clone-sst.md) method for SST, introduced in Percona XtraDB Cluster 8.0.41 and later versions.

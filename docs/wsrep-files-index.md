@@ -79,7 +79,7 @@
     ring-buffer file that is preallocated on disk when the node is initialized.
     File size can be controlled with the variable [`gcache.size`](wsrep-provider-index.md#gcachesize). If
     this value is bigger, more writesets are cached and chances are better that
-    the re-joining node will get [IST](glossary.md#ist) instead of [SST](glossary.md#sst). Filename can be changed
+    the re-joining node will get [IST](glossary.md#ist) instead of [SST](glossary.md#state-snapshot-transfer-sst). Filename can be changed
     with the [`gcache.name`](wsrep-provider-index.md#gcachename) variable.
 
 * `grastate.dat`

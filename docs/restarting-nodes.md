@@ -7,7 +7,7 @@ The node should leave the cluster
 When it rejoins, the node should synchronize using [IST](glossary.md#ist).
 If the set of changes needed for IST are not found in the `gcache` file
 on any other node in the entire cluster,
-then [SST](glossary.md#sst) will be performed instead.
+then [SST](glossary.md#state-snapshot-transfer-sst) will be performed instead.
 Therefore, restarting cluster nodes for rolling configuration changes
 or software upgrades is rather simple from the cluster’s perspective.
 
