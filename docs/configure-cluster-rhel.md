@@ -34,16 +34,16 @@ to ports 3306, 4444, 4567 and 4568.
 
 !!! admonition "Different from previous versions"
 
-   The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster 8.0 automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
+   The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster 8.0 automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#state-snapshot-transfer-sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
 
 ## Step 1. Installing PXC
 
-Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Red Hat Enterprise Linux or CentOS](yum.md#yum).
+Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Red Hat Enterprise Linux or CentOS](yum.md).
 
 ## Step 2. Configuring the first node
 
 Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap).
+For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap-the-first-node).
 
 1. Make sure that the configuration file `/etc/my.cnf`
 on the first node (`percona1`) contains the following:

@@ -12,7 +12,7 @@ The size of the cluster is used to determine
 the required votes to achieve [quorum](glossary.md#quorum).
 A quorum vote is done when a node or nodes are suspected
 to no longer be part of the cluster (they do not respond).
-This no response timeout is the [`evs.suspect_timeout`](wsrep-provider-index.md#evs.suspect_timeout) setting in the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) (default 5 sec),
+This no response timeout is the [`evs.suspect_timeout`](wsrep-provider-index.md#evssuspect_timeout) setting in the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) (default 5 sec),
 and when a node goes down ungracefully,
 write operations will be blocked on the cluster
 for slightly longer than that timeout.

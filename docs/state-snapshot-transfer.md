@@ -33,7 +33,7 @@ The SST method is configured using the [`wsrep_sst_method`](wsrep-system-index.m
 
 !!! note  
 
-    If the [`gcs.sync_donor`](wsrep-provider-index.md#gcs.sync_donor) variable is set to `Yes` (default is `No`), the entire cluster will be blocked if the donor node is blocked by SST.  
+    If the [`gcs.sync_donor`](wsrep-provider-index.md#gcssync_donor) variable is set to `Yes` (default is `No`), the entire cluster will be blocked if the donor node is blocked by SST.  
 
 
 ## Limitation
@@ -67,7 +67,7 @@ XtraBackup is run locally on the donor node.
 
 The [datadir](glossary.md#datadir) needs to be specified in the server configuration file `my.cnf`, otherwise the transfer process will fail.
 
-Detailed information on this method is provided in [Percona XtraBackup SST Configuration](xtrabackup-sst.md#xtrabackup-sst) documentation.
+Detailed information on this method is provided in [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration) documentation.
 
 ## SST for tables with tablespaces that are not in the data directory
 
@@ -88,6 +88,6 @@ For more information, see:
 
 * [Clone SST](clone-sst.md)  
 
-* [Xtrabackup SST configuration](xtrabackup-sst.md#xtrabackup-sst)  
+* [Xtrabackup SST configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration)  
 
 * [State Snapshot Transfer Methods for MySQL](https://galeracluster.com/library/documentation/sst.html)  

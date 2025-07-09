@@ -3,14 +3,14 @@
 By default, Percona XtraDB Cluster does not provide any protection for stored data. There are
 several considerations to take into account for securing Percona XtraDB Cluster:
 
-* [Securing the Network](secure-network.md#secure-network)
+* [Securing the Network](secure-network.md#secure-the-network)
 
    Anyone with access to your network can connect to any Percona XtraDB Cluster node
    either as a client or as another node joining the cluster.
    You should consider restricting access using VPN
    and filter traffic on ports used by Percona XtraDB Cluster.
 
-* [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic)
+* [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic)
 
    Unencrypted traffic can potentially be viewed by anyone monitoring your
    network. In Percona XtraDB Cluster 8.0 traffic encryption is enabled by default.
@@ -37,7 +37,7 @@ You should instead create necessary security policies for Percona XtraDB Cluster
 
 ### SELinux
 
-[SELinux](https://selinuxproject.org) is usually enabled by default
+[SELinux](https://github.com/SELinuxProject) is usually enabled by default
 in Red Hat Enterprise Linux and derivatives (including CentOS). SELinux helps protects the user’s home directory data and provides the following:
 
 
@@ -62,7 +62,7 @@ $ setenforce 0
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](selinux.md#selinux)
+    For more information, see [Enabling AppArmor](selinux.md#enable-selinux)
 
 ### AppArmor
 
@@ -73,4 +73,4 @@ you can set the mode to `complain` for `mysqld`.
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](apparmor.md#apparmor)
+    For more information, see [Enabling AppArmor](apparmor.md#enable-apparmor)

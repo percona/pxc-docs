@@ -34,4 +34,4 @@ The `NBO` method does not support the following:
 
 * Modifying a table changed during the NBO operation. However, you can modify other tables and execute NBO queries on other tables.
 
-See the [Percona XtraDB Cluster 8.0.25-15.1](release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.md#pxc-8-0-25-15-1) Release notes for the latest information.
+See the [Percona XtraDB Cluster 8.0.25-15.1](release-notes/Percona-XtraDB-Cluster-8.0.25-15.1.md) Release notes for the latest information.

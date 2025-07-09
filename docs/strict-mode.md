@@ -27,7 +27,7 @@ denied, thereby protecting data consistency and prompting a review of cluster
 configuration.
 
 Choosing any mode other than `ENFORCING` requires a clear understanding of
-the potential risks to data integrity. Refer to the [Validations](validations.md)
+the potential risks to data integrity. Refer to the [Validations](#validations)
 section for detailed information.
 
 To specify the mode, define the `pxc_strict_mode` variable in the configuration

@@ -76,7 +76,7 @@ This example demonstrates a basic HAProxy v2 configuration file for load-balanci
 
 The following settings are defined in the Global section:
 
-* The [maximum number of concurrent connections](xhttps://docs.haproxy.org/2.5/configuration.html#4.2-maxconn) allowed by HAProxy.
+* The [maximum number of concurrent connections](https://docs.haproxy.org/2.5/configuration.html#4.2-maxconn) allowed by HAProxy.
 
 * The user and group under which HAProxy should run.
 

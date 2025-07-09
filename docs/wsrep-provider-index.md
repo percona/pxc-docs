@@ -41,7 +41,7 @@ This variable specifies the data directory.
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | value of [`wsrep_node_address`](wsrep-provider-index.md#wsrep_node_address)|
+| Default Value: | value of `wsrep_node_address`|
 
 This variable sets the value of the node’s base IP. This is an IP address on
 which Galera listens for connections from other nodes. Setting this value
@@ -400,7 +400,7 @@ file.
 
 This variable controls the purging of the gcache and enables retaining
 more data in it. This variable makes it possible to use [IST (Incremental State Transfer)](glossary.md#ist) when the node rejoins instead of
-[SST (State Snapshot Transfer)](glossary.md#sst).
+[SST (State Snapshot Transfer)](glossary.md#state-snapshot-transfer-sst).
 
 Set this variable on an existing node of the cluster (that will
 continue to be part of the cluster and can act as a potential
@@ -551,7 +551,7 @@ wsrep_provider_options="gcache.recover=yes"
 Size of the transaction cache for Galera replication. This defines the size of
 the `galera.cache` file which is used as source for [IST](glossary.md#ist). The bigger the
 value of this variable, the better are chances that the re-joining node will
-get IST instead of [SST](glossary.md#sst).
+get IST instead of [SST](glossary.md#state-snapshot-transfer-sst).
 
 ### `gcomm.thread_prio`
 
@@ -599,7 +599,7 @@ rr
 
 Implemented in Percona XtraDB Cluster 8.0.33-25.
 
-Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcs.fc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
+Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcsfc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
 
 ### `gcs.fc_auto_evict_window`
 
@@ -836,7 +836,7 @@ This variable shows which gmcast protocol version is being used.
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | value of [`wsrep_node_address`](wsrep-provider-index.md#wsrep_node_address)   |
+| Default Value: | value of `wsrep_node_address`   |
 
 This variable specifies the address on which the node listens for Incremental
 State Transfer ([IST](glossary.md#ist)).

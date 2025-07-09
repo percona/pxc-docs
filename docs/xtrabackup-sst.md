@@ -126,7 +126,7 @@ ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 ```
 
-For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic).
+For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic).
 
 ### sockopt
 
@@ -201,7 +201,7 @@ Enabling this option instruments key stages of backup and restore in SST.
 Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
 For example, `128k` is 128 kilobytes.
-For more information, see [pv(1)](https://linux.die.net/man/1/pv).
+For more information, see [pv(1)](https://man7.org/linux/man-pages/man1/pv.1.html).
 
 !!! note
 
@@ -438,7 +438,7 @@ introduced by `wsrep_sst_xtrabackup-v2`
 ## XtraBackup-based encryption
 
 Settings related to XtraBackup-based Encryption are no longer allowed in PXC 8.0
-when used for [SST](glossary.md#sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
+when used for [SST](glossary.md#state-snapshot-transfer-sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
 
 The XtraBackup-based Encryption is enabled when you specify any of the following options
 under `[xtrabackup]` in `my.cnf`:

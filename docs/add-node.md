@@ -1,6 +1,6 @@
 # Add nodes to cluster
 
-New nodes that are [properly configured](configure-nodes.md#configure) are provisioned
+New nodes that are [properly configured](configure-nodes.md#configure-nodes-for-write-set-replication) are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
 
@@ -11,7 +11,7 @@ running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluste
     Do not join several nodes at the same time
     to avoid overhead due to large amounts of traffic when a new node joins. 
 
-Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
+Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#state-snapshot-transfer-sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
 ## Start the second node
 
@@ -21,7 +21,7 @@ Start the second node using the following command:
 [root@pxc2 ~]# systemctl start mysql
 ```
 
-After the server starts, it receives [SST](glossary.md#sst) automatically.
+After the server starts, it receives [SST](glossary.md#state-snapshot-transfer-sst) automatically.
 
 To check the status of the second node, run the following:
 
@@ -59,7 +59,7 @@ added to the cluster.  The cluster size is now 2 nodes, it is the primary
 component, and it is fully connected and ready to receive write-set replication.
 
 If the state of the second node is `Synced` as in the previous example, then
-the node received full [SST](glossary.md#sst) is synchronized with the cluster, and you can
+the node received full [SST](glossary.md#state-snapshot-transfer-sst) is synchronized with the cluster, and you can
 proceed to add the next node.
 
 !!! note
@@ -106,5 +106,5 @@ fully connected and ready to receive write-set replication.
 
 ## Next steps
 
-When you add all nodes to the cluster, you can [verify replication](verify-replication.md#verify) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.
+When you add all nodes to the cluster, you can [verify replication](verify-replication.md#verify-replication) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.
 

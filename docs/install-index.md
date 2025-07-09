@@ -28,28 +28,28 @@ transfer from one node to another.
 We recommend installing Percona XtraDB Cluster from official Percona software repositories
 using the corresponding package manager for your system:
 
-* [Debian or Ubuntu](apt.md#apt)
+* [Debian or Ubuntu](apt.md#install-percona-xtradb-cluster-on-debian-or-ubuntu)
 
-* [Red Hat or CentOS](yum.md#yum)
+* [Red Hat or CentOS](yum.md#install-from-percona-software-repository)
 
 !!! important
 
-    After installing Percona XtraDB Cluster, the ``mysql`` service is stopped but enabled so that it may start the next time you restart the system. The service starts if the the `grastate.dat` file exists and the value of ``seqno`` is not **-1**.
+    After installing Percona XtraDB Cluster, the `mysql` service is stopped but enabled so that it may start the next time you restart the system. The service starts if the the `grastate.dat` file exists and the value of `seqno` is not **-1**.
 
     !!! admonition "See also"
 
-        More information about Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#wsrep-file-index)
+        More information about Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#index-of-files-created-by-pxc)
 
 ## Installation alternatives
 
 Percona also provides a generic tarball with all required files and binaries
 for manual installation:
 
-* [Installing Percona XtraDB Cluster from Binary Tarball](tarball.md#tarball)
+* [Installing Percona XtraDB Cluster from Binary Tarball](tarball.md#install-percona-xtradb-cluster-from-binary-tarball)
 
-If you want to build Percona XtraDB Cluster from source, see [Compiling and Installing from Source Code](compile.md#compile).
+If you want to build Percona XtraDB Cluster from source, see [Compiling and Installing from Source Code](compile.md#compile-and-install-from-source-code).
 
-If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#docker).
+If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#running-percona-xtradb-cluster-in-a-docker-container).
 
 ### Percona XtraDB Cluster PRO
 

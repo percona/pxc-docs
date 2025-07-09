@@ -20,7 +20,7 @@ Percona XtraDB Cluster (PXC) supports critical business applications in your pub
 
 A Non-Blocking Operation method for online schema changes in Percona XtraDB Cluster. This mode is similar to the Total Order Isolation (TOI) mode, whereas a data definition language (DDL) statement (for example, `ALTER`) is executed on all nodes in sync. The difference is that in the NBO mode, the DDL statement acquires a metadata lock that locks the table or schema at a late stage of the operation, which is a more efficient locking strategy.
 
-Note that the NBO mode is a **Tech Preview** feature. We do not recommend that you use this mode in a production environment. For more information, see [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](/nbo.md#nbo).
+Note that the NBO mode is a **Tech Preview** feature. We do not recommend that you use this mode in a production environment. For more information, see [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](../nbo.md).
 
 The notable changes and bug fixes introduced by Oracle MySQL include the following:
 
@@ -52,7 +52,7 @@ For more information, see the [MySQL 8.0.24 Release Notes](https://dev.mysql.com
 * [PXC-3449](https://jira.percona.com/browse/PXC-3449): Fix for missing dependencies which were carried out in replication writesets caused Galera to fail.
 
 
-* [PXC-3589](https://jira.percona.com/browse/PXC-3589): Documentation: Updates in [Percona XtraDB Cluster Limitations](../limitation.md#limitations) that the `LOCK=NONE` clause is no longer allowed in an INPLACE ALTER TABLE statement. (Thanks to user Brendan Byrd for reporting this issue)
+* [PXC-3589](https://jira.percona.com/browse/PXC-3589): Documentation: Updates in [Percona XtraDB Cluster Limitations](../limitation.md#percona-xtradb-cluster-limitations) that the `LOCK=NONE` clause is no longer allowed in an INPLACE ALTER TABLE statement. (Thanks to user Brendan Byrd for reporting this issue)
 
 
 * [PXC-3611](https://jira.percona.com/browse/PXC-3611): Fix that deletes any keyring.backup file if it exists for SST operation.
