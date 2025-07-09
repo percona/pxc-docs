@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3998,7 +3998,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/encrypt-traffic.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/encrypt-traffic.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4022,7 +4022,7 @@
 nodes),</p>
 </li>
 <li>
-<p>Replication traffic, that includes <a href="glossary.html#sst">SST</a>, <a href="glossary.html#ist">IST</a>, write-set replication, and various service messages.</p>
+<p>Replication traffic, that includes <a href="glossary.html#state-snapshot-transfer-sst">SST</a>, <a href="glossary.html#ist">IST</a>, write-set replication, and various service messages.</p>
 </li>
 </ol>
 <p>Percona XtraDB Cluster supports encryption for all types of traffic. Replication traffic
@@ -4056,7 +4056,7 @@ new certificates. For generation of new certificate please refer to
 <a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a> section.</p>
 <h2 id="encrypt-replication-traffic">Encrypt replication traffic<a class="headerlink" href="#encrypt-replication-traffic" title="Permanent link">&para;</a></h2>
 <p><em>Replication traffic</em> refers to the inter-node traffic which includes
-the <a href="glossary.html#sst">SST</a> traffic, <a href="glossary.html#ist">IST</a> traffic, and replication traffic.</p>
+the <a href="glossary.html#state-snapshot-transfer-sst">SST</a> traffic, <a href="glossary.html#ist">IST</a> traffic, and replication traffic.</p>
 <p>The traffic of each type is transferred via a different channel, and so it
 is important to configure secure channels for all 3 variants to
 completely secure the replication traffic.</p>
@@ -4075,7 +4075,7 @@ the data directory.</p>
 <h3 id="enable-pxc-encrypt-cluster-traffic">Enable <code>pxc-encrypt-cluster-traffic</code><a class="headerlink" href="#enable-pxc-encrypt-cluster-traffic" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster includes the <code>pxc-encrypt-cluster-traffic</code> variable that
 enables automatic configuration of SSL encryption there-by encrypting
-<a href="glossary.html#sst">SST</a>, <a href="glossary.html#ist">IST</a>, and replication traffic.</p>
+<a href="glossary.html#state-snapshot-transfer-sst">SST</a>, <a href="glossary.html#ist">IST</a>, and replication traffic.</p>
 <p>By default, <code>pxc-encrypt-cluster-traffic</code> is enabled thereby using a secured
 channel for replication. This variable is not dynamic and so it cannot be changed
 at runtime.</p>
@@ -4136,7 +4136,7 @@ necessary files, see <a href="#generate-keys-and-certificates-manually">Generate
 <ul>
 <li>
 <p><a href="#encrypt-sst-traffic">Encrypt SST traffic</a></p>
-<p>This refers to <a href="glossary.html#sst">SST</a> traffic during full data copy
+<p>This refers to <a href="glossary.html#state-snapshot-transfer-sst">SST</a> traffic during full data copy
 from one cluster node (donor) to the joining node (joiner).</p>
 </li>
 <li>
@@ -4164,8 +4164,8 @@ different.</p>
 </div>
 <p>The only available SST method is <code>xtrabackup-v2</code> which uses <em>Percona XtraBackup</em>.</p>
 <h3 id="xtrabackup">xtrabackup<a class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h3>
-<p>This is the only available SST method (the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is always set to <code>xtrabackup-v2</code>), which uses Percona XtraBackup to perform non-blocking transfer of files. For more information, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>.</p>
-<p>Encryption mode for this method is selected using the <a href="xtrabackup-sst.html#cmdoption-arg-encrypt"><code>encrypt</code></a> option:</p>
+<p>This is the only available SST method (the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is always set to <code>xtrabackup-v2</code>), which uses Percona XtraBackup to perform non-blocking transfer of files. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>.</p>
+<p>Encryption mode for this method is selected using the <a href="xtrabackup-sst.html#encrypt"><code>encrypt</code></a> option:</p>
 <ul>
 <li>
 <p><code>encrypt=0</code> is the default value, meaning that encryption is disabled.</p>
@@ -4215,16 +4215,16 @@ write-set replication, and service messages are encrypted.
 parameters, so 2 sections are described together).</p>
 <p>To enable encryption for all these processes,
 define the paths to the key, certificate and certificate authority files
-using the following <a href="wsrep-provider-index.html#wsrep-provider-index">wsrep provider options</a>:</p>
+using the following <a href="wsrep-provider-index.html">wsrep provider options</a>:</p>
 <ul>
 <li>
-<p><a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a></p>
+<p><a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a></p>
 </li>
 <li>
-<p><a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a></p>
+<p><a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_cert</code></a></p>
 </li>
 <li>
-<p><a href="wsrep-provider-index.html#socket.ssl_key"><code>socket.ssl_key</code></a></p>
+<p><a href="wsrep-provider-index.html#socketssl_key"><code>socket.ssl_key</code></a></p>
 </li>
 </ul>
 <p>To set these options, use the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable in the configuration file:</p>
@@ -4388,7 +4388,7 @@ Most likely, you only want to give read permissions to the user running <code>my
 used for securing replication traffic when there are two nodes in the cluster.</p>
 <ol>
 <li>
-<p>Restart the first node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
+<p>Restart the first node with the <a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
 <p>For example, you can merge contents of <code>old-ca.pem</code>
 and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
@@ -4399,7 +4399,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
 </code></pre></div>
 </li>
 <li>
-<p>Restart the second node with the <a href="wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
+<p>Restart the second node with the <a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
 </code></pre></div>
 </li>
@@ -4430,7 +4430,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-03-14
+    2025-07-09
   </span>
 
     
@@ -4574,7 +4574,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

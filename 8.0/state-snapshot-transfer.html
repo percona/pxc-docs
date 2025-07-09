@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3868,7 +3868,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/state-snapshot-transfer.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/state-snapshot-transfer.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3914,7 +3914,7 @@
 <p>The SST method is configured using the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="wsrep-provider-index.html#gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
+<p>If the <a href="wsrep-provider-index.html#gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
 </div>
 <h2 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h2>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
@@ -3941,7 +3941,7 @@ the cluster chooses the node with the highest <code>seqno</code> to serve as the
 This is the least blocking method that leverages <a href="https://docs.percona.com/percona-xtrabackup/8.0/xtrabackup-option-reference.html#backup-locks">backup locks</a>.
 XtraBackup is run locally on the donor node.</p>
 <p>The <a href="glossary.html#datadir">datadir</a> needs to be specified in the server configuration file <code>my.cnf</code>, otherwise the transfer process will fail.</p>
-<p>Detailed information on this method is provided in <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a> documentation.</p>
+<p>Detailed information on this method is provided in <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
@@ -3957,7 +3957,7 @@ tablespaces not in the data directory.</p>
 <p><a href="clone-sst.html">Clone SST</a>  </p>
 </li>
 <li>
-<p><a href="xtrabackup-sst.html#xtrabackup-sst">Xtrabackup SST configuration</a>  </p>
+<p><a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Xtrabackup SST configuration</a>  </p>
 </li>
 <li>
 <p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a>  </p>
@@ -3983,7 +3983,7 @@ tablespaces not in the data directory.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-03-13
+    2025-07-09
   </span>
 
     
@@ -4127,7 +4127,7 @@ tablespaces not in the data directory.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

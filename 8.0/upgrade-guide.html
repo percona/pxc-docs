@@ -27,7 +27,7 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3952,7 +3952,7 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/upgrade-guide.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/upgrade-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3990,7 +3990,7 @@ and variables mentioned in these documents when upgrading to Percona XtraDB Clus
 <li><a href="#important-changes-in-percona-xtradb-cluster-80">Important changes in Percona XtraDB Cluster 8.0</a><ul>
 <li><a href="#traffic-encryption-is-enabled-by-default">Traffic encryption is enabled by default</a></li>
 <li><a href="#not-recommended-to-mix-pxc-57-nodes-with-pxc-80-nodes">Not recommended to mix PXC 5.7 nodes with PXC 8.0 nodes</a></li>
-<li><a href="#strict-mode-is-enabled-by-default">PXC strict mode is enabled by default</a></li>
+<li><a href="#pxc-strict-mode-is-enabled-by-default">PXC strict mode is enabled by default</a></li>
 <li><a href="#the-configuration-file-layout-has-changed-in-pxc-80">The configuration file layout has changed in PXC 8.0</a></li>
 <li><a href="#caching_sha2_password-is-the-default-authentication-plugin">caching_sha2_password is the default authentication plugin</a></li>
 <li><a href="#mysql_upgrade-is-part-of-sst">mysql_upgrade is part of SST</a></li>
@@ -4018,7 +4018,7 @@ This error is often caused by SSL issues. ...
 </details>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>sections <a href="encrypt-traffic.html#encrypt-traffic">Encrypting PXC Traffic</a>, <a href="configure-nodes.html#configure">Configuring Nodes for Write-Set Replication</a></p>
+<p>sections <a href="encrypt-traffic.html#encrypt-pxc-traffic">Encrypting PXC Traffic</a>, <a href="configure-nodes.html#configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a></p>
 </div>
 <!-- Rolling upgrades to |version| from versions older than 5.7 are not supported
 --------------------------------------------------------------------------------
@@ -4038,7 +4038,7 @@ The rolling upgrade is supported but ensure the
 traffic is controlled during the upgrade and writes are directed only to 5.7
 nodes until all nodes are upgraded to 8.0. -->
 <h3 id="pxc-strict-mode-is-enabled-by-default">PXC strict mode is enabled by default<a class="headerlink" href="#pxc-strict-mode-is-enabled-by-default" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster in 8.0 runs with <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a> enabled by default. This will deny any unsupported operations and may halt the server if <a href="strict-mode.html#validations">a strict mode validation fails</a>. It is recommended to first start the node with
+<p>Percona XtraDB Cluster in 8.0 runs with <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> enabled by default. This will deny any unsupported operations and may halt the server if <a href="strict-mode.html#validations">a strict mode validation fails</a>. It is recommended to first start the node with
 the <code>pxc_strict_mode</code> variable set to <code>PERMISSIVE</code> in the MySQL
 configuration file.</p>
 <p>All configuration settings are stored in the default MySQL configuration file:</p>
@@ -4078,12 +4078,12 @@ and CentOS) to the new location accordingly.</p>
 <p>In Percona XtraDB Cluster 8.0, the default authentication plugin is
 <code>caching_sha2_password</code>. In ProxySQL 2.6.2 or later, use the <code>caching_sha2_password</code> authentication method.</p>
 <p>If you are using a version before ProxySQL 2.6.2, the option
-<a href="proxysql-v2.html#pxc-proxysql-v2-admin-tool-syncusers">–syncusers</a> would not work if the Percona XtraDB Cluster user is
+<code>–syncusers</code> would not work if the Percona XtraDB Cluster user is
 created using <code>caching_sha2_password</code>. Use the <code>mysql_native_password</code>
 authentication plugin in these cases.</p>
 <p>Be sure you are running on the latest 5.7 version before you upgrade to 8.0.</p>
-<h3 id="mysql_upgrade-is-part-of-sst">mysql_upgrade is part of <a href="glossary.html#sst">SST</a><a class="headerlink" href="#mysql_upgrade-is-part-of-sst" title="Permanent link">&para;</a></h3>
-<p><strong>mysql_upgrade</strong> is now run automatically as part of <a href="glossary.html#sst">SST</a>. You do not have
+<h3 id="mysql_upgrade-is-part-of-sst">mysql_upgrade is part of SST<a class="headerlink" href="#mysql_upgrade-is-part-of-sst" title="Permanent link">&para;</a></h3>
+<p><strong>mysql_upgrade</strong> is now run automatically as part of <a href="glossary.html#state-snapshot-transfer-sst">SST</a>. You do not have
 to run it manually when upgrading your system from an older version.</p>
 <!-- Rolling Upgrade of a 3-Node PXC from 5.7 to 8.0
 ================================================================================
@@ -4181,7 +4181,7 @@ enters synced state. The 3-node cluster is restored with 2 nodes running PXC
 5.7 and 1 node running PXC 8.0.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since <a href="glossary.html#sst">SST</a> is not involved, <a href="glossary.html#sst">SST</a> based auto-upgrade flow is not started.</p>
+<p>Since <a href="glossary.html#state-snapshot-transfer-sst">SST</a> is not involved, <a href="glossary.html#state-snapshot-transfer-sst">SST</a> based auto-upgrade flow is not started.</p>
 </div>
 <p>PXC 8.0 uses Galera 4 while PXC 5.7 uses Galera-3. The cluster will
 continue to use the protocol version 3 used in Galera 3 effectively limiting
@@ -4213,7 +4213,7 @@ protocol version 4 enabling the support for additional Galera 4 facilities.</p>
 <p class="admonition-title">Note</p>
 <p>Starting from Galera 4, the configuration changes are cached to <code>gcache</code>
 and the configuration changes are donated as part of <a href="glossary.html#ist">IST</a> or
-<a href="glossary.html#sst">SST</a> to help build the certification queue on the JOINING node. As
+<a href="glossary.html#state-snapshot-transfer-sst">SST</a> to help build the certification queue on the JOINING node. As
 other nodes (say n2 and n3), already using protocol version 4, donate the
 configuration changes when the JOINER node is booted.</p>
 </div>
@@ -4280,7 +4280,7 @@ with the upgrade using the procedure described in
 </li>
 <li>
 <p>Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
-For more information, see <a href="index.html#install">Installing Percona XtraDB Cluster</a>.</p>
+For more information, see <a href="install-index.html#install-percona-xtradb-cluster">Installing Percona XtraDB Cluster</a>.</p>
 </li>
 <li>
 <p>Back up <code>grastate.dat</code>, so that you can restore it
@@ -4291,14 +4291,14 @@ if it is corrupted or zeroed out due to network issue.</p>
 the data directory as needed - either as part of the startup process or a
 state transfer (IST/SST).</p>
 <p>In most cases, starting the <code>mysql</code> service should run the node with your
-previous configuration. For more information, see <a href="add-node.html#add-node">Adding Nodes to Cluster</a>.</p>
+previous configuration. For more information, see <a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a>.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On CentOS, the /etc/my.cnf configuration file is renamed to <code>my.cnf.rpmsave</code>. Make sure to rename it back before joining the upgraded node back to the cluster.</p>
 </div>
-<p><a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
+<p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
 unsupported operations and may halt the server. For more information, see
 <a href="#pxc-strict-mode-is-enabled-by-default">pxc-strict-mode is enabled by default</a>.</p>
 <p><code>pxc-encrypt-cluster-traffic</code> is enabled by default. You need to configure
@@ -4331,7 +4331,7 @@ until you upgrade all nodes.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-08-30
+    2025-07-09
   </span>
 
     
@@ -4475,7 +4475,7 @@ until you upgrade all nodes.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

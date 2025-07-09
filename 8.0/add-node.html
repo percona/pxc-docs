@@ -27,7 +27,7 @@ running node in the wsrep_cluster_address variable, this node automatically join
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3784,7 +3784,7 @@ running node in the wsrep_cluster_address variable, this node automatically join
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/add-node.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/add-node.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3801,7 +3801,7 @@ running node in the wsrep_cluster_address variable, this node automatically join
 
 
 <h1 id="add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
-<p>New nodes that are <a href="configure-nodes.html#configure">properly configured</a> are provisioned
+<p>New nodes that are <a href="configure-nodes.html#configure-nodes-for-write-set-replication">properly configured</a> are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
 <div class="admonition note">
@@ -3811,12 +3811,12 @@ to match the data and configuration of the DONOR node.
 Do not join several nodes at the same time
 to avoid overhead due to large amounts of traffic when a new node joins. </p>
 </div>
-<p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="glossary.html#sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
+<p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="glossary.html#state-snapshot-transfer-sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
 <h2 id="start-the-second-node">Start the second node<a class="headerlink" href="#start-the-second-node" title="Permanent link">&para;</a></h2>
 <p>Start the second node using the following command:</p>
 <div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
 </code></pre></div>
-<p>After the server starts, it receives <a href="glossary.html#sst">SST</a> automatically.</p>
+<p>After the server starts, it receives <a href="glossary.html#state-snapshot-transfer-sst">SST</a> automatically.</p>
 <p>To check the status of the second node, run the following:</p>
 <div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -3848,7 +3848,7 @@ to avoid overhead due to large amounts of traffic when a new node joins. </p>
 added to the cluster.  The cluster size is now 2 nodes, it is the primary
 component, and it is fully connected and ready to receive write-set replication.</p>
 <p>If the state of the second node is <code>Synced</code> as in the previous example, then
-the node received full <a href="glossary.html#sst">SST</a> is synchronized with the cluster, and you can
+the node received full <a href="glossary.html#state-snapshot-transfer-sst">SST</a> is synchronized with the cluster, and you can
 proceed to add the next node.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3884,7 +3884,7 @@ fully connected and ready to receive write-set replication.</p>
 </code></pre></div>
 </details>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>When you add all nodes to the cluster, you can <a href="verify-replication.html#verify">verify replication</a> by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.</p>
+<p>When you add all nodes to the cluster, you can <a href="verify-replication.html#verify-replication">verify replication</a> by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.</p>
 
 
 
@@ -3905,7 +3905,7 @@ fully connected and ready to receive write-set replication.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-07-21
+    2025-07-09
   </span>
 
     
@@ -4049,7 +4049,7 @@ fully connected and ready to receive write-set replication.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

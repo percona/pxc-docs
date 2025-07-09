@@ -29,7 +29,7 @@ writes on multiple nodes at the same time.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3858,7 +3858,7 @@ writes on multiple nodes at the same time.">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/crash-recovery.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/crash-recovery.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3890,10 +3890,10 @@ etc.</p>
 and the cluster size is reduced; some properties like quorum calculation or auto
 increment are automatically changed. As soon as node A is started again, it
 joins the cluster based on its <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable in <code>my.cnf</code>.</p>
-<p>If the writeset cache (<a href="wsrep-provider-index.html#gcache.size"><code>gcache.size</code></a>) on nodes B and/or C still
+<p>If the writeset cache (<a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a>) on nodes B and/or C still
 has all the transactions executed while node A was down, joining is possible via
 <a href="glossary.html#ist">IST</a>. If <a href="glossary.html#ist">IST</a> is impossible due to missing transactions in donor’s
-gcache, the fallback decision is made by the donor and <a href="glossary.html#sst">SST</a> is started
+gcache, the fallback decision is made by the donor and <a href="glossary.html#state-snapshot-transfer-sst">SST</a> is started
 automatically.</p>
 <h2 id="scenario-2-two-nodes-are-gracefully-stopped">Scenario 2: Two nodes are gracefully stopped<a class="headerlink" href="#scenario-2-two-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
 <p>Similar to <a href="#scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>, the cluster size is reduced to
@@ -3924,7 +3924,7 @@ is important that a PXC node writes its last executed position to the
 <p>By comparing the seqno number in this file, you can see which is the most
 advanced node (most likely the last stopped). The cluster must be bootstrapped
 using this node, otherwise nodes that had a more advanced position will have to
-perform the full <a href="glossary.html#sst">SST</a> to join the cluster initialized from the less
+perform the full <a href="glossary.html#state-snapshot-transfer-sst">SST</a> to join the cluster initialized from the less
 advanced one. As a result, some transactions will be lost). To bootstrap the
 first node, invoke the startup script like this:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
@@ -3932,10 +3932,10 @@ first node, invoke the startup script like this:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Even though you bootstrap from the most advanced node, the other
-nodes have a lower sequence number. They will still have to join via the full <a href="glossary.html#sst">SST</a>
+nodes have a lower sequence number. They will still have to join via the full <a href="glossary.html#state-snapshot-transfer-sst">SST</a>
 because the <em>Galera Cache</em> is not retained on restart.</p>
 <p>For this reason, it is recommended to stop writes to the cluster <em>before</em> its
-full shutdown, so that all nodes can stop at the same position. See also <a href="wsrep-provider-index.html#pc.recovery"><code>pc.recovery</code></a>.</p>
+full shutdown, so that all nodes can stop at the same position. See also <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a>.</p>
 </div>
 <h2 id="scenario-4-one-node-disappears-from-the-cluster">Scenario 4: One node disappears from the cluster<a class="headerlink" href="#scenario-4-one-node-disappears-from-the-cluster" title="Permanent link">&para;</a></h2>
 <p>This is the case when one node becomes unavailable due to power outage, hardware
@@ -3972,7 +3972,7 @@ this is:</p>
 Otherwise, you end up with two clusters having different data.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="add-node.html#add-node">Adding Nodes to Cluster</a></p>
+<p><a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a></p>
 </div>
 <h2 id="scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure">Scenario 6: All nodes went down without a proper shutdown procedure<a class="headerlink" href="#scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure" title="Permanent link">&para;</a></h2>
 <p>This scenario is possible in the following cases:</p>
@@ -4020,7 +4020,7 @@ safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node
 safe_to_bootstrap: 1
 ...
 </code></pre></div>
-<p>In recent Galera versions, the option <a href="wsrep-provider-index.html#pc.recovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
+<p>In recent Galera versions, the option <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
 saves only a cluster being in the PRIMARY state. An example content of the file
 may look like this:</p>
 <div class="no-copy highlight"><pre><span></span><code>cat /var/lib/mysql/gvwstate.dat
@@ -4069,7 +4069,7 @@ file are connected again.</p>
 <p>Then, as the Galera replication model truly cares about data consistency:
 once the inconsistency is detected, nodes that cannot execute row change
 statement due to a data difference – an emergency shutdown will be performed and the only
-way to bring the nodes back to the cluster is via the full <a href="glossary.html#term-SST">SST</a></p>
+way to bring the nodes back to the cluster is via the full <a href="glossary.html#state-snapshot-transfer-sst">SST</a></p>
 </div>
 <p><strong>Based on material from Percona Database Performance Blog</strong></p>
 <p>This article is based on the blog post Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em>: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p>
@@ -4093,7 +4093,7 @@ way to bring the nodes back to the cluster is via the full <a href="glossary.htm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-11-13
+    2025-07-09
   </span>
 
     
@@ -4237,7 +4237,7 @@ way to bring the nodes back to the cluster is via the full <a href="glossary.htm
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

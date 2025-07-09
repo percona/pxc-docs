@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -4808,7 +4808,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/glossary.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.0/docs/glossary.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4829,7 +4829,7 @@
 <p>For each table, the server will create a file with the <code>.frm</code>
 extension containing the table definition (for all storage engines).</p>
 <h2 id="acid">ACID<a class="headerlink" href="#acid" title="Permanent link">&para;</a></h2>
-<p>An acronym for <a href="glossary.html#atomicity"><code>Atomicity</code></a>, <a href="glossary.html#consistency"><code>Consistency</code></a>, <a href="glossary.html#isolation"><code>Isolation</code></a>, <a href="glossary.html#durability"><code>Durability</code></a>.</p>
+<p>An acronym for <a href="#atomicity"><code>Atomicity</code></a>, <a href="#consistency"><code>Consistency</code></a>, <a href="#isolation"><code>Isolation</code></a>, <a href="#durability"><code>Durability</code></a>.</p>
 <h2 id="asynchronous-replication">Asynchronous replication<a class="headerlink" href="#asynchronous-replication" title="Permanent link">&para;</a></h2>
 <p>Asynchronous replication is a technique where data is first written to the primary node. After the primary acknowledges the write, the data is written to secondary nodes.</p>
 <h2 id="atomicity">Atomicity<a class="headerlink" href="#atomicity" title="Permanent link">&para;</a></h2>
@@ -4866,7 +4866,7 @@ default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by
 <h2 id="general-availability-ga">General availability (GA)<a class="headerlink" href="#general-availability-ga" title="Permanent link">&para;</a></h2>
 <p>A finalized version of the product which is made available to the general public. It is the final stage in the software release cycle.</p>
 <h2 id="gtid">GTID<a class="headerlink" href="#gtid" title="Permanent link">&para;</a></h2>
-<p>Global Transaction ID, in Percona XtraDB Cluster it consists of <a href="glossary.html#uuid"><code>UUID</code></a> and an ordinal sequence number which denotes the position of the change in the sequence.</p>
+<p>Global Transaction ID, in Percona XtraDB Cluster it consists of <a href="#uuid"><code>UUID</code></a> and an ordinal sequence number which denotes the position of the change in the sequence.</p>
 <h2 id="haproxy">HAProxy<a class="headerlink" href="#haproxy" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.haproxy.com/"><code>HAProxy</code></a> is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for web sites crawling under very high loads while needing persistence or Layer7 processing. Supporting tens of thousands of connections is clearly realistic with todays hardware. Its mode of operation makes its integration into existing architectures very easy and riskless, while still offering the possibility not to expose fragile web servers to the net.</p>
 <h2 id="ibdata">ibdata<a class="headerlink" href="#ibdata" title="Permanent link">&para;</a></h2>
@@ -4878,15 +4878,15 @@ default.</p>
 <h2 id="ist">IST<a class="headerlink" href="#ist" title="Permanent link">&para;</a></h2>
 <p>Incremental State Transfer. Functionality which instead of whole state snapshot can catch up with the group by receiving the missing writesets, but only if the writeset is still in the donor&rsquo;s writeset cache.</p>
 <h2 id="innodb">InnoDB<a class="headerlink" href="#innodb" title="Permanent link">&para;</a></h2>
-<p><a href="glossary.html#storage-engine"><code>Storage Engine</code></a> for MySQL and derivatives (<a href="glossary.html#percona-server"><code>Percona Server</code></a>, <a href="glossary.html#mariadb"><code>MariaDB</code></a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="glossary.html#acid"><code>ACID</code></a> compliant storage engine with <a href="glossary.html#foreign-key"><code>foreign key</code></a> support. InnoDB is the default storage engine on all platforms.</p>
+<p><a href="#storage-engine"><code>Storage Engine</code></a> for MySQL and derivatives (<code>Percona Server</code>, <a href="#mariadb"><code>MariaDB</code></a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="#acid"><code>ACID</code></a> compliant storage engine with <a href="#foreign-key"><code>foreign key</code></a> support. InnoDB is the default storage engine on all platforms.</p>
 <h2 id="isolation_1">Isolation<a class="headerlink" href="#isolation_1" title="Permanent link">&para;</a></h2>
 <p>Temporarily removing a node from the cluster to perform operations without affecting the rest of the cluster.</p>
 <h2 id="joiner-node">joiner node<a class="headerlink" href="#joiner-node" title="Permanent link">&para;</a></h2>
 <p>The node joining the cluster, usually a state transfer target.</p>
 <h2 id="lsn">LSN<a class="headerlink" href="#lsn" title="Permanent link">&para;</a></h2>
-<p>Log Serial Number. A term used in relation to the <a href="glossary.html#innodb"><code>InnoDB</code></a> or <a href="glossary.html#xtradb"><code>XtraDB</code></a> storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.</p>
+<p>Log Serial Number. A term used in relation to the <a href="#innodb"><code>InnoDB</code></a> or <code>XtraDB</code> storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.</p>
 <h2 id="mariadb">MariaDB<a class="headerlink" href="#mariadb" title="Permanent link">&para;</a></h2>
-<p>A fork of <a href="glossary.html#mysql"><code>MySQL</code></a> that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.</p>
+<p>A fork of <a href="#mysql"><code>MySQL</code></a> that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.</p>
 <h2 id="metadata-lock">Metadata lock<a class="headerlink" href="#metadata-lock" title="Permanent link">&para;</a></h2>
 <p>A type of lock in a database that prevents changes to the structure of database objects while certain operations are being performed.</p>
 <h2 id="mycnf">my.cnf<a class="headerlink" href="#mycnf" title="Permanent link">&para;</a></h2>
@@ -4896,15 +4896,15 @@ installation. Note that this is not the only way of configuring the
 server, some systems does not have one even and rely on the command
 options to start the server and its defaults values.</p>
 <h2 id="myisam">MyISAM<a class="headerlink" href="#myisam" title="Permanent link">&para;</a></h2>
-<p>A <a href="glossary.html#mysql"><code>MySQL</code></a> <a href="glossary.html#storage-engine"><code>Storage Engine</code></a> that was the default until MySQL 5.5. It doesn&rsquo;t fully support transactions but in some scenarios may be faster than <a href="glossary.html#innodb"><code>InnoDB</code></a>. Each table is stored on disk in 3 files: <a href="glossary.html#frm"><code>.frm</code></a>,i <code>.MYD</code>, <code>.MYI</code>.</p>
+<p>A <a href="#mysql"><code>MySQL</code></a> <a href="#storage-engine"><code>Storage Engine</code></a> that was the default until MySQL 5.5. It doesn&rsquo;t fully support transactions but in some scenarios may be faster than <a href="#innodb"><code>InnoDB</code></a>. Each table is stored on disk in 3 files: <a href="#frm"><code>.frm</code></a>,i <code>.MYD</code>, <code>.MYI</code>.</p>
 <h2 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
-<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="glossary.html#mariadb"><code>MariaDB</code></a> and <a href="glossary.html#percona-server"><code>Percona Server</code></a>.</p>
+<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="#mariadb"><code>MariaDB</code></a> and <code>Percona Server</code>.</p>
 <h2 id="mysqlpxcinternalsession">mysql.pxc.internal.session<a class="headerlink" href="#mysqlpxcinternalsession" title="Permanent link">&para;</a></h2>
-<p>This user is used by the SST process to run the SQL commands needed for <a href="glossary.html#sst"><code>SST</code></a>, such as creating the <code>mysql.pxc.sst.user</code> and assigning it the role <a href="glossary.html#mysql-pxc-sst-role"><code>mysql.pxc.sst.role</code></a>.</p>
+<p>This user is used by the SST process to run the SQL commands needed for <a href="#state-snapshot-transfer-sst"><code>SST</code></a>, such as creating the <code>mysql.pxc.sst.user</code> and assigning it the role <a href="#mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a>.</p>
 <h2 id="mysqlpxcsstrole">mysql.pxc.sst.role<a class="headerlink" href="#mysqlpxcsstrole" title="Permanent link">&para;</a></h2>
 <p>This role has all the privileges needed to run xtrabackup to create a backup on the donor node.</p>
 <h2 id="mysqlpxcsstuser">mysql.pxc.sst.user<a class="headerlink" href="#mysqlpxcsstuser" title="Permanent link">&para;</a></h2>
-<p>This user (set up on the donor node) is assigned the <a href="glossary.html#mysql-pxc-sst-role"><code>mysql.pxc.sst.role</code></a> and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each <a href="glossary.html#sst"><code>SST</code></a>.</p>
+<p>This user (set up on the donor node) is assigned the <a href="#mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a> and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each <a href="#state-snapshot-transfer-sst"><code>SST</code></a>.</p>
 <h2 id="node">node<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
 <p>An individual server or computer within a cluster that stores and processes data.</p>
 <h2 id="non-production-environment">Non-production environment<a class="headerlink" href="#non-production-environment" title="Permanent link">&para;</a></h2>
@@ -4914,11 +4914,11 @@ options to start the server and its defaults values.</p>
 <h2 id="numa">NUMA<a class="headerlink" href="#numa" title="Permanent link">&para;</a></h2>
 <p>Non-Uniform Memory Access (<a href="http://en.wikipedia.org/wiki/Non-Uniform_Memory_Access"><code>NUMA</code></a>) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere, but at a potentially higher latency and lower performance.</p>
 <h2 id="percona-server-for-mysql">Percona Server for MySQL<a class="headerlink" href="#percona-server-for-mysql" title="Permanent link">&para;</a></h2>
-<p>Percona&rsquo;s branch of <a href="glossary.html#mysql"><code>MySQL</code></a> with performance and management improvements.</p>
+<p>Percona&rsquo;s branch of <a href="#mysql"><code>MySQL</code></a> with performance and management improvements.</p>
 <h2 id="percona-xtradb-cluster">Percona XtraDB Cluster<a class="headerlink" href="#percona-xtradb-cluster" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster (PXC) is a high availability solution for MySQL.</p>
 <h2 id="primary-cluster">primary cluster<a class="headerlink" href="#primary-cluster" title="Permanent link">&para;</a></h2>
-<p>A cluster with <a href="glossary.html#quorum">quorum</a>. A non-primary cluster will not allow any
+<p>A cluster with <a href="#quorum">quorum</a>. A non-primary cluster will not allow any
 operations and will give <code>Unknown command</code> errors on any clients
 attempting to read or write from the database.</p>
 <h2 id="production-environment">Production environment<a class="headerlink" href="#production-environment" title="Permanent link">&para;</a></h2>
@@ -4975,7 +4975,7 @@ attempting to read or write from the database.</p>
 </ol>
 <p>SST ensures that all nodes in the cluster have the same data. This is crucial for maintaining consistency across the database cluster.</p>
 <h2 id="storage-engine">Storage Engine<a class="headerlink" href="#storage-engine" title="Permanent link">&para;</a></h2>
-<p>A Storage Engine manages how data is stored and retrieved in a database system. It&rsquo;s a key component in the <a href="glossary.html#mysql">MySQL</a> database ecosystem.</p>
+<p>A Storage Engine manages how data is stored and retrieved in a database system. It&rsquo;s a key component in the <a href="#mysql">MySQL</a> database ecosystem.</p>
 <p>Storage Engines handle:</p>
 <ul>
 <li>
@@ -4998,10 +4998,10 @@ attempting to read or write from the database.</p>
 <p>Common MySQL Storage Engines include:</p>
 <ul>
 <li>
-<p><a href="glossary.html#innodb">InnoDB</a>: The default engine since MySQL 5.5</p>
+<p><a href="#innodb">InnoDB</a>: The default engine since MySQL 5.5</p>
 </li>
 <li>
-<p><a href="glossary.html#myisam">MyISAM</a>: An older engine, still used in some scenarios</p>
+<p><a href="#myisam">MyISAM</a>: An older engine, still used in some scenarios</p>
 </li>
 <li>
 <p>Memory: Stores data in RAM for fast access</p>
@@ -5123,7 +5123,7 @@ attempting to read or write from the database.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-07-15
+    2025-07-09
   </span>
 
     
@@ -5267,7 +5267,7 @@ attempting to read or write from the database.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
