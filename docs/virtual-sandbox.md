@@ -16,10 +16,10 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
 
     Running ProxySQL on an application server, instead of having it as a dedicated entity, removes the unnecessary extra network roundtrip, because the load balancing layer in Percona XtraDB Cluster scales well with application servers.
 
-1. Install Percona XtraDB Cluster on three cluster nodes, as described in [Configure on RHEL](configure-cluster-rhel.md#centos-howto).
+1. Install Percona XtraDB Cluster on three cluster nodes, as described in [Configure on RHEL](configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions).
 
 
-2.  On the client node, install [ProxySQL](load-balance-proxysql.md#load-balancing-with-proxysql) and `sysbench`:
+2.  On the client node, install [ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql) and `sysbench`:
 
     ```{.bash data-prompt="$"}
     $ yum -y install proxysql2 sysbench
@@ -526,8 +526,8 @@ the `sysbench` benchmarking tool.
 
 **Related sections and additional reading**
 
-* [Load balancing with ProxySQL](load-balance-proxysql.md#load-balancing-with-proxysql)
-* [Configure on RHEL](configure-cluster-rhel.md#centos-howto)
+* [Load balancing with ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql)
+* [Configure on RHEL](configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions)
 * [Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC)](https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/)
 * [GitHub repository for the sysbench benchmarking tool](https://github.com/akopytov/sysbench/)
 

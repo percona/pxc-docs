@@ -41,7 +41,7 @@ This variable specifies the data directory.
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | value of [`wsrep_node_address`](wsrep-provider-index.md#wsrep_node_address)|
+| Default Value: | value of `wsrep_node_address`|
 
 This variable sets the value of the node’s base IP. This is an IP address on
 which Galera listens for connections from other nodes. Setting this value
@@ -597,7 +597,7 @@ rr
 | Dynamic: | No |
 | Default value: | 0.75 |
 
-Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcs.fc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
+Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcsfc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
 
 ### `gcs.fc_auto_evict_window`
 
@@ -832,7 +832,7 @@ This variable shows which gmcast protocol version is being used.
 | Config File:   | Yes                |
 | Scope:         | Global             |
 | Dynamic:       | No                 |
-| Default Value: | value of [`wsrep_node_address`](wsrep-provider-index.md#wsrep_node_address)   |
+| Default Value: | value of `wsrep_node_address`   |
 
 This variable specifies the address on which the node listens for Incremental
 State Transfer ([IST](glossary.md#ist)).

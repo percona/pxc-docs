@@ -7,7 +7,7 @@ extension containing the table definition (for all storage engines).
 
 ## ACID
 
-An acronym for [`Atomicity`](glossary.md#atomicity), [`Consistency`](glossary.md#consistency), [`Isolation`](glossary.md#isolation), [`Durability`](glossary.md#durability).
+An acronym for [`Atomicity`](#atomicity), [`Consistency`](#consistency), [`Isolation`](#isolation), [`Durability`](#durability).
 
 ## Asynchronous replication
 
@@ -48,7 +48,7 @@ A finalized version of the product which is made available to the general public
 
 ## GTID
 
-Global Transaction ID, in Percona XtraDB Cluster it consists of [`UUID`](glossary.md#uuid) and an ordinal sequence number which denotes the position of the change in the sequence.
+Global Transaction ID, in Percona XtraDB Cluster it consists of [`UUID`](#uuid) and an ordinal sequence number which denotes the position of the change in the sequence.
 
 ## HAProxy
 
@@ -70,7 +70,7 @@ Incremental State Transfer. Functionality which instead of whole state snapshot 
 
 ## InnoDB
 
-[`Storage Engine`](glossary.md#storage-engine) for MySQL and derivatives ([`Percona Server`](glossary.md#percona-server), [`MariaDB`](glossary.md#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [`ACID`](glossary.md#acid) compliant storage engine with [`foreign key`](glossary.md#foreign-key) support. InnoDB is the default storage engine on all platforms.
+[`Storage Engine`](#storage-engine) for MySQL and derivatives (`Percona Server`, [`MariaDB`](#mariadb)) originally written by Innobase Oy, since acquired by Oracle. It provides [`ACID`](#acid) compliant storage engine with [`foreign key`](#foreign-key) support. InnoDB is the default storage engine on all platforms.
 
 ## Jenkins
 
@@ -85,12 +85,12 @@ The node joining the cluster, usually a state transfer target.
 
 ## LSN
 
-Log Serial Number. A term used in relation to the [`InnoDB`](glossary.md#innodb) or [`XtraDB`](glossary.md#xtradb) storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.
+Log Serial Number. A term used in relation to the [`InnoDB`](#innodb) or `XtraDB` storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.
 
 
 ## MariaDB
 
-A fork of [`MySQL`](glossary.md#mysql) that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.
+A fork of [`MySQL`](#mysql) that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.
 
 ## my.cnf
 
@@ -103,15 +103,15 @@ options to start the server and its defaults values.
 
 ## MyISAM
 
-A [`MySQL`](glossary.md#mysql) [`Storage Engine`](glossary.md#storage-engine) that was the default until MySQL 5.5. It doesn't fully support transactions but in some scenarios may be faster than [`InnoDB`](glossary.md#innodb). Each table is stored on disk in 3 files: [`.frm`](glossary.md#frm),i `.MYD`, `.MYI`.
+A [`MySQL`](#mysql) [`Storage Engine`](#storage-engine) that was the default until MySQL 5.5. It doesn't fully support transactions but in some scenarios may be faster than [`InnoDB`](#innodb). Each table is stored on disk in 3 files: [`.frm`](#frm),i `.MYD`, `.MYI`.
 
 ## MySQL
 
-An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as [`MariaDB`](glossary.md#mariadb) and [`Percona Server`](glossary.md#percona-server).
+An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as [`MariaDB`](#mariadb) and `Percona Server`.
 
 ## mysql.pxc.internal.session
 
-This user is used by the SST process to run the SQL commands needed for [`SST`](glossary.md#sst), such as creating the `mysql.pxc.sst.user` and assigning it the role [`mysql.pxc.sst.role`](glossary.md#mysql-pxc-sst-role).
+This user is used by the SST process to run the SQL commands needed for [`SST`](#sst), such as creating the `mysql.pxc.sst.user` and assigning it the role [`mysql.pxc.sst.role`](#mysqlpxcsstrole).
 
 ## mysql.pxc.sst.role
 
@@ -119,7 +119,7 @@ This role has all the privileges needed to run xtrabackup to create a backup on 
 
 ## mysql.pxc.sst.user
 
-This user (set up on the donor node) is assigned the [`mysql.pxc.sst.role`](glossary.md#mysql-pxc-sst-role) and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each [`SST`](glossary.md#sst).
+This user (set up on the donor node) is assigned the [`mysql.pxc.sst.role`](#mysqlpxcsstrole) and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each [`SST`](#sst).
 
 ## node
 
@@ -131,7 +131,7 @@ Non-Uniform Memory Access ([`NUMA`](http://en.wikipedia.org/wiki/Non-Uniform_Mem
 
 ## Percona Server for MySQL
 
-Percona's branch of [`MySQL`](glossary.md#mysql) with performance and management improvements.
+Percona's branch of [`MySQL`](#mysql) with performance and management improvements.
 
 ## Percona XtraDB Cluster
 
@@ -139,7 +139,7 @@ Percona XtraDB Cluster (PXC) is a high availability solution for MySQL.
 
 ## primary cluster
 
-A cluster with [quorum](glossary.md#quorum). A non-primary cluster will not allow any
+A cluster with [quorum](#quorum). A non-primary cluster will not allow any
 operations and will give `Unknown command` errors on any clients
 attempting to read or write from the database.
 
@@ -159,12 +159,12 @@ Percona XtraDB Cluster: uses the `xtrabackup` program for this purpose. `xtrabac
 The SST method is configured with the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable.
   
 In PXC {{vers}}, the **mysql-upgrade** command is now run
-automatically as part of [`SST`](glossary.md#sst). You do not have to run it
+automatically as part of [`SST`](#sst). You do not have to run it
 manually when upgrading your system from an older version.
 
 ## Storage Engine
 
-A [`Storage Engine`](glossary.md#storage-engine) is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [`MySQL`](glossary.md#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. [`MyISAM`](glossary.md#myisam), InnoDB).
+A [`Storage Engine`](#storage-engine) is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [`MySQL`](#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. [`MyISAM`](#myisam), InnoDB).
 
 ## Tech preview 
 

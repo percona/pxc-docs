@@ -4,8 +4,8 @@ By default, Percona XtraDB Cluster does not encrypt or protect stored data. To e
 
 | Topic | Description |
 |-------|-------------|
-| [Securing the Network](secure-network.md#secure-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster. |
-| [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
+| [Securing the Network](secure-network.md#secure-the-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster. |
+| [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
 | Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html). |
 
 ## Security modules
@@ -54,7 +54,7 @@ $ setenforce 1
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](selinux.md#selinux)
+    For more information, see [Enabling AppArmor](selinux.md#enable-selinux)
 
 ### AppArmor
 
@@ -63,4 +63,4 @@ in Debian and Ubuntu. *Percona XtraDB Cluster* provides several AppArmor profile
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](apparmor.md#apparmor)
+    For more information, see [Enabling AppArmor](apparmor.md#enable-apparmor)

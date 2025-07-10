@@ -74,15 +74,15 @@ In this section, we will demonstrate how to configure a three node cluster:
 
     The replication traffic encryption cannot be enabled on a running cluster. If
     it was disabled before the cluster was bootstrapped, the cluster must to
-    stopped. Then set up the encryption, and bootstrap (see [`Bootstrapping the First Node`](bootstrap.md#bootstrap))
+    stopped. Then set up the encryption, and bootstrap (see [`Bootstrapping the First Node`](bootstrap.md#bootstrap-the-first-node))
     again.
 
     !!! admonition "See also"
 
         More information about the security settings in Percona XtraDB Cluster
-         * [`Security Basics`](security-index.md#security)
-	     * [`Encrypting PXC Traffic`](encrypt-traffic.md#encrypt-traffic)
-	     * [`SSL Automatic Configuration`](encrypt-traffic.md#ssl-auto-conf)
+         * [`Security basics`](security-index.md#security-basics)
+	     * [`Encrypting PXC traffic`](encrypt-traffic.md#encrypt-pxc-traffic)
+	     * [`SSL automatic configuration`](encrypt-traffic.md#ssl-automatic-configuration)
 
 
 ## Template of the configuration file
@@ -130,7 +130,7 @@ wsrep_sst_method=xtrabackup-v2
 ## Next Steps: Bootstrap the first node
 
 After you configure all your nodes, initialize Percona XtraDB Cluster by bootstrapping the first
-node according to the procedure described in [Bootstrapping the First Node](bootstrap.md#bootstrap).
+node according to the procedure described in [Bootstrapping the First Node](bootstrap.md#bootstrap-the-first-node).
 
 ## Essential configuration variables
 
@@ -159,7 +159,7 @@ the joining node can use other addresses.
 
     No addresses are required for the initial node in the cluster.
     However, it is recommended to specify them
-    and [properly bootstrap the first node](bootstrap.md#bootstrap).
+    and [properly bootstrap the first node](bootstrap.md#bootstrap-the-first-node).
     This will ensure that the node is able to rejoin the cluster if it goes down in the future.
 
 [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)
@@ -178,7 +178,7 @@ This method requires a user for SST to be set up on the initial node.
 
 [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode)
 
-[PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default and set to `ENFORCING`, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.
+[PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode) is enabled by default and set to `ENFORCING`, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.
 
 [`default_storage_engine`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_default_storage_engine)
 

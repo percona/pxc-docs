@@ -179,14 +179,14 @@ All replication traffic passes through the `gcomm` communication channel. Encryp
 write-set replication, and service messages ensuring confidentiality and integrity. IST uses a separate channel, so administrators must configure both channels with the same encryption parameters.
 
 To enable encryption for all these processes,
-define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate [wsrep provider options](wsrep-provider-index.md#wsrep-provider-index):
+define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate [wsrep provider options](wsrep-provider-index.md):
 
 
-* [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca)
+* [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca)
 
-* [`socket.ssl_cert`](wsrep-provider-index.md#socket.ssl_cert)
+* [`socket.ssl_cert`](wsrep-provider-index.md#socketssl_cert)
 
-* [`socket.ssl_key`](wsrep-provider-index.md#socket.ssl_key)
+* [`socket.ssl_key`](wsrep-provider-index.md#socketssl_key)
 
 To configure these encryption settings, define the required parameters in the configuration file using the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable. This ensures secure replication traffic across the cluster.
 
@@ -409,7 +409,7 @@ Refer to the [Upgrade certificates](#upgrade-certificates) section for details o
 
 The following procedure outlines the steps to upgrade certificates used for securing replication traffic when operating with two nodes in the cluster.
 
-1. Restart the first node with the [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca) option set to a combination of the the old and new certificates in a single file.
+1. Restart the first node with the [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca) option set to a combination of the the old and new certificates in a single file.
 
     For example, you can merge contents of `old-ca.pem`
     and `new-ca.pem` into `upgrade-ca.pem` as follows:
@@ -419,13 +419,13 @@ The following procedure outlines the steps to upgrade certificates used for secu
     cat new-ca.pem >> upgrade-ca.pem
     ```
 
-    Set the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable as follows:
+    Set the [`wsrep_provider_options`](wsrep-system-index.md#index-of-wsrep-system-variables) variable as follows:
 
     ```shell
     wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
     ```
 
-2. Restart the second node with the [`socket.ssl_ca`](wsrep-provider-index.md#socket.ssl_ca), [`socket.ssl_cert`](wsrep-provider-index.md#socket.ssl_cert), and [`socket.ssl_key`](wsrep-provider-index.md#socket.ssl_cert) options set to the corresponding new certificate files.
+2. Restart the second node with the [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca), [`socket.ssl_cert`](wsrep-provider-index.md#socketssl_cert), and [`socket.ssl_key`](wsrep-provider-index.md#socketssl_cert) options set to the corresponding new certificate files.
 
     ```shell
     wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"

@@ -125,7 +125,7 @@ Enables SST encryption mode in Percona XtraBackup:
   ssl-key=server-key.pem
   ```
 
-For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-traffic).
+For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic).
 
 ### sockopt
 
