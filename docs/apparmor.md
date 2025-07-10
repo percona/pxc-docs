@@ -18,7 +18,7 @@ The `mysqld` profile and the `SST` script profile can be adjusted, such as movin
 
 By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.
 
-[Generate keys and certificates manually](encrypt-traffic.html#generate-keys-and-certificates-manually) describes the certificate setup.
+[Generate keys and certificates manually](encrypt-traffic.md#generate-keys-and-certificates-manually) describes the certificate setup.
 
 The following AppArmor profile rule grants access to certificates located in /etc/mysql/certs. You must be root or have `sudo` privileges.
 

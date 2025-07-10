@@ -16,7 +16,7 @@ grouping, and traffic-related settings.
 
     [ProxySQL Documentation](https://proxysql.com/documentation/)
 
-[ProxySQL v2](proxysql-v2.md#pxc-proxysql-v2) natively supports Percona XtraDB Cluster. With this version,
+[ProxySQL v2](proxysql-v2.md#proxysql-admin-utilities) natively supports Percona XtraDB Cluster. With this version,
 `proxysql-admin` tool does not require any custom scripts to keep track of Percona XtraDB Cluster status.
 
 !!! important
@@ -626,4 +626,4 @@ which is monitored by ProxySQL and can be set to one of the following values:
 
 **Related sections**
 
-[Setting up a testing environment with ProxySQL](virtual-sandbox.md#testing-env-proxysql-setting-up)
+[Setting up a testing environment with ProxySQL](virtual-sandbox.md#set-up-a-testing-environment-with-proxysql)

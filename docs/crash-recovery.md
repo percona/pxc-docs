@@ -20,7 +20,7 @@ and the cluster size is reduced; some properties like quorum calculation or auto
 increment are automatically changed. As soon as node A is started again, it
 joins the cluster based on its [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable in `my.cnf`.
 
-If the writeset cache ([`gcache.size`](wsrep-provider-index.md#gcache.size)) on nodes B and/or C still
+If the writeset cache ([`gcache.size`](wsrep-provider-index.md#gcachesize)) on nodes B and/or C still
 has all the transactions executed while node A was down, joining is possible via
 [IST](glossary.md#ist). If [IST](glossary.md#ist) is impossible due to missing transactions in donor’s
 gcache, the fallback decision is made by the donor and [SST](glossary.md#sst) is started
@@ -77,7 +77,7 @@ $ systemctl start mysql@bootstrap.service
     because the *Galera Cache* is not retained on restart.
     
     For this reason, it is recommended to stop writes to the cluster *before* its
-    full shutdown, so that all nodes can stop at the same position. See also [`pc.recovery`](wsrep-provider-index.md#pc.recovery).
+    full shutdown, so that all nodes can stop at the same position. See also [`pc.recovery`](wsrep-provider-index.md#pcrecovery).
 
 ## Scenario 4: One node disappears from the cluster
 
@@ -128,7 +128,7 @@ Otherwise, you end up with two clusters having different data.
 
 !!! admonition "See also"
 
-    [Adding Nodes to Cluster](add-node.md#add-node)
+    [Adding Nodes to Cluster](add-node.md#add-nodes-to-cluster)
 
 ## Scenario 6: All nodes went down without a proper shutdown procedure
 
@@ -186,7 +186,7 @@ safe_to_bootstrap: 1
 ...
 ```
 
-In recent Galera versions, the option [`pc.recovery`](wsrep-provider-index.md#pc.recovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it
+In recent Galera versions, the option [`pc.recovery`](wsrep-provider-index.md#pcrecovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it
 saves only a cluster being in the PRIMARY state. An example content of the file
 may look like this:
 
@@ -249,7 +249,7 @@ and the other half should be able to automatically re-join using [IST](glossary.
     Then, as the Galera replication model truly cares about data consistency:
     once the inconsistency is detected, nodes that cannot execute row change
     statement due to a data difference – an emergency shutdown will be performed and the only
-    way to bring the nodes back to the cluster is via the full [SST](glossary.md#term-SST)
+    way to bring the nodes back to the cluster is via the full [SST](glossary.md#sst)
 
 **Based on material from Percona Database Performance Blog**
 

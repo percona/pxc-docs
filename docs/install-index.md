@@ -9,9 +9,9 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 We recommended installing Percona XtraDB Cluster from official Percona software repositories using the appropriate package manager for your system:
 
-* [Debian or Ubuntu](apt.md#apt)
+* [Debian or Ubuntu](apt.md#install-from-repository)
 
-* [Red Hat Enterprise Linux](yum.md#yum)
+* [Red Hat Enterprise Linux](yum.md#install-from-percona-software-repository)
 
 !!! important
 
@@ -19,18 +19,18 @@ We recommended installing Percona XtraDB Cluster from official Percona software 
 
     !!! admonition "For more information"
 
-        See the Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#wsrep-file-index)
+        See the Galera state information in [Index of files created by PXC grastat.dat](wsrep-files-index.md#index-of-files-created-by-pxc)
 
 ## Installation alternatives
 
 Percona also provides a generic tarball with all required files and binaries
 for manual installation:
 
-* [Installing Percona XtraDB Cluster from Binary Tarball](tarball.md#tarball)
+* [Installing Percona XtraDB Cluster from Binary Tarball](tarball.md#install-from-binary-tarball)
 
 If you want to build Percona XtraDB Cluster from source, see [Compiling and Installing from Source Code](compile.md#compile).
 
-If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#docker).
+If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#running-percona-xtradb-cluster-in-a-docker-container).
 
 ### Percona XtraDB Cluster PRO 
 

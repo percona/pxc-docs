@@ -17,7 +17,7 @@ By default, Percona XtraDB Cluster nodes use the following ports:
 
 * 3306 is used for MySQL client connections and [SST](glossary.md#sst) (State Snapshot Transfer) via `mysqldump`.
 
-* 4444 is used for [SST](glossary.md#sst) via [Percona XtraBackup](xtrabackup-sst.md#xtrabackup-sst).
+* 4444 is used for [SST](glossary.md#sst) via [Percona XtraBackup](xtrabackup-sst.md#percona-xtrabackup-sst-configuration).
 
 * 4567 is used for write-set replication traffic (over TCP) and multicast replication (over TCP and UDP).
 
