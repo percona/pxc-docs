@@ -147,6 +147,26 @@ Tells the replication applier thread to enable the events that match the specifi
 
 For example, replica-enable-event=foo%.bar% will enable the events in all databases on the replica server that start with 'foo' and which event names start with 'bar'. It is recommended to use this feature only for read-only events to avoid data inconsistency.
 
+### `sst_idle_timeout`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Config File:   | Yes                 |
+| Scope:         | Global              |
+| Dynamic:       | No                 |
+| Type:          | Integer             |
+| Default Value: | 120           |
+
+Sets the maximum time, in seconds, the State Snapshot Transfer (SST) process can remain idle before the system considers it failed. You set this variable in the `[sst]` section of the `my.cnf` file.
+
+The default setting is `120`. If you need to change this:
+
+* Set the value to `-1` to disable the timeout, which allows the SST process to remain idle indefinitely.
+
+* Increase the timeout, use a value greater than `120`
+
+* Avoid setting the value to `0`, which may cause unpredictable behavior.
+
 ### `tf_sequence_table_max_upper_bound`
 
 | Option         | Description        |
