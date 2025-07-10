@@ -27,7 +27,7 @@ you want to be replicated to other nodes.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -2973,7 +2973,7 @@ you want to be replicated to other nodes.">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/bootstrap.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/bootstrap.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2990,7 +2990,7 @@ you want to be replicated to other nodes.">
 
 
 <h1 id="bootstrap-the-first-node">Bootstrap the first node<a class="headerlink" href="#bootstrap-the-first-node" title="Permanent link">&para;</a></h1>
-<p>After you <a href="configure-nodes.html#configure">configure all PXC nodes</a>, initialize the cluster by
+<p>After you <a href="configure-nodes.html#configure-nodes-for-write-set-replication">configure all PXC nodes</a>, initialize the cluster by
 bootstrapping the first node.  The initial node must contain all the data that
 you want to be replicated to other nodes.</p>
 <p>Bootstrapping implies starting the first node without any known cluster
@@ -3003,7 +3003,7 @@ command:</p>
 it runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
 This tells the node to initialize the cluster
 with <code>wsrep_cluster_conf_id</code> variable set to <code>1</code>.
-After you <a href="add-node.html#add-node">add other nodes</a> to the cluster,
+After you <a href="add-node.html#add-nodes-to-cluster">add other nodes</a> to the cluster,
 you can then restart this node as normal,
 and it will use standard configuration again.</p>
 <div class="admonition note">
@@ -3036,7 +3036,7 @@ it is fully connected and ready for write-set replication.</p>
 </code></pre></div>
 </details>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>After initializing the cluster, you can <a href="add-node.html#add-node">add other nodes</a>.</p>
+<p>After initializing the cluster, you can <a href="add-node.html#add-nodes-to-cluster">add other nodes</a>.</p>
 
 
 
@@ -3057,7 +3057,7 @@ it is fully connected and ready for write-set replication.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2023-07-21
+    2025-07-10
   </span>
 
     
@@ -3201,7 +3201,7 @@ it is fully connected and ready for write-set replication.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

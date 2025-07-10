@@ -26,7 +26,7 @@ and ensure that you have root access to the MySQL server on each one.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3020,7 +3020,7 @@ and ensure that you have root access to the MySQL server on each one.">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/install-index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/install-index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3044,10 +3044,10 @@ and ensure that you have root access to the MySQL server on each one.</p>
 <p>We recommended installing Percona XtraDB Cluster from official Percona software repositories using the appropriate package manager for your system:</p>
 <ul>
 <li>
-<p><a href="apt.html#apt">Debian or Ubuntu</a></p>
+<p><a href="apt.html#install-from-repository">Debian or Ubuntu</a></p>
 </li>
 <li>
-<p><a href="yum.html#yum">Red Hat Enterprise Linux</a></p>
+<p><a href="yum.html#install-from-percona-software-repository">Red Hat Enterprise Linux</a></p>
 </li>
 </ul>
 <div class="admonition important">
@@ -3055,17 +3055,17 @@ and ensure that you have root access to the MySQL server on each one.</p>
 <p>After installing Percona XtraDB Cluster the <code>mysql</code> service is <em>stopped</em> but <em>enabled</em> so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of <code>seqno</code> is not <strong>-1</strong>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">For more information</p>
-<p>See the Galera state information in <a href="wsrep-files-index.html#wsrep-file-index">Index of files created by PXC grastat.dat</a></p>
+<p>See the Galera state information in <a href="wsrep-files-index.html#index-of-files-created-by-pxc">Index of files created by PXC grastat.dat</a></p>
 </div>
 </div>
 <h2 id="installation-alternatives">Installation alternatives<a class="headerlink" href="#installation-alternatives" title="Permanent link">&para;</a></h2>
 <p>Percona also provides a generic tarball with all required files and binaries
 for manual installation:</p>
 <ul>
-<li><a href="tarball.html#tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
+<li><a href="tarball.html#install-from-binary-tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
 </ul>
 <p>If you want to build Percona XtraDB Cluster from source, see <a href="compile.html#compile">Compiling and Installing from Source Code</a>.</p>
-<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="docker.html#docker">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
+<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="docker.html#running-percona-xtradb-cluster-in-a-docker-container">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
 <h3 id="percona-xtradb-cluster-pro">Percona XtraDB Cluster PRO<a class="headerlink" href="#percona-xtradb-cluster-pro" title="Permanent link">&para;</a></h3>
 <p>This document provides guidelines on how to install Percona XtraDB Cluster PRO packages from the Percona repositories.</p>
 <p>Percona XtraDB Cluster Pro includes the <a href="pxc-pro.html#capabilities">capabilities</a> that are typically requested by large enterprises. Percona XtraDB Cluster Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.</p>
@@ -3103,7 +3103,7 @@ build based on Percona Server for MySQL 8.0.18-9.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-04-17
+    2025-07-10
   </span>
 
     
@@ -3247,7 +3247,7 @@ build based on Percona Server for MySQL 8.0.18-9.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

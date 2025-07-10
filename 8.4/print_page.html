@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3859,7 +3859,7 @@
 <p>Overview of changes in the most recent PXC release</p>
 <ul>
 <li>
-<p><a href="#upgrade-guide-upgrade-guide-changed">Important changes in Percona XtraDB Cluster 8.4</a></p>
+<p><a href="#upgrade-guide-important-changes-in-percona-xtradb-cluster-84">Important changes in Percona XtraDB Cluster 8.4</a></p>
 </li>
 <li>
 <p><a href="https://www.mysql.com/products/community/">MySQL Community Edition</a></p>
@@ -3942,7 +3942,7 @@
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For more information, see <a href="#apparmor-apparmor">Enabling AppArmor</a>.</p>
+<p>For more information, see <a href="#apparmor-enable-apparmor">Enabling AppArmor</a>.</p>
 </div>
 <h2 id="install-pro-procedure">Procedure<a class="headerlink" href="#install-pro-procedure" title="Permanent link">&para;</a></h2>
 <ol>
@@ -3989,7 +3989,7 @@
 <p>Install the cluster:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster-pro-84
 </code></pre></div>
-<p>Install other required packages. <a href="#apt-files.md">Check files in the DEB package built for Percona XtraDB Cluster 8.4</a>.</p>
+<p>Install other required packages. <a href="#pro-files-files-in-the-deb-package">Check files in the DEB package built for Percona XtraDB Cluster 8.4</a>.</p>
 </li>
 </ol>
 </div>
@@ -5113,8 +5113,7 @@ This can lead to data inconsistency if executed on only one node.</p>
 <li>
 <p>Modifying a table changed during the NBO operation. However, you can modify other tables and execute NBO queries on other tables.</p>
 </li>
-</ul>
-<p>See the <a href="#release-notes-percona-xtradb-cluster-8.0.25-15.1.md-pxc-8-0-25-15-1">Percona XtraDB Cluster 8.0.25-15.1</a> Release notes for the latest information.</p></section></section>
+</ul></section></section>
                     <section class='print-page md-section' id='section-7' heading-number='7'>
                         <h1>Quickstart guide<a class='headerlink' href='#section-7' title='Permanent link'></a>
                         </h1>
@@ -5172,39 +5171,39 @@ This can lead to data inconsistency if executed on only one node.</p>
 </div>
 <p>The following procedure provides an overview with links to details for every step:</p>
 <ul>
-<li><a href="#index-install">Install Percona XtraDB Cluster</a> on all nodes and set up root access for them.</li>
+<li><a href="#install-index-install-percona-xtradb-cluster">Install Percona XtraDB Cluster</a> on all nodes and set up root access for them.</li>
 </ul>
 <p>It is recommended to install from official Percona repositories:</p>
 <ul>
 <li>
-<p>On Red Hat and CentOS, <a href="#yum-yum">install using YUM</a>.</p>
+<p>On Red Hat and CentOS, <a href="#yum-install-from-percona-software-repository">install using YUM</a>.</p>
 </li>
 <li>
-<p>On Debian and Ubuntu, <a href="#apt-apt">install using APT</a>.</p>
+<p>On Debian and Ubuntu, <a href="#apt-install-from-repository">install using APT</a>.</p>
 </li>
 <li>
-<p><a href="#configure-nodes-configure">Configure all nodes</a> with relevant settings required for write-set replication.</p>
+<p><a href="#configure-nodes-configure-nodes-for-write-set-replication">Configure all nodes</a> with relevant settings required for write-set replication.</p>
 </li>
 </ul>
 <p>This includes path to the Galera library, location of other nodes, etc.</p>
 <ul>
-<li><a href="#bootstrap-bootstrap">Bootstrap the first node</a> to initialize the cluster.</li>
+<li><a href="#bootstrap-bootstrap-the-first-node">Bootstrap the first node</a> to initialize the cluster.</li>
 </ul>
 <p>This must be the node with your main database,
   which will be used as the data source for the cluster.</p>
 <ul>
-<li><a href="#add-node">Add other nodes</a> to the cluster.</li>
+<li><a href="#add-node-add-nodes-to-cluster">Add other nodes</a> to the cluster.</li>
 </ul>
 <p>Data on new nodes joining the cluster is overwritten
   in order to synchronize it with the cluster.</p>
 <ul>
-<li><a href="#verify-replication-verify">Verify replication</a>.</li>
+<li><a href="#verify-replication-verify-replication">Verify replication</a>.</li>
 </ul>
 <p>Although cluster initialization and node provisioning
   is performed automatically, it is a good idea to ensure
   that changes on one node actually replicate to other nodes.</p>
 <ul>
-<li><a href="#load-balance-proxysql-load-balancing-with-proxysql">Install ProxySQL</a>.</li>
+<li><a href="#load-balance-proxysql-load-balance-with-proxysql">Install ProxySQL</a>.</li>
 </ul>
 <p>To complete the deployment of the cluster, a high-availability proxy is required. We recommend installing <a href="https://www.proxysql.com/">ProxySQL</a> on client nodes for efficient workload management across the cluster without any changes to the applications that generate queries.</p>
 <h2 id="get-started-cluster-percona-monitoring-and-management">Percona Monitoring and Management<a class="headerlink" href="#get-started-cluster-percona-monitoring-and-management" title="Permanent link">&para;</a></h2>
@@ -5221,10 +5220,10 @@ and ensure that you have root access to the MySQL server on each one.</p>
 <p>We recommended installing Percona XtraDB Cluster from official Percona software repositories using the appropriate package manager for your system:</p>
 <ul>
 <li>
-<p><a href="#apt-apt">Debian or Ubuntu</a></p>
+<p><a href="#apt-install-from-repository">Debian or Ubuntu</a></p>
 </li>
 <li>
-<p><a href="#yum-yum">Red Hat Enterprise Linux</a></p>
+<p><a href="#yum-install-from-percona-software-repository">Red Hat Enterprise Linux</a></p>
 </li>
 </ul>
 <div class="admonition important">
@@ -5232,17 +5231,17 @@ and ensure that you have root access to the MySQL server on each one.</p>
 <p>After installing Percona XtraDB Cluster the <code>mysql</code> service is <em>stopped</em> but <em>enabled</em> so that it may start the next time the system is restarted. The service starts if the the grastate.dat file exists and the value of <code>seqno</code> is not <strong>-1</strong>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">For more information</p>
-<p>See the Galera state information in <a href="#wsrep-files-index-wsrep-file-index">Index of files created by PXC grastat.dat</a></p>
+<p>See the Galera state information in <a href="#wsrep-files-index-index-of-files-created-by-pxc">Index of files created by PXC grastat.dat</a></p>
 </div>
 </div>
 <h2 id="install-index-installation-alternatives">Installation alternatives<a class="headerlink" href="#install-index-installation-alternatives" title="Permanent link">&para;</a></h2>
 <p>Percona also provides a generic tarball with all required files and binaries
 for manual installation:</p>
 <ul>
-<li><a href="#tarball-tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
+<li><a href="#tarball-install-from-binary-tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
 </ul>
 <p>If you want to build Percona XtraDB Cluster from source, see <a href="#compile-compile">Compiling and Installing from Source Code</a>.</p>
-<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker-docker">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
+<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker-running-percona-xtradb-cluster-in-a-docker-container">Running Percona XtraDB Cluster in a Docker Container</a>.</p>
 <h3 id="install-index-percona-xtradb-cluster-pro">Percona XtraDB Cluster PRO<a class="headerlink" href="#install-index-percona-xtradb-cluster-pro" title="Permanent link">&para;</a></h3>
 <p>This document provides guidelines on how to install Percona XtraDB Cluster PRO packages from the Percona repositories.</p>
 <p>Percona XtraDB Cluster Pro includes the <a href="#pxc-pro-capabilities">capabilities</a> that are typically requested by large enterprises. Percona XtraDB Cluster Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.</p>
@@ -5304,7 +5303,7 @@ using APT.</p>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For more information, see <a href="#apparmor-apparmor">Enabling AppArmor</a>.</p>
+<p>For more information, see <a href="#apparmor-enable-apparmor">Enabling AppArmor</a>.</p>
 </div>
 <h2 id="apt-install-from-repository">Install from Repository<a class="headerlink" href="#apt-install-from-repository" title="Permanent link">&para;</a></h2>
 <ol>
@@ -5392,7 +5391,7 @@ using APT.</p>
 </div>
 <h2 id="apt-next-steps">Next steps<a class="headerlink" href="#apt-next-steps" title="Permanent link">&para;</a></h2>
 <p>After you install Percona XtraDB Cluster and stop the <code>mysql</code> service,
-configure the node according to the procedure described in <a href="#configure-nodes-configure">Configuring Nodes for Write-Set Replication</a>.</p></section><section class="print-page" id="yum" heading-number="8.4"><h1 id="yum-install-on-red-hat-enterprise-linux">Install on Red Hat Enterprise Linux<a class="headerlink" href="#yum-install-on-red-hat-enterprise-linux" title="Permanent link">&para;</a></h1>
+configure the node according to the procedure described in <a href="#configure-nodes-configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a>.</p></section><section class="print-page" id="yum" heading-number="8.4"><h1 id="yum-install-on-red-hat-enterprise-linux">Install on Red Hat Enterprise Linux<a class="headerlink" href="#yum-install-on-red-hat-enterprise-linux" title="Permanent link">&para;</a></h1>
 <p>A list of the supported platforms by products and versions
 is available in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -5427,7 +5426,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 <p>4568</p>
 </li>
 </ul>
-<p>For information on SELinux, see <a href="#selinux-selinux">Enabling SELinux</a>.</p>
+<p>For information on SELinux, see <a href="#selinux-enable-selinux">Enabling SELinux</a>.</p>
 <h2 id="yum-install-from-percona-software-repository">Install from Percona Software Repository<a class="headerlink" href="#yum-install-from-percona-software-repository" title="Permanent link">&para;</a></h2>
 <p>For more information on the Percona Software repositories and configuring Percona Repositories with <code>percona-release</code>, see the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <h2 id="yum-install-on-red-hat-8-or-later">Install on Red Hat 8 or later<a class="headerlink" href="#yum-install-on-red-hat-8-or-later" title="Permanent link">&para;</a></h2>
@@ -5452,7 +5451,7 @@ mysql&gt;<span class="w"> </span><span class="nb">exit</span>
 $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 <h2 id="yum-next-steps">Next steps<a class="headerlink" href="#yum-next-steps" title="Permanent link">&para;</a></h2>
-<p>Configure the node according to the procedure described in <a href="#configure-nodes-configure">Configuring Nodes for Write-Set Replication</a>.</p></section><section class="print-page" id="tarball" heading-number="8.5"><h1 id="tarball-install-from-binary-tarball">Install from Binary Tarball<a class="headerlink" href="#tarball-install-from-binary-tarball" title="Permanent link">&para;</a></h1>
+<p>Configure the node according to the procedure described in <a href="#configure-nodes-configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a>.</p></section><section class="print-page" id="tarball" heading-number="8.5"><h1 id="tarball-install-from-binary-tarball">Install from Binary Tarball<a class="headerlink" href="#tarball-install-from-binary-tarball" title="Permanent link">&para;</a></h1>
 <p>Percona provides generic tarballs with all required files and binaries
 for manual installation.</p>
 <p>You can download the appropriate tarball package from
@@ -5895,14 +5894,14 @@ ssl-cert<span class="o">=</span>server-cert.pem
 enabled by default (via the <code>pxc-encrypt-cluster-traffic</code> variable).</p>
 <p>The replication traffic encryption cannot be enabled on a running cluster. If
 it was disabled before the cluster was bootstrapped, the cluster must to
-stopped. Then set up the encryption, and bootstrap (see <a href="#bootstrap-bootstrap"><code>Bootstrapping the First Node</code></a>)
+stopped. Then set up the encryption, and bootstrap (see <a href="#bootstrap-bootstrap-the-first-node"><code>Bootstrapping the First Node</code></a>)
 again.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>More information about the security settings in Percona XtraDB Cluster
- * <a href="#security-index-security"><code>Security Basics</code></a>
- * <a href="#encrypt-traffic-encrypt-traffic"><code>Encrypting PXC Traffic</code></a>
- * <a href="#encrypt-traffic-ssl-auto-conf"><code>SSL Automatic Configuration</code></a></p>
+ * <a href="#security-index-security-basics"><code>Security basics</code></a>
+ * <a href="#encrypt-traffic-encrypt-pxc-traffic"><code>Encrypting PXC traffic</code></a>
+ * <a href="#encrypt-traffic-ssl-automatic-configuration"><code>SSL automatic configuration</code></a></p>
 </div>
 </div>
 <h2 id="configure-nodes-template-of-the-configuration-file">Template of the configuration file<a class="headerlink" href="#configure-nodes-template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
@@ -5945,7 +5944,7 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 <h2 id="configure-nodes-next-steps-bootstrap-the-first-node">Next Steps: Bootstrap the first node<a class="headerlink" href="#configure-nodes-next-steps-bootstrap-the-first-node" title="Permanent link">&para;</a></h2>
 <p>After you configure all your nodes, initialize Percona XtraDB Cluster by bootstrapping the first
-node according to the procedure described in <a href="#bootstrap-bootstrap">Bootstrapping the First Node</a>.</p>
+node according to the procedure described in <a href="#bootstrap-bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
 <h2 id="configure-nodes-essential-configuration-variables">Essential configuration variables<a class="headerlink" href="#configure-nodes-essential-configuration-variables" title="Permanent link">&para;</a></h2>
 <p><a href="#wsrep-system-index-wsrep_provider"><code>wsrep_provider</code></a></p>
 <p>Specify the path to the Galera library. The location depends on the distribution:</p>
@@ -5970,7 +5969,7 @@ the joining node can use other addresses.</p>
 <p class="admonition-title">Note</p>
 <p>No addresses are required for the initial node in the cluster.
 However, it is recommended to specify them
-and <a href="#bootstrap-bootstrap">properly bootstrap the first node</a>.
+and <a href="#bootstrap-bootstrap-the-first-node">properly bootstrap the first node</a>.
 This will ensure that the node is able to rejoin the cluster if it goes down in the future.</p>
 </div>
 <p><a href="#wsrep-system-index-wsrep_node_name"><code>wsrep_node_name</code></a></p>
@@ -5982,7 +5981,7 @@ If this variable is not specified, the host name will be used.</p>
 <p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup</a> for <a href="#glossary-sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
 This method requires a user for SST to be set up on the initial node.</p>
 <p><a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a></p>
-<p><a href="#strict-mode-pxc-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
+<p><a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code></a></p>
 <p>Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
@@ -5993,7 +5992,7 @@ Set this variable to <code>default_storage_engine=InnoDB</code>.</p>
 Setting the traditional (<code>0</code>) or consecutive (<code>1</code>) lock mode
 can cause replication to fail due to unresolved deadlocks.
 Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p></section><section class="print-page" id="bootstrap" heading-number="8.9"><h1 id="bootstrap-bootstrap-the-first-node">Bootstrap the first node<a class="headerlink" href="#bootstrap-bootstrap-the-first-node" title="Permanent link">&para;</a></h1>
-<p>After you <a href="#configure-nodes-configure">configure all PXC nodes</a>, initialize the cluster by
+<p>After you <a href="#configure-nodes-configure-nodes-for-write-set-replication">configure all PXC nodes</a>, initialize the cluster by
 bootstrapping the first node.  The initial node must contain all the data that
 you want to be replicated to other nodes.</p>
 <p>Bootstrapping implies starting the first node without any known cluster
@@ -6006,7 +6005,7 @@ command:</p>
 it runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
 This tells the node to initialize the cluster
 with <code>wsrep_cluster_conf_id</code> variable set to <code>1</code>.
-After you <a href="#add-node-add-node">add other nodes</a> to the cluster,
+After you <a href="#add-node-add-nodes-to-cluster">add other nodes</a> to the cluster,
 you can then restart this node as normal,
 and it will use standard configuration again.</p>
 <div class="admonition note">
@@ -6039,8 +6038,8 @@ it is fully connected and ready for write-set replication.</p>
 </code></pre></div>
 </details>
 <h2 id="bootstrap-next-steps">Next steps<a class="headerlink" href="#bootstrap-next-steps" title="Permanent link">&para;</a></h2>
-<p>After initializing the cluster, you can <a href="#add-node-add-node">add other nodes</a>.</p></section><section class="print-page" id="add-node" heading-number="8.10"><h1 id="add-node-add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-node-add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
-<p>New nodes that are <a href="#configure-nodes-configure">properly configured</a> are provisioned
+<p>After initializing the cluster, you can <a href="#add-node-add-nodes-to-cluster">add other nodes</a>.</p></section><section class="print-page" id="add-node" heading-number="8.10"><h1 id="add-node-add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-node-add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
+<p>New nodes that are <a href="#configure-nodes-configure-nodes-for-write-set-replication">properly configured</a> are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
 <div class="admonition note">
@@ -6123,7 +6122,7 @@ fully connected and ready to receive write-set replication.</p>
 </code></pre></div>
 </details>
 <h2 id="add-node-next-steps">Next steps<a class="headerlink" href="#add-node-next-steps" title="Permanent link">&para;</a></h2>
-<p>When you add all nodes to the cluster, you can <a href="#verify-replication-verify">verify replication</a> by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.</p></section><section class="print-page" id="verify-replication" heading-number="8.11"><h1 id="verify-replication-verify-replication">Verify replication<a class="headerlink" href="#verify-replication-verify-replication" title="Permanent link">&para;</a></h1>
+<p>When you add all nodes to the cluster, you can <a href="#verify-replication-verify-replication">verify replication</a> by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.</p></section><section class="print-page" id="verify-replication" heading-number="8.11"><h1 id="verify-replication-verify-replication">Verify replication<a class="headerlink" href="#verify-replication-verify-replication" title="Permanent link">&para;</a></h1>
 <p>Use the following procedure to verify replication
 by creating a new database on the second node,
 creating a table for that database on the third node,
@@ -6195,7 +6194,7 @@ and adding some records to the table on the first node.</p>
 <li>
 <p>Consider installing <a href="https://www.proxysql.com/">ProxySQL</a> on client nodes
 for efficient workload management across the cluster without any changes
-to the applications that generate queries. This is the recommended high-availability solution for Percona XtraDB Cluster. For more information, see <a href="#load-balance-proxysql-load-balancing-with-proxysql">Load balancing with ProxySQL</a>.</p>
+to the applications that generate queries. This is the recommended high-availability solution for Percona XtraDB Cluster. For more information, see <a href="#load-balance-proxysql-load-balance-with-proxysql">Load balancing with ProxySQL</a>.</p>
 </li>
 <li>
 <p><a href="https://www.percona.com/software/database-tools/percona-monitoring-and-management">Percona Monitoring and Management</a> is the best choice for managing and monitoring Percona XtraDB Cluster performance.
@@ -6256,17 +6255,16 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <p>In Percona XtraDB Cluster 8.4, the default authentication plugin is
 <code>caching_sha2_password</code>. In ProxySQL 2.6.2 or later, use the <code>caching_sha2_password</code> authentication method.</p>
 <h3 id="upgrade-guide-proxysql-262-or-later">ProxySQL 2.6.2 or later<a class="headerlink" href="#upgrade-guide-proxysql-262-or-later" title="Permanent link">&para;</a></h3>
-<p>If you are using a version before ProxySQL 2.6.2, the option <a href="#proxysql-v2-pxc-proxysql-v2-admin-tool-syncusers">–syncusers</a> would not work if the Percona XtraDB Cluster user is
+<p>If you are using a version before ProxySQL 2.6.2, the option <a href="#proxysql-v2-proxysql-admin-utilities">–syncusers</a> would not work if the Percona XtraDB Cluster user is
 created using <code>caching_sha2_password</code>. Use the <code>mysql_native_password</code>
 authentication plugin in these cases. You must manually load this authentication plugin.</p>
 <h2 id="upgrade-guide-default-security-and-compatibility-settings">Default security and compatibility settings<a class="headerlink" href="#upgrade-guide-default-security-and-compatibility-settings" title="Permanent link">&para;</a></h2>
-<p><a href="#strict-mode-pxc-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
-unsupported operations and may halt the server. For more information, see
-<a href="#upgrade-guide-pxc-strict-mode-is-enabled-by-default">pxc-strict-mode is enabled by default</a>.</p>
+<p><a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
+unsupported operations and may halt the server.</p>
 <p><code>pxc-encrypt-cluster-traffic</code> is enabled by default. You need to configure
 each node accordingly and avoid joining a cluster with unencrypted cluster
 traffic. For more information, see
-<a href="#upgrade-guide-traffic-encryption-is-enabled-by-default">Traffic encryption is enabled by default</a>.</p>
+<a href="#encrypt-traffic-encrypt-pxc-traffic">Traffic encryption is enabled by default</a>.</p>
 <h2 id="upgrade-guide-do-not-mix-pxc-80-nodes-with-pxc-84-nodes">Do not mix PXC 8.0 nodes with PXC 8.4 nodes<a class="headerlink" href="#upgrade-guide-do-not-mix-pxc-80-nodes-with-pxc-84-nodes" title="Permanent link">&para;</a></h2>
 <p>In Percona Server for MySQL versions 8.0 and 8.4, both use Galera 4, so there are no issues at the Galera protocol layer that would prevent any node from being a writer in a mixed-version cluster. However, 8.4 introduces changes that might not work on 8.0. If you run these changes on 8.4 and replicate them to 8.0, it could cause node inconsistencies, and the node might be evicted from the cluster due to the inconsistency voting protocol.</p>
 <p>Percona Server for MySQL 8.4 also introduces several DDL (Data Definition Language) enhancements that are not supported in 8.0. If you try to run these DDL statements on 8.0, you’ll get errors. A key difference is:</p>
@@ -6392,7 +6390,7 @@ Here&rsquo;s what you need to know:</p>
 <li>
 <p>Start the Percona XtraDB Cluster node with the new packages. </p>
 <p>In most cases, starting the <code>mysql</code> service should run the node with your
-previous configuration. For more information, see <a href="#add-node-add-node">Adding Nodes to Cluster</a>.</p>
+previous configuration. For more information, see <a href="#add-node-add-nodes-to-cluster">Adding Nodes to Cluster</a>.</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 <p>On Red Hat Enterprise Linux, the <code>/etc/my.cnf</code> configuration file is renamed to <code>my.cnf.rpmsave</code>. Make sure to rename this file back to the original name before joining the upgraded node back to the cluster.</p>
@@ -6637,11 +6635,11 @@ skip-grant-tables
 </thead>
 <tbody>
 <tr>
-<td><a href="#secure-network-secure-network">Securing the Network</a></td>
+<td><a href="#secure-network-secure-the-network">Securing the Network</a></td>
 <td>Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster.</td>
 </tr>
 <tr>
-<td><a href="#encrypt-traffic-encrypt-traffic">Encrypting PXC Traffic</a></td>
+<td><a href="#encrypt-traffic-encrypt-pxc-traffic">Encrypting PXC Traffic</a></td>
 <td>Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster 8.4, traffic encryption is enabled by default.</td>
 </tr>
 <tr>
@@ -6694,14 +6692,14 @@ skip-grant-tables
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For more information, see <a href="#selinux-selinux">Enabling AppArmor</a></p>
+<p>For more information, see <a href="#selinux-enable-selinux">Enabling AppArmor</a></p>
 </div>
 <h3 id="security-index-apparmor">AppArmor<a class="headerlink" href="#security-index-apparmor" title="Permanent link">&para;</a></h3>
 <p><a href="https://wiki.apparmor.net/">AppArmor</a> is included
 in Debian and Ubuntu. <em>Percona XtraDB Cluster</em> provides several AppArmor profiles to simplify maintenance. During installation and configuration, you can set the <code>mysqld</code> profile to <code>complain</code> mode to assist with troubleshooting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For more information, see <a href="#apparmor-apparmor">Enabling AppArmor</a></p>
+<p>For more information, see <a href="#apparmor-enable-apparmor">Enabling AppArmor</a></p>
 </div></section><section class="print-page" id="secure-network" heading-number="10.2"><h1 id="secure-network-secure-the-network">Secure the network<a class="headerlink" href="#secure-network-secure-the-network" title="Permanent link">&para;</a></h1>
 <p>By default, anyone with access to your network can connect to any Percona XtraDB Cluster node
 either as a client or as another node joining the cluster.
@@ -6718,7 +6716,7 @@ based on the clients and nodes that you trust.</p>
 <p>3306 is used for MySQL client connections and <a href="#glossary-sst">SST</a> (State Snapshot Transfer) via <code>mysqldump</code>.</p>
 </li>
 <li>
-<p>4444 is used for <a href="#glossary-sst">SST</a> via <a href="#xtrabackup-sst-xtrabackup-sst">Percona XtraBackup</a>.</p>
+<p>4444 is used for <a href="#glossary-sst">SST</a> via <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup</a>.</p>
 </li>
 <li>
 <p>4567 is used for write-set replication traffic (over TCP) and multicast replication (over TCP and UDP).</p>
@@ -6948,16 +6946,16 @@ If a <code>dhparams.pem</code> file of required length is not found during SST i
 <p>All replication traffic passes through the <code>gcomm</code> communication channel. Encrypting this channel secures <a href="#glossary-ist">IST traffic</a>,
 write-set replication, and service messages ensuring confidentiality and integrity. IST uses a separate channel, so administrators must configure both channels with the same encryption parameters.</p>
 <p>To enable encryption for all these processes,
-define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate <a href="#wsrep-provider-index-wsrep-provider-index">wsrep provider options</a>:</p>
+define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate <a href="#wsrep-provider-index">wsrep provider options</a>:</p>
 <ul>
 <li>
-<p><a href="#wsrep-provider-index-socket.ssl_ca"><code>socket.ssl_ca</code></a></p>
+<p><a href="#wsrep-provider-index-socketssl_ca"><code>socket.ssl_ca</code></a></p>
 </li>
 <li>
-<p><a href="#wsrep-provider-index-socket.ssl_cert"><code>socket.ssl_cert</code></a></p>
+<p><a href="#wsrep-provider-index-socketssl_cert"><code>socket.ssl_cert</code></a></p>
 </li>
 <li>
-<p><a href="#wsrep-provider-index-socket.ssl_key"><code>socket.ssl_key</code></a></p>
+<p><a href="#wsrep-provider-index-socketssl_key"><code>socket.ssl_key</code></a></p>
 </li>
 </ul>
 <p>To configure these encryption settings, define the required parameters in the configuration file using the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. This ensures secure replication traffic across the cluster.</p>
@@ -7209,18 +7207,18 @@ Set permissions to limit access, ensuring only <code>mysqld</code> has read righ
 <p>The following procedure outlines the steps to upgrade certificates used for securing replication traffic when operating with two nodes in the cluster.</p>
 <ol>
 <li>
-<p>Restart the first node with the <a href="#wsrep-provider-index-socket.ssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
+<p>Restart the first node with the <a href="#wsrep-provider-index-socketssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
 <p>For example, you can merge contents of <code>old-ca.pem</code>
 and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
-<p>Set the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable as follows:</p>
+<p>Set the <a href="#wsrep-system-index-index-of-wsrep-system-variables"><code>wsrep_provider_options</code></a> variable as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
 </code></pre></div>
 </li>
 <li>
-<p>Restart the second node with the <a href="#wsrep-provider-index-socket.ssl_ca"><code>socket.ssl_ca</code></a>, <a href="#wsrep-provider-index-socket.ssl_cert"><code>socket.ssl_cert</code></a>, and <a href="#wsrep-provider-index-socket.ssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
+<p>Restart the second node with the <a href="#wsrep-provider-index-socketssl_ca"><code>socket.ssl_ca</code></a>, <a href="#wsrep-provider-index-socketssl_cert"><code>socket.ssl_cert</code></a>, and <a href="#wsrep-provider-index-socketssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
 </code></pre></div>
 </li>
@@ -7332,7 +7330,7 @@ allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<sp
 </ul>
 <h2 id="selinux-work-with-pxc_encrypt_cluster_traffic">Work with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#selinux-work-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
 <p>By default, the <code>pxc_encrypt_cluster_traffic</code> is <code>ON</code>, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.</p>
-<p>Review <a href="https://www.percona.com/doc/percona-xtradb-cluster/LATEST/security/encrypt-traffic.html#encrypt-replication">How to set up the certificates</a>. When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:</p>
+<p>Review <a href="#encrypt-traffic-encrypt-replication-traffic">How to set up the certificates</a>. When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:</p>
 <ul>
 <li>
 <p>Certificates inside <code>/etc/mysql/certs/</code> directory must use the <code>mysqld_etc_t</code> tag. This tag is applied automatically when the files are copied into the directory. When they are moved, the files retain their original context.</p>
@@ -7379,8 +7377,8 @@ permissivedomains
 </details>
 <h3 id="state-snapshot-transfer-overview">Overview<a class="headerlink" href="#state-snapshot-transfer-overview" title="Permanent link">&para;</a></h3>
 <p>State Snapshot Transfer (SST) is essential in Percona XtraDB Cluster for synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. The SST process ensures data consistency and cluster integrity during these operations.  </p>
-<p>The <a href="#xtrabackup-sst"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
-<p>The <a href="#clone-sst"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
+<p>The <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
+<p>The <a href="#clone-sst-enable-the-clone-sst-method"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
 <p>Choosing the appropriate SST method depends on your environment, requirements for performance, and resource considerations. Both options ensure consistency between nodes and support seamless cluster synchronization.</p>
 <h3 id="state-snapshot-transfer-xtrabackup-sst-method">Xtrabackup SST Method<a class="headerlink" href="#state-snapshot-transfer-xtrabackup-sst-method" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster supports the <strong>xtrabackup</strong> SST method, which is the recommended option for most use cases.  </p>
@@ -7388,7 +7386,7 @@ permissivedomains
 <p>The SST method is configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
+<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
 </div>
 <p>State Snapshot Transfer (SST) is a full data copy from one node (donor)
 to the joining node (joiner).
@@ -7401,7 +7399,7 @@ that is already part of the cluster.</p>
 The SST method can be configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
+<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
 </div>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
@@ -7428,7 +7426,7 @@ the cluster chooses the node with the highest <code>seqno</code> to serve as the
 The least blocking method leverages <a href="https://www.percona.com/doc/percona-server/8.4/management/backlocks.html">backup locks</a>.
 XtraBackup is run locally on the donor node.</p>
 <p>The <a href="#glossary-datadir">datadir</a> must be specified in the server configuration file <code>my.cnf</code>, otherwise the transfer process will fail.</p>
-<p>Detailed information on this method is provided in <a href="#xtrabackup-sst-xtrabackup-sst">Percona XtraBackup SST Configuration</a> documentation.</p>
+<p>Detailed information on this method is provided in <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
@@ -7444,7 +7442,7 @@ tablespaces not in the data directory.</p>
 <p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a></p>
 </li>
 <li>
-<p><a href="#xtrabackup-sst-xtrabackup-sst">Xtrabackup SST configuration</a></p>
+<p><a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Xtrabackup SST configuration</a></p>
 </li>
 </ul></section>
                     <section class='print-page md-section' id='section-11-2' heading-number='11.2'>
@@ -7471,8 +7469,8 @@ tablespaces not in the data directory.</p>
 </details>
 <h3 id="state-snapshot-transfer-overview">Overview<a class="headerlink" href="#state-snapshot-transfer-overview" title="Permanent link">&para;</a></h3>
 <p>State Snapshot Transfer (SST) is essential in Percona XtraDB Cluster for synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. The SST process ensures data consistency and cluster integrity during these operations.  </p>
-<p>The <a href="#xtrabackup-sst"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
-<p>The <a href="#clone-sst"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
+<p>The <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
+<p>The <a href="#clone-sst-enable-the-clone-sst-method"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
 <p>Choosing the appropriate SST method depends on your environment, requirements for performance, and resource considerations. Both options ensure consistency between nodes and support seamless cluster synchronization.</p>
 <h3 id="state-snapshot-transfer-xtrabackup-sst-method">Xtrabackup SST Method<a class="headerlink" href="#state-snapshot-transfer-xtrabackup-sst-method" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster supports the <strong>xtrabackup</strong> SST method, which is the recommended option for most use cases.  </p>
@@ -7480,7 +7478,7 @@ tablespaces not in the data directory.</p>
 <p>The SST method is configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
+<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
 </div>
 <p>State Snapshot Transfer (SST) is a full data copy from one node (donor)
 to the joining node (joiner).
@@ -7493,7 +7491,7 @@ that is already part of the cluster.</p>
 The SST method can be configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcs.sync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
+<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
 </div>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
@@ -7520,7 +7518,7 @@ the cluster chooses the node with the highest <code>seqno</code> to serve as the
 The least blocking method leverages <a href="https://www.percona.com/doc/percona-server/8.4/management/backlocks.html">backup locks</a>.
 XtraBackup is run locally on the donor node.</p>
 <p>The <a href="#glossary-datadir">datadir</a> must be specified in the server configuration file <code>my.cnf</code>, otherwise the transfer process will fail.</p>
-<p>Detailed information on this method is provided in <a href="#xtrabackup-sst-xtrabackup-sst">Percona XtraBackup SST Configuration</a> documentation.</p>
+<p>Detailed information on this method is provided in <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
@@ -7536,7 +7534,7 @@ tablespaces not in the data directory.</p>
 <p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a></p>
 </li>
 <li>
-<p><a href="#xtrabackup-sst-xtrabackup-sst">Xtrabackup SST configuration</a></p>
+<p><a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Xtrabackup SST configuration</a></p>
 </li>
 </ul></section><section class="print-page" id="xtrabackup-sst" heading-number="11.2.2"><h1 id="xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST configuration<a class="headerlink" href="#xtrabackup-sst-percona-xtrabackup-sst-configuration" title="Permanent link">&para;</a></h1>
 <details class="example">
@@ -7710,7 +7708,7 @@ ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 </code></pre></div>
-<p>For more information, see <a href="#encrypt-traffic-encrypt-traffic">Encrypting PXC Traffic</a>.</p>
+<p>For more information, see <a href="#encrypt-traffic-encrypt-pxc-traffic">Encrypting PXC Traffic</a>.</p>
 <h3 id="xtrabackup-sst-sockopt">sockopt<a class="headerlink" href="#xtrabackup-sst-sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
@@ -8211,7 +8209,7 @@ the size of the InnoDB memory buffer will be used:</p>
 <span class="na">wsrep_sst_allowed_methods</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">xtrabackup-v2,clone</span>
 </code></pre></div>
 <h3 id="clone-sst-joiner">Joiner<a class="headerlink" href="#clone-sst-joiner" title="Permanent link">&para;</a></h3>
-<p>On the Joiner server, set the <a href="#(wsrep-system-index.md-wsrep_sst_method)"><code>wsrep_sst_method</code></a> variable to <code>clone</code> in the configuration file (<code>my.cnf</code>). This setting is the only accepted value for the Clone SST process.</p>
+<p>On the Joiner server, set the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable to <code>clone</code> in the configuration file (<code>my.cnf</code>). This setting is the only accepted value for the Clone SST process.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">wsrep_sst_method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">clone</span>
 </code></pre></div>
@@ -8253,7 +8251,7 @@ the size of the InnoDB memory buffer will be used:</p>
 <tr>
 <td><code>sst_idle_timeout</code></td>
 <td>Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. You must define this variable in the <code>[sst]</code> section of the <code>my.cnf</code> file.</td>
-<td><a href="#wsrep-system-index-sst_idle_timeout">Learn more</a></td>
+<td></td>
 </tr>
 <tr>
 <td><code>wsrep_sst_donor</code></td>
@@ -9481,7 +9479,7 @@ etc.</p>
 and the cluster size is reduced; some properties like quorum calculation or auto
 increment are automatically changed. As soon as node A is started again, it
 joins the cluster based on its <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable in <code>my.cnf</code>.</p>
-<p>If the writeset cache (<a href="#wsrep-provider-index-gcache.size"><code>gcache.size</code></a>) on nodes B and/or C still
+<p>If the writeset cache (<a href="#wsrep-provider-index-gcachesize"><code>gcache.size</code></a>) on nodes B and/or C still
 has all the transactions executed while node A was down, joining is possible via
 <a href="#glossary-ist">IST</a>. If <a href="#glossary-ist">IST</a> is impossible due to missing transactions in donor’s
 gcache, the fallback decision is made by the donor and <a href="#glossary-sst">SST</a> is started
@@ -9526,7 +9524,7 @@ first node, invoke the startup script like this:</p>
 nodes have a lower sequence number. They will still have to join via the full <a href="#glossary-sst">SST</a>
 because the <em>Galera Cache</em> is not retained on restart.</p>
 <p>For this reason, it is recommended to stop writes to the cluster <em>before</em> its
-full shutdown, so that all nodes can stop at the same position. See also <a href="#wsrep-provider-index-pc.recovery"><code>pc.recovery</code></a>.</p>
+full shutdown, so that all nodes can stop at the same position. See also <a href="#wsrep-provider-index-pcrecovery"><code>pc.recovery</code></a>.</p>
 </div>
 <h2 id="crash-recovery-scenario-4-one-node-disappears-from-the-cluster">Scenario 4: One node disappears from the cluster<a class="headerlink" href="#crash-recovery-scenario-4-one-node-disappears-from-the-cluster" title="Permanent link">&para;</a></h2>
 <p>This is the case when one node becomes unavailable due to power outage, hardware
@@ -9563,7 +9561,7 @@ this is:</p>
 Otherwise, you end up with two clusters having different data.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="#add-node-add-node">Adding Nodes to Cluster</a></p>
+<p><a href="#add-node-add-nodes-to-cluster">Adding Nodes to Cluster</a></p>
 </div>
 <h2 id="crash-recovery-scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure">Scenario 6: All nodes went down without a proper shutdown procedure<a class="headerlink" href="#crash-recovery-scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure" title="Permanent link">&para;</a></h2>
 <p>This scenario is possible in the following cases:</p>
@@ -9611,7 +9609,7 @@ safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node
 safe_to_bootstrap: 1
 ...
 </code></pre></div>
-<p>In recent Galera versions, the option <a href="#wsrep-provider-index-pc.recovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
+<p>In recent Galera versions, the option <a href="#wsrep-provider-index-pcrecovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
 saves only a cluster being in the PRIMARY state. An example content of the file
 may look like this:</p>
 <div class="no-copy highlight"><pre><span></span><code>cat /var/lib/mysql/gvwstate.dat
@@ -9660,7 +9658,7 @@ file are connected again.</p>
 <p>Then, as the Galera replication model truly cares about data consistency:
 once the inconsistency is detected, nodes that cannot execute row change
 statement due to a data difference – an emergency shutdown will be performed and the only
-way to bring the nodes back to the cluster is via the full <a href="#glossary-term-SST">SST</a></p>
+way to bring the nodes back to the cluster is via the full <a href="#glossary-sst">SST</a></p>
 </div>
 <p><strong>Based on material from Percona Database Performance Blog</strong></p>
 <p>This article is based on the blog post Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em>: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p></section><section class="print-page" id="configure-cluster-rhel" heading-number="12.2"><h1 id="configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure a cluster on Red Hat-based distributions<a class="headerlink" href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions" title="Permanent link">&para;</a></h1>
@@ -9720,10 +9718,10 @@ to ports 3306, 4444, 4567 and 4568.</p>
 </div>
 <p>The variable <code>wsrep_sst_auth</code> has been removed. Percona XtraDB Cluster 8.4 automatically creates the system user <a href="#glossary-mysqlpxcinternalsession"><code>mysql.pxc.internal.session</code></a>. During <a href="#glossary-sst">SST</a>, the user <code>mysql.pxc.sst.user</code> and the role <a href="#glossary-mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a> are created on the donor node.</p>
 <h2 id="configure-cluster-rhel-step-1-install">Step 1. Install<a class="headerlink" href="#configure-cluster-rhel-step-1-install" title="Permanent link">&para;</a></h2>
-<p>Install Percona XtraDB Cluster on all three nodes as described in <a href="#yum-yum">Install on Red Hat Enterprise Linux</a>.</p>
+<p>Install Percona XtraDB Cluster on all three nodes as described in <a href="#yum-install-from-percona-software-repository">Install on Red Hat Enterprise Linux</a>.</p>
 <h2 id="configure-cluster-rhel-step-2-configure-the-first-node">Step 2. Configure the first node<a class="headerlink" href="#configure-cluster-rhel-step-2-configure-the-first-node" title="Permanent link">&para;</a></h2>
 <p>Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see <a href="#bootstrap-bootstrap">Bootstrapping the First Node</a>.</p>
+For more information about bootstrapping the cluster, see <a href="#bootstrap-bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
 <ol>
 <li>
 <p>Make sure that the configuration file <code>/etc/my.cnf</code>
@@ -10050,7 +10048,7 @@ to ports 3306, 4444, 4567 and 4568.</p>
 </li>
 </ul>
 <h2 id="configure-cluster-ubuntu-step-1-install-pxc">Step 1. Install PXC<a class="headerlink" href="#configure-cluster-ubuntu-step-1-install-pxc" title="Permanent link">&para;</a></h2>
-<p>Install Percona XtraDB Cluster on all three nodes as described in <a href="#apt-apt">Installing Percona XtraDB Cluster on Debian or Ubuntu</a>.</p>
+<p>Install Percona XtraDB Cluster on all three nodes as described in <a href="#apt-install-from-repository">Installing Percona XtraDB Cluster on Debian or Ubuntu</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Debian/Ubuntu installation prompts for root password.
@@ -10061,7 +10059,7 @@ Stop <code>mysqld</code> on all three nodes using <code>sudo systemctl stop mysq
 </div>
 <h2 id="configure-cluster-ubuntu-step-2-configure-the-first-node">Step 2. Configure the first node<a class="headerlink" href="#configure-cluster-ubuntu-step-2-configure-the-first-node" title="Permanent link">&para;</a></h2>
 <p>Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see <a href="#bootstrap-bootstrap">Bootstrapping the First Node</a>.</p>
+For more information about bootstrapping the cluster, see <a href="#bootstrap-bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
 <ol>
 <li>
 <p>Make sure that the configuration file <code>/etc/mysql/my.cnf</code>
@@ -10343,7 +10341,7 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For more information on how to set up a cluster you can read in the
-<a href="#configure-cluster-ubuntu-ubuntu-howto">Configuring Percona XtraDB Cluster on Ubuntu</a> or <a href="#configure-cluster-rhel-centos-howto">Configure on Red Hat Enterprise Linux</a> manuals.</p>
+<a href="#configure-cluster-ubuntu-configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a> or <a href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure on Red Hat Enterprise Linux</a> manuals.</p>
 </div>
 <h2 id="garbd-howto-installation">Installation<a class="headerlink" href="#garbd-howto-installation" title="Permanent link">&para;</a></h2>
 <p>Galera Arbitrator does not need a dedicated server and can be installed on a machine running other applications. The server must have good network connectivity.</p>
@@ -10389,7 +10387,7 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 # Deprecated for CentOS7, use journalctl to query the log for garbd
 # LOG_FILE=&quot;&quot;
 </code></pre></div>
-<p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="#configure-cluster-ubuntu-ubuntu-howto">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
+<p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="#configure-cluster-ubuntu-configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Please note that you need to remove the <code># REMOVE THIS AFTER
@@ -10660,7 +10658,7 @@ with Red Hat Enterprise Linux 7 64-bit.</p>
 </ul>
 </li>
 <li>
-<p>Install Percona XtraDB Cluster with <a href="#yum-yum">Install on Red Hat Enterprise Linux</a>.</p>
+<p>Install Percona XtraDB Cluster with <a href="#yum-install-from-percona-software-repository">Install on Red Hat Enterprise Linux</a>.</p>
 </li>
 <li>
 <p>Create data directories:</p>
@@ -11006,7 +11004,7 @@ grouping, and traffic-related settings.</p>
 <p class="admonition-title">See also</p>
 <p><a href="https://proxysql.com/documentation/">ProxySQL Documentation</a></p>
 </div>
-<p><a href="#proxysql-v2-pxc-proxysql-v2">ProxySQL v2</a> natively supports Percona XtraDB Cluster. With this version,
+<p><a href="#proxysql-v2-proxysql-admin-utilities">ProxySQL v2</a> natively supports Percona XtraDB Cluster. With this version,
 <code>proxysql-admin</code> tool does not require any custom scripts to keep track of Percona XtraDB Cluster status.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -11517,7 +11515,7 @@ which is monitored by ProxySQL and can be set to one of the following values:</p
 </li>
 </ul>
 <p><strong>Related sections</strong></p>
-<p><a href="#virtual-sandbox-testing-env-proxysql-setting-up">Setting up a testing environment with ProxySQL</a></p></section><section class="print-page" id="proxysql-v2" heading-number="12.9"><h1 id="proxysql-v2-proxysql-admin-utilities">ProxySQL admin utilities<a class="headerlink" href="#proxysql-v2-proxysql-admin-utilities" title="Permanent link">&para;</a></h1>
+<p><a href="#virtual-sandbox-set-up-a-testing-environment-with-proxysql">Setting up a testing environment with ProxySQL</a></p></section><section class="print-page" id="proxysql-v2" heading-number="12.9"><h1 id="proxysql-v2-proxysql-admin-utilities">ProxySQL admin utilities<a class="headerlink" href="#proxysql-v2-proxysql-admin-utilities" title="Permanent link">&para;</a></h1>
 <p>The <a href="https://docs.percona.com/proxysql/index.html">ProxySQL and ProxySQL admin utilities documentation</a> provides information on installing and running ProxySQL 1.x.x or ProxySQL 2.x.x with the following ProxySQL admin utilities: </p>
 <ul>
 <li>
@@ -11542,10 +11540,10 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 </div>
 <ol>
 <li>
-<p>Install Percona XtraDB Cluster on three cluster nodes, as described in <a href="#configure-cluster-rhel-centos-howto">Configure on RHEL</a>.</p>
+<p>Install Percona XtraDB Cluster on three cluster nodes, as described in <a href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure on RHEL</a>.</p>
 </li>
 <li>
-<p>On the client node, install <a href="#load-balance-proxysql-load-balancing-with-proxysql">ProxySQL</a> and <code>sysbench</code>:</p>
+<p>On the client node, install <a href="#load-balance-proxysql-load-balance-with-proxysql">ProxySQL</a> and <code>sysbench</code>:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>proxysql2<span class="w"> </span>sysbench
 </code></pre></div>
 </li>
@@ -12007,8 +12005,8 @@ The following output confirms that a new database has been created:
 <hr />
 <p><strong>Related sections and additional reading</strong></p>
 <ul>
-<li><a href="#load-balance-proxysql-load-balancing-with-proxysql">Load balancing with ProxySQL</a></li>
-<li><a href="#configure-cluster-rhel-centos-howto">Configure on RHEL</a></li>
+<li><a href="#load-balance-proxysql-load-balance-with-proxysql">Load balancing with ProxySQL</a></li>
+<li><a href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure on RHEL</a></li>
 <li><a href="https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/">Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC)</a></li>
 <li><a href="https://github.com/akopytov/sysbench/">GitHub repository for the sysbench benchmarking tool</a></li>
 </ul></section></section>
@@ -12424,7 +12422,7 @@ almost all queries will fail with <code>ERROR 1047 (08S01) Unknown Command</code
 <h3 id="wsrep-status-index-wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code><a class="headerlink" href="#wsrep-status-index-wsrep_replicated_bytes" title="Permanent link">&para;</a></h3>
 <p>Total size of replicated writesets. To compute the actual size of bytes sent
 over network to cluster peers, multiply the value of this variable by the number
-of cluster peers in the given <a href="#wsrep-provider-index-gmcast.segment"><code>network segment</code></a>.</p>
+of cluster peers in the given <a href="#wsrep-provider-index-gmcastsegment"><code>network segment</code></a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated-bytes"><code>Galera status variable: wsrep_replicated_bytes</code></a></p>
@@ -12473,7 +12471,7 @@ When disabled, you need to configure SSL manually to encrypt Percona XtraDB Clus
 <p><code>OFF</code>, <code>0</code>, <code>false</code>: Disabled </p>
 </li>
 </ul>
-<p>For more information, see <a href="#encrypt-traffic-ssl-auto-conf">SSL Automatic Configuration</a>.</p>
+<p>For more information, see <a href="#encrypt-traffic-ssl-automatic-configuration">SSL Automatic Configuration</a>.</p>
 <h3 id="wsrep-system-index-pxc_maint_mode"><code>pxc_maint_mode</code><a class="headerlink" href="#wsrep-system-index-pxc_maint_mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12522,7 +12520,7 @@ when you initiate node shutdown.</p>
 if you need to perform maintenance on a node without shutting it down.</p>
 </li>
 </ul>
-<p>For more information, see <a href="#load-balance-proxysql-pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<p>For more information, see <a href="#load-balance-proxysql-assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="wsrep-system-index-pxc_maint_transition_period"><code>pxc_maint_transition_period</code><a class="headerlink" href="#wsrep-system-index-pxc_maint_transition_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12558,7 +12556,7 @@ if you need to perform maintenance on a node without shutting it down.</p>
 By default, the period is set to 10 seconds,
 which should be enough for most transactions to finish.
 You can increase the value to accommodate for longer-running transactions.</p>
-<p>For more information, see <a href="#load-balance-proxysql-pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<p>For more information, see <a href="#load-balance-proxysql-assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code><a class="headerlink" href="#wsrep-system-index-pxc_strict_mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12590,7 +12588,7 @@ You can increase the value to accommodate for longer-running transactions.</p>
 </tr>
 </tbody>
 </table>
-<p>Controls <a href="#strict-mode-pxc-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
+<p>Controls <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
 <p>Depending on the actual mode you select,
 upon encountering a failed validation,
 the server will either throw an error
@@ -12637,7 +12635,7 @@ ensure that the following configuration is used:</p>
 </ul>
 <p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
 </div>
-<p>For more information, see <a href="#strict-mode-pxc-strict-mode">PXC Strict Mode</a>.</p>
+<p>For more information, see <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.</p>
 <h3 id="wsrep-system-index-wsrep_applier_fk_checks"><code>wsrep_applier_FK_checks</code><a class="headerlink" href="#wsrep-system-index-wsrep_applier_fk_checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -13879,7 +13877,7 @@ For example:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The value of this variable is also used as the default value
-for the <a href="#wsrep-system-index-wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code></a> variable and the <a href="#wsrep-provider-index-ist.recv_addr"><code>ist.recv_addr</code></a> option.</p>
+for the <a href="#wsrep-system-index-wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code></a> variable and the <a href="#wsrep-provider-index-istrecv_addr"><code>ist.recv_addr</code></a> option.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -14148,7 +14146,7 @@ the node will behave as standalone instance of MySQL.</p>
 </tbody>
 </table>
 <p>Specifies optional settings for the replication provider
-documented in <a href="#wsrep-provider-index-wsrep-provider-index">Index of :variable:`wsrep_provider` options</a>.
+documented in <a href="#wsrep-provider-index">Index of <code>wsrep_provider</code> options</a>.
 These options affect how various situations are handled during replication.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -14722,7 +14720,7 @@ then the joining node will consider <em>only</em> <code>node1</code> and <code>n
 <p class="admonition-title">Note</p>
 <p>By default, the joiner node does not wait for more than 100 seconds
 to receive the first packet from a donor.
-This is implemented via the <a href="#xtrabackup-sst-cmdoption-arg-sst-initial-timeout"><code>sst-initial-timeout</code></a> option.
+This is implemented via the <a href="#xtrabackup-sst-sst-initial-timeout"><code>sst-initial-timeout</code></a> option.
 If you set the list of preferred donors without the trailing comma
 or believe that all nodes in the cluster can often be unavailable for SST
 (this is common for small clusters),
@@ -14771,7 +14769,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <li>
 <p><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="#xtrabackup-sst-xtrabackup-sst">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
+can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
 </li>
 <li>
 <p><code>clone</code>: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the <a href="#clone-sst">clone method for SST</a>. </p>
@@ -15179,7 +15177,7 @@ changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by set
 </tr>
 <tr>
 <td>Default Value:</td>
-<td>value of <a href="#wsrep-provider-index-wsrep_node_address"><code>wsrep_node_address</code></a></td>
+<td>value of <code>wsrep_node_address</code></td>
 </tr>
 </tbody>
 </table>
@@ -16402,7 +16400,7 @@ preempted by threads of a higher priority.
 </tr>
 </tbody>
 </table>
-<p>Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the <a href="#wsrep-provider-index-gcs.fc_auto_evict_window"><code>gcs.fc_auto_evict_window</code></a> variable. The default value is <code>.075</code>, but the value can be set to any value between 0.0 and 1.0. </p>
+<p>Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the <a href="#wsrep-provider-index-gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code></a> variable. The default value is <code>.075</code>, but the value can be set to any value between 0.0 and 1.0. </p>
 <h3 id="wsrep-provider-index-gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code><a class="headerlink" href="#wsrep-provider-index-gcsfc_auto_evict_window" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -16993,7 +16991,7 @@ of stable view to reconnect.</p>
 </tr>
 <tr>
 <td>Default Value:</td>
-<td>value of <a href="#wsrep-provider-index-wsrep_node_address"><code>wsrep_node_address</code></a></td>
+<td>value of <code>wsrep_node_address</code></td>
 </tr>
 </tbody>
 </table>
@@ -18314,7 +18312,7 @@ default.</p>
 <h2 id="glossary-ist">IST<a class="headerlink" href="#glossary-ist" title="Permanent link">&para;</a></h2>
 <p>Incremental State Transfer. Functionality which instead of whole state snapshot can catch up with the group by receiving the missing writesets, but only if the writeset is still in the donor&rsquo;s writeset cache.</p>
 <h2 id="glossary-innodb">InnoDB<a class="headerlink" href="#glossary-innodb" title="Permanent link">&para;</a></h2>
-<p><a href="#glossary-storage-engine"><code>Storage Engine</code></a> for MySQL and derivatives (<a href="#glossary-percona-server"><code>Percona Server</code></a>, <a href="#glossary-mariadb"><code>MariaDB</code></a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="#glossary-acid"><code>ACID</code></a> compliant storage engine with <a href="#glossary-foreign-key"><code>foreign key</code></a> support. InnoDB is the default storage engine on all platforms.</p>
+<p><a href="#glossary-storage-engine"><code>Storage Engine</code></a> for MySQL and derivatives (<code>Percona Server</code>, <a href="#glossary-mariadb"><code>MariaDB</code></a>) originally written by Innobase Oy, since acquired by Oracle. It provides <a href="#glossary-acid"><code>ACID</code></a> compliant storage engine with <a href="#glossary-foreign-key"><code>foreign key</code></a> support. InnoDB is the default storage engine on all platforms.</p>
 <h2 id="glossary-jenkins">Jenkins<a class="headerlink" href="#glossary-jenkins" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.jenkins-ci.org">Jenkins</a> is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:
 * no failed tests in trunk on any platform 
@@ -18323,7 +18321,7 @@ default.</p>
 <h2 id="glossary-joiner-node">joiner node<a class="headerlink" href="#glossary-joiner-node" title="Permanent link">&para;</a></h2>
 <p>The node joining the cluster, usually a state transfer target.</p>
 <h2 id="glossary-lsn">LSN<a class="headerlink" href="#glossary-lsn" title="Permanent link">&para;</a></h2>
-<p>Log Serial Number. A term used in relation to the <a href="#glossary-innodb"><code>InnoDB</code></a> or <a href="#glossary-xtradb"><code>XtraDB</code></a> storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.</p>
+<p>Log Serial Number. A term used in relation to the <a href="#glossary-innodb"><code>InnoDB</code></a> or <code>XtraDB</code> storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.</p>
 <h2 id="glossary-mariadb">MariaDB<a class="headerlink" href="#glossary-mariadb" title="Permanent link">&para;</a></h2>
 <p>A fork of <a href="#glossary-mysql"><code>MySQL</code></a> that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.</p>
 <h2 id="glossary-mycnf">my.cnf<a class="headerlink" href="#glossary-mycnf" title="Permanent link">&para;</a></h2>
@@ -18335,13 +18333,13 @@ options to start the server and its defaults values.</p>
 <h2 id="glossary-myisam">MyISAM<a class="headerlink" href="#glossary-myisam" title="Permanent link">&para;</a></h2>
 <p>A <a href="#glossary-mysql"><code>MySQL</code></a> <a href="#glossary-storage-engine"><code>Storage Engine</code></a> that was the default until MySQL 5.5. It doesn&rsquo;t fully support transactions but in some scenarios may be faster than <a href="#glossary-innodb"><code>InnoDB</code></a>. Each table is stored on disk in 3 files: <a href="#glossary-frm"><code>.frm</code></a>,i <code>.MYD</code>, <code>.MYI</code>.</p>
 <h2 id="glossary-mysql">MySQL<a class="headerlink" href="#glossary-mysql" title="Permanent link">&para;</a></h2>
-<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="#glossary-mariadb"><code>MariaDB</code></a> and <a href="#glossary-percona-server"><code>Percona Server</code></a>.</p>
+<p>An open source database that has spawned several distributions and forks. MySQL AB was the primary maintainer and distributor until bought by Sun Microsystems, which was then acquired by Oracle. As Oracle owns the MySQL trademark, the term MySQL is often used for the Oracle distribution of MySQL as distinct from the drop-in replacements such as <a href="#glossary-mariadb"><code>MariaDB</code></a> and <code>Percona Server</code>.</p>
 <h2 id="glossary-mysqlpxcinternalsession">mysql.pxc.internal.session<a class="headerlink" href="#glossary-mysqlpxcinternalsession" title="Permanent link">&para;</a></h2>
-<p>This user is used by the SST process to run the SQL commands needed for <a href="#glossary-sst"><code>SST</code></a>, such as creating the <code>mysql.pxc.sst.user</code> and assigning it the role <a href="#glossary-mysql-pxc-sst-role"><code>mysql.pxc.sst.role</code></a>.</p>
+<p>This user is used by the SST process to run the SQL commands needed for <a href="#glossary-sst"><code>SST</code></a>, such as creating the <code>mysql.pxc.sst.user</code> and assigning it the role <a href="#glossary-mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a>.</p>
 <h2 id="glossary-mysqlpxcsstrole">mysql.pxc.sst.role<a class="headerlink" href="#glossary-mysqlpxcsstrole" title="Permanent link">&para;</a></h2>
 <p>This role has all the privileges needed to run xtrabackup to create a backup on the donor node.</p>
 <h2 id="glossary-mysqlpxcsstuser">mysql.pxc.sst.user<a class="headerlink" href="#glossary-mysqlpxcsstuser" title="Permanent link">&para;</a></h2>
-<p>This user (set up on the donor node) is assigned the <a href="#glossary-mysql-pxc-sst-role"><code>mysql.pxc.sst.role</code></a> and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each <a href="#glossary-sst"><code>SST</code></a>.</p>
+<p>This user (set up on the donor node) is assigned the <a href="#glossary-mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a> and runs the XtraBackup to make backups. The password for this is randomly generated for each SST. The password is generated automatically for each <a href="#glossary-sst"><code>SST</code></a>.</p>
 <h2 id="glossary-node">node<a class="headerlink" href="#glossary-node" title="Permanent link">&para;</a></h2>
 <p>A cluster node – a single mysql instance that is in the cluster.</p>
 <h2 id="glossary-numa">NUMA<a class="headerlink" href="#glossary-numa" title="Permanent link">&para;</a></h2>
@@ -18759,7 +18757,7 @@ manually when upgrading your system from an older version.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

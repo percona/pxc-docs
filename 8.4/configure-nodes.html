@@ -26,7 +26,7 @@ In this section, we will demonstrate how to configure a three node cluster:">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3008,7 +3008,7 @@ In this section, we will demonstrate how to configure a three node cluster:">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/configure-nodes.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/configure-nodes.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3110,14 +3110,14 @@ ssl-cert<span class="o">=</span>server-cert.pem
 enabled by default (via the <code>pxc-encrypt-cluster-traffic</code> variable).</p>
 <p>The replication traffic encryption cannot be enabled on a running cluster. If
 it was disabled before the cluster was bootstrapped, the cluster must to
-stopped. Then set up the encryption, and bootstrap (see <a href="bootstrap.html#bootstrap"><code>Bootstrapping the First Node</code></a>)
+stopped. Then set up the encryption, and bootstrap (see <a href="bootstrap.html#bootstrap-the-first-node"><code>Bootstrapping the First Node</code></a>)
 again.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>More information about the security settings in Percona XtraDB Cluster
- * <a href="security-index.html#security"><code>Security Basics</code></a>
- * <a href="encrypt-traffic.html#encrypt-traffic"><code>Encrypting PXC Traffic</code></a>
- * <a href="encrypt-traffic.html#ssl-auto-conf"><code>SSL Automatic Configuration</code></a></p>
+ * <a href="security-index.html#security-basics"><code>Security basics</code></a>
+ * <a href="encrypt-traffic.html#encrypt-pxc-traffic"><code>Encrypting PXC traffic</code></a>
+ * <a href="encrypt-traffic.html#ssl-automatic-configuration"><code>SSL automatic configuration</code></a></p>
 </div>
 </div>
 <h2 id="template-of-the-configuration-file">Template of the configuration file<a class="headerlink" href="#template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
@@ -3160,7 +3160,7 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 <h2 id="next-steps-bootstrap-the-first-node">Next Steps: Bootstrap the first node<a class="headerlink" href="#next-steps-bootstrap-the-first-node" title="Permanent link">&para;</a></h2>
 <p>After you configure all your nodes, initialize Percona XtraDB Cluster by bootstrapping the first
-node according to the procedure described in <a href="bootstrap.html#bootstrap">Bootstrapping the First Node</a>.</p>
+node according to the procedure described in <a href="bootstrap.html#bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
 <h2 id="essential-configuration-variables">Essential configuration variables<a class="headerlink" href="#essential-configuration-variables" title="Permanent link">&para;</a></h2>
 <p><a href="wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a></p>
 <p>Specify the path to the Galera library. The location depends on the distribution:</p>
@@ -3185,7 +3185,7 @@ the joining node can use other addresses.</p>
 <p class="admonition-title">Note</p>
 <p>No addresses are required for the initial node in the cluster.
 However, it is recommended to specify them
-and <a href="bootstrap.html#bootstrap">properly bootstrap the first node</a>.
+and <a href="bootstrap.html#bootstrap-the-first-node">properly bootstrap the first node</a>.
 This will ensure that the node is able to rejoin the cluster if it goes down in the future.</p>
 </div>
 <p><a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_name</code></a></p>
@@ -3197,7 +3197,7 @@ If this variable is not specified, the host name will be used.</p>
 <p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup</a> for <a href="glossary.html#sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
 This method requires a user for SST to be set up on the initial node.</p>
 <p><a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a></p>
-<p><a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
+<p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code></a></p>
 <p>Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
@@ -3228,7 +3228,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-06-05
+    2025-07-10
   </span>
 
     
@@ -3372,7 +3372,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       

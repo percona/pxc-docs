@@ -26,7 +26,7 @@ related to write-set replication.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
@@ -3926,7 +3926,7 @@ related to write-set replication.">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/wsrep-system-index.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/wsrep-system-index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3987,7 +3987,7 @@ When disabled, you need to configure SSL manually to encrypt Percona XtraDB Clus
 <p><code>OFF</code>, <code>0</code>, <code>false</code>: Disabled </p>
 </li>
 </ul>
-<p>For more information, see <a href="encrypt-traffic.html#ssl-auto-conf">SSL Automatic Configuration</a>.</p>
+<p>For more information, see <a href="encrypt-traffic.html#ssl-automatic-configuration">SSL Automatic Configuration</a>.</p>
 <h3 id="pxc_maint_mode"><code>pxc_maint_mode</code><a class="headerlink" href="#pxc_maint_mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4036,7 +4036,7 @@ when you initiate node shutdown.</p>
 if you need to perform maintenance on a node without shutting it down.</p>
 </li>
 </ul>
-<p>For more information, see <a href="load-balance-proxysql.html#pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<p>For more information, see <a href="load-balance-proxysql.html#assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="pxc_maint_transition_period"><code>pxc_maint_transition_period</code><a class="headerlink" href="#pxc_maint_transition_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4072,7 +4072,7 @@ if you need to perform maintenance on a node without shutting it down.</p>
 By default, the period is set to 10 seconds,
 which should be enough for most transactions to finish.
 You can increase the value to accommodate for longer-running transactions.</p>
-<p>For more information, see <a href="load-balance-proxysql.html#pxc-maint-mode">Assisted Maintenance Mode</a>.</p>
+<p>For more information, see <a href="load-balance-proxysql.html#assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="pxc_strict_mode"><code>pxc_strict_mode</code><a class="headerlink" href="#pxc_strict_mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4104,7 +4104,7 @@ You can increase the value to accommodate for longer-running transactions.</p>
 </tr>
 </tbody>
 </table>
-<p>Controls <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
+<p>Controls <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
 <p>Depending on the actual mode you select,
 upon encountering a failed validation,
 the server will either throw an error
@@ -4151,7 +4151,7 @@ ensure that the following configuration is used:</p>
 </ul>
 <p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
 </div>
-<p>For more information, see <a href="strict-mode.html#pxc-strict-mode">PXC Strict Mode</a>.</p>
+<p>For more information, see <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.</p>
 <h3 id="wsrep_applier_fk_checks"><code>wsrep_applier_FK_checks</code><a class="headerlink" href="#wsrep_applier_fk_checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5393,7 +5393,7 @@ For example:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The value of this variable is also used as the default value
-for the <a href="wsrep-system-index.html#wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code></a> variable and the <a href="wsrep-provider-index.html#ist.recv_addr"><code>ist.recv_addr</code></a> option.</p>
+for the <a href="wsrep-system-index.html#wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code></a> variable and the <a href="wsrep-provider-index.html#istrecv_addr"><code>ist.recv_addr</code></a> option.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -5662,7 +5662,7 @@ the node will behave as standalone instance of MySQL.</p>
 </tbody>
 </table>
 <p>Specifies optional settings for the replication provider
-documented in <a href="wsrep-provider-index.html#wsrep-provider-index">Index of :variable:`wsrep_provider` options</a>.
+documented in <a href="wsrep-provider-index.html">Index of <code>wsrep_provider</code> options</a>.
 These options affect how various situations are handled during replication.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -6236,7 +6236,7 @@ then the joining node will consider <em>only</em> <code>node1</code> and <code>n
 <p class="admonition-title">Note</p>
 <p>By default, the joiner node does not wait for more than 100 seconds
 to receive the first packet from a donor.
-This is implemented via the <a href="xtrabackup-sst.html#cmdoption-arg-sst-initial-timeout"><code>sst-initial-timeout</code></a> option.
+This is implemented via the <a href="xtrabackup-sst.html#sst-initial-timeout"><code>sst-initial-timeout</code></a> option.
 If you set the list of preferred donors without the trailing comma
 or believe that all nodes in the cluster can often be unavailable for SST
 (this is common for small clusters),
@@ -6285,7 +6285,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <li>
 <p><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="xtrabackup-sst.html#xtrabackup-sst">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
+can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
 </li>
 <li>
 <p><code>clone</code>: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the <a href="clone-sst.html">clone method for SST</a>. </p>
@@ -6642,7 +6642,7 @@ Query OK, 131072 rows affected (15.09 sec)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-06-05
+    2025-07-10
   </span>
 
     
@@ -6786,7 +6786,7 @@ Query OK, 131072 rows affected (15.09 sec)
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
