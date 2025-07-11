@@ -6,12 +6,36 @@ running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluste
 
 !!! note
 
-    Any existing data and configuration will be overwritten
-    to match the data and configuration of the DONOR node.
-    Do not join several nodes at the same time
-    to avoid overhead due to large amounts of traffic when a new node joins. 
+    Existing data and configuration will be replaced to align with those of the 
+    DONOR node. To minimize traffic overhead, avoid joining multiple nodes 
+    simultaneously.
+
 
 Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
+
+## Generate and Copy SSL Certificates
+
+Before starting the nodes, ensure that you generate the SSL certificates on the 
+first node. All nodes must use identical key and certificate files to ensure 
+a consistent security setup. Store the certificates in `/etc/`, not in the 
+data directory. After generating the certificates, copy them to all other nodes.
+
+1. Generate the SSL certificates on the first node:
+
+    ```{.bash data-prompt="[root@pxc1 ~]#"}
+    [root@pxc1 ~]# openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
+    -x509 -days 365 -out /etc/server-cert.pem
+    ```
+
+2. Copy the SSL certificates to the other nodes:
+
+    ```{.bash data-prompt="[root@pxc1 ~]#"}
+    [root@pxc1 ~]# scp /etc/server-key.pem pxc2:/etc/
+    [root@pxc1 ~]# scp /etc/server-cert.pem pxc2:/etc/
+    [root@pxc1 ~]# scp /etc/server-key.pem pxc3:/etc/
+    [root@pxc1 ~]# scp /etc/server-cert.pem pxc3:/etc/
+    ```
+
 
 ## Start the second node
 
