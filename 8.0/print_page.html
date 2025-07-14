@@ -15613,6 +15613,50 @@ ensure that the following configuration is used:</p>
 </table>
 <p>Tells the replication applier thread to enable the events that match the specified wildcard pattern without setting it as <code>SLAVESIDE_DISABLED</code>. To specify more than one event, use the directive multiple times, once for each event. This will work for cross-database events.</p>
 <p>For example, replica-enable-event=foo%.bar% will enable the events in all databases on the replica server that start with &lsquo;foo&rsquo; and which event names start with &lsquo;bar&rsquo;. It is recommended to use this feature only for read-only events to avoid data inconsistency.</p>
+<h3 id="wsrep-system-index-sst_idle_timeout"><code>sst_idle_timeout</code><a class="headerlink" href="#wsrep-system-index-sst_idle_timeout" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>120</td>
+</tr>
+</tbody>
+</table>
+<p>Sets the maximum time, in seconds, the State Snapshot Transfer (SST) process can remain idle before the system considers it failed. You set this variable in the <code>[sst]</code> section of the <code>my.cnf</code> file.</p>
+<p>The default setting is <code>120</code>. If you need to change this:</p>
+<ul>
+<li>
+<p>Set the value to <code>-1</code> to disable the timeout, which allows the SST process to remain idle indefinitely.</p>
+</li>
+<li>
+<p>Increase the timeout, use a value greater than <code>120</code></p>
+</li>
+<li>
+<p>Avoid setting the value to <code>0</code>, which may cause unpredictable behavior.</p>
+</li>
+</ul>
 <h3 id="wsrep-system-index-tf_sequence_table_max_upper_bound"><code>tf_sequence_table_max_upper_bound</code><a class="headerlink" href="#wsrep-system-index-tf_sequence_table_max_upper_bound" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
