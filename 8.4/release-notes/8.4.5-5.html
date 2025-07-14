@@ -9,35 +9,34 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Specific information on the supported platforms, products, and versions
-is described in Percona Software and Platform Lifecycle.">
+        <meta name="description" content="Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/apt.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.5-5.html">
       
       
-        <link rel="prev" href="download-instructions.html">
+        <link rel="prev" href="release-notes_index.html">
       
       
-        <link rel="next" href="yum.html">
+        <link rel="next" href="8.4.4-4.html">
       
       
-      <link rel="icon" href="assets/mysql-fav.svg">
+      <link rel="icon" href="../assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
-        <title>Install on Debian or Ubuntu - Percona XtraDB Cluster</title>
+        <title>Percona XtraDB Cluster 8.4.5-5 (2025-07-14) - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -56,25 +55,25 @@ is described in Percona Software and Platform Lifecycle.">
       
     
     
-      <link rel="stylesheet" href="css/print-site.css">
+      <link rel="stylesheet" href="../css/print-site.css">
     
-      <link rel="stylesheet" href="css/print-site-material.css">
+      <link rel="stylesheet" href="../css/print-site-material.css">
     
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="css/design.css">
+      <link rel="stylesheet" href="../css/design.css">
     
-      <link rel="stylesheet" href="css/osano.css">
+      <link rel="stylesheet" href="../css/osano.css">
     
-      <link rel="stylesheet" href="css/extra.css">
+      <link rel="stylesheet" href="../css/extra.css">
     
-      <link rel="stylesheet" href="css/nocopy.css">
+      <link rel="stylesheet" href="../css/nocopy.css">
     
-      <link rel="stylesheet" href="css/mysql.css">
+      <link rel="stylesheet" href="../css/mysql.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -98,7 +97,7 @@ is described in Percona Software and Platform Lifecycle.">
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Install on Debian or Ubuntu" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 8.4.5-5 (2025-07-14)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -124,7 +123,7 @@ is described in Percona Software and Platform Lifecycle.">
     <div data-md-component="skip">
       
         
-        <a href="#install-on-debian-or-ubuntu" class="md-skip">
+        <a href="#percona-xtradb-cluster-845-5-2025-07-14" class="md-skip">
           Skip to content
         </a>
       
@@ -193,14 +192,14 @@ is described in Percona Software and Platform Lifecycle.">
 
     <!-- Link to home -->
     <a
-      href="index.html"
+      href="../index.html"
       title="Percona XtraDB Cluster"
       class="md-header__button md-logo"
       aria-label="Percona XtraDB Cluster"
       data-md-component="logo"
     >
       
-  <img src="assets/mysql-mark.svg" alt="logo">
+  <img src="../assets/mysql-mark.svg" alt="logo">
 
     </a>
 
@@ -213,7 +212,7 @@ is described in Percona Software and Platform Lifecycle.">
     <!-- Header title -->
     <div class="md-header__title">
       <div class="md-header__ellipsis">
-        <a href="index.html" class="md-header__topic">
+        <a href="../index.html" class="md-header__topic">
           <span class="md-ellipsis">
             Percona XtraDB Cluster
           </span>
@@ -221,7 +220,7 @@ is described in Percona Software and Platform Lifecycle.">
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install on Debian or Ubuntu
+              Percona XtraDB Cluster 8.4.5-5 (2025-07-14)
             
           </span>
         </div>
@@ -365,9 +364,9 @@ is described in Percona Software and Platform Lifecycle.">
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+    <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="assets/mysql-mark.svg" alt="logo">
+  <img src="../assets/mysql-mark.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -394,7 +393,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -462,7 +461,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="pxc-pro.html" class="md-nav__link">
+      <a href="../pxc-pro.html" class="md-nav__link">
         
   
   
@@ -529,7 +528,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="install-pro.html" class="md-nav__link">
+      <a href="../install-pro.html" class="md-nav__link">
         
   
   
@@ -552,7 +551,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="pro-files.html" class="md-nav__link">
+      <a href="../pro-files.html" class="md-nav__link">
         
   
   
@@ -625,7 +624,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="fips.html" class="md-nav__link">
+      <a href="../fips.html" class="md-nav__link">
         
   
   
@@ -663,7 +662,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="get-help.html" class="md-nav__link">
+      <a href="../get-help.html" class="md-nav__link">
         
   
   
@@ -682,8 +681,10 @@ is described in Percona Software and Platform Lifecycle.">
       
   
   
+    
   
   
+  
     
     
       
@@ -703,11 +704,11 @@ is described in Percona Software and Platform Lifecycle.">
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -723,7 +724,7 @@ is described in Percona Software and Platform Lifecycle.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -737,7 +738,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/release-notes_index.html" class="md-nav__link">
+      <a href="release-notes_index.html" class="md-nav__link">
         
   
   
@@ -757,10 +758,32 @@ is described in Percona Software and Platform Lifecycle.">
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="release-notes/8.4.5-5.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Percona XtraDB Cluster 8.4.5-5 (2025-07-14)
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="8.4.5-5.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -771,6 +794,88 @@ is described in Percona Software and Platform Lifecycle.">
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#release-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release highlights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release highlights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#percona-xtradb-cluster-845-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Percona XtraDB Cluster 8.4.5-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#percona-server-for-mysql-845-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Percona Server for MySQL 8.4.5-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-845" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL 8.4.5
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bug fixes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -783,7 +888,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.4-4.html" class="md-nav__link">
+      <a href="8.4.4-4.html" class="md-nav__link">
         
   
   
@@ -806,7 +911,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.3-3.html" class="md-nav__link">
+      <a href="8.4.3-3.html" class="md-nav__link">
         
   
   
@@ -829,7 +934,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.2-2.html" class="md-nav__link">
+      <a href="8.4.2-2.html" class="md-nav__link">
         
   
   
@@ -852,7 +957,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="8.4.0-1.html" class="md-nav__link">
         
   
   
@@ -928,7 +1033,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="intro.html" class="md-nav__link">
+      <a href="../intro.html" class="md-nav__link">
         
   
   
@@ -951,7 +1056,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="limitation.html" class="md-nav__link">
+      <a href="../limitation.html" class="md-nav__link">
         
   
   
@@ -974,7 +1079,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
         
   
   
@@ -1052,7 +1157,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="high-availability.html" class="md-nav__link">
+      <a href="../high-availability.html" class="md-nav__link">
         
   
   
@@ -1075,7 +1180,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="strict-mode.html" class="md-nav__link">
+      <a href="../strict-mode.html" class="md-nav__link">
         
   
   
@@ -1098,7 +1203,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="online-schema-upgrade.html" class="md-nav__link">
+      <a href="../online-schema-upgrade.html" class="md-nav__link">
         
   
   
@@ -1121,7 +1226,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="nbo.html" class="md-nav__link">
+      <a href="../nbo.html" class="md-nav__link">
         
   
   
@@ -1195,7 +1300,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="quickstart-overview.html" class="md-nav__link">
+      <a href="../quickstart-overview.html" class="md-nav__link">
         
   
   
@@ -1218,7 +1323,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="get-started-cluster.html" class="md-nav__link">
+      <a href="../get-started-cluster.html" class="md-nav__link">
         
   
   
@@ -1245,10 +1350,8 @@ is described in Percona Software and Platform Lifecycle.">
       
   
   
-    
   
   
-  
     
     
       
@@ -1278,11 +1381,11 @@ is described in Percona Software and Platform Lifecycle.">
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1298,7 +1401,7 @@ is described in Percona Software and Platform Lifecycle.">
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Get started
@@ -1312,7 +1415,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="install-index.html" class="md-nav__link">
+      <a href="../install-index.html" class="md-nav__link">
         
   
   
@@ -1335,7 +1438,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="download-instructions.html" class="md-nav__link">
+      <a href="../download-instructions.html" class="md-nav__link">
         
   
   
@@ -1355,32 +1458,10 @@ is described in Percona Software and Platform Lifecycle.">
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Install on Debian or Ubuntu
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="apt.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../apt.html" class="md-nav__link">
         
   
   
@@ -1391,55 +1472,6 @@ is described in Percona Software and Platform Lifecycle.">
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install-from-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      Install from Repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next steps
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1452,7 +1484,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="yum.html" class="md-nav__link">
+      <a href="../yum.html" class="md-nav__link">
         
   
   
@@ -1475,7 +1507,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="tarball.html" class="md-nav__link">
+      <a href="../tarball.html" class="md-nav__link">
         
   
   
@@ -1498,7 +1530,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="compile.html" class="md-nav__link">
+      <a href="../compile.html" class="md-nav__link">
         
   
   
@@ -1521,7 +1553,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="docker.html" class="md-nav__link">
+      <a href="../docker.html" class="md-nav__link">
         
   
   
@@ -1544,7 +1576,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="configure-nodes.html" class="md-nav__link">
+      <a href="../configure-nodes.html" class="md-nav__link">
         
   
   
@@ -1567,7 +1599,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="bootstrap.html" class="md-nav__link">
+      <a href="../bootstrap.html" class="md-nav__link">
         
   
   
@@ -1590,7 +1622,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="add-node.html" class="md-nav__link">
+      <a href="../add-node.html" class="md-nav__link">
         
   
   
@@ -1613,7 +1645,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="verify-replication.html" class="md-nav__link">
+      <a href="../verify-replication.html" class="md-nav__link">
         
   
   
@@ -1689,7 +1721,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-guide.html" class="md-nav__link">
+      <a href="../upgrade-guide.html" class="md-nav__link">
         
   
   
@@ -1712,7 +1744,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-backup.html" class="md-nav__link">
+      <a href="../upgrade-backup.html" class="md-nav__link">
         
   
   
@@ -1735,7 +1767,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="upgrade-packages.html" class="md-nav__link">
+      <a href="../upgrade-packages.html" class="md-nav__link">
         
   
   
@@ -1815,7 +1847,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="security-index.html" class="md-nav__link">
+      <a href="../security-index.html" class="md-nav__link">
         
   
   
@@ -1838,7 +1870,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="secure-network.html" class="md-nav__link">
+      <a href="../secure-network.html" class="md-nav__link">
         
   
   
@@ -1861,7 +1893,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="encrypt-traffic.html" class="md-nav__link">
+      <a href="../encrypt-traffic.html" class="md-nav__link">
         
   
   
@@ -1884,7 +1916,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="apparmor.html" class="md-nav__link">
+      <a href="../apparmor.html" class="md-nav__link">
         
   
   
@@ -1907,7 +1939,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="selinux.html" class="md-nav__link">
+      <a href="../selinux.html" class="md-nav__link">
         
   
   
@@ -1999,7 +2031,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="state-snapshot-transfer.html" class="md-nav__link">
+      <a href="../state-snapshot-transfer.html" class="md-nav__link">
         
   
   
@@ -2068,7 +2100,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="state-snapshot-transfer.html" class="md-nav__link">
+      <a href="../state-snapshot-transfer.html" class="md-nav__link">
         
   
   
@@ -2091,7 +2123,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="xtrabackup-sst.html" class="md-nav__link">
+      <a href="../xtrabackup-sst.html" class="md-nav__link">
         
   
   
@@ -2114,7 +2146,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="clone-sst.html" class="md-nav__link">
+      <a href="../clone-sst.html" class="md-nav__link">
         
   
   
@@ -2145,7 +2177,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="restarting-nodes.html" class="md-nav__link">
+      <a href="../restarting-nodes.html" class="md-nav__link">
         
   
   
@@ -2168,7 +2200,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="failover.html" class="md-nav__link">
+      <a href="../failover.html" class="md-nav__link">
         
   
   
@@ -2191,7 +2223,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="monitoring.html" class="md-nav__link">
+      <a href="../monitoring.html" class="md-nav__link">
         
   
   
@@ -2214,7 +2246,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="certification.html" class="md-nav__link">
+      <a href="../certification.html" class="md-nav__link">
         
   
   
@@ -2237,7 +2269,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="threading-model.html" class="md-nav__link">
+      <a href="../threading-model.html" class="md-nav__link">
         
   
   
@@ -2260,7 +2292,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="gcache-record-set-cache-difference.html" class="md-nav__link">
+      <a href="../gcache-record-set-cache-difference.html" class="md-nav__link">
         
   
   
@@ -2283,7 +2315,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link">
+      <a href="../gcache-write-set-cache-encryption.html" class="md-nav__link">
         
   
   
@@ -2306,7 +2338,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="performance-schema-instrumentation.html" class="md-nav__link">
+      <a href="../performance-schema-instrumentation.html" class="md-nav__link">
         
   
   
@@ -2329,7 +2361,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="data-at-rest-encryption.html" class="md-nav__link">
+      <a href="../data-at-rest-encryption.html" class="md-nav__link">
         
   
   
@@ -2419,7 +2451,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="crash-recovery.html" class="md-nav__link">
+      <a href="../crash-recovery.html" class="md-nav__link">
         
   
   
@@ -2442,7 +2474,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="configure-cluster-rhel.html" class="md-nav__link">
+      <a href="../configure-cluster-rhel.html" class="md-nav__link">
         
   
   
@@ -2465,7 +2497,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="configure-cluster-ubuntu.html" class="md-nav__link">
+      <a href="../configure-cluster-ubuntu.html" class="md-nav__link">
         
   
   
@@ -2488,7 +2520,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="garbd-howto.html" class="md-nav__link">
+      <a href="../garbd-howto.html" class="md-nav__link">
         
   
   
@@ -2511,7 +2543,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="singlebox.html" class="md-nav__link">
+      <a href="../singlebox.html" class="md-nav__link">
         
   
   
@@ -2534,7 +2566,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
+      <a href="../set-up-3nodes-ec2.html" class="md-nav__link">
         
   
   
@@ -2557,7 +2589,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="haproxy.html" class="md-nav__link">
+      <a href="../haproxy.html" class="md-nav__link">
         
   
   
@@ -2580,7 +2612,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="load-balance-proxysql.html" class="md-nav__link">
+      <a href="../load-balance-proxysql.html" class="md-nav__link">
         
   
   
@@ -2603,7 +2635,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="proxysql-v2.html" class="md-nav__link">
+      <a href="../proxysql-v2.html" class="md-nav__link">
         
   
   
@@ -2626,7 +2658,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="virtual-sandbox.html" class="md-nav__link">
+      <a href="../virtual-sandbox.html" class="md-nav__link">
         
   
   
@@ -2714,7 +2746,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="wsrep-status-index.html" class="md-nav__link">
+      <a href="../wsrep-status-index.html" class="md-nav__link">
         
   
   
@@ -2737,7 +2769,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="wsrep-system-index.html" class="md-nav__link">
+      <a href="../wsrep-system-index.html" class="md-nav__link">
         
   
   
@@ -2760,7 +2792,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="wsrep-provider-index.html" class="md-nav__link">
+      <a href="../wsrep-provider-index.html" class="md-nav__link">
         
   
   
@@ -2783,7 +2815,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="wsrep-files-index.html" class="md-nav__link">
+      <a href="../wsrep-files-index.html" class="md-nav__link">
         
   
   
@@ -2806,7 +2838,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="telemetry.html" class="md-nav__link">
+      <a href="../telemetry.html" class="md-nav__link">
         
   
   
@@ -2829,7 +2861,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="faq.html" class="md-nav__link">
+      <a href="../faq.html" class="md-nav__link">
         
   
   
@@ -2852,7 +2884,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="glossary.html" class="md-nav__link">
+      <a href="../glossary.html" class="md-nav__link">
         
   
   
@@ -2875,7 +2907,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
         
   
   
@@ -2898,7 +2930,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="trademark-policy.html" class="md-nav__link">
+      <a href="../trademark-policy.html" class="md-nav__link">
         
   
   
@@ -2928,7 +2960,7 @@ is described in Percona Software and Platform Lifecycle.">
   
   
     <li class="md-nav__item">
-      <a href="index-contents.html" class="md-nav__link">
+      <a href="../index-contents.html" class="md-nav__link">
         
   
   
@@ -2978,27 +3010,60 @@ is described in Percona Software and Platform Lifecycle.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#release-highlights" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Release highlights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Release highlights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#percona-xtradb-cluster-845-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Percona XtraDB Cluster 8.4.5-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#percona-server-for-mysql-845-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Percona Server for MySQL 8.4.5-5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-845" class="md-nav__link">
+    <span class="md-ellipsis">
+      MySQL 8.4.5
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bug fixes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-from-repository" class="md-nav__link">
+  <a href="#useful-links" class="md-nav__link">
     <span class="md-ellipsis">
-      Install from Repository
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next steps
+      Useful links
     </span>
   </a>
   
@@ -3033,7 +3098,7 @@ is described in Percona Software and Platform Lifecycle.">
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/apt.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/release-notes/8.4.5-5.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3042,136 +3107,108 @@ is described in Percona Software and Platform Lifecycle.">
     
       
     
-    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/apt.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/release-notes/8.4.5-5.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="install-on-debian-or-ubuntu">Install on Debian or Ubuntu<a class="headerlink" href="#install-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
-<p>Specific information on the supported platforms, products, and versions
-is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
-<p>The packages are available in the official Percona software repository
-and on the <a href="https://www.percona.com/mysql/software/percona-xtradb-cluster">download page</a>.
-It is recommended to install Percona XtraDB Cluster from the official repository
-using APT.</p>
-<p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
-<p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h1 id="percona-xtradb-cluster-845-5-2025-07-14">Percona XtraDB Cluster 8.4.5-5 (2025-07-14)<a class="headerlink" href="#percona-xtradb-cluster-845-5-2025-07-14" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
+<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster 8.4.5-5 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.5-5.html">Percona Server for MySQL 8.4.5-5 (2025-05-29) release notes</a>.</p>
+<h3 id="percona-xtradb-cluster-845-5">Percona XtraDB Cluster 8.4.5-5<a class="headerlink" href="#percona-xtradb-cluster-845-5" title="Permanent link">&para;</a></h3>
+<p>Improves State Snapshot Transfer (SST) failure diagnostics. <code>garbd</code> now uses distinct exit codes to differentiate between donor exit, SST script failure, and garbd-initiated termination, making SST issues easier to identify and debug.</p>
+<h3 id="percona-server-for-mysql-845-5">Percona Server for MySQL 8.4.5-5<a class="headerlink" href="#percona-server-for-mysql-845-5" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).</p>
+<p>Updates the C++ level of the KMPI library to enhance error handling capabilities.</p>
 </li>
 <li>
-<p>Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.</p>
+<p>Improves optimizer behavior by restoring correct handling of const tables in <code>test_quick_select()</code>. A MySQL Upstream refactor (commit <a href="https://github.com/percona/percona-server/commit/9a13c1c6971f4bd56d143179ecfb34cca8ecc018">9a13c1c</a>) removed the <code>QEP_TAB</code> dependency, causing <code>get_quick_record_count()</code> to no longer pass const table information. This could lead to suboptimal range scan boundaries. The applied patch resolves the issue by explicitly passing <code>const_tables</code> to <code>test_quick_select()</code>, ensuring consistent behavior with the pre-refactor logic.</p>
+</li>
+</ul>
+<h3 id="mysql-845">MySQL 8.4.5<a class="headerlink" href="#mysql-845" title="Permanent link">&para;</a></h3>
+<p>Improvements and bug fixes introduced by Oracle for MySQL 8.4.5 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
-<p>3306</p>
+<p>Fixed an issue where <code>CHECK TABLE</code> sometimes incorrectly reported that spatial indexes were corrupted. (Bug #37286473)</p>
 </li>
 <li>
-<p>4444</p>
+<p>Fixed an issue in InnoDB redo log recovery to improve data safety after a crash. (Bug #37061960)</p>
 </li>
 <li>
-<p>4567</p>
+<p>Fixed an issue where reading <code>index_id</code> values could lead to incorrect behavior with indexes. (Bug #36993445, Bug #37709706)</p>
 </li>
 <li>
-<p>4568</p>
+<p>Fixed a bug related to the <code>lower_case_table_names</code> setting that caused inconsistent behavior with table names on different systems. (Bug #32288105)</p>
+</li>
+<li>
+<p>Fixed a bug where <code>mysqldump</code> did not properly escape certain special characters in its output. (Bug #37540722, Bug #37709163)</p>
+</li>
+<li>
+<p>The <code>fprintf_string()</code> function in <code>mysqldump</code> did not use the correct quote character for escaping strings. (Bug #37607195)</p>
 </li>
 </ul>
-</li>
-</ul>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>For more information, see <a href="apparmor.html#enable-apparmor">Enabling AppArmor</a>.</p>
-</div>
-<h2 id="install-from-repository">Install from Repository<a class="headerlink" href="#install-from-repository" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>Update the sytem:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-</code></pre></div>
-</li>
-<li>
-<p>Install the necessary packages:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
-</code></pre></div>
-</li>
-<li>
-<p>Download the repository package</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
-</code></pre></div>
-</li>
-<li>
-<p>Install the package with <code>dpkg</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
-</code></pre></div>
-</li>
-<li>
-<p>Refresh the local cache to update the package information:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
-</code></pre></div>
-</li>
-<li>
-<p>Enable the <code>release</code> repository for <em>Percona XtraDB Cluster</em>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc84-lts
-</code></pre></div>
-</li>
-<li>
-<p>Install the cluster:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
-</code></pre></div>
-</li>
-</ol>
-<p>During the installation, you are requested to provide a password for the <code>root</code> user on the database node.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If needed, you could also install the <code>percona-xtradb-cluster-full</code> meta-package, which includes the following additional packages:</p>
+<p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-5.html">MySQL 8.4.5 release notes</a>.</p>
+<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><code>libperconaserverclient21</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-3576">PXC-3576</a>: Percona XtraDB Cluster created role mappings using an upper-case database name when <code>lower_case_table_names=1</code> was set.</p>
 </li>
 <li>
-<p><code>libperconaserverclient21-dev</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4394">PXC-4394</a>: Improved error reporting for scenarios where Percona Xtrabackup, used during State Snapshot Transfer (SST), failed to report its version. These failures may be caused by missing libraries or a broken installation.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4399">PXC-4399</a>: Executing <code>FLUSH TABLES</code> on a table while writes were in progress caused the cluster node to stall.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-client</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4512">PXC-4512</a>: When <code>RENAME TABLE</code> was executed on a child table concurrently with <code>INSERT</code>/<code>UPDATE</code> on a parent table, a Metadata Lock (MDL) BF-BF conflict occured on the replica, causing two cluster nodes to enter NON-PRIMARY state.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-common</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4629">PXC-4629</a>: Creating a temporary table with <code>CREATE TEMPORARY TABLE ... AS SELECT</code> put the entire session into Transaction Ordered Index (TOI ) / Next Binary Operation (NBO) lock state, preventing any queries from being killed within that session.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-dbg</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4638">PXC-4638</a>: After performing State Snapshot Transfer (SST), the <code>binlog.index</code> file contents became inconsistent, causing the <code>binlog_utils_udf</code> plugin to fail when accessing the binlog file. Was fixed within <a href="https://perconadev.atlassian.net/browse/PS-9777">PS-9777</a>.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-full</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4652">PXC-4652</a>: Fixed a segmentation fault (SIGSEGV) on nodes with <code>wsrep_applier_threads &gt; 1</code> under high write activity.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-garbd</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4657">PXC-4657</a>: There was Metadata Lock (MDL) BF-BF conflict between two applier threads.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-garbd-debug</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4684">PXC-4684</a>: An <code>UPDATE</code> query that referenced two tables but only modified one could cause an Metadata Lock (MDL) BF-BF conflict on other cluster nodes.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-server</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4664">PXC-4664</a>: Executing transactions with the same Global Transaction Identifier (GTID)  on different nodes caused a node to exit.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-server-debug</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4688">PXC-4688</a>: A regression in asynchronous replication caused the replica thread to stall when processing empty transactions.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-source</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-3921">PXC-3921</a>: Node name can contain special characters.</p>
 </li>
 <li>
-<p><code>percona-xtradb-cluster-test</code></p>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4360">PXC-4360</a>: CLONE - percona_schema &lsquo;mysql.pxc.sst.role@localhost&rsquo;, a user cannot remove this privilege using <code>REVOKE</code>.</p>
 </li>
 </ul>
-</div>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>After you install Percona XtraDB Cluster and stop the <code>mysql</code> service,
-configure the node according to the procedure described in <a href="configure-nodes.html#configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a>.</p>
+<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The <a href="https://www.percona.com/doc/percona-xtradb-cluster/8.4/install/index.html">Percona XtraDB Cluster installation instructions</a></p>
+</li>
+<li>
+<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+</li>
+<li>
+<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+</li>
+<li>
+<p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
+</li>
+</ul>
 
 
 
@@ -3192,7 +3229,7 @@ configure the node according to the procedure described in <a href="configure-no
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-07-10
+    2025-07-14
   </span>
 
     
@@ -3331,20 +3368,20 @@ configure the node according to the procedure described in <a href="configure-no
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
-        <script src="js/print-site.js"></script>
+        <script src="../js/print-site.js"></script>
       
-        <script src="js/version-select.js"></script>
+        <script src="../js/version-select.js"></script>
       
-        <script src="js/promptremover.js"></script>
+        <script src="../js/promptremover.js"></script>
       
-        <script src="js/consent.js"></script>
+        <script src="../js/consent.js"></script>
       
     
   
