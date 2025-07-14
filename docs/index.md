@@ -30,7 +30,7 @@ Percona XtraDB Cluster {{vers}} is fully compatible with MySQL Server Community 
 
     Overview of changes in the most recent PXC release
 
-     * [Important changes in Percona XtraDB Cluster {{vers}}](upgrade-guide.md#upgrade-guide-changed)
+     * [Important changes in Percona XtraDB Cluster {{vers}}](upgrade-guide.md#important-changes-in-percona-xtradb-cluster-84)
 
      * [MySQL Community Edition](https://www.mysql.com/products/community/)
      

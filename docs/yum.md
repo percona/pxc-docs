@@ -31,7 +31,7 @@ Installing Percona XtraDB Cluster requires that you either are logged in as a us
 
 * 4568
 
-For information on SELinux, see [Enabling SELinux](selinux.md#selinux).
+For information on SELinux, see [Enabling SELinux](selinux.md#enable-selinux).
 
 ## Install from Percona Software Repository
 
@@ -78,6 +78,6 @@ $ sudo service mysql stop
 
 ## Next steps
 
-Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure).
+Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure-nodes-for-write-set-replication).
 
 [Telemetry data]: telemetry.md

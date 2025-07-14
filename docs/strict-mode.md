@@ -195,12 +195,6 @@ At runtime, any attempt to change [`wsrep_replicate_myisam`](wsrep-system-index.
 
     The [`wsrep_replicate_myisam`](wsrep-system-index.md#wsrep_replicate_myisam) variable controls *replication* for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.
 
-### Binary log format
-
-Percona XtraDB Cluster supports only the default row-based binary logging format.  In
-{{vers}}, setting the [binlog_format](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#sysvar_binlog_format) variable to anything but
-`ROW` at startup or runtime is not allowed regardless of the value of the `pxc_strict_mode` variable.
-
 ### Tables without primary keys
 
 Percona XtraDB Cluster cannot properly propagate certain write operations

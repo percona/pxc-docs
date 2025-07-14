@@ -84,7 +84,7 @@ and adding some records to the table on the first node.
 
 * Consider installing [ProxySQL](https://www.proxysql.com/) on client nodes
 for efficient workload management across the cluster without any changes
-to the applications that generate queries. This is the recommended high-availability solution for Percona XtraDB Cluster. For more information, see [Load balancing with ProxySQL](load-balance-proxysql.md#load-balancing-with-proxysql).
+to the applications that generate queries. This is the recommended high-availability solution for Percona XtraDB Cluster. For more information, see [Load balancing with ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql).
 
 * [Percona Monitoring and Management](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is the best choice for managing and monitoring Percona XtraDB Cluster performance.
 It provides visibility for the cluster and enables efficient troubleshooting.

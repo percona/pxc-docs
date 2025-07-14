@@ -16,7 +16,7 @@ instance.
 
 * When you execute a query, it is executed locally on the node. All data is available locally, no need for remote access.
 
-* No central management. You can loose any node at any point of time, and the cluster will continue to function without any data loss.
+* No central management. You can lose any node at any point of time, and the cluster will continue to function without any data loss.
 
 * Good solution for scaling a read workload. You can put read queries to any of the nodes.
 

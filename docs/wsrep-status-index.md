@@ -516,7 +516,7 @@ Total number of writesets sent to other nodes.
 
 Total size of replicated writesets. To compute the actual size of bytes sent
 over network to cluster peers, multiply the value of this variable by the number
-of cluster peers in the given [`network segment`](wsrep-provider-index.md#gmcast.segment).
+of cluster peers in the given [`network segment`](wsrep-provider-index.md#gmcastsegment).
 
 !!! admonition "See also"
 

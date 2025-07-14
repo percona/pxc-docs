@@ -37,7 +37,7 @@ To set up Percona XtraDB Cluster:
 
     * Percona Server for MySQL 5.6, 5.7
 
-2. Install Percona XtraDB Cluster with [Install on Red Hat Enterprise Linux](yum.md#yum).
+2. Install Percona XtraDB Cluster with [Install on Red Hat Enterprise Linux](yum.md#install-from-percona-software-repository).
 
 3. Create data directories:
 
@@ -68,8 +68,6 @@ To set up Percona XtraDB Cluster:
     [mysqld]
     datadir=/mnt/data
     user=mysql
-
-    binlog_format=ROW
 
     wsrep_provider=/usr/lib64/libgalera_smm.so
     wsrep_cluster_address=gcomm://10.93.46.58,10.93.46.59,10.93.46.60

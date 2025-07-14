@@ -31,7 +31,7 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 !!! admonition "See also"
 
-    For more information, see [Enabling AppArmor](apparmor.md#apparmor).
+    For more information, see [Enabling AppArmor](apparmor.md#enable-apparmor).
 
 ## Install from Repository
 
@@ -69,7 +69,7 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
     ```shell
-    sudo percona-release setup pxc80
+    sudo percona-release setup pxc84-lts
     ```
 
 7. Install the cluster:
@@ -114,6 +114,6 @@ During the installation, you are requested to provide a password for the `root` 
 ## Next steps
 
 After you install Percona XtraDB Cluster and stop the `mysql` service,
-configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure).
+configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](configure-nodes.md#configure-nodes-for-write-set-replication).
 
 [Telemetry data]: telemetry.md

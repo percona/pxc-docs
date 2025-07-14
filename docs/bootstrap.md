@@ -1,6 +1,6 @@
 # Bootstrap the first node
 
-After you [configure all PXC nodes](configure-nodes.md#configure), initialize the cluster by
+After you [configure all PXC nodes](configure-nodes.md#configure-nodes-for-write-set-replication), initialize the cluster by
 bootstrapping the first node.  The initial node must contain all the data that
 you want to be replicated to other nodes.
 
@@ -18,7 +18,7 @@ When you start the node using the previous command,
 it runs in bootstrap mode with `wsrep_cluster_address=gcomm://`.
 This tells the node to initialize the cluster
 with `wsrep_cluster_conf_id` variable set to `1`.
-After you [add other nodes](add-node.md#add-node) to the cluster,
+After you [add other nodes](add-node.md#add-nodes-to-cluster) to the cluster,
 you can then restart this node as normal,
 and it will use standard configuration again.
 
@@ -58,4 +58,4 @@ it is fully connected and ready for write-set replication.
 
 ## Next steps
 
-After initializing the cluster, you can [add other nodes](add-node.md#add-node).
+After initializing the cluster, you can [add other nodes](add-node.md#add-nodes-to-cluster).

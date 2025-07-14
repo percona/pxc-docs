@@ -13,8 +13,18 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
     Use the following command to verify the GCS protocol version on both versions: 
     
     ```{.bash data-prompt="mysql>"}
-    mysql> SHOW VARIABLES LIKE 'wsrep_provider_options';
+    mysql> SHOW STATUS LIKE 'wsrep_protocol_version';
     ```
+    
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        +------------------------+-------+
+        | Variable_name          | Value |
+        +------------------------+-------+
+        | wsrep_protocol_version | 11    |
+        +------------------------+-------+
+        ```
 
 Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide](https://docs.percona.com/percona-server/8.4/upgrade.html).
 
@@ -40,20 +50,19 @@ In Percona XtraDB Cluster 8.4, the default authentication plugin is
 
 ### ProxySQL 2.6.2 or later
 
-If you are using a version before ProxySQL 2.6.2, the option [–syncusers](proxysql-v2.md#pxc-proxysql-v2-admin-tool-syncusers) would not work if the Percona XtraDB Cluster user is
+If you are using a version before ProxySQL 2.6.2, the option [–syncusers](proxysql-v2.md#proxysql-admin-utilities) would not work if the Percona XtraDB Cluster user is
 created using `caching_sha2_password`. Use the `mysql_native_password`
 authentication plugin in these cases. You must manually load this authentication plugin.
 
 ## Default security and compatibility settings
 
-[PXC Strict Mode](strict-mode.md#pxc-strict-mode) is enabled by default, which may result in denying any
-unsupported operations and may halt the server. For more information, see
-[pxc-strict-mode is enabled by default](#pxc-strict-mode-is-enabled-by-default).
+[PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode) is enabled by default, which may result in denying any
+unsupported operations and may halt the server.
 
 `pxc-encrypt-cluster-traffic` is enabled by default. You need to configure
 each node accordingly and avoid joining a cluster with unencrypted cluster
 traffic. For more information, see
-[Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default).
+[Traffic encryption is enabled by default](encrypt-traffic.md#encrypt-pxc-traffic).
 
 ## Do not mix PXC 8.0 nodes with PXC 8.4 nodes
 
@@ -171,7 +180,7 @@ To upgrade the cluster, follow these steps for each node:
 5. Start the Percona XtraDB Cluster node with the new packages. 
 
     In most cases, starting the `mysql` service should run the node with your
-    previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-node).
+    previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-nodes-to-cluster).
     
     ```{.bash data-prompt="$"}
     $ sudo service mysql start

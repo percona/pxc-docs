@@ -22,10 +22,9 @@ production environment, you should generate and store the certificates to be use
 In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separate containers on one host:
 {.power-number}
 
-1. Create a ~/pxc-docker-test/config directory.
+1.  Create a ~/pxc-docker-test/config directory.
 
-2. Create a custom.cnf file with the following contents, and place the
-file in the new directory:
+2.  Create a custom.cnf file with the following contents, and place the file in the new directory:
 
     ```{.text .no-copy}
     [mysqld]
@@ -45,21 +44,49 @@ file in the new directory:
     ssl-key = /cert/server-key.pem
     ```
 
-3. Create a cert directory and generate self-signed SSL certificates on the host node:
+3.  Create a ~/pxc-docker-test/cert directory to store self-signed SSL cert:
 
     ```{.bash data-prompt="$"}
     $ mkdir -m 777 -p ~/pxc-docker-test/cert
-    docker run --name pxc-cert --rm -v ~/pxc-docker-test/cert:/cert
-    percona/percona-xtradb-cluster:{{vers}} mysql_ssl_rsa_setup -d /cert
     ```
 
-4. Create a Docker network:
+4.  Create a create-ssl-certs.sh file with the following contents, and place the file in the cert directory
+
+    ```{.bash .no-copy}
+    #!/bin/bash
+    set -e
+    OUTPUT_DIR="/cert"
+    openssl genrsa 2048 > "${OUTPUT_DIR}/ca-key.pem"
+    
+    openssl req -new -x509 -nodes -days 3600 -subj "/C=/ST=/L=/O=/CN=" -key "${OUTPUT_DIR}/ca-key.pem" -out "${OUTPUT_DIR}/ca.pem"
+    openssl req -newkey rsa:2048 -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
+            -nodes -keyout "${OUTPUT_DIR}/server-key.pem" -out "${OUTPUT_DIR}/server-req.pem"
+    openssl rsa -in "${OUTPUT_DIR}/server-key.pem" -out "${OUTPUT_DIR}/server-key.pem"    
+    openssl x509 -req -in "${OUTPUT_DIR}/server-req.pem" -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
+            -CA "${OUTPUT_DIR}/ca.pem" -CAkey "${OUTPUT_DIR}/ca-key.pem" -set_serial 01 -out "${OUTPUT_DIR}/server-cert.pem"
+    openssl req -newkey rsa:2048 -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
+            -nodes -keyout "${OUTPUT_DIR}/client-key.pem" -out "${OUTPUT_DIR}/client-req.pem"
+
+    openssl rsa -in "${OUTPUT_DIR}/client-key.pem" -out "${OUTPUT_DIR}/client-key.pem"
+
+    openssl x509 -req -in "${OUTPUT_DIR}/client-req.pem" -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
+            -CA "${OUTPUT_DIR}/ca.pem" -CAkey "${OUTPUT_DIR}/ca-key.pem" -set_serial 01 -out "${OUTPUT_DIR}/client-cert.pem"
+    openssl verify -CAfile "${OUTPUT_DIR}/ca.pem" "${OUTPUT_DIR}/server-cert.pem" "${OUTPUT_DIR}/client-cert.pem"
+    ```
+
+5.  Generate the self-signed certs
+
+    ```{.bash data-prompt="$"}
+    docker run --name pxc-cert --rm  -v ~/pxc-docker-test/cert:/cert percona/percona-xtradb-cluster:8.4 /bin/bash /cert/create-ssl-certs.sh
+    ```
+
+6.  Create a Docker network:
 
     ```shell
     docker network create pxc-network
     ```
 
-5. Bootstrap the cluster (create the first node):
+7.  Bootstrap the cluster (create the first node):
 
     ```shell
     docker run -d \
@@ -72,7 +99,7 @@ file in the new directory:
       percona/percona-xtradb-cluster:{{vers}}
     ```
 
-6. Join the second node:
+8.  Join the second node:
 
     ```shell
     docker run -d \
@@ -86,7 +113,7 @@ file in the new directory:
       percona/percona-xtradb-cluster:{{vers}}
     ```
 
-7. Join the third node:
+9.  Join the third node:
 
     ```shell
     docker run -d \
@@ -102,7 +129,7 @@ file in the new directory:
 
 To verify the cluster is available, do the following:
 
-1. Access the MySQL client. For example, on the first node:
+1.  Access the MySQL client. For example, on the first node:
 
     ```{.bash data-prompt="$"}
     $ sudo docker exec -it pxc-node1 /usr/bin/mysql -uroot -ptest1234#
@@ -122,7 +149,7 @@ To verify the cluster is available, do the following:
         mysql>
         ```
 
-2. View the wsrep status variables:
+2.  View the wsrep status variables:
 
     ```{.bash data-prompt="mysql>"}
     mysql> show status like 'wsrep%';

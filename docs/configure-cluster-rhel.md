@@ -38,12 +38,12 @@ to ports 3306, 4444, 4567 and 4568.
 
 ## Step 1. Install 
 
-Install Percona XtraDB Cluster on all three nodes as described in [Install on Red Hat Enterprise Linux](yum.md#yum).
+Install Percona XtraDB Cluster on all three nodes as described in [Install on Red Hat Enterprise Linux](yum.md#install-from-percona-software-repository).
 
 ## Step 2. Configure the first node
 
 Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap).
+For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap-the-first-node).
 
 1. Make sure that the configuration file `/etc/my.cnf`
 on the first node (`percona1`) contains the following:
@@ -59,9 +59,6 @@ on the first node (`percona1`) contains the following:
 
     # Cluster connection URL contains the IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
 
     # Using the MyISAM storage engine is not recommended.
     default_storage_engine=InnoDB
@@ -156,9 +153,6 @@ on the first node (`percona1`) contains the following:
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
 
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
 
@@ -226,9 +220,6 @@ on the first node (`percona1`) contains the following:
 
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
 
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB

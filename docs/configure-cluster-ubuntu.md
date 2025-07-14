@@ -34,7 +34,7 @@ to ports 3306, 4444, 4567 and 4568.
 
 ## Step 1. Install PXC
 
-Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Debian or Ubuntu](apt.md#apt).
+Install Percona XtraDB Cluster on all three nodes as described in [Installing Percona XtraDB Cluster on Debian or Ubuntu](apt.md#install-from-repository).
 
 !!! note
 
@@ -47,7 +47,7 @@ Install Percona XtraDB Cluster on all three nodes as described in [Installing Pe
 ## Step 2. Configure the first node
 
 Individual nodes should be configured to be able to bootstrap the cluster.
-For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap).
+For more information about bootstrapping the cluster, see [Bootstrapping the First Node](bootstrap.md#bootstrap-the-first-node).
 
 1. Make sure that the configuration file `/etc/mysql/my.cnf`
 for the first node (`pxc1`) contains the following:
@@ -63,9 +63,6 @@ for the first node (`pxc1`) contains the following:
 
     # Cluster connection URL contains the IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
 
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
@@ -152,9 +149,6 @@ on the second node (`pxc2`) contains the following:
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
 
@@ -224,9 +218,6 @@ on the third node (`pxc3`) contains the following:
 
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
-    # In order for Galera to work correctly binlog format should be ROW
-    binlog_format=ROW
 
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
