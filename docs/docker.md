@@ -1,4 +1,4 @@
-# Running Percona XtraDB Cluster in a Docker Container
+# Run in a Docker container
 
 Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at
 [https://hub.docker.com/r/percona/percona-xtradb-cluster/](https://hub.docker.com/r/percona/percona-xtradb-cluster/).
@@ -7,7 +7,7 @@ For more information about using Docker, see the [Docker Docs](https://docs.dock
 sure that you are using the latest version of Docker. The ones
 provided via `apt` and `yum` may be outdated and cause errors.
 
-We gather [Telemetry data] in the Percona packages and Docker images.
+We gather [Telemetry data](telemetry.md) in the Percona packages and Docker images.
 
 --8<--- "get-help-snip.md"
 
@@ -17,7 +17,7 @@ The following procedure describes how to set up a simple 3-node cluster
 for evaluation and testing purposes. Do not use these instructions in a
 production environment because the MySQL certificates generated in this
 procedure are self-signed. For a
-production environment, you should generate and store the certificates to be used by Docker.
+production environment, you should generate and store the certificates to be used by Docker and configure proper storage, security, backup, and monitoring systems.
 
 In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separate containers on one host:
 {.power-number}
