@@ -3901,50 +3901,6 @@
 <p>Improves optimizer behavior by restoring correct handling of const tables in <code>test_quick_select()</code>. A MySQL Upstream refactor (commit <a href="https://github.com/percona/percona-server/commit/9a13c1c6971f4bd56d143179ecfb34cca8ecc018">9a13c1c</a>) removed the <code>QEP_TAB</code> dependency, causing <code>get_quick_record_count()</code> to no longer pass const table information. This could lead to suboptimal range scan boundaries. The applied patch resolves the issue by explicitly passing <code>const_tables</code> to <code>test_quick_select()</code>, ensuring consistent behavior with the pre-refactor logic.</p>
 </li>
 </ul>
-<p>The latest MyRocks storage engine incorporates code based on RocksDB version 9.3.1. Percona has applied minor modifications to the original RocksDB codebase. Check the list of modifications at <a href="https://github.com/percona/rocksdb/commit/2864cd95ca72bc4a2e93fe461dbd980f8e2357be">https://github.com/percona/rocksdb/</a>.</p>
-<p>This release adds the following changes to the list of <a href="https://docs.percona.com/percona-server/8.0/variables.html">MyRocks variables</a>. </p>
-<p><strong>Adds new MyRocks variables</strong></p>
-<ul>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_bulk_load_compression_parallel_threads"><code>--rocksdb_bulk_load_compression_parallel_threads</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_bulk_load_enable_unique_key_check"><code>--rocksdb_bulk_load_enable_unique_key_check</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds"><code>--rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_udt_in_mem"><code>--rocksdb_enable_udt_in_mem</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_invalid_create_option_action"><code>--rocksdb_invalid_create_option_action</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_io_error_action"><code>--rocksdb_io_error_action</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_table_stats_skip_system_cf"><code>--rocksdb_table_stats_skip_system_cf</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_use_io_uring"><code>--rocksdb_use_io_uring</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_instant_ddl"><code>--rocksdb_enable_instant_ddl</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_instant_ddl_for_append_column"><code>--rocksdb_enable_instant_ddl_for_append_column</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_instant_ddl_for_column_default_changes"><code>--rocksdb_enable_instant_ddl_for_column_default_changes</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_instant_ddl_for_drop_index_changes"><code>--rocksdb_enable_instant_ddl_for_drop_index_changes</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_enable_instant_ddl_for_table_comment_changes"><code>--rocksdb_enable_instant_ddl_for_table_comment_changes</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_bulk_load_compression_parallel_threads"><code>--rocksdb-bulk-load-compression-parallel-threads</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_bulk_load_enable_unique_key_check"><code>--rocksdb-bulk-load-enable-unique-key-check</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_debug_skip_bloom_filter_check_on_iterator_bounds"><code>--rocksdb-debug-skip-bloom-filter-check-on-iterator-bounds</code></a></li>
-</ul>
-<p><strong>Changes default values of MyRocks variables</strong></p>
-<ul>
-<li>
-<p><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_disable_instant_ddl"><code>--rocksdb_disable_instant_ddl</code></a> - the default value is changed from <code>ON</code> to <code>OFF</code>.</p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_file_checksums"><code>--rocksdb_file_checksums</code></a> - the data type is changed from <code>Boolean</code> to <code>ENUM</code>. Also, the default value is changed from <code>OFF</code> to <code>CHECKSUMS_OFF</code>.</p>
-</li>
-<li>
-<p><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_compaction_readahead_size"><code>--rocksdb_compaction_readahead_size</code></a> - the default value is changed from <code>0</code> (zero) to <code>2097152</code>.</p>
-</li>
-</ul>
-<p><strong>Deprecates MyRocks variable</strong></p>
-<ul>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_disable_instant_ddl"><code>--rocksdb_disable_instant_ddl</code></a> - this variable is being deprecated and is expected to be removed in a future release.</li>
-</ul>
-<p><strong>Removes MyRocks variables</strong></p>
-<ul>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_access_hint_on_compaction_start"><code>--rocksdb-access-hint-on-compaction-start</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_large_prefix"><code>--rocksdb_large_prefix</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_strict_collation_check"><code>--rocksdb_strict_collation_check</code></a></li>
-<li><a href="https://docs.percona.com/percona-server/8.0/variables.html#rocksdb_strict_collation_exceptions"><code>--rocksdb_strict_collation_exceptions</code></a></li>
-</ul>
 <h3 id="mysql-8042">MySQL 8.0.42<a class="headerlink" href="#mysql-8042" title="Permanent link">&para;</a></h3>
 <p>Improvements and bug fixes provided by Oracle for MySQL 8.0.42 and included in Percona Server for MySQL are the following:</p>
 <ul>
@@ -4029,7 +3985,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-06-16
+    2025-07-15
   </span>
 
     
