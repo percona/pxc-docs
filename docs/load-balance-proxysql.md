@@ -61,7 +61,7 @@ root@proxysql:~# apt install proxysql2
 * On Red Hat Enterprise Linux for ProxySQL 2.x:
 
 ```{.bash data-prompt="$"}
-$ sudo yum install Percona-XtraDB-Cluster-client-80
+$ sudo yum install percona-xtradb-cluster-client
 $ sudo yum install proxysql2
 ```
 
