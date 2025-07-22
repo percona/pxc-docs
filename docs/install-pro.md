@@ -2,7 +2,7 @@
 
 --8<--- "pro-build-announcement.md"
 
-This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro :material-arrow-right:](pro-files.md){.md-button}
+This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro](pro-files.md){.md-button}
 
 ## Version changes
 
@@ -124,4 +124,4 @@ $ sudo service mysql stop
 
 ## Next step
 
-[Enable the FIPS mode :material-arrow-right:](fips.md){.md-button}
+[Enable the FIPS mode](fips.md){.md-button}

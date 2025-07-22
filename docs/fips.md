@@ -67,4 +67,4 @@ To ensure that the FIPS mode is enabled, do the following:
     A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona XtraDB Cluster will load this module and run in FIPS mode.
     ```
 ## Next steps
-[Install Percona XtraDB Cluster Pro :material-arrow-right:](install-pro.md){.md-button}
+[Install Percona XtraDB Cluster Pro](install-pro.md){.md-button}
