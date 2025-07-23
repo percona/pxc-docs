@@ -1,6 +1,6 @@
 # Install Percona XtraDB Cluster Pro
 
-This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro :material-arrow-right:](pro-files.md){.md-button}
+This document provides guidelines how to install Pro packages of Percona XtraDB Cluster from Percona repositories. [Check files in packages built for Percona XtraDB Cluster Pro](pro-files.md){.md-button}
 
 ## Version changes
 
@@ -120,4 +120,4 @@ First, install the latest version of Percona XtraDB Cluster, enable the pro repo
 
 ## Next step
 
-[Enable the FIPS mode :material-arrow-right:](fips.md){.md-button}
+[Enable the FIPS mode](fips.md){.md-button}

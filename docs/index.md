@@ -38,3 +38,37 @@ Percona XtraDB Cluster {{vers}} is fully compatible with MySQL Server Community 
     
      * [How We Made Percona XtraDB Cluster Scale](https://www.percona.com/blog/2017/04/19/how-we-made-percona-xtradb-cluster-scale)
    
+<div data-grid markdown><div data-banner markdown>
+
+## :material-progress-download: Quickstart guide { .title }
+
+Get started quickly with our Quickstart guide.
+
+[Quickstart guide](quickstart-overview.md){ .md-button }
+
+</div><div data-banner markdown>
+
+### :material-progress-download: Installation guides { .title }
+
+Find the best installation solution with our step-by-step installation instructions.
+
+[Installation instructions](install-index.md){ .md-button }
+
+</div><div data-banner markdown>
+
+### :material-backup-restore: High availability { .title }
+
+Learn about how Percona XtraDB Cluster delivers high availability.
+
+[High availability](high-availability.md){ .md-button }
+
+</div><div data-banner markdown>
+
+## :fontawesome-solid-gears: State Snapshot Transfer (SST) Method using Clone plugin { .title }
+
+Learn about a modern and efficient method that leverages MySQL’s native cloning capabilities to transfer data from a donor node to a Joiner node.
+
+[SST](clone-sst.md){ .md-button}
+
+</div>
+</div>
