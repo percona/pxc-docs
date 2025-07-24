@@ -68,5 +68,5 @@ To ensure that the FIPS mode is enabled, do the following:
 
 ## Next steps
 
-[Install Percona XtraDB Cluster Pro :material-arrow-right:](install-pro.md){.md-button}
+[Install Percona XtraDB Cluster Pro](install-pro.md){.md-button}
 
