@@ -161,11 +161,14 @@ The Joiner log reports the clone process as a `% of the data transfer completed`
 The query used is:
 
 ```{.bash data-prompt="mysql>"}
-mysql>SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';```
+mysql>SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';
+```
 
 For more information on the progress, you can also use the query:
 
-`SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;`
+```{.bash data-prompt="mysql>"}
+mysql> SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
+```
 
 ## Troubleshoot
 
