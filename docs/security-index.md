@@ -4,7 +4,7 @@ By default, Percona XtraDB Cluster does not encrypt or protect stored data. To e
 
 | Topic | Description |
 |-------|-------------|
-| [Securing the Network](secure-network.md#secure-the-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster. |
+| [Securing the Network](secure-network.md#secure-the-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster. |
 | [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
 | Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html). |
 
@@ -16,7 +16,7 @@ The simplest solution is to disable or remove these modules, but this approach i
 
 ### SELinux
 
-SELinux, or Security-Enhanced Linux, commonly enabled by default on Red Hat Enterprise Linux and its derivatives, enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. 
+SELinux, or Security-Enhanced Linux, is commonly enabled by default on Red Hat Enterprise Linux and its derivatives. The technology enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. 
 
 By implementing a policy-based approach, SELinux helps protect against unauthorized access and potential vulnerabilities, thereby strengthening the operating system's overall security posture. 
 
@@ -24,33 +24,31 @@ This security module protects data in user home directories and offers the follo
 
 * Prevents unauthorized users from exploiting the system
 
-* Allows authorized users to access files
+* Enables authorized users to access files
 
-* Used as a role-based access control system
+* Implements role-based access control as a comprehensive security mechanism
 
 SELinux operates in one of two modes that determine how it applies security policies:
 
-*	Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.
+* Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.
 
-*	Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them but allows the actions to proceed.
+* Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them, but allows the actions to proceed.
 
 ```{.bash data-prompt="$"}
 $ setenforce 0
 ```
 	
-The `setenforce 0` command does the following:
+The command does the following:
 
-*	Sets SELinux to permissive mode immediately (without reboot).
+* Sets SELinux to permissive mode immediately (without reboot).
 
-* Useful for troubleshooting or testing, because the system logs potential SELinux policy violations without preventing the actions.
+* Logs potential SELinux policy violations without preventing the actions.
+
+* Facilitates troubleshooting and testing of system configurations.
 
 This change is temporary. After a reboot, SELinux reverts to the mode defined in the configuration file (/etc/selinux/config).
 
-To restore enforcing mode, run:
-
-```{.bash data-prompt="$"}
-$ setenforce 1
-``` 
+To restore the enforcing mode, execute `setenforce 1` to immediately set SELinux to enforcing mode. You can verify the current SELinux status using `getenforce`.
 
 !!! admonition "See also"
 
@@ -58,7 +56,7 @@ $ setenforce 1
 
 ### AppArmor
 
-[AppArmor](https://wiki.apparmor.net/) is included
+AppArmor is included
 in Debian and Ubuntu. *Percona XtraDB Cluster* provides several AppArmor profiles to simplify maintenance. During installation and configuration, you can set the `mysqld` profile to `complain` mode to assist with troubleshooting.
 
 !!! admonition "See also"
