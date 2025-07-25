@@ -7554,51 +7554,37 @@ permissivedomains
 </ul>
 </details>
 <h3 id="state-snapshot-transfer-overview">Overview<a class="headerlink" href="#state-snapshot-transfer-overview" title="Permanent link">&para;</a></h3>
-<p>State Snapshot Transfer (SST) is essential in Percona XtraDB Cluster for synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. The SST process ensures data consistency and cluster integrity during these operations.  </p>
-<p>The <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
-<p>The <a href="#clone-sst-enable-the-clone-sst-method"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
-<p>Choosing the appropriate SST method depends on your environment, requirements for performance, and resource considerations. Both options ensure consistency between nodes and support seamless cluster synchronization.</p>
+<p>State Snapshot Transfer (SST) plays a critical role in Percona XtraDB Cluster by synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. SST ensures data consistency and cluster integrity during these operations.</p>
+<p>The xtrabackup SST method is the recommended option for most scenarios. This method is robust, reliable, and non-blocking. The donor node remains operational throughout the transfer. By creating consistent backups and sending them efficiently to the joiner node, xtrabackup reduces downtime and conserves resources while preserving data integrity.</p>
+<p>The Clone SST method offers an alternative for users who want a modern and efficient solution. This method uses MySQL’s native cloning to transfer data at the file level. While xtrabackup remains the preferred choice, Clone SST works well when speed and simplicity are top priorities.</p>
+<p>Choose the SST method that best matches your environment, performance needs, and available resources. Both methods ensure consistent data across nodes and support reliable cluster synchronization.</p>
 <h3 id="state-snapshot-transfer-xtrabackup-sst-method">Xtrabackup SST Method<a class="headerlink" href="#state-snapshot-transfer-xtrabackup-sst-method" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster supports the <strong>xtrabackup</strong> SST method, which is the recommended option for most use cases.  </p>
-<p>Xtrabackup SST uses <a href="https://docs.percona.com/percona-server/8.4/backup-locks.html">backup locks</a>, ensuring that the Galera provider remains operational without being paused, unlike earlier approaches. This method ensures a seamless data synchronization process during State Snapshot Transfers.  </p>
-<p>The SST method is configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
+<p>Percona XtraDB Cluster supports the xtrabackup SST method and recommends this method for most use cases.</p>
+<p>Unlike earlier methods, xtrabackup SST uses backup locks and keeps the Galera provider running without interruption. This design ensures seamless data synchronization during State Snapshot Transfers.</p>
+<p>Set the <code>wsrep_sst_method</code> variable to configure the SST method.</p>
+<p>State Snapshot Transfer (SST) performs a full data copy from a donor node to a joining node. When a new node joins the cluster, that node receives data from an existing cluster node to complete synchronization.</p>
+<p>Percona XtraDB Cluster uses xtrabackup to handle this transfer process.</p>
+<p>Xtrabackup SST uses backup locks, so the Galera provider continues running without any pause. Set the <code>wsrep_sst_method</code> variable to enable this method.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
-</div>
-<p>State Snapshot Transfer (SST) is a full data copy from one node (donor)
-to the joining node (joiner).
-It’s used when a new node joins the cluster.
-In order to be synchronized with the cluster,
-the new node has to receive data from a node
-that is already part of the cluster.</p>
-<p>Percona XtraDB Cluster enables  via <strong>xtrabackup</strong>.</p>
-<p>Xtrabackup SST uses <a href="https://www.percona.com/doc/percona-server/8.4/management/backup_locks.html">backup locks</a>, which means the Galera provider is not paused at all as with  earlier.
-The SST method can be configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
+<p>If the <code>gcs.sync_donor</code> variable is set to <code>Yes</code> (the default is <code>No</code>), the whole cluster will be blocked if SST blocks the donor.</p>
 </div>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
-<p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
+<p>Percona XtraDB Cluster requires a local socket for configuration. Define a socket path or allow the server to create one automatically. Do not leave the <code>socket</code> variable empty in the <code>my.cnf</code> file (for example, <code>socket=</code>). An empty value prevents the server from creating a socket.</p>
+<p>State Snapshot Transfer (SST) uses the local socket to:</p>
 <ul>
 <li>
-<p>Taking backup using Percona XtraBackup</p>
+<p>Create backups with Percona XtraBackup </p>
 </li>
 <li>
-<p>Detecting keyring component status</p>
+<p>Check the status of the keyring component</p>
 </li>
 </ul>
 <h2 id="state-snapshot-transfer-choose-the-sst-donor">Choose the SST Donor<a class="headerlink" href="#state-snapshot-transfer-choose-the-sst-donor" title="Permanent link">&para;</a></h2>
-<p>If there are no nodes available
-that can safely perform incremental state transfer (IST),
-the cluster defaults to SST.</p>
-<p>If there are nodes available that can perform IST,
-the cluster prefers a local node over remote nodes to serve as the donor.</p>
-<p>If there are no local nodes available that can perform IST,
-the cluster chooses a remote node to serve as the donor.</p>
-<p>If there are several local and remote nodes that can perform IST,
-the cluster chooses the node with the highest <code>seqno</code> to serve as the donor.</p>
+<p>If no nodes are available to safely perform Incremental State Transfer (IST), the cluster defaults to State Snapshot Transfer (SST).</p>
+<p>If IST-capable nodes are available, the cluster prefers a local donor over a remote one.</p>
+<p>The cluster selects a remote donor when no local nodes can perform IST.</p>
+<p>When both local and remote nodes can perform IST, the cluster selects the node with the highest <code>seqno</code> as the donor.</p>
 <h2 id="state-snapshot-transfer-use-percona-xtrabackup">Use Percona Xtrabackup<a class="headerlink" href="#state-snapshot-transfer-use-percona-xtrabackup" title="Permanent link">&para;</a></h2>
 <p>The default SST method is <code>xtrabackup-v2</code>, which uses <em>Percona XtraBackup</em>.
 The least blocking method leverages <a href="https://www.percona.com/doc/percona-server/8.4/management/backlocks.html">backup locks</a>.
@@ -7607,13 +7593,10 @@ XtraBackup is run locally on the donor node.</p>
 <p>Detailed information on this method is provided in <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="o">)</span><span class="w"> </span>DATA<span class="w"> </span><span class="nv">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="state-snapshot-transfer-sst-using-percona-xtrabackup">SST using Percona XtraBackup<a class="headerlink" href="#state-snapshot-transfer-sst-using-percona-xtrabackup" title="Permanent link">&para;</a></h3>
-<p>XtraBackup will restore the table to the same location on the joiner node.  If
-the target directory does not exist, it will be created.  If the target file
-already exists, an error will be returned, because XtraBackup cannot clear
-tablespaces not in the data directory.</p>
+<p>XtraBackup restores the table to the same location on the joiner node. If the target directory does not exist, XtraBackup creates the directory. If the target file already exists, XtraBackup returns an error because XtraBackup cannot clear tablespaces outside the data directory.</p>
 <h2 id="state-snapshot-transfer-other-reading">Other reading<a class="headerlink" href="#state-snapshot-transfer-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -7646,51 +7629,37 @@ tablespaces not in the data directory.</p>
 </ul>
 </details>
 <h3 id="state-snapshot-transfer-overview">Overview<a class="headerlink" href="#state-snapshot-transfer-overview" title="Permanent link">&para;</a></h3>
-<p>State Snapshot Transfer (SST) is essential in Percona XtraDB Cluster for synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. The SST process ensures data consistency and cluster integrity during these operations.  </p>
-<p>The <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration"><strong><code>xtrabackup</code> SST method</strong></a> is the recommended choice for most scenarios. It is a robust, reliable, and non-blocking method that allows the donor node to remain operational during the process. By creating consistent backups and efficiently transferring them to the joiner node, <code>xtrabackup</code> minimizes downtime and resource usage while maintaining data integrity.  </p>
-<p>The <a href="#clone-sst-enable-the-clone-sst-method"><strong>Clone SST method</strong></a> is another option for users seeking a modern and efficient approach. This method leverages MySQL’s native cloning capabilities to transfer data at the file level. While <code>xtrabackup</code> remains the primary choice, the Clone SST method can be particularly useful for scenarios where speed and simplicity are prioritized.  </p>
-<p>Choosing the appropriate SST method depends on your environment, requirements for performance, and resource considerations. Both options ensure consistency between nodes and support seamless cluster synchronization.</p>
+<p>State Snapshot Transfer (SST) plays a critical role in Percona XtraDB Cluster by synchronizing data between nodes when a new node joins the cluster or requires a full state transfer. SST ensures data consistency and cluster integrity during these operations.</p>
+<p>The xtrabackup SST method is the recommended option for most scenarios. This method is robust, reliable, and non-blocking. The donor node remains operational throughout the transfer. By creating consistent backups and sending them efficiently to the joiner node, xtrabackup reduces downtime and conserves resources while preserving data integrity.</p>
+<p>The Clone SST method offers an alternative for users who want a modern and efficient solution. This method uses MySQL’s native cloning to transfer data at the file level. While xtrabackup remains the preferred choice, Clone SST works well when speed and simplicity are top priorities.</p>
+<p>Choose the SST method that best matches your environment, performance needs, and available resources. Both methods ensure consistent data across nodes and support reliable cluster synchronization.</p>
 <h3 id="state-snapshot-transfer-xtrabackup-sst-method">Xtrabackup SST Method<a class="headerlink" href="#state-snapshot-transfer-xtrabackup-sst-method" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster supports the <strong>xtrabackup</strong> SST method, which is the recommended option for most use cases.  </p>
-<p>Xtrabackup SST uses <a href="https://docs.percona.com/percona-server/8.4/backup-locks.html">backup locks</a>, ensuring that the Galera provider remains operational without being paused, unlike earlier approaches. This method ensures a seamless data synchronization process during State Snapshot Transfers.  </p>
-<p>The SST method is configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.  </p>
+<p>Percona XtraDB Cluster supports the xtrabackup SST method and recommends this method for most use cases.</p>
+<p>Unlike earlier methods, xtrabackup SST uses backup locks and keeps the Galera provider running without interruption. This design ensures seamless data synchronization during State Snapshot Transfers.</p>
+<p>Set the <code>wsrep_sst_method</code> variable to configure the SST method.</p>
+<p>State Snapshot Transfer (SST) performs a full data copy from a donor node to a joining node. When a new node joins the cluster, that node receives data from an existing cluster node to complete synchronization.</p>
+<p>Percona XtraDB Cluster uses xtrabackup to handle this transfer process.</p>
+<p>Xtrabackup SST uses backup locks, so the Galera provider continues running without any pause. Set the <code>wsrep_sst_method</code> variable to enable this method.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the entire cluster will be blocked if the donor node is blocked by SST.  </p>
-</div>
-<p>State Snapshot Transfer (SST) is a full data copy from one node (donor)
-to the joining node (joiner).
-It’s used when a new node joins the cluster.
-In order to be synchronized with the cluster,
-the new node has to receive data from a node
-that is already part of the cluster.</p>
-<p>Percona XtraDB Cluster enables  via <strong>xtrabackup</strong>.</p>
-<p>Xtrabackup SST uses <a href="https://www.percona.com/doc/percona-server/8.4/management/backup_locks.html">backup locks</a>, which means the Galera provider is not paused at all as with  earlier.
-The SST method can be configured using the <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> variable.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the <a href="#wsrep-provider-index-gcssync_donor"><code>gcs.sync_donor</code></a> variable is set to <code>Yes</code> (default is <code>No</code>), the whole cluster will get blocked if the donor is blocked by SST.</p>
+<p>If the <code>gcs.sync_donor</code> variable is set to <code>Yes</code> (the default is <code>No</code>), the whole cluster will be blocked if SST blocks the donor.</p>
 </div>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
-<p>When configuring Percona XtraDB Cluster, your server must create a local socket. You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket. State Snapshot Transfer (SST) requires the local socket for the following tasks:</p>
+<p>Percona XtraDB Cluster requires a local socket for configuration. Define a socket path or allow the server to create one automatically. Do not leave the <code>socket</code> variable empty in the <code>my.cnf</code> file (for example, <code>socket=</code>). An empty value prevents the server from creating a socket.</p>
+<p>State Snapshot Transfer (SST) uses the local socket to:</p>
 <ul>
 <li>
-<p>Taking backup using Percona XtraBackup</p>
+<p>Create backups with Percona XtraBackup </p>
 </li>
 <li>
-<p>Detecting keyring component status</p>
+<p>Check the status of the keyring component</p>
 </li>
 </ul>
 <h2 id="state-snapshot-transfer-choose-the-sst-donor">Choose the SST Donor<a class="headerlink" href="#state-snapshot-transfer-choose-the-sst-donor" title="Permanent link">&para;</a></h2>
-<p>If there are no nodes available
-that can safely perform incremental state transfer (IST),
-the cluster defaults to SST.</p>
-<p>If there are nodes available that can perform IST,
-the cluster prefers a local node over remote nodes to serve as the donor.</p>
-<p>If there are no local nodes available that can perform IST,
-the cluster chooses a remote node to serve as the donor.</p>
-<p>If there are several local and remote nodes that can perform IST,
-the cluster chooses the node with the highest <code>seqno</code> to serve as the donor.</p>
+<p>If no nodes are available to safely perform Incremental State Transfer (IST), the cluster defaults to State Snapshot Transfer (SST).</p>
+<p>If IST-capable nodes are available, the cluster prefers a local donor over a remote one.</p>
+<p>The cluster selects a remote donor when no local nodes can perform IST.</p>
+<p>When both local and remote nodes can perform IST, the cluster selects the node with the highest <code>seqno</code> as the donor.</p>
 <h2 id="state-snapshot-transfer-use-percona-xtrabackup">Use Percona Xtrabackup<a class="headerlink" href="#state-snapshot-transfer-use-percona-xtrabackup" title="Permanent link">&para;</a></h2>
 <p>The default SST method is <code>xtrabackup-v2</code>, which uses <em>Percona XtraBackup</em>.
 The least blocking method leverages <a href="https://www.percona.com/doc/percona-server/8.4/management/backlocks.html">backup locks</a>.
@@ -7699,13 +7668,10 @@ XtraBackup is run locally on the donor node.</p>
 <p>Detailed information on this method is provided in <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="o">)</span><span class="w"> </span>DATA<span class="w"> </span><span class="nv">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="state-snapshot-transfer-sst-using-percona-xtrabackup">SST using Percona XtraBackup<a class="headerlink" href="#state-snapshot-transfer-sst-using-percona-xtrabackup" title="Permanent link">&para;</a></h3>
-<p>XtraBackup will restore the table to the same location on the joiner node.  If
-the target directory does not exist, it will be created.  If the target file
-already exists, an error will be returned, because XtraBackup cannot clear
-tablespaces not in the data directory.</p>
+<p>XtraBackup restores the table to the same location on the joiner node. If the target directory does not exist, XtraBackup creates the directory. If the target file already exists, XtraBackup returns an error because XtraBackup cannot clear tablespaces outside the data directory.</p>
 <h2 id="state-snapshot-transfer-other-reading">Other reading<a class="headerlink" href="#state-snapshot-transfer-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
