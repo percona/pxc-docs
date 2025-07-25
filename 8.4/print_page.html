@@ -6814,7 +6814,7 @@ skip-grant-tables
 <tbody>
 <tr>
 <td><a href="#secure-network-secure-the-network">Securing the Network</a></td>
-<td>Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using VPN and filter traffic on ports used by Percona XtraDB Cluster.</td>
+<td>Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster.</td>
 </tr>
 <tr>
 <td><a href="#encrypt-traffic-encrypt-pxc-traffic">Encrypting PXC Traffic</a></td>
@@ -6830,7 +6830,7 @@ skip-grant-tables
 <p>Most modern distributions include security modules that actively control resource access for users and applications. By default, these modules often restrict communication between Percona XtraDB Cluster nodes.</p>
 <p>The simplest solution is to disable or remove these modules, but this approach is unsuitable for production environments. Instead, configure the required security policies to allow proper communication for Percona XtraDB Cluster.</p>
 <h3 id="security-index-selinux">SELinux<a class="headerlink" href="#security-index-selinux" title="Permanent link">&para;</a></h3>
-<p>SELinux, or Security-Enhanced Linux, commonly enabled by default on Red Hat Enterprise Linux and its derivatives, enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. </p>
+<p>SELinux, or Security-Enhanced Linux, is commonly enabled by default on Red Hat Enterprise Linux and its derivatives. The technology enhances system security by enforcing mandatory access controls. This security mechanism restricts how processes interact with each other and with files, ensuring that only authorized actions occur within the system. </p>
 <p>By implementing a policy-based approach, SELinux helps protect against unauthorized access and potential vulnerabilities, thereby strengthening the operating system&rsquo;s overall security posture. </p>
 <p>This security module protects data in user home directories and offers the following key benefits:</p>
 <ul>
@@ -6838,10 +6838,10 @@ skip-grant-tables
 <p>Prevents unauthorized users from exploiting the system</p>
 </li>
 <li>
-<p>Allows authorized users to access files</p>
+<p>Enables authorized users to access files</p>
 </li>
 <li>
-<p>Used as a role-based access control system</p>
+<p>Implements role-based access control as a comprehensive security mechanism</p>
 </li>
 </ul>
 <p>SELinux operates in one of two modes that determine how it applies security policies:</p>
@@ -6850,30 +6850,31 @@ skip-grant-tables
 <p>Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.</p>
 </li>
 <li>
-<p>Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them but allows the actions to proceed.</p>
+<p>Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them, but allows the actions to proceed.</p>
 </li>
 </ul>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">0</span>
 </code></pre></div>
-<p>The <code>setenforce 0</code> command does the following:</p>
+<p>The command does the following:</p>
 <ul>
 <li>
 <p>Sets SELinux to permissive mode immediately (without reboot).</p>
 </li>
 <li>
-<p>Useful for troubleshooting or testing, because the system logs potential SELinux policy violations without preventing the actions.</p>
+<p>Logs potential SELinux policy violations without preventing the actions.</p>
+</li>
+<li>
+<p>Facilitates troubleshooting and testing of system configurations.</p>
 </li>
 </ul>
 <p>This change is temporary. After a reboot, SELinux reverts to the mode defined in the configuration file (/etc/selinux/config).</p>
-<p>To restore enforcing mode, run:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>setenforce<span class="w"> </span><span class="m">1</span>
-</code></pre></div>
+<p>To restore the enforcing mode, execute <code>setenforce 1</code> to immediately set SELinux to enforcing mode. You can verify the current SELinux status using <code>getenforce</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>For more information, see <a href="#selinux-enable-selinux">Enabling AppArmor</a></p>
 </div>
 <h3 id="security-index-apparmor">AppArmor<a class="headerlink" href="#security-index-apparmor" title="Permanent link">&para;</a></h3>
-<p><a href="https://wiki.apparmor.net/">AppArmor</a> is included
+<p>AppArmor is included
 in Debian and Ubuntu. <em>Percona XtraDB Cluster</em> provides several AppArmor profiles to simplify maintenance. During installation and configuration, you can set the <code>mysqld</code> profile to <code>complain</code> mode to assist with troubleshooting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
