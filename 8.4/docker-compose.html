@@ -9,34 +9,36 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.">
+        <meta name="description" content="For more information about using Docker, see the Docker Docs. Make
+sure that you are using the latest version of Docker. The ones
+provided via apt and yum may be outdated and cause errors.">
       
       
         <meta name="author" content="Percona LLC">
       
       
-        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.0-1.html">
+        <link rel="canonical" href="https://docs.percona.com/percona-xtradb-cluster/8.4/docker-compose.html">
       
       
-        <link rel="prev" href="8.4.2-2.html">
+        <link rel="prev" href="docker.html">
       
       
-        <link rel="next" href="../intro.html">
+        <link rel="next" href="configure-nodes.html">
       
       
-      <link rel="icon" href="../assets/mysql-fav.svg">
+      <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
-        <title>Percona XtraDB Cluster 8.4.0-1 (2024-11-07) - Percona XtraDB Cluster</title>
+        <title>Run with Docker Compose - Percona XtraDB Cluster</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,25 +57,25 @@
       
     
     
-      <link rel="stylesheet" href="../css/print-site.css">
+      <link rel="stylesheet" href="css/print-site.css">
     
-      <link rel="stylesheet" href="../css/print-site-material.css">
+      <link rel="stylesheet" href="css/print-site-material.css">
     
       <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.3/css/line.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     
-      <link rel="stylesheet" href="../css/design.css">
+      <link rel="stylesheet" href="css/design.css">
     
-      <link rel="stylesheet" href="../css/osano.css">
+      <link rel="stylesheet" href="css/osano.css">
     
-      <link rel="stylesheet" href="../css/extra.css">
+      <link rel="stylesheet" href="css/extra.css">
     
-      <link rel="stylesheet" href="../css/nocopy.css">
+      <link rel="stylesheet" href="css/nocopy.css">
     
-      <link rel="stylesheet" href="../css/mysql.css">
+      <link rel="stylesheet" href="css/mysql.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -97,7 +99,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster 8.4.0-1 (2024-11-07)" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Run with Docker Compose" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -123,7 +125,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#percona-xtradb-cluster-840-1-2024-11-07" class="md-skip">
+        <a href="#run-with-docker-compose" class="md-skip">
           Skip to content
         </a>
       
@@ -192,14 +194,14 @@
 
     <!-- Link to home -->
     <a
-      href="../index.html"
+      href="index.html"
       title="Percona XtraDB Cluster"
       class="md-header__button md-logo"
       aria-label="Percona XtraDB Cluster"
       data-md-component="logo"
     >
       
-  <img src="../assets/mysql-mark.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
 
@@ -212,7 +214,7 @@
     <!-- Header title -->
     <div class="md-header__title">
       <div class="md-header__ellipsis">
-        <a href="../index.html" class="md-header__topic">
+        <a href="index.html" class="md-header__topic">
           <span class="md-ellipsis">
             Percona XtraDB Cluster
           </span>
@@ -220,7 +222,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+              Run with Docker Compose
             
           </span>
         </div>
@@ -364,9 +366,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
+    <a href="index.html" title="Percona XtraDB Cluster" class="md-nav__button md-logo" aria-label="Percona XtraDB Cluster" data-md-component="logo">
       
-  <img src="../assets/mysql-mark.svg" alt="logo">
+  <img src="assets/mysql-mark.svg" alt="logo">
 
     </a>
     Percona XtraDB Cluster
@@ -393,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="index.html" class="md-nav__link">
         
   
   
@@ -461,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pxc-pro.html" class="md-nav__link">
+      <a href="pxc-pro.html" class="md-nav__link">
         
   
   
@@ -528,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../install-pro.html" class="md-nav__link">
+      <a href="install-pro.html" class="md-nav__link">
         
   
   
@@ -551,7 +553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pro-files.html" class="md-nav__link">
+      <a href="pro-files.html" class="md-nav__link">
         
   
   
@@ -624,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fips.html" class="md-nav__link">
+      <a href="fips.html" class="md-nav__link">
         
   
   
@@ -662,7 +664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../get-help.html" class="md-nav__link">
+      <a href="get-help.html" class="md-nav__link">
         
   
   
@@ -681,10 +683,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -704,11 +704,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -724,7 +724,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Release notes
@@ -738,7 +738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes_index.html" class="md-nav__link">
+      <a href="release-notes/release-notes_index.html" class="md-nav__link">
         
   
   
@@ -761,7 +761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.4.5-5.html" class="md-nav__link">
+      <a href="release-notes/8.4.5-5.html" class="md-nav__link">
         
   
   
@@ -784,7 +784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.4.4-4.html" class="md-nav__link">
+      <a href="release-notes/8.4.4-4.html" class="md-nav__link">
         
   
   
@@ -807,7 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.4.3-3.html" class="md-nav__link">
+      <a href="release-notes/8.4.3-3.html" class="md-nav__link">
         
   
   
@@ -830,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="8.4.2-2.html" class="md-nav__link">
+      <a href="release-notes/8.4.2-2.html" class="md-nav__link">
         
   
   
@@ -850,32 +850,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="8.4.0-1.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
         
   
   
@@ -886,55 +864,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#release-highlights" class="md-nav__link">
-    <span class="md-ellipsis">
-      Release Highlights
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bugs Fixed
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Useful Links
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1000,7 +929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intro.html" class="md-nav__link">
+      <a href="intro.html" class="md-nav__link">
         
   
   
@@ -1023,7 +952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../limitation.html" class="md-nav__link">
+      <a href="limitation.html" class="md-nav__link">
         
   
   
@@ -1046,7 +975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xtradb-cluster-version-numbers.html" class="md-nav__link">
+      <a href="xtradb-cluster-version-numbers.html" class="md-nav__link">
         
   
   
@@ -1124,7 +1053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-availability.html" class="md-nav__link">
+      <a href="high-availability.html" class="md-nav__link">
         
   
   
@@ -1147,7 +1076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../strict-mode.html" class="md-nav__link">
+      <a href="strict-mode.html" class="md-nav__link">
         
   
   
@@ -1170,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../online-schema-upgrade.html" class="md-nav__link">
+      <a href="online-schema-upgrade.html" class="md-nav__link">
         
   
   
@@ -1193,7 +1122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nbo.html" class="md-nav__link">
+      <a href="nbo.html" class="md-nav__link">
         
   
   
@@ -1267,7 +1196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart-overview.html" class="md-nav__link">
+      <a href="quickstart-overview.html" class="md-nav__link">
         
   
   
@@ -1290,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../get-started-cluster.html" class="md-nav__link">
+      <a href="get-started-cluster.html" class="md-nav__link">
         
   
   
@@ -1317,8 +1246,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1350,11 +1281,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1370,7 +1301,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Get started
@@ -1384,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../install-index.html" class="md-nav__link">
+      <a href="install-index.html" class="md-nav__link">
         
   
   
@@ -1407,7 +1338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../download-instructions.html" class="md-nav__link">
+      <a href="download-instructions.html" class="md-nav__link">
         
   
   
@@ -1430,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apt.html" class="md-nav__link">
+      <a href="apt.html" class="md-nav__link">
         
   
   
@@ -1453,7 +1384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yum.html" class="md-nav__link">
+      <a href="yum.html" class="md-nav__link">
         
   
   
@@ -1476,7 +1407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tarball.html" class="md-nav__link">
+      <a href="tarball.html" class="md-nav__link">
         
   
   
@@ -1499,7 +1430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compile.html" class="md-nav__link">
+      <a href="compile.html" class="md-nav__link">
         
   
   
@@ -1522,7 +1453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../docker.html" class="md-nav__link">
+      <a href="docker.html" class="md-nav__link">
         
   
   
@@ -1542,10 +1473,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../docker-compose.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Run with Docker Compose
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="docker-compose.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1556,6 +1509,46 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Directory Structure
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1568,7 +1561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-nodes.html" class="md-nav__link">
+      <a href="configure-nodes.html" class="md-nav__link">
         
   
   
@@ -1591,7 +1584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bootstrap.html" class="md-nav__link">
+      <a href="bootstrap.html" class="md-nav__link">
         
   
   
@@ -1614,7 +1607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../add-node.html" class="md-nav__link">
+      <a href="add-node.html" class="md-nav__link">
         
   
   
@@ -1637,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../verify-replication.html" class="md-nav__link">
+      <a href="verify-replication.html" class="md-nav__link">
         
   
   
@@ -1713,7 +1706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-guide.html" class="md-nav__link">
+      <a href="upgrade-guide.html" class="md-nav__link">
         
   
   
@@ -1736,7 +1729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-backup.html" class="md-nav__link">
+      <a href="upgrade-backup.html" class="md-nav__link">
         
   
   
@@ -1759,7 +1752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../upgrade-packages.html" class="md-nav__link">
+      <a href="upgrade-packages.html" class="md-nav__link">
         
   
   
@@ -1839,7 +1832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security-index.html" class="md-nav__link">
+      <a href="security-index.html" class="md-nav__link">
         
   
   
@@ -1862,7 +1855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure-network.html" class="md-nav__link">
+      <a href="secure-network.html" class="md-nav__link">
         
   
   
@@ -1885,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../encrypt-traffic.html" class="md-nav__link">
+      <a href="encrypt-traffic.html" class="md-nav__link">
         
   
   
@@ -1908,7 +1901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apparmor.html" class="md-nav__link">
+      <a href="apparmor.html" class="md-nav__link">
         
   
   
@@ -1931,7 +1924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../selinux.html" class="md-nav__link">
+      <a href="selinux.html" class="md-nav__link">
         
   
   
@@ -2023,7 +2016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state-snapshot-transfer.html" class="md-nav__link">
+      <a href="state-snapshot-transfer.html" class="md-nav__link">
         
   
   
@@ -2092,7 +2085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../state-snapshot-transfer.html" class="md-nav__link">
+      <a href="state-snapshot-transfer.html" class="md-nav__link">
         
   
   
@@ -2115,7 +2108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../xtrabackup-sst.html" class="md-nav__link">
+      <a href="xtrabackup-sst.html" class="md-nav__link">
         
   
   
@@ -2138,7 +2131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../clone-sst.html" class="md-nav__link">
+      <a href="clone-sst.html" class="md-nav__link">
         
   
   
@@ -2169,7 +2162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../restarting-nodes.html" class="md-nav__link">
+      <a href="restarting-nodes.html" class="md-nav__link">
         
   
   
@@ -2192,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../failover.html" class="md-nav__link">
+      <a href="failover.html" class="md-nav__link">
         
   
   
@@ -2215,7 +2208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../monitoring.html" class="md-nav__link">
+      <a href="monitoring.html" class="md-nav__link">
         
   
   
@@ -2238,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../certification.html" class="md-nav__link">
+      <a href="certification.html" class="md-nav__link">
         
   
   
@@ -2261,7 +2254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../threading-model.html" class="md-nav__link">
+      <a href="threading-model.html" class="md-nav__link">
         
   
   
@@ -2284,7 +2277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gcache-record-set-cache-difference.html" class="md-nav__link">
+      <a href="gcache-record-set-cache-difference.html" class="md-nav__link">
         
   
   
@@ -2307,7 +2300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gcache-write-set-cache-encryption.html" class="md-nav__link">
+      <a href="gcache-write-set-cache-encryption.html" class="md-nav__link">
         
   
   
@@ -2330,7 +2323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../performance-schema-instrumentation.html" class="md-nav__link">
+      <a href="performance-schema-instrumentation.html" class="md-nav__link">
         
   
   
@@ -2353,7 +2346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-at-rest-encryption.html" class="md-nav__link">
+      <a href="data-at-rest-encryption.html" class="md-nav__link">
         
   
   
@@ -2443,7 +2436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../crash-recovery.html" class="md-nav__link">
+      <a href="crash-recovery.html" class="md-nav__link">
         
   
   
@@ -2466,7 +2459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-cluster-rhel.html" class="md-nav__link">
+      <a href="configure-cluster-rhel.html" class="md-nav__link">
         
   
   
@@ -2489,7 +2482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-cluster-ubuntu.html" class="md-nav__link">
+      <a href="configure-cluster-ubuntu.html" class="md-nav__link">
         
   
   
@@ -2512,7 +2505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../garbd-howto.html" class="md-nav__link">
+      <a href="garbd-howto.html" class="md-nav__link">
         
   
   
@@ -2535,7 +2528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../singlebox.html" class="md-nav__link">
+      <a href="singlebox.html" class="md-nav__link">
         
   
   
@@ -2558,7 +2551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../set-up-3nodes-ec2.html" class="md-nav__link">
+      <a href="set-up-3nodes-ec2.html" class="md-nav__link">
         
   
   
@@ -2581,7 +2574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../haproxy.html" class="md-nav__link">
+      <a href="haproxy.html" class="md-nav__link">
         
   
   
@@ -2604,7 +2597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../load-balance-proxysql.html" class="md-nav__link">
+      <a href="load-balance-proxysql.html" class="md-nav__link">
         
   
   
@@ -2627,7 +2620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../proxysql-v2.html" class="md-nav__link">
+      <a href="proxysql-v2.html" class="md-nav__link">
         
   
   
@@ -2650,7 +2643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../virtual-sandbox.html" class="md-nav__link">
+      <a href="virtual-sandbox.html" class="md-nav__link">
         
   
   
@@ -2738,7 +2731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-status-index.html" class="md-nav__link">
+      <a href="wsrep-status-index.html" class="md-nav__link">
         
   
   
@@ -2761,7 +2754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-system-index.html" class="md-nav__link">
+      <a href="wsrep-system-index.html" class="md-nav__link">
         
   
   
@@ -2784,7 +2777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-provider-index.html" class="md-nav__link">
+      <a href="wsrep-provider-index.html" class="md-nav__link">
         
   
   
@@ -2807,7 +2800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsrep-files-index.html" class="md-nav__link">
+      <a href="wsrep-files-index.html" class="md-nav__link">
         
   
   
@@ -2830,7 +2823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../telemetry.html" class="md-nav__link">
+      <a href="telemetry.html" class="md-nav__link">
         
   
   
@@ -2853,7 +2846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../faq.html" class="md-nav__link">
+      <a href="faq.html" class="md-nav__link">
         
   
   
@@ -2876,7 +2869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glossary.html" class="md-nav__link">
+      <a href="glossary.html" class="md-nav__link">
         
   
   
@@ -2899,7 +2892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../copyright-and-licensing-information.html" class="md-nav__link">
+      <a href="copyright-and-licensing-information.html" class="md-nav__link">
         
   
   
@@ -2922,7 +2915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../trademark-policy.html" class="md-nav__link">
+      <a href="trademark-policy.html" class="md-nav__link">
         
   
   
@@ -2952,7 +2945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index-contents.html" class="md-nav__link">
+      <a href="index-contents.html" class="md-nav__link">
         
   
   
@@ -3002,27 +2995,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#release-highlights" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Release Highlights
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#bugs-fixed" class="md-nav__link">
+  <a href="#directory-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      Bugs Fixed
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#useful-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Useful Links
+      Directory Structure
     </span>
   </a>
   
@@ -3057,7 +3041,7 @@
 
 
   
-    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/release-notes/8.4.0-1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/percona/pxc-docs/edit/8.4/docs/docker-compose.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3066,110 +3050,207 @@
     
       
     
-    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/release-notes/8.4.0-1.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/percona/pxc-docs/raw/8.4/docs/docker-compose.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="percona-xtradb-cluster-840-1-2024-11-07">Percona XtraDB Cluster 8.4.0-1 (2024-11-07)<a class="headerlink" href="#percona-xtradb-cluster-840-1-2024-11-07" title="Permanent link">&para;</a></h1>
-<p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
-<h2 id="release-highlights">Release Highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.0-1.html">Percona Server for MySQL 8.4.0-1 (2024-08-28) release notes</a>.</p>
-<h2 id="bugs-fixed">Bugs Fixed<a class="headerlink" href="#bugs-fixed" title="Permanent link">&para;</a></h2>
+<h1 id="run-with-docker-compose">Run with Docker Compose<a class="headerlink" href="#run-with-docker-compose" title="Permanent link">&para;</a></h1>
+<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs</a>. Make
+sure that you are using the latest version of Docker. The ones
+provided via <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
+<p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
+<p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
+<p>This guide shows you how to deploy a three-node Percona XtraDB Cluster 8.4 using Docker Compose. You generate SSL certificates on the first node and copy them to the other two nodes to enable secure communication.</p>
+<p>The following procedure describes setting up a simple 3-node cluster
+for evaluation and testing purposes. Do not use these instructions in a
+production environment because the MySQL certificates generated in this
+procedure are self-signed.</p>
+<p>In a production environment, you should generate and store the certificates to be used by Docker and configure proper storage, security, backup, and monitoring systems.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4034">PXC-4034</a>: In asynchronous replicas, using <code>sql_log_bin=0</code> disrupted the Global Transaction Identifier (GTID) consistency, causing issues with replication and tracking transactions across the system.</p>
+<p>Docker and Docker Compose installed</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4041">PXC-4041</a>: Rotating the InnoDB Master Key from a read_only node breaks the cluster since changes from a read_only node are not propagated to other nodes.</p>
+<p>At least 3 GB of memory per container</p>
 </li>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4179">PXC-4179</a>: The <code>performance_schema.processlist</code> did not show information about wsrep applier threads and rollbacker threads.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4277">PXC-4277</a>: A 3-node Percona XtraDB Cluster (PXC) became inconsistent when an ALTER statement with <code>ALGORITHM=INPLACE</code> was used.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4298">PXC-4298</a>: The node was disconnected when using <code>ALTER TABLE</code>, including <code>ADD UNIQUE</code> in the table containing duplicate entries (Thanks to Vit Novak for reporting this issue.)</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4313">PXC-4313</a>: When statements were executed in Replica Set Update (RSU) mode, they generated local Global Transaction Identifier (GTID) events.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4315">PXC-4315</a>: There was no Brute Force (BF) abort, but a message saying “Metadata Lock (MDL) conflict… solved by abort” was printed.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4316">PXC-4316</a>: If the node shut down while being partitioned from the cluster, started again, and then rejoined the cluster, the other part of the cluster would still wait for the partitioned node.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4317">PXC-4317</a>: On newer platforms like AlmaLinux, adding a new node to an existing cluster was unsuccessful because the readlink command used during the SST process on joiner failed (Thanks to Mikael Gbai for reporting this issue.)</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4318">PXC-4318</a>: The Percona XtraDB Cluster node can serve as an async replica for another master node. However, when the same row was modified on both the Percona XtraDB Cluster node and the master node, the Percona XtraDB Cluster node got stuck due to replication conflicts.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4336">PXC-4336</a>: The Percona XtraDB Cluster node disconnected from the cluster due to CHECK CONSTRAINT.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4340">PXC-4340</a>: The server exited when executing the complicated query with 9 CTEs.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4341">PXC-4341</a>: When running <code>FLUSH TABLES</code> after a statement was prepared, the node could exit due to broken consistency.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4348">PXC-4348</a>: The joiner node exited with Metadata Lock <code>BF-BF</code> conflict during <code>IST</code>.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4362">PXC-4362</a>: The node could leave the cluster when binary logging was enabled and the function was created without super privilege.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4363">PXC-4363</a>: Concurrent CREATE and DROP USER queries on different nodes resulted in a permanent lock.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4365">PXC-4365</a>: The node could leave the cluster when the row size was too large and had more than three <code>nvarchar</code> columns.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4367">PXC-4367</a>: The InnoDB semaphore wait timeout caused a server exit under a heavy load.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4385">PXC-4385</a>: In the Total Order Isolation mode, an ALTER USER in one mode and a SET PASSWORD in another mode caused statements to hang which locked the nodes.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4397">PXC-4397</a>: The instance became unresponsive if ALTER DATABASE and DROP TRIGGER commands were run simultaneously.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4401">PXC-4401</a>: The function galera::ReplicatorSMM::replicate() contained a duplicate GU_DBUG_SYNC_WAIT(&ldquo;before_replicate_sync&rdquo;) command.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4403">PXC-4403</a>: Incorrect field metadata caused assertion in <code>protocol_classic.cc::store_string()</code>.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4419">PXC-4419</a>: A node became unresponsive if DROP USER commands were executed on different nodes.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4428">PXC-4428</a>: When the State Snapshot Transfer (SST) completed, the Galera Arbitrator Daemon (garbd) also terminated any SST subprocesses.</p>
-</li>
-<li>
-<p><a href="https://perconadev.atlassian.net/browse/PXC-4453">PXC-4453</a>: Constant and frequent changes of the flow control&rsquo;s parameter <code>gcs.fc_limit</code> may hang the cluster</p>
+<p>Familiarity with Docker volumes and networks</p>
 </li>
 </ul>
-<h2 id="useful-links">Useful Links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
-<ul>
+<h2 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
+<p>You must create a separate directory structure to organize your configuration, certificate files, and Docker Compose setup. This step keeps your deployment clean and easy to manage.</p>
+<p>Run the following commands to create the directory structure:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-cluster
+</code></pre></div>
+<p>After running these commands, your working directory (pxc-cluster/) will contain:</p>
+<p><img alt="PXC cluster directories" src="_static/pxc-cluster-dirs.png" /></p>
+<p class="power-number">This structure helps manage configuration files, TLS/SSL certificates, and setup scripts, ensuring a tidy and easy-to-manage deployment.</p>
+<ol>
 <li>
-<p>The <a href="https://www.percona.com/doc/percona-xtradb-cluster/8.4/install/index.html">Percona XtraDB Cluster installation instructions</a></p>
+<p>Create conf.d/custom.cnf with minimal SSL settings:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
+</code></pre></div>
 </li>
 <li>
-<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+<p>Create a file named <code>.env</code> in the directory root:</p>
+<div class="highlight"><pre><span></span><code><span class="na">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s">rootpass</span>
+<span class="na">XTRABACKUP_PASSWORD</span><span class="o">=</span><span class="s">xbpass</span>
+</code></pre></div>
+<p>Add <code>.env</code> to your .gitignore file to prevent committing secrets to version control.</p>
 </li>
 <li>
-<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+<p>Copy the SSL certificate generation script. Save the script as <code>init/create-ssl-certs.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#!/bin/bash</span>
+<span class="na">set -e</span>
+
+<span class="na">CERT_DIR</span><span class="o">=</span><span class="s">./certs</span>
+<span class="na">mkdir -p &quot;$CERT_DIR&quot;</span>
+<span class="na">cd &quot;$CERT_DIR&quot;</span>
+
+<span class="c1"># Generate CA key and certificate</span>
+<span class="na">openssl genrsa -out ca-key.pem 2048</span>
+<span class="na">openssl req -new -x509 -nodes -days 3650 \</span>
+<span class="w">    </span><span class="na">-key ca-key.pem \</span>
+<span class="w">    </span><span class="na">-subj &quot;/C</span><span class="o">=</span><span class="s">XX/ST=State/L=City/O=Organization/CN=RootCA&quot; </span>\
+<span class="w">    </span><span class="s">-out ca.pem</span>
+
+<span class="c1"># Generate server key and CSR</span>
+<span class="na">openssl req -newkey rsa</span><span class="o">:</span><span class="s">2048 -nodes </span>\
+<span class="w">    </span><span class="s">-keyout server-key.pem </span>\
+<span class="w">    </span><span class="s">-subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot; </span>\
+<span class="w">    </span><span class="s">-out server-req.pem</span>
+
+<span class="c1"># Sign server certificate with CA</span>
+<span class="na">openssl x509 -req -in server-req.pem -days 3650 \</span>
+<span class="w">    </span><span class="na">-CA ca.pem -CAkey ca-key.pem -set_serial 01 \</span>
+<span class="w">    </span><span class="na">-out server-cert.pem</span>
+
+<span class="c1"># Restrict permissions</span>
+<span class="na">chmod 600 *.pem</span>
+</code></pre></div>
 </li>
 <li>
-<p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
+<p>Make the script executable:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
+</code></pre></div>
 </li>
-</ul>
+<li>
+<p>Run the script to create the certs:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>./init/create-ssl-certs.sh
+</code></pre></div>
+</li>
+<li>
+<p>Copy Certificates to All Nodes</p>
+<p>All three nodes in the cluster must use the same set of SSL certificates. After generating the certificates in the certs/ directory on node 1, you need to copy them to the directories for node 2 and node 3.</p>
+<p>If you run all containers from a single project directory (like with Docker Compose on one host), you can reuse the same certs/ directory for all nodes. However, you must explicitly copy the certificates if you’re organizing them into separate directories or deploying on separate hosts.</p>
+<p>To create the directories for node 2 and node 3:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
+</code></pre></div>
+<p>Then copy the certificates:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
+$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
+</code></pre></div>
+<p>If you’re deploying on separate machines, run the following from node 1:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
+$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
+</code></pre></div>
+<p>Ensure each container mounts its own copy of the certs/ directory.</p>
+</li>
+<li>
+<p>Create docker-compose.yml:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pxc1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc1</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc2,pxc3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3306:3306&quot;</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--wsrep-new-cluster&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="w">  </span><span class="nt">pxc2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc2</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1,pxc3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="w">  </span><span class="nt">pxc3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc3</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1,pxc2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pxcnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</code></pre></div>
+</li>
+<li>
+<p>Start the Cluster</p>
+<p>Start node 1 to initialize the cluster:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
+</code></pre></div>
+<p>Then, start the remaining nodes:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
+</code></pre></div>
+</li>
+<li>
+<p>Validate the Cluster</p>
+<p>Check the status of each node:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
+</code></pre></div>
+</li>
+</ol>
+<p>You should see all three nodes joined and synchronized.</p>
 
 
 
@@ -3190,7 +3271,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2024-11-07
+    2025-07-15
   </span>
 
     
@@ -3329,20 +3410,20 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.edit", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
   <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
   
-      <script src="../assets/javascripts/bundle.50899def.min.js"></script>
+      <script src="assets/javascripts/bundle.50899def.min.js"></script>
       
-        <script src="../js/print-site.js"></script>
+        <script src="js/print-site.js"></script>
       
-        <script src="../js/version-select.js"></script>
+        <script src="js/version-select.js"></script>
       
-        <script src="../js/promptremover.js"></script>
+        <script src="js/promptremover.js"></script>
       
-        <script src="../js/consent.js"></script>
+        <script src="js/consent.js"></script>
       
     
   
