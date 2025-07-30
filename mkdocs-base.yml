@@ -194,7 +194,8 @@ nav:
       - yum.md 
       - tarball.md
       - compile.md
-      - docker.md 
+      - docker.md
+      - docker-compose.md 
       - configure-nodes.md
       - bootstrap.md
       - add-node.md
