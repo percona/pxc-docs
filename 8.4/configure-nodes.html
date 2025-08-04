@@ -3110,54 +3110,71 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 </code></pre></div>
 </li>
 <li>
+<p>Generate the SSL certificates on the first node. Ensure that all nodes use 
+   identical key and certificate files to maintain a consistent security setup. 
+   Store the certificates in <code>/etc/</code>, not in the data directory. After generating 
+   the certificates, copy them to all other nodes.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+</code></pre></div>
+</li>
+<li>
 <p>Edit the configuration file of the first node to provide the cluster settings.</p>
 <p><em>If you use Debian or Ubuntu</em>, edit <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib/galera4/libgalera_smm.so
-<span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
-<span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_provider</span><span class="o">=</span><span class="s">/usr/lib/galera4/libgalera_smm.so</span>
+<span class="na">wsrep_cluster_name</span><span class="o">=</span><span class="s">pxc-cluster</span>
+<span class="na">wsrep_cluster_address</span><span class="o">=</span><span class="s">gcomm://192.168.70.61,192.168.70.62,192.168.70.63</span>
 </code></pre></div>
 <p><em>If you use Red Hat Enterprise Linux</em>, edit <code>/etc/my.cnf</code>. Note that on these systems you set
 the <code>wsrep_provider option</code> to a different value:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/galera4/libgalera_smm.so
-<span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
-<span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_provider</span><span class="o">=</span><span class="s">/usr/lib64/galera4/libgalera_smm.so</span>
+<span class="na">wsrep_cluster_name</span><span class="o">=</span><span class="s">pxc-cluster</span>
+<span class="na">wsrep_cluster_address</span><span class="o">=</span><span class="s">gcomm://192.168.70.61,192.168.70.62,192.168.70.63</span>
 </code></pre></div>
 </li>
 <li>
 <p>Configure <em>node 1</em>.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_node_name</span><span class="o">=</span>pxc1
-<span class="nv">wsrep_node_address</span><span class="o">=</span><span class="m">192</span>.168.70.61
-<span class="nv">pxc_strict_mode</span><span class="o">=</span>ENFORCING
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_node_name</span><span class="o">=</span><span class="s">pxc1</span>
+<span class="na">wsrep_node_address</span><span class="o">=</span><span class="s">192.168.70.61</span>
+<span class="na">pxc_strict_mode</span><span class="o">=</span><span class="s">ENFORCING</span>
 </code></pre></div>
 </li>
 <li>
 <p>Set up <em>node 2</em> and <em>node 3</em> in the same way: Stop the server and update the configuration file applicable to your system. All settings are the same except for <a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_name</code></a> and <a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a>.</p>
 <p>For node 2</p>
-<div class="highlight"><pre><span></span><code>wsrep_node_name=pxc2
+<div class="highlight"><pre><span></span><code>```ini
+wsrep_node_name=pxc2
 wsrep_node_address=192.168.70.62
+```
 </code></pre></div>
 <p>For node 3</p>
-<div class="highlight"><pre><span></span><code>wsrep_node_name=pxc3
+<div class="highlight"><pre><span></span><code>```ini
+wsrep_node_name=pxc3
 wsrep_node_address=192.168.70.63
+```
 </code></pre></div>
 </li>
 <li>
-<p>Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
-<span class="nv">wsrep_provider_options</span><span class="o">=</span>”socket.ssl_key<span class="o">=</span>server-key.pem<span class="p">;</span>socket.ssl_cert<span class="o">=</span>server-cert.pem<span class="p">;</span>socket.ssl_ca<span class="o">=</span>ca.pem”
+<p>Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates stored in <code>/etc/</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">wsrep_provider_options</span><span class="o">=</span><span class="s">”socket.ssl_key=server-key.pem</span><span class="c1">;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”</span>
 
-<span class="o">[</span>sst<span class="o">]</span>
-<span class="nv">encrypt</span><span class="o">=</span><span class="m">4</span>
-ssl-key<span class="o">=</span>server-key.pem
-ssl-ca<span class="o">=</span>ca.pem
-ssl-cert<span class="o">=</span>server-cert.pem
+<span class="k">[sst]</span>
+<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">server-key.pem</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">server-cert.pem</span>
 </code></pre></div>
 </li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In Percona XtraDB Cluster 8.4, the <a href="encrypt-traffic.html#encrypt-replication-traffic">Encrypting Replication Traffic</a> is
-enabled by default (via the <code>pxc-encrypt-cluster-traffic</code> variable).</p>
+enabled by default by the <code>pxc-encrypt-cluster-traffic</code> variable.</p>
 <p>The replication traffic encryption cannot be enabled on a running cluster. If
 it was disabled before the cluster was bootstrapped, the cluster must to
 stopped. Then set up the encryption, and bootstrap (see <a href="bootstrap.html#bootstrap-the-first-node"><code>Bootstrapping the First Node</code></a>)
@@ -3278,7 +3295,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-07-10
+    2025-08-04
   </span>
 
     

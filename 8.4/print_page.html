@@ -6249,54 +6249,71 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 </code></pre></div>
 </li>
 <li>
+<p>Generate the SSL certificates on the first node. Ensure that all nodes use 
+   identical key and certificate files to maintain a consistent security setup. 
+   Store the certificates in <code>/etc/</code>, not in the data directory. After generating 
+   the certificates, copy them to all other nodes.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+</code></pre></div>
+</li>
+<li>
 <p>Edit the configuration file of the first node to provide the cluster settings.</p>
 <p><em>If you use Debian or Ubuntu</em>, edit <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib/galera4/libgalera_smm.so
-<span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
-<span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_provider</span><span class="o">=</span><span class="s">/usr/lib/galera4/libgalera_smm.so</span>
+<span class="na">wsrep_cluster_name</span><span class="o">=</span><span class="s">pxc-cluster</span>
+<span class="na">wsrep_cluster_address</span><span class="o">=</span><span class="s">gcomm://192.168.70.61,192.168.70.62,192.168.70.63</span>
 </code></pre></div>
 <p><em>If you use Red Hat Enterprise Linux</em>, edit <code>/etc/my.cnf</code>. Note that on these systems you set
 the <code>wsrep_provider option</code> to a different value:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider</span><span class="o">=</span>/usr/lib64/galera4/libgalera_smm.so
-<span class="nv">wsrep_cluster_name</span><span class="o">=</span>pxc-cluster
-<span class="nv">wsrep_cluster_address</span><span class="o">=</span>gcomm://192.168.70.61,192.168.70.62,192.168.70.63
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_provider</span><span class="o">=</span><span class="s">/usr/lib64/galera4/libgalera_smm.so</span>
+<span class="na">wsrep_cluster_name</span><span class="o">=</span><span class="s">pxc-cluster</span>
+<span class="na">wsrep_cluster_address</span><span class="o">=</span><span class="s">gcomm://192.168.70.61,192.168.70.62,192.168.70.63</span>
 </code></pre></div>
 </li>
 <li>
 <p>Configure <em>node 1</em>.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_node_name</span><span class="o">=</span>pxc1
-<span class="nv">wsrep_node_address</span><span class="o">=</span><span class="m">192</span>.168.70.61
-<span class="nv">pxc_strict_mode</span><span class="o">=</span>ENFORCING
+<div class="highlight"><pre><span></span><code><span class="na">wsrep_node_name</span><span class="o">=</span><span class="s">pxc1</span>
+<span class="na">wsrep_node_address</span><span class="o">=</span><span class="s">192.168.70.61</span>
+<span class="na">pxc_strict_mode</span><span class="o">=</span><span class="s">ENFORCING</span>
 </code></pre></div>
 </li>
 <li>
 <p>Set up <em>node 2</em> and <em>node 3</em> in the same way: Stop the server and update the configuration file applicable to your system. All settings are the same except for <a href="#wsrep-system-index-wsrep_node_name"><code>wsrep_node_name</code></a> and <a href="#wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code></a>.</p>
 <p>For node 2</p>
-<div class="highlight"><pre><span></span><code>wsrep_node_name=pxc2
+<div class="highlight"><pre><span></span><code>```ini
+wsrep_node_name=pxc2
 wsrep_node_address=192.168.70.62
+```
 </code></pre></div>
 <p>For node 3</p>
-<div class="highlight"><pre><span></span><code>wsrep_node_name=pxc3
+<div class="highlight"><pre><span></span><code>```ini
+wsrep_node_name=pxc3
 wsrep_node_address=192.168.70.63
+```
 </code></pre></div>
 </li>
 <li>
-<p>Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
-<span class="nv">wsrep_provider_options</span><span class="o">=</span>”socket.ssl_key<span class="o">=</span>server-key.pem<span class="p">;</span>socket.ssl_cert<span class="o">=</span>server-cert.pem<span class="p">;</span>socket.ssl_ca<span class="o">=</span>ca.pem”
+<p>Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates stored in <code>/etc/</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">wsrep_provider_options</span><span class="o">=</span><span class="s">”socket.ssl_key=server-key.pem</span><span class="c1">;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”</span>
 
-<span class="o">[</span>sst<span class="o">]</span>
-<span class="nv">encrypt</span><span class="o">=</span><span class="m">4</span>
-ssl-key<span class="o">=</span>server-key.pem
-ssl-ca<span class="o">=</span>ca.pem
-ssl-cert<span class="o">=</span>server-cert.pem
+<span class="k">[sst]</span>
+<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">server-key.pem</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">server-cert.pem</span>
 </code></pre></div>
 </li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In Percona XtraDB Cluster 8.4, the <a href="#encrypt-traffic-encrypt-replication-traffic">Encrypting Replication Traffic</a> is
-enabled by default (via the <code>pxc-encrypt-cluster-traffic</code> variable).</p>
+enabled by default by the <code>pxc-encrypt-cluster-traffic</code> variable.</p>
 <p>The replication traffic encryption cannot be enabled on a running cluster. If
 it was disabled before the cluster was bootstrapped, the cluster must to
 stopped. Then set up the encryption, and bootstrap (see <a href="#bootstrap-bootstrap-the-first-node"><code>Bootstrapping the First Node</code></a>)
@@ -6449,12 +6466,32 @@ automatically.  When you start a node with the address of at least one other
 running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Any existing data and configuration will be overwritten
-to match the data and configuration of the DONOR node.
-Do not join several nodes at the same time
-to avoid overhead due to large amounts of traffic when a new node joins. </p>
+<p>Existing data and configuration will be replaced to align with those of the 
+DONOR node. To minimize traffic overhead, avoid joining multiple nodes 
+simultaneously.</p>
 </div>
 <p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="#glossary-sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
+<h2 id="add-node-generate-and-copy-ssl-certificates">Generate and Copy SSL Certificates<a class="headerlink" href="#add-node-generate-and-copy-ssl-certificates" title="Permanent link">&para;</a></h2>
+<p>Before starting the nodes, ensure that you generate the SSL certificates on the 
+first node. All nodes must use identical key and certificate files to ensure 
+a consistent security setup. Store the certificates in <code>/etc/</code>, not in the 
+data directory. After generating the certificates, copy them to all other nodes.</p>
+<ol>
+<li>
+<p>Generate the SSL certificates on the first node:</p>
+<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \</span>
+-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
+</code></pre></div>
+</li>
+<li>
+<p>Copy the SSL certificates to the other nodes:</p>
+<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-key.pem pxc2:/etc/</span>
+<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-cert.pem pxc2:/etc/</span>
+<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-key.pem pxc3:/etc/</span>
+<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-cert.pem pxc3:/etc/</span>
+</code></pre></div>
+</li>
+</ol>
 <h2 id="add-node-start-the-second-node">Start the second node<a class="headerlink" href="#add-node-start-the-second-node" title="Permanent link">&para;</a></h2>
 <p>Start the second node using the following command:</p>
 <div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
@@ -7210,60 +7247,128 @@ For example:</p>
 </ul>
 <p>Percona XtraDB Cluster encrypts all types of traffic to prevent unauthorized access and ensure data confidentiality. The system allows administrators to configure replication traffic encryption using either automated processes or manual setup, depending on security requirements and organizational policies. Implementing encryption enhances data protection, mitigates security risks, and maintains compliance with industry standards.</p>
 <h2 id="encrypt-traffic-encrypt-client-server-communication">Encrypt client-server communication<a class="headerlink" href="#encrypt-traffic-encrypt-client-server-communication" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster relies on MySQL’s built-in encryption framework to protect communication between client applications and cluster nodes. This mechanism ensures secure data exchanges, preventing unauthorized access and maintaining confidentiality.</p>
-<p>MySQL automatically generates default key and certificate files during initialization and stores them in the data directory. Administrators can replace these files with custom-generated certificates to meet specific security requirements, as the <a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> section outlines.</p>
-<p>The automatically created files provide a convenient option for SSL configuration, but consistency across all cluster nodes is essential. Each node should use the same key and certificate files to maintain a secure, unified encryption setup.</p>
-<p>Administrators must define the appropriate encryption settings for each node in the <code>my.cnf</code> configuration file. These settings establish secure connections and ensure encrypted data transmission within the cluster.</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/certs/server-key.pem
-
-[client]
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/client-cert.pem
-ssl-key=/etc/mysql/certs/client-key.pem
+<h2 id="encrypt-traffic-ssl-encryption-framework-in-percona-xtradb-cluster">SSL Encryption Framework in Percona XtraDB Cluster<a class="headerlink" href="#encrypt-traffic-ssl-encryption-framework-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster uses MySQL’s native encryption framework to secure communication between client applications and cluster nodes. This ensures encrypted data exchange, prevents unauthorized access, and maintains end-to-end confidentiality.</p>
+<h3 id="encrypt-traffic-default-certificate-generation">Default Certificate Generation<a class="headerlink" href="#encrypt-traffic-default-certificate-generation" title="Permanent link">&para;</a></h3>
+<p>Upon initialization, MySQL automatically generates default key and certificate files in the data directory (e.g. <code>/var/lib/mysql</code>). While these files simplify SSL setup, production environments should use custom certificates that meet internal security policies.<br />
+See: <a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generating Keys and Certificates Manually</a></p>
+<h3 id="encrypt-traffic-ensuring-consistency-across-nodes">Ensuring Consistency Across Nodes<a class="headerlink" href="#encrypt-traffic-ensuring-consistency-across-nodes" title="Permanent link">&para;</a></h3>
+<p>All cluster nodes must use identical key and certificate files, which should 
+be stored in <code>/etc/</code> and configured in each node’s <code>my.cnf</code>. If the 
+certificates differ between nodes, encrypted communication will fail, 
+preventing nodes from joining the cluster.</p>
+<p>To maintain a secure and unified cluster setup, you must:</p>
+<ul>
+<li>
+<p>Deploy identical SSL certificates to all nodes manually. This is the 
+  recommended approach to ensure secure communication.</p>
+</li>
+<li>
+<p>Avoid disabling <code>pxc_encrypt_cluster_traffic</code>. Disabling this option 
+  does not contribute to a secure setup; instead, it exposes replication 
+  traffic to potential interception and eavesdropping, compromising the 
+  security of sensitive data.</p>
+</li>
+</ul>
+<p>A common practice is to generate the certificates on the first node and 
+then copy them to all other nodes.</p>
+<h3 id="encrypt-traffic-recommended-certificate-storage">Recommended Certificate Storage<a class="headerlink" href="#encrypt-traffic-recommended-certificate-storage" title="Permanent link">&para;</a></h3>
+<p>Instead of storing certificates in the data directory, relocate them to a dedicated directory:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/mysql/certs
+mv<span class="w"> </span>/var/lib/mysql/*.pem<span class="w"> </span>/etc/mysql/certs/
+chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/etc/mysql/certs
+</code></pre></div>
+<p>Then update your configuration in /etc/mysql/mysql.conf.d/mysqld.cnf:</p>
+<div class="highlight"><pre><span></span><code><span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
 </code></pre></div>
 <p>The system reads the stored key and certificate files to secure client communication when the node restarts. These files encrypt data exchanges, ensuring privacy and protection. MySQL clients only need the second part of the configuration to connect to cluster nodes.</p>
-<p>MySQL generates key and certificate files by default and stores them in the data directory. Users can use these files or create new certificates for stronger security or custom encryption settings. Generating new certificates helps meet specific security policies and industry standards.</p>
-<p>Refer to
-<a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> section for step-by-step instructions on key creation, certificate signing, and configuration. This guide provides the details to set up encryption according to security requirements.</p>
+<p>To ensure all nodes have identical certificates, it is recommended to generate key and certificate files on the first node. After generating the certificates, copy them to all other nodes to maintain consistency. This practice helps meet specific security policies and industry standards.</p>
+<p>For detailed instructions on key creation, certificate signing, and configuration, refer to the section on
+<a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a>. This guide provides the necessary steps to set up encryption according to your security requirements.</p>
 <h2 id="encrypt-traffic-encrypt-replication-traffic">Encrypt replication traffic<a class="headerlink" href="#encrypt-traffic-encrypt-replication-traffic" title="Permanent link">&para;</a></h2>
 <p>Replication traffic refers to the inter-node traffic, which includes
 <a href="#glossary-sst">the SST traffic</a>, <a href="#glossary-ist">IST traffic</a>, and replication traffic.</p>
-<p>Each type of traffic uses a separate channel, so administrators must configure secure channels for all three variants to protect replication traffic fully.</p>
-<p>Percona XtraDB Cluster provides a single configuration option to secure all replication traffic. This option, known as SSL automatic configuration, ensures encrypted communication across the cluster. Administrators can also enhance security by configuring each channel separately using independent parameters.</p>
+<p>To ensure secure communication across the cluster, all nodes must use identical key and certificate files. Percona XtraDB Cluster provides a single configuration option to secure all replication traffic, known as SSL automatic configuration. This option ensures encrypted communication across the cluster.</p>
+<p>Administrators can enhance security by configuring each channel separately using independent parameters, but it is crucial to maintain consistency in the certificates used across all nodes to prevent communication failures.</p>
 <h2 id="encrypt-traffic-use-consistent-ssl-certificates-across-all-cluster-nodes">Use consistent SSL certificates across all cluster nodes<a class="headerlink" href="#encrypt-traffic-use-consistent-ssl-certificates-across-all-cluster-nodes" title="Permanent link">&para;</a></h2>
-<p>Automatic SSL encryption relies on key and certificate files to secure communication. MySQL generates default key and certificate files during initialization and stores them in the data directory.</p>
-<p>All cluster nodes must use the same SSL certificates to maintain a secure and consistent encryption setup. Using different certificates on individual nodes can create connectivity problems and weaken security. Configure each node with identical SSL credentials to ensure reliable and encrypted communication across the cluster.</p>
+<p>Automatic SSL encryption relies on key and certificate files to secure 
+communication. MySQL generates default key and certificate files during 
+initialization and stores them in the data directory.</p>
+<p>All cluster nodes must use the same SSL certificates to maintain a secure 
+and consistent encryption setup. Using different certificates on individual 
+nodes can create connectivity problems and weaken security. Configure each 
+node with identical SSL credentials to ensure reliable and encrypted 
+communication across the cluster.</p>
 <h3 id="encrypt-traffic-configure-ssl-encryption">Configure SSL encryption<a class="headerlink" href="#encrypt-traffic-configure-ssl-encryption" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster provides the pxc-encrypt-cluster-traffic variable to automate SSL encryption for replication traffic, including State Snapshot Transfer (SST), Incremental State Transfer (IST), and other replication processes. This configuration ensures that data exchanges between nodes remain encrypted, preventing unauthorized access and maintaining the cluster&rsquo;s security.</p>
-<p>By default, <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> enables a secure communication channel for replication. This variable is not dynamic, meaning administrators cannot modify the value while running the cluster. Any change to the encryption settings requires stopping the cluster, updating the configuration, and restarting the nodes.</p>
-<p>When enabled, <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> automatically applies encryption settings, including encrypt, ssl_key, ssl-ca, and ssl-cert. The system uses these parameters to create a secure data exchange between nodes.</p>
+<p>Percona XtraDB Cluster provides the <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> variable 
+to automate SSL encryption for replication traffic, including State Snapshot 
+Transfer (SST), Incremental State Transfer (IST), and other replication 
+processes. This configuration ensures that data exchanges between nodes 
+remain encrypted, preventing unauthorized access and maintaining the 
+cluster&rsquo;s security.</p>
+<p>By default, <code>pxc-encrypt-cluster-traffic</code> enables a secure communication channel for replication. This variable is not dynamic, meaning administrators cannot modify the value while running the cluster. Any change to the encryption settings requires stopping the cluster, updating the configuration, and restarting the nodes.</p>
+<p>When enabled, <code>pxc-encrypt-cluster-traffic</code> automatically applies 
+encryption settings, including <code>encrypt</code>, <code>ssl_key</code>, <code>ssl-ca</code>, and 
+<code>ssl-cert</code>. The system uses these parameters to create a secure data 
+exchange between nodes.</p>
 <p>Administrators can explicitly configure encryption in <code>my.cnf</code> configuration file by setting <code>pxc-encrypt-cluster-traffic=ON</code>. </p>
 <p>This configuration applies the following settings:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
-wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">wsrep_provider_options</span><span class="o">=</span><span class="s">”socket.ssl_key=server-key.pem</span><span class="c1">;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”</span>
 
-[sst]
-encrypt=4
-ssl-key=server-key.pem
-ssl-ca=ca.pem
-ssl-cert=server-cert.pem
+<span class="k">[sst]</span>
+<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">server-key.pem</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">server-cert.pem</span>
 </code></pre></div>
 <p>For <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
 <h4 id="encrypt-traffic-disable-pxc-encrypt-cluster-traffic-and-assess-security-risks">Disable pxc-encrypt-cluster-traffic and assess security risks<a class="headerlink" href="#encrypt-traffic-disable-pxc-encrypt-cluster-traffic-and-assess-security-risks" title="Permanent link">&para;</a></h4>
 <p>The default setting for <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>PCX</code></a> significantly enhances your system&rsquo;s security by encrypting the traffic between nodes in a Percona XtraDB Cluster (PXC).</p>
 <p>When the option for <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> remains disabled, individuals with access to the network can connect to any PXC node, either as a client or as another node attempting to join the cluster. This unrestricted access allows these individuals to query sensitive data or obtain a complete copy of the data stored within the cluster.</p>
-<p>In situations where disabling <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> becomes necessary, follow these steps to ensure proper configuration. First, halt the cluster to prevent any disruptions during the update process. Next, locate the <code>[mysqld]</code> section of the configuration file for each node and modify the setting to <code>pxc-encrypt-cluster-traffic=OFF</code>. After making this change, restart the cluster to apply the new configuration. This process ensures that the cluster operates under the updated security settings.</p>
+<p>To maintain a secure cluster, it is crucial to enable 
+<code>pxc-encrypt-cluster-traffic</code> and ensure that all nodes use identical SSL 
+certificates. If disabling <code>pxc-encrypt-cluster-traffic</code> becomes 
+necessary, follow these steps to ensure proper configuration. First, halt 
+the cluster to prevent any disruptions during the update process. Next, 
+locate the <code>[mysqld]</code> section of the configuration file for each node and 
+modify the setting to <code>pxc-encrypt-cluster-traffic=OFF</code>. After making this 
+change, restart the cluster to apply the new configuration. This process 
+ensures that the cluster operates under the updated security settings.</p>
 <h2 id="encrypt-traffic-ssl-automatic-configuration">SSL automatic configuration<a class="headerlink" href="#encrypt-traffic-ssl-automatic-configuration" title="Permanent link">&para;</a></h2>
-<p>Automatic SSL encryption setup requires key and certificate files to secure communication. MySQL generates default key and certificate files and stores them in the data directory. These files support automatic SSL configuration, but all nodes must use the same key and certificate files to ensure a consistent security setup. Administrators can replace the auto-generated files with manually created certificates, as described in the <a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> section.</p>
-<p>When configuring encryption, the system first checks the SSL-ca, SSL, and SSL settings under [mysqld]. If the configuration does not include these options, the system actively searches the data directory for <code>ca.pem</code>, <code>server-cert.pem</code>, and <code>server-key.pem</code>. The system does not check the [sst] section for key and certificate files.</p>
-<p>If the system locates all three required files, encryption is successfully configured. If any file is missing, the system generates a fatal error. Ensuring all necessary files are present prevents encryption failures and maintains secure communication within the cluster.</p>
+<p>Automatic SSL encryption setup requires key and certificate files to secure 
+communication. MySQL generates default key and certificate files and stores 
+them in the data directory. These files support automatic SSL configuration, 
+but all nodes must use the same key and certificate files to ensure a 
+consistent security setup. Administrators can replace the auto-generated 
+files with manually created certificates, as described in the 
+<a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> 
+section.</p>
+<p>When configuring encryption, the system first checks the <code>SSL-ca</code>, <code>SSL</code>, and 
+SSL settings under <code>[mysqld]</code>. If the configuration does not include these 
+options, the system actively searches the data directory for 
+<code>ca.pem</code>, <code>server-cert.pem</code>, and <code>server-key.pem</code>. The system does not 
+check the <code>[sst]</code> section for key and certificate files.</p>
+<p>If the system locates all three required files, encryption is successfully 
+configured. If any file is missing, the system generates a fatal error. 
+Ensuring all necessary files are present prevents encryption failures and 
+maintains secure communication within the cluster.</p>
 <h2 id="encrypt-traffic-ssl-manual-configuration">SSL manual configuration<a class="headerlink" href="#encrypt-traffic-ssl-manual-configuration" title="Permanent link">&para;</a></h2>
-<p>A user who needs encryption for a specific channel or wants to use different certificates can configure encryption manually. This approach provides greater flexibility, allowing users to customize security settings based on operational requirements.</p>
-<p>To manually enable encryption, specify the locations of the required key and certificate files in the Percona XtraDB Cluster configuration. If the necessary files are unavailable, refer to <a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> for instructions on creating them.</p>
-<p>Encryption settings remain static during operation. Enabling encryption on a running cluster requires restarting the entire cluster.</p>
+<p>A user who needs encryption for a specific channel or wants to use 
+different certificates can configure encryption manually. This approach 
+provides greater flexibility, allowing users to customize security settings 
+based on operational requirements. However, it is essential that all nodes 
+use identical key and certificate files to maintain a secure and consistent 
+encryption setup.</p>
+<p>To manually enable encryption, specify the locations of the required key 
+and certificate files in the Percona XtraDB Cluster configuration. If the 
+necessary files are unavailable, refer to 
+<a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> 
+for instructions on creating them.</p>
+<p>Encryption settings remain static during operation. Enabling encryption on 
+a running cluster requires restarting the entire cluster.</p>
 <p>You can enable encryption in three key areas of Percona XtraDB Cluster operation:</p>
 <table>
 <thead>
@@ -7296,10 +7401,11 @@ ssl-cert=server-cert.pem
 keyring-file-data=/path/to/keyring/file
 </code></pre></div>
 <p>The cluster will not work if keyring configuration across nodes is
-different.</p>
+different. Additionally, all nodes must use identical key and certificate
+files to maintain a secure and consistent encryption setup.</p>
 <h3 id="encrypt-traffic-xtrabackup">xtrabackup<a class="headerlink" href="#encrypt-traffic-xtrabackup" title="Permanent link">&para;</a></h3>
-<p>The only available SST method is xtrabackup-v2, which relies on Percona XtraBackup to transfer data securely between nodes. The wsrep_sst_method parameter is always set to xtrabackup-v2 and cannot be changed.</p>
-<p>Encryption for this method is controlled by the encrypt option:</p>
+<p>The only available SST method is xtrabackup-v2, which relies on Percona XtraBackup to transfer data securely between nodes. The <code>wsrep_sst_method</code> parameter is always set to xtrabackup-v2 and cannot be changed.</p>
+<p>Encryption for this method is controlled by the <code>encrypt</code> option:</p>
 <ul>
 <li>
 <p><code>encrypt=0</code> is the default setting, meaning encryption is disabled.</p>
@@ -7310,16 +7416,18 @@ different.</p>
 </ul>
 <p>For details on creating custom encryption keys and certificates, see <a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generating Keys and Certificates Manually</a></p>
 <p>To enable encryption for SST using XtraBackup, define the paths to the key and certificate files in each node’s configuration under the [sst] section. This operation ensures secure data transfer between the donor and joiner nodes. Properly configured encryption prevents unauthorized access and maintains the integrity of the transferred data.</p>
+<p><strong>Note:</strong> All nodes must use identical key and certificate files to ensure 
+a consistent security setup.</p>
 <p>An example configuration in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>[sst]
-encrypt=4
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/certs/server-key.pem
+<div class="highlight"><pre><span></span><code><span class="k">[sst]</span>
+<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
 </code></pre></div>
 <p>SSL clients require DH parameters to be at least 1024 bits, due to the <a href="https://en.wikipedia.org/wiki/Logjam_(computer_security)">logjam vulnerability</a>.
 However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameters.
-If a <code>dhparams.pem</code> file of required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.</p>
+If a <code>dhparams.pem</code> file of the required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.</p>
 <p>To avoid this delay, create the <code>dhparams.pem</code> file manually and place the file in the data directory before joining the node to the cluster.</p>
 <p>An example command to generate the <code>dhparams.pem</code> file:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
@@ -7370,7 +7478,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <p>All nodes must share the same key and certificate files to maintain a secure and consistent encryption setup. Ideally, use the same files configured for <a href="#encrypt-traffic-encrypt-client-server-communication">Encrypt client-server</a> communication to simplify management and ensure compatibility across the cluster.</p>
 <p>Check <a href="#encrypt-traffic-upgrade-certificates">upgrade-certificate</a> section on how to upgrade existing certificates.</p>
 <h2 id="encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually<a class="headerlink" href="#encrypt-traffic-generate-keys-and-certificates-manually" title="Permanent link">&para;</a></h2>
-<p>MySQL automatically generates default key and certificate files and stores them in the data directory during initialization. Administrators can create new sets of key and certificate files to replace the default ones, tailoring security settings to specific encryption requirements.</p>
+<p>The server automatically generates default key and certificate files and stores them in the data directory during initialization. Administrators can create new sets of key and certificate files to replace the default ones, tailoring security settings to specific encryption requirements.</p>
 <table>
 <thead>
 <tr>
@@ -7404,15 +7512,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <p>Generate the CA key file:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
 </code></pre></div>
-<p>The command does the following:</p>
-<ul>
-<li>
-<p>Generates a 2048-bit RSA private key and saves the key to <code>ca-key.pem</code>.</p>
-</li>
-<li>
-<p>This key is essential for signing certificates.</p>
-</li>
-</ul>
+<p>The command generates a 2048-bit RSA private key and saves the key to <code>ca-key.pem</code>. This key is essential for signing certificates.</p>
 </li>
 <li>
 <p>Generate the CA certificate file:</p>
@@ -7428,7 +7528,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <p>Uses the previously created private key (ca-key.pem).</p>
 </li>
 <li>
-<p>The <code>-nodes</code> flag ensures the private key is not encrypted.</p>
+<p>Ensures the private key is not encrypted with the <code>-nodes</code> flag.</p>
 </li>
 <li>
 <p>Outputs the certificate to ca.pem.</p>
