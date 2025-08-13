@@ -527,11 +527,11 @@ size of the disk. Pages are prefixed by gcache.page.
 | Configuration file: | Yes         |
 | Scope:              | Global      |
 | Dynamic:            | No          |
-| Default value:      | No          |
+| Default value:      | Yes         |
 
-Attempts to recover a node’s gcache file to a usable state on startup. If the node can successfully recover the gcache file, the node can provide IST to the remaining nodes. This ability can reduce the time needed to bring up the cluster.
+This variable attempts to recover a node’s gcache file to a usable state during startup. If the node successfully recovers the gcache file, it provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.
 
-An example of enabling the variable in the configuration file:
+To enable this variable, add the following to your configuration file:
 
 ```text
 wsrep_provider_options="gcache.recover=yes"
