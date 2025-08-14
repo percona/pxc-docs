@@ -315,7 +315,7 @@ This variable defines the control period of EVS statistics reporting.
 | Command Line:  | Yes                |
 | Config File:   | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | No                 |
+| Dynamic:       | Yes                |
 | Default Value: | PT5S   |
 
 This variable defines the inactivity period after which the node is
