@@ -315,12 +315,12 @@ This variable defines the control period of EVS statistics reporting.
 | Command Line:  | Yes                |
 | Config File:   | Yes                |
 | Scope:         | Global             |
-| Dynamic:       | No                 |
+| Dynamic:       | Yes                |
 | Default Value: | PT5S   |
 
 This variable defines the inactivity period after which the node is
 "suspected" to be dead. If all remaining nodes agree on that, the node will be
-dropped out of cluster even before [`evs.inactive_timeout`](wsrep-provider-index.md#evsinactive_timeout) is reached.
+dropped out of the cluster even before [`evs.inactive_timeout`](wsrep-provider-index.md#evsinactive_timeout) is reached.
 
 ### `evs.use_aggregate`
 
