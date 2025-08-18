@@ -58,27 +58,27 @@ The following steps install from the APT repository.
 
 4. Install the package with `dpkg`:
 
-   ```{.bash data-prompt="$"}
-   $ sudo dpkg -i percona-release_latest.generic_all.deb
-   ```
+    ```{.bash data-prompt="$"}
+    $ sudo dpkg -i percona-release_latest.generic_all.deb
+    ```
 
 5. Refresh the local cache to update the package information:
 
-   ```{.bash data-prompt="$"}
-   $ sudo apt update
-   ```
+    ```{.bash data-prompt="$"}
+    $ sudo apt update
+    ```
 
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
-   ```{.bash data-prompt="$"}
-   $ sudo percona-release setup pxc84-lts
-   ```
+    ```{.bash data-prompt="$"}
+    $ sudo percona-release setup pxc84-lts
+    ```
 
 7. Install the cluster:
 
-   ```{.bash data-prompt="$"}
-   $ sudo apt install -y percona-xtradb-cluster
-   ```
+    ```{.bash data-prompt="$"}
+    $ sudo apt install -y percona-xtradb-cluster
+    ```
 
 During the installation, you are requested to provide a password for the `root` user on the database node.
 
