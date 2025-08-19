@@ -12986,12 +12986,10 @@ without adjusting settings in ProxySQL.</p>
 that tells ProxySQL to route traffic to the node as usual.</p>
 </li>
 <li>
-<p><code>SHUTDOWN</code>: This state is set automatically
-when you initiate node shutdown.</p>
+<p><code>SHUTDOWN</code>: This state is set automatically when you initiate node shutdown.</p>
 </li>
 <li>
-<p><code>MAINTENANCE</code>: You can manually change to this state
-if you need to perform maintenance on a node without shutting it down.</p>
+<p><code>MAINTENANCE</code>: You can manually change to this state if you need to perform maintenance on a node without shutting it down.</p>
 </li>
 </ul>
 <p>For more information, see <a href="#load-balance-proxysql-assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
@@ -13029,7 +13027,7 @@ if you need to perform maintenance on a node without shutting it down.</p>
 <p>Defines the transition period when you change <a href="#wsrep-system-index-pxc_maint_mode"><code>pxc_maint_mode</code></a> to <code>SHUTDOWN</code> or <code>MAINTENANCE</code>.
 By default, the period is set to 10 seconds,
 which should be enough for most transactions to finish.
-You can increase the value to accommodate for longer-running transactions.</p>
+You can increase the value to accommodate longer-running transactions.</p>
 <p>For more information, see <a href="#load-balance-proxysql-assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code><a class="headerlink" href="#wsrep-system-index-pxc_strict_mode" title="Permanent link">&para;</a></h3>
 <table>
@@ -13063,11 +13061,7 @@ You can increase the value to accommodate for longer-running transactions.</p>
 </tbody>
 </table>
 <p>Controls <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
-<p>Depending on the actual mode you select,
-upon encountering a failed validation,
-the server will either throw an error
-(halting startup or denying the operation),
-or log a warning and continue running as normal.
+<p>Depending on the actual mode you select, upon encountering a failed validation, the server will either throw an error (halting startup or denying the operation) or log a warning and continue running as normal.
 The following modes are available:</p>
 <ul>
 <li>
@@ -13079,16 +13073,14 @@ and run as normal.</p>
 as normal.</p>
 </li>
 <li>
-<p><code>ENFORCING</code>: If a validation fails during startup,
-halt the server and throw an error.
+<p><code>ENFORCING</code>: If a validation fails during startup, halt the server and throw an error.
 If a validation fails during runtime,
 deny the operation and throw an error.</p>
 </li>
 <li>
 <p><code>MASTER</code>: The same as <code>ENFORCING</code> except that the validation of
 <a href="#strict-mode-explicit-table-locking">explicit table locking</a> is not performed.
-This mode can be used with clusters
-in which write operations are isolated to a single node.</p>
+This mode can be used with clusters in which write operations are isolated to a single node.</p>
 </li>
 </ul>
 <p>By default, <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>,
@@ -13141,7 +13133,7 @@ ensure that the following configuration is used:</p>
 </tr>
 </tbody>
 </table>
-<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_slave_FK_checks</code> variable is deprecated in favor of this variable.</p>
+<p>As of Percona XtraDB Cluster 8.0.26-16, the <code>wsrep_slave_FK_checks</code> variable is deprecated in favor of this variable.</p>
 <p>Defines whether foreign key checking is done for applier threads.
 This is enabled by default.</p>
 <div class="admonition admonition">
@@ -13179,7 +13171,7 @@ This is enabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_slave_threads</code> variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_threads</code> variable.</p>
+<p>As of Percona XtraDB Cluster 8.0.26-16, the <code>wsrep_slave_threads</code> variable is deprecated and may be removed in a later version. Use the <code>wsrep_applier_threads</code> variable.</p>
 <p>Specifies the number of threads
 that can apply replication transactions in parallel.
 Galera supports true parallel replication
@@ -13189,9 +13181,7 @@ You can increase/decrease it at any time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When you decrease the number of threads,
-it won&rsquo;t kill the threads immediately,
-but stop them after they are done applying current transaction
-(the effect with an increase is immediate though).</p>
+It won&rsquo;t kill the threads immediately, but it will stop them after they are done applying the current transaction (the effect with an increase is immediate, though).</p>
 </div>
 <p>If any replication consistency problems are encountered,
 it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
@@ -13272,8 +13262,7 @@ This is disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Enables automatic adjustment of auto-increment system variables
-depending on the size of the cluster:</p>
+<p>Enables automatic adjustment of auto-increment system variables depending on the size of the cluster:</p>
 <ul>
 <li>
 <p><code>auto_increment_increment</code> controls the interval
@@ -13287,7 +13276,7 @@ for the <code>AUTO_INCREMENT</code> column value</p>
 <p>This helps prevent auto-increment replication conflicts across the cluster
 by giving each node its own range of auto-increment values.
 It is enabled by default.</p>
-<p>Automatic adjustment may not be desirable depending on application’s use
+<p>Automatic adjustment may not be desirable depending on the application’s use
 and assumptions of auto-increments.
 It can be disabled in source-replica clusters.</p>
 <div class="admonition admonition">
@@ -13326,7 +13315,7 @@ It can be disabled in source-replica clusters.</p>
 </tbody>
 </table>
 <p>In some cases, the source may apply events faster than a replica,
-which can cause source and replica to become out of sync for a brief moment.
+which can cause the source and replica to become out of sync for a brief moment.
 When this variable is set to <code>ON</code>, the replica will wait
 until that event is applied before doing any other queries.
 Enabling this variable will result in larger latencies.</p>
@@ -13374,16 +13363,15 @@ Enabling this variable will result in larger latencies.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable controls how certification is done in the cluster, in particular
-this affects how foreign keys are handled.</p>
+<p>This variable controls how certification is done in the cluster; it particularly affects how foreign keys are handled.</p>
 <p><strong>STRICT</strong>
    Two INSERTs that happen at about the same time on two different nodes in a
-   child table, that insert different (non conflicting rows), but both rows
+   child table, that inserts different (non-conflicting rows), but both rows
    point to the same row in the parent table <strong>may result</strong> in the certification
    failure.</p>
 <p><strong>OPTIMIZED</strong>
    Two INSERTs that happen at about the same time on two different nodes in a
-   child table, that insert different (non conflicting rows), but both rows
+   child table, that inserts different (non-conflicting rows), but both rows
    point to the same row in the parent table <strong>will not result</strong> in the
    certification failure.</p>
 <div class="admonition admonition">
@@ -13423,7 +13411,7 @@ this affects how foreign keys are handled.</p>
 </table>
 <p>Enables automatic generation of primary keys for rows that don’t have them.
 Write set replication requires primary keys on all tables
-to allow for parallel applying of transactions.
+to allow for the parallel application of transactions.
 This variable is enabled by default.
 As a rule, make sure that all tables have primary keys.</p>
 <div class="admonition admonition">
@@ -13475,7 +13463,7 @@ You can specify multiple addresses separated by commas.</p>
 </code></pre></div>
 <p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
 (that is, form a new cluster).
-It is not recommended to have empty cluster address in production config
+It is not recommended to have an empty cluster address in the production config
 after the cluster has been bootstrapped initially.
 If you want to bootstrap a new cluster with a node,
 you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
@@ -13514,7 +13502,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the name of the cluster and must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
+<p>Specifies the cluster&rsquo;s name, which must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
 <p>Edit the value in the <code>my.cnf</code> in the [galera] section.</p>
 <div class="no-copy highlight"><pre><span></span><code>[galera]
 
@@ -13648,10 +13636,10 @@ bug.</p>
 <p>You can set <code>wsrep_debug</code> in the following <code>my.cnf</code> groups:</p>
 <ul>
 <li>
-<p>Under <code>[mysqld]</code> it enables debug logging for <code>mysqld</code> and the SST script.</p>
+<p>Under <code>[mysqld]</code>, it enables debug logging for <code>mysqld</code> and the SST script.</p>
 </li>
 <li>
-<p>Under <code>[sst]</code> it enables debug logging for the SST script only.</p>
+<p>Under <code>[sst]</code>, it enables debug logging for the SST script only.</p>
 </li>
 </ul>
 <p>This variable may be set to one of the following values:</p>
@@ -13716,8 +13704,7 @@ For more information, see <a href="#wsrep-status-index-wsrep_local_recv_queue"><
 It will continue to receive write-sets that it is not able to apply,
 the receive queue will keep growing,
 and the node will keep falling behind the cluster indefinitely.</p>
-<p>Toggling this back to <code>OFF</code> will require an IST or an SST,
-depending on how long it was desynchronized.
+<p>Toggling this back to <code>OFF</code> will require an IST or an SST, depending on how long it was desynchronized.
 This is similar to cluster desynchronization, which occurs during RSU TOI.
 Because of this, it’s not a good idea to enable <code>wsrep_desync</code>
 for a long period of time or for several nodes at once.</p>
@@ -13760,19 +13747,15 @@ for a long period of time or for several nodes at once.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines whether the node accepts read queries when in a non-operational state,
-that is, when it loses connection to the Primary Component.
-By default, this variable is disabled and the node rejects all queries,
-because there is no way to tell if the data is correct.</p>
+<p>Defines whether the node accepts read queries when in a non-operational state, that is, when it loses connection to the Primary Component.
+By default, this variable is disabled, and the node rejects all queries because it cannot tell if the data is correct.</p>
 <p>If you enable this variable, the node will permit read queries
-(<code>USE</code>, <code>SELECT</code>, <code>LOCK TABLE</code>, and <code>UNLOCK TABLES</code>),
-but any command that modifies or updates the database
-on a non-operational node will still be rejected
+(<code>USE</code>, <code>SELECT</code>, <code>LOCK TABLE</code>, and <code>UNLOCK TABLES</code>), any command that modifies or updates the database
+on a non-operational node is rejected
 (including DDL and DML statements,
 such as <code>INSERT</code>, <code>DELETE</code>, and <code>UPDATE</code>).</p>
 <p>To avoid deadlock errors,
-set the <a href="#wsrep-system-index-wsrep_sync_wait"><code>wsrep_sync_wait</code></a> variable to <code>0</code>
-if you enable <code>wsrep_dirty_reads</code>.</p>
+set the <a href="#wsrep-system-index-wsrep_sync_wait"><code>wsrep_sync_wait</code></a> variable to <code>0</code> if you enable <code>wsrep_dirty_reads</code>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var"><code>set_var hint</code></a>.</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_dirty_reads<span class="p">;</span>
 </code></pre></div>
@@ -13831,9 +13814,9 @@ if you enable <code>wsrep_dirty_reads</code>.</p>
 </tr>
 </tbody>
 </table>
-<p>Enables a workaround for MySQL InnoDB bug that affects Drupal
-(<a href="http://drupal.org/node/282555">Drupal bug #282555</a>
-and <a href="http://bugs.mysql.com/bug.php?id=41984">MySQL bug #41984</a>).
+<p>Enables a workaround for the MySQL InnoDB bug that affects Drupal
+(<a href="https://drupal.org/node/282555">Drupal bug #282555</a>
+and <a href="https://bugs.mysql.com/bug.php?id=41984">MySQL bug #41984</a>).
 In some cases, duplicate key errors would occur
 when inserting the <code>DEFAULT</code> value into an <code>AUTO_INCREMENT</code> column.</p>
 <div class="admonition admonition">
@@ -14112,10 +14095,9 @@ in conjunction with the <code>log_error_verbosity</code> variable. The
 </table>
 <p>Defines whether the node should split large <code>LOAD DATA</code> transactions.
 This variable is enabled by default, meaning that <code>LOAD DATA</code> commands
-are split into transactions of 10 000 rows or less.</p>
+are split into transactions of 10,000 rows or fewer.</p>
 <p>If you disable this variable, then huge data loads may prevent the node
-from completely rolling the operation back in the event of a conflict,
-and whatever gets committed stays committed.</p>
+from completely rolling the operation back in the event of a conflict, and whatever gets committed stays committed.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It doesn’t work as expected with <code>autocommit=0</code> when enabled.</p>
@@ -14156,10 +14138,8 @@ and whatever gets committed stays committed.</p>
 </tbody>
 </table>
 <p>Defines whether the node should log additional information about conflicts.
-By default, this variable is disabled
-and Percona XtraDB Cluster uses standard logging features in MySQL.</p>
-<p>If you enable this variable, it will also log table and schema
-where the conflict occurred, as well as the actual values for keys
+By default, this variable is disabled and Percona XtraDB Cluster uses standard logging features in MySQL.</p>
+<p>If you enable this variable, it will also log the table and the schema where the conflict occurred, as well as the actual values for keys
 that produced the conflict.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -14321,8 +14301,7 @@ Anything bigger than the specified value will be rejected.</p>
 By default, this variable is set to the IP address
 of the first network interface (usually <code>eth0</code> or <code>enp2s0</code>)
 and the default port (<code>4567</code>).</p>
-<p>While default value should be correct in most cases,
-there are situations when you need to specify it manually.
+<p>While the default value should be correct in most cases, there are situations when you need to specify it manually.
 For example:</p>
 <ul>
 <li>
@@ -14341,8 +14320,7 @@ For example:</p>
 <p>Container deployments, such as Docker</p>
 </li>
 <li>
-<p>Cloud deployments, such as Amazon EC2
-(use the global DNS name instead of the local IP address)</p>
+<p>Cloud deployments, such as Amazon EC2 (use the global DNS name instead of the local IP address)</p>
 </li>
 </ul>
 <p>The value should be specified in the following format:</p>
@@ -14428,8 +14406,7 @@ which shows all active cluster nodes.</p>
 </tbody>
 </table>
 <p>Defines a unique name for the node. Defaults to the host name.</p>
-<p>In many situations, you may use the value of this variable as a means to
-identify the given node in the cluster as the alternative to using the node address
+<p>In many situations, you may use the value of this variable as a means to identify the given node in the cluster, as an alternative to using the node address
 (the value of the <a href="#wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code></a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -14471,9 +14448,7 @@ This can be used for alerting or to reconfigure load balancers.</p>
 <p class="admonition-title">Note</p>
 <p>The node will block and wait
 until the command or script completes and returns before it can proceed.
-If the script performs any potentially blocking
-or long-running operations, such as network communication,
-you should consider initiating such operations in the background
+If the script performs any potentially blocking or long-running operations, such as network communication, you should consider initiating such operations in the background
 and have the script return immediately.</p>
 </div>
 <div class="admonition admonition">
@@ -14511,7 +14486,7 @@ and have the script return immediately.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines if current session transaction changes for a node are replicated to the cluster.</p>
+<p>Defines if the current session transaction changes for a node are replicated to the cluster.</p>
 <p>If set to <code>OFF</code> for a session, no transaction changes are replicated in that session. The setting does not cause the node to leave the cluster, and the node communicates with other nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -14586,8 +14561,7 @@ that the node uses to replicate DDL statements.</p>
 This is usually
 <code>/usr/lib64/libgalera_smm.so</code> on <em>CentOS</em>/<em>RHEL</em> and
 <code>/usr/lib/libgalera_smm.so</code> on <em>Debian</em>/<em>Ubuntu</em>.</p>
-<p>If you do not specify a path or the value is not valid,
-the node will behave as standalone instance of MySQL.</p>
+<p>If you do not specify a path or the value is not valid, the node behaves as a standalone instance of MySQL.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider">MySQL wsrep option: wsrep_provider</a></p>
@@ -14661,8 +14635,8 @@ These options affect how various situations are handled during replication.</p>
 </tr>
 </tbody>
 </table>
-<p>Recovers database state after crash by parsing GTID from the log.
-If the GTID is found, it will be assigned as the initial position for server.</p>
+<p>Recovers database state after a server exit by parsing GTID from the log.
+If the GTID is found, it will be assigned as the initial position for the server.</p>
 <h3 id="wsrep-system-index-wsrep_reject_queries"><code>wsrep_reject_queries</code><a class="headerlink" href="#wsrep-system-index-wsrep_reject_queries" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -14715,7 +14689,7 @@ without accepting queries.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This variable doesn’t affect Galera replication in any way,
+<p>This variable doesn’t affect Galera replication in any way;
 only the applications that connect to the database are affected.
 If you want to desync a node, use <a href="#wsrep-system-index-wsrep_desync"><code>wsrep_desync</code></a>.</p>
 </div>
@@ -14755,11 +14729,11 @@ If you want to desync a node, use <a href="#wsrep-system-index-wsrep_desync"><co
 </tbody>
 </table>
 <p>Defines whether DML statements for MyISAM tables should be replicated.
-It is disabled by default, because MyISAM replication is still experimental.</p>
+It is disabled by default because MyISAM replication is still experimental.</p>
 <p>On the global level, <code>wsrep_replicate_myisam</code> can be set only during startup.
-On session level, you can change it during runtime as well.</p>
+On the session level, you can change it during runtime as well.</p>
 <p>For older nodes in the cluster, <code>wsrep_replicate_myisam</code> should work
-since the TOI decision (for MyISAM DDL) is done on origin node.
+since the TOI decision (for MyISAM DDL) is done on the origin node.
 Mixing of non-MyISAM and MyISAM tables in the same DDL statement
 is not recommended when <code>wsrep_replicate_myisam</code> is disabled,
 since if any table in the list is MyISAM,
@@ -14817,11 +14791,11 @@ the whole DDL statement is not put under TOI.</p>
 </tbody>
 </table>
 <p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_restart_slave</code> variable is deprecated in favor of this variable. </p>
-<p>Defines whether replication replica should be restarted
-when the node joins back to the cluster.
-Enabling this can be useful because asynchronous replication replica thread
+<p>Defines whether the replication replica should be restarted
+when the node joins the cluster.
+Enabling this can be useful because the asynchronous replication replica thread
 is stopped when the node tries to apply the next replication event
-while the node is in non-primary state.</p>
+while the node is in a non-primary state.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-restart-replica">MySQL wsrep option: wsrep_restart_slave</a></p>
@@ -14858,11 +14832,11 @@ while the node is in non-primary state.</p>
 </tbody>
 </table>
 <p>As of <em>Percona XtraDB Cluster</em> 8.0.26-16, the <code>wsrep_restart_slave</code> variable is deprecated and may be removed in later versions. Use <code>wsrep_restart_replica</code>.</p>
-<p>Defines whether replication replica should be restarted
-when the node joins back to the cluster.
-Enabling this can be useful because asynchronous replication replica thread
+<p>Defines whether the replication replica should be restarted
+when the node joins the cluster.
+Enabling this can be useful because the asynchronous replication replica thread
 is stopped when the node tries to apply the next replication event
-while the node is in non-primary state.</p>
+while the node is in a non-primary state.</p>
 <h3 id="wsrep-system-index-wsrep_retry_autocommit"><code>wsrep_retry_autocommit</code><a class="headerlink" href="#wsrep-system-index-wsrep_retry_autocommit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -14895,7 +14869,7 @@ while the node is in non-primary state.</p>
 </tbody>
 </table>
 <p>Specifies the number of times autocommit transactions will be retried
-in the cluster if it encounters certification errors.
+in the cluster, if it encounters certification errors.
 In case there is a conflict, it should be safe for the cluster node
 to simply retry the statement without returning an error to the client,
 hoping that it will pass next time.</p>
@@ -14942,21 +14916,21 @@ autocommit transactions won’t be retried.</p>
 </tr>
 </tbody>
 </table>
-<p>Specifies the timeout in microseconds to allow active connection to complete
+<p>Specifies the timeout in microseconds to allow the active connection to complete
 COMMIT action before starting RSU.</p>
-<p>While running RSU it is expected that user has isolated the node and there is
+<p>While running RSU, it is expected that the user has isolated the node and there is
 no active traffic executing on the node. RSU has a check to ensure this, and
 waits for any active connection in <code>COMMIT</code> state before starting RSU.</p>
-<p>By default this check has timeout of 5 milliseconds, but in some cases
+<p>By default, this check has a timeout of 5 milliseconds, but in some cases
 COMMIT is taking longer. This variable sets the timeout, and has allowed values
 from the range of (5 milliseconds, 365 days). The value is to be set in
-microseconds. Unit of variable is in micro-secs so set accordingly.</p>
+microseconds. Unit of variable is in microseconds, so set accordingly.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>RSU operation will not auto-stop node from receiving active traffic.
+<p>RSU operation will not auto-stop the node from receiving active traffic.
 So there could be a continuous flow of active traffic while RSU continues to
 wait, and that can result in RSU starvation. User is expected to block
-active RSU traffic while performing operation.</p>
+active RSU traffic while performing the operation.</p>
 </div>
 <h3 id="wsrep-system-index-wsrep_slave_fk_checks"><code>wsrep_slave_FK_checks</code><a class="headerlink" href="#wsrep-system-index-wsrep_slave_fk_checks" title="Permanent link">&para;</a></h3>
 <table>
@@ -15034,8 +15008,8 @@ You can increase/decrease it at any time.</p>
 <p class="admonition-title">Note</p>
 <p>When you decrease the number of threads,
 it won’t kill the threads immediately,
-but stop them after they are done applying current transaction
-(the effect with an increase is immediate though).</p>
+but stop them after they are done applying the current transaction
+(the effect with an increase is immediate, though).</p>
 </div>
 <p>If any replication consistency problems are encountered,
 it’s recommended to set this back to <code>1</code> to see if that resolves the issue.
@@ -15043,7 +15017,7 @@ The default value can be increased for better throughput.</p>
 <p>You may want to increase it as suggested
 in <a href="https://galeracluster.com/library/documentation/node-states.html"><code>Codership documentation for flow control</code></a>:
 when the node is in <code>JOINED</code> state,
-increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
+increasing the number of replica threads can speed up the catch-up to <code>SYNCED</code>.</p>
 <p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://galeracluster.com/library/training/tutorials/galera-monitoring.html">in the Galera Cluster documentation</a>.</p>
 <p>For more configuration tips, see <a href="https://galeracluster.com/library/kb/parallel-applier-threads.html">this document</a>.</p>
 <h3 id="wsrep-system-index-wsrep_slave_uk_checks"><code>wsrep_slave_UK_checks</code><a class="headerlink" href="#wsrep-system-index-wsrep_slave_uk_checks" title="Permanent link">&para;</a></h3>
@@ -15287,7 +15261,7 @@ can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privile
 </tr>
 </tbody>
 </table>
-<p>Specifies the network address where donor node should send state transfers.
+<p>Specifies the network address where the donor node should send state transfers.
 By default, this variable is set to <code>AUTO</code>,
 meaning that the IP address from <a href="#wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code></a> is used.</p>
 <div class="admonition admonition">
@@ -15489,7 +15463,7 @@ and <code>REPLACE</code> statements.</p>
 +------------------------------+
 </code></pre></div>
 </details>
-<p>You can also use set_var() in a data manipulation language (DML) statement. This ability is useful when streaming large statements within a transaction.</p>
+<p>You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.</p>
 <div class="no-copy highlight"><pre><span></span><code>node1&gt; BEGIN;
 Query OK, 0 rows affected (0.00 sec)
 
