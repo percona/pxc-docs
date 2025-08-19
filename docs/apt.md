@@ -16,7 +16,7 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 * You need to have root access on the node where you will be installing Percona XtraDB Cluster (either logged in as a user with root privileges or be able to run commands with sudo).
 
-* Make sure that the following ports are not blocked by firewall or used by other software. Percona XtraDB Cluster requires them for communication.
+* Make sure that the following ports are not blocked by the firewall or used by other software. Percona XtraDB Cluster requires them for communication.
 
     * 3306
 
@@ -35,47 +35,49 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
 ## Install from Repository
 
+The following steps install from the APT repository.
+{.power-number}
 
 1. Update the sytem:
 
-    ```shell
-    sudo apt update
+    ```{.bash data-prompt="$"}
+    $ sudo apt update
     ```
 
 2. Install the necessary packages:
 
-    ```shell
-    sudo apt install -y wget gnupg2 lsb-release curl
+    ```{.bash data-prompt="$"}
+    $ sudo apt install -y wget gnupg2 lsb-release curl
     ```
 
 3. Download the repository package
 
-    ```shell
-    wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+    ```{.bash data-prompt="$"}
+    $ wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
     ```
 
 4. Install the package with `dpkg`:
 
-    ```shell
-    sudo dpkg -i percona-release_latest.generic_all.deb
+    ```{.bash data-prompt="$"}
+    $ sudo dpkg -i percona-release_latest.generic_all.deb
     ```
 
 5. Refresh the local cache to update the package information:
 
-    ```shell
-    sudo apt update
+    ```{.bash data-prompt="$"}
+    $ sudo apt update
     ```
 
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
-    ```shell
-    sudo percona-release setup pxc84-lts
+    ```{.bash data-prompt="$"}
+    $ sudo percona-release setup pxc84-lts
     ```
 
 7. Install the cluster:
 
-    ```shell
-    sudo apt install -y percona-xtradb-cluster
+    ```{.bash data-prompt="$"}
+    $ sudo apt install -y percona-xtradb-cluster
     ```
 
 During the installation, you are requested to provide a password for the `root` user on the database node.
