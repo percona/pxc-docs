@@ -26,7 +26,7 @@ is available in Percona Software and Platform Lifecycle.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -1453,9 +1453,9 @@ is available in Percona Software and Platform Lifecycle.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-on-red-hat-8-or-later" class="md-nav__link">
+  <a href="#install-on-red-hat-8" class="md-nav__link">
     <span class="md-ellipsis">
-      Install on Red Hat 8 or later
+      Install on Red Hat 8
     </span>
   </a>
   
@@ -1467,6 +1467,30 @@ is available in Percona Software and Platform Lifecycle.">
       After installation
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-on-red-hat-9-or-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install on Red Hat 9 or later
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install on Red Hat 9 or later">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after-installation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      After installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3039,9 +3063,9 @@ is available in Percona Software and Platform Lifecycle.">
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-on-red-hat-8-or-later" class="md-nav__link">
+  <a href="#install-on-red-hat-8" class="md-nav__link">
     <span class="md-ellipsis">
-      Install on Red Hat 8 or later
+      Install on Red Hat 8
     </span>
   </a>
   
@@ -3053,6 +3077,30 @@ is available in Percona Software and Platform Lifecycle.">
       After installation
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-on-red-hat-9-or-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install on Red Hat 9 or later
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install on Red Hat 9 or later">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after-installation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      After installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3129,8 +3177,8 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 </ul>
 <p>This documentation describes using the Percona Software repositories.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Installing Percona XtraDB Cluster requires that you either are logged in as a user with root privileges or can run commands with sudo.</p>
-<p>Percona XtraDB Cluster requires the specific ports for communication. Make sure that the following ports are available:</p>
+<p>Installing Percona XtraDB Cluster requires that you either be logged in as a user with root privileges or be able to run commands with sudo.</p>
+<p>Percona XtraDB Cluster requires specific ports for communication. Make sure that the following ports are available:</p>
 <ul>
 <li>
 <p>3306</p>
@@ -3148,7 +3196,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 <p>For information on SELinux, see <a href="selinux.html#enable-selinux">Enabling SELinux</a>.</p>
 <h2 id="install-from-percona-software-repository">Install from Percona Software Repository<a class="headerlink" href="#install-from-percona-software-repository" title="Permanent link">&para;</a></h2>
 <p>For more information on the Percona Software repositories and configuring Percona Repositories with <code>percona-release</code>, see the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
-<h2 id="install-on-red-hat-8-or-later">Install on Red Hat 8 or later<a class="headerlink" href="#install-on-red-hat-8-or-later" title="Permanent link">&para;</a></h2>
+<h2 id="install-on-red-hat-8">Install on Red Hat 8<a class="headerlink" href="#install-on-red-hat-8" title="Permanent link">&para;</a></h2>
 <p>RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module: </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
@@ -3157,7 +3205,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class=
 $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 <h2 id="after-installation">After installation<a class="headerlink" href="#after-installation" title="Permanent link">&para;</a></h2>
-<p>After the installation, start the <code>mysql</code> service and find the temporary password using the <code>grep</code> command. </p>
+<p>After the installation, start the <code>mysql</code> service and use the <code>grep</code> command to find the temporary password. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 $<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
@@ -3168,6 +3216,31 @@ $<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span
 <div class="highlight" data-prompt="$"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
 mysql&gt;<span class="w"> </span><span class="nb">exit</span>
 $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+</code></pre></div>
+<h2 id="install-on-red-hat-9-or-later">Install on Red Hat 9 or later<a class="headerlink" href="#install-on-red-hat-9-or-later" title="Permanent link">&para;</a></h2>
+<p>RHEL 9 and subsequent versions use the <code>dnf</code> package manager and its module system. The default <code>mysql</code> module must be disabled to prevent conflicts with Percona&rsquo;s packages.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+</code></pre></div>
+<p>Next, install the Percona repository and the cluster.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-84-lts
+$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+</code></pre></div>
+<h3 id="after-installation_1">After installation<a class="headerlink" href="#after-installation_1" title="Permanent link">&para;</a></h3>
+<p>After installation, start the <code>mysqld</code> service and locate the temporary password.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
+$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+</code></pre></div>
+<p>Use the temporary password to log in, and then run an <code>ALTER USER</code> statement to change it.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<p>Enter the temporary password.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>For security, exit the client and stop the service.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>Configure the node according to the procedure described in <a href="configure-nodes.html#configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a>.</p>
@@ -3191,7 +3264,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </s
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2025-07-10
+    2025-08-18
   </span>
 
     
