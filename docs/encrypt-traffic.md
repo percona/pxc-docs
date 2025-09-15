@@ -120,6 +120,24 @@ ssl-cert=server-cert.pem
 
 For [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options), only the mentioned options are affected (`socket.ssl_key`, `socket,ssl_cert`, and `socket.ssl_ca`), the rest is not modified.
 
+### Authentication and security transport in replication
+
+Percona XtraDB Cluster enforces secure transport for both client and replication traffic. When using MySQL 8.4, administrators may encounter the following error during replication setup:
+
+```Authentication requires secure connection```
+
+This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL 8.4, such as accounts created with ```REQUIRE SSL``` or the server setting ```require_secure_transport=ON```.
+
+To resolve this on the replica, configure replication to use SSL:
+
+```{.bash data-prompt="mysql>"}
+mysql> STOP REPLICA;
+mysql> CHANGE REPLICATION SOURCE TO SOURCE_SSL = 1;
+mysql> START REPLICA;
+```
+
+This change ensures that the replication channel uses encrypted transport, satisfying the authentication requirements of the source server.
+
 #### Disable pxc-encrypt-cluster-traffic and assess security risks
 
 The default setting for [`PCX`](wsrep-system-index.md#pxc_encrypt_cluster_traffic) significantly enhances your system's security by encrypting the traffic between nodes in a Percona XtraDB Cluster (PXC).
@@ -217,8 +235,9 @@ For details on creating custom encryption keys and certificates, see [Generating
 
 To enable encryption for SST using XtraBackup, define the paths to the key and certificate files in each node’s configuration under the [sst] section. This operation ensures secure data transfer between the donor and joiner nodes. Properly configured encryption prevents unauthorized access and maintains the integrity of the transferred data.
 
-**Note:** All nodes must use identical key and certificate files to ensure 
-a consistent security setup.
+!!! note
+
+    All nodes must use identical key and certificate files to ensure a consistent security setup.
 
 An example configuration in `my.cnf`:
 
