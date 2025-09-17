@@ -12525,33 +12525,684 @@ The following output confirms that a new database has been created:
                         <h1>Reference<a class='headerlink' href='#section-13' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="wsrep-status-index" heading-number="13.1"><h1 id="wsrep-status-index-index-of-wsrep-status-variables">Index of wsrep status variables<a class="headerlink" href="#wsrep-status-index-index-of-wsrep-status-variables" title="Permanent link">&para;</a></h1>
-<h3 id="wsrep-status-index-wsrep_apply_oooe"><code>wsrep_apply_oooe</code><a class="headerlink" href="#wsrep-status-index-wsrep_apply_oooe" title="Permanent link">&para;</a></h3>
-<p>This variable shows parallelization efficiency, how often writests have been
-applied out of order.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-oooe"><code>Galera status variable: wsrep_apply_oooe</code></a></p>
-</div>
-<h3 id="wsrep-status-index-wsrep_apply_oool"><code>wsrep_apply_oool</code><a class="headerlink" href="#wsrep-status-index-wsrep_apply_oool" title="Permanent link">&para;</a></h3>
-<p>This variable shows how often a writeset with a higher sequence number was
-applied before one with a lower sequence number.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-oool"><code>Galera status variable: wsrep_apply_oool</code></a></p>
-</div>
-<h3 id="wsrep-status-index-wsrep_apply_window"><code>wsrep_apply_window</code><a class="headerlink" href="#wsrep-status-index-wsrep_apply_window" title="Permanent link">&para;</a></h3>
-<p>Average distance between highest and lowest concurrently applied sequence
-numbers.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-window"><code>Galera status variable: wsrep_apply_window</code></a></p>
-</div>
-<h3 id="wsrep-status-index-wsrep_causal_reads"><code>wsrep_causal_reads</code><a class="headerlink" href="#wsrep-status-index-wsrep_causal_reads" title="Permanent link">&para;</a></h3>
-<p>Shows the number of writesets processed while the variable <a href="#wsrep-system-index-wsrep_causal_reads"><code>wsrep_causal_reads</code></a> was set to <code>ON</code>.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-causal-reads"><code>MySQL wsrep options: wsrep_causal_reads</code></a></p>
-</div>
+<p>This document provides detailed information about the cluster status variables. These variables help you monitor and troubleshoot your cluster&rsquo;s performance, health, and behavior.</p>
+<h2 id="wsrep-status-index-quick-reference-table">Quick reference table<a class="headerlink" href="#wsrep-status-index-quick-reference-table" title="Permanent link">&para;</a></h2>
+<h3 id="wsrep-status-index-application-and-parallelization-variables">Application and parallelization variables<a class="headerlink" href="#wsrep-status-index-application-and-parallelization-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_apply_oooe</code></td>
+<td>Out of Order of Execution - measures parallelization efficiency</td>
+<td><a href="#wsrep-status-index-wsrep_apply_oooe"><code>wsrep_apply_oooe</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_apply_oool</code></td>
+<td>Out of Order of Latest - measures parallelization inefficiency</td>
+<td><a href="#wsrep-status-index-wsrep_apply_oool"><code>wsrep_apply_oool</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_apply_window</code></td>
+<td>Average distance between concurrently applied sequence numbers</td>
+<td><a href="#wsrep-status-index-wsrep_apply_window"><code>wsrep_apply_window</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_commit_oooe</code></td>
+<td>Commit phase parallelization efficiency</td>
+<td><a href="#wsrep-status-index-wsrep_commit_oooe"><code>wsrep_commit_oooe</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_commit_window</code></td>
+<td>Average distance between concurrently committed sequence numbers</td>
+<td><a href="#wsrep-status-index-wsrep_commit_window"><code>wsrep_commit_window</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_sync_wait</code></td>
+<td>Controls consistency level for client queries via synchronization</td>
+<td><a href="#wsrep-status-index-wsrep_sync_wait"><code>wsrep_sync_wait</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-certification-and-conflict-detection-variables">Certification and conflict detection variables<a class="headerlink" href="#wsrep-status-index-certification-and-conflict-detection-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_cert_bucket_count</code></td>
+<td>Number of buckets in certification index hash table</td>
+<td><a href="#wsrep-status-index-wsrep_cert_bucket_count"><code>wsrep_cert_bucket_count</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cert_deps_distance</code></td>
+<td>Average distance between parallelizable sequence numbers</td>
+<td><a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cert_index_size</code></td>
+<td>Number of entries in certification index</td>
+<td><a href="#wsrep-status-index-wsrep_cert_index_size"><code>wsrep_cert_index_size</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cert_interval</code></td>
+<td>Average time between certification events</td>
+<td><a href="#wsrep-status-index-wsrep_cert_interval"><code>wsrep_cert_interval</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_cert_failures</code></td>
+<td>Number of writesets that failed certification</td>
+<td><a href="#wsrep-status-index-wsrep_local_cert_failures"><code>wsrep_local_cert_failures</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-cluster-membership-and-state-variables">Cluster membership and state variables<a class="headerlink" href="#wsrep-status-index-cluster-membership-and-state-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_cluster_conf_id</code></td>
+<td>Cluster configuration ID (increments with membership changes)</td>
+<td><a href="#wsrep-status-index-wsrep_cluster_conf_id"><code>wsrep_cluster_conf_id</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cluster_size</code></td>
+<td>Number of nodes in primary component</td>
+<td><a href="#wsrep-status-index-wsrep_cluster_size"><code>wsrep_cluster_size</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cluster_state_uuid</code></td>
+<td>UUID of current cluster state</td>
+<td><a href="#wsrep-status-index-wsrep_cluster_state_uuid"><code>wsrep_cluster_state_uuid</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_cluster_status</code></td>
+<td>Status of primary component</td>
+<td><a href="#wsrep-status-index-wsrep_cluster_status"><code>wsrep_cluster_status</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_connected</code></td>
+<td>Whether node is connected to cluster</td>
+<td><a href="#wsrep-status-index-wsrep_connected"><code>wsrep_connected</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_ready</code></td>
+<td>Whether node is ready to accept queries</td>
+<td><a href="#wsrep-status-index-wsrep_ready"><code>wsrep_ready</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-evs-extended-virtual-synchrony-protocol-variables">EVS (Extended Virtual Synchrony) protocol variables<a class="headerlink" href="#wsrep-status-index-evs-extended-virtual-synchrony-protocol-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_evs_delayed</code></td>
+<td>List of nodes considered delayed in cluster</td>
+<td><a href="#wsrep-status-index-wsrep_evs_delayed"><code>wsrep_evs_delayed</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_evs_evict_list</code></td>
+<td>List of nodes evicted from cluster</td>
+<td><a href="#wsrep-status-index-wsrep_evs_evict_list"><code>wsrep_evs_evict_list</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_evs_repl_latency</code></td>
+<td>Group communication replication latency statistics</td>
+<td><a href="#wsrep-status-index-wsrep_evs_repl_latency"><code>wsrep_evs_repl_latency</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_evs_state</code></td>
+<td>Internal EVS protocol state</td>
+<td><a href="#wsrep-status-index-wsrep_evs_state"><code>wsrep_evs_state</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-flow-control-variables">Flow control variables<a class="headerlink" href="#wsrep-status-index-flow-control-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_flow_control_interval</code></td>
+<td>Lower and upper limits for flow control</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_interval"><code>wsrep_flow_control_interval</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_interval_high</code></td>
+<td>Upper limit for flow control to trigger</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_interval_high"><code>wsrep_flow_control_interval_high</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_interval_low</code></td>
+<td>Lower limit for flow control to stop</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_interval_low"><code>wsrep_flow_control_interval_low</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_paused</code></td>
+<td>Time paused due to flow control</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_paused"><code>wsrep_flow_control_paused</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_paused_ns</code></td>
+<td>Time paused due to flow control (nanoseconds)</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_paused_ns"><code>wsrep_flow_control_paused_ns</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_recv</code></td>
+<td>Number of flow control pause events received</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_recv"><code>wsrep_flow_control_recv</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_requested</code></td>
+<td>Whether node has requested flow control pause</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_requested"><code>wsrep_flow_control_requested</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_sent</code></td>
+<td>Number of flow control pause events sent</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_sent"><code>wsrep_flow_control_sent</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_flow_control_status</code></td>
+<td>Whether flow control is enabled</td>
+<td><a href="#wsrep-status-index-wsrep_flow_control_status"><code>wsrep_flow_control_status</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-local-node-performance-variables">Local node performance variables<a class="headerlink" href="#wsrep-status-index-local-node-performance-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_local_bf_aborts</code></td>
+<td>Number of local transactions aborted by replica transactions</td>
+<td><a href="#wsrep-status-index-wsrep_local_bf_aborts"><code>wsrep_local_bf_aborts</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_cached_downto</code></td>
+<td>Lowest sequence number in GCache</td>
+<td><a href="#wsrep-status-index-wsrep_local_cached_downto"><code>wsrep_local_cached_downto</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_commits</code></td>
+<td>Number of writesets committed on node</td>
+<td><a href="#wsrep-status-index-wsrep_local_commits"><code>wsrep_local_commits</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_index</code></td>
+<td>Node&rsquo;s position in cluster</td>
+<td><a href="#wsrep-status-index-wsrep_local_index"><code>wsrep_local_index</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_recv_queue</code></td>
+<td>Current length of receive queue</td>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue"><code>wsrep_local_recv_queue</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_recv_queue_avg</code></td>
+<td>Average length of receive queue</td>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg"><code>wsrep_local_recv_queue_avg</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_replays</code></td>
+<td>Number of transaction replays</td>
+<td><a href="#wsrep-status-index-wsrep_local_replays"><code>wsrep_local_replays</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_send_queue</code></td>
+<td>Current length of send queue</td>
+<td><a href="#wsrep-status-index-wsrep_local_send_queue"><code>wsrep_local_send_queue</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_send_queue_avg</code></td>
+<td>Average length of send queue</td>
+<td><a href="#wsrep-status-index-wsrep_local_send_queue_avg"><code>wsrep_local_send_queue_avg</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_state</code></td>
+<td>Local node state</td>
+<td><a href="#wsrep-status-index-wsrep_local_state"><code>wsrep_local_state</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_state_comment</code></td>
+<td>Human-readable local state description</td>
+<td><a href="#wsrep-status-index-wsrep_local_state_comment"><code>wsrep_local_state_comment</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_local_state_uuid</code></td>
+<td>UUID of local node state</td>
+<td><a href="#wsrep-status-index-wsrep_local_state_uuid"><code>wsrep_local_state_uuid</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-replication-and-transfer-variables">Replication and transfer variables<a class="headerlink" href="#wsrep-status-index-replication-and-transfer-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_received</code></td>
+<td>Total number of writesets received from other nodes</td>
+<td><a href="#wsrep-status-index-wsrep_received"><code>wsrep_received</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_received_bytes</code></td>
+<td>Total size of writesets received from other nodes</td>
+<td><a href="#wsrep-status-index-wsrep_received_bytes"><code>wsrep_received_bytes</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_replicated</code></td>
+<td>Total number of writesets sent to other nodes</td>
+<td><a href="#wsrep-status-index-wsrep_replicated"><code>wsrep_replicated</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_replicated_bytes</code></td>
+<td>Total size of writesets sent to other nodes</td>
+<td><a href="#wsrep-status-index-wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_repl_data_bytes</code></td>
+<td>Total size of data replicated</td>
+<td><a href="#wsrep-status-index-wsrep_repl_data_bytes"><code>wsrep_repl_data_bytes</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_repl_keys</code></td>
+<td>Total number of keys replicated</td>
+<td><a href="#wsrep-status-index-wsrep_repl_keys"><code>wsrep_repl_keys</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_repl_keys_bytes</code></td>
+<td>Total size of keys replicated</td>
+<td><a href="#wsrep-status-index-wsrep_repl_keys_bytes"><code>wsrep_repl_keys_bytes</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_repl_other_bytes</code></td>
+<td>Total size of other bits replicated</td>
+<td><a href="#wsrep-status-index-wsrep_repl_other_bytes"><code>wsrep_repl_other_bytes</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-sequence-number-and-state-variables">Sequence number and state variables<a class="headerlink" href="#wsrep-status-index-sequence-number-and-state-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_last_applied</code></td>
+<td>Sequence number of last applied transaction</td>
+<td><a href="#wsrep-status-index-wsrep_last_applied"><code>wsrep_last_applied</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_last_committed</code></td>
+<td>Sequence number of last committed transaction</td>
+<td><a href="#wsrep-status-index-wsrep_last_committed"><code>wsrep_last_committed</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_ist_receive_seqno_current</code></td>
+<td>Sequence number of current transaction in IST</td>
+<td><a href="#wsrep-status-index-wsrep_ist_receive_seqno_current"><code>wsrep_ist_receive_seqno_current</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_ist_receive_seqno_end</code></td>
+<td>Sequence number of last transaction in IST</td>
+<td><a href="#wsrep-status-index-wsrep_ist_receive_seqno_end"><code>wsrep_ist_receive_seqno_end</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_ist_receive_seqno_start</code></td>
+<td>Sequence number of first transaction in IST</td>
+<td><a href="#wsrep-status-index-wsrep_ist_receive_seqno_start"><code>wsrep_ist_receive_seqno_start</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-system-and-provider-variables">System and provider variables<a class="headerlink" href="#wsrep-status-index-system-and-provider-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_gcache_pool_size</code></td>
+<td>Size of GCache page pool and dynamic memory</td>
+<td><a href="#wsrep-status-index-wsrep_gcache_pool_size"><code>wsrep_gcache_pool_size</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_gcomm_uuid</code></td>
+<td>cluster view ID from gvwstate.dat</td>
+<td><a href="#wsrep-status-index-wsrep_gcomm_uuid"><code>wsrep_gcomm_uuid</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_incoming_addresses</code></td>
+<td>Comma-separated list of incoming node addresses</td>
+<td><a href="#wsrep-status-index-wsrep_incoming_addresses"><code>wsrep_incoming_addresses</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_ist_receive_status</code></td>
+<td>Progress of IST for joiner node</td>
+<td><a href="#wsrep-status-index-wsrep_ist_receive_status"><code>wsrep_ist_receive_status</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_monitor_status</code></td>
+<td>Cluster monitoring status</td>
+<td><a href="#wsrep-status-index-wsrep_monitor_status"><code>wsrep_monitor_status</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_protocol_version</code></td>
+<td>Version of wsrep protocol used</td>
+<td><a href="#wsrep-status-index-wsrep_protocol_version"><code>wsrep_protocol_version</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_provider_name</code></td>
+<td>Name of wsrep provider</td>
+<td><a href="#wsrep-status-index-wsrep_provider_name"><code>wsrep_provider_name</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_provider_vendor</code></td>
+<td>Name of wsrep provider vendor</td>
+<td><a href="#wsrep-status-index-wsrep_provider_vendor"><code>wsrep_provider_vendor</code></a></td>
+</tr>
+<tr>
+<td><code>wsrep_provider_version</code></td>
+<td>Current version of wsrep provider</td>
+<td><a href="#wsrep-status-index-wsrep_provider_version"><code>wsrep_provider_version</code></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="wsrep-status-index-detailed-variable-descriptions">Detailed variable descriptions<a class="headerlink" href="#wsrep-status-index-detailed-variable-descriptions" title="Permanent link">&para;</a></h2>
+<h2 id="wsrep-status-index-wsrep_apply_oooe">wsrep_apply_oooe<a class="headerlink" href="#wsrep-status-index-wsrep_apply_oooe" title="Permanent link">&para;</a></h2>
+<h3 id="wsrep-status-index-what-the-variable-measures">What the variable measures<a class="headerlink" href="#wsrep-status-index-what-the-variable-measures" title="Permanent link">&para;</a></h3>
+<p><code>wsrep_apply_oooe</code> (Out‑of‑Order‑of‑Execution) reports the proportion of writesets that a node applies out of their original sequence‑number order.<br />
+Because writesets can be processed by multiple applier threads concurrently, a higher value indicates greater parallelism among those threads.</p>
+<h3 id="wsrep-status-index-expected-results">Expected results<a class="headerlink" href="#wsrep-status-index-expected-results" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>≈ 1</strong></td>
+<td>Excellent parallelism – most writesets are applied out of order.</td>
+</tr>
+<tr>
+<td><strong>0.5 – 0.8</strong></td>
+<td>Acceptable parallelism; some room for improvement.</td>
+</tr>
+<tr>
+<td><strong>&lt; 0.5</strong></td>
+<td>Limited parallelism – investigate applier‑thread configuration or contention.</td>
+</tr>
+<tr>
+<td><strong>0</strong></td>
+<td>No out‑of‑order execution; applier threads are effectively serial.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-example-usage">Example usage<a class="headerlink" href="#wsrep-status-index-example-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_oooe&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+----------+
+| Variable_name    | Value    |
++------------------+----------+
+| wsrep_apply_oooe | 0.985654 |
++------------------+----------+
+</code></pre></div>
+</details>
+<p>The value is a floating‑point number between 0 and 1, reported with up to six decimal places.</p>
+<h4 id="wsrep-status-index-related-status-variables">Related Status Variables<a class="headerlink" href="#wsrep-status-index-related-status-variables" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Ideal value / Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_window">wsrep_apply_window</a></td>
+<td>Measures the average distance between the highest and lowest concurrently applied sequence numbers.</td>
+<td>Higher values indicate greater potential for parallelism because a wider window means more writesets can be processed simultaneously.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oool">wsrep_apply_oool</a></td>
+<td>Tracks “Out of Order of Latest” – when older transactions are applied after newer ones.</td>
+<td>Low values (close to 0) are ideal; high values suggest that later transactions are being delayed, possibly due to slow or blocking operations.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_cert_deps_distance">wsrep_cert_deps_distance</a></td>
+<td>Shows the average distance between sequence numbers that can be applied in parallel based on dependencies.</td>
+<td>Higher values suggest better parallelization potential, as more distant (and thus independent) transactions can be executed concurrently.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg">wsrep_local_recv_queue_avg</a></td>
+<td>Displays the average length of the receive queue on the node.</td>
+<td>Consistently high values (especially when paired with a low <code>wsrep_apply_oooe</code>) indicate the node cannot apply incoming writesets quickly enough and may need more resources or tuning.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_commit_oooe">wsrep_commit_oooe</a></td>
+<td>Similar to <code>wsrep_apply_oooe</code> but measured during the commit phase of replication.</td>
+<td>High values denote good commit‑phase parallelism; low values may point to bottlenecks in committing transactions after they have been applied.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="wsrep-status-index-monitor-parallelization-performance">Monitor parallelization performance<a class="headerlink" href="#wsrep-status-index-monitor-parallelization-performance" title="Permanent link">&para;</a></h4>
+<p>Run a single query to collect all relevant metrics:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_oooe|wsrep_apply_window|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_oooe&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Interpretation tips</p>
+<ul>
+<li>
+<p>Low <code>wsrep_apply_oooe</code> + high <code>wsrep_apply_window</code> – Parallelism potential exists but isn’t being realized (possible thread‑count or lock contention). </p>
+</li>
+<li>
+<p>High <code>wsrep_local_recv_queue_avg</code> + low <code>wsrep_apply_oooe</code> – The node is overwhelmed by incoming writesets; consider adding resources or tuning applier threads.</p>
+</li>
+<li>
+<p>Elevated <code>wsrep_apply_oool</code> or <code>wsrep_commit_oooe</code> – May indicate transaction conflicts or latency in later stages of replication.</p>
+</li>
+</ul>
+<p>Address identified bottlenecks by adjusting the number of applier threads, optimizing transaction size, or scaling hardware/network capacity.</p>
+<h1 id="wsrep-status-index-wsrep_apply_oool">wsrep_apply_oool<a class="headerlink" href="#wsrep-status-index-wsrep_apply_oool" title="Permanent link">&para;</a></h1>
+<h2 id="wsrep-status-index-what-the-variable-measures_1">What the variable measures<a class="headerlink" href="#wsrep-status-index-what-the-variable-measures_1" title="Permanent link">&para;</a></h2>
+<p><code>wsrep_apply_oool</code> (Out of Order of Latest) records situations where a writeset with a lower sequence number—an older transaction—applies after a writeset with a higher sequence number—a newer transaction. This condition appears when a small transaction finishes before a larger, earlier transaction that is still being processed.</p>
+<h2 id="wsrep-status-index-expected-results_1">Expected results<a class="headerlink" href="#wsrep-status-index-expected-results_1" title="Permanent link">&para;</a></h2>
+<p>A value near <code>0</code> is ideal, showing that writesets generally apply in the correct order. Larger values signal that slow‑running transactions are creating a bottleneck, forcing applier threads to skip ahead and apply newer writesets first. When the metric rises, investigate the performance of long‑duration transactions or adjust applier‑thread settings.</p>
+<h2 id="wsrep-status-index-example-of-use">Example of use<a class="headerlink" href="#wsrep-status-index-example-of-use" title="Permanent link">&para;</a></h2>
+<p>Run the following command on any node in the cluster; only the <code>PROCESS</code> privilege is required, and the result reflects the status of the node where the command executes.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_oool&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+----------+
+| Variable_name    | Value    |
++------------------+----------+
+| wsrep_apply_oool | 0.000132 |
++------------------+----------+
+</code></pre></div>
+</details>
+<h2 id="wsrep-status-index-related-status-variables_1">Related status variables<a class="headerlink" href="#wsrep-status-index-related-status-variables_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oooe">wsrep_apply_oooe</a></td>
+<td>Measures overall parallelism of the applier threads. Low parallelism can cause older transactions to fall behind, leading to higher <code>wsrep_apply_oool</code> values.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_window">wsrep_apply_window</a></td>
+<td>Shows the average distance between the highest and lowest sequence numbers being applied concurrently. A narrow window together with an elevated <code>wsrep_apply_oool</code> suggests the applier threads cannot keep up with the transaction workload.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg">wsrep_local_recv_queue_avg</a></td>
+<td>Indicates the average length of the receive queue on the node. High queue lengths combined with a high <code>wsrep_apply_oool</code> confirm that incoming writesets arrive faster than they can be applied.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_cert_deps_distance">wsrep_cert_deps_distance</a></td>
+<td>Reflects the potential for parallel execution based on transaction dependencies.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oool">wsrep_apply_oool</a></td>
+<td>Tracks out‑of‑order application of older transactions (older writeset applied after a newer one).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-monitoring-out-of-order-application">Monitoring out-of-order application<a class="headerlink" href="#wsrep-status-index-monitoring-out-of-order-application" title="Permanent link">&para;</a></h3>
+<p>Execute the following query to obtain a comprehensive snapshot of the relevant metrics:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_oool|wsrep_apply_oooe|wsrep_apply_window|wsrep_local_recv_queue_avg|wsrep_cert_deps_distance|wsrep_commit_oooe&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Analyzing the results helps pinpoint the root cause of out‑of‑order application, which may stem from:</p>
+<ul>
+<li>
+<p>Insufficient applier threads</p>
+</li>
+<li>
+<p>Transaction conflicts that restrict parallelism</p>
+</li>
+<li>
+<p>Resource constraints causing processing delays</p>
+</li>
+<li>
+<p>Network or replication bottlenecks</p>
+</li>
+<li>
+<p>Inefficient transaction ordering</p>
+</li>
+</ul>
+<h2 id="wsrep-status-index-wsrep_apply_window">wsrep_apply_window<a class="headerlink" href="#wsrep-status-index-wsrep_apply_window" title="Permanent link">&para;</a></h2>
+<h3 id="wsrep-status-index-what-the-variable-measures_2">What the variable measures<a class="headerlink" href="#wsrep-status-index-what-the-variable-measures_2" title="Permanent link">&para;</a></h3>
+<p><code>wsrep_apply_window</code> records the average distance between the highest and lowest sequence numbers (<code>seqno</code>) that applier threads are applying concurrently. A wider window—i.e., a larger numeric value—means that a broader range of transactions can be processed at the same time, indicating greater parallelization potential.</p>
+<h3 id="wsrep-status-index-expected-results_2">Expected results<a class="headerlink" href="#wsrep-status-index-expected-results_2" title="Permanent link">&para;</a></h3>
+<p>Higher values signal a healthy, efficiently parallelized cluster that keeps pace with the replication flow. Lower values suggest a bottleneck in the applier threads, which may stem from resource constraints or a prevalence of large, conflicting transactions.</p>
+<h3 id="wsrep-status-index-example-of-use_1">Example of use<a class="headerlink" href="#wsrep-status-index-example-of-use_1" title="Permanent link">&para;</a></h3>
+<p>Run the following command on any node; only the <code>PROCESS</code> privilege is required, and the result reflects the status of the node where the command is executed.</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_window&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------+----------+
+| Variable_name       | Value    |
++---------------------+----------+
+| wsrep_apply_window  | 5.163966 |
++---------------------+----------+
+</code></pre></div>
+</details>
+<h3 id="wsrep-status-index-related-status-variables_2">Related status variables<a class="headerlink" href="#wsrep-status-index-related-status-variables_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oooe">wsrep_apply_oooe</a></td>
+<td>Measures overall parallelism of the applier threads.</td>
+<td>High values together with a wide <code>wsrep_apply_window</code> indicate strong parallelization; low values with a narrow window suggest limited parallel capability.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oool">wsrep_apply_oool</a></td>
+<td>Tracks out‑of‑order application of older transactions (older writeset applied after a newer one).</td>
+<td>A narrow window combined with high <code>wsrep_apply_oool</code> values implies applier threads cannot keep up, causing older transactions to fall behind.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_cert_deps_distance">wsrep_cert_deps_distance</a></td>
+<td>Shows the potential for parallelism based on transaction dependencies.</td>
+<td>Wide <code>wsrep_apply_window</code> paired with a high distance value demonstrates that the cluster is achieving its parallelization potential.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg">wsrep_local_recv_queue_avg</a></td>
+<td>Indicates the average length of the receive queue on the node.</td>
+<td>Narrow window with high queue lengths confirms the node cannot process incoming writesets quickly enough.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_commit_window">wsrep_commit_window</a></td>
+<td>Records the average distance between concurrently committed sequence numbers.</td>
+<td>Comparing this metric with <code>wsrep_apply_window</code> helps identify whether bottlenecks lie in the apply phase or the commit phase.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wsrep-status-index-monitoring-parallelization-window-performance">Monitoring parallelization window performance<a class="headerlink" href="#wsrep-status-index-monitoring-parallelization-window-performance" title="Permanent link">&para;</a></h3>
+<p>Execute the following query to obtain a comprehensive snapshot of the relevant metrics:</p>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_apply_window|wsrep_apply_oooe|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_window&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>This query helps you identify whether window performance issues are due to the following:</p>
+<ul>
+<li>
+<p>Insufficient applier threads</p>
+</li>
+<li>
+<p>Transaction conflicts limiting parallelization</p>
+</li>
+<li>
+<p>Resource constraints reducing processing capacity</p>
+</li>
+<li>
+<p>Network or replication bottlenecks</p>
+</li>
+<li>
+<p>Inefficient transaction dependency patterns</p>
+</li>
+</ul>
 <h3 id="wsrep-status-index-wsrep_cert_bucket_count"><code>wsrep_cert_bucket_count</code><a class="headerlink" href="#wsrep-status-index-wsrep_cert_bucket_count" title="Permanent link">&para;</a></h3>
 <p>This variable, shows the number of cells in the certification index
 hash-table.</p>
@@ -12937,7 +13588,96 @@ of cluster peers in the given <a href="#wsrep-provider-index-gmcastsegment"><cod
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated-bytes"><code>Galera status variable: wsrep_replicated_bytes</code></a></p>
-</div></section><section class="print-page" id="wsrep-system-index" heading-number="13.2"><h1 id="wsrep-system-index-index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#wsrep-system-index-index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
+</div>
+<h3 id="wsrep-status-index-wsrep_sync_wait"><code>wsrep_sync_wait</code><a class="headerlink" href="#wsrep-status-index-wsrep_sync_wait" title="Permanent link">&para;</a></h3>
+<h4 id="wsrep-status-index-what-the-variable-measures_3">What the variable measures<a class="headerlink" href="#wsrep-status-index-what-the-variable-measures_3" title="Permanent link">&para;</a></h4>
+<p>The <code>wsrep_sync_wait</code> status variable controls the level of consistency that client queries must observe in a Galera Cluster. It acts as a <em>synchronization barrier</em>. When enabled, queries such as <code>SELECT</code> wait until the node has applied the most recent transactions, ensuring that the results reflect up-to-date cluster state.  </p>
+<p>This variable offers detailed control with bitmask options for different synchronization modes.</p>
+<h4 id="wsrep-status-index-expected-results_3">Expected results<a class="headerlink" href="#wsrep-status-index-expected-results_3" title="Permanent link">&para;</a></h4>
+<p>The value of <code>wsrep_sync_wait</code> is an integer that represents a bitmask of synchronization modes:  </p>
+<ul>
+<li>
+<p><code>0</code> — No synchronization. Queries return immediately, without waiting for updates from the cluster. Fastest but may return stale data.  </p>
+</li>
+<li>
+<p><code>1</code> — Synchronization for reads (<code>SELECT</code>). Ensures causal consistency by waiting for the latest writesets to apply before executing the query.  </p>
+</li>
+<li>
+<p><code>2</code> — Synchronization for updates (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>). Guarantees that updates see a consistent state.  </p>
+</li>
+<li>
+<p><code>4</code> — Synchronization for transactions. Affects <code>START TRANSACTION</code> commands.  </p>
+</li>
+<li>
+<p>Values can be combined (for example, <code>wsrep_sync_wait = 3</code> applies both read and update synchronization).  </p>
+</li>
+</ul>
+<p>The recommended value depends on your application’s need for consistency versus performance. For most cases, <code>1</code> (causal reads) is sufficient.  </p>
+<h5 id="wsrep-status-index-example-of-use_2">Example of use<a class="headerlink" href="#wsrep-status-index-example-of-use_2" title="Permanent link">&para;</a></h5>
+<p>You can run this command on any node in the cluster; it requires only the <code>PROCESS</code> privilege. Results reflect the status of the node where the query is executed.  </p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_sync_wait&#39;</span><span class="p">;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| wsrep_sync_wait  | 1     |
++------------------+-------+
+</code></pre></div>
+</details>
+<h4 id="wsrep-status-index-related-status-variables_3">Related status variables<a class="headerlink" href="#wsrep-status-index-related-status-variables_3" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Variable name</th>
+<th>Description</th>
+<th>Ideal value/interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg"><code>wsrep_local_recv_queue_avg</code></a></td>
+<td>Shows the average length of the receive queue.</td>
+<td>High values with <code>wsrep_sync_wait</code> enabled can cause queries to stall.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_flow_control_paused"><code>wsrep_flow_control_paused</code></a></td>
+<td>Tracks how often flow control pauses replication.</td>
+<td>High values increase latency for queries under <code>wsrep_sync_wait</code>.</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_apply_oooe"><code>wsrep_apply_oooe</code></a></td>
+<td>Indicates out-of-order execution efficiency for applying transactions.</td>
+<td>Low values may increase the lag observed when <code>wsrep_sync_wait</code> is active.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="wsrep-status-index-monitor-consistency-waits">Monitor consistency waits<a class="headerlink" href="#wsrep-status-index-monitor-consistency-waits" title="Permanent link">&para;</a></h4>
+<p>To get a comprehensive view of how <code>wsrep_sync_wait</code> interacts with replication and flow control, run this query:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_sync_wait|wsrep_local_recv_queue_avg|wsrep_flow_control_paused|wsrep_apply_oooe&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>This query helps you determine whether query stalls under wsrep_sync_wait are caused by:</p>
+<ul>
+<li>
+<p>High replication apply lag, indicated by a large <code>wsrep_local_recv_queue_avg</code></p>
+</li>
+<li>
+<p>Frequent flow control pauses, shown in <code>wsrep_flow_control_paused</code></p>
+</li>
+<li>
+<p>Low parallelization efficiency, reflected in <code>wsrep_apply_oooe</code></p>
+</li>
+</ul>
+<p>When analyzing the output, look for patterns such as:</p>
+<ul>
+<li>
+<p>High <code>wsrep_local_recv_queue_avg</code> together with frequent flow control pauses suggests replication bottlenecks are causing queries to stall.</p>
+</li>
+<li>
+<p>Low <code>wsrep_apply_oooe</code> alongside non-zero <code>wsrep_sync_wait</code> may indicate that the node cannot apply transactions quickly enough, creating unnecessary delays for queries.</p>
+</li>
+</ul></section><section class="print-page" id="wsrep-system-index" heading-number="13.2"><h1 id="wsrep-system-index-index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#wsrep-system-index-index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster introduces a number of MySQL system variables
 related to write-set replication.</p>
 <h3 id="wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#wsrep-system-index-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h3>
