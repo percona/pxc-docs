@@ -5515,6 +5515,10 @@ Percona XtraDB Cluster can run in FIPS mode if a FIPS-enabled OpenSSL library an
 <p><a href="https://perconadev.atlassian.net/browse/PXC-4644">PXC-4644</a>: Creating a foreign key (FK) without sufficient privileges causes a cluster inconsistency. The node where the command is executed fails with Error 1216 (Cannot add or drop foreign key constraint), while other nodes in the cluster that replicate the event fail with Error 1452 (Cannot add or update a child row: a foreign key constraint fails).</p>
 </li>
 </ul>
+<h2 id="release-notes-8.0.43-34-build-packaging-notes">Build &amp; packaging notes<a class="headerlink" href="#release-notes-8.0.43-34-build-packaging-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The official packages were built with the <code>WITH_LTO=ON</code> flag to enable the Link-Time Optimization (LTO) feature.</li>
+</ul>
 <h2 id="release-notes-8.0.43-34-additional-resources">Additional resources<a class="headerlink" href="#release-notes-8.0.43-34-additional-resources" title="Permanent link">&para;</a></h2>
 <p>Download product binaries, packages, and tarballs at <a href="https://www.percona.com/downloads">Percona Product Downloads</a></p>
 <p><a href="#install-index">Install Percona XtraDB Cluster</a></p>
