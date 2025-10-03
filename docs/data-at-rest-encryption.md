@@ -28,26 +28,36 @@ The transit data is defined as data that is transmitted to another node or clien
 
 Percona XtraDB Cluster {{vers}} supports all data at rest generally-available encryption features available from Percona Server for MySQL {{vers}}.
 
-## Configure PXC to use keyring_file plugin
+## Use the component_keyring_file
 
 ### Configuration
 
 Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the `keyring_file` plugin. The following example illustrates using the plugin. Review [Use the kerying component or keyring plugin] for the latest information on the keyring component and plugin.
+configure the `component_keyring_file`. The following example illustrates using the component. Review [Use the keyring vault component](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html) for the latest information on keyring components.
 
 !!! note
 
-    The keyring_file plugin should not be used for regulatory compliance. 
+    The component_keyring_file component should not be used for regulatory compliance. 
 
-[Install the plugin](https://dev.mysql.com/doc/refman/{{vers}}/en/install-plugin.html) and add the following options in the configuration file:
+Install the component using a manifest file and add the following options in the configuration file:
+
+Create a manifest file named `mysqld.my` in the installation directory:
+
+```{.text .no-copy}
+{
+ "read_local_manifest": false,
+ "components": "file://component_keyring_file"
+}
+```
+
+Add the following options to your configuration file:
 
 ```{.text .no-copy}
 [mysqld]
-early-plugin-load=keyring_file.so
-keyring_file_data=<PATH>/keyring
+component_keyring_file_data=<PATH>/keyring
 ```
 
-The `SHOW PLUGINS` statement checks if the plugin has been
+The `SHOW COMPONENTS` statement checks if the component has been
 successfully loaded.
 
 !!! note
@@ -60,28 +70,26 @@ nodes inherit the keyring (the encrypted key) from the DONOR node.
 #### Usage
 
 XtraBackup re-encrypts the data using a transition-key and the JOINER node
-re-encrypts it using a newly generated master-key.
+re-encrypts the data using a newly generated master-key.
 
 Keyring (or, more generally, the Percona XtraDB Cluster SST process) is backward compatible, as
-in higher version JOINER can join from lower version DONOR, but not vice-versa.
+in higher-version JOINER can join from lower-version DONOR, but the reverse is not supported.
 
 Percona XtraDB Cluster does not allow the combination of nodes with encryption and nodes without
 encryption to maintain data consistency. For
 example, the user creates node-1 with encryption (keyring) enabled and node-2
 with encryption (keyring) disabled. If the user attempts to create a table with
 encryption on node-1, the creation fails on node-2, causing data inconsistency.
-A node fails to start if it fails to load the keyring plugin.
+A node fails to start if the node fails to load the keyring component.
 
 !!! note
 
     If the user does not specify the keyring parameters, the node does not
-    know that it must load the keyring. The JOINER node may start, but it
+    know that the node must load the keyring. The JOINER node may start, but the node
     eventually shuts down when the DML level inconsistency with encrypted
     tablespace is detected.
 
-If a node does not have an encrypted tablespace, the keyring is not generated,
-and the keyring file is empty. Creating an encrypted table on the node generates
-the keyring.
+If a node does not have an encrypted tablespace, the keyring file exists but is empty. Creating an encrypted table on the node populates the keyring file with the necessary encryption keys.
 
 In an operation that is local to the node, you can rotate the key as needed. The `ALTER INSTANCE ROTATE INNODB MASTER KEY` statement is not replicated on cluster.
 
@@ -89,93 +97,98 @@ The JOINER node generates its keyring.
 
 ### Compatibility
 
-Keyring (or, more generally, the Percona XtraDB Cluster SST process) is backward compatible. A
-higher version JOINER can join from lower version DONOR, but not vice-versa.
+The Percona XtraDB Cluster SST process with keyring support is backward compatible. A
+higher-version JOINER can join from a lower-version DONOR, but the reverse is not supported.
 
-## Configure PXC to use keyring_vault plugin
+## Configure PXC to use component_keyring_vault component
 
-### keyring_vault
+### component_keyring_vault
 
-The `keyring_vault` plugin allows storing the master-key in vault-server
-(vs. local file as in case of `keyring_file`).
-
-!!! warning
-
-    The rsync tool does not support the `keyring_vault`. Any rysnc-SST on a joiner is aborted if the `keyring_vault` is configured.
+The `component_keyring_vault` stores the master encryption key in a HashiCorp Vault server instead of a local file like `component_keyring_file`.
 
 ### Configuration
 
 Configuration options are the same as
-[upstream](https://www.percona.com/doc/percona-server/{{vers}}/security/using-keyring-plugin.html).
-The `my.cnf` configuration file should contain the following options:
+[Percona Server for MySQL](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
 
-```text
-[mysqld]
-early-plugin-load="keyring_vault=keyring_vault.so"
-keyring_vault_config="<PATH>/keyring_vault_n1.conf"
+Create a manifest file named `mysqld.my` in the installation directory:
+
+```{.text .no-copy}
+{
+ "read_local_manifest": false,
+ "components": "file://component_keyring_vault"
+}
 ```
 
-Also, `keyring_vault_n1.conf` file should contain the following:
+Create a configuration file `component_keyring_vault.cnf` in JSON format:
 
-```text
-vault_url = http://127.0.0.1:8200
-secret_mount_point = secret1
-token = e0345eb4-35dd-3ddd-3b1e-e42bb9f2525d
-vault_ca = /data/keyring_vault_confs/vault_ca.crt
+```{.text .no-copy}
+{
+ "timeout": 15,
+ "vault_url": "https://vault.public.com:8202",
+ "secret_mount_point": "secret",
+ "secret_mount_point_version": "AUTO",
+ "token": "{randomly-generated-alphanumeric-string}",
+ "vault_ca": "/data/keyring_vault_confs/vault_ca.crt"
+}
 ```
 
-The detailed description of these options can be found in the [upstream
-documentation](https://www.percona.com/doc/percona-server/{{vers}}/security/using-keyring-plugin.html).
+The `secret_mount_point_version` parameter defaults to `AUTO` and controls whether the Vault KV Secrets Engine is version 1 (kv) or version 2 (kv-v2). Using the wrong KV version can cause silent failures during keyring operations.
+
+!!! warning
+
+    Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using [Vault's AppRole authentication](https://developer.hashicorp.com/vault/docs/auth/approle) or dynamic token retrieval mechanisms for enhanced security.
+
+The detailed description of these options can be found in the [Percona Server for MySQL keyring vault component documentation](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
 
 Vault-server is an external server, so make sure the PXC node can reach the
 server.
 
-!!! note
+!!! warning
 
-    Percona XtraDB Cluster recommends using the same keyring_plugin type on all cluster nodes. Mixing the keyring plugin types is recommended only while transitioning from `keyring_file` -> `keyring_vault` or vice-versa.
+    SST Limitation: The rsync tool does not support the `component_keyring_vault`. Any rsync-SST on a joiner is aborted if the `component_keyring_vault` is configured.
+
+Uniform Component Configuration: Percona XtraDB Cluster strongly recommends using the same keyring component type on all cluster nodes. Mixing keyring component types is only recommended during controlled transitions from `component_keyring_file` to `component_keyring_vault` or the reverse. Inconsistent keyring configurations can lead to data inconsistency and cluster instability.
 
 All nodes do not need to refer to the same vault server. Whatever
-vault server is used, it must be accessible from the respective node. All nodes
+vault server is used, the server must be accessible from the respective node. All nodes
 do not need to use the same mount point.
 
 If the node is not able to reach or connect to the vault server, an error is
-notified during the server boot, and the node refuses to start:
+notified during the server restart, and the node refuses to start:
 
 ??? example "The warning message"
 
     ```{.text .no-copy}
-    2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
-    'There is no vault_ca specified in keyring_vault's configuration file.
+    2018-05-29T03:54:33.859613Z 0 [Warning] Component component_keyring_vault reported:
+    'There is no vault_ca specified in component_keyring_vault's configuration file.
     Please make sure that Vault's CA certificate is trusted by the machine
     from which you intend to connect to Vault.'
-    2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
+    2018-05-29T03:54:33.977145Z 0 [ERROR] Component component_keyring_vault reported:
     'CURL returned this error code: 7 with error message : Failed to connect
     to 127.0.0.1 port 8200: Connection refused'
     ```
 
-If some nodes of the cluster are unable to connect to vault-server, this
-relates only to these specific nodes: e.g., if node-1 can connect, and
-node-2 cannot connect, only node-2 refuses to start. Also, if the server has
-a pre-existing encrypted object and on reboot, the server fails to connect to
-the vault-server, the object is not accessible.
+When vault server connectivity issues occur, only the affected nodes fail to start. For example, if node-1 can connect to the vault server but node-2 cannot, only node-2 will refuse to start.
 
-In case when vault-server is accessible, but authentication credential is incorrect,
-the consequences are the same, and the corresponding error looks like the following:
+If a server has encrypted objects but cannot connect to the vault server during restart, those encrypted objects become inaccessible.
+
+When the vault server is reachable but authentication credentials are incorrect, the same behavior occurs:
 
 ??? example "The warning message"
 
     ```{.text .no-copy}
-    2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
-    'There is no vault_ca specified in keyring_vault's configuration file.
+    2018-05-29T03:58:54.461911Z 0 [Warning] Component component_keyring_vault reported:
+    'There is no vault_ca specified in component_keyring_vault's configuration file.
     Please make sure that Vault's CA certificate is trusted by the machine
     from which you intend to connect to Vault.'
-    2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
+    2018-05-29T03:58:54.577477Z 0 [ERROR] Component component_keyring_vault reported:
     'Could not retrieve list of keys from Vault. Vault has returned the
     following error(s): ["permission denied"]'
     ```
 
 In case of an accessible vault-server with the wrong mount point, there is no
-error during server boot, but the node still refuses to start:
+error during server restart, but the node still refuses to start:
 
 ```{.bash data-prompt="mysql>"}
 mysql> CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
@@ -185,35 +198,33 @@ mysql> CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
 
     ```{.text .no-copy}
     ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
-    plugin is loaded.
+    component is loaded.
 
-    ... [ERROR] Plugin keyring_vault reported: 'Could not write key to Vault. ...
-    ... [ERROR] Plugin keyring_vault reported: 'Could not flush keys to keyring'
+    ... [ERROR] Component component_keyring_vault reported: 'Could not write key to Vault. ...
+    ... [ERROR] Component component_keyring_vault reported: 'Could not flush keys to keyring'
     ```
 
-## Mix keyring plugin types
+## Mix keyring component types
 
-With XtraBackup introducing transition-key logic, it is now possible to
-mix and match keyring plugins. For example, the user has node-1 configured to use the
-`keyring_file` plugin and node-2 configured to use `keyring_vault`.
+With XtraBackup introducing transition-key logic, you can now
+mix and match keyring components. For example, node-1 can be configured to use the
+`component_keyring_file` component while node-2 uses `component_keyring_vault`.
 
-!!! note
+!!! warning
 
-    Percona recommends the same configuration for all the nodes of the cluster. A mix and match in keyring plugin types is recommended only during the transition from one keying type to another.
-
-## Temporary file encryption
+    Percona strongly recommends the same keyring component configuration for all cluster nodes. Mixing keyring component types is only recommended during controlled transitions from one keyring type to another. Inconsistent configurations can cause data corruption and cluster failures.
 
 ## Migrate keys between keyring keystores
 
 Percona XtraDB Cluster supports key migration between keystores. The migration can be performed
-offline or online.
+offline or online using a migration server with specific configuration options.
 
 ### Offline migration
 
 In offline migration, the node to migrate is shut down, and the migration server
 takes care of migrating keys for the said server to a new keystore.
 
-For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the `keyring_file`. To migrate the n2 node to use `keyring_vault`, use the following procedure:
+For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the `component_keyring_file`. To migrate the n2 node to use `component_keyring_vault`, use the following procedure:
 
 1. Shut down the n2 node.
 
@@ -229,10 +240,10 @@ Here is how the migration server output should look like:
 
     ```{.text .no-copy}
     /dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
-    --keyring-migration-source=keyring_file.so \
-    --keyring_file_data=/dev/shm/pxc80/node2/keyring \
-    --keyring-migration-destination=keyring_vault.so \
-    --keyring_vault_config=/dev/shm/pxc80/vault/keyring_vault.cnf &
+    --keyring-migration-source=component_keyring_file \
+    --component_keyring_file_data=/dev/shm/pxc80/node2/keyring \
+    --keyring-migration-destination=component_keyring_vault \
+    --component_keyring_vault_config=/dev/shm/pxc80/vault/component_keyring_vault.cnf &
 
     ... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
         --explicit_defaults_for_timestamp server option (see documentation for more details).
@@ -258,7 +269,7 @@ care of migrating keys for the said server to a new keystore by connecting to
 the node.
 
 For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the
-`keyring_file`. Migrate the n3 node to use `keyring_vault` using the following procedure:
+`component_keyring_file`. Migrate the n3 node to use `component_keyring_vault` using the following procedure:
 
 1. Start the Migration Server (`mysqld` with a special option).
 
@@ -268,10 +279,10 @@ For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. T
 
 ```text
 /dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
---keyring-migration-source=keyring_vault.so \
---keyring_vault_config=/dev/shm/pxc80/keyring_vault3.cnf \
---keyring-migration-destination=keyring_file.so \
---keyring_file_data=/dev/shm/pxc80/node3/keyring \
+--keyring-migration-source=component_keyring_vault \
+--component_keyring_vault_config=/dev/shm/pxc80/component_keyring_vault3.cnf \
+--keyring-migration-destination=component_keyring_file \
+--component_keyring_file_data=/dev/shm/pxc80/node3/keyring \
 --keyring-migration-host=localhost \
 --keyring-migration-user=root \
 --keyring-migration-port=16300 \
@@ -287,10 +298,10 @@ If the migration fails, the destination keystore is not changed.
 
 ### Migration server options
 
-* `--keyring-migration-source`: The source keyring plugin that manages the
+* `--keyring-migration-source`: The source keyring component that manages the
 keys to be migrated.
 
-* `--keyring-migration-destination`: The destination keyring plugin to which
+* `--keyring-migration-destination`: The destination keyring component to which
 the migrated keys are to be copied
 
     !!! note
@@ -312,8 +323,8 @@ connections, the running server socket or named pipe used to connect.
 Prerequisite for migration:
 
 Make sure to pass required keyring options and other configuration parameters
-for the two keyring plugins. For example, if `keyring_file` is one of the
-plugins, you must explicitly configure the `keyring_file_data` system variable in the my.cnf file.
+for the two keyring components. For example, if `component_keyring_file` is one of the
+components, you must explicitly configure the `component_keyring_file_data` system variable in the my.cnf file.
 
 Other non-keyring options may be required as well. One way to specify these
 options is by using `--defaults-file` to name an option file that contains
@@ -334,4 +345,4 @@ port=16400
 
     Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/{{vers}}/security/data-at-rest-encryption.html#data-at-rest-encryption
 
-[Use the kerying component or keyring plugin]: https://docs.percona.com/percona-server/{{vers}}/using-keyring-plugin.html
+[Use the keyring component or keyring plugin]: https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html
