@@ -4002,6 +4002,7 @@
                     <section class="print-page" id="pxc-pro" heading-number="2.1"><h1 id="pxc-pro-percona-xtradb-cluster-pro">Percona XtraDB Cluster Pro<a class="headerlink" href="#pxc-pro-percona-xtradb-cluster-pro" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster Pro includes the <a href="#pxc-pro-capabilities">capabilities</a> that are typically requested by large enterprises. Percona XtraDB Cluster Pro contains packages created and tested by Percona. These packages are supported only for Percona Customers with a subscription.</p>
 <p><a class="md-button" href="https://www.percona.com/about/contact">Become a Percona Customer</a></p>
+<p>Non-paying Percona software users can also benefit from Percona Pro Builds, but they&rsquo;ll have to <a href="#compile">build them from the source code</a> provided by Percona and available to everyone.</p>
 <h2 id="pxc-pro-capabilities">Capabilities<a class="headerlink" href="#pxc-pro-capabilities" title="Permanent link">&para;</a></h2>
 <p>The following capabilities have been tested for 8.4.6-6 and are available in Percona XtraDB Cluster Pro:</p>
 <table>
@@ -4013,6 +4014,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html">Reduced backup lock time</a></td>
+<td>8.4.6-6</td>
+<td>The Percona XtraDB Cluster Pro <code>xtrabackup</code> SST (State Snapshot Transfer) method, based on Percona XtraBackup Pro, now uses the <a href="https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html">Reduced backup lock time</a> feature. This enhancement minimizes blocking on the <strong>Donor node</strong> during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired <code>lock_ddl</code> value in the [xtrabackup] section of the <code>my.cnf</code> configuration file. For more information about the <code>--lock-ddl</code> option and its available values, refer to the <a href="https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl">xtrabackup command-line options</a> documentation.</td>
+</tr>
 <tr>
 <td>Available on <a href="#install-pro">Amazon Linux 2023</a></td>
 <td>8.4.4-4</td>
@@ -4030,8 +4036,7 @@
 <li>Save on deploying and maintaining build infrastructure as we do the build and testing for you </li>
 <li>Longer support for older versions of operating systems.  </li>
 </ul>
-<p><a class="md-button" href="#install-pro">Install Percona XtraDB Cluster Pro</a></p>
-<p>Community users can receive all these capabilities by <a href="#compile">building Percona XtraDB Cluster from the same source code</a>.</p></section>
+<p><a class="md-button" href="#install-pro">Install Percona XtraDB Cluster Pro</a></p></section>
                     <section class='print-page md-section' id='section-2-2' heading-number='2.2'>
                         <h1>Install Percona XtraDB Cluster Pro<a class='headerlink' href='#section-2-2' title='Permanent link'></a>
                         </h1>
