@@ -22,7 +22,7 @@ theme:
   icon:
     edit: material/file-edit-outline
     view: material/file-eye-outline
-  
+
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -51,7 +51,7 @@ theme:
     - search.share
     - search.suggest
     - navigation.top
-    - navigation.tracking 
+    - navigation.tracking
     - navigation.instant
     - navigation.instant.progress
     - navigation.indexes
@@ -61,7 +61,7 @@ theme:
     - content.action.view
     - content.code.copy
     - content.code.annotate
-    - toc.follow 
+    - toc.follow
 
 extra_css:
   - https://unicons.iconscout.com/release/v3.0.3/css/line.css
@@ -116,7 +116,7 @@ markdown_extensions:
         - _resource/.icons
 
 plugins:
-  search: 
+  search:
     separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   git-revision-date: {}
   meta-descriptions:
@@ -154,7 +154,7 @@ plugins:
     enabled: true
 
 extra:
-  version: 
+  version:
     provider: mike
     default: latest
 
@@ -173,8 +173,8 @@ nav:
       - release-notes/8.4.6-6.md
       - release-notes/8.4.5-5.md
       - release-notes/8.4.4-4.md
-      - release-notes/8.4.3-3.md 
-      - release-notes/8.4.2-2.md 
+      - release-notes/8.4.3-3.md
+      - release-notes/8.4.2-2.md
       - release-notes/8.4.0-1.md
   - Introduction:
       - intro.md
@@ -191,12 +191,12 @@ nav:
   - Get started:
       - install-index.md
       - download-instructions.md
-      - apt.md 
-      - yum.md 
+      - apt.md
+      - yum.md
       - tarball.md
       - compile.md
       - docker.md
-      - docker-compose.md 
+      - docker-compose.md
       - configure-nodes.md
       - bootstrap.md
       - add-node.md
@@ -250,4 +250,3 @@ nav:
   - Topic Index: index-contents.md
 
 # - Version Selector: "../"
-

@@ -6,16 +6,14 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
 
 !!! warning
 
-    Upgrade to the newest 8.0 version, but ensure it is not newer than the corresponding 8.4 version you plan to upgrade to. 
-    
-    This precaution is necessary due to potential Galera Communication System (GCS) protocol upgrades. If a joining node uses a lower GCS protocol than the existing cluster, the cluster prevents the node from joining.
-    
-    Use the following command to verify the GCS protocol version on both versions: 
-    
+    A node with a newer (higher) protocol version cannot join a cluster running an older (lower) Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption or incompatibility issues that may arise if a node introduces a feature the cluster doesn't understand.
+
+    Run the command on a current cluster member and on the node that is about to join, then compare the two outputs.
+
     ```{.bash data-prompt="mysql>"}
     mysql> SHOW STATUS LIKE 'wsrep_protocol_version';
     ```
-    
+
     ??? example "Expected output"
 
         ```{.text .no-copy}
@@ -34,7 +32,7 @@ Upgrading to Percona Server 8.4 is similar to upgrading between minor versions o
 
 ### Keyring Plugin vs. Keyring Component
 
-Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the keyring plugin. Instead, it uses the keyring component. 
+Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the keyring plugin. Instead, it uses the keyring component.
 
 | Requirement         | Details  |
 |---------------------|----------|
@@ -141,7 +139,7 @@ In this scenario, you have an active 3-node 8.0 cluster.
 !!! warning
 
     * You cannot join an 8.0 node to a PXC 8.4 cluster.
-    
+
     * You cannot join an 8.4 node to clusters older than 8.0.
 
 Therefore, if you are running Percona XtraDB Cluster version 5.7, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.
@@ -172,32 +170,32 @@ To upgrade the cluster, follow these steps for each node:
     ```{.bash data-prompt="$"}
     $ sudo service mysql stop
     ```
-  
+
 3. Upgrade Percona XtraDB Cluster packages. For more information, see [Install Percona XtraDB Cluster](install-index.md).
 
 4. Back up `grastate.dat`, so that you can restore it if it is corrupted or zeroed out due to network issues.
 
-5. Start the Percona XtraDB Cluster node with the new packages. 
+5. Start the Percona XtraDB Cluster node with the new packages.
 
     In most cases, starting the `mysql` service should run the node with your
     previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-nodes-to-cluster).
-    
+
     ```{.bash data-prompt="$"}
     $ sudo service mysql start
     ```
-  
+
     On Red Hat Enterprise Linux, the `/etc/my.cnf` configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename this file back to the original name before joining the upgraded node back to the cluster.
-  
-    The node automatically upgrades its data directory. 
-  
+
+    The node automatically upgrades its data directory.
+
     This upgrade happens in one of two ways:
-      
+
     * During the node startup process
-      
+
     * Through a state transfer (either IST or SST) from another node
-      
+
     The cluster handles the upgrade process automatically - you need to start the node with the new packages installed, and PXC manages the data directory upgrade process.
-  
+
 6. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
 
 ## Downgrade
@@ -206,5 +204,3 @@ Starting from version 8.0.34, MySQL-compatible database servers allow downgrades
 The key constraint is maintaining data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Administrators must carefully verify that no version-specific modifications have been made before attempting a downgrade.
 
 While possible, downgrades carry inherent risks and should be approached with caution and thorough planning.
-  
-
