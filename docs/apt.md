@@ -71,7 +71,7 @@ The following steps install from the APT repository.
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
     ```{.bash data-prompt="$"}
-    $ sudo percona-release setup pxc84-lts
+    $ sudo percona-release setup pxc-84-lts
     ```
 
 7. Install the cluster:
