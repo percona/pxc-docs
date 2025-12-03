@@ -51,12 +51,4 @@ If you want to build Percona XtraDB Cluster from source, see [Compiling and Inst
 
 If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#running-percona-xtradb-cluster-in-a-docker-container).
 
-### Percona XtraDB Cluster PRO
-
-This document provides guidelines on how to install Percona XtraBackup PRO packages from the Percona repositories.
-
---8<--- "pro-build-announcement.md"
-
-[Install Percona XtraDB Cluster Pro](install-pro.md){.md-button}
-
 [Telemetry data]: telemetry.md
