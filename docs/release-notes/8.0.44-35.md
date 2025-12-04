@@ -14,19 +14,9 @@ Percona has consolidated its build offerings. The Pro builds are no longer requi
 
 Improvements and bug fixes provided by Oracle for MySQL 8.0.44 and included in Percona Server for MySQL are the following:
 
-* Fixed an issue where parallel scan thread creation could fail, causing assertion failures when falling back to single-thread mode. (Bug #38325137)
-
 * Fixed an issue where virtual index rollback could fail on 32-bit builds of MySQL Server under certain circumstances. (Bug #38167527)
 
-* Fixed an issue where very large buffer pools could require excessive memory chunks per instance, potentially causing allocation failures. The allocation is now validated to ensure proper memory allocation. (Bug #37994397)
-
 * Fixed an issue where assertion failures could occur due to data size and bounds mismatches during DDL file operations. (Bug #37882398)
-
-* Fixed an issue related to modifying the internal Full-Text Search (FTS) configuration. (Bug #37792010)
-
-* Fixed an issue related to virtual indexes. (Bug #37602657)
-
-* Fixed an issue where confusing warning messages could appear when row sizes exceeded maximum allowed limits with `innodb_strict_mode=OFF`, such as during table selection or column dropping operations. Error messages have been improved for clarity. (Bug #37003342, Bug #36768046, Bug #36867372)
 
 Find the complete list of bug fixes and changes in the [MySQL 8.0.44 Release Notes](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-44.html).
 
