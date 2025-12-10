@@ -166,13 +166,6 @@ extra:
 
 nav:
   - Home: index.md
-  - Percona XtraDB Cluster PRO:
-      - pxc-pro.md
-      - Install Percona XtraDB Cluster Pro:
-        - install-pro.md
-        - pro-files.md
-      - Pro build features:
-        - fips.md
   - get-help.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
