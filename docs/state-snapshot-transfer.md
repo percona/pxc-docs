@@ -41,6 +41,9 @@ Xtrabackup SST uses backup locks, so the Galera provider continues running witho
 
     If the `gcs.sync_donor` variable is set to `Yes` (the default is `No`), the whole cluster will be blocked if SST blocks the donor.
 
+#### Version changes
+
+Starting with Percona XtraDB Cluster 8.4.7-7, the `xtrabackup` SST method uses the [Reduced backup lock time](https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html) feature. This enhancement minimizes blocking on the **Donor node** during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired `lock_ddl` value in the [xtrabackup] section of the `my.cnf` configuration file. For more information about the `--lock-ddl` option and its available values, refer to the [xtrabackup command-line options](https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl) documentation.
 
 ## Limitation
 
@@ -51,7 +54,6 @@ State Snapshot Transfer (SST) uses the local socket to:
 * Create backups with Percona XtraBackup 
     
 * Check the status of the keyring component
-
 
 ## Choose the SST Donor
 
