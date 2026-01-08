@@ -1,188 +1,229 @@
 # Documentation Contributing Guide
 
-We welcome contributions from all users and the community. By contributing, you agree to the [Percona Community code of conduct](https://percona.community/contribute/coc/). Thank you for deciding to contribute and help us improve the [Percona XtraBackup documentation](https://docs.percona.com/percona-xtradb-cluster/).
+We welcome contributions from all users and the community. By contributing, you agree to the [Percona Community code of conduct](https://percona.community/contribute/coc/). Thank you for deciding to contribute and help us improve the [Percona XtraDB Cluster documentation](https://docs.percona.com/percona-xtradb-cluster/).
 
 You can contribute to the documentation in the following ways:
 
-- [Add a topic](#add-a-topic)
-- [Request a doc change through a Jira issue](#request-a-doc-change-through-a-jira-issue)
-- [Contribute to the documentation yourself](#contribute-to-documentation-yourself)
+## Rate and comment on documentation pages
 
-## Add a topic
+Each documentation page includes a **Rate this page** feature at the bottom that allows you to assign stars (1-5) and leave comments. This is a quick and easy way to provide feedback about the documentation.
 
-In the [Percona Product Documentation category](https://forums.percona.com/c/percona-product-documentation/71) in the Percona Community Forum, select New Topic. Complete the form and select Create Topic to add the topic to the forum.![Create a topic](docs/_static/new-topic.png "Create a topic")
+To rate a page:
 
-## Request a doc change through a Jira issue
+1. Scroll to the bottom of any documentation page.
 
-**Request a doc change through a Jira issue**. If you’ve found a doc issue (a typo, broken links, inaccurate instructions, etc.) create a Jira ticket to let us know about it if you would rather not [contribute to the documentation yourself](#contribute-to-documentation-yourself).
+2. Use the star rating system to rate the page (1-5 stars).
 
-- Open the [Jira issue tracker](https://jira.percona.com/projects/PXC/issues) for the doc project.
-- Sign in (create a Jira account if you don’t have one) and click **Create** to create an issue.
-- In the following fields, describe the issue:
-    - In the Summary, provide a brief description of the issue
-    - In the Description, provide more information about the issue, along with a Steps To Reproduce section, if needed
-    - In the Affects Version/s field, if you know this issue affects multiple versions, please enter the version numbers. It is OK to add the version number with an ".x" (such as ``8.0.x``) if you don't know the exact version that must be updated.
+3. Leave a comment describing your feedback.
 
-## Contribute to documentation yourself
+!!! important "Please leave detailed comments"
 
-There is the **pencil** icon next to the page title that leads you to the source file of the page on GitHub. There you make changes, create a pull request that we review and add to the doc project. For details how to do it, read on.
+    If you want the documentation team to fix or improve something, **please leave detailed comments** explaining:
+    
+    * What issue you encountered or what improvement you'd like to see
+    * Which section or topic needs clarification or correction
+    * Any specific examples or use cases that would help
+    * The version or environment you're using (if relevant)
+    * Steps to reproduce any issues you found
+    
+    **Detailed comments are essential** - they help us understand your needs and make the documentation better for everyone. Brief comments like "this is confusing" or "needs improvement" are helpful, but specific details about what's confusing or what needs improvement allow us to take action.
 
-To contribute to documentation, learn about the following:
+## Add a topic in the Percona Community Forum
 
-- [Markdown](https://www.mkdocs.org/) 
-- [MkDocs](https://daringfireball.net/projects/markdown/) 
-- [git](https://git-scm.com/) and [GitHub](https://guides.github.com/activities/hello-world/)
-- [Docker](https://docs.docker.com/get-docker/). It allows you to run MkDocs in a virtual environment instead of installing it and its dependencies on your machine.
+The [Percona Community Forum](https://forums.percona.com/) is a public discussion platform where you can ask questions, share feedback, or suggest improvements to the documentation. Use the forum to start a conversation about documentation issues, request clarifications, or discuss potential changes with the community and documentation team.
 
-There are several active versions of the documentation. Each version has a branch in the repository named accordingly:
+To add a topic, navigate to the [Percona Product Documentation category](https://forums.percona.com/c/percona-product-documentation/71) in the Percona Community Forum and select **New Topic**. Complete the form and select **Create Topic** to add the topic to the forum.
 
-- 5.7
-- 8.0
+![Create a topic](docs/_static/new-topic.png "Create a topic")
 
-The `.md` files are in the ``docs/`` directory. 
+## Request a change with a Jira issue
 
-### Edit documentation online using GitHub
+Create a Jira ticket to report documentation issues or request changes. This method is useful for formal tracking or when you want the documentation team to handle the changes.
 
-1. Click the **pencil** icon next to the page title to edit the document. The source ``.md`` file of the page opens in GitHub editor in your browser. If you haven’t worked with the repository before, GitHub creates a [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) of it for you.
+1. Open the [Percona XtraDB Cluster Jira project](https://jira.percona.com/projects/PXC/issues) in your browser.
 
-2. Edit the page. You can check your changes on the **Preview** tab.
+2. Sign in (or create a Percona Jira account if you don't have one).
 
-3. Commit your changes.
+3. Click the **Create** button.
 
-	 - In the *Commit changes* section, describe your changes.
-	 - Select the **Create a new branch for this commit and start a pull request** option
-	 - Click **Propose changes**.
+4. Fill in the required fields:
 
-4. GitHub creates a branch and a commit for your changes. It loads a new page on which you can submit a pull request to Percona. The page shows the base branch - the one you offer your changes for, your commit message and a diff - a visual representation of your changes against the original page. At this time you can make a last-minute review. When you are ready, click the **Create pull request** button.
-5. Someone from our team reviews the pull request. They may make a comment or they may approve it. We usually merge the approved pull request when Percona XtraDB Cluster is released.
+    * **Summary**: Provide a brief description of the issue.
+
+    * **Description**: Provide more information about the issue. If needed, add a Steps To Reproduce section and information about your environment (version number, your operating system, etc.). Be detailed.
+
+     * **Version**, **Environment**, and other relevant fields as needed.
+
+5. Click **Create** to submit the ticket.
+
+!!! tip "Shortcut to the issue creation screen"
+
+    To go directly to the Create Issue form, use this URL: [https://jira.percona.com/secure/CreateIssue!default.jspa?projectKey=PXC](https://jira.percona.com/secure/CreateIssue!default.jspa?projectKey=PXC)
+
+## Edit the documentation yourself
+
+Use the [Edit documentation online with GitHub](#edit-documentation-online-with-github) method or the [Edit documentation locally](#edit-documentation-locally) method to make changes to the documentation and create a pull request. 
+
+### What you should know
+
+The documentation is primarily in plain text, but you may use [Markdown](https://www.markdownguide.org/) to add syntax elements (notes, tables, and so on) to the documentation. 
+
+### What happens after you create the pull request
+
+Our team reviews your pull request and provides feedback or approval. Once approved, we merge your changes into the appropriate branch. Thank you for taking the time to improve our documentation!
+
+!!! note
+
+    We appreciate your work, but the PR may be revised to meet internal requirements.
+
+### Edit documentation online with GitHub
+
+1. At the top of the documentation page, select **Edit this page on GitHub** (or the pencil icon) to open the source file in the GitHub editor. If you haven't worked with the repository before, GitHub creates a [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) automatically.
+
+2. Edit the page using the [Markdown](https://www.markdownguide.org/) syntax.
+
+3. Review your changes by clicking the **Preview** tab to see how they will appear.
+
+4. Scroll to the bottom of the page to the **Commit changes** section.
+
+5. Add a commit message (72 characters or less) describing what you changed.
+ 
+6. Select the **Create a new branch for this commit and start a pull request** option. GitHub will suggest a branch name, which you can accept or modify.
+
+7. Click **Commit changes**.
+
+8. GitHub creates a branch and commit for your changes, then displays a page where you can create a pull request. This page shows:
+
+   * The base branch where you're proposing your changes
+
+   * Your commit message
+
+   * A visual diff of your changes
+
+9. Review the information and click **Create pull request**.
+
+For more information, see [Editing files in GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files).
+
+### Edit documentation using GitHub CLI
+
+This option uses the [GitHub CLI (`gh`)](https://cli.github.com/) tool, which provides a command-line interface for GitHub operations.
+
+!!! note "Prerequisites"
+    
+    You need GitHub CLI installed on your system. If you don't have it installed, see the [GitHub CLI installation guide](https://cli.github.com/manual/installation).
+
+1. Authenticate with GitHub:
+
+    ```shell
+        gh auth login
+    ```
+
+2. Fork the repository (if you haven't already):
+
+    ```shell
+        gh repo fork percona/pxc-docs
+    ```
+
+3. Clone your forked repository:
+
+    ```shell
+        gh repo clone <your_github_name>/pxc-docs
+        cd pxc-docs
+    ```
+
+4. Create a new branch for your changes:
+
+    ```shell
+        git checkout -b <my_changes>
+    ```
+
+5. Edit the files in the `/docs` directory using your preferred editor.
+
+6. Stage and commit your changes:
+
+    ```shell
+        git add docs/example.md
+        git commit -m 'Fixed typo in documentation'
+    ```
+
+7. Push your branch to your fork:
+
+    ```shell
+        git push -u origin <my_changes>
+    ```
+
+8. Create a pull request using GitHub CLI:
+
+    ```shell
+        gh pr create --title "Your PR title" --body "Description of your changes"
+    ```
+
+    Alternatively, you can use the interactive mode:
+
+    ```shell
+        gh pr create
+    ```
+
+For more information, see [GitHub CLI documentation](https://cli.github.com/manual/).
 
 ### Edit documentation locally
 
-This option is for users who prefer to work from their computer and/or have the full control over the documentation process.
+This option is for users who are comfortable with [git](https://git-scm.com/) commands.
 
-The steps are the following:
+1. Fork this repository on GitHub.
 
-1. Fork this repository
+2. Clone your forked repository to your machine:
 
-2. Clone the forked repository to your machine:
-
-    ```sh
-    git clone git@github.com:<your_GitHub_account_name>
+    ```shell
+        git clone https://github.com/<your_github_name>/pxc-docs.git
+        cd pxc-docs
     ```
 
-3. Change the directory to ``pxc-docs/docs`` and add the remote origin repository:
+    !!! note "SSH alternative"
+    
+        If you have SSH keys set up with GitHub, you can use `git@github.com:<your_github_name>/pxc-docs.git` instead.
 
-    ```sh
-    git remote add origin git@github.com:percona/pxc-docs.git
+3. Add the upstream remote to track the original repository:
+
+    ```shell
+        git remote add upstream https://github.com/percona/pxc-docs.git
     ```
 
-4. To be sure that you have the latest changes, checkout the appropriate branch and pull the latest changes from origin
+4. Checkout the appropriate branch for the version you're working on (for example, `main` for the latest documentation) and pull the latest changes from upstream:
 
-    ```sh
-    git checkout 8.0 && git pull origin 8.0
-    ```
-    Make sure that your local branch and the branch you merge changes from are the same. So if you are on ``8.0`` branch, pull changes from ``origin 8.0``.
-
-5. Create a separate branch for your changes
-
-    ```sh
-    git checkout -b <my_changes>
+    ```shell
+        git checkout main
+        git pull upstream main
     ```
 
-6. Make changes in the documentation
-7. Add the changed files
+    !!! note "Which branch to use"
+    
+        Use the branch that matches the version of the documentation you're editing. Typically, use the `main` branch for the latest Percona XtraDB Cluster documentation. If the branch doesn't exist locally, Git will create a tracking branch automatically.
 
-    ```sh
-    git add <changed files>
-    ```
-8. Commit your changes
+5. Create a separate branch for your changes:
 
-    ```sh
-    git commit -m 'Fixed typing error in <document name>'
-    ```
-9. Open a pull request to Percona
-
-    ```sh
-    git push <my repo> <my_changes>
+    ```shell
+        git checkout -b <my_changes>
     ```
 
-### Building the documentation
+6. Edit the files in the `/docs` directory. Add code examples, if necessary. We recommend that you check your changes using a Preview built into your editor (if you have one).
 
-To verify how your changes look, generate the static site with the documentation. This process is called *building*. You can use the following methods:
-- [use Docker](#use-docker)
-- [build locally](#build-locally)
+7. Add the changed file (replace `docs/example.md` with your actual file path):
 
-#### Use Docker
-
-1. [Get Docker](https://docs.docker.com/get-docker/)
-2. We use [our Docker image](https://hub.docker.com/repository/docker/perconalab/pmm-doc-md) to build documentation. Run the following command in the ``docs`` directory:
-
-    ```sh
-    docker run --rm -v $(pwd):/docs perconalab/pmm-doc-md mkdocs build
-    ```
-    If Docker can't find the image locally, it first downloads the image, and then runs it to build the documentation.
-
-3. Go to the ``site/`` directory and open the ``index.html`` file to see the documentation.
-
-   If you want to see the changes as you edit the docs, use this command instead:
-
-   ```sh
-   docker run --rm -v $(pwd):/docs -p 8000:8000 perconalab/pmm-doc-md mkdocs serve --dev-addr=0.0.0.0:8000
-   ```
-
-   Wait until you see the message `INFO    -  Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. The documentation automatically reloads after you save the changes in source files.
-
-#### Build locally
-
-1. Install [pip](https://pip.pypa.io/en/stable/installing/)
-2. Install [MkDocs](https://www.mkdocs.org/).
-3. While in the root directory of the doc project, run the following command to build the documentation:
-
-    ```sh
-    mkdocs build
-    ```
-4. Go to the ``site`` directory and open the ``index.html`` file in your web browser to see the documentation.
-5. To automatically rebuild the documentation and reload the browser as you make changes, run the following:
-   
-   ```sh
-   mkdocs serve
-   ```
-   Wait until you see the message `INFO    -  Start detecting changes`, then enter `0.0.0.0:8000` in the browser's address bar. 
-
-## PDF
-
-To create the PDF version of the documentation, use the following command:
-
-* With Docker:
-
-    ```sh
-    docker run --rm -v $(pwd):/docs -e ENABLE_PDF_EXPORT=1 perconalab/pmm-doc-md mkdocs build -f mkdocs-pdf.yml
+    ```shell
+        git add docs/example.md
     ```
 
-* Without:
+8. Commit your changes (replace the message with a description of your changes):
 
-    ```sh
-    ENABLE_PDF_EXPORT=1 mkdocs build -f mkdocs-pdf.yml
+    ```shell
+        git commit -m 'Fixed typo in documentation'
     ```
 
-The PDF is in `site/_pdf`.
+9. Push your branch to your fork:
 
-## Repository structure
+    ```shell
+        git push -u origin <my_changes>
+    ```
 
-The repository includes the following directories and files:
-
-- `mkdocs-base.yml` - the base configuration file. It includes general settings and documentation structure.
-- `mkdocs.yml` - configuration file. Contains the settings for building the docs with Material theme.
-- `mkdocs-pdf.yml` - configuration file. Contains the settings for building the PDF docs.
-- `docs`:
-  - `*.md` - source markdown files.
-  - `_static` - images, logos and favicons
-  - `css` - styles
-  - `js` - Javascript files
-- `_resource`:
-   - `templates`:
-     - ``styles.scss`` - Styling for PDF documents
-   - `theme`:
-      - `main.html` - the layout template for hosting the documentation on Percona website
-   - `overrides` - the folder with the customized templates
-- `site` - this is where the output HTML files are put after the build
+10. On GitHub, you'll see a notification banner with a **Compare & pull request** button. Click it to open a pull request to the Percona repository. Alternatively, navigate to your fork and click **Create pull request**.
