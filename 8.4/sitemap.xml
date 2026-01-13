@@ -81,10 +81,6 @@
          <lastmod>2026-01-13</lastmod>
     </url>
     <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/fips.html</loc>
-         <lastmod>2026-01-13</lastmod>
-    </url>
-    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/garbd-howto.html</loc>
          <lastmod>2026-01-13</lastmod>
     </url>
@@ -125,10 +121,6 @@
          <lastmod>2026-01-13</lastmod>
     </url>
     <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/install-pro.html</loc>
-         <lastmod>2026-01-13</lastmod>
-    </url>
-    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/intro.html</loc>
          <lastmod>2026-01-13</lastmod>
     </url>
@@ -157,15 +149,7 @@
          <lastmod>2026-01-13</lastmod>
     </url>
     <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/pro-files.html</loc>
-         <lastmod>2026-01-13</lastmod>
-    </url>
-    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/proxysql-v2.html</loc>
-         <lastmod>2026-01-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/pxc-pro.html</loc>
          <lastmod>2026-01-13</lastmod>
     </url>
     <url>
