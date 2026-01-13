@@ -475,6 +475,8 @@
       
         
       
+        
+      
     
     
     
@@ -530,6 +532,34 @@
     
   
     Release notes index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/8.4.7-7.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 8.4.7-7 (2026-01-13)
   
 
     
@@ -3461,6 +3491,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
+  <a href="#release-notes-8.4.7-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Percona XtraDB Cluster 8.4.7-7 (2026-01-13)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#release-notes-8.4.6-6" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4413,7 +4454,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1>Documentation</h1>
  
-<h2>8.4.6-6 (October 06, 2025)</h2>
+<h2>8.4.7-7 (January 13, 2026)</h2>
 <!--<h3>Percona Technical Documentation Team</h3>-->
         </section>
         
@@ -4568,6 +4609,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                     <section class="print-page" id="release-notes-release-notes_index" heading-number="3.1"><h1 id="release-notes-release-notes_index-percona-xtradb-cluster-84-release-notes-index">Percona XtraDB Cluster 8.4 release notes index<a class="headerlink" href="#release-notes-release-notes_index-percona-xtradb-cluster-84-release-notes-index" title="Permanent link">&para;</a></h1>
 <ul>
 <li>
+<p><a href="#release-notes-8.4.7-7">Percona XtraDB Cluster 8.4.7-7 (2026-01-13)</a></p>
+</li>
+<li>
 <p><a href="#release-notes-8.4.6-6">Percona XtraDB Cluster 8.4.6-6 (2025-10-06)</a></p>
 </li>
 <li>
@@ -4585,7 +4629,78 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p><a href="#release-notes-8.4.0-1">Percona XtraDB Cluster 8.4.0-1 (2024-11-07)</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.6-6" heading-number="3.2"><h1 id="release-notes-8.4.6-6-percona-xtradb-cluster-846-6-2025-10-06">Percona XtraDB Cluster 8.4.6-6 (2025-10-06)<a class="headerlink" href="#release-notes-8.4.6-6-percona-xtradb-cluster-846-6-2025-10-06" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.7-7" heading-number="3.2"><h1 id="release-notes-8.4.7-7-percona-xtradb-cluster-847-7-2026-01-13">Percona XtraDB Cluster 8.4.7-7 (2026-01-13)<a class="headerlink" href="#release-notes-8.4.7-7-percona-xtradb-cluster-847-7-2026-01-13" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
+<p>Percona XtraDB Cluster 8.4.7-7 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.7-7.html">Percona Server for MySQL 8.4.7-7 (2025-12-22) release notes</a>.</p>
+<h2 id="release-notes-8.4.7-7-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.7-7-release-highlights" title="Permanent link">&para;</a></h2>
+<h3 id="release-notes-8.4.7-7-percona-xtradb-cluster-847-7">Percona XtraDB Cluster 8.4.7-7<a class="headerlink" href="#release-notes-8.4.7-7-percona-xtradb-cluster-847-7" title="Permanent link">&para;</a></h3>
+<p>Announcement – Discontinuation of the Percona PRO Program</p>
+<p>Percona has consolidated its build offerings. The Pro builds are no longer required. All features from the Percona Server for MySQL 8.4.x Pro build series and Percona XtraBackup 8.4.x Pro build series have been merged into the main open source Community release.</p>
+<p>Starting with Percona XtraDB Cluster 8.4.7-7, the <a href="#state-snapshot-transfer-xtrabackup-sst-method"><code>xtrabackup</code> SST method</a> uses the <a href="https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html">Reduced backup lock time</a> feature. This enhancement minimizes blocking on the <strong>Donor node</strong> during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired <code>lock_ddl</code> value in the [xtrabackup] section of the <code>my.cnf</code> configuration file. For more information about the <code>--lock-ddl</code> option and its available values, refer to the <a href="https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl">xtrabackup command-line options</a> documentation.</p>
+<h3 id="release-notes-8.4.7-7-percona-server-for-mysql-847-7">Percona Server for MySQL 8.4.7-7<a class="headerlink" href="#release-notes-8.4.7-7-percona-server-for-mysql-847-7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The audit log plugin has been reintroduced in Percona Server for MySQL 8.4. However, it is already marked as deprecated and is planned for removal in a future release. This deprecation is due to the availability of the <a href="https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html">audit log filter component</a>, which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.</li>
+</ul>
+<h3 id="release-notes-8.4.7-7-mysql-847">MySQL 8.4.7<a class="headerlink" href="#release-notes-8.4.7-7-mysql-847" title="Permanent link">&para;</a></h3>
+<p>Improvements and bug fixes provided by Oracle for MySQL 8.4.7 and included in Percona Server for MySQL are the following:</p>
+<ul>
+<li>
+<p>Fixed an issue that caused excessive memory chunk usage for very large buffer pools, which could lead to allocation failures. The allocation process now includes validation to ensure sufficient and stable memory allocation. (Bug #37994397)</p>
+</li>
+<li>
+<p>Fixed an issue where assertion failures could occur due to data size and bounds mismatches during DDL file operations. (Bug #37882398)</p>
+</li>
+</ul>
+<p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-7.html">MySQL 8.4.7 release notes</a>.</p>
+<h2 id="release-notes-8.4.7-7-improvements">Improvements<a class="headerlink" href="#release-notes-8.4.7-7-improvements" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://perconadev.atlassian.net/browse/PXC-4756">PXC-4756</a>: Improved startup behavior during State Snapshot Transfer (SST) when using large InnoDB buffer pools with <code>innodb_numa_interleave</code> enabled could delay post-processing long enough to trigger the 300-second SST timeout. Find more information in <a href="#xtrabackup-sst-troubleshoot">Percona XtraBackup SST configuration</a>.</li>
+</ul>
+<h2 id="release-notes-8.4.7-7-bug-fixes">Bug fixes<a class="headerlink" href="#release-notes-8.4.7-7-bug-fixes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4292">PXC-4292</a>: Fixed an issue where State Snapshot Transfer (SST) cleanup searched identical directories multiple times when InnoDB paths pointed to the same location.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4526">PXC-4526</a>: Replication failed and the node became inconsistent when a transaction was committed using a tagged Global Transaction Identifier (GTID).</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4682">PXC-4682</a>: Fixed an issue where SST/IST progress printed “-nan%” in the MySQL error log; it now correctly displays “0%”.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4709">PXC-4709</a>: Fixed an issue where a node could be evicted if <code>CREATE/ALTER USER</code> was executed without the <code>AUTHENTICATION_POLICY_ADMIN</code> privilege.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4714">PXC-4714</a>: APT package was missing a dependency on ps unix utility, which is used by <code>wsrep_sst_xtrabackup-v2</code>.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-4789">PXC-4789</a>: Running an <code>UPDATE</code> on a parent table and a <code>RENAME TABLE</code> on a child table at the same time on different nodes could trigger a BF-BF (brute force–brute force) conflict and cause a node to be evicted from the cluster.</p>
+</li>
+</ul>
+<h2 id="release-notes-8.4.7-7-build-packaging-notes">Build &amp; packaging notes<a class="headerlink" href="#release-notes-8.4.7-7-build-packaging-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Percona XtraDB Cluster 8.4 adds support for Debian 13.</p>
+</li>
+<li>
+<p>Percona XtraDB Cluster 8.4 has ended support for Ubuntu 20.04.</p>
+</li>
+</ul>
+<h2 id="release-notes-8.4.7-7-useful-links">Useful links<a class="headerlink" href="#release-notes-8.4.7-7-useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The <a href="https://www.percona.com/doc/percona-xtradb-cluster/8.4/install/index.html">Percona XtraDB Cluster installation instructions</a></p>
+</li>
+<li>
+<p>The <a href="https://www.percona.com/mysql/software/percona-xtradb-cluster">Percona XtraDB Cluster downloads</a></p>
+</li>
+<li>
+<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+</li>
+<li>
+<p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
+</li>
+</ul></section><section class="print-page" id="release-notes-8.4.6-6" heading-number="3.3"><h1 id="release-notes-8.4.6-6-percona-xtradb-cluster-846-6-2025-10-06">Percona XtraDB Cluster 8.4.6-6 (2025-10-06)<a class="headerlink" href="#release-notes-8.4.6-6-percona-xtradb-cluster-846-6-2025-10-06" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.6-6-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.6-6-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster 8.4.6-6 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.6-6.html">Percona Server for MySQL 8.4.6-6 (2025-09-08) release notes</a>.</p>
@@ -4648,7 +4763,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.5-5" heading-number="3.3"><h1 id="release-notes-8.4.5-5-percona-xtradb-cluster-845-5-2025-07-14">Percona XtraDB Cluster 8.4.5-5 (2025-07-14)<a class="headerlink" href="#release-notes-8.4.5-5-percona-xtradb-cluster-845-5-2025-07-14" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.5-5" heading-number="3.4"><h1 id="release-notes-8.4.5-5-percona-xtradb-cluster-845-5-2025-07-14">Percona XtraDB Cluster 8.4.5-5 (2025-07-14)<a class="headerlink" href="#release-notes-8.4.5-5-percona-xtradb-cluster-845-5-2025-07-14" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.5-5-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.5-5-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster 8.4.5-5 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.5-5.html">Percona Server for MySQL 8.4.5-5 (2025-05-29) release notes</a>.</p>
@@ -4742,7 +4857,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.4-4" heading-number="3.4"><h1 id="release-notes-8.4.4-4-percona-xtradb-cluster-844-4-2025-04-16">Percona XtraDB Cluster 8.4.4-4 (2025-04-16)<a class="headerlink" href="#release-notes-8.4.4-4-percona-xtradb-cluster-844-4-2025-04-16" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.4-4" heading-number="3.5"><h1 id="release-notes-8.4.4-4-percona-xtradb-cluster-844-4-2025-04-16">Percona XtraDB Cluster 8.4.4-4 (2025-04-16)<a class="headerlink" href="#release-notes-8.4.4-4-percona-xtradb-cluster-844-4-2025-04-16" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.4-4-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.4-4-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster 8.4.4-4 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.4-4.html">Percona Server for MySQL 8.4.4-4 (2024-12-18) release notes</a>.</p>
@@ -4809,7 +4924,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.3-3" heading-number="3.5"><h1 id="release-notes-8.4.3-3-percona-xtradb-cluster-843-3-2025-01-21">Percona XtraDB Cluster 8.4.3-3 (2025-01-21)<a class="headerlink" href="#release-notes-8.4.3-3-percona-xtradb-cluster-843-3-2025-01-21" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.3-3" heading-number="3.6"><h1 id="release-notes-8.4.3-3-percona-xtradb-cluster-843-3-2025-01-21">Percona XtraDB Cluster 8.4.3-3 (2025-01-21)<a class="headerlink" href="#release-notes-8.4.3-3-percona-xtradb-cluster-843-3-2025-01-21" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.3-3-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.3-3-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster 8.4.3-3 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.3-3.html">Percona Server for MySQL 8.4.3-3 (2024-12-18) release notes</a>.</p>
@@ -4831,7 +4946,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.2-2" heading-number="3.6"><h1 id="release-notes-8.4.2-2-percona-xtradb-cluster-842-2-2024-12-11">Percona XtraDB Cluster 8.4.2-2 (2024-12-11)<a class="headerlink" href="#release-notes-8.4.2-2-percona-xtradb-cluster-842-2-2024-12-11" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.2-2" heading-number="3.7"><h1 id="release-notes-8.4.2-2-percona-xtradb-cluster-842-2-2024-12-11">Percona XtraDB Cluster 8.4.2-2 (2024-12-11)<a class="headerlink" href="#release-notes-8.4.2-2-percona-xtradb-cluster-842-2-2024-12-11" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.2-2-release-highlights">Release highlights<a class="headerlink" href="#release-notes-8.4.2-2-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.2-2.html">Percona Server for MySQL 8.4.2-2 (2024-11-04) release notes</a>.</p>
@@ -4853,7 +4968,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/8.0/contributing.md">Documentation Contribution Guide</a></p>
 </li>
-</ul></section><section class="print-page" id="release-notes-8.4.0-1" heading-number="3.7"><h1 id="release-notes-8.4.0-1-percona-xtradb-cluster-840-1-2024-11-07">Percona XtraDB Cluster 8.4.0-1 (2024-11-07)<a class="headerlink" href="#release-notes-8.4.0-1-percona-xtradb-cluster-840-1-2024-11-07" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-8.4.0-1" heading-number="3.8"><h1 id="release-notes-8.4.0-1-percona-xtradb-cluster-840-1-2024-11-07">Percona XtraDB Cluster 8.4.0-1 (2024-11-07)<a class="headerlink" href="#release-notes-8.4.0-1-percona-xtradb-cluster-840-1-2024-11-07" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.4.0-1-release-highlights">Release Highlights<a class="headerlink" href="#release-notes-8.4.0-1-release-highlights" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.0-1.html">Percona Server for MySQL 8.4.0-1 (2024-08-28) release notes</a>.</p>
@@ -8183,6 +8298,8 @@ permissivedomains
 <p class="admonition-title">Note</p>
 <p>If the <code>gcs.sync_donor</code> variable is set to <code>Yes</code> (the default is <code>No</code>), the whole cluster will be blocked if SST blocks the donor.</p>
 </div>
+<h4 id="state-snapshot-transfer-version-changes">Version changes<a class="headerlink" href="#state-snapshot-transfer-version-changes" title="Permanent link">&para;</a></h4>
+<p>Starting with Percona XtraDB Cluster 8.4.7-7, the <code>xtrabackup</code> SST method uses the <a href="https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html">Reduced backup lock time</a> feature. This enhancement minimizes blocking on the <strong>Donor node</strong> during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired <code>lock_ddl</code> value in the [xtrabackup] section of the <code>my.cnf</code> configuration file. For more information about the <code>--lock-ddl</code> option and its available values, refer to the <a href="https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl">xtrabackup command-line options</a> documentation.</p>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster requires a local socket for configuration. Define a socket path or allow the server to create one automatically. Do not leave the <code>socket</code> variable empty in the <code>my.cnf</code> file (for example, <code>socket=</code>). An empty value prevents the server from creating a socket.</p>
 <p>State Snapshot Transfer (SST) uses the local socket to:</p>
@@ -8258,6 +8375,8 @@ XtraBackup is run locally on the donor node.</p>
 <p class="admonition-title">Note</p>
 <p>If the <code>gcs.sync_donor</code> variable is set to <code>Yes</code> (the default is <code>No</code>), the whole cluster will be blocked if SST blocks the donor.</p>
 </div>
+<h4 id="state-snapshot-transfer-version-changes">Version changes<a class="headerlink" href="#state-snapshot-transfer-version-changes" title="Permanent link">&para;</a></h4>
+<p>Starting with Percona XtraDB Cluster 8.4.7-7, the <code>xtrabackup</code> SST method uses the <a href="https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html">Reduced backup lock time</a> feature. This enhancement minimizes blocking on the <strong>Donor node</strong> during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired <code>lock_ddl</code> value in the [xtrabackup] section of the <code>my.cnf</code> configuration file. For more information about the <code>--lock-ddl</code> option and its available values, refer to the <a href="https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl">xtrabackup command-line options</a> documentation.</p>
 <h2 id="state-snapshot-transfer-limitation">Limitation<a class="headerlink" href="#state-snapshot-transfer-limitation" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster requires a local socket for configuration. Define a socket path or allow the server to create one automatically. Do not leave the <code>socket</code> variable empty in the <code>my.cnf</code> file (for example, <code>socket=</code>). An empty value prevents the server from creating a socket.</p>
 <p>State Snapshot Transfer (SST) uses the local socket to:</p>
@@ -19889,7 +20008,7 @@ manually when upgrading your system from an older version.</p>
 <h2 id="glossary-uuid">UUID<a class="headerlink" href="#glossary-uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p></section><section class="print-page" id="copyright-and-licensing-information" heading-number="12.8"><h1 id="copyright-and-licensing-information-copyright-and-licensing-information">Copyright and licensing information<a class="headerlink" href="#copyright-and-licensing-information-copyright-and-licensing-information" title="Permanent link">&para;</a></h1>
 <h2 id="copyright-and-licensing-information-documentation-licensing">Documentation licensing<a class="headerlink" href="#copyright-and-licensing-information-documentation-licensing" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster documentation is (C)2009-2025 Percona LLC and/or its affiliates and is distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p></section><section class="print-page" id="trademark-policy" heading-number="12.9"><h1 id="trademark-policy-trademark-policy">Trademark policy<a class="headerlink" href="#trademark-policy-trademark-policy" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster documentation is (C)2009-2026 Percona LLC and/or its affiliates and is distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p></section><section class="print-page" id="trademark-policy" heading-number="12.9"><h1 id="trademark-policy-trademark-policy">Trademark policy<a class="headerlink" href="#trademark-policy-trademark-policy" title="Permanent link">&para;</a></h1>
 <p>This <a href="https://www.percona.com/trademark-policy">Trademark Policy</a> is to ensure that users of Percona-branded products or services know that what they receive has really been developed, approved, tested and maintained by Percona. Trademarks help to prevent confusion in the marketplace, by distinguishing one company’s or person’s products and services from another’s.</p>
 <p>Percona owns a number of marks, including but not limited to Percona, XtraDB, Percona XtraDB, XtraBackup, Percona XtraBackup, Percona Server, and Percona Live, plus the distinctive visual icons and logos associated with these marks. Both the unregistered and registered marks of Percona are protected.</p>
 <p>Use of any Percona trademark in the name, URL, or other identifying characteristic of any product, service, website, or other use is not permitted without Percona’s written permission with the following three limited exceptions.</p>
@@ -19975,17 +20094,19 @@ manually when upgrading your system from an older version.</p>
 .print-site-enumerate-headings #section-3 > h1:before { content: '3 ' }
 .print-site-enumerate-headings #release-notes-release-notes_index > h1:before { content: '3.1 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.6-6 > h1:before { content: '3.2 ' }
+.print-site-enumerate-headings #release-notes-8.4.7-7 > h1:before { content: '3.2 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.5-5 > h1:before { content: '3.3 ' }
+.print-site-enumerate-headings #release-notes-8.4.6-6 > h1:before { content: '3.3 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.4-4 > h1:before { content: '3.4 ' }
+.print-site-enumerate-headings #release-notes-8.4.5-5 > h1:before { content: '3.4 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.3-3 > h1:before { content: '3.5 ' }
+.print-site-enumerate-headings #release-notes-8.4.4-4 > h1:before { content: '3.5 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.2-2 > h1:before { content: '3.6 ' }
+.print-site-enumerate-headings #release-notes-8.4.3-3 > h1:before { content: '3.6 ' }
 
-.print-site-enumerate-headings #release-notes-8.4.0-1 > h1:before { content: '3.7 ' }
+.print-site-enumerate-headings #release-notes-8.4.2-2 > h1:before { content: '3.7 ' }
+
+.print-site-enumerate-headings #release-notes-8.4.0-1 > h1:before { content: '3.8 ' }
 
 .print-site-enumerate-headings #section-4 > h1:before { content: '4 ' }
 .print-site-enumerate-headings #intro > h1:before { content: '4.1 ' }
