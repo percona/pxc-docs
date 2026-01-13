@@ -318,6 +318,24 @@ An example of setting the option:
 sst-idle-timeout=0
 ```
 
+### post-processing-timeout
+
+| Parameter      | Description        |
+| -------------- | ------------------ |
+| Default:       | 300                |
+| Unit:          | seconds            |
+
+The maximum time the State Snapshot Transfer (SST) procedure waits for the newly provisioned MySQL instance to complete its shutdown or startup. During shutdown, the procedure waits until the process is no longer alive or the Process ID (PID) cleanup completes. During startup, the procedure waits until the procedure successfully connects to the MySQL server.
+
+The `wsrep_sst_common.sh` script reads this variable from the configuration file to set the timeout value. For more information about when to increase this value, see [Troubleshoot](#troubleshoot).
+
+An example of setting the option:
+
+```{.text .no-copy}
+[sst]
+post-processing-timeout=600
+```
+
 ### tmpdir
 
 | Parameter      | Description        |
@@ -458,3 +476,9 @@ the size of the InnoDB memory buffer will be used:
 [mysqld]
 innodb_buffer_pool_size=24M
 ```
+
+## Troubleshoot
+
+| Problem | Possible Cause | Solution |
+|---------|---------------|----------|
+| SST procedure aborts during post-processing phase | The post-processing phase takes more than 300 seconds to complete. The timeout occurs on systems with Non-Uniform Memory Access (NUMA) architecture when you have large InnoDB Buffer Pools and the `innodb_numa_interleave` variable is enabled. When `innodb_numa_interleave` is active, the memory initialization process for the large InnoDB Buffer Pool can be significantly slower, leading to the MySQL instance taking more than the default 300 seconds to become responsive. The SST script, which monitors the instance start-up and shut down, times out and aborts the entire procedure. When the timeout is reached, the SST procedure stops and the joining node cannot join the cluster. | Set a higher value for [`post-processing-timeout`](#post-processing-timeout) in the `[sst]` section of your configuration file. You can also disable the `innodb_numa_interleave` variable if you do not need it. |
