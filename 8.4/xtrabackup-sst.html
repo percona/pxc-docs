@@ -2509,6 +2509,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#troubleshoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshoot
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3845,6 +3856,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#troubleshoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshoot
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4284,6 +4306,31 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 <div class="no-copy highlight"><pre><span></span><code>[sst]
 sst-idle-timeout=0
 </code></pre></div>
+<h3 id="post-processing-timeout">post-processing-timeout<a class="headerlink" href="#post-processing-timeout" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>300</td>
+</tr>
+<tr>
+<td>Unit:</td>
+<td>seconds</td>
+</tr>
+</tbody>
+</table>
+<p>The maximum time the State Snapshot Transfer (SST) procedure waits for the newly provisioned MySQL instance to complete its shutdown or startup. During shutdown, the procedure waits until the process is no longer alive or the Process ID (PID) cleanup completes. During startup, the procedure waits until the procedure successfully connects to the MySQL server.</p>
+<p>The <code>wsrep_sst_common.sh</code> script reads this variable from the configuration file to set the timeout value. For more information about when to increase this value, see <a href="#troubleshoot">Troubleshoot</a>.</p>
+<p>An example of setting the option:</p>
+<div class="no-copy highlight"><pre><span></span><code>[sst]
+post-processing-timeout=600
+</code></pre></div>
 <h3 id="tmpdir">tmpdir<a class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4458,6 +4505,23 @@ the size of the InnoDB memory buffer will be used:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">innodb_buffer_pool_size</span><span class="o">=</span>24M
 </code></pre></div>
+<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SST procedure aborts during post-processing phase</td>
+<td>The post-processing phase takes more than 300 seconds to complete. The timeout occurs on systems with Non-Uniform Memory Access (NUMA) architecture when you have large InnoDB Buffer Pools and the <code>innodb_numa_interleave</code> variable is enabled. When <code>innodb_numa_interleave</code> is active, the memory initialization process for the large InnoDB Buffer Pool can be significantly slower, leading to the MySQL instance taking more than the default 300 seconds to become responsive. The SST script, which monitors the instance start-up and shut down, times out and aborts the entire procedure. When the timeout is reached, the SST procedure stops and the joining node cannot join the cluster.</td>
+<td>Set a higher value for <a href="#post-processing-timeout"><code>post-processing-timeout</code></a> in the <code>[sst]</code> section of your configuration file. You can also disable the <code>innodb_numa_interleave</code> variable if you do not need it.</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -4480,7 +4544,7 @@ the size of the InnoDB memory buffer will be used:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2025 15:48:50 UTC">July 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 13, 2026 14:29:18 UTC">January 13, 2026</span>
   </span>
 
     
