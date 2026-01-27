@@ -80,7 +80,7 @@ CREATE TABLE t1 (c1 INT PRIMARY KEY) DATA DIRECTORY = '/alternative/directory';
 ### SST using Percona XtraBackup
 
 XtraBackup will restore the table to the same location on the joiner node.  If
-the target directory does not exist, it will be created.  If the target file
+the target directory does not exist, it will be created. If the target file
 already exists, an error will be returned, because XtraBackup cannot clear
 tablespaces not in the data directory.
 
@@ -90,4 +90,4 @@ For more information, see:
 
 * [Xtrabackup SST configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration)  
 
-* [State Snapshot Transfer Methods for MySQL](https://galeracluster.com/library/documentation/sst.html)  
+* [State Snapshot Transfer Methods for MySQL](https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/)  

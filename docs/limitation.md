@@ -72,7 +72,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        [Galera Documentation: Tables without Primary Keys](https://galeracluster.com/library/training/tutorials/differences.html#tables-without-primary-keys)
+        [MariaDB Galera Documentation: Tables without Primary Keys](https://mariadb.com/docs/server/architecture/server-constraints/primary-key-constraints)
         
 * When configuring Percona XtraDB Cluster, your server must create a local socket.
 
