@@ -305,7 +305,7 @@ possibly applied in parallel.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cert_deps_distance`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-deps-distance)
+    [`Galera status variable: wsrep_cert_deps_distance`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_deps_distance)
 
 ### `wsrep_cert_index_size`
 
@@ -313,7 +313,7 @@ Number of entries in the certification index.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cert_index_size`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-index-size)
+    [`Galera status variable: wsrep_cert_index_size`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_index_size)
 
 ### `wsrep_cert_interval`
 
@@ -321,7 +321,7 @@ Average number of write-sets received while a transaction replicates.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cert_interval`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-interval)
+    [`Galera status variable: wsrep_cert_interval`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_interval)
 
 ### `wsrep_cluster_conf_id`
 
@@ -329,7 +329,7 @@ Number of cluster membership changes that have taken place.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cluster_conf_id`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-conf-id)
+    [`Galera status variable: wsrep_cluster_conf_id`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_conf_id)
 
 ### `wsrep_cluster_size`
 
@@ -337,7 +337,7 @@ Current number of nodes in the cluster.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cluster_size`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-size)
+    [`Galera status variable: wsrep_cluster_size`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_size)
 
 ### `wsrep_cluster_state_uuid`
 
@@ -347,7 +347,7 @@ the cluster.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cluster_state_uuid`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-state-uuid)
+    [`Galera status variable: wsrep_cluster_state_uuid`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_state_uuid)
 
 ### `wsrep_cluster_status`
 
@@ -361,7 +361,7 @@ Status of the cluster component. Possible values are:
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_cluster_status`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-status)
+    [`Galera status variable: wsrep_cluster_status`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_status)
 
 ### `wsrep_commit_oooe`
 
@@ -369,7 +369,7 @@ This variable shows how often a transaction was committed out of order.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_commit_oooe`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-oooe)
+    [`Galera status variable: wsrep_commit_oooe`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_oooe)
 
 ### `wsrep_commit_oool`
 
@@ -377,7 +377,7 @@ This variable currently has no meaning.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_commit_oool`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-oool)
+    [`Galera status variable: wsrep_commit_oool`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_oool)
 
 ### `wsrep_commit_window`
 
@@ -386,7 +386,7 @@ number.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_commit_window`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-window)
+    [`Galera status variable: wsrep_commit_window`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_window)
 
 ### `wsrep_connected`
 
@@ -396,7 +396,7 @@ may be due to misconfiguration.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_connected`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-connected)
+    [`Galera status variable: wsrep_connected`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_connected)
 
 ### `wsrep_evs_delayed`
 
@@ -406,7 +406,7 @@ delayed list for that node.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_evs_delayed`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-delayed)
+    [`Galera status variable: wsrep_evs_delayed`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_delayed)
 
 ### `wsrep_evs_evict_list`
 
@@ -414,7 +414,7 @@ List of UUIDs of the evicted nodes.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_evs_evict_list`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-evict-list)
+    [`Galera status variable: wsrep_evs_evict_list`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_evict_list)
 
 ### `wsrep_evs_repl_latency`
 
@@ -426,7 +426,7 @@ The format of the output is `<min>/<avg>/<max>/<std_dev>/<sample_size>`.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_evs_repl_latency`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-repl-latency)
+    [`Galera status variable: wsrep_evs_repl_latency`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_repl_latency)
 
 ### `wsrep_evs_state`
 
@@ -434,7 +434,7 @@ Internal EVS protocol state.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_evs_state`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-state)
+    [`Galera status variable: wsrep_evs_state`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_state)
 
 ### `wsrep_flow_control_interval`
 
@@ -458,7 +458,7 @@ Time since the last status query that was paused due to flow control.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_flow_control_paused`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-paused)
+    [`Galera status variable: wsrep_flow_control_paused`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_paused)
 
 ### `wsrep_flow_control_paused_ns`
 
@@ -466,7 +466,7 @@ Total time spent in a paused state measured in nanoseconds.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_flow_control_paused_ns`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-paused-ns)
+    [`Galera status variable: wsrep_flow_control_paused_ns`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_paused_ns)
 
 ### `wsrep_flow_control_recv`
 
@@ -474,7 +474,7 @@ The number of `FC_PAUSE` events received since the last status query. Unlike mos
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_flow_control_recv`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-recv)
+    [`Galera status variable: wsrep_flow_control_recv`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_recv)
 
 ### `wsrep_flow_control_requested`
 
@@ -486,7 +486,7 @@ The number of `FC_PAUSE` events sent since the last status query. Unlike most st
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_flow_control_sent`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-sent)
+    [`Galera status variable: wsrep_flow_control_sent`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_sent)
 
 ### `wsrep_flow_control_status`
 
@@ -506,7 +506,7 @@ node. You will need to know this value when using manual eviction feature.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_gcomm_uuid`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-gcomm-uuid)
+    [`Galera status variable: wsrep_gcomm_uuid`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_gcomm_uuid)
 
 ### `wsrep_incoming_addresses`
 
@@ -514,7 +514,7 @@ Shows the comma-separated list of incoming node addresses in the cluster.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_incoming_addresses`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-incoming-addresses)
+    [`Galera status variable: wsrep_incoming_addresses`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_incoming_addresses)
 
 ### `wsrep_ist_receive_status`
 
@@ -549,7 +549,7 @@ being executed.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_bf_aborts`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-bf-aborts)
+    [`Galera status variable: wsrep_local_bf_aborts`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_bf_aborts)
 
 ### `wsrep_local_cached_downto`
 
@@ -559,7 +559,7 @@ writesets in GCache (usual for a single node).
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_cached_downto`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-cached-downto)
+    [`Galera status variable: wsrep_local_cached_downto`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_cached_downto)
 
 ### `wsrep_local_cert_failures`
 
@@ -567,7 +567,7 @@ Number of writesets that failed the certification test.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_cert_failures`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-cert-failures)
+    [`Galera status variable: wsrep_local_cert_failures`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_cert_failures)
 
 ### `wsrep_local_commits`
 
@@ -575,7 +575,7 @@ Number of writesets commited on the node.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_commits`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-commits)
+    [`Galera status variable: wsrep_local_commits`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_commits)
 
 ### `wsrep_local_index`
 
@@ -583,7 +583,7 @@ Node’s index in the cluster.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_index`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-index)
+    [`Galera status variable: wsrep_local_index`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_index)
 
 ### `wsrep_local_recv_queue`
 
@@ -592,7 +592,7 @@ to be applied).
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_recv_queue`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-recv-queue)
+    [`Galera status variable: wsrep_local_recv_queue`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_recv_queue)
 
 ### `wsrep_local_recv_queue_avg`
 
@@ -603,7 +603,7 @@ cause replication throttling.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_recv_queue_avg`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-recv-queue-avg)
+    [`Galera status variable: wsrep_local_recv_queue_avg`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_recv_queue_avg)
 
 ### `wsrep_local_replays`
 
@@ -611,7 +611,7 @@ Number of transaction replays due to *asymmetric lock granularity*.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_replays`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-replays)
+    [`Galera status variable: wsrep_local_replays`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_replays)
 
 ### `wsrep_local_send_queue`
 
@@ -620,7 +620,7 @@ be sent).
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_send_queue`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-send-queue)
+    [`Galera status variable: wsrep_local_send_queue`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_send_queue)
 
 ### `wsrep_local_send_queue_avg`
 
@@ -630,7 +630,7 @@ will be significantly bigger than `0`.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_send_queue_avg`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-send-queue-avg)
+    [`Galera status variable: wsrep_local_send_queue_avg`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_send_queue_avg)
 
 ### `wsrep_local_state`
 
@@ -638,7 +638,7 @@ Internal Galera cluster FSM state number.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_state`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state)
+    [`Galera status variable: wsrep_local_state`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state)
 
 ### `wsrep_local_state_comment`
 
@@ -654,7 +654,7 @@ state. Possible values are:
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_state_comment`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state-comment)
+    [`Galera status variable: wsrep_local_state_comment`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state_comment)
 
 ### `wsrep_local_state_uuid`
 
@@ -662,7 +662,7 @@ The [UUID](glossary.md#uuid) of the state stored on the node.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_local_state_uuid`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state-uuid)
+    [`Galera status variable: wsrep_local_state_uuid`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state_uuid)
 
 ### `wsrep_monitor_status`
 
@@ -690,7 +690,7 @@ transactions in the *apply* state at a given point of time but transactions are
 
 !!! admonition "See also"
 
-    [`Galera Documentation: Database replication`](https://galeracluster.com/library/documentation/tech-desc-introduction.html)
+    [`MariaDB Galera Documentation: Database replication`](https://mariadb.com/docs/galera-cluster/galera-cluster-quickstart-guides/mariadb-galera-cluster-replication-guide)
 
 ### `wsrep_protocol_version`
 
@@ -698,7 +698,7 @@ Version of the wsrep protocol used.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_protocol_version`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-protocol-version)
+    [`Galera status variable: wsrep_protocol_version`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_protocol_version)
 
 ### `wsrep_provider_name`
 
@@ -706,7 +706,7 @@ Name of the wsrep provider (usually `Galera`).
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_provider_name`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-name)
+    [`Galera status variable: wsrep_provider_name`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_name)
 
 ### `wsrep_provider_vendor`
 
@@ -714,7 +714,7 @@ Name of the wsrep provider vendor (usually `Codership Oy`)
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_provider_vendor`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-vendor)
+    [`Galera status variable: wsrep_provider_vendor`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_vendor)
 
 ### `wsrep_provider_version`
 
@@ -722,7 +722,7 @@ Current version of the wsrep provider.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_provider_version`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-version)
+    [`Galera status variable: wsrep_provider_version`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_version)
 
 ### `wsrep_ready`
 
@@ -732,7 +732,7 @@ almost all queries will fail with `ERROR 1047 (08S01) Unknown Command` error
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_ready`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-ready)
+    [`Galera status variable: wsrep_ready`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_ready)
 
 ### `wsrep_received`
 
@@ -740,7 +740,7 @@ Total number of writesets received from other nodes.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_received`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-received)
+    [`Galera status variable: wsrep_received`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_received)
 
 ### `wsrep_received_bytes`
 
@@ -768,7 +768,7 @@ Total number of writesets sent to other nodes.
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_replicated`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated)
+    [`Galera status variable: wsrep_replicated`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_replicated)
 
 ### `wsrep_replicated_bytes`
 
@@ -778,7 +778,7 @@ of cluster peers in the given [`network segment`](wsrep-provider-index.md#gmcast
 
 !!! admonition "See also"
 
-    [`Galera status variable: wsrep_replicated_bytes`](https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated-bytes)
+    [`Galera status variable: wsrep_replicated_bytes`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_replicated_bytes)
 
 ### `wsrep_sync_wait`
 
@@ -851,6 +851,3 @@ When analyzing the output, look for patterns such as:
 * High `wsrep_local_recv_queue_avg` together with frequent flow control pauses suggests replication bottlenecks are causing queries to stall.
 
 * Low `wsrep_apply_oooe` alongside non-zero `wsrep_sync_wait` may indicate that the node cannot apply transactions quickly enough, creating unnecessary delays for queries.
-
-
-

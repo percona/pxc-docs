@@ -72,7 +72,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        [Galera Documentation: Tables without Primary Keys](https://galeracluster.com/library/training/tutorials/differences.html#tables-without-primary-keys)
+        [MariaDB Galera Documentation: Tables without Primary Keys](https://mariadb.com/docs/server/server-usage/tables/mariadb-indexes-guide-1#finding-tables-without-primary-keys)
 
 * Avoid reusing the names of persistent tables for temporary tables
 

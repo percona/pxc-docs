@@ -51,7 +51,7 @@ $ systemctl start mysql
 ```
 !!! admonition "See also"
 
-    [Galera Documentation: wsrep_sst_donor option](https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-donor)
+    [MariaDB Galera Documentation: wsrep_sst_donor option](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
 
 ## Scenario 3: All three nodes are gracefully stopped
 
