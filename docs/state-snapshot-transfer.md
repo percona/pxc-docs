@@ -89,6 +89,6 @@ XtraBackup restores the table to the same location on the joiner node. If the ta
 
 ## Other reading
 
-* [State Snapshot Transfer Methods for MySQL](https://galeracluster.com/library/documentation/sst.html)
+* [State Snapshot Transfer Methods for MySQL](https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/)
 
 * [Xtrabackup SST configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration)

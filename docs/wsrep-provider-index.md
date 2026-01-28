@@ -98,8 +98,8 @@ should be logged.
 !!! admonition "See also"
 
     Galera Cluster Documentation:
-    * [Parameter: cert.optimistic_pa](https://galeracluster.com/library/documentation/galera-parameters.html#cert-optimistic-pa)
-    * [Setting parallel slave threads](https://galeracluster.com/library/kb/parallel-slave-threads.html)
+    * [Parameter: cert.optimistic_pa](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#cert.optimistic_pa)
+    * [Setting parallel slave threads](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads)
 
 ### `debug`
 
@@ -515,9 +515,7 @@ size of the disk. Pages are prefixed by gcache.page.
 
 !!! admonition "See also"
 
-      * [Galera Documentation: gcache.page_size](https://galeracluster.com/library/documentation/galera-parameters.html#gcache-page-size)
-
-      * [Percona Database Performance Blog: All You Need to Know About GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+    [Percona Database Performance Blog: All You Need to Know About GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 ### `gcache.recover`
 
@@ -585,7 +583,7 @@ rr
 
 !!! admonition "See also"
 
-    For information, see the [Galera Cluster documentation](https://galeracluster.com/library/documentation/galera-parameters.html#gcomm-thread-prio)
+    For information, see the [MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio)
 
 ### `gcs.fc_auto_evict_threshold`
 

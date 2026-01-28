@@ -120,7 +120,7 @@ in a new component strictly exceeds half that
 of the preceding Primary Component,
 minus the nodes which left gracefully.
 
-The mechanism is described in detail in [Galera documentation](https://galeracluster.com/library/documentation/index.html).
+The mechanism is described in detail in [MariaDB Galera documentation](ttps://mariadb.com/docs/galera-cluster/).
 
 ## How would the quorum mechanism handle split brain?
 
@@ -138,7 +138,7 @@ wsrep_provider_options="pc.ignore_sb = yes"
 ## Why a node stops accepting commands if the other one fails in a 2-node setup?
 
 This is expected behavior to prevent [split brain](glossary.md#split-brain).
-For more information, see previous question or [Galera documentation](https://galeracluster.com/library/documentation/index.html).
+For more information, see previous question or [MariaDB Galera documentation](ttps://mariadb.com/docs/galera-cluster/).
 
 ## Is it possible to set up a cluster without state transfer?
 
