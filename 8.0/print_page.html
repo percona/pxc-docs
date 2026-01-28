@@ -7861,7 +7861,7 @@ nodes. The <code>DELETE</code> statement is not supported on tables without a pr
 key.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/training/tutorials/differences.html#tables-without-primary-keys">Galera Documentation: Tables without Primary Keys</a></p>
+<p><a href="https://mariadb.com/docs/server/architecture/server-constraints/primary-key-constraints">MariaDB Galera Documentation: Tables without Primary Keys</a></p>
 </div>
 </li>
 <li>
@@ -10679,7 +10679,7 @@ XtraBackup is run locally on the donor node.</p>
 </code></pre></div>
 <h3 id="state-snapshot-transfer-sst-using-percona-xtrabackup">SST using Percona XtraBackup<a class="headerlink" href="#state-snapshot-transfer-sst-using-percona-xtrabackup" title="Permanent link">&para;</a></h3>
 <p>XtraBackup will restore the table to the same location on the joiner node.  If
-the target directory does not exist, it will be created.  If the target file
+the target directory does not exist, it will be created. If the target file
 already exists, an error will be returned, because XtraBackup cannot clear
 tablespaces not in the data directory.</p>
 <p>For more information, see:  </p>
@@ -10691,7 +10691,7 @@ tablespaces not in the data directory.</p>
 <p><a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Xtrabackup SST configuration</a>  </p>
 </li>
 <li>
-<p><a href="https://galeracluster.com/library/documentation/sst.html">State Snapshot Transfer Methods for MySQL</a>  </p>
+<p><a href="https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/">State Snapshot Transfer Methods for MySQL</a>  </p>
 </li>
 </ul></section><section class="print-page" id="xtrabackup-sst" heading-number="10.1.2"><h1 id="xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST configuration<a class="headerlink" href="#xtrabackup-sst-percona-xtrabackup-sst-configuration" title="Permanent link">&para;</a></h1>
 <details class="example">
@@ -12668,7 +12668,7 @@ file and start the mysql service:</p>
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-donor">Galera Documentation: wsrep_sst_donor option</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MariaDB Galera Documentation: wsrep_sst_donor option</a></p>
 </div>
 <h2 id="crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped">Scenario 3: All three nodes are gracefully stopped<a class="headerlink" href="#crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
 <p>The cluster is completely stopped and the problem is to initialize it again. It
@@ -13508,7 +13508,7 @@ are synchronized and working as intended.</p>
 </ol></section><section class="print-page" id="garbd-howto" heading-number="11.4"><h1 id="garbd-howto-set-up-galera-arbitrator">Set up Galera arbitrator<a class="headerlink" href="#garbd-howto-set-up-galera-arbitrator" title="Permanent link">&para;</a></h1>
 <p>The size of a cluster increases when a node joins the cluster and decreases when a node leaves. A cluster reacts to replication problems with inconsistency voting. The size of the cluster determines the required votes to achieve a quorum. If a node no longer responds and is disconnected from the cluster the remaining nodes vote. The majority of the nodes that vote are considered to be in the cluster.</p>
 <p>The arbitrator is important if you have an even number of nodes remaining in the cluster. The arbitrator keeps the number of nodes as an odd number, which avoids the split-brain situation.</p>
-<p>A <a href="https://galeracluster.com/library/documentation/arbitrator.html">Galera Arbitrator</a>
+<p>A <a href="https://mariadb.com/docs/galera-cluster/high-availability/understanding-quorum-monitoring-and-recovery#the-galera-arbitrator-garbd">Galera Arbitrator</a>
 is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This member can vote but does not do any replication and is not included in flow control calculations. The Galera Arbitrator is a separate daemon called <code>garbd</code>. You can start this daemon separately from the cluster and run this daemon either as a service or from the shell. You cannot configure this daemon using the <code>my.cnf</code> file.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -13528,7 +13528,7 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <p class="admonition-title">Note</p>
 <p>On <strong>Percona XtraDB Cluster</strong> 8.0, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure <code>garbd</code> to use the certificates.</p>
 <p>It is necessary to specify the cipher. In this example, it is <code>AES128-SHA256</code>. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.</p>
-<p>For more information, see <a href="https://galeracluster.com/library/documentation/galera-parameters.html#socket-ssl-cipher">socket.ssl_cipher</a></p>
+<p>For more information, see <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher">socket.ssl_cipher</a></p>
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>garbd<span class="w"> </span>--group<span class="o">=</span>my_ubuntu_cluster<span class="w"> </span><span class="se">\</span>
@@ -14407,7 +14407,7 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
 <tr>
 <td><a href="#toi">TOI or Total Order Isolation</a></td>
 <td>Consistency is important.</td>
-<td>Other transactions are blocked while the cluster processes the DDL statements. This is the default method for the <a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-osu-method">wsrep-OSU-method</a> variable. The isolation of the DDL statement guarantees consistency. The DDL replication uses a statement format with each node processing the replicated DDL statement at the same position in the replication stream. All other writes must wait until the DDL statement is executed. Long-running transactions using the same resources may receive a deadlock error at commit and be rolled back. The <a href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-online-schema-change.html">pt-online-schema-change</a> in the Percona Toolkit can alter the table without using locks. There are limitations: only InnoDB tables can be altered, and the <code>wsrep_OSU_method</code> must be <code>TOI</code>.</td>
+<td>Other transactions are blocked while the cluster processes the DDL statements. This is the default method for the <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method">wsrep-OSU-method</a> variable. The isolation of the DDL statement guarantees consistency. The DDL replication uses a statement format with each node processing the replicated DDL statement at the same position in the replication stream. All other writes must wait until the DDL statement is executed. Long-running transactions using the same resources may receive a deadlock error at commit and be rolled back. The <a href="https://www.percona.com/doc/percona-toolkit/LATEST/pt-online-schema-change.html">pt-online-schema-change</a> in the Percona Toolkit can alter the table without using locks. There are limitations: only InnoDB tables can be altered, and the <code>wsrep_OSU_method</code> must be <code>TOI</code>.</td>
 </tr>
 <tr>
 <td><a href="#rsu">RSU or Rolling Schema Upgrade</a></td>
@@ -15453,27 +15453,27 @@ different name):</p>
 applied out of order.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-oooe"><code>Galera status variable: wsrep_apply_oooe</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_apply_oooe"><code>Galera status variable: wsrep_apply_oooe</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_apply_oool"><code>wsrep_apply_oool</code><a class="headerlink" href="#wsrep-status-index-wsrep_apply_oool" title="Permanent link">&para;</a></h3>
 <p>This variable shows how often a writeset with a higher sequence number was
 applied before one with a lower sequence number.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-oool"><code>Galera status variable: wsrep_apply_oool</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_apply_oool"><code>Galera status variable: wsrep_apply_oool</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_apply_window"><code>wsrep_apply_window</code><a class="headerlink" href="#wsrep-status-index-wsrep_apply_window" title="Permanent link">&para;</a></h3>
 <p>Average distance between highest and lowest concurrently applied sequence
 numbers.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-apply-window"><code>Galera status variable: wsrep_apply_window</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_apply_window"><code>Galera status variable: wsrep_apply_window</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_causal_reads"><code>wsrep_causal_reads</code><a class="headerlink" href="#wsrep-status-index-wsrep_causal_reads" title="Permanent link">&para;</a></h3>
 <p>Shows the number of writesets processed while the variable <a href="#wsrep-system-index-wsrep_causal_reads"><code>wsrep_causal_reads</code></a> was set to <code>ON</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-causal-reads"><code>MySQL wsrep options: wsrep_causal_reads</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details#wsrep_causal_reads"><code>MySQL wsrep options: wsrep_causal_reads</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cert_bucket_count"><code>wsrep_cert_bucket_count</code><a class="headerlink" href="#wsrep-status-index-wsrep_cert_bucket_count" title="Permanent link">&para;</a></h3>
 <p>This variable, shows the number of cells in the certification index
@@ -15483,31 +15483,31 @@ hash-table.</p>
 possibly applied in parallel.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-deps-distance"><code>Galera status variable: wsrep_cert_deps_distance</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_deps_distance"><code>Galera status variable: wsrep_cert_deps_distance</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cert_index_size"><code>wsrep_cert_index_size</code><a class="headerlink" href="#wsrep-status-index-wsrep_cert_index_size" title="Permanent link">&para;</a></h3>
 <p>Number of entries in the certification index.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-index-size"><code>Galera status variable: wsrep_cert_index_size</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_index_size"><code>Galera status variable: wsrep_cert_index_size</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cert_interval"><code>wsrep_cert_interval</code><a class="headerlink" href="#wsrep-status-index-wsrep_cert_interval" title="Permanent link">&para;</a></h3>
 <p>Average number of write-sets received while a transaction replicates.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cert-interval"><code>Galera status variable: wsrep_cert_interval</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cert_interval"><code>Galera status variable: wsrep_cert_interval</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cluster_conf_id"><code>wsrep_cluster_conf_id</code><a class="headerlink" href="#wsrep-status-index-wsrep_cluster_conf_id" title="Permanent link">&para;</a></h3>
 <p>Number of cluster membership changes that have taken place.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-conf-id"><code>Galera status variable: wsrep_cluster_conf_id</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_conf_id"><code>Galera status variable: wsrep_cluster_conf_id</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cluster_size"><code>wsrep_cluster_size</code><a class="headerlink" href="#wsrep-status-index-wsrep_cluster_size" title="Permanent link">&para;</a></h3>
 <p>Current number of nodes in the cluster.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-size"><code>Galera status variable: wsrep_cluster_size</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_size"><code>Galera status variable: wsrep_cluster_size</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cluster_state_uuid"><code>wsrep_cluster_state_uuid</code><a class="headerlink" href="#wsrep-status-index-wsrep_cluster_state_uuid" title="Permanent link">&para;</a></h3>
 <p>This variable contains <a href="#glossary-uuid">UUID</a> state of the cluster. When this value is
@@ -15515,7 +15515,7 @@ the same as the one in <a href="#wsrep-status-index-wsrep_local_state_uuid"><cod
 the cluster.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-state-uuid"><code>Galera status variable: wsrep_cluster_state_uuid</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_state_uuid"><code>Galera status variable: wsrep_cluster_state_uuid</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_cluster_status"><code>wsrep_cluster_status</code><a class="headerlink" href="#wsrep-status-index-wsrep_cluster_status" title="Permanent link">&para;</a></h3>
 <p>Status of the cluster component. Possible values are:</p>
@@ -15532,26 +15532,26 @@ the cluster.</p>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-cluster-status"><code>Galera status variable: wsrep_cluster_status</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_cluster_status"><code>Galera status variable: wsrep_cluster_status</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_commit_oooe"><code>wsrep_commit_oooe</code><a class="headerlink" href="#wsrep-status-index-wsrep_commit_oooe" title="Permanent link">&para;</a></h3>
 <p>This variable shows how often a transaction was committed out of order.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-oooe"><code>Galera status variable: wsrep_commit_oooe</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_oooe"><code>Galera status variable: wsrep_commit_oooe</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_commit_oool"><code>wsrep_commit_oool</code><a class="headerlink" href="#wsrep-status-index-wsrep_commit_oool" title="Permanent link">&para;</a></h3>
 <p>This variable currently has no meaning.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-oool"><code>Galera status variable: wsrep_commit_oool</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_oool"><code>Galera status variable: wsrep_commit_oool</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_commit_window"><code>wsrep_commit_window</code><a class="headerlink" href="#wsrep-status-index-wsrep_commit_window" title="Permanent link">&para;</a></h3>
 <p>Average distance between highest and lowest concurrently committed sequence
 number.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-commit-window"><code>Galera status variable: wsrep_commit_window</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_commit_window"><code>Galera status variable: wsrep_commit_window</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_connected"><code>wsrep_connected</code><a class="headerlink" href="#wsrep-status-index-wsrep_connected" title="Permanent link">&para;</a></h3>
 <p>This variable shows if the node is connected to the cluster. If the value is
@@ -15559,7 +15559,7 @@ number.</p>
 may be due to misconfiguration.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-connected"><code>Galera status variable: wsrep_connected</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_connected"><code>Galera status variable: wsrep_connected</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_evs_delayed"><code>wsrep_evs_delayed</code><a class="headerlink" href="#wsrep-status-index-wsrep_evs_delayed" title="Permanent link">&para;</a></h3>
 <p>Comma separated list of nodes that are considered delayed. The node format is
@@ -15567,13 +15567,13 @@ may be due to misconfiguration.</p>
 delayed list for that node.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-delayed"><code>Galera status variable: wsrep_evs_delayed</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_delayed"><code>Galera status variable: wsrep_evs_delayed</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_evs_evict_list"><code>wsrep_evs_evict_list</code><a class="headerlink" href="#wsrep-status-index-wsrep_evs_evict_list" title="Permanent link">&para;</a></h3>
 <p>List of UUIDs of the evicted nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-evict-list"><code>Galera status variable: wsrep_evs_evict_list</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_evict_list"><code>Galera status variable: wsrep_evs_evict_list</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_evs_repl_latency"><code>wsrep_evs_repl_latency</code><a class="headerlink" href="#wsrep-status-index-wsrep_evs_repl_latency" title="Permanent link">&para;</a></h3>
 <p>This status variable provides information regarding group communication
@@ -15582,13 +15582,13 @@ sent out to when a message is received.</p>
 <p>The format of the output is <code>&lt;min&gt;/&lt;avg&gt;/&lt;max&gt;/&lt;std_dev&gt;/&lt;sample_size&gt;</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-repl-latency"><code>Galera status variable: wsrep_evs_repl_latency</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_repl_latency"><code>Galera status variable: wsrep_evs_repl_latency</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_evs_state"><code>wsrep_evs_state</code><a class="headerlink" href="#wsrep-status-index-wsrep_evs_state" title="Permanent link">&para;</a></h3>
 <p>Internal EVS protocol state.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-evs-state"><code>Galera status variable: wsrep_evs_state</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_evs_state"><code>Galera status variable: wsrep_evs_state</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_flow_control_interval"><code>wsrep_flow_control_interval</code><a class="headerlink" href="#wsrep-status-index-wsrep_flow_control_interval" title="Permanent link">&para;</a></h3>
 <p>This variable shows the lower and upper limits for Galera flow control.
@@ -15604,19 +15604,19 @@ and once it reaches the lower limit, new requests will be allowed again.</p>
 <p>Time since the last status query that was paused due to flow control.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-paused"><code>Galera status variable: wsrep_flow_control_paused</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_paused"><code>Galera status variable: wsrep_flow_control_paused</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_flow_control_paused_ns"><code>wsrep_flow_control_paused_ns</code><a class="headerlink" href="#wsrep-status-index-wsrep_flow_control_paused_ns" title="Permanent link">&para;</a></h3>
 <p>Total time spent in a paused state measured in nanoseconds.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-paused-ns"><code>Galera status variable: wsrep_flow_control_paused_ns</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_paused_ns"><code>Galera status variable: wsrep_flow_control_paused_ns</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_flow_control_recv"><code>wsrep_flow_control_recv</code><a class="headerlink" href="#wsrep-status-index-wsrep_flow_control_recv" title="Permanent link">&para;</a></h3>
 <p>The number of <code>FC_PAUSE</code> events received since the last status query. Unlike most status variables, this counter does not reset each time you run the query. This counter is reset when the server restarts. </p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-recv"><code>Galera status variable: wsrep_flow_control_recv</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_recv"><code>Galera status variable: wsrep_flow_control_recv</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_flow_control_requested"><code>wsrep_flow_control_requested</code><a class="headerlink" href="#wsrep-status-index-wsrep_flow_control_requested" title="Permanent link">&para;</a></h3>
 <p>This variable returns whether or not a node requested a replication pause.</p>
@@ -15624,7 +15624,7 @@ and once it reaches the lower limit, new requests will be allowed again.</p>
 <p>The number of <code>FC_PAUSE</code> events sent since the last status query. Unlike most status variables, this counter does not reset each time you run the query. This counter is reset when the server restarts.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-flow-control-sent"><code>Galera status variable: wsrep_flow_control_sent</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_flow_control_sent"><code>Galera status variable: wsrep_flow_control_sent</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_flow_control_status"><code>wsrep_flow_control_status</code><a class="headerlink" href="#wsrep-status-index-wsrep_flow_control_status" title="Permanent link">&para;</a></h3>
 <p>This variable shows whether a node has flow control enabled for normal traffic.
@@ -15638,13 +15638,13 @@ view IDs (thus unrelated to cluster state UUIDs). This UUID is unique for each
 node. You will need to know this value when using manual eviction feature.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-gcomm-uuid"><code>Galera status variable: wsrep_gcomm_uuid</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_gcomm_uuid"><code>Galera status variable: wsrep_gcomm_uuid</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_incoming_addresses"><code>wsrep_incoming_addresses</code><a class="headerlink" href="#wsrep-status-index-wsrep_incoming_addresses" title="Permanent link">&para;</a></h3>
 <p>Shows the comma-separated list of incoming node addresses in the cluster.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-incoming-addresses"><code>Galera status variable: wsrep_incoming_addresses</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_incoming_addresses"><code>Galera status variable: wsrep_incoming_addresses</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_ist_receive_status"><code>wsrep_ist_receive_status</code><a class="headerlink" href="#wsrep-status-index-wsrep_ist_receive_status" title="Permanent link">&para;</a></h3>
 <p>This variable displays the progress of IST for joiner node.
@@ -15665,7 +15665,7 @@ If IST is running, the value is the percentage of transfer completed.</p>
 being executed.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-bf-aborts"><code>Galera status variable: wsrep_local_bf_aborts</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_bf_aborts"><code>Galera status variable: wsrep_local_bf_aborts</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_cached_downto"><code>wsrep_local_cached_downto</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_cached_downto" title="Permanent link">&para;</a></h3>
 <p>The lowest sequence number in GCache. This information can be helpful with
@@ -15673,32 +15673,32 @@ determining IST and SST. If the value is <code>0</code>, then it means there are
 writesets in GCache (usual for a single node).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-cached-downto"><code>Galera status variable: wsrep_local_cached_downto</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_cached_downto"><code>Galera status variable: wsrep_local_cached_downto</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_cert_failures"><code>wsrep_local_cert_failures</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_cert_failures" title="Permanent link">&para;</a></h3>
 <p>Number of writesets that failed the certification test.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-cert-failures"><code>Galera status variable: wsrep_local_cert_failures</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_cert_failures"><code>Galera status variable: wsrep_local_cert_failures</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_commits"><code>wsrep_local_commits</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_commits" title="Permanent link">&para;</a></h3>
 <p>Number of writesets commited on the node.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-commits"><code>Galera status variable: wsrep_local_commits</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_commits"><code>Galera status variable: wsrep_local_commits</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_index"><code>wsrep_local_index</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_index" title="Permanent link">&para;</a></h3>
 <p>Node’s index in the cluster.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-index"><code>Galera status variable: wsrep_local_index</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_index"><code>Galera status variable: wsrep_local_index</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_recv_queue"><code>wsrep_local_recv_queue</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_recv_queue" title="Permanent link">&para;</a></h3>
 <p>Current length of the receive queue (that is, the number of writesets waiting
 to be applied).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-recv-queue"><code>Galera status variable: wsrep_local_recv_queue</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_recv_queue"><code>Galera status variable: wsrep_local_recv_queue</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_recv_queue_avg"><code>wsrep_local_recv_queue_avg</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_recv_queue_avg" title="Permanent link">&para;</a></h3>
 <p>Average length of the receive queue since the last status query. When this
@@ -15707,20 +15707,20 @@ they are received. This could be a sign that the node is overloaded and it may
 cause replication throttling.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-recv-queue-avg"><code>Galera status variable: wsrep_local_recv_queue_avg</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_recv_queue_avg"><code>Galera status variable: wsrep_local_recv_queue_avg</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_replays"><code>wsrep_local_replays</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_replays" title="Permanent link">&para;</a></h3>
 <p>Number of transaction replays due to <em>asymmetric lock granularity</em>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-replays"><code>Galera status variable: wsrep_local_replays</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_replays"><code>Galera status variable: wsrep_local_replays</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_send_queue"><code>wsrep_local_send_queue</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_send_queue" title="Permanent link">&para;</a></h3>
 <p>Current length of the send queue (that is, the number of writesets waiting to
 be sent).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-send-queue"><code>Galera status variable: wsrep_local_send_queue</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_send_queue"><code>Galera status variable: wsrep_local_send_queue</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_send_queue_avg"><code>wsrep_local_send_queue_avg</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_send_queue_avg" title="Permanent link">&para;</a></h3>
 <p>Average length of the send queue since the last status query. When cluster
@@ -15728,13 +15728,13 @@ experiences network throughput issues or replication throttling, this value
 will be significantly bigger than <code>0</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-send-queue-avg"><code>Galera status variable: wsrep_local_send_queue_avg</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_send_queue_avg"><code>Galera status variable: wsrep_local_send_queue_avg</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_state"><code>wsrep_local_state</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_state" title="Permanent link">&para;</a></h3>
 <p>Internal Galera cluster FSM state number.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state"><code>Galera status variable: wsrep_local_state</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state"><code>Galera status variable: wsrep_local_state</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_state_comment"><code>wsrep_local_state_comment</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_state_comment" title="Permanent link">&para;</a></h3>
 <p>Internal number and the corresponding human-readable comment of the node’s
@@ -15772,13 +15772,13 @@ state. Possible values are:</p>
 </table>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state-comment"><code>Galera status variable: wsrep_local_state_comment</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state_comment"><code>Galera status variable: wsrep_local_state_comment</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_local_state_uuid"><code>wsrep_local_state_uuid</code><a class="headerlink" href="#wsrep-status-index-wsrep_local_state_uuid" title="Permanent link">&para;</a></h3>
 <p>The <a href="#glossary-uuid">UUID</a> of the state stored on the node.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-local-state-uuid"><code>Galera status variable: wsrep_local_state_uuid</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_local_state_uuid"><code>Galera status variable: wsrep_local_state_uuid</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_monitor_status"><code>wsrep_monitor_status</code><a class="headerlink" href="#wsrep-status-index-wsrep_monitor_status" title="Permanent link">&para;</a></h3>
 <p>The status of the local monitor (local and replicating actions), apply monitor
@@ -15797,31 +15797,31 @@ transactions in the <em>apply</em> state at a given point of time but transactio
 <em>committed</em> sequentially.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/tech-desc-introduction.html"><code>Galera Documentation: Database replication</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/readme/mariadb-galera-cluster-usage-guide#an-introduction-to-database-replication"><code>MariaDB Galera Documentation: Database replication</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_protocol_version"><code>wsrep_protocol_version</code><a class="headerlink" href="#wsrep-status-index-wsrep_protocol_version" title="Permanent link">&para;</a></h3>
 <p>Version of the wsrep protocol used.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-protocol-version"><code>Galera status variable: wsrep_protocol_version</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_protocol_version"><code>Galera status variable: wsrep_protocol_version</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_provider_name"><code>wsrep_provider_name</code><a class="headerlink" href="#wsrep-status-index-wsrep_provider_name" title="Permanent link">&para;</a></h3>
 <p>Name of the wsrep provider (usually <code>Galera</code>).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-name"><code>Galera status variable: wsrep_provider_name</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_name"><code>Galera status variable: wsrep_provider_name</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_provider_vendor"><code>wsrep_provider_vendor</code><a class="headerlink" href="#wsrep-status-index-wsrep_provider_vendor" title="Permanent link">&para;</a></h3>
 <p>Name of the wsrep provider vendor (usually <code>Codership Oy</code>)</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-vendor"><code>Galera status variable: wsrep_provider_vendor</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_vendor"><code>Galera status variable: wsrep_provider_vendor</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_provider_version"><code>wsrep_provider_version</code><a class="headerlink" href="#wsrep-status-index-wsrep_provider_version" title="Permanent link">&para;</a></h3>
 <p>Current version of the wsrep provider.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-provider-version"><code>Galera status variable: wsrep_provider_version</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_provider_version"><code>Galera status variable: wsrep_provider_version</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_ready"><code>wsrep_ready</code><a class="headerlink" href="#wsrep-status-index-wsrep_ready" title="Permanent link">&para;</a></h3>
 <p>This variable shows if node is ready to accept queries. If status is <code>OFF</code>,
@@ -15829,13 +15829,13 @@ almost all queries will fail with <code>ERROR 1047 (08S01) Unknown Command</code
 (unless the <a href="#wsrep-system-index-wsrep_on"><code>wsrep_on</code></a> variable is set to <code>0</code>).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-ready"><code>Galera status variable: wsrep_ready</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_ready"><code>Galera status variable: wsrep_ready</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_received"><code>wsrep_received</code><a class="headerlink" href="#wsrep-status-index-wsrep_received" title="Permanent link">&para;</a></h3>
 <p>Total number of writesets received from other nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-received"><code>Galera status variable: wsrep_received</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_received"><code>Galera status variable: wsrep_received</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_received_bytes"><code>wsrep_received_bytes</code><a class="headerlink" href="#wsrep-status-index-wsrep_received_bytes" title="Permanent link">&para;</a></h3>
 <p>Total size (in bytes) of writesets received from other nodes.</p>
@@ -15851,7 +15851,7 @@ almost all queries will fail with <code>ERROR 1047 (08S01) Unknown Command</code
 <p>Total number of writesets sent to other nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated"><code>Galera status variable: wsrep_replicated</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_replicated"><code>Galera status variable: wsrep_replicated</code></a></p>
 </div>
 <h3 id="wsrep-status-index-wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code><a class="headerlink" href="#wsrep-status-index-wsrep_replicated_bytes" title="Permanent link">&para;</a></h3>
 <p>Total size of replicated writesets. To compute the actual size of bytes sent
@@ -15859,7 +15859,7 @@ over network to cluster peers, multiply the value of this variable by the number
 of cluster peers in the given <a href="#wsrep-provider-index-gmcastsegment"><code>network segment</code></a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/galera-status-variables.html#wsrep-replicated-bytes"><code>Galera status variable: wsrep_replicated_bytes</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-status-variables/#wsrep_replicated_bytes"><code>Galera status variable: wsrep_replicated_bytes</code></a></p>
 </div></section><section class="print-page" id="wsrep-system-index" heading-number="12.2"><h1 id="wsrep-system-index-index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#wsrep-system-index-index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster introduces a number of MySQL system variables
 related to write-set replication.</p>
@@ -16258,7 +16258,7 @@ ensure that the following configuration is used:</p>
 This is enabled by default.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-fk-checks"><code>MySQL wsrep option: wsrep_applier_FK_checks</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks"><code>MySQL wsrep option: wsrep_applier_FK_checks</code></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_applier_threads"><code>wsrep_applier_threads</code><a class="headerlink" href="#wsrep-system-index-wsrep_applier_threads" title="Permanent link">&para;</a></h3>
 <table>
@@ -16308,12 +16308,12 @@ but stop them after they are done applying current transaction
 <p>If any replication consistency problems are encountered,
 it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
-<p>You may want to increase it as suggested in <a href="https://galeracluster.com/library/documentation/node-states.html"><code>Codership documentation for flow control</code></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
-<p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://galeracluster.com/library/training/tutorials/galera-monitoring.html">in the Galera Cluster documentation</a>.</p>
-<p>For more configuration tips, see <a href="https://galeracluster.com/library/kb/parallel-applier-threads.html">Setting Parallel Slave Threads`</a>.</p>
+<p>You may want to increase it as suggested in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster"><code>Codership documentation for flow control</code></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
+<p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor">in the MariaDB Galera Cluster documentation</a>.</p>
+<p>For more configuration tips, see <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-threads">Replication Threads</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-threads"><code>MySQL wsrep option: wsrep_applier_threads</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads"><code>MySQL wsrep option: wsrep_applier_threads</code></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_applier_uk_checks"><code>wsrep_applier_UK_checks</code><a class="headerlink" href="#wsrep-system-index-wsrep_applier_uk_checks" title="Permanent link">&para;</a></h3>
 <table>
@@ -16351,7 +16351,7 @@ The default value can be increased for better throughput.</p>
 This is disabled by default.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-applier-uk-checks"><code>MySQL wsrep option: wsrep_applier_UK_checks</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks"><code>MySQL wsrep option: wsrep_applier_UK_checks</code></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_auto_increment_control"><code>wsrep_auto_increment_control</code><a class="headerlink" href="#wsrep-system-index-wsrep_auto_increment_control" title="Permanent link">&para;</a></h3>
 <table>
@@ -16404,7 +16404,7 @@ and assumptions of auto-increments.
 It can be disabled in source-replica clusters.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-auto-increment-control"><code>MySQL wsrep option: wsrep_auto_increment_control</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control"><code>MySQL wsrep option: wsrep_auto_increment_control</code></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_causal_reads"><code>wsrep_causal_reads</code><a class="headerlink" href="#wsrep-system-index-wsrep_causal_reads" title="Permanent link">&para;</a></h3>
 <table>
@@ -16449,7 +16449,7 @@ Enabling this variable will result in larger latencies.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-causal-reads"><code>MySQL wsrep option: wsrep_causal_reads</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads"><code>MySQL wsrep option: wsrep_causal_reads</code></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_certification_rules"><code>wsrep_certification_rules</code><a class="headerlink" href="#wsrep-system-index-wsrep_certification_rules" title="Permanent link">&para;</a></h3>
 <table>
@@ -16500,7 +16500,7 @@ this affects how foreign keys are handled.</p>
    certification failure.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-certification-rules">Galera Cluster Documentation: MySQL wsrep options</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules">Galera Cluster Documentation: MySQL wsrep options</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code><a class="headerlink" href="#wsrep-system-index-wsrep_certify_nonpk" title="Permanent link">&para;</a></h3>
 <table>
@@ -16540,7 +16540,7 @@ This variable is enabled by default.
 As a rule, make sure that all tables have primary keys.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-certify-nonpk">MySQL wsrep option: wsrep_certify_nonPK</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk">MySQL wsrep option: wsrep_certify_nonPK</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code><a class="headerlink" href="#wsrep-system-index-wsrep_cluster_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -16593,7 +16593,7 @@ If you want to bootstrap a new cluster with a node,
 you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-address">MySQL wsrep option: wsrep_cluster_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address">MySQL wsrep option: wsrep_cluster_address</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_cluster_name"><code>wsrep_cluster_name</code><a class="headerlink" href="#wsrep-system-index-wsrep_cluster_name" title="Permanent link">&para;</a></h3>
 <table>
@@ -16650,7 +16650,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-cluster-name">MySQL wsrep option: wsrep_cluster_name</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name">MySQL wsrep option: wsrep_cluster_name</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_data_home_dir"><code>wsrep_data_home_dir</code><a class="headerlink" href="#wsrep-system-index-wsrep_data_home_dir" title="Permanent link">&para;</a></h3>
 <table>
@@ -16687,7 +16687,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 (such as <code>grastate.dat</code>).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-data-home-dir">MySQL wsrep option: wsrep_data_home_dir</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir">MySQL wsrep option: wsrep_data_home_dir</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_dbug_option"><code>wsrep_dbug_option</code><a class="headerlink" href="#wsrep-system-index-wsrep_dbug_option" title="Permanent link">&para;</a></h3>
 <table>
@@ -16719,7 +16719,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <p>Defines <code>DBUG</code> options to pass to the wsrep provider.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dbug-option">MySQL wsrep option: wsrep_dbug_option</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option">MySQL wsrep option: wsrep_dbug_option</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_debug"><code>wsrep_debug</code><a class="headerlink" href="#wsrep-system-index-wsrep_debug" title="Permanent link">&para;</a></h3>
 <table>
@@ -16785,7 +16785,7 @@ printed out.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-debug">MySQL wsrep option: wsrep_debug</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug">MySQL wsrep option: wsrep_debug</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_desync"><code>wsrep_desync</code><a class="headerlink" href="#wsrep-system-index-wsrep_desync" title="Permanent link">&para;</a></h3>
 <table>
@@ -16839,7 +16839,7 @@ for a long period of time or for several nodes at once.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-desync">MySQL wsrep option: wsrep_desync</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync">MySQL wsrep option: wsrep_desync</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_dirty_reads"><code>wsrep_dirty_reads</code><a class="headerlink" href="#wsrep-system-index-wsrep_dirty_reads" title="Permanent link">&para;</a></h3>
 <table>
@@ -16910,7 +16910,7 @@ if you enable <code>wsrep_dirty_reads</code>.</p>
 </details>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-dirty-reads">MySQL wsrep option: wsrep_dirty_reads</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads">MySQL wsrep option: wsrep_dirty_reads</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_disk_pages_encrypt"><code>wsrep_disk_pages_encrypt</code><a class="headerlink" href="#wsrep-system-index-wsrep_disk_pages_encrypt" title="Permanent link">&para;</a></h3>
 <p>This variable is solely for testing purposes. The <code>wsrep_provider_options</code> should be used on production.</p>
@@ -16953,7 +16953,7 @@ In some cases, duplicate key errors would occur
 when inserting the <code>DEFAULT</code> value into an <code>AUTO_INCREMENT</code> column.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-drupal-282555-workaround">MySQL wsrep option: wsrep_drupal_282555_workaround</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround">MySQL wsrep option: wsrep_drupal_282555_workaround</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_forced_binlog_format"><code>wsrep_forced_binlog_format</code><a class="headerlink" href="#wsrep-system-index-wsrep_forced_binlog_format" title="Permanent link">&para;</a></h3>
 <table>
@@ -17005,7 +17005,7 @@ regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.0/e
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-forced-binlog-format">MySQL wsrep option: wsrep_forced_binlog_format</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format">MySQL wsrep option: wsrep_forced_binlog_format</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_gcache_encrypt"><code>wsrep_gcache_encrypt</code><a class="headerlink" href="#wsrep-system-index-wsrep_gcache_encrypt" title="Permanent link">&para;</a></h3>
 <p>This variable is solely for testing purposes. The <code>wsrep_provider_options</code> should be used on production.</p>
@@ -17199,7 +17199,6 @@ in conjunction with the <code>log_error_verbosity</code> variable. The
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_error_verbosity">MySQL Documentation: log_error_verbosity</a></p>
-<p><a href="https://galeracluster.com/library/documentation/log.html">Galera Cluster Documentation: Database Server Logs</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_load_data_splitting"><code>wsrep_load_data_splitting</code><a class="headerlink" href="#wsrep-system-index-wsrep_load_data_splitting" title="Permanent link">&para;</a></h3>
 <table>
@@ -17244,7 +17243,7 @@ and whatever gets committed stays committed.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-load-data-splitting">MySQL wsrep option: wsrep_load_data_splitting</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting">MySQL wsrep option: wsrep_load_data_splitting</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_log_conflicts"><code>wsrep_log_conflicts</code><a class="headerlink" href="#wsrep-system-index-wsrep_log_conflicts" title="Permanent link">&para;</a></h3>
 <table>
@@ -17285,7 +17284,7 @@ where the conflict occurred, as well as the actual values for keys
 that produced the conflict.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-log-conflicts">MySQL wsrep option: wsrep_log_conflicts</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts">MySQL wsrep option: wsrep_log_conflicts</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code><a class="headerlink" href="#wsrep-system-index-wsrep_max_ws_rows" title="Permanent link">&para;</a></h3>
 <table>
@@ -17323,7 +17322,7 @@ that produced the conflict.</p>
 The maximum allowed value is <code>1048576</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-max-ws-rows">MySQL wsrep option: wsrep_max_ws_rows</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows">MySQL wsrep option: wsrep_max_ws_rows</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code><a class="headerlink" href="#wsrep-system-index-wsrep_max_ws_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -17361,7 +17360,7 @@ Anything bigger than the specified value will be rejected.</p>
 <p>You can set it to any value between <code>1024</code> and the default <code>2147483647</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-max-ws-size">MySQL wsrep option: wsrep_max_ws_size</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size">MySQL wsrep option: wsrep_max_ws_size</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_mode"><code>wsrep_mode</code><a class="headerlink" href="#wsrep-system-index-wsrep_mode" title="Permanent link">&para;</a></h3>
 <table>
@@ -17407,7 +17406,7 @@ Anything bigger than the specified value will be rejected.</p>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-mode">MySQL wsrep option: wsrep_mode</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode">MySQL wsrep option: wsrep_mode</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code><a class="headerlink" href="#wsrep-system-index-wsrep_node_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -17478,7 +17477,7 @@ for the <a href="#wsrep-system-index-wsrep_sst_receive_address"><code>wsrep_sst_
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-node-address">MySQL wsrep option: wsrep_node_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address">MySQL wsrep option: wsrep_node_address</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_node_incoming_address"><code>wsrep_node_incoming_address</code><a class="headerlink" href="#wsrep-system-index-wsrep_node_incoming_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -17517,7 +17516,7 @@ By default, it uses the IP address from <a href="#wsrep-system-index-wsrep_node_
 which shows all active cluster nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-node-incoming-address">MySQL wsrep option: wsrep_node_incoming_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address">MySQL wsrep option: wsrep_node_incoming_address</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_node_name"><code>wsrep_node_name</code><a class="headerlink" href="#wsrep-system-index-wsrep_node_name" title="Permanent link">&para;</a></h3>
 <table>
@@ -17586,7 +17585,7 @@ the value of <a href="#wsrep-system-index-wsrep_node_name"><code>wsrep_node_name
 </tr>
 </tbody>
 </table>
-<p>Specifies the <a href="https://galeracluster.com/library/documentation/notification-cmd.html">notification command</a>
+<p>Specifies the <a href="https://mariadb.com/docs/galera-cluster/galera-management/configuration/using-the-notification-command-wsrep_notify_cmd/">notification command</a>
 that the node should execute
 whenever cluster membership or local node status changes.
 This can be used for alerting or to reconfigure load balancers.</p>
@@ -17601,7 +17600,7 @@ and have the script return immediately.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-notify-cmd">MySQL wsrep option: wsrep_notify_cmd</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd">MySQL wsrep option: wsrep_notify_cmd</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_on"><code>wsrep_on</code><a class="headerlink" href="#wsrep-system-index-wsrep_on" title="Permanent link">&para;</a></h3>
 <table>
@@ -17638,7 +17637,7 @@ and have the script return immediately.</p>
 <p>If set to <code>OFF</code> for a session, no transaction changes are replicated in that session. The setting does not cause the node to leave the cluster, and the node communicates with other nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-on">MySQL wsrep option: wsrep_on</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on">MySQL wsrep option: wsrep_on</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_osu_method"><code>wsrep_OSU_method</code><a class="headerlink" href="#wsrep-system-index-wsrep_osu_method" title="Permanent link">&para;</a></h3>
 <table>
@@ -17676,7 +17675,7 @@ that the node uses to replicate DDL statements.</p>
 <p>For information on the available methods, see <a href="#online-schema-upgrade">Online Schema upgrade</a> and for information on Non-blocking operations, see <a href="#nbo">NBO</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-osu-method">MySQL wsrep option: wsrep_OSU_method</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method">MySQL wsrep option: wsrep_OSU_method</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_provider"><code>wsrep_provider</code><a class="headerlink" href="#wsrep-system-index-wsrep_provider" title="Permanent link">&para;</a></h3>
 <table>
@@ -17713,7 +17712,7 @@ This is usually
 the node will behave as standalone instance of MySQL.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider">MySQL wsrep option: wsrep_provider</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider">MySQL wsrep option: wsrep_provider</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code><a class="headerlink" href="#wsrep-system-index-wsrep_provider_options" title="Permanent link">&para;</a></h3>
 <table>
@@ -17747,7 +17746,7 @@ documented in <a href="#wsrep-provider-index">Index of wsrep_provider options</a
 These options affect how various situations are handled during replication.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-provider-options">MySQL wsrep option: wsrep_provider_options</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options">MySQL wsrep option: wsrep_provider_options</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_recover"><code>wsrep_recover</code><a class="headerlink" href="#wsrep-system-index-wsrep_recover" title="Permanent link">&para;</a></h3>
 <table>
@@ -17844,7 +17843,7 @@ If you want to desync a node, use <a href="#wsrep-system-index-wsrep_desync"><co
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-reject-queries">MySQL wsrep option: wsrep_reject_queries</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries">MySQL wsrep option: wsrep_reject_queries</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code><a class="headerlink" href="#wsrep-system-index-wsrep_replicate_myisam" title="Permanent link">&para;</a></h3>
 <table>
@@ -17947,7 +17946,7 @@ is stopped when the node tries to apply the next replication event
 while the node is in non-primary state.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-restart-replica">MySQL wsrep option: wsrep_restart_slave</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica">MySQL wsrep option: wsrep_restart_slave</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_restart_slave"><code>wsrep_restart_slave</code><a class="headerlink" href="#wsrep-system-index-wsrep_restart_slave" title="Permanent link">&para;</a></h3>
 <table>
@@ -18028,7 +18027,7 @@ to avoid deadlock errors that can be triggered by replication conflicts.</p>
 autocommit transactions won’t be retried.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-retry-autocommit">MySQL wsrep option: wsrep_retry_autocommit</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit">MySQL wsrep option: wsrep_retry_autocommit</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_rsu_commit_timeout"><code>wsrep_RSU_commit_timeout</code><a class="headerlink" href="#wsrep-system-index-wsrep_rsu_commit_timeout" title="Permanent link">&para;</a></h3>
 <table>
@@ -18164,11 +18163,11 @@ but stop them after they are done applying current transaction
 it’s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
 <p>You may want to increase it as suggested
-in <a href="https://galeracluster.com/library/documentation/node-states.html"><code>Codership documentation for flow control</code></a>:
+in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster"><code>Codership documentation for flow control</code></a>:
 when the node is in <code>JOINED</code> state,
 increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
-<p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://galeracluster.com/library/training/tutorials/galera-monitoring.html">in the Galera Cluster documentation</a>.</p>
-<p>For more configuration tips, see <a href="https://galeracluster.com/library/kb/parallel-applier-threads.html">this document</a>.</p>
+<p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor">in the MariaDB Galera Cluster documentation</a>.</p>
+<p>For more configuration tips, see <a href="https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-threads">this document</a>.</p>
 <h3 id="wsrep-system-index-wsrep_slave_uk_checks"><code>wsrep_slave_UK_checks</code><a class="headerlink" href="#wsrep-system-index-wsrep_slave_uk_checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -18328,7 +18327,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-donor">MySQL wsrep option: wsrep_sst_donor</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MySQL wsrep option: wsrep_sst_donor</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code><a class="headerlink" href="#wsrep-system-index-wsrep_sst_method" title="Permanent link">&para;</a></h3>
 <table>
@@ -18383,7 +18382,7 @@ The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async rep
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-method">MySQL wsrep option: wsrep_sst_method</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method">MySQL wsrep option: wsrep_sst_method</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code><a class="headerlink" href="#wsrep-system-index-wsrep_sst_receive_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -18421,7 +18420,7 @@ By default, this variable is set to <code>AUTO</code>,
 meaning that the IP address from <a href="#wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code></a> is used.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sst-receive-address">MySQL wsrep option: wsrep_sst_receive_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address">MySQL wsrep option: wsrep_sst_receive_address</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_start_position"><code>wsrep_start_position</code><a class="headerlink" href="#wsrep-system-index-wsrep_start_position" title="Permanent link">&para;</a></h3>
 <table>
@@ -18459,7 +18458,7 @@ By setting all the nodes to have the same value for this variable,
 the cluster can be set up without the state transfer.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-start-position">MySQL wsrep option: wsrep_start_position</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position">MySQL wsrep option: wsrep_start_position</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_sync_wait"><code>wsrep_sync_wait</code><a class="headerlink" href="#wsrep-system-index-wsrep_sync_wait" title="Permanent link">&para;</a></h3>
 <table>
@@ -18557,7 +18556,7 @@ and <code>REPLACE</code> statements.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://galeracluster.com/library/documentation/mysql-wsrep-options.html#wsrep-sync-wait">MySQL wsrep option: wsrep_sync_wait</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sync_wait">MySQL wsrep option: wsrep_sync_wait</a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code><a class="headerlink" href="#wsrep-system-index-wsrep_trx_fragment_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -18709,8 +18708,7 @@ Query OK, 131072 rows affected (15.09 sec)
 +------------------------------+
 </code></pre></div>
 </details></section><section class="print-page" id="wsrep-provider-index" heading-number="12.3"><h1 id="wsrep-provider-index-index-of-wsrep_provider-options">Index of wsrep_provider options<a class="headerlink" href="#wsrep-provider-index-index-of-wsrep_provider-options" title="Permanent link">&para;</a></h1>
-<p>The following variables can be set and checked in the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be
-changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
+<p>The following variables can be set and checked in the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
 <p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
 </code></pre></div>
@@ -18896,9 +18894,9 @@ no sooner than all actions on the source are committed.
 </table>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>Galera Cluster Documentation:
-* <a href="https://galeracluster.com/library/documentation/galera-parameters.html#cert-optimistic-pa">Parameter: cert.optimistic_pa</a>
-* <a href="https://galeracluster.com/library/kb/parallel-slave-threads.html">Setting parallel slave threads</a></p>
+<p>MariaDB Galera Cluster Documentation:
+* <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables/#cert-optimistic-pa">Parameter: cert.optimistic_pa</a>
+* <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads">Setting parallel slave threads</a></p>
 </div>
 <h3 id="wsrep-provider-index-debug"><code>debug</code><a class="headerlink" href="#wsrep-provider-index-debug" title="Permanent link">&para;</a></h3>
 <table>
@@ -19865,14 +19863,7 @@ could cause a node to crash.</p>
 size of the disk. Pages are prefixed by gcache.page.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<ul>
-<li>
-<p><a href="https://galeracluster.com/library/documentation/galera-parameters.html#gcache-page-size">Galera Documentation: gcache.page_size</a></p>
-</li>
-<li>
 <p><a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">Percona Database Performance Blog: All You Need to Know About GCache</a></p>
-</li>
-</ul>
 </div>
 <h3 id="wsrep-provider-index-gcacherecover"><code>gcache.recover</code><a class="headerlink" href="#wsrep-provider-index-gcacherecover" title="Permanent link">&para;</a></h3>
 <table>
@@ -19970,7 +19961,7 @@ preempted by threads of a higher priority.
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>For information, see the <a href="https://galeracluster.com/library/documentation/galera-parameters.html#gcomm-thread-prio">Galera Cluster documentation</a></p>
+<p>For information, see the <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio">MariaDB Galera Cluster documentation</a></p>
 </div>
 <h3 id="wsrep-provider-index-gcsfc_auto_evict_threshold"><code>gcs.fc_auto_evict_threshold</code><a class="headerlink" href="#wsrep-provider-index-gcsfc_auto_evict_threshold" title="Permanent link">&para;</a></h3>
 <table>
@@ -22276,7 +22267,7 @@ The quorum is preserved if (and only if) the sum weight of the nodes
 in a new component strictly exceeds half that
 of the preceding Primary Component,
 minus the nodes which left gracefully.</p>
-<p>The mechanism is described in detail in <a href="https://galeracluster.com/library/documentation/index.html">Galera documentation</a>.</p>
+<p>The mechanism is described in detail in <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera Cluster</a>.</p>
 <h2 id="faq-how-would-the-quorum-mechanism-handle-split-brain">How would the quorum mechanism handle split brain?<a class="headerlink" href="#faq-how-would-the-quorum-mechanism-handle-split-brain" title="Permanent link">&para;</a></h2>
 <p>The quorum mechanism cannot handle split brain.
 If there is no way to decide on the primary component,
@@ -22288,7 +22279,7 @@ with the following option:</p>
 </code></pre></div>
 <h2 id="faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup">Why a node stops accepting commands if the other one fails in a 2-node setup?<a class="headerlink" href="#faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup" title="Permanent link">&para;</a></h2>
 <p>This is expected behavior to prevent <a href="#glossary-split-brain">split brain</a>.
-For more information, see previous question or <a href="https://galeracluster.com/library/documentation/index.html">Galera documentation</a>.</p>
+For more information, see previous question or <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera Cluster</a>.</p>
 <h2 id="faq-is-it-possible-to-set-up-a-cluster-without-state-transfer">Is it possible to set up a cluster without state transfer?<a class="headerlink" href="#faq-is-it-possible-to-set-up-a-cluster-without-state-transfer" title="Permanent link">&para;</a></h2>
 <p>It is possible in two ways:</p>
 <ol>

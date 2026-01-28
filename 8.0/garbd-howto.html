@@ -4448,7 +4448,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="set-up-galera-arbitrator">Set up Galera arbitrator<a class="headerlink" href="#set-up-galera-arbitrator" title="Permanent link">&para;</a></h1>
 <p>The size of a cluster increases when a node joins the cluster and decreases when a node leaves. A cluster reacts to replication problems with inconsistency voting. The size of the cluster determines the required votes to achieve a quorum. If a node no longer responds and is disconnected from the cluster the remaining nodes vote. The majority of the nodes that vote are considered to be in the cluster.</p>
 <p>The arbitrator is important if you have an even number of nodes remaining in the cluster. The arbitrator keeps the number of nodes as an odd number, which avoids the split-brain situation.</p>
-<p>A <a href="https://galeracluster.com/library/documentation/arbitrator.html">Galera Arbitrator</a>
+<p>A <a href="https://mariadb.com/docs/galera-cluster/high-availability/understanding-quorum-monitoring-and-recovery#the-galera-arbitrator-garbd">Galera Arbitrator</a>
 is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This member can vote but does not do any replication and is not included in flow control calculations. The Galera Arbitrator is a separate daemon called <code>garbd</code>. You can start this daemon separately from the cluster and run this daemon either as a service or from the shell. You cannot configure this daemon using the <code>my.cnf</code> file.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4468,7 +4468,7 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <p class="admonition-title">Note</p>
 <p>On <strong>Percona XtraDB Cluster</strong> 8.0, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure <code>garbd</code> to use the certificates.</p>
 <p>It is necessary to specify the cipher. In this example, it is <code>AES128-SHA256</code>. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.</p>
-<p>For more information, see <a href="https://galeracluster.com/library/documentation/galera-parameters.html#socket-ssl-cipher">socket.ssl_cipher</a></p>
+<p>For more information, see <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher">socket.ssl_cipher</a></p>
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>garbd<span class="w"> </span>--group<span class="o">=</span>my_ubuntu_cluster<span class="w"> </span><span class="se">\</span>
@@ -4595,7 +4595,7 @@ GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 9, 2025 15:56:55 UTC">July 9, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 11:30:54 UTC">January 28, 2026</span>
   </span>
 
     
