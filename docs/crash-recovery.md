@@ -46,12 +46,12 @@ use node A as the state transfer donor: node A may not have all the needed
 writesets in its gcache. Specify node C node as the donor in your configuration
 file and start the mysql service:
 
-```{.bash data-prompt="$"}
-$ systemctl start mysql
+```shell
+systemctl start mysql
 ```
 !!! admonition "See also"
 
-    [MariaDB Galera Documentation: wsrep_sst_donor option](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
+    [MariaDB Galera Documentation: wsrep_sst_donor option :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
 
 ## Scenario 3: All three nodes are gracefully stopped
 
@@ -66,8 +66,8 @@ perform the full [SST](glossary.md#sst) to join the cluster initialized from the
 advanced one. As a result, some transactions will be lost). To bootstrap the
 first node, invoke the startup script like this:
 
-```{.bash data-prompt="$"}
-$ systemctl start mysql@bootstrap.service
+```shell
+systemctl start mysql@bootstrap.service
 ```
 
 !!! note
@@ -95,10 +95,10 @@ Two nodes are not available and the remaining node (node C) is not able to form
 the quorum alone. The cluster has to switch to a non-primary mode, where MySQL
 refuses to serve any SQL queries. In this state, the **mysqld** process
 on node C is still running and can be connected to but any statement related to
-data fails with an error
+data fails with an error.
 
-```{.bash data-prompt=">"}
-> SELECT * FROM test.sbtest1;
+```shell
+SELECT * FROM test.sbtest1;
 ```
 
 ??? example "The error message"
@@ -119,8 +119,8 @@ If node A and node B crashed, you need to enable the primary component on
 node C manually, before you can bring up node A and node B. The command to do
 this is:
 
-```{.bash data-prompt=">"}
-> SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
+```shell
+SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
 This approach only works if the other nodes are down before doing that!
@@ -159,8 +159,8 @@ the last transaction committed as this variable is set to **0** for each node. A
 to bootstrap from such a node will fail unless you start `mysqld` with the
 `--wsrep-recover` parameter:
 
-```{.bash data-prompt="$"}
-$ mysqld --wsrep-recover
+```shell
+mysqld --wsrep-recover
 ```
 
 Search the output for the line that reports the recovered position after the
@@ -231,8 +231,8 @@ If you want to restore the service even
 before the network link is restored, you can make one of the groups primary
 again using the same command as described in [Scenario 5: Two nodes disappear from the cluster](#scenario-5-two-nodes-disappear-from-the-cluster)
 
-```{.bash data-prompt=">"}
-> SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
+```shell
+SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
 After this, you are able to work on the manually restored part of the cluster,
@@ -253,5 +253,5 @@ and the other half should be able to automatically re-join using [IST](glossary.
 
 **Based on material from Percona Database Performance Blog**
 
-This article is based on the blog post Galera replication - how to recover a PXC cluster by *Przemysław Malkowski*: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ 
+This article is based on the blog post [Galera replication - how to recover a PXC cluster by *Przemysław Malkowski* :octicons-link-external-16:]: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ 
 

@@ -8,7 +8,7 @@ Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a moder
 
 ## Limitations
 
-Clone limitations are described in [Clone plugin limitations](https://docs.percona.com/percona-server/8.4/clone-plugin-limitations.html)
+Clone limitations are described in [Clone plugin limitations :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/clone-plugin.html)
 
 ## Key features
 
@@ -160,14 +160,14 @@ The default port used by the SST process is 4444.
 The Joiner log reports the clone process as a `% of the data transfer completed`.
 The query used is:
 
-```{.bash data-prompt="mysql>"}
-mysql>SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';
+```shell
+SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';
 ```
 
 For more information on the progress, you can also use the query:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
+```shell
+SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
 ```
 
 ## Troubleshoot

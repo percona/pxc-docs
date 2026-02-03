@@ -30,7 +30,7 @@ The procedure described in this tutorial requires he following:
 * Firewall on all nodes is configured to allow connecting
 to ports 3306, 4444, 4567 and 4568.
 
-* AppArmor profile for MySQL is [disabled](https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/).
+* AppArmor profile for MySQL is [disabled :octicons-link-external-16:](https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/).
 
 ## Step 1. Install PXC
 
@@ -80,10 +80,10 @@ for the first node (`pxc1`) contains the following:
     wsrep_cluster_name=my_ubuntu_cluster
     ```
 
-1. Start the first node with the following command:
+1. Start the first node, `[root@pxc1 ~]#`, with the following command:
 
-    ```{.bash data-prompt="[root@pxc1 ~]#"}
-    [root@pxc1 ~]# systemctl start mysql@bootstrap.service
+    ```shell
+    systemctl start mysql@bootstrap.service
     ```
 
     This command will start the first node and bootstrap the cluster.
@@ -91,8 +91,8 @@ for the first node (`pxc1`) contains the following:
 2. After the first node has been started,
 cluster status can be checked with the following command:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ``` 
 
     The following outut shows the cluste status:
@@ -120,12 +120,12 @@ cluster status can be checked with the following command:
     This output shows that the cluster has been successfully bootstrapped.
 
 To perform [State Snapshot Transfer](state-snapshot-transfer.md#state-snapshot-transfer) using *XtraBackup*,
-set up a new user with proper [privileges](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html):
+set up a new user with proper [privileges](https://docs.percona.com/percona-xtrabackup/{{vers}}/privileges.html):
 
-```{.bash data-prompt="mysql@pxc1>"}
-mysql@pxc1> CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cretPass';
-mysql@pxc1> GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
-mysql@pxc1> FLUSH PRIVILEGES;
+```shell
+CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cretPass';
+GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 !!! note
@@ -165,18 +165,18 @@ on the second node (`pxc2`) contains the following:
     wsrep_sst_method=xtrabackup-v2
     ```
 
-2. Start the second node with the following command:
+2. Start the second node, `[root@pxc2 ~]#`, with the following command:
 
-    ```{.bash data-prompt="[root@pxc2 ~]#"}
-    [root@pxc2 ~]# systemctl start mysql
+    ```shell
+    systemctl start mysql
     ```
 
 3. After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (`pxc2`):
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ```
 
     The following output shows that the new node has been successfully added to the cluster.
@@ -235,19 +235,16 @@ on the third node (`pxc3`) contains the following:
     wsrep_sst_method=xtrabackup-v2
     ```
 
-2. Start the third node with the following command:
+2. Start the third node, `[root@pxc3 ~]#`, with the following command:
 
-    ```{.bash data-prompt="[root@pxc3 ~]#"}
-    [root@pxc3 ~]# systemctl start mysql
+    ```shell
+    systemctl start mysql
     ```
 
-3. After the server has been started,
-it should receive SST automatically.
-Cluster status can be checked on all nodes.
-The following is an example of status from the third node (`pxc3`):
+3. After the server has been started, it should receive SST automatically. Cluster status can be checked on all nodes. The following is an example of status from the third node (`pxc3`):
 
-```{.bash data-prompt="mysql>"}
-mysql> show status like 'wsrep%';
+```shell
+show status like 'wsrep%';
 ```
 
 The following output confirms that the third node has joined the cluster.
@@ -278,10 +275,10 @@ To test replication, lets create a new database on the second node,
 create a table for that database on the third node,
 and add some records to the table on the first node.
 
-1. Create a new database on the second node:
+1. Create a new database on the second node, `mysql@percona2>`:
 
-    ```{.bash data-prompt="mysql@percona2>"}
-    mysql@percona2> CREATE DATABASE percona;
+    ```shell
+    CREATE DATABASE percona;
     ```
 
     The following output confirms that a new database has been created:
@@ -292,10 +289,10 @@ and add some records to the table on the first node.
         Query OK, 1 row affected (0.01 sec)
         ```
 
-2. Switch to a newly created database:
+2. Switch to a newly created database, `mysql@percona3>`:
 
-    ```{.bash data-prompt="mysql@percona3>"}
-    mysql@percona3> USE percona;
+    ```shell
+    USE percona;
     ```
     
     The following output confirms that a database has been changed:
@@ -308,8 +305,8 @@ and add some records to the table on the first node.
 
 3. Create a table on the third node:
 
-    ```{.bash data-prompt="mysql@percona3>"}
-    mysql@percona3> CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
+    ```shell
+    CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
     ```
 
     The following output confirms that a table has been created:
@@ -320,10 +317,10 @@ and add some records to the table on the first node.
         Query OK, 0 rows affected (0.05 sec)
         ```
 
-4. Insert records on the first node:
+4. Insert records on the first node, `mysql@percona1>`:
 
-    ```{.bash data-prompt="mysql@percona1>"}
-    mysql@percona1> INSERT INTO percona.example VALUES (1, 'percona1');
+    ```shell
+    INSERT INTO percona.example VALUES (1, 'percona1');
     ```
 
     The following output confirms that the records have been inserted:
@@ -334,10 +331,10 @@ and add some records to the table on the first node.
         Query OK, 1 row affected (0.02 sec)
         ```
 
-5. Retrieve all the rows from that table on the second node:
+5. Retrieve all the rows from that table on the second node, `mysql@percona2>`:
 
-    ```{.bash data-prompt="mysql@percona2>"}
-    mysql@percona2> SELECT * FROM percona.example;
+    ```shell
+    SELECT * FROM percona.example;
     ```
     
     The following output confirms that all the rows have been retrieved:
@@ -353,6 +350,5 @@ and add some records to the table on the first node.
         1 row in set (0.00 sec)
         ```
 
-    This simple procedure should ensure that all nodes in the cluster
-    are synchronized and working as intended.
+    This simple procedure should ensure that all nodes in the cluster are synchronized and working as intended.
 

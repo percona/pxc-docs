@@ -249,7 +249,7 @@ ssl-cert=/etc/mysql/certs/server-cert.pem
 ssl-key=/etc/mysql/certs/server-key.pem
 ```
 
-SSL clients require DH parameters to be at least 1024 bits, due to the [logjam vulnerability](https://en.wikipedia.org/wiki/Logjam_(computer_security)).
+SSL clients require DH parameters to be at least 1024 bits, due to the [logjam vulnerability :octicons-link-external-16:](https://en.wikipedia.org/wiki/Logjam_(computer_security)).
 However, versions of `socat` earlier than 1.7.3 use 512-bit parameters.
 If a `dhparams.pem` file of the required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.
 
@@ -257,11 +257,11 @@ To avoid this delay, create the `dhparams.pem` file manually and place the file 
 
 An example command to generate the `dhparams.pem` file:
 
-```{.bash data-prompt="$"}
+```shell
 $ openssl dhparam -out /path/to/datadir/dhparams.pem 2048
 ```
 
-For more information, see [Percona XtraDB Cluster: “dh key too small” error during an SST using SSL](https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
+For more information, see [Percona XtraDB Cluster: “dh key too small” error during an SST using SSL :octicons-link-external-16:](https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
 
 ### Encrypt replication/IST traffic
 
@@ -316,16 +316,16 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     1. Generate the CA key file:
 
-        ```{.bash data-prompt="$"}
-        $ openssl genrsa 2048 > ca-key.pem
+        ```shell
+        openssl genrsa 2048 > ca-key.pem
         ```
         
         The command generates a 2048-bit RSA private key and saves the key to `ca-key.pem`. This key is essential for signing certificates.
         
     2. Generate the CA certificate file:
 
-        ```{.bash data-prompt="$"}
-        $ openssl req -new -x509 -nodes -days 3600
+        ```shell
+        openssl req -new -x509 -nodes -days 3600
             -key ca-key.pem -out ca.pem
         ```
         
@@ -345,8 +345,8 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     1. Generate a new RSA key pair and certificate request:
 
-        ```{.bash data-prompt="$"}
-        $ openssl req -newkey rsa:2048 -days 3600 \
+        ```shell
+        openssl req -newkey rsa:2048 -days 3600 \
             -nodes -keyout server-key.pem -out server-req.pem
         ```
         
@@ -362,15 +362,15 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     2. This command reads an RSA private key from the `server-key.pem` file, processes the key, and then writes the processed key back to the same file, removing the passphrase.
 
-        ```{.bash data-prompt="$"}
-        $ openssl rsa -in server-key.pem -out server-key.pem
+        ```shell
+        openssl rsa -in server-key.pem -out server-key.pem
         ```
         
         
     3. This command generates a signed certificate from a CSR using a specified CA certificate and its corresponding private key. The command also sets a defined validity period and serial number for the new certificate.
 
-        ```{.bash data-prompt="$"}
-        $ openssl x509 -req -in server-req.pem -days 3600 \
+        ```shell
+        openssl x509 -req -in server-req.pem -days 3600 \
             -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
             -out server-cert.pem
         ```
@@ -393,8 +393,8 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     1. Generate the client key file:
 
-        ```{.bash data-prompt="$"}
-        $ openssl req -newkey rsa:2048 -days 3600 \
+        ```shell
+        openssl req -newkey rsa:2048 -days 3600 \
             -nodes -keyout client-key.pem -out client-req.pem
         ```
         
@@ -410,7 +410,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     2. Remove the passphrase:
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ openssl rsa -in client-key.pem -out client-key.pem
         ```
         
@@ -418,7 +418,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
     3. Sign the certificate request using the CA certificate and key:
 
-        ```{.bash data-prompt="$"}
+        ```shell
         $ openssl x509 -req -in client-req.pem -days 3600 \
            -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
            -out client-cert.pem
@@ -436,8 +436,8 @@ The `Common Name` value assigned to the server and client keys and certificates 
 
 To check whether the server and client certificates are properly signed by the Certificate Authority (CA) certificate, run the following command:
 
-```{.bash data-prompt="$"}
-$ openssl verify -CAfile ca.pem server-cert.pem client-cert.pem
+```shell
+openssl verify -CAfile ca.pem server-cert.pem client-cert.pem
 ```
 
 This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (`ca.pem`). If the certificates are correctly signed, OpenSSL returns a confirmation message;  
@@ -452,8 +452,8 @@ client-cert.pem: OK
 
 An SSL configuration may fail if the certificate and CA files share the same attributes. To verify whether this is causing the issue, run the following openssl command and check that the CN field differs between the `Subject` and `Issuer` lines.
 
-```{.bash data-prompt="$"}
-$ openssl x509 -in server-cert.pem -text -noout
+```shell
+openssl x509 -in server-cert.pem -text -noout
 ```
 
 **Incorrect values**
@@ -472,8 +472,8 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 
 To obtain a more compact output run `openssl` specifying `-subject` and `-issuer` parameters:
 
-```{.bash data-prompt="$"}
-$ openssl x509 -in server-cert.pem -subject -issuer -noout
+```shell
+openssl x509 -in server-cert.pem -subject -issuer -noout
 ```
 
 ??? example "Expected output"

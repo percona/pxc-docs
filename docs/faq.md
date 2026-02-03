@@ -3,14 +3,14 @@
 ## How do I report bugs?
 
 All bugs can be reported on
-[JIRA](https://jira.percona.com/projects/PXC/issues).
+[JIRA :octicons-link-external-16:](https://jira.percona.com/projects/PXC/issues).
 Please submit `error.log` files from **all** the nodes.
 
 ## How do I solve locking issues like auto-increment?
 
 For auto-increment, Percona XtraDB Cluster changes `auto_increment_offset` for each new node.
 In a single-node workload, locking is handled in the same way as *InnoDB*.
-In case of write load on several nodes, Percona XtraDB Cluster uses [optimistic locking](https://en.wikipedia.org/wiki/Optimistic_concurrency_control)
+In case of write load on several nodes, Percona XtraDB Cluster uses [optimistic locking :octicons-link-external-16:](https://en.wikipedia.org/wiki/Optimistic_concurrency_control)
 and the application may receive lock error in response to `COMMIT` query.
 
 ## What if a node crashes and InnoDB recovery rolls back some transactions?
@@ -38,8 +38,8 @@ The following results of the previous query are possible:
 You can also check a node’s health with the `clustercheck` script.
 First set up the `clustercheck` user:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'clustercheck'@'localhost' IDENTIFIED BY PASSWORD
+```sql
+CREATE USER 'clustercheck'@'localhost' IDENTIFIED BY PASSWORD
 '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19';
 ```
 
@@ -49,8 +49,8 @@ mysql> CREATE USER 'clustercheck'@'localhost' IDENTIFIED BY PASSWORD
     Query OK, 0 rows affected (0.00 sec)
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
+```sql
+GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
 ```
 
 You can then check a node’s health by running the `clustercheck` script:
@@ -120,7 +120,7 @@ in a new component strictly exceeds half that
 of the preceding Primary Component,
 minus the nodes which left gracefully.
 
-The mechanism is described in detail in [MariaDB Galera documentation](ttps://mariadb.com/docs/galera-cluster/).
+The mechanism is described in detail in [MariaDB Galera documentation :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/).
 
 ## How would the quorum mechanism handle split brain?
 
@@ -138,7 +138,7 @@ wsrep_provider_options="pc.ignore_sb = yes"
 ## Why a node stops accepting commands if the other one fails in a 2-node setup?
 
 This is expected behavior to prevent [split brain](glossary.md#split-brain).
-For more information, see previous question or [MariaDB Galera documentation](ttps://mariadb.com/docs/galera-cluster/).
+For more information, see previous question or [MariaDB Galera documentation :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/).
 
 ## Is it possible to set up a cluster without state transfer?
 
@@ -197,4 +197,4 @@ echo 0 > /selinux/enforce
 
 This error is specific to Debian and Ubuntu. Percona XtraDB Cluster uses `netcat-openbsd`
 package. This dependency has been fixed. Future releases of Percona XtraDB Cluster will be
-compatible with any `netcat` (see bug [PXC-941](https://jira.percona.com/browse/PXC-941)).
+compatible with any `netcat` (see bug [PXC-941 :octicons-link-external-16:](https://jira.percona.com/browse/PXC-941)).

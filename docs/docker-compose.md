@@ -1,6 +1,6 @@
 # Run with Docker Compose
 
-For more information about using Docker, see the [Docker Docs](https://docs.docker.com/). Make
+For more information about using Docker, see the [Docker Docs :octicons-link-external-16:](https://docs.docker.com/). Make
 sure that you are using the latest version of Docker. The ones
 provided via `apt` and `yum` may be outdated and cause errors.
 
@@ -31,9 +31,9 @@ You must create a separate directory structure to organize your configuration, c
 
 Run the following commands to create the directory structure:
 
-```{.bash data-prompt="$"}
-$ mkdir -p pxc-cluster/{certs,conf.d,init}
-$ cd pxc-cluster
+```shell
+mkdir -p pxc-cluster/{certs,conf.d,init}
+cd pxc-cluster
 ```
 
 After running these commands, your working directory (pxc-cluster/) will contain:
@@ -96,14 +96,14 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 
 4. Make the script executable:
 
-    ```{.bash data-prompt="$"}
-    $ chmod +x init/create-ssl-certs.sh
+    ```shell
+    chmod +x init/create-ssl-certs.sh
     ```
   
 5. Run the script to create the certs:
 
-    ```{.bash data-prompt="$"}
-    $ ./init/create-ssl-certs.sh
+    ```shell
+    ./init/create-ssl-certs.sh
     ```
 
 4. Copy Certificates to All Nodes
@@ -114,23 +114,23 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
   
     To create the directories for node 2 and node 3:
     
-    ```{.bash data-prompt="$"}
-    $ mkdir -p certs-node2
-    $ mkdir -p certs-node3
+    ```shell
+    mkdir -p certs-node2
+    mkdir -p certs-node3
     ```
     
     Then copy the certificates:
     
-    ```{.bash data-prompt="$"}
+    ```shell
     $ cp -r certs/* certs-node2/
     $ cp -r certs/* certs-node3/
     ```
     
     If you’re deploying on separate machines, run the following from node 1:
     
-    ```{.bash data-prompt="$"}
-    $ scp -r ./certs/ user@node2-host:/path/to/pxc-cluster/certs
-    $ scp -r ./certs/ user@node3-host:/path/to/pxc-cluster/certs
+    ```shell
+    scp -r ./certs/ user@node2-host:/path/to/pxc-cluster/certs
+    scp -r ./certs/ user@node3-host:/path/to/pxc-cluster/certs
     ```
     
     Ensure each container mounts its own copy of the certs/ directory.
@@ -209,21 +209,21 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 
     Start node 1 to initialize the cluster:
     
-    ```{.bash data-prompt="$"}
-    $ docker compose up -d pxc1
+    ```shell
+    docker compose up -d pxc1
     ```
 
     Then, start the remaining nodes:
     
-    ```{.bash data-prompt="$"}
-    $ docker compose up -d pxc2 pxc3
+    ```shell
+    docker compose up -d pxc2 pxc3
     ```
 
 7. Validate the Cluster
 
     Check the status of each node:
     
-    ```{.bash data-prompt="$"}
+    ```shell
     docker exec -it pxc1 mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "SHOW STATUS LIKE 'wsrep_cluster_size';"
     docker exec -it pxc2 mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "SHOW STATUS LIKE 'wsrep_cluster_status';"
     ```

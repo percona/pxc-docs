@@ -1,7 +1,7 @@
 # Compile and install from source code
 
 If you want to compile Percona XtraDB Cluster, you can find the source code on
-[GitHub](https://github.com/percona/percona-xtradb-cluster).
+[GitHub :octicons-link-external-16:](https://github.com/percona/percona-xtradb-cluster).
 Before you begin, make sure that the following packages are installed:
 
 |  | apt| yum|
@@ -30,16 +30,16 @@ dependencies:
 
 === "on Debian or Ubuntu"
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt install -y git scons gcc g++ openssl check cmake bison \
+    ```shell
+    sudo apt install -y git scons gcc g++ openssl check cmake bison \
     libboost-all-dev libasio-dev libaio-dev libncurses5-dev libreadline-dev \
     libpam-dev socat libcurl-dev
     ```
 
 === "on Red Hat Enterprise Linux"
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum install -y git scons gcc gcc-c++ openssl check cmake bison \
+    ```shell
+    sudo yum install -y git scons gcc gcc-c++ openssl check cmake bison \
     boost-devel asio-devel libaio-devel ncurses-devel readline-devel pam-devel \
     socat libcurl-devel
     ```
@@ -67,29 +67,29 @@ To compile Percona XtraDB Cluster from source code:
 
 1. Clone the latest repository or update it to the latest state. The old codebase may not be compatible with the build script. Clone the Percona XtraDB Cluster repository:
 
-    ```{.bash data-prompt="$"}
-    $ git clone https://github.com/percona/percona-xtradb-cluster.git
+    ```shell
+    git clone https://github.com/percona/percona-xtradb-cluster.git
     ```
     
 2. Check out the `{{vers}}` branch and initialize submodules:
 
-    ```{.bash data-prompt="$"}
-    $ cd percona-xtradb-cluster
-    $ git checkout {{vers}}
-    $ git submodule update --init --recursive
+    ```shell
+    cd percona-xtradb-cluster
+    git checkout {{vers}}
+    git submodule update --init --recursive
     ```
 
-3. Download the matching Percona XtraDB Cluster {{vers}} tarball (*.tar.gz) for your operating system from [Percona Software Downloads](https://www.percona.com/downloads/). The following example extracts the Percona XtraDB Cluster {{vers}} tar.gz file to the target directory `./pxc-build`:
+3. Download the matching Percona XtraDB Cluster {{vers}} tarball (*.tar.gz) for your operating system from [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads/). The following example extracts the Percona XtraDB Cluster {{vers}} tar.gz file to the target directory `./pxc-build`:
 
-    ```{.bash data-prompt="$"}
-    $ tar -xvf percona-xtrabackup-{{vers}}-Linux-x86_64.glibc2.31.tar.gz -C ./pxc-build
+    ```shell
+    tar -xvf percona-xtrabackup-{{vers}}-Linux-x86_64.glibc2.31.tar.gz -C ./pxc-build
     ```
 
 4. Run the build script `./build-ps/build-binary.sh`. By default, it attempts to build into the current directory. Specify the target output directory, such as `./pxc-build`:
 
-    ```{.bash data-prompt="$"}
-    $ mkdir ./pxc-build
-    $ ./build-ps/build-binary.sh ./pxc-build
+    ```shell
+    mkdir ./pxc-build
+    ./build-ps/build-binary.sh ./pxc-build
     ```
 
 When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraDB-Cluster-{{vers}}.tar.gz`, that you can deploy on your system.

@@ -12,7 +12,7 @@ The `mysqld` profile allows the execution of the SST script in PUx mode with the
 
 ## Profile adjustments
 
-The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile](https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld)  in Percona Server.
+The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile :octicons-link-external-16:](https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld)  in Percona Server.
 
 ## Work with `pxc_encrypt_cluster_traffic`
 
@@ -22,15 +22,15 @@ By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all clus
 
 The following AppArmor profile rule grants access to certificates located in /etc/mysql/certs. You must be root or have `sudo` privileges.
 
-```{.bash data-prompt="#"}
-# Allow config access
+```shell
+Allow config access
   /etc/mysql/** r,
 ```
 
 This rule is present in both profiles (usr.sbin.mysqld and usr.bin.wsrep_sst_xtrabackup-v2). The rule allows the administrator to store the certificates anywhere inside of the /etc/mysql/ directory. If the certificates are located outside of the specified directory, you must add an additional rule which allows access to the certificates in both profiles. The rule must have the path to the certificates location, like the following:
 
-```{.bash data-prompt="#"}
-# Allow config access
+```shell
+Allow config access
   /path/to/certificates/* r,
 ```
 

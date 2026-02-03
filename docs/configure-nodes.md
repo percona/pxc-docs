@@ -11,8 +11,8 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 1. Stop the Percona XtraDB Cluster server. After the installation completes the server is not started. You need this step if you have started the server manually.
 
-    ```{.bash data-prompt="$"}
-    $ sudo service mysql stop
+    ```shell
+    sudo service mysql stop
     ```
 
 2. Generate the SSL certificates on the first node. Ensure that all nodes use 
@@ -20,13 +20,13 @@ In this section, we will demonstrate how to configure a three node cluster:
    Store the certificates in `/etc/`, not in the data directory. After generating 
    the certificates, copy them to all other nodes.
 
-    ```{.bash data-prompt="$"}
-    $ sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
+    ```shell
+    sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
     -x509 -days 365 -out /etc/server-cert.pem
-    $ sudo cp /etc/server-key.pem pxc2:/etc/
-    $ sudo cp /etc/server-cert.pem pxc2:/etc/
-    $ sudo cp /etc/server-key.pem pxc3:/etc/
-    $ sudo cp /etc/server-cert.pem pxc3:/etc/
+    sudo cp /etc/server-key.pem pxc2:/etc/
+    sudo cp /etc/server-cert.pem pxc2:/etc/
+    sudo cp /etc/server-key.pem pxc3:/etc/
+    sudo cp /etc/server-cert.pem pxc3:/etc/
     ```
     
 3. Edit the configuration file of the first node to provide the cluster settings.
@@ -191,21 +191,21 @@ Specify the IP address of this particular node.
 
 [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method)
 
-By default, Percona XtraDB Cluster uses Percona [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst). `xtrabackup-v2` is the only supported option for this variable.
+By default, Percona XtraDB Cluster uses Percona [XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst). `xtrabackup-v2` is the only supported option for this variable.
 This method requires a user for SST to be set up on the initial node.
 
 [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode)
 
 [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode) is enabled by default and set to `ENFORCING`, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.
 
-[`default_storage_engine`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_default_storage_engine)
+[`default_storage_engine` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_default_storage_engine)
 
 Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
 or any other non-transactional storage engines.
 Set this variable to `default_storage_engine=InnoDB`.
 
-[`innodb_autoinc_lock_mode`](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode)
+[`innodb_autoinc_lock_mode` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode)
 
 Galera supports only interleaved (`2`) lock mode for InnoDB.
 Setting the traditional (`0`) or consecutive (`1`) lock mode
