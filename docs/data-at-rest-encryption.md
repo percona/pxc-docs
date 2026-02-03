@@ -33,7 +33,7 @@ Percona XtraDB Cluster {{vers}} supports all data at rest generally-available en
 ### Configuration
 
 Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the `component_keyring_file`. The following example illustrates using the component. Review [Use the keyring vault component](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html) for the latest information on keyring components.
+configure the `component_keyring_file`. The following example illustrates using the component. Review [Use the keyring vault component :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html) for the latest information on keyring components.
 
 !!! note
 
@@ -108,8 +108,7 @@ The `component_keyring_vault` stores the master encryption key in a HashiCorp Va
 
 ### Configuration
 
-Configuration options are the same as
-[Percona Server for MySQL](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
+Configuration options are the same as [Percona Server for MySQL :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
 
 Create a manifest file named `mysqld.my` in the installation directory:
 
@@ -137,9 +136,9 @@ The `secret_mount_point_version` parameter defaults to `AUTO` and controls wheth
 
 !!! warning
 
-    Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using [Vault's AppRole authentication](https://developer.hashicorp.com/vault/docs/auth/approle) or dynamic token retrieval mechanisms for enhanced security.
+    Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using [Vault's AppRole authentication :octicons-link-external-16:](https://developer.hashicorp.com/vault/docs/auth/approle) or dynamic token retrieval mechanisms for enhanced security.
 
-The detailed description of these options can be found in the [Percona Server for MySQL keyring vault component documentation](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
+The detailed description of these options can be found in the [Percona Server for MySQL keyring vault component documentation :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html).
 
 Vault-server is an external server, so make sure the PXC node can reach the
 server.
@@ -190,8 +189,8 @@ When the vault server is reachable but authentication credentials are incorrect,
 In case of an accessible vault-server with the wrong mount point, there is no
 error during server restart, but the node still refuses to start:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
+```sql
+CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
 ```
 
 ??? example "Expected output"
@@ -343,6 +342,4 @@ port=16400
 
     [Encrypt traffic documentation](encrypt-traffic.md)
 
-    Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/{{vers}}/security/data-at-rest-encryption.html#data-at-rest-encryption
-
-[Use the keyring component or keyring plugin]: https://docs.percona.com/percona-server/{{vers}}/use-keyring-vault-component.html
+    [Percona Server for MySQL Documentation: Data-at-Rest Encryption :octicons-link-external-16:](https://www.percona.com/doc/percona-server/{{vers}}/security/data-at-rest-encryption.html#data-at-rest-encryption)

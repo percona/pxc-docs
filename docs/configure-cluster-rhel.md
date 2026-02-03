@@ -76,19 +76,18 @@ on the first node (`percona1`) contains the following:
     wsrep_cluster_name=my_rhel_cluster
     ```
 
-2. Start the first node with the following command:
+2. Start the first node, `[root@percona1 ~] #`, with the following command:
 
-    ```{.bash data-prompt="[root@percona1 ~] #"}
-    [root@percona1 ~] # systemctl start mysql@bootstrap.service
+    ```shell
+    systemctl start mysql@bootstrap.service
     ```
 
-    The previous command will start the cluster
-    with initial [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable set to `gcomm://`. If the node or MySQL are restarted later, there will be no need to change the configuration file.
+    The previous command will start the cluster with initial [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable set to `gcomm://`. If the node or MySQL are restarted later, there will be no need to change the configuration file.
 
 3. After the first node has been started, cluster status can be checked with the following command:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ```
     
     This output shows that the cluster has been successfully bootstrapped.
@@ -115,20 +114,20 @@ on the first node (`percona1`) contains the following:
 
     Copy the automatically generated temporary password for the superuser account:
 
-    ```{.bash data-prompt="$"}
-    $ sudo grep 'temporary password' /var/log/mysqld.log
+    ```shell
+    sudo grep 'temporary password' /var/log/mysqld.log
     ```
 
     Use this password to log in as root:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -u root -p
+    ```shell
+    mysql -u root -p
     ```
 
     Change the password for the superuser account and log out. For example:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'r00tP@$$';
+    ```shell
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'r00tP@$$';
     ```
    
     ??? example "Expected output"
@@ -169,18 +168,18 @@ on the first node (`percona1`) contains the following:
     wsrep_sst_method=xtrabackup-v2
     ```
 
-2. Start the second node with the following command:
+2. Start the second node, `[root@percona2 ~] #`, with the following command:
 
-    ```{.bash data-prompt="[root@percona2 ~] #"}
-    [root@percona2 ~]# systemctl start mysql
+    ```shell
+    systemctl start mysql
     ```
 
 3. After the server has been started, it should receive SST automatically.
     Cluster status can be checked on both nodes.
     The following is an example of status from the second node (`percona2`):
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ```
 
     The output shows that the new node has been successfully added to the cluster.
@@ -237,18 +236,18 @@ on the first node (`percona1`) contains the following:
     wsrep_sst_method=xtrabackup-v2
     ```
 
-2. Start the third node with the following command:
+2. Start the third node, `[root@percona3 ~] #`, with the following command:
 
-    ```{.bash data-prompt="[root@percona3 ~] #"}
-    [root@percona3 ~]# systemctl start mysql
+    ```shell
+    systemctl start mysql
     ```
 
 3. After the server has been started, it should receive SST automatically.
     Cluster status can be checked on all three nodes.
     The following is an example of status from the third node (`percona3`):
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ```
 
     The output confirms that the third node has joined the cluster.
@@ -279,10 +278,10 @@ To test replication, lets create a new database on second node,
 create a table for that database on the third node,
 and add some records to the table on the first node.
 
-1. Create a new database on the second node:
+1. Create a new database on the second node, `mysql@percona2>`:
 
-    ```{.bash data-prompt="mysql@percona2>"}
-    mysql@percona2> CREATE DATABASE percona;
+    ```{shell
+    CREATE DATABASE percona;
     ```
 
     The following output confirms that a new database has been created:
@@ -293,10 +292,10 @@ and add some records to the table on the first node.
         Query OK, 1 row affected (0.01 sec)
         ```
 
-2. Switch to a newly created database:
+2. Switch to a newly created database, `mysql@percona3>`:
 
-    ```{.bash data-prompt="mysql@percona3>"}
-    mysql@percona3> USE percona;
+    ```shell
+    USE percona;
     ```
     
     The following output confirms that a database has been changed:
@@ -307,10 +306,10 @@ and add some records to the table on the first node.
         Database changed
         ```
 
-3. Create a table on the third node:
+3. Create a table on the third node, `mysql@percona3>`:
 
-    ```{.bash data-prompt="mysql@percona3>"}
-    mysql@percona3> CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
+    ```shell
+    CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
     ```
 
     The following output confirms that a table has been created:
@@ -321,10 +320,10 @@ and add some records to the table on the first node.
         Query OK, 0 rows affected (0.05 sec)
         ```
 
-4. Insert records on the first node:
+4. Insert records on the first node, `mysql@percona1>`:
 
-    ```{.bash data-prompt="mysql@percona1>"}
-    mysql@percona1> INSERT INTO percona.example VALUES (1, 'percona1');
+    ```shell
+    INSERT INTO percona.example VALUES (1, 'percona1');
     ```
 
     The following output confirms that the records have been inserted:
@@ -335,10 +334,10 @@ and add some records to the table on the first node.
         Query OK, 1 row affected (0.02 sec)
         ```
 
-5. Retrieve all the rows from that table on the second node:
+5. Retrieve all the rows from that table on the second node, `mysql@percona2>`:
 
-    ```{.bash data-prompt="mysql@percona2"}
-    mysql@percona2> SELECT * FROM percona.example;
+    ```shell
+    SELECT * FROM percona.example;
     ```
     
     The following output confirms that all the rows have been retrieved:

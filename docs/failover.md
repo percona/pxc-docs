@@ -107,8 +107,8 @@ clusters with differing data, causing inconsistencies and corruption.
 
 To recover the node from the non-primary state, execute the following command:
 
-```{.bash data-prompt="$"}
-$ SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
+```shell
+SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
 This command enables the bootstrap process for the primary component, allowing

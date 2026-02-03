@@ -11,7 +11,7 @@ running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluste
     simultaneously.
 
 
-Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
+Percona XtraDB Cluster uses [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
 ## Generate and Copy SSL Certificates
 
@@ -20,37 +20,37 @@ first node. All nodes must use identical key and certificate files to ensure
 a consistent security setup. Store the certificates in `/etc/`, not in the 
 data directory. After generating the certificates, copy them to all other nodes.
 
-1. Generate the SSL certificates on the first node:
+1. Generate the SSL certificates on the first node, `[root@pxc1 ~]#`:
 
-    ```{.bash data-prompt="[root@pxc1 ~]#"}
-    [root@pxc1 ~]# openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
+    ```shell
+    openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
     -x509 -days 365 -out /etc/server-cert.pem
     ```
 
 2. Copy the SSL certificates to the other nodes:
 
-    ```{.bash data-prompt="[root@pxc1 ~]#"}
-    [root@pxc1 ~]# scp /etc/server-key.pem pxc2:/etc/
-    [root@pxc1 ~]# scp /etc/server-cert.pem pxc2:/etc/
-    [root@pxc1 ~]# scp /etc/server-key.pem pxc3:/etc/
-    [root@pxc1 ~]# scp /etc/server-cert.pem pxc3:/etc/
+    ```shell
+    scp /etc/server-key.pem pxc2:/etc/
+    scp /etc/server-cert.pem pxc2:/etc/
+    scp /etc/server-key.pem pxc3:/etc/
+    scp /etc/server-cert.pem pxc3:/etc/
     ```
 
 
 ## Start the second node
 
-Start the second node using the following command:
+Start the second node, `[root@pxc2 ~]#`, using the following command:
 
-```{.bash data-prompt="[root@pxc2 ~]#"}
-[root@pxc2 ~]# systemctl start mysql
+```shell
+systemctl start mysql
 ```
 
 After the server starts, it receives [SST](glossary.md#sst) automatically.
 
-To check the status of the second node, run the following:
+To check the status of the second node, `mysql@pxc2>`, run the following:
 
-```{.bash data-prompt="mysql@pxc2>"}
-mysql@pxc2> show status like 'wsrep%';
+```shell
+show status like 'wsrep%';
 ```
 
 ??? example "Expected output"
@@ -92,16 +92,16 @@ proceed to add the next node.
 
 ## Starting the Third Node
 
-To add the third node, start it as usual:
+To add the third node, `[root@pxc3 ~]#`, start it as usual:
 
-```{.bash data-prompt="[root@pxc3 ~]#"}
-[root@pxc3 ~]# systemctl start mysql
+```shell
+systemctl start mysql
 ```
 
-To check the status of the third node, run the following:
+To check the status of the third node, `mysql@pxc3>`, run the following:
 
-```{.bash data-prompt="mysql@pxc3>"}
-mysql@pxc3> show status like 'wsrep%';
+```shell
+show status like 'wsrep%';
 ```
 
 The output shows that the new node has been successfully added to the

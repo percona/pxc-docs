@@ -1,9 +1,9 @@
 # Run in a Docker container
 
 Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at
-[https://hub.docker.com/r/percona/percona-xtradb-cluster/](https://hub.docker.com/r/percona/percona-xtradb-cluster/).
+[https://hub.docker.com/r/percona/percona-xtradb-cluster/ :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-xtradb-cluster/).
 
-For more information about using Docker, see the [Docker Docs](https://docs.docker.com/). Make
+For more information about using Docker, see the [Docker Docs :octicons-link-external-16:](https://docs.docker.com/). Make
 sure that you are using the latest version of Docker. The ones
 provided via `apt` and `yum` may be outdated and cause errors.
 
@@ -46,8 +46,8 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
 
 3.  Create a ~/pxc-docker-test/cert directory to store self-signed SSL cert:
 
-    ```{.bash data-prompt="$"}
-    $ mkdir -m 777 -p ~/pxc-docker-test/cert
+    ```shell
+    mkdir -m 777 -p ~/pxc-docker-test/cert
     ```
 
 4.  Create a create-ssl-certs.sh file with the following contents, and place the file in the cert directory
@@ -76,7 +76,7 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
 
 5.  Generate the self-signed certs
 
-    ```{.bash data-prompt="$"}
+    ```shell
     docker run --name pxc-cert --rm  -v ~/pxc-docker-test/cert:/cert percona/percona-xtradb-cluster:8.4 /bin/bash /cert/create-ssl-certs.sh
     ```
 
@@ -131,8 +131,8 @@ To verify the cluster is available, do the following:
 
 1.  Access the MySQL client. For example, on the first node:
 
-    ```{.bash data-prompt="$"}
-    $ sudo docker exec -it pxc-node1 /usr/bin/mysql -uroot -ptest1234#
+    ```shell
+    sudo docker exec -it pxc-node1 /usr/bin/mysql -uroot -ptest1234#
     ```
 
     ??? example "Expected output"
@@ -151,8 +151,8 @@ To verify the cluster is available, do the following:
 
 2.  View the wsrep status variables:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> show status like 'wsrep%';
+    ```sql
+    show status like 'wsrep%';
     ```
 
     ??? example "Expected output"

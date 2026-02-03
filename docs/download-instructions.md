@@ -2,7 +2,7 @@
 
 Do the following steps to select the software, the software version, and download the packages:
 
-1. Go to [Percona Software Downloads](https://www.percona.com/downloads).
+1. Go to [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
 2. Locate Percona XtraDB Cluster.
 3. Select the required product in `Select Product`, for example, Percona XtraDB Cluster 8.4.
 4. Select your distribution version in the `Select Product Version` dropdown, for example, `Percona-XtraDB-Cluster-8.4.3`.
