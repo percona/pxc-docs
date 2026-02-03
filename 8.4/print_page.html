@@ -5825,7 +5825,7 @@ for manual installation:</p>
 build based on Percona Server for MySQL 8.0.18-9.</p></section><section class="print-page" id="download-instructions" heading-number="7.2"><h1 id="download-instructions-percona-software-download-instructions">Percona Software Download Instructions<a class="headerlink" href="#download-instructions-percona-software-download-instructions" title="Permanent link">&para;</a></h1>
 <p>Do the following steps to select the software, the software version, and download the packages:</p>
 <ol>
-<li>Go to <a href="https://www.percona.com/downloads">Percona Software Downloads</a>.</li>
+<li>Go to <a href="https://www.percona.com/downloads">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</li>
 <li>Locate Percona XtraDB Cluster.</li>
 <li>Select the required product in <code>Select Product</code>, for example, Percona XtraDB Cluster 8.4.</li>
 <li>Select your distribution version in the <code>Select Product Version</code> dropdown, for example, <code>Percona-XtraDB-Cluster-8.4.3</code>.</li>
@@ -5835,9 +5835,9 @@ build based on Percona Server for MySQL 8.0.18-9.</p></section><section class="p
 <p>You can download specific packages one by one or download all packages using the <code>DOWNLOAD ALL PACKAGES</code> button. The easiest method is to download all packages.</p>
 <p>The packages are downloaded to the local computer.</p></section><section class="print-page" id="apt" heading-number="7.3"><h1 id="apt-install-on-debian-or-ubuntu">Install on Debian or Ubuntu<a class="headerlink" href="#apt-install-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
 <p>Specific information on the supported platforms, products, and versions
-is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
+is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>The packages are available in the official Percona software repository
-and on the <a href="https://www.percona.com/mysql/software/percona-xtradb-cluster">download page</a>.
+and on the <a href="https://www.percona.com/downloads">Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
 It is recommended to install Percona XtraDB Cluster from the official repository
 using APT.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -5874,37 +5874,37 @@ using APT.</p>
 <ol>
 <li>
 <p>Update the sytem:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Install the necessary packages:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
 <p>Download the repository package</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Install the package with <code>dpkg</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Refresh the local cache to update the package information:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Enable the <code>release</code> repository for <em>Percona XtraDB Cluster</em>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-84-lts
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-84-lts
 </code></pre></div>
 </li>
 <li>
 <p>Install the cluster:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 </li>
 </ol>
@@ -6085,7 +6085,7 @@ libgpg-error0<span class="w"> </span>libssl1.1<span class="w"> </span>libstdc++6
 procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>procps-ng<span class="w"> </span>coreutils<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
 </code></pre></div></section><section class="print-page" id="compile" heading-number="7.6"><h1 id="compile-compile-and-install-from-source-code">Compile and install from source code<a class="headerlink" href="#compile-compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
 <p>If you want to compile Percona XtraDB Cluster, you can find the source code on
-<a href="https://github.com/percona/percona-xtradb-cluster">GitHub</a>.
+<a href="https://github.com/percona/percona-xtradb-cluster">GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
 Before you begin, make sure that the following packages are installed:</p>
 <table>
 <thead>
@@ -6184,13 +6184,13 @@ dependencies:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="compile-__tabbed_1_1" name="compile-__tabbed_1" type="radio" /><input id="compile-__tabbed_1_2" name="compile-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="compile-__tabbed_1_1">on Debian or Ubuntu</label><label for="compile-__tabbed_1_2">on Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
 libboost-all-dev<span class="w"> </span>libasio-dev<span class="w"> </span>libaio-dev<span class="w"> </span>libncurses5-dev<span class="w"> </span>libreadline-dev<span class="w"> </span><span class="se">\</span>
 libpam-dev<span class="w"> </span>socat<span class="w"> </span>libcurl-dev
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
 boost-devel<span class="w"> </span>asio-devel<span class="w"> </span>libaio-devel<span class="w"> </span>ncurses-devel<span class="w"> </span>readline-devel<span class="w"> </span>pam-devel<span class="w"> </span><span class="se">\</span>
 socat<span class="w"> </span>libcurl-devel
 </code></pre></div>
@@ -6235,25 +6235,25 @@ socat<span class="w"> </span>libcurl-devel
 <ol>
 <li>
 <p>Clone the latest repository or update it to the latest state. The old codebase may not be compatible with the build script. Clone the Percona XtraDB Cluster repository:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/percona/percona-xtradb-cluster.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/percona/percona-xtradb-cluster.git
 </code></pre></div>
 </li>
 <li>
 <p>Check out the <code>8.4</code> branch and initialize submodules:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>percona-xtradb-cluster
-$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span><span class="m">8</span>.4
-$<span class="w"> </span>git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>percona-xtradb-cluster
+git<span class="w"> </span>checkout<span class="w"> </span><span class="m">8</span>.4
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
 </code></pre></div>
 </li>
 <li>
-<p>Download the matching Percona XtraDB Cluster 8.4 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads</a>. The following example extracts the Percona XtraDB Cluster 8.4 tar.gz file to the target directory <code>./pxc-build</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.31.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
+<p>Download the matching Percona XtraDB Cluster 8.4 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The following example extracts the Percona XtraDB Cluster 8.4 tar.gz file to the target directory <code>./pxc-build</code>:</p>
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.31.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
 </code></pre></div>
 </li>
 <li>
 <p>Run the build script <code>./build-ps/build-binary.sh</code>. By default, it attempts to build into the current directory. Specify the target output directory, such as <code>./pxc-build</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>./pxc-build
-$<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc-build
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>./pxc-build
+./build-ps/build-binary.sh<span class="w"> </span>./pxc-build
 </code></pre></div>
 </li>
 </ol>
@@ -6263,8 +6263,8 @@ $<span class="w"> </span>./build-ps/build-binary.sh<span class="w"> </span>./pxc
 <p>The exact version and release numbers may differ.</p>
 </div></section><section class="print-page" id="docker" heading-number="7.7"><h1 id="docker-run-in-a-docker-container">Run in a Docker container<a class="headerlink" href="#docker-run-in-a-docker-container" title="Permanent link">&para;</a></h1>
 <p>Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at
-<a href="https://hub.docker.com/r/percona/percona-xtradb-cluster/">https://hub.docker.com/r/percona/percona-xtradb-cluster/</a>.</p>
-<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs</a>. Make
+<a href="https://hub.docker.com/r/percona/percona-xtradb-cluster/">https://hub.docker.com/r/percona/percona-xtradb-cluster/ <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Make
 sure that you are using the latest version of Docker. The ones
 provided via <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -6301,7 +6301,7 @@ ssl-key = /cert/server-key.pem
 </li>
 <li>
 <p>Create a ~/pxc-docker-test/cert directory to store self-signed SSL cert:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-m<span class="w"> </span><span class="m">777</span><span class="w"> </span>-p<span class="w"> </span>~/pxc-docker-test/cert
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-m<span class="w"> </span><span class="m">777</span><span class="w"> </span>-p<span class="w"> </span>~/pxc-docker-test/cert
 </code></pre></div>
 </li>
 <li>
@@ -6329,7 +6329,7 @@ openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class=
 </li>
 <li>
 <p>Generate the self-signed certs</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>pxc-cert<span class="w"> </span>--rm<span class="w">  </span>-v<span class="w"> </span>~/pxc-docker-test/cert:/cert<span class="w"> </span>percona/percona-xtradb-cluster:8.4<span class="w"> </span>/bin/bash<span class="w"> </span>/cert/create-ssl-certs.sh
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>pxc-cert<span class="w"> </span>--rm<span class="w">  </span>-v<span class="w"> </span>~/pxc-docker-test/cert:/cert<span class="w"> </span>percona/percona-xtradb-cluster:8.4<span class="w"> </span>/bin/bash<span class="w"> </span>/cert/create-ssl-certs.sh
 </code></pre></div>
 </li>
 <li>
@@ -6380,7 +6380,7 @@ openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class=
 <ol>
 <li>
 <p>Access the MySQL client. For example, on the first node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc-node1<span class="w"> </span>/usr/bin/mysql<span class="w"> </span>-uroot<span class="w"> </span>-ptest1234#
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc-node1<span class="w"> </span>/usr/bin/mysql<span class="w"> </span>-uroot<span class="w"> </span>-ptest1234#
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6398,7 +6398,7 @@ mysql&gt;
 </li>
 <li>
 <p>View the wsrep status variables:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6424,7 +6424,7 @@ mysql&gt;
 </details>
 </li>
 </ol></section><section class="print-page" id="docker-compose" heading-number="7.8"><h1 id="docker-compose-run-with-docker-compose">Run with Docker Compose<a class="headerlink" href="#docker-compose-run-with-docker-compose" title="Permanent link">&para;</a></h1>
-<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs</a>. Make
+<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Make
 sure that you are using the latest version of Docker. The ones
 provided via <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
 <p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -6450,8 +6450,8 @@ procedure are self-signed.</p>
 <h2 id="docker-compose-directory-structure">Directory Structure<a class="headerlink" href="#docker-compose-directory-structure" title="Permanent link">&para;</a></h2>
 <p>You must create a separate directory structure to organize your configuration, certificate files, and Docker Compose setup. This step keeps your deployment clean and easy to manage.</p>
 <p>Run the following commands to create the directory structure:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
-$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-cluster
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
+<span class="nb">cd</span><span class="w"> </span>pxc-cluster
 </code></pre></div>
 <p>After running these commands, your working directory (pxc-cluster/) will contain:</p>
 <p><img alt="PXC cluster directories" src="_static/pxc-cluster-dirs.png" /></p>
@@ -6505,12 +6505,12 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-c
 </li>
 <li>
 <p>Make the script executable:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
 </code></pre></div>
 </li>
 <li>
 <p>Run the script to create the certs:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>./init/create-ssl-certs.sh
+<div class="highlight"><pre><span></span><code>./init/create-ssl-certs.sh
 </code></pre></div>
 </li>
 <li>
@@ -6518,16 +6518,16 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-c
 <p>All three nodes in the cluster must use the same set of SSL certificates. After generating the certificates in the certs/ directory on node 1, you need to copy them to the directories for node 2 and node 3.</p>
 <p>If you run all containers from a single project directory (like with Docker Compose on one host), you can reuse the same certs/ directory for all nodes. However, you must explicitly copy the certificates if you’re organizing them into separate directories or deploying on separate hosts.</p>
 <p>To create the directories for node 2 and node 3:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
-$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
+mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
 </code></pre></div>
 <p>Then copy the certificates:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
 $<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
 </code></pre></div>
 <p>If you’re deploying on separate machines, run the following from node 1:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
-$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
+scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
 </code></pre></div>
 <p>Ensure each container mounts its own copy of the certs/ directory.</p>
 </li>
@@ -6602,16 +6602,16 @@ $<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./
 <li>
 <p>Start the Cluster</p>
 <p>Start node 1 to initialize the cluster:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
 </code></pre></div>
 <p>Then, start the remaining nodes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
 </code></pre></div>
 </li>
 <li>
 <p>Validate the Cluster</p>
 <p>Check the status of each node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
 </code></pre></div>
 </li>
@@ -6648,7 +6648,7 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 <ol>
 <li>
 <p>Stop the Percona XtraDB Cluster server. After the installation completes the server is not started. You need this step if you have started the server manually.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
@@ -6656,12 +6656,12 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
    identical key and certificate files to maintain a consistent security setup. 
    Store the certificates in <code>/etc/</code>, not in the data directory. After generating 
    the certificates, copy them to all other nodes.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
 -x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
 </code></pre></div>
 </li>
 <li>
@@ -6803,28 +6803,26 @@ If this variable is not specified, the host name will be used.</p>
 <p><a href="#wsrep-system-index-wsrep_node_address"><code>wsrep_node_address</code></a></p>
 <p>Specify the IP address of this particular node.</p>
 <p><a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a></p>
-<p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup</a> for <a href="#glossary-sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
+<p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for <a href="#glossary-sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
 This method requires a user for SST to be set up on the initial node.</p>
 <p><a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a></p>
 <p><a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code></a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
 or any other non-transactional storage engines.
 Set this variable to <code>default_storage_engine=InnoDB</code>.</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Galera supports only interleaved (<code>2</code>) lock mode for InnoDB.
 Setting the traditional (<code>0</code>) or consecutive (<code>1</code>) lock mode
 can cause replication to fail due to unresolved deadlocks.
 Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p></section><section class="print-page" id="bootstrap" heading-number="7.10"><h1 id="bootstrap-bootstrap-the-first-node">Bootstrap the first node<a class="headerlink" href="#bootstrap-bootstrap-the-first-node" title="Permanent link">&para;</a></h1>
 <p>After you <a href="#configure-nodes-configure-nodes-for-write-set-replication">configure all PXC nodes</a>, initialize the cluster by
-bootstrapping the first node.  The initial node must contain all the data that
-you want to be replicated to other nodes.</p>
+bootstrapping the first node. The initial node must contain all the data that you want to be replicated to other nodes.</p>
 <p>Bootstrapping implies starting the first node without any known cluster
 addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster assumes that this is the first node and initializes the cluster.</p>
-<p>Instead of changing the configuration, start the first node using the following
-command:</p>
-<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<p>Instead of changing the configuration, start the first node, <code>[root@pxc1 ~]#</code>, using the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>When you start the node using the previous command,
 it runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
@@ -6837,8 +6835,8 @@ and it will use standard configuration again.</p>
 <p class="admonition-title">Note</p>
 <p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
 </div>
-<p>To make sure that the cluster has been initialized, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<p>To make sure that the cluster, <code>mysql@pxc1&gt;</code>, has been initialized, run the following:</p>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the cluster size is 1 node,
 it is the primary component, the node is in the <code>Synced</code> state,
@@ -6873,7 +6871,7 @@ running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>ws
 DONOR node. To minimize traffic overhead, avoid joining multiple nodes 
 simultaneously.</p>
 </div>
-<p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="#glossary-sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
+<p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for <a href="#glossary-sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
 <h2 id="add-node-generate-and-copy-ssl-certificates">Generate and Copy SSL Certificates<a class="headerlink" href="#add-node-generate-and-copy-ssl-certificates" title="Permanent link">&para;</a></h2>
 <p>Before starting the nodes, ensure that you generate the SSL certificates on the 
 first node. All nodes must use identical key and certificate files to ensure 
@@ -6881,27 +6879,27 @@ a consistent security setup. Store the certificates in <code>/etc/</code>, not i
 data directory. After generating the certificates, copy them to all other nodes.</p>
 <ol>
 <li>
-<p>Generate the SSL certificates on the first node:</p>
-<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \</span>
+<p>Generate the SSL certificates on the first node, <code>[root@pxc1 ~]#</code>:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
 -x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
 </code></pre></div>
 </li>
 <li>
 <p>Copy the SSL certificates to the other nodes:</p>
-<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-key.pem pxc2:/etc/</span>
-<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-cert.pem pxc2:/etc/</span>
-<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-key.pem pxc3:/etc/</span>
-<span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># scp /etc/server-cert.pem pxc3:/etc/</span>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
 </code></pre></div>
 </li>
 </ol>
 <h2 id="add-node-start-the-second-node">Start the second node<a class="headerlink" href="#add-node-start-the-second-node" title="Permanent link">&para;</a></h2>
-<p>Start the second node using the following command:</p>
-<div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the second node, <code>[root@pxc2 ~]#</code>, using the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>After the server starts, it receives <a href="#glossary-sst">SST</a> automatically.</p>
-<p>To check the status of the second node, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<p>To check the status of the second node, <code>mysql@pxc2&gt;</code>, run the following:</p>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6938,11 +6936,11 @@ proceed to add the next node.</p>
 <p>If the state of the node is <code>Joiner</code>, it means that SST hasn’t finished. Do not add new nodes until all others are in <code>Synced</code> state. </p>
 </div>
 <h2 id="add-node-starting-the-third-node">Starting the Third Node<a class="headerlink" href="#add-node-starting-the-third-node" title="Permanent link">&para;</a></h2>
-<p>To add the third node, start it as usual:</p>
-<div class="highlight" data-prompt="[root@pxc3 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>To add the third node, <code>[root@pxc3 ~]#</code>, start it as usual:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
-<p>To check the status of the third node, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<p>To check the status of the third node, <code>mysql@pxc3&gt;</code>, run the following:</p>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the
 cluster. Cluster size is now 3 nodes, it is the primary component, and it is
@@ -7839,14 +7837,14 @@ files to maintain a secure and consistent encryption setup.</p>
 <span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
 <span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
 </code></pre></div>
-<p>SSL clients require DH parameters to be at least 1024 bits, due to the <a href="https://en.wikipedia.org/wiki/Logjam_(computer_security)">logjam vulnerability</a>.
+<p>SSL clients require DH parameters to be at least 1024 bits, due to the <a href="https://en.wikipedia.org/wiki/Logjam_(computer_security)">logjam vulnerability <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
 However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameters.
 If a <code>dhparams.pem</code> file of the required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.</p>
 <p>To avoid this delay, create the <code>dhparams.pem</code> file manually and place the file in the data directory before joining the node to the cluster.</p>
 <p>An example command to generate the <code>dhparams.pem</code> file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
-<p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL</a>.</p>
+<p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="encrypt-traffic-encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-traffic-encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
 <p>Replication traffic in Percona XtraDB Cluster consists of the following key components:</p>
 <table>
@@ -7924,13 +7922,13 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate the CA key file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
 </code></pre></div>
 <p>The command generates a 2048-bit RSA private key and saves the key to <code>ca-key.pem</code>. This key is essential for signing certificates.</p>
 </li>
 <li>
 <p>Generate the CA certificate file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span>
 <span class="w">    </span>-key<span class="w"> </span>ca-key.pem<span class="w"> </span>-out<span class="w"> </span>ca.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -7956,7 +7954,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate a new RSA key pair and certificate request:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-req.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -7977,12 +7975,12 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 <li>
 <p>This command reads an RSA private key from the <code>server-key.pem</code> file, processes the key, and then writes the processed key back to the same file, removing the passphrase.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-key.pem
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-key.pem
 </code></pre></div>
 </li>
 <li>
 <p>This command generates a signed certificate from a CSR using a specified CA certificate and its corresponding private key. The command also sets a defined validity period and serial number for the new certificate.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-out<span class="w"> </span>server-cert.pem
 </code></pre></div>
@@ -8014,7 +8012,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate the client key file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-req.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -8035,13 +8033,13 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 <li>
 <p>Remove the passphrase:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
 </code></pre></div>
 <p>The command ensures the private key (server-key.pem) is stored without a passphrase.</p>
 </li>
 <li>
 <p>Sign the certificate request using the CA certificate and key:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-out<span class="w"> </span>client-cert.pem
 </code></pre></div>
@@ -8064,7 +8062,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </div>
 <h3 id="encrypt-traffic-verify-certificates">Verify certificates<a class="headerlink" href="#encrypt-traffic-verify-certificates" title="Permanent link">&para;</a></h3>
 <p>To check whether the server and client certificates are properly signed by the Certificate Authority (CA) certificate, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
 </code></pre></div>
 <p>This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (<code>ca.pem</code>). If the certificates are correctly signed, OpenSSL returns a confirmation message;<br />
 otherwise, error details indicate issues with the certificate chain.</p>
@@ -8073,7 +8071,7 @@ client-cert.pem: OK
 </code></pre></div>
 <h3 id="encrypt-traffic-failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a class="headerlink" href="#encrypt-traffic-failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
 <p>An SSL configuration may fail if the certificate and CA files share the same attributes. To verify whether this is causing the issue, run the following openssl command and check that the CN field differs between the <code>Subject</code> and <code>Issuer</code> lines.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
 </code></pre></div>
 <p><strong>Incorrect values</strong></p>
 <div class="no-copy highlight"><pre><span></span><code>Certificate:
@@ -8087,7 +8085,7 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 ...
 </code></pre></div>
 <p>To obtain a more compact output run <code>openssl</code> specifying <code>-subject</code> and <code>-issuer</code> parameters:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-noout
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-noout
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -8161,16 +8159,16 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
 </ul>
 <p>The <code>mysqld</code> profile allows the execution of the SST script in PUx mode with the /{usr/}bin/wsrep_sst_*PUx command. The profile is applied if the script contains a profile. The SST script runs in unconfined mode if the script does not contain a profile. The system administrator can change the execution mode to Pix. This action causes a fallback to inherited mode in case the SST script profile is absent.</p>
 <h2 id="apparmor-profile-adjustments">Profile adjustments<a class="headerlink" href="#apparmor-profile-adjustments" title="Permanent link">&para;</a></h2>
-<p>The <code>mysqld</code> profile and the <code>SST</code> script profile can be adjusted, such as moving the data directory, in the same way as <a href="https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld">modifying the mysqld profile</a>  in Percona Server.</p>
+<p>The <code>mysqld</code> profile and the <code>SST</code> script profile can be adjusted, such as moving the data directory, in the same way as <a href="https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld">modifying the mysqld profile <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>  in Percona Server.</p>
 <h2 id="apparmor-work-with-pxc_encrypt_cluster_traffic">Work with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#apparmor-work-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
 <p>By default, the <code>pxc_encrypt_cluster_traffic</code> is <code>ON</code>, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.</p>
 <p><a href="#encrypt-traffic-generate-keys-and-certificates-manually">Generate keys and certificates manually</a> describes the certificate setup.</p>
 <p>The following AppArmor profile rule grants access to certificates located in /etc/mysql/certs. You must be root or have <code>sudo</code> privileges.</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># Allow config access</span>
+<div class="highlight"><pre><span></span><code>Allow<span class="w"> </span>config<span class="w"> </span>access
 <span class="w">  </span>/etc/mysql/**<span class="w"> </span>r,
 </code></pre></div>
 <p>This rule is present in both profiles (usr.sbin.mysqld and usr.bin.wsrep_sst_xtrabackup-v2). The rule allows the administrator to store the certificates anywhere inside of the /etc/mysql/ directory. If the certificates are located outside of the specified directory, you must add an additional rule which allows access to the certificates in both profiles. The rule must have the path to the certificates location, like the following:</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># Allow config access</span>
+<div class="highlight"><pre><span></span><code>Allow<span class="w"> </span>config<span class="w"> </span>access
 <span class="w">  </span>/path/to/certificates/*<span class="w"> </span>r,
 </code></pre></div>
 <p>The server certificates must be accessible to the mysql user and are readable only by this user.</p></section><section class="print-page" id="selinux" heading-number="9.5"><h1 id="selinux-enable-selinux">Enable SELinux<a class="headerlink" href="#selinux-enable-selinux" title="Permanent link">&para;</a></h1>
@@ -9055,7 +9053,7 @@ the size of the InnoDB memory buffer will be used:</p>
 <h2 id="clone-sst-sst-method-clone">SST Method: Clone<a class="headerlink" href="#clone-sst-sst-method-clone" title="Permanent link">&para;</a></h2>
 <p>Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a modern and efficient method that leverages MySQL&rsquo;s native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.</p>
 <h2 id="clone-sst-limitations">Limitations<a class="headerlink" href="#clone-sst-limitations" title="Permanent link">&para;</a></h2>
-<p>Clone limitations are described in <a href="https://docs.percona.com/percona-server/8.4/clone-plugin-limitations.html">Clone plugin limitations</a></p>
+<p>Clone limitations are described in <a href="https://docs.percona.com/percona-server/8.4/clone-plugin.html">Clone plugin limitations <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <h2 id="clone-sst-key-features">Key features<a class="headerlink" href="#clone-sst-key-features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -9241,10 +9239,10 @@ the size of the InnoDB memory buffer will be used:</p>
 <h2 id="clone-sst-monitor-the-process">Monitor the process<a class="headerlink" href="#clone-sst-monitor-the-process" title="Permanent link">&para;</a></h2>
 <p>The Joiner log reports the clone process as a <code>% of the data transfer completed</code>.
 The query used is:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">&#39;completed%&#39;</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;FILE_COPY&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">&#39;completed%&#39;</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;FILE_COPY&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>For more information on the progress, you can also use the query:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
 </code></pre></div>
 <h2 id="clone-sst-troubleshoot">Troubleshoot<a class="headerlink" href="#clone-sst-troubleshoot" title="Permanent link">&para;</a></h2>
 <table>
@@ -9410,7 +9408,7 @@ data loss or inconsistency.</p>
 usage can lead to split-brain scenarios. This results in multiple independent 
 clusters with differing data, causing inconsistencies and corruption.</p>
 <p>To recover the node from the non-primary state, execute the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>This command enables the bootstrap process for the primary component, allowing
 the node and all connected nodes to become a primary cluster. By setting this
@@ -10136,7 +10134,7 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 <h2 id="data-at-rest-encryption-use-the-component_keyring_file">Use the component_keyring_file<a class="headerlink" href="#data-at-rest-encryption-use-the-component_keyring_file" title="Permanent link">&para;</a></h2>
 <h3 id="data-at-rest-encryption-configuration">Configuration<a class="headerlink" href="#data-at-rest-encryption-configuration" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the <code>component_keyring_file</code>. The following example illustrates using the component. Review <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Use the keyring vault component</a> for the latest information on keyring components.</p>
+configure the <code>component_keyring_file</code>. The following example illustrates using the component. Review <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Use the keyring vault component <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for the latest information on keyring components.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The component_keyring_file component should not be used for regulatory compliance. </p>
@@ -10188,8 +10186,7 @@ higher-version JOINER can join from a lower-version DONOR, but the reverse is no
 <h3 id="data-at-rest-encryption-component_keyring_vault">component_keyring_vault<a class="headerlink" href="#data-at-rest-encryption-component_keyring_vault" title="Permanent link">&para;</a></h3>
 <p>The <code>component_keyring_vault</code> stores the master encryption key in a HashiCorp Vault server instead of a local file like <code>component_keyring_file</code>.</p>
 <h3 id="data-at-rest-encryption-configuration_1">Configuration<a class="headerlink" href="#data-at-rest-encryption-configuration_1" title="Permanent link">&para;</a></h3>
-<p>Configuration options are the same as
-<a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL</a>.</p>
+<p>Configuration options are the same as <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
  &quot;read_local_manifest&quot;: false,
@@ -10209,9 +10206,9 @@ higher-version JOINER can join from a lower-version DONOR, but the reverse is no
 <p>The <code>secret_mount_point_version</code> parameter defaults to <code>AUTO</code> and controls whether the Vault KV Secrets Engine is version 1 (kv) or version 2 (kv-v2). Using the wrong KV version can cause silent failures during keyring operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using <a href="https://developer.hashicorp.com/vault/docs/auth/approle">Vault&rsquo;s AppRole authentication</a> or dynamic token retrieval mechanisms for enhanced security.</p>
+<p>Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using <a href="https://developer.hashicorp.com/vault/docs/auth/approle">Vault&rsquo;s AppRole authentication <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> or dynamic token retrieval mechanisms for enhanced security.</p>
 </div>
-<p>The detailed description of these options can be found in the <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL keyring vault component documentation</a>.</p>
+<p>The detailed description of these options can be found in the <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL keyring vault component documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Vault-server is an external server, so make sure the PXC node can reach the
 server.</p>
 <div class="admonition warning">
@@ -10251,7 +10248,7 @@ following error(s): [&quot;permission denied&quot;]&#39;
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server restart, but the node still refuses to start:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10395,7 +10392,7 @@ port=16400
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="#encrypt-traffic">Encrypt traffic documentation</a></p>
-<p>Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/8.4/security/data-at-rest-encryption.html#data-at-rest-encryption</p>
+<p><a href="https://www.percona.com/doc/percona-server/8.4/security/data-at-rest-encryption.html#data-at-rest-encryption">Percona Server for MySQL Documentation: Data-at-Rest Encryption <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div></section></section>
                     <section class='print-page md-section' id='section-11' heading-number='11'>
                         <h1>How-tos<a class='headerlink' href='#section-11' title='Permanent link'></a>
@@ -10437,11 +10434,11 @@ avoid the situation when only one node is up.</p>
 use node A as the state transfer donor: node A may not have all the needed
 writesets in its gcache. Specify node C node as the donor in your configuration
 file and start the mysql service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MariaDB Galera Documentation: wsrep_sst_donor option</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MariaDB Galera Documentation: wsrep_sst_donor option <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h2 id="crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped">Scenario 3: All three nodes are gracefully stopped<a class="headerlink" href="#crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
 <p>The cluster is completely stopped and the problem is to initialize it again. It
@@ -10453,7 +10450,7 @@ using this node, otherwise nodes that had a more advanced position will have to
 perform the full <a href="#glossary-sst">SST</a> to join the cluster initialized from the less
 advanced one. As a result, some transactions will be lost). To bootstrap the
 first node, invoke the startup script like this:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10475,8 +10472,8 @@ happens. After it is restarted, node A joins automatically (as described in <a h
 the quorum alone. The cluster has to switch to a non-primary mode, where MySQL
 refuses to serve any SQL queries. In this state, the <strong>mysqld</strong> process
 on node C is still running and can be connected to but any statement related to
-data fails with an error</p>
-<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>test.sbtest1<span class="p">;</span>
+data fails with an error.</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>test.sbtest1<span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>The error message</summary>
@@ -10492,7 +10489,7 @@ they still form the quorum.</p>
 <p>If node A and node B crashed, you need to enable the primary component on
 node C manually, before you can bring up node A and node B. The command to do
 this is:</p>
-<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>This approach only works if the other nodes are down before doing that!
 Otherwise, you end up with two clusters having different data.</p>
@@ -10527,7 +10524,7 @@ other. We cannot use <code>safe_to_bootstrap</code> variable to determine the no
 the last transaction committed as this variable is set to <strong>0</strong> for each node. An attempt
 to bootstrap from such a node will fail unless you start <code>mysqld</code> with the
 <code>--wsrep-recover</code> parameter:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep-recover
+<div class="highlight"><pre><span></span><code>mysqld<span class="w"> </span>--wsrep-recover
 </code></pre></div>
 <p>Search the output for the line that reports the recovered position after the
 node UUID (<strong>1122</strong> in this case):</p>
@@ -10581,7 +10578,7 @@ re-connect.</p>
 <p>If you want to restore the service even
 before the network link is restored, you can make one of the groups primary
 again using the same command as described in <a href="#crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
-<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>After this, you are able to work on the manually restored part of the cluster,
 and the other half should be able to automatically re-join using <a href="#glossary-ist">IST</a> as soon as the network link is restored.</p>
@@ -10598,7 +10595,7 @@ statement due to a data difference – an emergency shutdown will be performed a
 way to bring the nodes back to the cluster is via the full <a href="#glossary-sst">SST</a></p>
 </div>
 <p><strong>Based on material from Percona Database Performance Blog</strong></p>
-<p>This article is based on the blog post Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em>: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p></section><section class="print-page" id="configure-cluster-rhel" heading-number="11.2"><h1 id="configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure a cluster on Red Hat-based distributions<a class="headerlink" href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions" title="Permanent link">&para;</a></h1>
+<p>This article is based on the blog post [Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>]: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p></section><section class="print-page" id="configure-cluster-rhel" heading-number="11.2"><h1 id="configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure a cluster on Red Hat-based distributions<a class="headerlink" href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions" title="Permanent link">&para;</a></h1>
 <p>This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
 on Red Hat Enterprise Linux (RHEL) 8 servers, using the packages from Percona repositories.</p>
 <ul>
@@ -10691,15 +10688,14 @@ wsrep_cluster_name=my_rhel_cluster
 </code></pre></div>
 </li>
 <li>
-<p>Start the first node with the following command:</p>
-<div class="highlight" data-prompt="[root@percona1 ~] #"><pre><span></span><code><span class="o">[</span>root@percona1<span class="w"> </span>~<span class="o">]</span><span class="w"> </span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<p>Start the first node, <code>[root@percona1 ~] #</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
-<p>The previous command will start the cluster
-with initial <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable set to <code>gcomm://</code>. If the node or MySQL are restarted later, there will be no need to change the configuration file.</p>
+<p>The previous command will start the cluster with initial <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable set to <code>gcomm://</code>. If the node or MySQL are restarted later, there will be no need to change the configuration file.</p>
 </li>
 <li>
 <p>After the first node has been started, cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>This output shows that the cluster has been successfully bootstrapped.</p>
 <details class="example">
@@ -10722,13 +10718,13 @@ with initial <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_clu
 </code></pre></div>
 </details>
 <p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 <p>Use this password to log in as root:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;r00tP@$$&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;r00tP@$$&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10769,15 +10765,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the second node with the following command:</p>
-<div class="highlight" data-prompt="[root@percona2 ~] #"><pre><span></span><code><span class="o">[</span>root@percona2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the second node, <code>[root@percona2 ~] #</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on both nodes.
     The following is an example of status from the second node (<code>percona2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -10833,15 +10829,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the third node with the following command:</p>
-<div class="highlight" data-prompt="[root@percona3 ~] #"><pre><span></span><code><span class="o">[</span>root@percona3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the third node, <code>[root@percona3 ~] #</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on all three nodes.
     The following is an example of status from the third node (<code>percona3</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -10871,19 +10867,19 @@ create a table for that database on the third node,
 and add some records to the table on the first node.</p>
 <ol>
 <li>
-<p>Create a new database on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2>"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
-</code></pre></div>
+<p>Create a new database on the second node, <code>mysql@percona2&gt;</code>:</p>
+<p><code>{shell
+CREATE DATABASE percona;</code></p>
 <p>The following output confirms that a new database has been created:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
-</code></pre></div>
+<p><code>{.text .no-copy}
+Query OK, 1 row affected (0.01 sec)</code></p>
 </details>
 </li>
 <li>
-<p>Switch to a newly created database:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>USE<span class="w"> </span>percona<span class="p">;</span>
+<p>Switch to a newly created database, <code>mysql@percona3&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
@@ -10893,8 +10889,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Create a table on the third node:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
+<p>Create a table on the third node, <code>mysql@percona3&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
@@ -10904,8 +10900,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -10915,8 +10911,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Retrieve all the rows from that table on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
+<p>Retrieve all the rows from that table on the second node, <code>mysql@percona2&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
@@ -10981,7 +10977,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.</p>
 to ports 3306, 4444, 4567 and 4568.</p>
 </li>
 <li>
-<p>AppArmor profile for MySQL is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled</a>.</p>
+<p>AppArmor profile for MySQL is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </li>
 </ul>
 <h2 id="configure-cluster-ubuntu-step-1-install-pxc">Step 1. Install PXC<a class="headerlink" href="#configure-cluster-ubuntu-step-1-install-pxc" title="Permanent link">&para;</a></h2>
@@ -11029,15 +11025,15 @@ wsrep_cluster_name=my_ubuntu_cluster
 </code></pre></div>
 </li>
 <li>
-<p>Start the first node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<p>Start the first node, <code>[root@pxc1 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>This command will start the first node and bootstrap the cluster.</p>
 </li>
 <li>
 <p>After the first node has been started,
 cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following outut shows the cluste status:</p>
 <details class="example">
@@ -11063,10 +11059,10 @@ cluster status can be checked with the following command:</p>
 </li>
 </ol>
 <p>To perform <a href="#state-snapshot-transfer-state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
-set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">privileges</a>:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
+set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.4/privileges.html">privileges</a>:</p>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
+GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11105,15 +11101,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the second node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the second node, <code>[root@pxc2 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (<code>pxc2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -11170,18 +11166,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the third node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc3 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the third node, <code>[root@pxc3 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
-<p>After the server has been started,
-it should receive SST automatically.
-Cluster status can be checked on all nodes.
-The following is an example of status from the third node (<code>pxc3</code>):</p>
+<p>After the server has been started, it should receive SST automatically. Cluster status can be checked on all nodes. The following is an example of status from the third node (<code>pxc3</code>):</p>
 </li>
 </ol>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -11209,8 +11202,8 @@ create a table for that database on the third node,
 and add some records to the table on the first node.</p>
 <ol>
 <li>
-<p>Create a new database on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2>"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
+<p>Create a new database on the second node, <code>mysql@percona2&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a new database has been created:</p>
 <details class="example">
@@ -11220,8 +11213,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Switch to a newly created database:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>USE<span class="w"> </span>percona<span class="p">;</span>
+<p>Switch to a newly created database, <code>mysql@percona3&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
@@ -11232,7 +11225,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Create a table on the third node:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
@@ -11242,8 +11235,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -11253,8 +11246,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Retrieve all the rows from that table on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2>"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
+<p>Retrieve all the rows from that table on the second node, <code>mysql@percona2&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
@@ -11267,8 +11260,7 @@ and add some records to the table on the first node.</p>
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<p>This simple procedure should ensure that all nodes in the cluster
-are synchronized and working as intended.</p>
+<p>This simple procedure should ensure that all nodes in the cluster are synchronized and working as intended.</p>
 </li>
 </ol></section><section class="print-page" id="garbd-howto" heading-number="11.4"><h1 id="garbd-howto-set-up-galera-arbitrator">Set up Galera arbitrator<a class="headerlink" href="#garbd-howto-set-up-galera-arbitrator" title="Permanent link">&para;</a></h1>
 <p>The size of a cluster increases when a node joins the cluster and decreases when a node leaves. A cluster reacts to replication problems with inconsistency voting. The size of the cluster determines the required votes to achieve a quorum. If a node no longer responds and is disconnected from the cluster the remaining nodes vote. The majority of the nodes that vote are considered to be in the cluster.</p>
@@ -19769,12 +19761,12 @@ cert_index:
 </div></section><section class="print-page" id="faq" heading-number="12.6"><h1 id="faq-frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#faq-frequently-asked-questions" title="Permanent link">&para;</a></h1>
 <h2 id="faq-how-do-i-report-bugs">How do I report bugs?<a class="headerlink" href="#faq-how-do-i-report-bugs" title="Permanent link">&para;</a></h2>
 <p>All bugs can be reported on
-<a href="https://jira.percona.com/projects/PXC/issues">JIRA</a>.
+<a href="https://jira.percona.com/projects/PXC/issues">JIRA <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
 Please submit <code>error.log</code> files from <strong>all</strong> the nodes.</p>
 <h2 id="faq-how-do-i-solve-locking-issues-like-auto-increment">How do I solve locking issues like auto-increment?<a class="headerlink" href="#faq-how-do-i-solve-locking-issues-like-auto-increment" title="Permanent link">&para;</a></h2>
 <p>For auto-increment, Percona XtraDB Cluster changes <code>auto_increment_offset</code> for each new node.
 In a single-node workload, locking is handled in the same way as <em>InnoDB</em>.
-In case of write load on several nodes, Percona XtraDB Cluster uses <a href="https://en.wikipedia.org/wiki/Optimistic_concurrency_control">optimistic locking</a>
+In case of write load on several nodes, Percona XtraDB Cluster uses <a href="https://en.wikipedia.org/wiki/Optimistic_concurrency_control">optimistic locking <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 and the application may receive lock error in response to <code>COMMIT</code> query.</p>
 <h2 id="faq-what-if-a-node-crashes-and-innodb-recovery-rolls-back-some-transactions">What if a node crashes and InnoDB recovery rolls back some transactions?<a class="headerlink" href="#faq-what-if-a-node-crashes-and-innodb-recovery-rolls-back-some-transactions" title="Permanent link">&para;</a></h2>
 <p>When a node crashes, after restarting,
@@ -19798,7 +19790,7 @@ it will copy the whole dataset from another node
 </ul>
 <p>You can also check a node’s health with the <code>clustercheck</code> script.
 First set up the <code>clustercheck</code> user:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span>PASSWORD
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span>
 <span class="s1">&#39;*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -19806,7 +19798,7 @@ First set up the <code>clustercheck</code> user:</p>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">PROCESS</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>You can then check a node’s health by running the <code>clustercheck</code> script:</p>
 <div class="highlight"><pre><span></span><code>/usr/bin/clustercheck<span class="w"> </span>clustercheck<span class="w"> </span>password<span class="w"> </span><span class="m">0</span>
@@ -19856,7 +19848,7 @@ The quorum is preserved if (and only if) the sum weight of the nodes
 in a new component strictly exceeds half that
 of the preceding Primary Component,
 minus the nodes which left gracefully.</p>
-<p>The mechanism is described in detail in <a href="#ttps:-mariadb.com-docs-galera-cluster">MariaDB Galera documentation</a>.</p>
+<p>The mechanism is described in detail in <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="faq-how-would-the-quorum-mechanism-handle-split-brain">How would the quorum mechanism handle split brain?<a class="headerlink" href="#faq-how-would-the-quorum-mechanism-handle-split-brain" title="Permanent link">&para;</a></h2>
 <p>The quorum mechanism cannot handle split brain.
 If there is no way to decide on the primary component,
@@ -19868,7 +19860,7 @@ with the following option:</p>
 </code></pre></div>
 <h2 id="faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup">Why a node stops accepting commands if the other one fails in a 2-node setup?<a class="headerlink" href="#faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup" title="Permanent link">&para;</a></h2>
 <p>This is expected behavior to prevent <a href="#glossary-split-brain">split brain</a>.
-For more information, see previous question or <a href="#ttps:-mariadb.com-docs-galera-cluster">MariaDB Galera documentation</a>.</p>
+For more information, see previous question or <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="faq-is-it-possible-to-set-up-a-cluster-without-state-transfer">Is it possible to set up a cluster without state transfer?<a class="headerlink" href="#faq-is-it-possible-to-set-up-a-cluster-without-state-transfer" title="Permanent link">&para;</a></h2>
 <p>It is possible in two ways:</p>
 <ol>
@@ -19917,7 +19909,7 @@ you should enable <code>log-bin</code> and <code>log-slave-update</code> options
 <h2 id="faq-what-does-nc-invalid-option-d-in-the-ssterr-log-file-mean">What does “nc: invalid option – ‘d’” in the sst.err log file mean?<a class="headerlink" href="#faq-what-does-nc-invalid-option-d-in-the-ssterr-log-file-mean" title="Permanent link">&para;</a></h2>
 <p>This error is specific to Debian and Ubuntu. Percona XtraDB Cluster uses <code>netcat-openbsd</code>
 package. This dependency has been fixed. Future releases of Percona XtraDB Cluster will be
-compatible with any <code>netcat</code> (see bug <a href="https://jira.percona.com/browse/PXC-941">PXC-941</a>).</p></section><section class="print-page" id="glossary" heading-number="12.7"><h1 id="glossary-glossary">Glossary<a class="headerlink" href="#glossary-glossary" title="Permanent link">&para;</a></h1>
+compatible with any <code>netcat</code> (see bug <a href="https://jira.percona.com/browse/PXC-941">PXC-941 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).</p></section><section class="print-page" id="glossary" heading-number="12.7"><h1 id="glossary-glossary">Glossary<a class="headerlink" href="#glossary-glossary" title="Permanent link">&para;</a></h1>
 <h2 id="glossary-frm">.frm<a class="headerlink" href="#glossary-frm" title="Permanent link">&para;</a></h2>
 <p>For each table, the server will create a file with the <code>.frm</code>
 extension containing the table definition (for all storage engines).</p>
@@ -20013,7 +20005,7 @@ manually when upgrading your system from an older version.</p>
 <h2 id="glossary-uuid">UUID<a class="headerlink" href="#glossary-uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p></section><section class="print-page" id="copyright-and-licensing-information" heading-number="12.8"><h1 id="copyright-and-licensing-information-copyright-and-licensing-information">Copyright and licensing information<a class="headerlink" href="#copyright-and-licensing-information-copyright-and-licensing-information" title="Permanent link">&para;</a></h1>
 <h2 id="copyright-and-licensing-information-documentation-licensing">Documentation licensing<a class="headerlink" href="#copyright-and-licensing-information-documentation-licensing" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster documentation is (C)2009-2026 Percona LLC and/or its affiliates and is distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p></section><section class="print-page" id="trademark-policy" heading-number="12.9"><h1 id="trademark-policy-trademark-policy">Trademark policy<a class="headerlink" href="#trademark-policy-trademark-policy" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster documentation is (C)2009-2026 Percona LLC and/or its affiliates and is distributed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p></section><section class="print-page" id="trademark-policy" heading-number="12.9"><h1 id="trademark-policy-trademark-policy">Trademark policy<a class="headerlink" href="#trademark-policy-trademark-policy" title="Permanent link">&para;</a></h1>
 <p>This <a href="https://www.percona.com/trademark-policy">Trademark Policy</a> is to ensure that users of Percona-branded products or services know that what they receive has really been developed, approved, tested and maintained by Percona. Trademarks help to prevent confusion in the marketplace, by distinguishing one company’s or person’s products and services from another’s.</p>
 <p>Percona owns a number of marks, including but not limited to Percona, XtraDB, Percona XtraDB, XtraBackup, Percona XtraBackup, Percona Server, and Percona Live, plus the distinctive visual icons and logos associated with these marks. Both the unregistered and registered marks of Percona are protected.</p>
 <p>Use of any Percona trademark in the name, URL, or other identifying characteristic of any product, service, website, or other use is not permitted without Percona’s written permission with the following three limited exceptions.</p>
@@ -20355,6 +20347,8 @@ manually when upgrading your system from an older version.</p>
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   

@@ -3632,7 +3632,7 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
 <ol>
 <li>
 <p>Stop the Percona XtraDB Cluster server. After the installation completes the server is not started. You need this step if you have started the server manually.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
@@ -3640,12 +3640,12 @@ In this section, we will demonstrate how to configure a three node cluster:</p>
    identical key and certificate files to maintain a consistent security setup. 
    Store the certificates in <code>/etc/</code>, not in the data directory. After generating 
    the certificates, copy them to all other nodes.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
 -x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
-$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+sudo<span class="w"> </span>cp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
 </code></pre></div>
 </li>
 <li>
@@ -3787,16 +3787,16 @@ If this variable is not specified, the host name will be used.</p>
 <p><a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a></p>
 <p>Specify the IP address of this particular node.</p>
 <p><a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a></p>
-<p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup</a> for <a href="glossary.html#sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
+<p>By default, Percona XtraDB Cluster uses Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for <a href="glossary.html#sst">State Snapshot Transfer</a>. <code>xtrabackup-v2</code> is the only supported option for this variable.
 This method requires a user for SST to be set up on the initial node.</p>
 <p><a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a></p>
 <p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default and set to <code>ENFORCING</code>, which blocks the use of tech preview features and unsupported features in Percona XtraDB Cluster.</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code></a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_default_storage_engine"><code>default_storage_engine</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Galera fully supports only the InnoDB storage engine.
 It will not work correctly with MyISAM
 or any other non-transactional storage engines.
 Set this variable to <code>default_storage_engine=InnoDB</code>.</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Galera supports only interleaved (<code>2</code>) lock mode for InnoDB.
 Setting the traditional (<code>0</code>) or consecutive (<code>1</code>) lock mode
 can cause replication to fail due to unresolved deadlocks.
@@ -3823,7 +3823,7 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 11, 2025 11:21:08 UTC">July 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
   </span>
 
     
@@ -3938,6 +3938,8 @@ Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p>
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   

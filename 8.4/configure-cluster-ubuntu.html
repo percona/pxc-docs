@@ -3715,7 +3715,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.</p>
 to ports 3306, 4444, 4567 and 4568.</p>
 </li>
 <li>
-<p>AppArmor profile for MySQL is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled</a>.</p>
+<p>AppArmor profile for MySQL is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </li>
 </ul>
 <h2 id="step-1-install-pxc">Step 1. Install PXC<a class="headerlink" href="#step-1-install-pxc" title="Permanent link">&para;</a></h2>
@@ -3763,15 +3763,15 @@ wsrep_cluster_name=my_ubuntu_cluster
 </code></pre></div>
 </li>
 <li>
-<p>Start the first node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc1 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<p>Start the first node, <code>[root@pxc1 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>This command will start the first node and bootstrap the cluster.</p>
 </li>
 <li>
 <p>After the first node has been started,
 cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following outut shows the cluste status:</p>
 <details class="example">
@@ -3797,10 +3797,10 @@ cluster status can be checked with the following command:</p>
 </li>
 </ol>
 <p>To perform <a href="state-snapshot-transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
-set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">privileges</a>:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
-mysql@pxc1&gt;<span class="w"> </span>FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
+set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.4/privileges.html">privileges</a>:</p>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
+GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3839,15 +3839,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the second node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc2 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc2<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the second node, <code>[root@pxc2 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (<code>pxc2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -3904,18 +3904,15 @@ wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
 </li>
 <li>
-<p>Start the third node with the following command:</p>
-<div class="highlight" data-prompt="[root@pxc3 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
+<p>Start the third node, <code>[root@pxc3 ~]#</code>, with the following command:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
-<p>After the server has been started,
-it should receive SST automatically.
-Cluster status can be checked on all nodes.
-The following is an example of status from the third node (<code>pxc3</code>):</p>
+<p>After the server has been started, it should receive SST automatically. Cluster status can be checked on all nodes. The following is an example of status from the third node (<code>pxc3</code>):</p>
 </li>
 </ol>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -3943,8 +3940,8 @@ create a table for that database on the third node,
 and add some records to the table on the first node.</p>
 <ol>
 <li>
-<p>Create a new database on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2>"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
+<p>Create a new database on the second node, <code>mysql@percona2&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a new database has been created:</p>
 <details class="example">
@@ -3954,8 +3951,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Switch to a newly created database:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>USE<span class="w"> </span>percona<span class="p">;</span>
+<p>Switch to a newly created database, <code>mysql@percona3&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
@@ -3966,7 +3963,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Create a table on the third node:</p>
-<div class="highlight" data-prompt="mysql@percona3>"><pre><span></span><code>mysql@percona3&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
@@ -3976,8 +3973,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -3987,8 +3984,8 @@ and add some records to the table on the first node.</p>
 </details>
 </li>
 <li>
-<p>Retrieve all the rows from that table on the second node:</p>
-<div class="highlight" data-prompt="mysql@percona2>"><pre><span></span><code>mysql@percona2&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
+<p>Retrieve all the rows from that table on the second node, <code>mysql@percona2&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
@@ -4001,8 +3998,7 @@ and add some records to the table on the first node.</p>
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<p>This simple procedure should ensure that all nodes in the cluster
-are synchronized and working as intended.</p>
+<p>This simple procedure should ensure that all nodes in the cluster are synchronized and working as intended.</p>
 </li>
 </ol>
 
@@ -4027,7 +4023,7 @@ are synchronized and working as intended.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2025 15:48:50 UTC">July 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
   </span>
 
     
@@ -4142,6 +4138,8 @@ are synchronized and working as intended.</p>
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   

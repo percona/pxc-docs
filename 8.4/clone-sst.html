@@ -3804,7 +3804,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="sst-method-clone">SST Method: Clone<a class="headerlink" href="#sst-method-clone" title="Permanent link">&para;</a></h2>
 <p>Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a modern and efficient method that leverages MySQL&rsquo;s native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<p>Clone limitations are described in <a href="https://docs.percona.com/percona-server/8.4/clone-plugin-limitations.html">Clone plugin limitations</a></p>
+<p>Clone limitations are described in <a href="https://docs.percona.com/percona-server/8.4/clone-plugin.html">Clone plugin limitations <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3990,10 +3990,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="monitor-the-process">Monitor the process<a class="headerlink" href="#monitor-the-process" title="Permanent link">&para;</a></h2>
 <p>The Joiner log reports the clone process as a <code>% of the data transfer completed</code>.
 The query used is:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">&#39;completed%&#39;</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;FILE_COPY&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">&#39;completed%&#39;</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;FILE_COPY&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>For more information on the progress, you can also use the query:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
 </code></pre></div>
 <h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <table>
@@ -4069,7 +4069,7 @@ The query used is:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 25, 2025 10:57:40 UTC">July 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
   </span>
 
     
@@ -4184,6 +4184,8 @@ The query used is:</p>
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   

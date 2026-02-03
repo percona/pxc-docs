@@ -3682,7 +3682,7 @@ encryption ensures the user cannot read the file contents. Percona Server allows
 <h2 id="use-the-component_keyring_file">Use the component_keyring_file<a class="headerlink" href="#use-the-component_keyring_file" title="Permanent link">&para;</a></h2>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to
-configure the <code>component_keyring_file</code>. The following example illustrates using the component. Review <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Use the keyring vault component</a> for the latest information on keyring components.</p>
+configure the <code>component_keyring_file</code>. The following example illustrates using the component. Review <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Use the keyring vault component <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for the latest information on keyring components.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The component_keyring_file component should not be used for regulatory compliance. </p>
@@ -3734,8 +3734,7 @@ higher-version JOINER can join from a lower-version DONOR, but the reverse is no
 <h3 id="component_keyring_vault">component_keyring_vault<a class="headerlink" href="#component_keyring_vault" title="Permanent link">&para;</a></h3>
 <p>The <code>component_keyring_vault</code> stores the master encryption key in a HashiCorp Vault server instead of a local file like <code>component_keyring_file</code>.</p>
 <h3 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
-<p>Configuration options are the same as
-<a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL</a>.</p>
+<p>Configuration options are the same as <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
  &quot;read_local_manifest&quot;: false,
@@ -3755,9 +3754,9 @@ higher-version JOINER can join from a lower-version DONOR, but the reverse is no
 <p>The <code>secret_mount_point_version</code> parameter defaults to <code>AUTO</code> and controls whether the Vault KV Secrets Engine is version 1 (kv) or version 2 (kv-v2). Using the wrong KV version can cause silent failures during keyring operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using <a href="https://developer.hashicorp.com/vault/docs/auth/approle">Vault&rsquo;s AppRole authentication</a> or dynamic token retrieval mechanisms for enhanced security.</p>
+<p>Token Security: Avoid embedding long-lived tokens directly in configuration files. Consider using <a href="https://developer.hashicorp.com/vault/docs/auth/approle">Vault&rsquo;s AppRole authentication <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> or dynamic token retrieval mechanisms for enhanced security.</p>
 </div>
-<p>The detailed description of these options can be found in the <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL keyring vault component documentation</a>.</p>
+<p>The detailed description of these options can be found in the <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL keyring vault component documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Vault-server is an external server, so make sure the PXC node can reach the
 server.</p>
 <div class="admonition warning">
@@ -3797,7 +3796,7 @@ following error(s): [&quot;permission denied&quot;]&#39;
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server restart, but the node still refuses to start:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3941,7 +3940,7 @@ port=16400
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="encrypt-traffic.html">Encrypt traffic documentation</a></p>
-<p>Percona Server for MySQL Documentation: Data-at-Rest Encryption https://www.percona.com/doc/percona-server/8.4/security/data-at-rest-encryption.html#data-at-rest-encryption</p>
+<p><a href="https://www.percona.com/doc/percona-server/8.4/security/data-at-rest-encryption.html#data-at-rest-encryption">Percona Server for MySQL Documentation: Data-at-Rest Encryption <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 
 
@@ -3965,7 +3964,7 @@ port=16400
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 3, 2025 12:18:59 UTC">October 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
   </span>
 
     
@@ -4080,6 +4079,8 @@ port=16400
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   

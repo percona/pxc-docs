@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="For more information about using Docker, see the Docker Docs. Make
+        <meta name="description" content="For more information about using Docker, see the Docker Docs . Make
 sure that you are using the latest version of Docker. The ones
 provided via apt and yum may be outdated and cause errors.">
       
@@ -3580,7 +3580,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="run-with-docker-compose">Run with Docker Compose<a class="headerlink" href="#run-with-docker-compose" title="Permanent link">&para;</a></h1>
-<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs</a>. Make
+<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Make
 sure that you are using the latest version of Docker. The ones
 provided via <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -3606,8 +3606,8 @@ procedure are self-signed.</p>
 <h2 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
 <p>You must create a separate directory structure to organize your configuration, certificate files, and Docker Compose setup. This step keeps your deployment clean and easy to manage.</p>
 <p>Run the following commands to create the directory structure:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
-$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-cluster
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
+<span class="nb">cd</span><span class="w"> </span>pxc-cluster
 </code></pre></div>
 <p>After running these commands, your working directory (pxc-cluster/) will contain:</p>
 <p><img alt="PXC cluster directories" src="_static/pxc-cluster-dirs.png" /></p>
@@ -3661,12 +3661,12 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-c
 </li>
 <li>
 <p>Make the script executable:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
+<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
 </code></pre></div>
 </li>
 <li>
 <p>Run the script to create the certs:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>./init/create-ssl-certs.sh
+<div class="highlight"><pre><span></span><code>./init/create-ssl-certs.sh
 </code></pre></div>
 </li>
 <li>
@@ -3674,16 +3674,16 @@ $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pxc-c
 <p>All three nodes in the cluster must use the same set of SSL certificates. After generating the certificates in the certs/ directory on node 1, you need to copy them to the directories for node 2 and node 3.</p>
 <p>If you run all containers from a single project directory (like with Docker Compose on one host), you can reuse the same certs/ directory for all nodes. However, you must explicitly copy the certificates if you’re organizing them into separate directories or deploying on separate hosts.</p>
 <p>To create the directories for node 2 and node 3:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
-$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
+mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
 </code></pre></div>
 <p>Then copy the certificates:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
 $<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
 </code></pre></div>
 <p>If you’re deploying on separate machines, run the following from node 1:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
-$<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
+scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
 </code></pre></div>
 <p>Ensure each container mounts its own copy of the certs/ directory.</p>
 </li>
@@ -3758,16 +3758,16 @@ $<span class="w"> </span>scp<span class="w"> </span>-r<span class="w"> </span>./
 <li>
 <p>Start the Cluster</p>
 <p>Start node 1 to initialize the cluster:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
 </code></pre></div>
 <p>Then, start the remaining nodes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
 </code></pre></div>
 </li>
 <li>
 <p>Validate the Cluster</p>
 <p>Check the status of each node:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
 </code></pre></div>
 </li>
@@ -3795,7 +3795,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 15, 2025 11:41:36 UTC">July 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
   </span>
 
     
@@ -3910,6 +3910,8 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
         <script src="js/consent.js"></script>
       
         <script src="js/rating.js"></script>
+      
+        <script src="js/open_in_new_tab.js"></script>
       
     
   
