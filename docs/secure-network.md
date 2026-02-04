@@ -36,20 +36,20 @@ In the following example, the trusted range of IP addresses is 192.168.0.1/24.
 It is assumed that only Percona XtraDB Cluster nodes and clients will connect from these IPs.
 To enable packet filtering, run the commands as root on each Percona XtraDB Cluster node.
 
-```{.bash data-prompt="#"}
-# iptables --append INPUT --in-interface eth0 \
+```shell
+iptables --append INPUT --in-interface eth0 \
    --protocol tcp --match tcp --dport 3306 \
    --source 192.168.0.1/24 --jump ACCEPT
-# iptables --append INPUT --in-interface eth0 \
+iptables --append INPUT --in-interface eth0 \
    --protocol tcp --match tcp --dport 4444 \
    --source 192.168.0.1/24 --jump ACCEPT
-# iptables --append INPUT --in-interface eth0 \
+iptables --append INPUT --in-interface eth0 \
    --protocol tcp --match tcp --dport 4567 \
    --source 192.168.0.1/24 --jump ACCEPT
-# iptables --append INPUT --in-interface eth0 \
+iptables --append INPUT --in-interface eth0 \
    --protocol tcp --match tcp --dport 4568 \
    --source 192.168.0.1/24 --jump ACCEPT
-# iptables --append INPUT --in-interface eth0 \
+iptables --append INPUT --in-interface eth0 \
    --protocol udp --match udp --dport 4567 \
    --source 192.168.0.1/24 --jump ACCEPT
 ```
@@ -65,12 +65,12 @@ This is a little bit less secure, but reduces the amount of commands.
 For example, if you have three Percona XtraDB Cluster nodes,
 you can run the following commands on each one:
 
-```{.bash data-prompt="#"}
-# iptables --append INPUT --protocol tcp \
+```shell
+iptables --append INPUT --protocol tcp \
     --source 64.57.102.34 --jump ACCEPT
-# iptables --append INPUT --protocol tcp \
+iptables --append INPUT --protocol tcp \
     --source 193.166.3.20  --jump ACCEPT
-# iptables --append INPUT --protocol tcp \
+iptables --append INPUT --protocol tcp \
     --source 193.125.4.10  --jump ACCEPT
 ```
 
@@ -81,8 +81,8 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
     
     The changes that you make in `iptables` are not persistent unless you save the packet filtering state:
 
-    ```{.bash data-prompt="#"}
-    # service save iptables
+    ```shell
+    service save iptables
     ```
 
     For distributions that use `systemd`,
@@ -98,7 +98,7 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
 
     Use `iptables-save` to update the file:
 
-    ```{.bash data-prompt="#"}
-    # iptables-save > /etc/sysconfig/iptables
+    ```shell
+    iptables-save > /etc/sysconfig/iptables
     ```
 

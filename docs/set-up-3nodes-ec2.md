@@ -11,7 +11,7 @@ with Red Hat Enterprise Linux 7 64-bit.
 
 ### Recommendations on launching EC2 instances
 
-1. Select [instance types](https://aws.amazon.com/ec2/instance-types/) that support Enhanced Networking functionality. Good network performance critical for synchronous replication used in Percona XtraDB Cluster.
+1. Select [instance types :octicons-link-external-16:](https://aws.amazon.com/ec2/instance-types/) that support Enhanced Networking functionality. Good network performance critical for synchronous replication used in Percona XtraDB Cluster.
 
 2. When adding instance storage volumes, choose the ones with good I/O performance:
 
@@ -27,7 +27,7 @@ with Red Hat Enterprise Linux 7 64-bit.
 
     !!! admonition "See also"
 
-        Amazon EC2 Documentation: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
+        [Amazon EC2 Documentation :octicons-link-external-16:](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
 
 To set up Percona XtraDB Cluster:
 
@@ -41,15 +41,15 @@ To set up Percona XtraDB Cluster:
 
 3. Create data directories:
 
-    ```{.bash data-prompt="$"}
-    $ mkdir -p /mnt/data
-    $ mysql_install_db --datadir=/mnt/data --user=mysql
+    ```shell
+    mkdir -p /mnt/data
+    mysql_install_db --datadir=/mnt/data --user=mysql
     ```
 
 4. Stop the firewall service:
 
-    ```{.bash data-prompt="$"}
-    $ service iptables stop
+    ```shell
+    service iptables stop
     ```
 
     !!! note
@@ -90,7 +90,7 @@ To set up Percona XtraDB Cluster:
 6. Start and bootstrap Percona XtraDB Cluster on the first node:
 
     ```shell
-    [root@pxc1 ~]# systemctl start mysql@bootstrap.service
+    systemctl start mysql@bootstrap.service
     ```
 
     ??? example "Expected output"
@@ -102,8 +102,8 @@ To set up Percona XtraDB Cluster:
 
 7. Start the second and third nodes:
 
-    ```{.bash data-prompt="$"}
-    $ sudo systemctl start mysql
+    ```shell
+    sudo systemctl start mysql
     ```
 
     ??? example "Expected output"
@@ -148,8 +148,8 @@ To set up Percona XtraDB Cluster:
 
 8. You can try connecting to MySQL on any node and create a database:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -uroot
+    ```shell
+    mysql -uroot
     > CREATE DATABASE hello_tom;
     ```
 The new database will be propagated to all nodes.

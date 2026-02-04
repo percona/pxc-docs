@@ -30,7 +30,7 @@ for manual installation:
 
 If you want to build Percona XtraDB Cluster from source, see [Compiling and Installing from Source Code](compile.md#compile).
 
-If you want to run Percona XtraDB Cluster using Docker, see [Running Percona XtraDB Cluster in a Docker Container](docker.md#running-percona-xtradb-cluster-in-a-docker-container).
+If you want to run Percona XtraDB Cluster using Docker, see [Run in a Docker container](docker.md).
 
 ## Product version numbering
 

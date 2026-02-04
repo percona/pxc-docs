@@ -5,7 +5,7 @@ based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.
 
 It is assumed that each PXC node is installed on Amazon T2.micro instances
-running RHEL 8.  However, the information in this section should apply if you
+running RHEL 8. However, the information in this section should apply if you
 used another virtualization technology (for example, VirtualBox) with any Linux
 distribution.
 
@@ -21,8 +21,8 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
 
 2.  On the client node, install [ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql) and `sysbench`:
 
-    ```{.bash data-prompt="$"}
-    $ yum -y install proxysql2 sysbench
+    ```shell
+    yum -y install proxysql2 sysbench
     ```
 
 3.  When all cluster nodes are started, configure ProxySQL using the admin
@@ -36,7 +36,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
             or install the client on Node 4 and connect locally.
 
         To connect to the admin interface, use the credentials, host name and port
-        specified in the [global variables](https://github.com/sysown/proxysql/blob/master/doc/global_variables.md).
+        specified in the [global variables :octicons-link-external-16:](https://github.com/sysown/proxysql/blob/master/doc/global_variables.md).
 
         !!! warning
 
@@ -45,8 +45,8 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
         The following example shows how to connect to the ProxySQL admin interface
         with default credentials (assuming that ProxySQL IP is 192.168.70.74):
 
-        ```{.bash data-prompt="root@proxysql:~#"}
-        root@proxysql:~# mysql -u admin -padmin -h 127.0.0.1 -P 6032
+        ```shell
+        mysql -u admin -padmin -h 127.0.0.1 -P 6032
         ```
 
         ??? example "Expected output"
@@ -71,8 +71,8 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
         To see the ProxySQL databases and tables use the `SHOW DATABASES` and
         `SHOW TABLES` commands:
 
-        ```{.bash data-prompt="mysql>"}
-        mysql> SHOW DATABASES;
+        ```sql
+        SHOW DATABASES;
         ```
 
         The following output shows the list of the ProxySQL databases:
@@ -92,8 +92,8 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
             5 rows in set (0.00 sec)
             ```
 
-        ```{.bash data-prompt="mysql>"}
-        mysql> SHOW TABLES;
+        ```sql
+        SHOW TABLES;
         ```
 
         The following output shows the list of tables:
@@ -140,7 +140,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
             32 rows in set (0.00 sec)
             ```
 
-        For more information about admin databases and tables, see [Admin Tables](https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md)
+        For more information about admin databases and tables, see [Admin Tables :octicons-link-external-16:](https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md)
 
         !!! note
 
@@ -191,24 +191,23 @@ This information is stored in the [runtime_]mysql_galera_hostgroups table.
 Make sure that the variable mysql-server_version refers to the correct
 version. For Percona XtraDB Cluster {{vers}}, set it to {{vers}} accordingly:
 
-```{.bash data-prompt="mysql>"}
-mysql> UPDATE GLOBAL_VARIABLES
+```sql
+UPDATE GLOBAL_VARIABLES
 SET variable_value='8.0'
 WHERE variable_name='mysql-server_version';
 
-mysql> LOAD MYSQL SERVERS TO RUNTIME;
-mysql> SAVE MYSQL SERVERS TO DISK;
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
 ```
 
 !!! admonition "See also"
 
-    Percona Blogpost: ProxySQL Native Support for Percona XtraDB Cluster (PXC) https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/
+    [Percona Blogpost: ProxySQL Native Support for Percona XtraDB Cluster (PXC) :octicons-link-external-16:](https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/)
 
-Given the nodes from the mysql_servers table, you may set up the hostgroups as
-follows:
+Given the nodes from the mysql_servers table, you may set up the hostgroups as follows:
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO mysql_galera_hostgroups (
+```sql
+INSERT INTO mysql_galera_hostgroups (
 writer_hostgroup, backup_writer_hostgroup, reader_hostgroup,
 offline_hostgroup, active, max_writers, writer_is_also_reader,
 max_transactions_behind)
@@ -236,19 +235,19 @@ OFFLINE hostgroup
 Set up ProxySQL query rules for read/write split using the mysql_query_rules
 table:
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO mysql_query_rules (
+```sql
+INSERT INTO mysql_query_rules (
 username,destination_hostgroup,active,match_digest,apply)
 VALUES ('appuser',10,1,'^SELECT.*FOR UPDATE',1);
 
-mysql> INSERT INTO mysql_query_rules (
+INSERT INTO mysql_query_rules (
 username,destination_hostgroup,active,match_digest,apply)
 VALUES ('appuser',11,1,'^SELECT ',1);
 
-mysql> LOAD MYSQL QUERY RULES TO RUNTIME;
-mysql> SAVE MYSQL QUERY RULES TO DISK;
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
 
-mysql> select hostgroup_id,hostname,port,status,weight from runtime_mysql_servers;
+select hostgroup_id,hostname,port,status,weight from runtime_mysql_servers;
 ```
 
 ??? example "Expected output"
@@ -268,18 +267,16 @@ mysql> select hostgroup_id,hostname,port,status,weight from runtime_mysql_server
 
 !!! admonition "See also"
 
-    ProxySQL Blog: MySQL read/write split with ProxySQL
-      https://proxysql.com/blog/configure-read-write-split/
-    ProxySQL Documentation: `mysql_query_rules` table
-      https://github.com/sysown/proxysql/wiki/Main-(runtime)#mysql_query_rules
+    [ProxySQL Blog: MySQL read/write split with ProxySQL :octicons-link-external-16:](https://proxysql.com/blog/configure-read-write-split/)
+    [ProxySQL Documentation: `mysql_query_rules` table :octicons-link-external-16:](https://github.com/sysown/proxysql/wiki/Main-(runtime)#mysql_query_rules)
 
 ### ProxySQL failover behavior
 
 Notice that all servers were inserted into the mysql_servers table with the
 READER hostgroup set to 10 (see the value of the hostgroup_id column):
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM mysql_servers;
+```sql
+SELECT * FROM mysql_servers;
 ```
 
 ??? example "Expected output"
@@ -312,33 +309,33 @@ privilege on any node in the cluster and configure the user in ProxySQL.
 
 The following example shows how to add a monitoring user on Node 2 if you are using the deprecated `mysql_native_password` authentication method:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password BY 'ProxySQLPa55';
+```sql
+CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password BY 'ProxySQLPa55';
 ```
 
 The following example adds a monitoring user on Node 2 if you are using the `caching_sha2_password` authentication method:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'proxysql'@'%' \
+```sql
+CREATE USER 'proxysql'@'%' \
         IDENTIFIED WITH caching_sha2_password \
         BY 'ProxySQLPa55';
 ```
 
 For either authentication method, run the following command to give the user account named 'proxysql' permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.
 
-````{.bash data-prompt="mysql>"}
-mysql> GRANT USAGE ON *.* TO 'proxysql'@'%';
+```sql
+GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
 The following example shows how to configure this user on the ProxySQL node:
 
-```{.bash data-prompt="mysql>"}
-mysql> UPDATE global_variables SET variable_value='proxysql'
+```sql
+UPDATE global_variables SET variable_value='proxysql'
 WHERE variable_name='mysql-monitor_username';
 
-mysql> UPDATE global_variables SET variable_value='ProxySQLPa55'
+UPDATE global_variables SET variable_value='ProxySQLPa55'
 WHERE variable_name='mysql-monitor_password';
-````
+```
 
 ### Saving and loading the configuration
 
@@ -346,15 +343,15 @@ To load this configuration at runtime, issue the `LOAD` command. To save these
 changes to disk (ensuring that they persist after ProxySQL shuts down), issue
 the `SAVE` command.
 
-```{.bash data-prompt="mysql>"}
-mysql> LOAD MYSQL VARIABLES TO RUNTIME;
-mysql> SAVE MYSQL VARIABLES TO DISK;
+```sql
+LOAD MYSQL VARIABLES TO RUNTIME;
+SAVE MYSQL VARIABLES TO DISK;
 ```
 
 To ensure that monitoring is enabled, check the monitoring logs:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 6;
+```sql
+SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 ??? example "Expected output"
@@ -373,8 +370,8 @@ mysql> SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DES
     6 rows in set (0.00 sec)
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 6;
+```sql
+SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 ??? example "Expected output"
@@ -398,8 +395,8 @@ you added.
 
 To enable monitoring of these nodes, load them at runtime:
 
-```{.bash data-prompt="mysql>"}
-mysql> LOAD MYSQL SERVERS TO RUNTIME;
+```sql
+LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
 ### Creating ProxySQL Client User
@@ -408,8 +405,8 @@ ProxySQL must have users that can access backend nodes to manage connections.
 
 To add a user, insert credentials into `mysql_users` table:
 
-```{.bash data-prompt="mysql>"}
-mysql> INSERT INTO mysql_users (username,password) VALUES ('appuser','$3kRetp@$sW0rd');
+```sql
+INSERT INTO mysql_users (username,password) VALUES ('appuser','$3kRetp@$sW0rd');
 ```
 
 The example of the output is the following:
@@ -426,20 +423,19 @@ The example of the output is the following:
 
     !!! admonition "See also"
 
-        [More information about password encryption in ProxySQL](https://github.com/sysown/proxysql/wiki/MySQL-{{vers}})
+        [More information about password encryption in ProxySQL :octicons-link-external-16:](https://github.com/sysown/proxysql/wiki/MySQL-{{vers}})
 
-Load the user into runtime space and save these changes to disk (ensuring that
-they persist after ProxySQL shuts down):
+Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):
 
-```{.bash data-prompt="mysql>"}
-mysql> LOAD MYSQL USERS TO RUNTIME;
-mysql> SAVE MYSQL USERS TO DISK;
+```sql
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
 ```
 
 To confirm that the user has been set up correctly, you can try to log in:
 
-```{.bash data-prompt="root@proxysql:~#"}
-root@proxysql:~# mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
+```shell
+mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
 ```
 
 ??? example "Expected output"
@@ -461,23 +457,23 @@ root@proxysql:~# mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
 
 The following example adds an `appuser` user account, if you are using the deprecated `mysql_native_password` authentication method:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'appuser'@'192.168.70.74'
+```sql
+CREATE USER 'appuser'@'192.168.70.74'
 IDENTIFIED WITH mysql_native_password by '$3kRetp@$sW0rd';
 ```
 
 The following example adds an `appuser` user account if you are using the `caching_sha2_password` authentication method:
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE USER 'appuser'@'192.168.70.74' \
+```sql
+CREATE USER 'appuser'@'192.168.70.74' \
         IDENTIFIED WITH caching_sha2_password \
         BY '$3kRetp@$sW0rd';
 ```
 
 The following example command grants the `appuser` account all privileges on all databases and tables.
 
-```{.bash data-prompt="mysql>"}
-mysql> GRANT ALL ON *.* TO 'appuser'@'192.168.70.74';
+```sql
+GRANT ALL ON *.* TO 'appuser'@'192.168.70.74';
 ```
 
 ## Testing the cluster with the sysbench benchmark tool
@@ -488,8 +484,8 @@ the `sysbench` benchmarking tool.
 1.  Create a database (sysbenchdb in this example; you can use a
     different name):
 
-        ```{.bash data-prompt="mysql>"}
-        mysql> CREATE DATABASE sysbenchdb;
+        ```sql
+        CREATE DATABASE sysbenchdb;
         ```
 
         The following output confirms that a new database has been created:
@@ -506,8 +502,8 @@ the `sysbench` benchmarking tool.
     access to this database as the value of the `--mysql-user`
     parameter:
 
-    ```{.bash data-prompt="$"}
-    $ sysbench /usr/share/sysbench/oltp_insert.lua --mysql-db=sysbenchdb \
+    ```shell
+    sysbench /usr/share/sysbench/oltp_insert.lua --mysql-db=sysbenchdb \
     --mysql-host=127.0.0.1 --mysql-port=6033 --mysql-user=appuser \
     --mysql-password=$3kRetp@$sW0rd --db-driver=mysql --threads=10 --tables=10 \
     --table-size=1000 prepare
@@ -515,8 +511,8 @@ the `sysbench` benchmarking tool.
 
 3.  Run the benchmark on port 6033:
 
-    ```{.bash data-prompt="$"}
-    $ sysbench /usr/share/sysbench/oltp_read_write.lua --mysql-db=sysbenchdb \
+    ```shell
+    sysbench /usr/share/sysbench/oltp_read_write.lua --mysql-db=sysbenchdb \
     --mysql-host=127.0.0.1 --mysql-port=6033 --mysql-user=appuser \
     --mysql-password=$3kRetp@$sW0rd --db-driver=mysql --threads=10 --tables=10 \
     --skip-trx=true --table-size=1000 --time=100 --report-interval=10 run
@@ -528,6 +524,6 @@ the `sysbench` benchmarking tool.
 
 * [Load balancing with ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql)
 * [Configure on RHEL](configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions)
-* [Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC)](https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/)
-* [GitHub repository for the sysbench benchmarking tool](https://github.com/akopytov/sysbench/)
+* [Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC) :octicons-link-external-16:](https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/)
+* [GitHub repository for the sysbench benchmarking tool :octicons-link-external-16:](https://github.com/akopytov/sysbench/)
 

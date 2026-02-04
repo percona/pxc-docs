@@ -44,7 +44,7 @@ under `[sst]`.
 
 Used to specify the Percona XtraBackup streaming format. The only option is the `xbstream` format. SST fails and generates an error when another format, such as `tar`, is used.
 
-For more information about the `xbstream` format, see [The xbstream Binary](https://docs.percona.com/percona-xtrabackup/{{vers}}/xbstream-binary-overview.html).
+For more information about the `xbstream` format, see [The xbstream Binary :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/xbstream-binary-overview.html).
 
 ### transferfmt
 
@@ -58,7 +58,7 @@ Used to specify the data transfer format.
 The recommended value is the default `transferfmt=socat`
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see [socat(1)](https://www.redhat.com/sysadmin/getting-started-socat).
+For more information, see [socat(1) :octicons-link-external-16:](https://www.redhat.com/sysadmin/getting-started-socat).
 
 !!! note
 
@@ -88,7 +88,7 @@ for `socat` encryption based on OpenSSL.
     The names of options were chosen to be compatible with `socat`
     parameter names as well as with MySQL’s SSL authentication.
     For testing you can also download certificates from
-    [launchpad](https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/).
+    [launchpad :octicons-link-external-16:](https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/).
 
 !!! note
 
@@ -142,7 +142,7 @@ The previous example causes socat to try to connect three times
 
 This option only applies when socat is used (`transferfmt=socat`).
 For more information about socket options, see
-[socat (1)](https://www.redhat.com/sysadmin/getting-started-socat).
+[socat (1) :octicons-link-external-16:](https://www.redhat.com/sysadmin/getting-started-socat).
 
 !!! note
 
@@ -181,7 +181,7 @@ Rebuild of indexes may be used as an optimization.
 
 !!! note 
 
-    [#1192834](https://bugs.launchpad.net/percona-xtradb-cluster/+bug/1192834) affects this option.
+    [#1192834 :octicons-link-external-16:](https://bugs.launchpad.net/percona-xtradb-cluster/+bug/1192834) affects this option.
 
 ### time
 
@@ -199,7 +199,7 @@ Enabling this option instruments key stages of backup and restore in SST.
 Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
 For example, `128k` is 128 kilobytes.
-For more information, see [pv(1)](https://linux.die.net/man/1/pv).
+For more information, see [pv(1) :octicons-link-external-16:](https://linux.die.net/man/1/pv).
 
 !!! note
 

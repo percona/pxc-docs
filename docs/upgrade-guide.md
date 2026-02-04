@@ -10,8 +10,8 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
 
     Run the command on a current cluster member and on the node that is about to join, then compare the two outputs.
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> SHOW STATUS LIKE 'wsrep_protocol_version';
+    ```sql
+    SHOW STATUS LIKE 'wsrep_protocol_version';
     ```
 
     ??? example "Expected output"
@@ -24,7 +24,7 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
         +------------------------+-------+
         ```
 
-Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide](https://docs.percona.com/percona-server/8.4/upgrade.html).
+Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: [Percona Server for MySQL 8.4 Upgrade Guide :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/upgrade.html).
 
 --8<--- "get-help-snip.md"
 
@@ -36,7 +36,7 @@ Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the k
 
 | Requirement         | Details  |
 |---------------------|----------|
-| In-place upgrade     | During an in-place upgrade, you need to update your `my.cnf` configuration. Replace the keyring plugin settings with the keyring component configuration. This includes updating the manifest and the component configuration file. [Learn more about installing the keyring component here](https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html). |
+| In-place upgrade     | During an in-place upgrade, you need to update your `my.cnf` configuration. Replace the keyring plugin settings with the keyring component configuration. This includes updating the manifest and the component configuration file. [Learn more about installing the keyring component here :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html). |
 | Rolling upgrade      | When performing a rolling upgrade, the donor node (running an older version) can still use the keyring plugin, while the 8.4 node uses the keyring component. Since both use the keyring for encryption, they remain compatible and work together seamlessly. |
 | Other requirements   | All other requirements, such as ensuring the SST (State Snapshot Transfer) channel is SSL-encrypted when using the keyring plugin or component, remain the same as in version 8.0. |
 
@@ -74,14 +74,14 @@ Percona Server for MySQL 8.4 also introduces several DDL (Data Definition Langua
 
     * 8.0: Doesn’t allow this and will fail the DDL statement.
 
-```{.bash data-prompt="mysql>"}
-mysql> CREATE TABLE parent (
+```sql
+CREATE TABLE parent (
     id INT,
     value INT,
     INDEX (value)
 );
 
-mysql> CREATE TABLE child (
+CREATE TABLE child (
     id INT,
     parent_value INT,
     FOREIGN KEY (parent_value) REFERENCES parent(value)
@@ -167,8 +167,8 @@ To upgrade the cluster, follow these steps for each node:
 
 2. Stop the mysql service:
 
-    ```{.bash data-prompt="$"}
-    $ sudo service mysql stop
+    ```shell
+    sudo service mysql stop
     ```
 
 3. Upgrade Percona XtraDB Cluster packages. For more information, see [Install Percona XtraDB Cluster](install-index.md).
@@ -180,8 +180,8 @@ To upgrade the cluster, follow these steps for each node:
     In most cases, starting the `mysql` service should run the node with your
     previous configuration. For more information, see [Adding Nodes to Cluster](add-node.md#add-nodes-to-cluster).
 
-    ```{.bash data-prompt="$"}
-    $ sudo service mysql start
+    ```shell
+    sudo service mysql start
     ```
 
     On Red Hat Enterprise Linux, the `/etc/my.cnf` configuration file is renamed to `my.cnf.rpmsave`. Make sure to rename this file back to the original name before joining the upgraded node back to the cluster.

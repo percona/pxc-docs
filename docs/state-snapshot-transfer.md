@@ -43,7 +43,7 @@ Xtrabackup SST uses backup locks, so the Galera provider continues running witho
 
 #### Version changes
 
-Starting with Percona XtraDB Cluster 8.4.7-7, the `xtrabackup` SST method uses the [Reduced backup lock time](https://docs.percona.com/percona-xtrabackup/8.4/reduction-in-locks.html) feature. This enhancement minimizes blocking on the **Donor node** during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired `lock_ddl` value in the [xtrabackup] section of the `my.cnf` configuration file. For more information about the `--lock-ddl` option and its available values, refer to the [xtrabackup command-line options](https://docs.percona.com/percona-xtrabackup/8.4/xtrabackup-option-reference.html#lock-ddl) documentation.
+Starting with Percona XtraDB Cluster 8.4.7-7, the `xtrabackup` SST method uses the [Reduced backup lock time :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/reduction-in-locks.html) feature. This enhancement minimizes blocking on the **Donor node** during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired `lock_ddl` value in the [xtrabackup] section of the `my.cnf` configuration file. For more information about the `--lock-ddl` option and its available values, refer to the [xtrabackup command-line options :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/xtrabackup-option-reference.html#lock-ddl) documentation.
 
 ## Limitation
 
@@ -68,7 +68,7 @@ When both local and remote nodes can perform IST, the cluster selects the node w
 ## Use Percona Xtrabackup
 
 The default SST method is `xtrabackup-v2`, which uses *Percona XtraBackup*.
-The least blocking method leverages [backup locks](https://www.percona.com/doc/percona-server/{{vers}}/management/backlocks.html).
+The least blocking method leverages [backup locks :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/backup-locks.html).
 XtraBackup is run locally on the donor node.
 
 The [datadir](glossary.md#datadir) must be specified in the server configuration file `my.cnf`, otherwise the transfer process will fail.
@@ -89,6 +89,6 @@ XtraBackup restores the table to the same location on the joiner node. If the ta
 
 ## Other reading
 
-* [State Snapshot Transfer Methods for MySQL](https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/)
+* [State Snapshot Transfer Methods for MySQL :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/)
 
 * [Xtrabackup SST configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration)

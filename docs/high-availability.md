@@ -12,8 +12,8 @@ If data changed while a node was down, the node has two options when rejoining t
 
 You can monitor the current state of a node using the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW STATUS LIKE 'wsrep_local_state_comment';
+```sql
+SHOW STATUS LIKE 'wsrep_local_state_comment';
 ```
 
 ??? example "Expected output"

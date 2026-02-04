@@ -46,9 +46,9 @@ The following procedure provides an overview with links to details for every ste
 
 * [Install ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql).
 
-  To complete the deployment of the cluster, a high-availability proxy is required. We recommend installing [ProxySQL](https://www.proxysql.com/) on client nodes for efficient workload management across the cluster without any changes to the applications that generate queries.
+  To complete the deployment of the cluster, a high-availability proxy is required. We recommend installing [ProxySQL :octicons-link-external-16:](https://www.proxysql.com/) on client nodes for efficient workload management across the cluster without any changes to the applications that generate queries.
 
 ## Percona Monitoring and Management
 
-[Percona Monitoring and Management](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is the best choice for managing and monitoring Percona XtraDB Cluster performance.
+[Percona Monitoring and Management :octicons-link-external-16:](https://www.percona.com/software/database-tools/percona-monitoring-and-management) is the best choice for managing and monitoring Percona XtraDB Cluster performance.
 It provides visibility for the cluster and enables efficient troubleshooting.

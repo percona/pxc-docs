@@ -4,7 +4,7 @@
 
     This documentation is for the latest release: [Percona XtraDB Cluster {{release}}](release-notes/{{release}}.md) release notes.
 
-[Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
+[Percona XtraDB Cluster :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
 
 ### Features of Percona XtraDB Cluster
 
@@ -32,11 +32,11 @@ Percona XtraDB Cluster {{vers}} is fully compatible with MySQL Server Community 
 
      * [Important changes in Percona XtraDB Cluster {{vers}}](upgrade-guide.md#important-changes-in-percona-xtradb-cluster-84)
 
-     * [MySQL Community Edition](https://www.mysql.com/products/community/)
+     * [MySQL Community Edition :octicons-link-external-16:](https://www.mysql.com/products/community/)
      
-     * [Percona Server for MySQL](https://www.percona.com/doc/percona-server/LATEST/index.html)
+     * [Percona Server for MySQL :octicons-link-external-16:](https://www.percona.com/doc/percona-server/LATEST/index.html)
     
-     * [How We Made Percona XtraDB Cluster Scale](https://www.percona.com/blog/2017/04/19/how-we-made-percona-xtradb-cluster-scale)
+     * [How We Made Percona XtraDB Cluster Scale :octicons-link-external-16:](https://www.percona.com/blog/2017/04/19/how-we-made-percona-xtradb-cluster-scale)
    
 <div data-grid markdown><div data-banner markdown>
 

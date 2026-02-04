@@ -17,8 +17,8 @@ wsrep_provider_options="gcache.size=512M"
 
 Dynamic variables can be changed from the *MySQL* client using the `SET GLOBAL` command. For example, to change the value of the [`pc.ignore_sb`](wsrep-provider-index.md#pcignore_sb), use the following command:
 
-```{.bash data-prompt="mysql>"}
-mysql> SET GLOBAL wsrep_provider_options="pc.ignore_sb=true";
+```sql
+SET GLOBAL wsrep_provider_options="pc.ignore_sb=true";
 ```
 
 ## Index
@@ -98,8 +98,8 @@ should be logged.
 !!! admonition "See also"
 
     Galera Cluster Documentation:
-    * [Parameter: cert.optimistic_pa](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#cert.optimistic_pa)
-    * [Setting parallel slave threads](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads)
+    * [Parameter: cert.optimistic_pa :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#cert.optimistic_pa)
+    * [Setting parallel slave threads :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads)
 
 ### `debug`
 
@@ -410,9 +410,9 @@ continue to be part of the cluster and can act as a potential
 
       Percona Database Performance Blog:
 
-      * [All You Need to Know About GCache (Galera-Cache)](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+      * [All You Need to Know About GCache (Galera-Cache) :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
-      * [Want IST Not SST for Node Rejoins? We Have a Solution!](https://www.percona.com/blog/2018/02/13/no-sst-node-rejoins/)
+      * [Want IST Not SST for Node Rejoins? We Have a Solution! :octicons-link-external-16:](https://www.percona.com/blog/2018/02/13/no-sst-node-rejoins/)
 
 The [`gcache.freeze_purge_at_seqno`](wsrep-provider-index.md#gcachefreeze_purge_at_seqno) variable takes three values:
 
@@ -515,7 +515,7 @@ size of the disk. Pages are prefixed by gcache.page.
 
 !!! admonition "See also"
 
-    [Percona Database Performance Blog: All You Need to Know About GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+    [Percona Database Performance Blog: All You Need to Know About GCache :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 ### `gcache.recover`
 
@@ -583,7 +583,7 @@ rr
 
 !!! admonition "See also"
 
-    For information, see the [MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio)
+    For information, see the [MariaDB Galera Cluster documentation :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio)
 
 ### `gcs.fc_auto_evict_threshold`
 
