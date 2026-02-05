@@ -3504,7 +3504,7 @@ with Red Hat Enterprise Linux 7 64-bit.</p>
 <h3 id="recommendations-on-launching-ec2-instances">Recommendations on launching EC2 instances<a class="headerlink" href="#recommendations-on-launching-ec2-instances" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>Select <a href="https://aws.amazon.com/ec2/instance-types/">instance types</a> that support Enhanced Networking functionality. Good network performance critical for synchronous replication used in Percona XtraDB Cluster.</p>
+<p>Select <a href="https://aws.amazon.com/ec2/instance-types/">instance types <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> that support Enhanced Networking functionality. Good network performance critical for synchronous replication used in Percona XtraDB Cluster.</p>
 </li>
 <li>
 <p>When adding instance storage volumes, choose the ones with good I/O performance:</p>
@@ -3527,7 +3527,7 @@ with Red Hat Enterprise Linux 7 64-bit.</p>
 <p>Launch instances in different availability zones to avoid cluster downtime in case one of the zones experiences power loss or network connectivity issues.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p>Amazon EC2 Documentation: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html</p>
+<p><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html">Amazon EC2 Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 </li>
 </ol>
@@ -3549,13 +3549,13 @@ with Red Hat Enterprise Linux 7 64-bit.</p>
 </li>
 <li>
 <p>Create data directories:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/data
-$<span class="w"> </span>mysql_install_db<span class="w"> </span>--datadir<span class="o">=</span>/mnt/data<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/data
+mysql_install_db<span class="w"> </span>--datadir<span class="o">=</span>/mnt/data<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Stop the firewall service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>service<span class="w"> </span>iptables<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>iptables<span class="w"> </span>stop
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3588,7 +3588,7 @@ wsrep_node_name=node3
 </li>
 <li>
 <p>Start and bootstrap Percona XtraDB Cluster on the first node:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc1<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql@bootstrap.service</span>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3599,7 +3599,7 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 </li>
 <li>
 <p>Start the second and third nodes:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3642,7 +3642,7 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 </li>
 <li>
 <p>You can try connecting to MySQL on any node and create a database:</p>
-<p><div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-uroot
+<p><div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot
 &gt;<span class="w"> </span>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>hello_tom<span class="p">;</span>
 </code></pre></div>
 The new database will be propagated to all nodes.</p>
@@ -3670,7 +3670,7 @@ The new database will be propagated to all nodes.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2025 15:48:50 UTC">July 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
   </span>
 
     

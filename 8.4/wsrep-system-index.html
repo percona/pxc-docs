@@ -3725,7 +3725,7 @@ ensure that the following configuration is used:</p>
 This is enabled by default.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks"><code>MySQL wsrep option: wsrep_applier_FK_checks</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks"><code>MySQL wsrep option: wsrep_applier_FK_checks</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_applier_threads"><code>wsrep_applier_threads</code><a class="headerlink" href="#wsrep_applier_threads" title="Permanent link">&para;</a></h3>
 <table>
@@ -3773,12 +3773,12 @@ It won&rsquo;t kill the threads immediately, but it will stop them after they ar
 <p>If any replication consistency problems are encountered,
 it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
-<p>You may want to increase it as suggested in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster"><code>Codership documentation for flow control</code></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
+<p>You may want to increase it as suggested in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster">`Codership documentation for flow control <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
 <p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster">in the MariaDB Galera Cluster documentation</a>.</p>
-<p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads"><code>Setting Parallel Slave Threads</code></a>.</p>
+<p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads"><code>Setting Parallel Slave Threads</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads"><code>MySQL wsrep option: wsrep_applier_threads</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads"><code>MySQL wsrep option: wsrep_applier_threads</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_applier_uk_checks"><code>wsrep_applier_UK_checks</code><a class="headerlink" href="#wsrep_applier_uk_checks" title="Permanent link">&para;</a></h3>
 <table>
@@ -3816,7 +3816,7 @@ The default value can be increased for better throughput.</p>
 This is disabled by default.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks"><code>MySQL wsrep option: wsrep_applier_UK_checks</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks"><code>MySQL wsrep option: wsrep_applier_UK_checks</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_auto_increment_control"><code>wsrep_auto_increment_control</code><a class="headerlink" href="#wsrep_auto_increment_control" title="Permanent link">&para;</a></h3>
 <table>
@@ -3868,7 +3868,7 @@ and assumptions of auto-increments.
 It can be disabled in source-replica clusters.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control"><code>MySQL wsrep option: wsrep_auto_increment_control</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control"><code>MySQL wsrep option: wsrep_auto_increment_control</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_causal_reads"><code>wsrep_causal_reads</code><a class="headerlink" href="#wsrep_causal_reads" title="Permanent link">&para;</a></h3>
 <table>
@@ -3913,7 +3913,7 @@ Enabling this variable will result in larger latencies.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads"><code>MySQL wsrep option: wsrep_causal_reads</code></a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads"><code>MySQL wsrep option: wsrep_causal_reads</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_certification_rules"><code>wsrep_certification_rules</code><a class="headerlink" href="#wsrep_certification_rules" title="Permanent link">&para;</a></h3>
 <table>
@@ -3963,7 +3963,7 @@ Enabling this variable will result in larger latencies.</p>
    certification failure.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules">Galera Cluster Documentation: MySQL wsrep options</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules">Galera Cluster Documentation: MySQL wsrep options <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code><a class="headerlink" href="#wsrep_certify_nonpk" title="Permanent link">&para;</a></h3>
 <table>
@@ -4003,7 +4003,7 @@ This variable is enabled by default.
 As a rule, make sure that all tables have primary keys.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk">MySQL wsrep option: wsrep_certify_nonPK</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk">MySQL wsrep option: wsrep_certify_nonPK <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_cluster_address"><code>wsrep_cluster_address</code><a class="headerlink" href="#wsrep_cluster_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -4056,7 +4056,7 @@ If you want to bootstrap a new cluster with a node,
 you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address">MySQL wsrep option: wsrep_cluster_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address">MySQL wsrep option: wsrep_cluster_address <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_cluster_name"><code>wsrep_cluster_name</code><a class="headerlink" href="#wsrep_cluster_name" title="Permanent link">&para;</a></h3>
 <table>
@@ -4096,7 +4096,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
     wsrep_cluster_name=simple-cluster
 </code></pre></div>
 <p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4113,7 +4113,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name">MySQL wsrep option: wsrep_cluster_name</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name">MySQL wsrep option: wsrep_cluster_name <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_data_home_dir"><code>wsrep_data_home_dir</code><a class="headerlink" href="#wsrep_data_home_dir" title="Permanent link">&para;</a></h3>
 <table>
@@ -4150,7 +4150,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 (such as <code>grastate.dat</code>).</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir">MySQL wsrep option: wsrep_data_home_dir</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir">MySQL wsrep option: wsrep_data_home_dir <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_dbug_option"><code>wsrep_dbug_option</code><a class="headerlink" href="#wsrep_dbug_option" title="Permanent link">&para;</a></h3>
 <table>
@@ -4182,7 +4182,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <p>Defines <code>DBUG</code> options to pass to the wsrep provider.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option">MySQL wsrep option: wsrep_dbug_option</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option">MySQL wsrep option: wsrep_dbug_option <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_debug"><code>wsrep_debug</code><a class="headerlink" href="#wsrep_debug" title="Permanent link">&para;</a></h3>
 <table>
@@ -4248,7 +4248,7 @@ printed out.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug">MySQL wsrep option: wsrep_debug</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug">MySQL wsrep option: wsrep_debug <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_desync"><code>wsrep_desync</code><a class="headerlink" href="#wsrep_desync" title="Permanent link">&para;</a></h3>
 <table>
@@ -4301,7 +4301,7 @@ for a long period of time or for several nodes at once.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync">MySQL wsrep option: wsrep_desync</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync">MySQL wsrep option: wsrep_desync <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_dirty_reads"><code>wsrep_dirty_reads</code><a class="headerlink" href="#wsrep_dirty_reads" title="Permanent link">&para;</a></h3>
 <table>
@@ -4343,8 +4343,8 @@ on a non-operational node is rejected
 such as <code>INSERT</code>, <code>DELETE</code>, and <code>UPDATE</code>).</p>
 <p>To avoid deadlock errors,
 set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait</code></a> variable to <code>0</code> if you enable <code>wsrep_dirty_reads</code>.</p>
-<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var"><code>set_var hint</code></a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_dirty_reads<span class="p">;</span>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var"><code>set_var hint</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4355,7 +4355,7 @@ set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait<
 +-----------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_dirty_reads</span><span class="o">=</span>ON<span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_dirty_reads<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_dirty_reads=ON) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4368,7 +4368,7 @@ set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait<
 </details>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads">MySQL wsrep option: wsrep_dirty_reads</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads">MySQL wsrep option: wsrep_dirty_reads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_drupal_282555_workaround"><code>wsrep_drupal_282555_workaround</code><a class="headerlink" href="#wsrep_drupal_282555_workaround" title="Permanent link">&para;</a></h3>
 <table>
@@ -4402,13 +4402,13 @@ set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait<
 </tbody>
 </table>
 <p>Enables a workaround for the MySQL InnoDB bug that affects Drupal
-(<a href="https://drupal.org/node/282555">Drupal bug #282555</a>
-and <a href="https://bugs.mysql.com/bug.php?id=41984">MySQL bug #41984</a>).
+(<a href="https://drupal.org/node/282555">Drupal bug #282555 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
+and <a href="https://bugs.mysql.com/bug.php?id=41984">MySQL bug #41984 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>).
 In some cases, duplicate key errors would occur
 when inserting the <code>DEFAULT</code> value into an <code>AUTO_INCREMENT</code> column.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround">MySQL wsrep option: wsrep_drupal_282555_workaround</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround">MySQL wsrep option: wsrep_drupal_282555_workaround <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_forced_binlog_format"><code>wsrep_forced_binlog_format</code><a class="headerlink" href="#wsrep_forced_binlog_format" title="Permanent link">&para;</a></h3>
 <table>
@@ -4442,7 +4442,7 @@ when inserting the <code>DEFAULT</code> value into an <code>AUTO_INCREMENT</code
 </tbody>
 </table>
 <p>Defines a binary log format that will always be effective,
-regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.4/en/binary-log-setting.html"><code>binlog_format</code></a> variable value.</p>
+regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.4/en/binary-log-setting.html"><code>binlog_format</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> variable value.</p>
 <p>Possible values for this variable are:</p>
 <ul>
 <li>
@@ -4460,7 +4460,7 @@ regardless of the client session <a href="https://dev.mysql.com/doc/refman/8.4/e
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format">MySQL wsrep option: wsrep_forced_binlog_format</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format">MySQL wsrep option: wsrep_forced_binlog_format <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_ignore_apply_errors"><code>wsrep_ignore_apply_errors</code><a class="headerlink" href="#wsrep_ignore_apply_errors" title="Permanent link">&para;</a></h3>
 <table>
@@ -4646,7 +4646,7 @@ in conjunction with the <code>log_error_verbosity</code> variable. The
 <p>Note the case where <code>log_error_verbosity=3</code> and <code>wsrep_min_log_verbosity=1</code>. The actual log verbosity of wsrep/Galera is <em>3</em> (system error, warning, info) because <code>log_error_verbosity</code> is greater.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_log_error_verbosity">MySQL Documentation: log_error_verbosity</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_log_error_verbosity">MySQL Documentation: log_error_verbosity <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_load_data_splitting"><code>wsrep_load_data_splitting</code><a class="headerlink" href="#wsrep_load_data_splitting" title="Permanent link">&para;</a></h3>
 <table>
@@ -4690,7 +4690,7 @@ from completely rolling the operation back in the event of a conflict, and whate
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting">MySQL wsrep option: wsrep_load_data_splitting</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting">MySQL wsrep option: wsrep_load_data_splitting <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_log_conflicts"><code>wsrep_log_conflicts</code><a class="headerlink" href="#wsrep_log_conflicts" title="Permanent link">&para;</a></h3>
 <table>
@@ -4729,7 +4729,7 @@ By default, this variable is disabled and Percona XtraDB Cluster uses standard l
 that produced the conflict.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts">MySQL wsrep option: wsrep_log_conflicts</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts">MySQL wsrep option: wsrep_log_conflicts <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code><a class="headerlink" href="#wsrep_max_ws_rows" title="Permanent link">&para;</a></h3>
 <table>
@@ -4767,7 +4767,7 @@ that produced the conflict.</p>
 The maximum allowed value is <code>1048576</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows">MySQL wsrep option: wsrep_max_ws_rows</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows">MySQL wsrep option: wsrep_max_ws_rows <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_max_ws_size"><code>wsrep_max_ws_size</code><a class="headerlink" href="#wsrep_max_ws_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -4805,7 +4805,7 @@ Anything bigger than the specified value will be rejected.</p>
 <p>You can set it to any value between <code>1024</code> and the default <code>2147483647</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size">MySQL wsrep option: wsrep_max_ws_size</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size">MySQL wsrep option: wsrep_max_ws_size <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_mode"><code>wsrep_mode</code><a class="headerlink" href="#wsrep_mode" title="Permanent link">&para;</a></h3>
 <table>
@@ -4850,7 +4850,7 @@ Anything bigger than the specified value will be rejected.</p>
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode">MySQL wsrep option: wsrep_mode</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode">MySQL wsrep option: wsrep_mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_node_address"><code>wsrep_node_address</code><a class="headerlink" href="#wsrep_node_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -4919,7 +4919,7 @@ for the <a href="wsrep-system-index.html#wsrep_sst_receive_address"><code>wsrep_
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address">MySQL wsrep option: wsrep_node_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address">MySQL wsrep option: wsrep_node_address <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_node_incoming_address"><code>wsrep_node_incoming_address</code><a class="headerlink" href="#wsrep_node_incoming_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -4958,7 +4958,7 @@ By default, it uses the IP address from <a href="wsrep-system-index.html#wsrep_n
 which shows all active cluster nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address">MySQL wsrep option: wsrep_node_incoming_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address">MySQL wsrep option: wsrep_node_incoming_address <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_node_name"><code>wsrep_node_name</code><a class="headerlink" href="#wsrep_node_name" title="Permanent link">&para;</a></h3>
 <table>
@@ -5026,7 +5026,7 @@ the value of <a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_
 </tr>
 </tbody>
 </table>
-<p>Specifies the <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd">notification command</a>
+<p>Specifies the <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd">notification command <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 that the node should execute
 whenever cluster membership or local node status changes.
 This can be used for alerting or to reconfigure load balancers.</p>
@@ -5039,7 +5039,7 @@ and have the script return immediately.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd">MySQL wsrep option: wsrep_notify_cmd</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd">MySQL wsrep option: wsrep_notify_cmd <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_on"><code>wsrep_on</code><a class="headerlink" href="#wsrep_on" title="Permanent link">&para;</a></h3>
 <table>
@@ -5076,7 +5076,7 @@ and have the script return immediately.</p>
 <p>If set to <code>OFF</code> for a session, no transaction changes are replicated in that session. The setting does not cause the node to leave the cluster, and the node communicates with other nodes.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on">MySQL wsrep option: wsrep_on</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on">MySQL wsrep option: wsrep_on <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_osu_method"><code>wsrep_OSU_method</code><a class="headerlink" href="#wsrep_osu_method" title="Permanent link">&para;</a></h3>
 <table>
@@ -5114,7 +5114,7 @@ that the node uses to replicate DDL statements.</p>
 <p>For information on the available methods, see <a href="online-schema-upgrade.html">Online Schema upgrade</a> and for information on Non-blocking operations, see <a href="nbo.html">NBO</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method">MySQL wsrep option: wsrep_OSU_method</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method">MySQL wsrep option: wsrep_OSU_method <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_provider"><code>wsrep_provider</code><a class="headerlink" href="#wsrep_provider" title="Permanent link">&para;</a></h3>
 <table>
@@ -5150,7 +5150,7 @@ This is usually
 <p>If you do not specify a path or the value is not valid, the node behaves as a standalone instance of MySQL.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider">MySQL wsrep option: wsrep_provider</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider">MySQL wsrep option: wsrep_provider <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_provider_options"><code>wsrep_provider_options</code><a class="headerlink" href="#wsrep_provider_options" title="Permanent link">&para;</a></h3>
 <table>
@@ -5184,7 +5184,7 @@ documented in <a href="wsrep-provider-index.html">Index of <code>wsrep_provider<
 These options affect how various situations are handled during replication.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options">MySQL wsrep option: wsrep_provider_options</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options">MySQL wsrep option: wsrep_provider_options <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_recover"><code>wsrep_recover</code><a class="headerlink" href="#wsrep_recover" title="Permanent link">&para;</a></h3>
 <table>
@@ -5281,7 +5281,7 @@ If you want to desync a node, use <a href="wsrep-system-index.html#wsrep_desync"
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries">MySQL wsrep option: wsrep_reject_queries</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries">MySQL wsrep option: wsrep_reject_queries <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code><a class="headerlink" href="#wsrep_replicate_myisam" title="Permanent link">&para;</a></h3>
 <table>
@@ -5338,7 +5338,7 @@ the whole DDL statement is not put under TOI.</p>
 <p>SST will get full transfer irrespective of <a href="wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a>value (it will get MyISAM tables from donor)</p>
 </li>
 <li>
-<p>Difference in configuration of <code>pxc-cluster</code> node on <a href="https://www.percona.com/doc/percona-server/8.4/management/enforce_engine.html">enforce_storage_engine</a> front may result in picking up different engine for the same table on different nodes</p>
+<p>Difference in configuration of <code>pxc-cluster</code> node on <a href="https://www.percona.com/doc/percona-server/8.4/enforce-engine.html">enforce_storage_engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> front may result in picking up different engine for the same table on different nodes</p>
 </li>
 <li>
 <p><code>CREATE TABLE AS SELECT</code> (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> is set to <strong>ON</strong>.</p>
@@ -5384,7 +5384,7 @@ is stopped when the node tries to apply the next replication event
 while the node is in a non-primary state.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica">MySQL wsrep option: wsrep_restart_slave</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica">MySQL wsrep option: wsrep_restart_slave <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_restart_slave"><code>wsrep_restart_slave</code><a class="headerlink" href="#wsrep_restart_slave" title="Permanent link">&para;</a></h3>
 <table>
@@ -5465,7 +5465,7 @@ to avoid deadlock errors that can be triggered by replication conflicts.</p>
 autocommit transactions won’t be retried.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit">MySQL wsrep option: wsrep_retry_autocommit</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit">MySQL wsrep option: wsrep_retry_autocommit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_rsu_commit_timeout"><code>wsrep_RSU_commit_timeout</code><a class="headerlink" href="#wsrep_rsu_commit_timeout" title="Permanent link">&para;</a></h3>
 <table>
@@ -5601,11 +5601,11 @@ but stop them after they are done applying the current transaction
 it’s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
 <p>You may want to increase it as suggested
-in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster"><code>Codership documentation for flow control</code></a>:
+in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster"><code>Codership documentation for flow control</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>:
 when the node is in <code>JOINED</code> state,
 increasing the number of replica threads can speed up the catch-up to <code>SYNCED</code>.</p>
-<p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor">in the MariaDB Galera Cluster documentation</a>.</p>
-<p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads">this document</a>.</p>
+<p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor">in the MariaDB Galera Cluster documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads">this document <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="wsrep_slave_uk_checks"><code>wsrep_slave_UK_checks</code><a class="headerlink" href="#wsrep_slave_uk_checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5764,7 +5764,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MySQL wsrep option: wsrep_sst_donor</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MySQL wsrep option: wsrep_sst_donor <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_sst_method"><code>wsrep_sst_method</code><a class="headerlink" href="#wsrep_sst_method" title="Permanent link">&para;</a></h3>
 <table>
@@ -5803,7 +5803,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <li>
 <p><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation</a>. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
+can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
 </li>
 <li>
 <p><code>clone</code>: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the <a href="clone-sst.html">clone method for SST</a>. </p>
@@ -5814,7 +5814,7 @@ can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privile
 </ul>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method">MySQL wsrep option: wsrep_sst_method</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method">MySQL wsrep option: wsrep_sst_method <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_sst_receive_address"><code>wsrep_sst_receive_address</code><a class="headerlink" href="#wsrep_sst_receive_address" title="Permanent link">&para;</a></h3>
 <table>
@@ -5852,7 +5852,7 @@ By default, this variable is set to <code>AUTO</code>,
 meaning that the IP address from <a href="wsrep-system-index.html#wsrep_node_address"><code>wsrep_node_address</code></a> is used.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address">MySQL wsrep option: wsrep_sst_receive_address</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address">MySQL wsrep option: wsrep_sst_receive_address <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_start_position"><code>wsrep_start_position</code><a class="headerlink" href="#wsrep_start_position" title="Permanent link">&para;</a></h3>
 <table>
@@ -5890,7 +5890,7 @@ By setting all the nodes to have the same value for this variable,
 the cluster can be set up without the state transfer.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position">MySQL wsrep option: wsrep_start_position</a></p>
+<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position">MySQL wsrep option: wsrep_start_position <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_sync_wait"><code>wsrep_sync_wait</code><a class="headerlink" href="#wsrep_sync_wait" title="Permanent link">&para;</a></h3>
 <table>
@@ -5926,8 +5926,8 @@ the cluster can be set up without the state transfer.</p>
 <p>Controls cluster-wide causality checks on certain statements.
 Checks ensure that the statement is executed on a node
 that is fully synced with the cluster.</p>
-<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w">   </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_sync_wait<span class="p">;</span>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -5938,7 +5938,7 @@ that is fully synced with the cluster.</p>
 +---------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="w">   </span>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_sync_wait</span><span class="o">=</span><span class="m">7</span><span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_sync_wait<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_sync_wait=7) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -5988,7 +5988,7 @@ and <code>REPLACE</code> statements.</p>
 </div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep-sync-wait">MySQL wsrep option: wsrep_sync_wait</a></p>
+<p>[MySQL wsrep option: wsrep_sync_wait] <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>(https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep-sync-wait)</p>
 </div>
 <h3 id="wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code><a class="headerlink" href="#wsrep_trx_fragment_size" title="Permanent link">&para;</a></h3>
 <table>
@@ -6022,8 +6022,8 @@ and <code>REPLACE</code> statements.</p>
 </tbody>
 </table>
 <p>Defines the the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647.</p>
-<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@@wsrep_trx_fragment_unit<span class="p">;</span><span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6038,7 +6038,7 @@ and <code>REPLACE</code> statements.</p>
 +------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_trx_fragment_size</span><span class="o">=</span><span class="m">5</span><span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size=5) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6113,8 +6113,8 @@ Query OK, 131072 rows affected (15.09 sec)
 </tbody>
 </table>
 <p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements. </p>
-<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint</a>.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_unit<span class="p">;</span><span class="w"> </span>SELECT<span class="w"> </span>@@wsrep_trx_fragment_size<span class="p">;</span>
+<p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6129,7 +6129,7 @@ Query OK, 131072 rows affected (15.09 sec)
 +------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>/*+<span class="w"> </span>SET_VAR<span class="o">(</span><span class="nv">wsrep_trx_fragment_unit</span><span class="o">=</span>rows<span class="o">)</span><span class="w"> </span>*/<span class="w"> </span>@@wsrep_trx_fragment_unit<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_unit=rows) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -6162,7 +6162,7 @@ Query OK, 131072 rows affected (15.09 sec)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 17:26:00 UTC">January 28, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
   </span>
 
     

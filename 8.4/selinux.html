@@ -3612,7 +3612,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Used as a role-based access control system</p>
 </li>
 </ul>
-<p>For more information, see <a href="https://www.percona.com/doc/percona-server/LATEST/security/selinux.html">Percona Server and SELinux</a></p>
+<p>For more information, see <a href="https://docs.percona.com/percona-server/8.4/selinux.html">Percona Server and SELinux <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 <p>Red Hat Enterprise Linux (RHEL) distributes a policy module to extend the SELinux policy module for <code>mysqld</code>. We provide the following:</p>
 <ul>
 <li>
@@ -3623,15 +3623,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <h2 id="modify-policies">Modify policies<a class="headerlink" href="#modify-policies" title="Permanent link">&para;</a></h2>
-<p>Modifications described in <a href="https://docs.percona.com/percona-server/8.4/selinux.html">Percona Server and SELinux</a> can also be applied for <em>Percona XtraDB Cluster</em>.</p>
+<p>Modifications described in <a href="https://docs.percona.com/percona-server/8.4/selinux.html">Percona Server and SELinux <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> can also be applied for <em>Percona XtraDB Cluster</em>.</p>
 <p>To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as <code>root</code>:</p>
 <p>To enable port <code>14567</code> instead of the default port <code>4567</code>:</p>
 <p>Find the tag associated with the <code>4567</code> port:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4567</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4567</span>
 tram_port_t<span class="w"> </span>tcp<span class="w"> </span><span class="m">4567</span>
 </code></pre></div>
 <p>Run a command to find which rules grant mysqld access to the port:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>tram_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+<div class="highlight"><pre><span></span><code>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>tram_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
 Found<span class="w"> </span><span class="m">5</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
 <span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 <span class="w">    </span>allow<span class="w"> </span>mysqld_t<span class="w"> </span>tram_port_t<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>name_bind<span class="w"> </span>name_connect<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
@@ -3640,19 +3640,19 @@ Found<span class="w"> </span><span class="m">5</span><span class="w"> </span>sem
 <span class="w">    </span>allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
 <p>You could tag port 14567 with the <code>tramp_port_t</code> tag, but this tag may cause issues because port 14567 is not a TRAM port. Use the general <code>mysqld_port_t</code> tag to add ports. For example, the following command adds port 14567 to the policy module with the <code>mysqld_port_t</code> tag.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_port_t<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span><span class="m">14567</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>port<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_port_t<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span><span class="m">14567</span>
 </code></pre></div>
 <p>You can verify the addition with the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">14567</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">14567</span>
 mysqld_port_t<span class="w">                  </span>tcp<span class="w">      </span><span class="m">4568</span>,<span class="w"> </span><span class="m">14567</span>,<span class="w"> </span><span class="m">1186</span>,<span class="w"> </span><span class="m">3306</span>,<span class="w"> </span><span class="m">63132</span>-63164
 </code></pre></div>
 <p>To see the tag associated with the 4444 port, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4444</span>
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>port<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">4444</span>
 kerberos_port_t<span class="w">                </span>tcp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
 kerberos_port_t<span class="w">                </span>udp<span class="w">      </span><span class="m">88</span>,<span class="w"> </span><span class="m">750</span>,<span class="w"> </span><span class="m">4444</span>
 </code></pre></div>
 <p>To find the rules associated with <code>kerberos_port_t</code>, run the following:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>kerberos_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
+<div class="highlight"><pre><span></span><code>sesearch<span class="w"> </span>-A<span class="w"> </span>-s<span class="w"> </span>mysqld_t<span class="w"> </span>-t<span class="w"> </span>kerberos_port_t<span class="w"> </span>-c<span class="w"> </span>tcp_socket
 Found<span class="w"> </span><span class="m">9</span><span class="w"> </span>semantic<span class="w"> </span>av<span class="w"> </span>rules:
 allow<span class="w"> </span>mysqld_t<span class="w"> </span>port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span><span class="o">{</span><span class="w"> </span>recv_msg<span class="w"> </span>send_msg<span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="p">;</span>
 allow<span class="w"> </span>mysqld_t<span class="w"> </span>rpc_port_type<span class="w"> </span>:<span class="w"> </span>tcp_socket<span class="w"> </span>name_bind<span class="w"> </span><span class="p">;</span>
@@ -3688,16 +3688,16 @@ allow<span class="w"> </span>nsswitch_domain<span class="w"> </span>port_type<sp
 <p>Certificates without the proper SELinux context can be restored with the following command:</p>
 </li>
 </ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>restorecon<span class="w"> </span>-v<span class="w"> </span>/etc/mysql/certs/*
+<div class="highlight"><pre><span></span><code>restorecon<span class="w"> </span>-v<span class="w"> </span>/etc/mysql/certs/*
 </code></pre></div>
 <h2 id="enable-enforcing-mode-for-pxc">Enable enforcing mode for PXC<a class="headerlink" href="#enable-enforcing-mode-for-pxc" title="Permanent link">&para;</a></h2>
 <p>The process, mysqld, runs in permissive mode, by default, even if SELinux runs in enforcing mode:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semodule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
+<div class="highlight"><pre><span></span><code>semodule<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>permissive
 permissive_mysqld_t
 permissivedomains
 </code></pre></div>
 <p>After ensuring that the system journal does not list any issues, the administrator can remove the permissive mode for mysqld_t:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
+<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 
 
@@ -3721,7 +3721,7 @@ permissivedomains
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2025 15:48:50 UTC">July 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
   </span>
 
     

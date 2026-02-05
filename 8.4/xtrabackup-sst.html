@@ -3718,7 +3718,7 @@ under <code>[sst]</code>.</p>
 </tbody>
 </table>
 <p>Used to specify the Percona XtraBackup streaming format. The only option is the <code>xbstream</code> format. SST fails and generates an error when another format, such as <code>tar</code>, is used.</p>
-<p>For more information about the <code>xbstream</code> format, see <a href="https://docs.percona.com/percona-xtrabackup/8.4/xbstream-binary-overview.html">The xbstream Binary</a>.</p>
+<p>For more information about the <code>xbstream</code> format, see <a href="https://docs.percona.com/percona-xtrabackup/8.4/xbstream-binary-overview.html">The xbstream Binary <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="transferfmt">transferfmt<a class="headerlink" href="#transferfmt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3746,7 +3746,7 @@ under <code>[sst]</code>.</p>
 The recommended value is the default <code>transferfmt=socat</code>
 because it allows for socket options,
 such as transfer buffer sizes.
-For more information, see <a href="https://www.redhat.com/sysadmin/getting-started-socat">socat(1)</a>.</p>
+For more information, see <a href="https://www.redhat.com/sysadmin/getting-started-socat">socat(1) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Using <code>transferfmt=nc</code> does not support the SSL-based encryption mode (value <code>4</code> for the <code>encrypt</code> option).</p>
@@ -3769,7 +3769,7 @@ and the certificate generated earlier.
 The names of options were chosen to be compatible with <code>socat</code>
 parameter names as well as with MySQL’s SSL authentication.
 For testing you can also download certificates from
-<a href="https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/">launchpad</a>.</p>
+<a href="https://bazaar.launchpad.net/~percona-core/percona-xtradb-cluster/5.5/files/head:/tests/certs/">launchpad <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3829,7 +3829,7 @@ sockopt=&quot;retry=2,interval=3&quot;
 (initial attempt and two retries with a 3-second interval between attempts).</p>
 <p>This option only applies when socat is used (<code>transferfmt=socat</code>).
 For more information about socket options, see
-<a href="https://www.redhat.com/sysadmin/getting-started-socat">socat (1)</a>.</p>
+<a href="https://www.redhat.com/sysadmin/getting-started-socat">socat (1) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can also enable SSL based compression with <code>sockopt</code>.
@@ -3873,7 +3873,7 @@ This is independent of compaction, though compaction enables it.
 Rebuild of indexes may be used as an optimization.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a href="https://bugs.launchpad.net/percona-xtradb-cluster/+bug/1192834">#1192834</a> affects this option.</p>
+<p><a href="https://bugs.launchpad.net/percona-xtradb-cluster/+bug/1192834">#1192834 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> affects this option.</p>
 </div>
 <h3 id="time">time<a class="headerlink" href="#time" title="Permanent link">&para;</a></h3>
 <table>
@@ -3900,7 +3900,7 @@ Rebuild of indexes may be used as an optimization.</p>
 <p>Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
 For example, <code>128k</code> is 128 kilobytes.
-For more information, see <a href="https://linux.die.net/man/1/pv">pv(1)</a>.</p>
+For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
@@ -4293,7 +4293,7 @@ the size of the InnoDB memory buffer will be used:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 13, 2026 14:29:18 UTC">January 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
   </span>
 
     

@@ -3592,19 +3592,19 @@ you need to append new rules to the <code>INPUT</code> chain on the filter table
 In the following example, the trusted range of IP addresses is 192.168.0.1/24.
 It is assumed that only Percona XtraDB Cluster nodes and clients will connect from these IPs.
 To enable packet filtering, run the commands as root on each Percona XtraDB Cluster node.</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># iptables --append INPUT --in-interface eth0 \</span>
+<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--match<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">3306</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --in-interface eth0 \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--match<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">4444</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --in-interface eth0 \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--match<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">4567</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --in-interface eth0 \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--match<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">4568</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --in-interface eth0 \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>udp<span class="w"> </span>--match<span class="w"> </span>udp<span class="w"> </span>--dport<span class="w"> </span><span class="m">4567</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
 </code></pre></div>
@@ -3618,11 +3618,11 @@ In this case, you can consider to open all ports between trusted hosts.
 This is a little bit less secure, but reduces the amount of commands.
 For example, if you have three Percona XtraDB Cluster nodes,
 you can run the following commands on each one:</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># iptables --append INPUT --protocol tcp \</span>
+<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--source<span class="w"> </span><span class="m">64</span>.57.102.34<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --protocol tcp \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--source<span class="w"> </span><span class="m">193</span>.166.3.20<span class="w">  </span>--jump<span class="w"> </span>ACCEPT
-<span class="c1"># iptables --append INPUT --protocol tcp \</span>
+iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--source<span class="w"> </span><span class="m">193</span>.125.4.10<span class="w">  </span>--jump<span class="w"> </span>ACCEPT
 </code></pre></div>
 <p>Running the previous commands will allow TCP connections
@@ -3630,7 +3630,7 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The changes that you make in <code>iptables</code> are not persistent unless you save the packet filtering state:</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># service save iptables</span>
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>save<span class="w"> </span>iptables
 </code></pre></div>
 <p>For distributions that use <code>systemd</code>,
 you need to save the current packet filtering rules
@@ -3647,7 +3647,7 @@ For example:</p>
 </li>
 </ul>
 <p>Use <code>iptables-save</code> to update the file:</p>
-<div class="highlight" data-prompt="#"><pre><span></span><code><span class="c1"># iptables-save &gt; /etc/sysconfig/iptables</span>
+<div class="highlight"><pre><span></span><code>iptables-save<span class="w"> </span>&gt;<span class="w"> </span>/etc/sysconfig/iptables
 </code></pre></div>
 </div>
 
@@ -3672,7 +3672,7 @@ For example:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 10, 2025 15:48:50 UTC">July 10, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
   </span>
 
     
