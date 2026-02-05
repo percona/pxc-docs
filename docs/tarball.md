@@ -4,7 +4,7 @@ Percona provides generic tarballs with all required files and binaries
 for manual installation.
 
 You can download the appropriate tarball package from
-[Percona Software Downloads](https://www.percona.com/downloads).
+[Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
 
 --8<--- "get-help-snip.md"
 
@@ -24,8 +24,8 @@ version requires are installed.
 
 ### For Debian or Ubuntu:
 
-```{.bash data-prompt="$"}
-$ sudo apt-get install -y \
+```shell
+sudo apt-get install -y \
 socat libdbd-mysql-perl \
 libaio1 libc6 libcurl3 libev4 libgcc1 libgcrypt20 \
 libgpg-error0 libssl1.1 libstdc++6 zlib1g libatomic1
@@ -33,7 +33,7 @@ libgpg-error0 libssl1.1 libstdc++6 zlib1g libatomic1
 
 ### For Red Hat Enterprise Linux:
 
-```{.bash data-prompt="$"}
-$ sudo yum install -y openssl socat  \
+```shell
+sudo yum install -y openssl socat  \
 procps-ng chkconfig procps-ng coreutils shadow-utils \
 ```

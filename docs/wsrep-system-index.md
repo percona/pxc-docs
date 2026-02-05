@@ -129,7 +129,7 @@ This is enabled by default.
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_applier_FK_checks`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks)
+    [`MySQL wsrep option: wsrep_applier_FK_checks` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks)
 
 ### `wsrep_applier_threads`
 
@@ -159,15 +159,15 @@ If any replication consistency problems are encountered,
 it's recommended to set this back to ``1`` to see if that resolves the issue.
 The default value can be increased for better throughput.
 
-You may want to increase it as suggested in [`Codership documentation for flow control`](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster): when the node is in ``JOINED`` state, increasing the number of replica threads can speed up the catchup to ``SYNCED``.
+You may want to increase it as suggested in [`Codership documentation for flow control :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster): when the node is in ``JOINED`` state, increasing the number of replica threads can speed up the catchup to ``SYNCED``.
 
 You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster).
 
-For more configuration tips, see [`Setting Parallel Slave Threads`](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
+For more configuration tips, see [`Setting Parallel Slave Threads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_applier_threads`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads)
+    [`MySQL wsrep option: wsrep_applier_threads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads)
 
 ### `wsrep_applier_UK_checks`
 
@@ -186,7 +186,7 @@ This is disabled by default.
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_applier_UK_checks`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks)
+    [`MySQL wsrep option: wsrep_applier_UK_checks` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks)
 
 ### `wsrep_auto_increment_control`
 
@@ -216,7 +216,7 @@ It can be disabled in source-replica clusters.
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_auto_increment_control`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control)
+    [`MySQL wsrep option: wsrep_auto_increment_control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control)
 
 ### `wsrep_causal_reads`
 
@@ -241,7 +241,7 @@ Enabling this variable will result in larger latencies.
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_causal_reads`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads)
+    [`MySQL wsrep option: wsrep_causal_reads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads)
 
 ### `wsrep_certification_rules`
 
@@ -270,7 +270,7 @@ This variable controls how certification is done in the cluster; it particularly
 
 !!! admonition "See also"
 
-    [Galera Cluster Documentation: MySQL wsrep options](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules)
+    [Galera Cluster Documentation: MySQL wsrep options :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules)
 
 ### `wsrep_certify_nonPK`
 
@@ -290,7 +290,7 @@ As a rule, make sure that all tables have primary keys.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_certify_nonPK](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk)
+    [MySQL wsrep option: wsrep_certify_nonPK :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk)
 
 ### `wsrep_cluster_address`
 
@@ -333,7 +333,7 @@ you should pass the `--wsrep-new-cluster` option when starting.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_cluster_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address)
+    [MySQL wsrep option: wsrep_cluster_address :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address)
 
 ### `wsrep_cluster_name`
 
@@ -357,8 +357,8 @@ Edit the value in the `my.cnf` in the [galera] section.
 
 Execute `SHOW VARIABLES` with the LIKE operator to view the variable:
 
-```{.bash data-prompt="mysql>"}
-mysql> SHOW VARIABLES LIKE 'wsrep_cluster_name';
+```sql
+SHOW VARIABLES LIKE 'wsrep_cluster_name';
 ```
 
 ??? example "Expected output"
@@ -376,7 +376,7 @@ mysql> SHOW VARIABLES LIKE 'wsrep_cluster_name';
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_cluster_name](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name)
+    [MySQL wsrep option: wsrep_cluster_name :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name)
 
 ### `wsrep_data_home_dir`
 
@@ -393,7 +393,7 @@ Specifies the path to the directory where the wsrep provider stores its files
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_data_home_dir](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir)
+    [MySQL wsrep option: wsrep_data_home_dir :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir)
 
 ### `wsrep_dbug_option`
 
@@ -408,7 +408,7 @@ Defines `DBUG` options to pass to the wsrep provider.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_dbug_option](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option)
+    [MySQL wsrep option: wsrep_dbug_option :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option)
 
 ### `wsrep_debug`
 
@@ -463,7 +463,7 @@ Same as STREAMING + wsrep-lib *client_service* part
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_debug](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug)
+    [MySQL wsrep option: wsrep_debug :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug)
 
 ### `wsrep_desync`
 
@@ -498,7 +498,7 @@ for a long period of time or for several nodes at once.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_desync](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync)
+    [MySQL wsrep option: wsrep_desync :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync)
 
 ### `wsrep_dirty_reads`
 
@@ -522,10 +522,10 @@ such as `INSERT`, `DELETE`, and `UPDATE`).
 To avoid deadlock errors,
 set the [`wsrep_sync_wait`](wsrep-system-index.md#wsrep_sync_wait) variable to `0` if you enable `wsrep_dirty_reads`.
 
-You can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [`set_var hint` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT @@wsrep_dirty_reads;
+```sql
+SELECT @@wsrep_dirty_reads;
 ```
 
 ??? example "Expected output"
@@ -538,8 +538,8 @@ mysql> SELECT @@wsrep_dirty_reads;
     +-----------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
+```sql
+SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 ```
 
 ??? example "Expected output"
@@ -554,7 +554,7 @@ mysql> SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_dirty_reads](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads)
+    [MySQL wsrep option: wsrep_dirty_reads :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads)
 
 ### `wsrep_drupal_282555_workaround`
 
@@ -567,14 +567,14 @@ mysql> SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 | Default Value: | ``OFF`` |
 
 Enables a workaround for the MySQL InnoDB bug that affects Drupal
-([Drupal bug #282555](https://drupal.org/node/282555)
-and [MySQL bug #41984](https://bugs.mysql.com/bug.php?id=41984)).
+([Drupal bug #282555 :octicons-link-external-16:](https://drupal.org/node/282555)
+and [MySQL bug #41984 :octicons-link-external-16:](https://bugs.mysql.com/bug.php?id=41984)).
 In some cases, duplicate key errors would occur
 when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_drupal_282555_workaround](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround)
+    [MySQL wsrep option: wsrep_drupal_282555_workaround :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround)
 
 ### `wsrep_forced_binlog_format`
 
@@ -587,7 +587,7 @@ when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
 | Default Value: | ``NONE`` |
 
 Defines a binary log format that will always be effective,
-regardless of the client session [`binlog_format`](https://dev.mysql.com/doc/refman/{{vers}}/en/binary-log-setting.html) variable value.
+regardless of the client session [`binlog_format` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/binary-log-setting.html) variable value.
 
 Possible values for this variable are:
 
@@ -601,7 +601,7 @@ Possible values for this variable are:
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_forced_binlog_format](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format)
+    [MySQL wsrep option: wsrep_forced_binlog_format :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format)
 
 ### `wsrep_ignore_apply_errors`
 
@@ -670,7 +670,7 @@ Note the case where ``log_error_verbosity=3`` and ``wsrep_min_log_verbosity=1``.
 
 !!! admonition "See also"
 
-    [MySQL Documentation: log_error_verbosity](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_error_verbosity)
+    [MySQL Documentation: log_error_verbosity :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_log_error_verbosity)
 
 ### `wsrep_load_data_splitting`
 
@@ -695,7 +695,7 @@ from completely rolling the operation back in the event of a conflict, and whate
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_load_data_splitting](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting)
+    [MySQL wsrep option: wsrep_load_data_splitting :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting)
 
 ### `wsrep_log_conflicts`
 
@@ -715,7 +715,7 @@ that produced the conflict.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_log_conflicts](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts)
+    [MySQL wsrep option: wsrep_log_conflicts :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts)
 
 ### `wsrep_max_ws_rows`
 | Option         | Description        |
@@ -733,7 +733,7 @@ The maximum allowed value is `1048576`.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_max_ws_rows](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows)
+    [MySQL wsrep option: wsrep_max_ws_rows :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows)
 
 ### `wsrep_max_ws_size`
 | Option         | Description        |
@@ -751,7 +751,7 @@ You can set it to any value between `1024` and the default `2147483647`.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_max_ws_size](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size)
+    [MySQL wsrep option: wsrep_max_ws_size :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size)
 
 ### `wsrep_mode`
 
@@ -773,7 +773,7 @@ The available values are:
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_mode](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode)
+    [MySQL wsrep option: wsrep_mode :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode)
 
 ### `wsrep_node_address`
 | Option         | Description        |
@@ -817,7 +817,7 @@ The value should be specified in the following format:
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_node_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address)
+    [MySQL wsrep option: wsrep_node_address :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address)
 
 ### `wsrep_node_incoming_address`
 | Option         | Description        |
@@ -836,7 +836,7 @@ which shows all active cluster nodes.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_node_incoming_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address)
+    [MySQL wsrep option: wsrep_node_incoming_address :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address)
 
 ### `wsrep_node_name`
 | Option         | Description        |
@@ -865,7 +865,7 @@ In many situations, you may use the value of this variable as a means to identif
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 
-Specifies the [notification command](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd)
+Specifies the [notification command :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd)
 that the node should execute
 whenever cluster membership or local node status changes.
 This can be used for alerting or to reconfigure load balancers.
@@ -879,7 +879,7 @@ This can be used for alerting or to reconfigure load balancers.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_notify_cmd](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd)
+    [MySQL wsrep option: wsrep_notify_cmd :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd)
 
 ### `wsrep_on`
 | Option         | Description        |
@@ -896,7 +896,7 @@ If set to `OFF` for a session, no transaction changes are replicated in that ses
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_on](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on)
+    [MySQL wsrep option: wsrep_on :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on)
 
 ### `wsrep_OSU_method`
 | Option         | Description        |
@@ -915,7 +915,7 @@ For information on the available methods, see [Online Schema upgrade](online-sch
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_OSU_method](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method)
+    [MySQL wsrep option: wsrep_OSU_method :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method)
 
 ### `wsrep_provider`
 | Option         | Description        |
@@ -934,7 +934,7 @@ If you do not specify a path or the value is not valid, the node behaves as a st
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_provider](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider)
+    [MySQL wsrep option: wsrep_provider :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider)
 
 ### `wsrep_provider_options`
 | Option         | Description        |
@@ -950,7 +950,7 @@ These options affect how various situations are handled during replication.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_provider_options](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options)
+    [MySQL wsrep option: wsrep_provider_options :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options)
 
 ### `wsrep_recover`
 | Option         | Description        |
@@ -1001,7 +1001,7 @@ The following values are available:
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_reject_queries](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries)
+    [MySQL wsrep option: wsrep_reject_queries :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries)
 
 ### `wsrep_replicate_myisam`
 
@@ -1036,7 +1036,7 @@ the whole DDL statement is not put under TOI.
 
      * SST will get full transfer irrespective of [`wsrep_replicate_myisam`](wsrep-system-index.md#wsrep_replicate_myisam)value (it will get MyISAM tables from donor)
 
-     * Difference in configuration of `pxc-cluster` node on [enforce_storage_engine](https://www.percona.com/doc/percona-server/{{vers}}/management/enforce_engine.html) front may result in picking up different engine for the same table on different nodes
+     * Difference in configuration of `pxc-cluster` node on [enforce_storage_engine :octicons-link-external-16:](https://www.percona.com/doc/percona-server/{{vers}}/enforce-engine.html) front may result in picking up different engine for the same table on different nodes
 
      * `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to **ON**.
 
@@ -1060,7 +1060,7 @@ while the node is in a non-primary state.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_restart_slave](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica)
+    [MySQL wsrep option: wsrep_restart_slave :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica)
 
 ### `wsrep_restart_slave`
 
@@ -1104,7 +1104,7 @@ autocommit transactions won’t be retried.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_retry_autocommit](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit)
+    [MySQL wsrep option: wsrep_retry_autocommit :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit)
 
 ### `wsrep_RSU_commit_timeout`
 
@@ -1181,13 +1181,13 @@ it’s recommended to set this back to `1` to see if that resolves the issue.
 The default value can be increased for better throughput.
 
 You may want to increase it as suggested
-in [`Codership documentation for flow control`](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster):
+in [`Codership documentation for flow control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster):
 when the node is in ``JOINED`` state,
 increasing the number of replica threads can speed up the catch-up to ``SYNCED``.
 
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor).
+You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation :octicons-link-external-16:](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor).
 
-For more configuration tips, see [this document](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
+For more configuration tips, see [this document :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
 
 ### `wsrep_slave_UK_checks`
 
@@ -1279,7 +1279,7 @@ then the joining node will consider *only* `node1` and `node2`.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_sst_donor](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
+    [MySQL wsrep option: wsrep_sst_donor :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
 
 ### `wsrep_sst_method`
 
@@ -1297,7 +1297,7 @@ Available values are:
 
 * `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+can be found in [Percona XtraBackup documentation :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
 
 * `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](clone-sst.md). 
 
@@ -1305,7 +1305,7 @@ can be found in [Percona XtraBackup documentation](https://docs.percona.com/perc
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_sst_method](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method)
+    [MySQL wsrep option: wsrep_sst_method :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method)
 
 ### `wsrep_sst_receive_address`
 
@@ -1323,7 +1323,7 @@ meaning that the IP address from [`wsrep_node_address`](wsrep-system-index.md#ws
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_sst_receive_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address)
+    [MySQL wsrep option: wsrep_sst_receive_address :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address)
 
 ### `wsrep_start_position`
 
@@ -1341,7 +1341,7 @@ the cluster can be set up without the state transfer.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_start_position](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position)
+    [MySQL wsrep option: wsrep_start_position :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position)
 
 ### `wsrep_sync_wait`
 
@@ -1357,10 +1357,10 @@ Controls cluster-wide causality checks on certain statements.
 Checks ensure that the statement is executed on a node
 that is fully synced with the cluster.
 
-You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```{.bash data-prompt="mysql>"}
-   mysql> SELECT @@wsrep_sync_wait;
+```sql
+SELECT @@wsrep_sync_wait;
 ```
 
 ??? example "Expected output"
@@ -1373,8 +1373,8 @@ You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refm
     +---------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
-   mysql> SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
+```sql
+SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
 ```
 
 ??? example "Expected output"
@@ -1417,7 +1417,7 @@ and `REPLACE` statements.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_sync_wait](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep-sync-wait)
+    [MySQL wsrep option: wsrep_sync_wait] :octicons-link-external-16:(https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep-sync-wait)
 
 ### `wsrep_trx_fragment_size`
 
@@ -1431,10 +1431,10 @@ and `REPLACE` statements.
 
 Defines the the streaming replication fragment size. This variable is measured in the value defined by ``wsrep_trx_fragment_unit``. The minimum value is 0 and the maximum value is 2147483647.
 
-You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
+```sql
+SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
 ??? example "Expected output"
@@ -1451,8 +1451,8 @@ mysql> SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
     +------------------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
+```sql
+SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
 ```
 
 ??? example "Expected output"
@@ -1512,10 +1512,10 @@ Query OK, 131072 rows affected (15.09 sec)
 
 Defines the type of measure for the ``wsrep_trx_fragment_size``. The possible values are: bytes, rows, statements. 
 
-You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
+You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
+```sql
+SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
 ??? example "Expected output"
@@ -1532,8 +1532,8 @@ mysql> SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
     +------------------------------+
     ```
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
+```sql
+SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
 ```
 
 ??? example "Expected output"

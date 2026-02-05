@@ -6,7 +6,7 @@ By default, Percona XtraDB Cluster does not encrypt or protect stored data. To e
 |-------|-------------|
 | [Securing the Network](secure-network.md#secure-the-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster. |
 | [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
-| Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html). |
+| Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/data-at-rest-encryption.html). |
 
 ## Security modules
 
@@ -34,8 +34,8 @@ SELinux operates in one of two modes that determine how it applies security poli
 
 * Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them, but allows the actions to proceed.
 
-```{.bash data-prompt="$"}
-$ setenforce 0
+```shell
+setenforce 0
 ```
 	
 The command does the following:

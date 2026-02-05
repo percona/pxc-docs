@@ -47,8 +47,8 @@ multiple times.
 !!! admonition "See also"
 
     HAProxy Documentation:
-     * [`Managing HAProxy (including available options)`](http://cbonte.github.io/haproxy-dconv/2.0/management.html)
-     * [`More information about how to configure HAProxy`](http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2)
+     * [`Managing HAProxy (including available options)` :octicons-link-external-16:](http://cbonte.github.io/haproxy-dconv/2.0/management.html)
+     * [`More information about how to configure HAProxy` :octicons-link-external-16:](http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2)
 
 ??? example "Example of the HAProxy configuration file"
 
@@ -91,21 +91,21 @@ Options set in the configuration file
 |global|A section in the configuration file for process-wide parameters|
 |defaults|A section in the configuration file for default parameters for all other following sections|
 |listen|A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section|
-|[balance](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance)|Load balancing algorithm to be used in a backend|
-|[clitimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout)|Set the maximum inactivity time on the client side|
-|[contimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout)|Set the maximum time to wait for a connection attempt to a server to succeed.|
-|[daemon](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon)| Makes the process fork into background (recommended mode of operation)|
-|[gid](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid)|Changes the process' group ID to &#60;number&#62;|
-|[log](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log)|Adds a global syslog server|
-|[maxconn](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn)|Sets the maximum per-process number of concurrent connections to &#60;number&#62;|
-|[mode](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode)|Set the running mode or protocol of the instance|
+|[balance :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance)|Load balancing algorithm to be used in a backend|
+|[clitimeout :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout)|Set the maximum inactivity time on the client side|
+|[contimeout :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout)|Set the maximum time to wait for a connection attempt to a server to succeed.|
+|[daemon :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon)| Makes the process fork into background (recommended mode of operation)|
+|[gid :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid)|Changes the process' group ID to &#60;number&#62;|
+|[log :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log)|Adds a global syslog server|
+|[maxconn :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn)|Sets the maximum per-process number of concurrent connections to &#60;number&#62;|
+|[mode :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode)|Set the running mode or protocol of the instance|
 |option dontlognull|Disable logging of null connections|
-|[option tcplog](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog)|Enable advanced logging of TCP connections with session state and timers|
-|[redispatch](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch)|Enable or disable session redistribution in case of connection failure|
-|[retries](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Set the number of retries to perform on a server after a connection failure|
-|[server](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Declare a server in a backend|
-|[srvtimeout](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout)|Set the maximum inactivity time on the server side|
-|[uid](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid)|Changes the process' user ID to &#60;number&#62;|
+|[option tcplog :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog)|Enable advanced logging of TCP connections with session state and timers|
+|[redispatch :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch)|Enable or disable session redistribution in case of connection failure|
+|[retries :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Set the number of retries to perform on a server after a connection failure|
+|[server :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Declare a server in a backend|
+|[srvtimeout :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout)|Set the maximum inactivity time on the server side|
+|[uid :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid)|Changes the process' user ID to &#60;number&#62;|
 
 With this configuration, HAProxy will balance the load between three nodes.
 In this case, it only checks if `mysqld` listens on port 3306,
@@ -114,7 +114,7 @@ So it could be sending queries to the node that has `mysqld` running
 even if it’s in `JOINING` or `DISCONNECTED` state.
 
 To check the current status of a node we need a more complex check.
-This idea was taken from [codership-team google groups](https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6).
+This idea was taken from [codership-team google groups :octicons-link-external-16:](https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6).
 
 To implement this setup, you will need two scripts:
 
@@ -181,4 +181,4 @@ mysqlchk        9200/tcp                # mysqlchk
 
     !!! admonition "See also"
 
-        [MySQL Documentation: CREATE USER statement](https://dev.mysql.com/doc/refman/{{vers}}/en/create-user.html)
+        [MySQL Documentation: CREATE USER statement :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/create-user.html)

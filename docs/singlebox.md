@@ -88,8 +88,8 @@ To set up the cluster:
 
 3. Start the first node using the following command (from the Percona XtraDB Cluster install directory):
 
-    ```{.bash data-prompt="$"}
-    $ bin/mysqld_safe --defaults-file=/etc/my.4000.cnf --wsrep-new-cluster
+    ```shell
+    bin/mysqld_safe --defaults-file=/etc/my.4000.cnf --wsrep-new-cluster
     ```
 
     If the node starts correctly, you should see the following output:
@@ -103,8 +103,8 @@ To set up the cluster:
 
     To check the ports, run the following command:
 
-    ```{.bash data-prompt="$"}
-    $ netstat -anp | grep mysqld
+    ```shell
+    netstat -anp | grep mysqld
     tcp        0      0 192.168.2.21:4030           0.0.0.0:*                   LISTEN      21895/mysqld
     tcp        0      0 0.0.0.0:4000                0.0.0.0:*                   LISTEN      21895/mysqld
     ```
@@ -127,8 +127,8 @@ To set up the cluster:
 
     To check the cluster size, run the following command:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -h127.0.0.1 -P6000 -e "show global status like 'wsrep_cluster_size';"
+    ```shell
+    mysql -h127.0.0.1 -P6000 -e "show global status like 'wsrep_cluster_size';"
     ```
 
     ??? example "Expected output"
@@ -146,6 +146,6 @@ To set up the cluster:
     For example, to create a database on the second node,
     you can run the following command:
 
-    ```{.bash data-prompt="$"}
-    $ mysql -h127.0.0.1 -P5000 -e "CREATE DATABASE hello_peter"
+    ```shell
+    mysql -h127.0.0.1 -P5000 -e "CREATE DATABASE hello_peter"
     ```

@@ -52,7 +52,7 @@ Global Transaction ID, in Percona XtraDB Cluster it consists of [`UUID`](#uuid) 
 
 ## HAProxy
 
-[`HAProxy`](https://www.haproxy.com/) is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for web sites crawling under very high loads while needing persistence or Layer7 processing. Supporting tens of thousands of connections is clearly realistic with todays hardware. Its mode of operation makes its integration into existing architectures very easy and riskless, while still offering the possibility not to expose fragile web servers to the net.
+[`HAProxy` :octicons-link-external-16:](https://www.haproxy.com/) is a free, very fast and reliable solution offering high availability, load balancing, and proxying for TCP and HTTP-based applications. It is particularly suited for web sites crawling under very high loads while needing persistence or Layer7 processing. Supporting tens of thousands of connections is clearly realistic with todays hardware. Its mode of operation makes its integration into existing architectures very easy and riskless, while still offering the possibility not to expose fragile web servers to the net.
 
 ## ibdata
 
@@ -74,7 +74,7 @@ Incremental State Transfer. Functionality which instead of whole state snapshot 
 
 ## Jenkins
 
-[Jenkins](https://www.jenkins-ci.org) is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:
+[Jenkins :octicons-link-external-16:](https://www.jenkins-ci.org) is a continuous integration system that we use to help ensure the continued quality of the software we produce. It helps us achieve the aims of:
 * no failed tests in trunk on any platform 
 * aid developers in ensuring merge requests build and test on all platforms
 * no known performance regressions (without a damn good explanation)
@@ -127,7 +127,7 @@ A cluster node – a single mysql instance that is in the cluster.
 
 ## NUMA
 
-Non-Uniform Memory Access ([`NUMA`](http://en.wikipedia.org/wiki/Non-Uniform_Memory_Access)) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere, but at a potentially higher latency and lower performance.
+Non-Uniform Memory Access ([`NUMA` :octicons-link-external-16:](http://en.wikipedia.org/wiki/Non-Uniform_Memory_Access)) is a computer memory design used in multiprocessing, where the memory access time depends on the memory location relative to a processor. Under NUMA, a processor can access its own local memory faster than non-local memory, that is, memory local to another processor or memory shared between processors. The whole system may still operate as one unit, and all memory is basically accessible from everywhere, but at a potentially higher latency and lower performance.
 
 ## Percona Server for MySQL
 

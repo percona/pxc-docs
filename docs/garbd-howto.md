@@ -4,7 +4,7 @@ The size of a cluster increases when a node joins the cluster and decreases when
 
 The arbitrator is important if you have an even number of nodes remaining in the cluster. The arbitrator keeps the number of nodes as an odd number, which avoids the split-brain situation.
 
-A [Galera Arbitrator](https://mariadb.com/docs/galera-cluster/high-availability/understanding-quorum-monitoring-and-recovery#the-galera-arbitrator-garbd)
+A [Galera Arbitrator :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/high-availability/understanding-quorum-monitoring-and-recovery#the-galera-arbitrator-garbd)
 is a lightweight member of a **Percona XtraDB Cluster**. This member can vote but does not do any replication and is not included in flow control calculations. The Galera Arbitrator is a separate daemon called `garbd`. You can start this daemon separately from the cluster and run this daemon either as a service or from the shell. You cannot configure this daemon using the `my.cnf` file.
 
 !!! note
@@ -16,16 +16,18 @@ is a lightweight member of a **Percona XtraDB Cluster**. This member can vote bu
 
 Galera Arbitrator does not need a dedicated server and can be installed on a machine running other applications. The server must have good network connectivity.
 
+Run the following commands as root.
+
 *Galera Arbitrator* can be installed from Percona’s repository on Debian/Ubuntu distributions with the following command:
 
-```{.bash data-prompt="root@ubuntu:~#"}
-root@ubuntu:~# apt install percona-xtradb-cluster-garbd
+```shell
+apt install percona-xtradb-cluster-garbd
 ```
 
 *Galera Arbitrator* can be installed from Percona’s repository on RedHat or derivative distributions with the following command:
 
-```{.bash data-prompt="[root@centos ~]#"}
-[root@centos ~]# yum install percona-xtradb-cluster-garbd
+```shell
+yum install percona-xtradb-cluster-garbd
 ```
 
 ## Start `garbd` and configuration
@@ -36,12 +38,12 @@ root@ubuntu:~# apt install percona-xtradb-cluster-garbd
 
     It is necessary to specify the cipher. In this example, it is `AES128-SHA256`. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.
 
-    For more information, see [socket.ssl_cipher](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher)
+    For more information, see [socket.ssl_cipher :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher)
 
 When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:
 
-```{.bash data-prompt="$"}
-$ garbd --group=my_ubuntu_cluster \
+```shell
+garbd --group=my_ubuntu_cluster \
 --address="gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567" \
 --option="socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \
 socket.ssl_cert=/etc/ssl/mysql/server-cert.pem; \
@@ -99,12 +101,12 @@ GALERA_GROUP="my_ubuntu_cluster"
 # LOG_FILE="/var/log/garbd.log"
 ```
 
-You can now start the *Galera Arbitrator* daemon (`garbd`) by running:
+You can now start the *Galera Arbitrator* daemon (`garbd`). Run the following commands as root.
 
 === "On Debian or Ubuntu"
 
-    ```{.bash data-prompt="root@server:~#"}
-    root@server:~# service garbd start
+    ```shell
+    service garbd start
     ```
 
     ??? example "Expected output"
@@ -117,14 +119,14 @@ You can now start the *Galera Arbitrator* daemon (`garbd`) by running:
 
         On systems that run `systemd` as the default system and service manager, use `systemctl` instead of `service` to invoke the command. Currently, both are supported.
 
-        ```{.bash data-prompt="root@server:~#"}
-        root@server:~# systemctl start garb
+        ```shell
+        systemctl start garb
         ```
 
 === "On Red Hat Enterprise Linux or CentOS"
 
-    ```{.bash data-prompt="root@server:~#"}
-    root@server:~# service garb start
+    ```shell
+    service garb start
     ```
 
     ??? example "Expected output"
@@ -137,8 +139,8 @@ Additionally, you can check the `arbitrator` status by running:
 
 === "On Debian or Ubuntu"
 
-    ```{.bash data-prompt="root@server:~#"}
-    root@server:~# service garbd status
+    ```shell
+    service garbd status
     ```
 
     ??? example "Expected output"
@@ -149,8 +151,8 @@ Additionally, you can check the `arbitrator` status by running:
 
 === "On Red Hat Enterprise Linux or CentOS"
 
-    ```{.bash data-prompt="root@server:~#"}
-    root@server:~# service garb status
+    ```shell
+    service garb status
     ```
 
     ??? example "Expected output"

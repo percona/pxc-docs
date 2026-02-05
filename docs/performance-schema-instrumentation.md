@@ -12,8 +12,8 @@ not part of the `PERFORMANCE_SCHEMA`.
 
 You can see the complete list of available instruments by running:
 
-```{.bash data-prompt="mysql>"}
-mysql> SELECT * FROM performance_schema.setup_instruments WHERE name LIKE '%galera%' OR name LIKE '%wsrep%';
+```sql
+SELECT * FROM performance_schema.setup_instruments WHERE name LIKE '%galera%' OR name LIKE '%wsrep%';
 ```
 
 ??? example "Expected output"

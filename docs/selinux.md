@@ -8,7 +8,7 @@ SELinux helps protects the user’s home directory data. SELinux provides the fo
 
 * Used as a role-based access control system
 
-For more information, see [Percona Server and SELinux](https://www.percona.com/doc/percona-server/LATEST/security/selinux.html)
+For more information, see [Percona Server and SELinux :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/selinux.html)
 
 Red Hat Enterprise Linux (RHEL) distributes a policy module to extend the SELinux policy module for `mysqld`. We provide the following:
 
@@ -18,7 +18,7 @@ Red Hat Enterprise Linux (RHEL) distributes a policy module to extend the SELinu
 
 ## Modify policies
 
-Modifications described in [Percona Server and SELinux](https://docs.percona.com/percona-server/8.4/selinux.html) can also be applied for *Percona XtraDB Cluster*.
+Modifications described in [Percona Server and SELinux :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/selinux.html) can also be applied for *Percona XtraDB Cluster*.
 
 To adjust PXC-specific configurations, especially SST/IST ports, use the following procedures as `root`:
 
@@ -26,15 +26,15 @@ To enable port `14567` instead of the default port `4567`:
 
 Find the tag associated with the `4567` port:
 
-```{.bash data-prompt="$"}
-$ semanage port -l | grep 4567
+```shell
+semanage port -l | grep 4567
 tram_port_t tcp 4567
 ```
 
 Run a command to find which rules grant mysqld access to the port:
 
-```{.bash data-prompt="$"}
-$ sesearch -A -s mysqld_t -t tram_port_t -c tcp_socket
+```shell
+sesearch -A -s mysqld_t -t tram_port_t -c tcp_socket
 Found 5 semantic av rules:
     allow mysqld_t port_type : tcp_socket { recv_msg send_msg } ;
     allow mysqld_t tram_port_t : tcp_socket { name_bind name_connect } ;
@@ -45,29 +45,29 @@ Found 5 semantic av rules:
 
 You could tag port 14567 with the `tramp_port_t` tag, but this tag may cause issues because port 14567 is not a TRAM port. Use the general `mysqld_port_t` tag to add ports. For example, the following command adds port 14567 to the policy module with the `mysqld_port_t` tag.
 
-```{.bash data-prompt="$"}
-$ semanage port -a -t mysqld_port_t -p tcp 14567
+```shell
+semanage port -a -t mysqld_port_t -p tcp 14567
 ```
 
 You can verify the addition with the following command:
 
-```{.bash data-prompt="$"}
-$ semanage port -l | grep 14567
+```shell
+semanage port -l | grep 14567
 mysqld_port_t                  tcp      4568, 14567, 1186, 3306, 63132-63164
 ```
 
 To see the tag associated with the 4444 port, run the following command:
 
-```{.bash data-prompt="$"}
-$ semanage port -l | grep 4444
+```shell
+semanage port -l | grep 4444
 kerberos_port_t                tcp      88, 750, 4444
 kerberos_port_t                udp      88, 750, 4444
 ```
 
 To find the rules associated with `kerberos_port_t`, run the following:
 
-```{.bash data-prompt="$"}
-$ sesearch -A -s mysqld_t -t kerberos_port_t -c tcp_socket
+```shell
+sesearch -A -s mysqld_t -t kerberos_port_t -c tcp_socket
 Found 9 semantic av rules:
 allow mysqld_t port_type : tcp_socket { recv_msg send_msg } ;
 allow mysqld_t rpc_port_type : tcp_socket name_bind ;
@@ -100,23 +100,23 @@ Review [How to set up the certificates](encrypt-traffic.md#encrypt-replication-t
 
 * Certificates without the proper SELinux context can be restored with the following command:
 
-  ```{.bash data-prompt="$"}
-  $ restorecon -v /etc/mysql/certs/*
+  ```shell
+  restorecon -v /etc/mysql/certs/*
   ```
 
 ## Enable enforcing mode for PXC
 
 The process, mysqld, runs in permissive mode, by default, even if SELinux runs in enforcing mode:
 
-```{.bash data-prompt="$"}
-$ semodule -l | grep permissive
+```shell
+semodule -l | grep permissive
 permissive_mysqld_t
 permissivedomains
 ```
 
 After ensuring that the system journal does not list any issues, the administrator can remove the permissive mode for mysqld_t:
 
-```{.bash data-prompt="$"}
-$ semanage permissive -d mysqld_t
+```shell
+semanage permissive -d mysqld_t
 ```
 

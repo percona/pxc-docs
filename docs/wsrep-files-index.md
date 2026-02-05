@@ -15,10 +15,10 @@
     file. To create the `GRA_HEADER` file you need an instance running with `binlog_checksum` set to `NONE` and extract first 120 bytes from the binlog file:
 
     ```shell
-    $ head -c 123 mysqld-bin.000001 > GRA_HEADER
-    $ cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
-    $ cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
-    $ mysqlbinlog -vvv /var/lib/mysql/GRA_1_2-bin.log
+    head -c 123 mysqld-bin.000001 > GRA_HEADER
+    cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
+    cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
+    mysqlbinlog -vvv /var/lib/mysql/GRA_1_2-bin.log
 
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
     /*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
@@ -71,7 +71,7 @@
     
     !!! admonition "See also"
 
-        **Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache)** https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/
+        [**Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache)** :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 * `galera.cache`
 

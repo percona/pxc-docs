@@ -59,8 +59,7 @@ When a `JOINER` node needs an IST,
 it will be serviced through this GCache (if possible).
 
 GCache will also create the files to disk.
-You can read more about it
-[here](https://severalnines.com/blog/understanding-gcache-galera).
+You can read more about it in the [Understanding gcache in Galera :octicons-link-external-16:](https://severalnines.com/blog/understanding-gcache-galera) blog post.
 
 At any given point in time, the native node has two copies of the write-set:
 one in GCache and another in Record-Set Cache.

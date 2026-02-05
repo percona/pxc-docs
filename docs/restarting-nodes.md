@@ -12,8 +12,8 @@ In the event of a MySQL failure, the system does not remove the PID file because
 
 Use the `rm` command in a Unix/Linux shell to do this:
 
-```{.bash .data-prompt="$"}
-$ bash rm /path/to/mysql.pid
+```shell
+bash rm /path/to/mysql.pid
 ```
 
 Replace `/path/to/mysql.pid` with the actual path to your MySQL PID file. The default location for the PID file is often `/var/run/mysqld/mysqld.pid` or `/var/lib/mysql/mysql.pid`, but this can vary based on your configuration. Before executing this command, ensure that MySQL is not running, as removing the PID file while the server is active can lead to issues.

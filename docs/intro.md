@@ -1,6 +1,6 @@
 # About Percona XtraDB Cluster
 
-Percona XtraDB [Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a fully open-source high-availability solution for MySQL.  It integrates Percona Server for [MySQL](https://www.mysql.com/) and Percona [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) with the [Galera](https://github.com/percona/galera) library to enable synchronous multi-source replication.
+Percona XtraDB [Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a fully open-source high-availability solution for MySQL.  It integrates Percona Server for [MySQL](https://www.mysql.com/) and Percona [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) with the [MariaDB Galera :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster) library to enable synchronous multi-source replication.
 
 A *cluster* consists of *nodes*, where each node contains the same set of data
 synchronized across nodes.  The recommended configuration is to have at least 3
@@ -30,6 +30,6 @@ instance.
 
 ## Components
 
-Percona XtraDB Cluster <https://www.percona.com/software/mysql-database/percona-xtradb-cluster> is based on Percona Server for [MySQL](https://www.mysql.com/) running with the [XtraDB](https://www.percona.com/software/mysql-database/percona-server/xtradb) storage engine.
-It uses the [Galera](https://github.com/percona/galera) library, which is an implementation of the write set replication (wsrep) API developed by [Codership Oy](https://www.galeracluster.com/).
-The default and recommended data transfer method is via Percona [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) .
+[Percona XtraDB Cluster :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is based on Percona Server for [MySQL :octicons-link-external-16:](https://www.mysql.com/) running with the [XtraDB](https://www.percona.com/software/mysql-database/percona-server/xtradb) storage engine.
+It uses the [MariaDB Galera :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster) library.
+The default and recommended data transfer method is via Percona [XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) .

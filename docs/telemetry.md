@@ -6,7 +6,7 @@ Percona telemetry fills in the gaps in our understanding of how you use Percona 
 
 At this time, telemetry is added only to the Percona packages and Docker images. Percona XtraDB Cluster collects only information about the installation environment. Future releases may add additional metrics.
 
-Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our [Percona Privacy statement].
+Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our [Percona Privacy statement :octicons-link-external-16:](https://www.percona.com/privacy-policy#h.e34c40q8sb1a).
 
 An example of the data collected is the following:
 
@@ -30,24 +30,22 @@ Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by defaul
 
     Add the environment variable before the install process.
 
-    ```{.bash data-prompt="$"}
-    $ sudo PERCONA_TELEMETRY_DISABLE=1 apt install percona-xtradb-cluster
+    ```shell
+    sudo PERCONA_TELEMETRY_DISABLE=1 apt install percona-xtradb-cluster
     ```
 
 === "Red Hat-derived distribution"
 
     Add the environment variable before the install process.
     
-    ```{.bash data-prompt="$"}
-    $ sudo PERCONA_TELEMETRY_DISABLE=1 yum install percona-xtradb-cluster
+    ```shell
+    sudo PERCONA_TELEMETRY_DISABLE=1 yum install percona-xtradb-cluster
     ```
 
 === "DOCKER"
 
     Add the environment variable when running a command in a new container.
     
-    ```{.bash data-prompt="$"}
-    $ docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:8.0
+    ```shell
+    docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:8.0
     ```
-
-[Percona Privacy statement]: https://www.percona.com/privacy-policy#h.e34c40q8sb1a

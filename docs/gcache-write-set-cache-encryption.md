@@ -12,7 +12,7 @@ Enabling this feature encrypts the Galera GCache and Write-Set cache files with 
 
 !!! admonition "See also"
 
-    For more information, see [Understanding GCache and Record-set Cache](gcache-record-set-cache-difference.md), and the Percona Database Performance Blog: [All you need to know about GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+    For more information, see [Understanding GCache and Record-set Cache](gcache-record-set-cache-difference.md), and the Percona Database Performance Blog: [All you need to know about GCache :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 
 ??? example "Sample preamble key-value pairs"
@@ -66,7 +66,6 @@ GCache and Write-Set cache encryption uses either a keyring plugin or a keyring 
 Store the keyring file outside the data directory when using a keyring plugin or a keyring component.
 
 ```sql
-
 mysql> ALTER INSTANCE ROTATE GCACHE MASTER KEY;
 ```
 

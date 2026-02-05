@@ -72,7 +72,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        [MariaDB Galera Documentation: Tables without Primary Keys](https://mariadb.com/docs/server/server-usage/tables/mariadb-indexes-guide-1#finding-tables-without-primary-keys)
+        [MariaDB Galera Documentation: Tables without Primary Keys :octicons-link-external-16:](https://mariadb.com/docs/server/server-usage/tables/mariadb-indexes-guide-1#finding-tables-without-primary-keys)
 
 * Avoid reusing the names of persistent tables for temporary tables
 
@@ -89,10 +89,10 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        [MySQL Documentation: Problems with temporary tables](https://dev.mysql.com/doc/refman/{{vers}}/en/temporary-table-problems.html)
+        [MySQL Documentation: Problems with temporary tables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/temporary-table-problems.html)
 
 
-An INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. Due to this change, the `LOCK=NONE` clause is no longer allowed for all `INPLACE ALTER TABLE` queries.
+An INPLACE [ALTER TABLE :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. Due to this change, the `LOCK=NONE` clause is no longer allowed for all `INPLACE ALTER TABLE` queries.
 
 This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:
 
@@ -102,8 +102,8 @@ This change addresses a deadlock, which could cause a cluster node to hang in th
 
 Do not use one or more dot characters (.) when defining the values for the following variables:
 
-* [log_bin](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin)
+* [log_bin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin)
 
-* [log_bin_index](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
+* [log_bin_index :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-binary-log.html#option_mysqld_log-bin-index)
 
 MySQL and **XtraBackup** handle the value in different ways, and this difference causes unpredictable behavior.
