@@ -44,8 +44,9 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 {.power-number}
 
 1. Create conf.d/custom.cnf with minimal SSL settings:
+
   
-    ```ini
+    ```text
     [mysqld]
     ssl-ca=/etc/mysql/certs/ca.pem
     ssl-cert=/etc/mysql/certs/server-cert.pem
@@ -54,44 +55,38 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 
 2. Create a file named `.env` in the directory root:
 
-    ```ini
+    ```text
     MYSQL_ROOT_PASSWORD=rootpass
     XTRABACKUP_PASSWORD=xbpass
     ```
-    
+
     Add `.env` to your .gitignore file to prevent committing secrets to version control.
 
 3. Copy the SSL certificate generation script. Save the script as `init/create-ssl-certs.sh`:
 
-    ```ini
+    ```text
     #!/bin/bash
     set -e
-    
     CERT_DIR=./certs
     mkdir -p "$CERT_DIR"
     cd "$CERT_DIR"
-    
-    # Generate CA key and certificate
+    Generate CA key and certificate
     openssl genrsa -out ca-key.pem 2048
     openssl req -new -x509 -nodes -days 3650 \
         -key ca-key.pem \
         -subj "/C=XX/ST=State/L=City/O=Organization/CN=RootCA" \
         -out ca.pem
-    
-    # Generate server key and CSR
+    Generate server key and CSR
     openssl req -newkey rsa:2048 -nodes \
         -keyout server-key.pem \
         -subj "/C=XX/ST=State/L=City/O=Organization/CN=pxc-node" \
         -out server-req.pem
-    
-    # Sign server certificate with CA
+    Sign server certificate with CA
     openssl x509 -req -in server-req.pem -days 3650 \
         -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
         -out server-cert.pem
-    
-    # Restrict permissions
+    Restrict permissions
     chmod 600 *.pem
-  
     ```
 
 4. Make the script executable:
@@ -99,7 +94,7 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
     ```shell
     chmod +x init/create-ssl-certs.sh
     ```
-  
+
 5. Run the script to create the certs:
 
     ```shell
@@ -113,32 +108,34 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
     If you run all containers from a single project directory (like with Docker Compose on one host), you can reuse the same certs/ directory for all nodes. However, you must explicitly copy the certificates if you’re organizing them into separate directories or deploying on separate hosts.
   
     To create the directories for node 2 and node 3:
+
     
     ```shell
     mkdir -p certs-node2
     mkdir -p certs-node3
     ```
-    
+
     Then copy the certificates:
+
     
     ```shell
-    $ cp -r certs/* certs-node2/
-    $ cp -r certs/* certs-node3/
+    cp -r certs/* certs-node2/
+    cp -r certs/* certs-node3/
     ```
-    
+
     If you’re deploying on separate machines, run the following from node 1:
+
     
     ```shell
     scp -r ./certs/ user@node2-host:/path/to/pxc-cluster/certs
     scp -r ./certs/ user@node3-host:/path/to/pxc-cluster/certs
     ```
-    
+
     Ensure each container mounts its own copy of the certs/ directory.
 
 5. Create docker-compose.yml:
 
-    ```yaml
-  
+    ```text
     services:
       pxc1:
         image: percona/percona-xtradb-cluster:8.4
@@ -161,7 +158,6 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
           interval: 10s
           timeout: 5s
           retries: 5
-    
       pxc2:
         image: percona/percona-xtradb-cluster:8.4
         container_name: pxc2
@@ -180,7 +176,6 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
           interval: 10s
           timeout: 5s
           retries: 5
-    
       pxc3:
         image: percona/percona-xtradb-cluster:8.4
         container_name: pxc3
@@ -199,7 +194,6 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
           interval: 10s
           timeout: 5s
           retries: 5
-    
     networks:
       pxcnet:
         driver: bridge
@@ -208,12 +202,14 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 6. Start the Cluster
 
     Start node 1 to initialize the cluster:
+
     
     ```shell
     docker compose up -d pxc1
     ```
 
     Then, start the remaining nodes:
+
     
     ```shell
     docker compose up -d pxc2 pxc3
@@ -222,6 +218,7 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
 7. Validate the Cluster
 
     Check the status of each node:
+
     
     ```shell
     docker exec -it pxc1 mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "SHOW STATUS LIKE 'wsrep_cluster_size';"

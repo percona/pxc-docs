@@ -1,6 +1,6 @@
 # Enable AppArmor
 
-*Percona XtraDB Cluster* contains several AppArmor profiles. Multiple profiles allow for easier maintenance because the `mysqld` profile is decoupled from the SST script profile. This separation allows the introduction of other SST methods or scripts with their own profiles.
+Percona XtraDB Cluster contains several AppArmor profiles. Multiple profiles allow for easier maintenance because the `mysqld` profile is decoupled from the SST script profile. This separation allows the introduction of other SST methods or scripts with their own profiles.
 
 The following profiles are available:
 
@@ -23,15 +23,19 @@ By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all clus
 The following AppArmor profile rule grants access to certificates located in /etc/mysql/certs. You must be root or have `sudo` privileges.
 
 ```shell
-Allow config access
+# Allow config access
   /etc/mysql/** r,
 ```
 
 This rule is present in both profiles (usr.sbin.mysqld and usr.bin.wsrep_sst_xtrabackup-v2). The rule allows the administrator to store the certificates anywhere inside of the /etc/mysql/ directory. If the certificates are located outside of the specified directory, you must add an additional rule which allows access to the certificates in both profiles. The rule must have the path to the certificates location, like the following:
 
 ```shell
-Allow config access
+# Allow config access
   /path/to/certificates/* r,
 ```
+
+!!! note "How to apply"
+
+    Add or edit the rule in the profile file (for example, `/etc/apparmor.d/usr.sbin.mysqld` and `/etc/apparmor.d/usr.bin.wsrep_sst_xtrabackup-v2`), then reload AppArmor (for example, `sudo systemctl reload apparmor`). For the full procedure, see [modifying the mysqld profile :octicons-link-external-16:](https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld) in Percona Server.
 
 The server certificates must be accessible to the mysql user and are readable only by this user.

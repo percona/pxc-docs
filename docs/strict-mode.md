@@ -53,8 +53,8 @@ or the `--pxc-strict-mode` option during `mysqld` startup.
     For example, to set PXC Strict Mode to `PERMISSIVE`,
     run the following command:
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> SET GLOBAL pxc_strict_mode=PERMISSIVE;
+    ```shell
+    SET GLOBAL pxc_strict_mode=PERMISSIVE;
     ```
 
 !!! note
@@ -100,7 +100,7 @@ ENFORCING or MASTER, the server will stop with an error:
 
 ??? example "The error message"
 
-    ```{.text .no-copy}
+    ```text
     Group replication cannot be used with PXC in strict mode.
     ```
 
@@ -112,7 +112,7 @@ replication at your own risk. Setting [`pxc_strict_mode`](wsrep-system-index.md#
 
 ??? example "Warning message"
 
-    ```{.text .no-copy}
+    ```text
     Using group replication with PXC is only supported for migration. Please
     make sure that group replication is turned off once all data is migrated to PXC.
     ```
@@ -324,16 +324,10 @@ At startup, if `innodb_autoinc_lock_mode` is not set to `2`, an error is logged 
 
 ### Combine schema and data changes in a single statement
 
-With strict mode set to `ENFORCING`, Percona XtraDB Cluster does not support  statements, because they combine both schema and
-data changes. Note that tables in the SELECT clause should be present on all
+With strict mode set to `ENFORCING`, Percona XtraDB Cluster does not support CREATE TABLE … AS SELECT (CTAS) statements, because they combine both schema and data changes. Note that tables in the SELECT clause should be present on all
 replication nodes.
 
-With strict mode set to `PERMISSIVE` or `DISABLED`, CREATE TABLE … AS SELECT (CTAS) statements are
-replicated using the  method to ensure
-consistency. 
-
-In Percona XtraDB Cluster 5.7, CREATE TABLE … AS SELECT (CTAS) statements were replicated using DML
-write-sets when strict mode was set to `PERMISSIVE` or `DISABLED`.
+With strict mode set to `PERMISSIVE` or `DISABLED`, CREATE TABLE … AS SELECT (CTAS) statements are replicated using the NBO (Next Binary Operation) method to ensure consistency. 
 
 !!! important
 
@@ -389,9 +383,6 @@ This validation checks that the protocol version is the same as the server major
 
 ??? example "Expected output"
 
-    ```{.mysql no-copy}
-
+    ```sql
     ERROR 1105 (HY000): Percona-XtraDB-Cluster prohibits use of multiple major versions while accepting write workload with pxc_strict_mode = ENFORCING or MASTER
-
     ```
-

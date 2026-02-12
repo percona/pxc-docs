@@ -39,12 +39,11 @@ To maintain a secure and unified cluster setup, you must:
 A common practice is to generate the certificates on the first node and 
 then copy them to all other nodes.
 
-
 ### Recommended Certificate Storage
 
 Instead of storing certificates in the data directory, relocate them to a dedicated directory:
 
-```bash
+```shell
 mkdir -p /etc/mysql/certs
 mv /var/lib/mysql/*.pem /etc/mysql/certs/
 chown -R mysql:mysql /etc/mysql/certs
@@ -52,7 +51,7 @@ chown -R mysql:mysql /etc/mysql/certs
 
 Then update your configuration in /etc/mysql/mysql.conf.d/mysqld.cnf:
 
-```ini
+```{.text .no-copy}
 ssl-key=/etc/mysql/certs/server-key.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
 ssl-ca=/etc/mysql/certs/ca.pem
@@ -86,7 +85,6 @@ nodes can create connectivity problems and weaken security. Configure each
 node with identical SSL credentials to ensure reliable and encrypted 
 communication across the cluster.
 
-
 ### Configure SSL encryption
 
 Percona XtraDB Cluster provides the [`pxc-encrypt-cluster-traffic`](wsrep-system-index.md#pxc_encrypt_cluster_traffic) variable 
@@ -107,10 +105,9 @@ Administrators can explicitly configure encryption in `my.cnf` configuration fil
 
 This configuration applies the following settings:
 
-```ini
+```{.text .no-copy}
 [mysqld]
 wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
-
 [sst]
 encrypt=4
 ssl-key=server-key.pem
@@ -130,10 +127,10 @@ This error indicates that the replica is attempting to connect to the source ser
 
 To resolve this on the replica, configure replication to use SSL:
 
-```{.bash data-prompt="mysql>"}
-mysql> STOP REPLICA;
-mysql> CHANGE REPLICATION SOURCE TO SOURCE_SSL = 1;
-mysql> START REPLICA;
+```shell
+STOP REPLICA;
+CHANGE REPLICATION SOURCE TO SOURCE_SSL = 1;
+START REPLICA;
 ```
 
 This change ensures that the replication channel uses encrypted transport, satisfying the authentication requirements of the source server.
@@ -212,7 +209,7 @@ For more information, see [State snapshot transfer](state-snapshot-transfer.md#s
 
 The following options are to be set in `my.cnf` on all nodes:
 
-```text
+```{.text .no-copy}
 early-plugin-load=keyring_file.so
 keyring-file-data=/path/to/keyring/file
 ```
@@ -241,7 +238,7 @@ To enable encryption for SST using XtraBackup, define the paths to the key and c
 
 An example configuration in `my.cnf`:
 
-```ini
+```{.text .no-copy}
 [sst]
 encrypt=4
 ssl-ca=/etc/mysql/certs/ca.pem
@@ -258,7 +255,7 @@ To avoid this delay, create the `dhparams.pem` file manually and place the file 
 An example command to generate the `dhparams.pem` file:
 
 ```shell
-$ openssl dhparam -out /path/to/datadir/dhparams.pem 2048
+openssl dhparam -out /path/to/datadir/dhparams.pem 2048
 ```
 
 For more information, see [Percona XtraDB Cluster: “dh key too small” error during an SST using SSL :octicons-link-external-16:](https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
@@ -278,7 +275,6 @@ write-set replication, and service messages ensuring confidentiality and integri
 
 To enable encryption for all these processes,
 define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate [wsrep provider options](wsrep-provider-index.md):
-
 
 * [`socket.ssl_ca`](wsrep-provider-index.md#socketssl_ca)
 
@@ -319,7 +315,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
         ```shell
         openssl genrsa 2048 > ca-key.pem
         ```
-        
+
         The command generates a 2048-bit RSA private key and saves the key to `ca-key.pem`. This key is essential for signing certificates.
         
     2. Generate the CA certificate file:
@@ -328,7 +324,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
         openssl req -new -x509 -nodes -days 3600
             -key ca-key.pem -out ca.pem
         ```
-        
+
         The command does the following:
         
         * Generates a self-signed CA certificate valid for 3600 days.
@@ -349,7 +345,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
         openssl req -newkey rsa:2048 -days 3600 \
             -nodes -keyout server-key.pem -out server-req.pem
         ```
-        
+
         The command does the following:
         
         * Creates a 2048-bit RSA private key (server-key.pem).
@@ -365,8 +361,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
         ```shell
         openssl rsa -in server-key.pem -out server-key.pem
         ```
-        
-        
+
     3. This command generates a signed certificate from a CSR using a specified CA certificate and its corresponding private key. The command also sets a defined validity period and serial number for the new certificate.
 
         ```shell
@@ -374,7 +369,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
             -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
             -out server-cert.pem
         ```
-        
+
         The command does the following:
         
         * Processes a certificate signing request (CSR) from the `server-req.pem` file.
@@ -397,7 +392,7 @@ The `Common Name` value assigned to the server and client keys and certificates 
         openssl req -newkey rsa:2048 -days 3600 \
             -nodes -keyout client-key.pem -out client-req.pem
         ```
-        
+
         The command does the following:
         
         * Creates a 2048-bit RSA private key (server-key.pem).
@@ -411,19 +406,19 @@ The `Common Name` value assigned to the server and client keys and certificates 
     2. Remove the passphrase:
 
         ```shell
-        $ openssl rsa -in client-key.pem -out client-key.pem
+        openssl rsa -in client-key.pem -out client-key.pem
         ```
-        
+
         The command ensures the private key (server-key.pem) is stored without a passphrase.
 
     3. Sign the certificate request using the CA certificate and key:
 
         ```shell
-        $ openssl x509 -req -in client-req.pem -days 3600 \
+        openssl x509 -req -in client-req.pem -days 3600 \
            -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
            -out client-cert.pem
         ```
-        
+
        The command does the following:
        
        * Signs the CSR (server-req.pem) using the CA certificate (ca.pem) and CA key (ca-key.pem).
@@ -443,7 +438,7 @@ openssl verify -CAfile ca.pem server-cert.pem client-cert.pem
 This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (`ca.pem`). If the certificates are correctly signed, OpenSSL returns a confirmation message;  
 otherwise, error details indicate issues with the certificate chain.
 
-```text
+```{.text .no-copy}
 server-cert.pem: OK
 client-cert.pem: OK
 ```

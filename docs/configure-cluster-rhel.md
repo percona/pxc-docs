@@ -50,28 +50,20 @@ on the first node (`percona1`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
     # Cluster connection URL contains the IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
     # Using the MyISAM storage engine is not recommended.
     default_storage_engine=InnoDB
-
     # This InnoDB autoincrement locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node 1 address
     wsrep_node_address=192.168.70.71
-
     # SST method
     wsrep_sst_method=xtrabackup-v2
-
     # Cluster name
     wsrep_cluster_name=my_rhel_cluster
     ```
@@ -89,7 +81,7 @@ on the first node (`percona1`) contains the following:
     ```sql
     show status like 'wsrep%';
     ```
-    
+
     This output shows that the cluster has been successfully bootstrapped.
 
     ??? example "Expected output"
@@ -118,6 +110,12 @@ on the first node (`percona1`) contains the following:
     sudo grep 'temporary password' /var/log/mysqld.log
     ```
 
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        [Note] A temporary password is generated for root@localhost: xYz123AbC
+        ```
+
     Use this password to log in as root:
 
     ```shell
@@ -129,11 +127,23 @@ on the first node (`percona1`) contains the following:
     ```shell
     ALTER USER 'root'@'localhost' IDENTIFIED BY 'r00tP@$$';
     ```
-   
+
     ??? example "Expected output"
 
         ```{.text .no-copy}
         Query OK, 0 rows affected (0.00 sec)
+        ```
+
+    Exit the MySQL client:
+
+    ```sql
+    EXIT
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        Bye
         ```
 
 ## Step 3. Configure the second node
@@ -142,28 +152,20 @@ on the first node (`percona1`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
-
     # This InnoDB auto_increment locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node 2 address
     wsrep_node_address=192.168.70.72
-
     # Cluster name
     wsrep_cluster_name=my_rhel_cluster
-
     # SST method
     wsrep_sst_method=xtrabackup-v2
     ```
@@ -210,28 +212,20 @@ on the first node (`percona1`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
-
     # This InnoDB auto_increment locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node #3 address
     wsrep_node_address=192.168.70.73
-
     # Cluster name
     wsrep_cluster_name=my_rhel_cluster
-
     # SST method
     wsrep_sst_method=xtrabackup-v2
     ```
@@ -280,11 +274,9 @@ and add some records to the table on the first node.
 
 1. Create a new database on the second node, `mysql@percona2>`:
 
-    ```{shell
+    ```sql
     CREATE DATABASE percona;
     ```
-
-    The following output confirms that a new database has been created:
 
     ??? example "Expected output"
 
@@ -294,10 +286,10 @@ and add some records to the table on the first node.
 
 2. Switch to a newly created database, `mysql@percona3>`:
 
-    ```shell
+    ```sql
     USE percona;
     ```
-    
+
     The following output confirms that a database has been changed:
 
     ??? example "Expected output"
@@ -308,7 +300,7 @@ and add some records to the table on the first node.
 
 3. Create a table on the third node, `mysql@percona3>`:
 
-    ```shell
+    ```sql
     CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
     ```
 
@@ -322,7 +314,7 @@ and add some records to the table on the first node.
 
 4. Insert records on the first node, `mysql@percona1>`:
 
-    ```shell
+    ```sql
     INSERT INTO percona.example VALUES (1, 'percona1');
     ```
 
@@ -336,10 +328,10 @@ and add some records to the table on the first node.
 
 5. Retrieve all the rows from that table on the second node, `mysql@percona2>`:
 
-    ```shell
+    ```sql
     SELECT * FROM percona.example;
     ```
-    
+
     The following output confirms that all the rows have been retrieved:
 
     ??? example "Expected output"
@@ -355,5 +347,4 @@ and add some records to the table on the first node.
 
     This simple procedure should ensure that all nodes in the cluster
     are synchronized and working as intended.
-
 

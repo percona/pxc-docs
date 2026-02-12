@@ -10,7 +10,7 @@ and adding some records to the table on the first node.
     ```sql
     CREATE DATABASE percona;
     ```
-  
+
     The following output confirms that a new database has been created:
 
     ??? example "Expected output"

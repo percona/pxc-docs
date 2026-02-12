@@ -19,7 +19,6 @@ Clone limitations are described in [Clone plugin limitations :octicons-link-exte
 | Minimal Downtime       | Reduces the time required for node synchronization.         |
 | Native Integration     | Fully integrated into MySQL, eliminating the need for external tools. |
 
-
 ## Prerequisites
 
 The requirements for enabling SST transfers with the Clone plugin are as follows:
@@ -62,7 +61,7 @@ To enable the `clone` SST method, ensure the [`wsrep_sst_allowed_methods`](wsrep
 
 Starting from Percona XtraDB Cluster 8.4.4-4, the default value of `wsrep_sst_allowed_methods` includes `clone`, which removes the need to configure this option manually in most cases.
 
-```ini
+```text
 [mysqld]
 wsrep_sst_allowed_methods = xtrabackup-v2,clone
 ```
@@ -71,7 +70,7 @@ wsrep_sst_allowed_methods = xtrabackup-v2,clone
 
 On the Joiner server, set the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable to `clone` in the configuration file (`my.cnf`). This setting is the only accepted value for the Clone SST process.
 
-```ini
+```text
 [mysqld]
 wsrep_sst_method = clone
 ```
@@ -88,12 +87,11 @@ To enable SSL for the Clone SST process, place the SSL certificates in a directo
 
 We recommend explicitly setting the SSL certificates in the `my.cnf` file as follows:
 
-```ini
+```text
 [client]
 ssl-ca = /<path>/ca.pem
 ssl-cert = /<path>/client-cert.pem
 ssl-key = /<path>/client-key.pem
-
 [mysqld]
 ssl-ca = /<path>/ca.pem
 ssl-cert = /<path>/server-cert.pem
@@ -102,7 +100,7 @@ ssl-key = /<path>/server-key.pem
 
 Alternatively, you can configure the following SSL settings specifically for the Clone SST process on the Joiner:
 
-```ini
+```text
 [mysqld]
 clone_ssl_ca = /path/to/ca.pem
 clone_ssl_cert = /path/to/client-cert.pem
@@ -124,7 +122,6 @@ State Snapshot Transfer (SST) in Galera Cluster relies on specific variables tha
 | `wsrep_sst_method`              | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected. | [Learn more](wsrep-system-index.md#wsrep_sst_method) |
 | `wsrep_sst_receive_address`     | Specifies the IP address and port on the Joiner node to receive SST data.                                   | [Learn more](wsrep-system-index.md#wsrep_sst_receive_address) |
 
-
 ### Timeout variables
 
 During the Clone SST process, there are three key moments when the Joiner or Donor must wait for the other to complete a specific action. These moments are governed by the following configurable timeout variables:
@@ -137,7 +134,7 @@ During the Clone SST process, there are three key moments when the Joiner or Don
 
 These timeout variables can be configured in the `my.cnf` file as follows:
 
-```ini
+```text
 [sst]
 joiner_timeout_wait_donor_message=60
 donor_timeout_wait_Joiner=200
@@ -148,7 +145,7 @@ joiner_timeout_clone_instance=90
 
 In the same context, if you must debug the process and need more information, you can enable the debug output in my.cnf:
 
-```ini
+```text
 [sst]
 wsrep-debug=true
 ```
@@ -182,5 +179,4 @@ SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
 | Certificate validation failure | Incorrect SSL configuration | Verify SSL certificates are properly configured and accessible in non-data directories |
 | Clone plugin not found | Plugin not installed | Install the clone plugin using `INSTALL PLUGIN clone SONAME 'mysql_clone.so'` |
 | Data inconsistency after clone | Interrupted clone process | Check MySQL error logs and restart the clone process |
-
 

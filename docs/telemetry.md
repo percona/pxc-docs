@@ -10,7 +10,7 @@ Be assured that access to this raw data is rigorously controlled. Percona does n
 
 An example of the data collected is the following:
 
-```JSON
+```text
 [{"id" : "c416c3ee-48cd-471c-9733-37c2886f8231",
 "product_family" : "PRODUCT_FAMILY_PXC",
 "instanceId" : "6aef422e-56a7-4530-af9d-94cc02198343",
@@ -37,6 +37,7 @@ Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by defaul
 === "Red Hat-derived distribution"
 
     Add the environment variable before the install process.
+
     
     ```shell
     sudo PERCONA_TELEMETRY_DISABLE=1 yum install percona-xtradb-cluster
@@ -45,7 +46,8 @@ Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by defaul
 === "DOCKER"
 
     Add the environment variable when running a command in a new container.
+
     
     ```shell
-    docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:8.0
+    docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:8.4
     ```

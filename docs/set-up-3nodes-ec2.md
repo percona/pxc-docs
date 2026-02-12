@@ -31,11 +31,7 @@ with Red Hat Enterprise Linux 7 64-bit.
 
 To set up Percona XtraDB Cluster:
 
-1. Remove Percona XtraDB Cluster and Percona Server for MySQL packages for older versions:
-
-    * Percona XtraDB Cluster 5.6, 5.7
-
-    * Percona Server for MySQL 5.6, 5.7
+1. Remove any existing Percona XtraDB Cluster or Percona Server for MySQL packages from older versions before installing.
 
 2. Install Percona XtraDB Cluster with [Install on Red Hat Enterprise Linux](yum.md#install-from-percona-software-repository).
 
@@ -64,26 +60,22 @@ To set up Percona XtraDB Cluster:
 
     Contents of the configuration file on the first node:
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     datadir=/mnt/data
     user=mysql
-
     wsrep_provider=/usr/lib64/libgalera_smm.so
     wsrep_cluster_address=gcomm://10.93.46.58,10.93.46.59,10.93.46.60
-
     wsrep_cluster_name=trimethylxanthine
     wsrep_sst_method=xtrabackup-v2
     wsrep_node_name=node1
-
     innodb_autoinc_lock_mode=2
     ```
 
     For the second and third nodes change the following lines:
 
-    ```text
+    ```{.text .no-copy}
     wsrep_node_name=node2
-
     wsrep_node_name=node3
     ```
 
@@ -150,6 +142,7 @@ To set up Percona XtraDB Cluster:
 
     ```shell
     mysql -uroot
-    > CREATE DATABASE hello_tom;
+    CREATE DATABASE hello_tom;
     ```
+
 The new database will be propagated to all nodes.

@@ -67,14 +67,14 @@ one in GCache and another in Record-Set Cache.
 For example, lets say you `INSERT/UPDATE` 2 million rows
 in a table with the following schema.
 
-```{.text .no-copy}
+```text
 (int, char(100), char(100) with pk (int, char(100))
 ```
 
 It will create write-set key/data files in the background
 similar to the following:
 
-```{.text .no-copy}
+```text
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000000
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000001
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000002

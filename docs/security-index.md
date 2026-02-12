@@ -37,7 +37,7 @@ SELinux operates in one of two modes that determine how it applies security poli
 ```shell
 setenforce 0
 ```
-	
+
 The command does the following:
 
 * Sets SELinux to permissive mode immediately (without reboot).

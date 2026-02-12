@@ -119,4 +119,3 @@ After ensuring that the system journal does not list any issues, the administrat
 ```shell
 semanage permissive -d mysqld_t
 ```
-

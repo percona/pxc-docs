@@ -101,4 +101,3 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.
     ```shell
     iptables-save > /etc/sysconfig/iptables
     ```
-

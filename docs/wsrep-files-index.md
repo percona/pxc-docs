@@ -1,6 +1,5 @@
 # Index of files created by PXC
 
-
 * `GRA_\*.log`
 
     These files contain binlog events in ROW format representing the failed
@@ -19,20 +18,19 @@
     cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
     cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
     mysqlbinlog -vvv /var/lib/mysql/GRA_1_2-bin.log
-
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
     /*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
     DELIMITER /*!*/;
-    # at 4
+    at 4
     #160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup
-    # Warning: this binlog is either in use or was not closed properly.
+    Warning: this binlog is either in use or was not closed properly.
     ROLLBACK/*!*/;
     BINLOG '
     nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA
     ALfQ8hw=
     '/*!*/;
-    # at 123
+    at 123
     #160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0
     use `test`/*!*/;
     SET TIMESTAMP=1470738949/*!*/;
@@ -48,7 +46,7 @@
     /*!*/;
     SET @@SESSION.GTID_NEXT= 'AUTOMATIC' /* added by mysqlbinlog */ /*!*/;
     DELIMITER ;
-    # End of log file
+    End of log file
     /*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
     ```
@@ -57,13 +55,12 @@
 
     ??? example "Error message"
 
-        ```{.text .no-copy}
+        ```text
         160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
         160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
         ```
 
     In this example `DROP TABLE` statement was executed on a table that doesn’t exist.
-
 
 * `gcache.page`
     
@@ -71,16 +68,13 @@
     
     !!! admonition "See also"
 
-        [**Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache)** :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+        [Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache) :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 * `galera.cache`
 
     This file is used as a main writeset store. It’s implemented as a permanent
     ring-buffer file that is preallocated on disk when the node is initialized.
-    File size can be controlled with the variable [`gcache.size`](wsrep-provider-index.md#gcachesize). If
-    this value is bigger, more writesets are cached and chances are better that
-    the re-joining node will get [IST](glossary.md#ist) instead of [SST](glossary.md#sst). Filename can be changed
-    with the [`gcache.name`](wsrep-provider-index.md#gcachename) variable.
+    File size can be controlled with the variable [`gcache.size`](wsrep-provider-index.md#gcachesize). If this value is bigger, more writesets are cached and chances are better that the re-joining node will get [IST](glossary.md#ist) instead of [SST](glossary.md#sst). Filename can be changed with the [`gcache.name`](wsrep-provider-index.md#gcachename) variable.
 
 * `grastate.dat`
 
@@ -99,7 +93,7 @@
     In case server node has this state when not running it means that that node crashed during the transaction processing.
 
     ```shell
-    # GALERA saved state
+    GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
     seqno:   -1
@@ -110,7 +104,7 @@
     was gracefully shut down.
 
     ```shell
-    # GALERA saved state
+    GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
     seqno:   5192193423942
@@ -120,7 +114,7 @@
     In case server node has this state when not running it means that the node crashed during the DDL.
 
     ```shell
-    # GALERA saved state
+    GALERA saved state
     version: 2.1
     uuid:    00000000-0000-0000-0000-000000000000
     seqno:   -1
@@ -146,7 +140,7 @@
 
     ??? example "Example of the file"
 
-        ```{.text .no-copy}
+        ```text
         my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
         #vwbeg
         view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 

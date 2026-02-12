@@ -122,9 +122,9 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
         ```shell
         sudo rpm -ivh percona-server-server-{{release}}.el9.x86_64.rpm \
-        > percona-server-client-{{release}}.el9.x86_64.rpm \
-        > percona-server-shared-{{release}}.el9.x86_64.rpm \
-        > percona-server-shared-compat-{{release}}.el9.x86_64.rpm
+        percona-server-client-{{release}}.el9.x86_64.rpm \
+        percona-server-shared-{{release}}.el9.x86_64.rpm \
+        percona-server-shared-compat-{{release}}.el9.x86_64.rpm
         ```
 
         This command installs only packages required to run the Percona Server for MySQL
@@ -146,7 +146,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
         [mysqld]
         skip-grant-tables
         ```
-    
+
         Restart the mysql server with `service mysql start`.
 
     9.  Running the upgrade:

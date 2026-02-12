@@ -117,7 +117,7 @@ Enables SST encryption mode in Percona XtraBackup:
 
   Considering that you have all three necessary files:
 
-  ```{.text .no-copy}
+  ```text
   [sst]
   encrypt=4
   ssl-ca=ca.pem
@@ -132,7 +132,7 @@ For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-px
 Used to specify key/value pairs of socket options, separated by commas,
 for example:
 
-```{.text .no-copy}
+```text
 [sst]
 sockopt="retry=2,interval=3"
 ```
@@ -215,7 +215,7 @@ so that the state of the other node can be restored cleanly.
 
 For example:
 
-```{.text .no-copy}
+```text
 [sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 ```
@@ -257,7 +257,6 @@ set `compress` under `[xtrabackup]`. You can define both the compressor and the 
 ```shell
 [xtrabackup]
 compress
-
 -- compact has led to some crashes
 ```
 
@@ -313,7 +312,7 @@ This option configures the time the SST operation waits on the joiner to receive
 
 An example of setting the option:
 
-```{.text .no-copy}
+```text
 [sst]
 sst-idle-timeout=0
 ```
@@ -331,7 +330,7 @@ The `wsrep_sst_common.sh` script reads this variable from the configuration file
 
 An example of setting the option:
 
-```{.text .no-copy}
+```text
 [sst]
 post-processing-timeout=600
 ```
@@ -403,11 +402,9 @@ and should be specified under the `[sst]` group.
 
 Each suppored version of Percona XtraDB Cluster is tested against a specific version of Percona XtraBackup:
 
-* Percona XtraDB Cluster 5.6 requires Percona XtraBackup 2.3
-
-* Percona XtraDB Cluster 5.7 requires Percona XtraBackup 2.4
-
 * Percona XtraDB Cluster 8.0 requires Percona XtraBackup 8.0
+
+* Percona XtraDB Cluster 8.4 requires Percona XtraBackup 8.4
 
 Other combinations are not guaranteed to work.
 

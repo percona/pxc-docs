@@ -30,6 +30,8 @@ apt install percona-xtradb-cluster-garbd
 yum install percona-xtradb-cluster-garbd
 ```
 
+On RHEL 8 and later, you can use `dnf install percona-xtradb-cluster-garbd` instead.
+
 ## Start `garbd` and configuration
 
 !!! note 
@@ -56,24 +58,19 @@ To avoid entering the options each time you start `garbd`, edit the options in t
 The configuration file should look like this after the installation and before you have added your parameters:
 
 ```{.text .no-copy}
-# Copyright (C) 2013-2015 Codership Oy
-# This config file is to be sourced by garb service script.
-
-# REMOVE THIS AFTER CONFIGURATION
-
-# A comma-separated list of node addresses (address[:port]) in the cluster
-# GALERA_NODES=""
-
-# Galera cluster name, should be the same as on the rest of the nodes.
-# GALERA_GROUP=""
-
-# Optional Galera internal options string (e.g. SSL settings)
-# see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=""
-
-# Log file for garbd. Optional, by default logs to syslog
-# Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=""
+Copyright (C) 2013-2015 Codership Oy
+This config file is to be sourced by garb service script.
+REMOVE THIS AFTER CONFIGURATION
+A comma-separated list of node addresses (address[:port]) in the cluster
+GALERA_NODES=""
+Galera cluster name, should be the same as on the rest of the nodes.
+GALERA_GROUP=""
+Optional Galera internal options string (e.g. SSL settings)
+see http://galeracluster.com/documentation-webpages/galeraparameters.html
+GALERA_OPTIONS=""
+Log file for garbd. Optional, by default logs to syslog
+Deprecated for CentOS7, use journalctl to query the log for garbd
+LOG_FILE=""
 ```
 
 Add the parameter information about the cluster. For this document, we use the cluster information from [Configuring Percona XtraDB Cluster on Ubuntu](configure-cluster-ubuntu.md#configure-a-cluster-on-debian-or-ubuntu).
@@ -84,21 +81,17 @@ Add the parameter information about the cluster. For this document, we use the c
     CONFIGURATION` line before you can start the service.
 
 ```{.text .no-copy}
-# This config file is to be sourced by garb service script.
-
-# A comma-separated list of node addresses (address[:port]) in the cluster
+This config file is to be sourced by garb service script.
+A comma-separated list of node addresses (address[:port]) in the cluster
 GALERA_NODES="192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"
-
-# Galera cluster name, should be the same as on the rest of the nodes.
+Galera cluster name, should be the same as on the rest of the nodes.
 GALERA_GROUP="my_ubuntu_cluster"
-
-# Optional Galera internal options string (e.g. SSL settings)
-# see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS="socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem"
-
-# Log file for garbd. Optional, by default logs to syslog
-# Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE="/var/log/garbd.log"
+Optional Galera internal options string (e.g. SSL settings)
+see http://galeracluster.com/documentation-webpages/galeraparameters.html
+GALERA_OPTIONS="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem;socket.ssl_cipher=AES128-SHA256"
+Log file for garbd. Optional, by default logs to syslog
+Deprecated for CentOS7, use journalctl to query the log for garbd
+LOG_FILE="/var/log/garbd.log"
 ```
 
 You can now start the *Galera Arbitrator* daemon (`garbd`). Run the following commands as root.

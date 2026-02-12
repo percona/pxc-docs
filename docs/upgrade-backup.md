@@ -25,7 +25,6 @@ To ensure the upgrade was successful, verify the data by performing the followin
 | Performance metrics     | Monitor performance metrics to ensure the upgrade did not negatively impact database performance. |
 | Logs and errors         | Review logs for any errors or warnings that might indicate issues during the upgrade process. |
 
-
 ## Upgrade other nodes
 
 To create the 2nd and subsequent nodes, follow these steps:
@@ -35,5 +34,4 @@ To create the 2nd and subsequent nodes, follow these steps:
 2. Join the cluster using State Snapshot Transfer (SST).
 
 Starting from version 8.0.34, this procedure can also be used to downgrade within the same LTS version.
-
 
