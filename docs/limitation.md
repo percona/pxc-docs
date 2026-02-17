@@ -105,6 +105,31 @@ The following limitations apply to Percona XtraDB Cluster:
 
         [MySQL Documentation: Problems with temporary tables](https://dev.mysql.com/doc/refman/8.0/en/temporary-table-problems.html)
 
+* Audit Log Filter state synchronization
+
+    Percona XtraDB Cluster supports the Audit Log Filter component. While the underlying configuration tables (`mysql.audit_log_filter` and `mysql.audit_log_user`) are replicated to all nodes via Galera, the in-memory state of the audit component is local to each node.
+
+    To ensure consistent auditing across the cluster, keep the following limitations in mind:
+
+    * Manual Cache Refresh: Running an `INSERT`, `UPDATE`, or `DELETE` on the audit filter tables on one node replicates the data, but does not trigger a cache refresh on the other nodes.
+
+    * Required Action: You must manually execute `SELECT audit_log_filter_flush();` on every node in the cluster after modifying the filter tables to ensure the nodes are using the same rules.
+
+    * If the `mysql.audit_log_filter` or `mysql.audit_log_user` tables are modified using one of the following user-defined functions (UDFs), then `audit_log_filter_flush()` must also be run on all the other nodes:
+
+        * `audit_log_filter_set_filter`
+
+        * `audit_log_filter_set_user`
+
+        * `audit_log_filter_remove_filter`
+
+        * `audit_log_filter_remove_user`
+
+    * Session Persistence: The audit log filter is applied at the start of a connection. Even after flushing the cache, existing sessions will continue to be governed by the previous filtering rules. Users must disconnect and reconnect for new filters to take effect.
+
+    !!! admonition "See also"
+
+        For more information on the audit log filter, see the [Percona Server 8.0 Audit Log Filter overview](https://docs.percona.com/percona-server/8.0/audit-log-filter-overview.html).
 
 As of version 8.0.21, an INPLACE [ALTER TABLE](https://dev.mysql.com/doc/refman/8.0/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. The `LOCK=NONE` clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.
 
