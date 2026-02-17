@@ -713,14 +713,14 @@ https://hub.docker.com/r/percona/percona-xtradb-cluster/ .">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3512,12 +3512,10 @@ production environment, you should generate and store the certificates to be use
 ssl-ca = /cert/ca.pem
 ssl-cert = /cert/server-cert.pem
 ssl-key = /cert/server-key.pem
-
 [client]
 ssl-ca = /cert/ca.pem
 ssl-cert = /cert/client-cert.pem
 ssl-key = /cert/client-key.pem
-
 [sst]
 encrypt = 4
 ssl-ca = /cert/ca.pem
@@ -3532,11 +3530,10 @@ ssl-key = /cert/server-key.pem
 </li>
 <li>
 <p>Create a create-ssl-certs.sh file with the following contents, and place the file in the cert directory</p>
-<div class="no-copy highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span><span class="w"> </span>-e
 <span class="nv">OUTPUT_DIR</span><span class="o">=</span><span class="s2">&quot;/cert&quot;</span>
 openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca-key.pem&quot;</span>
-
 openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=/ST=/L=/O=/CN=&quot;</span><span class="w"> </span>-key<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca-key.pem&quot;</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca.pem&quot;</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=/ST=/L=/O=/CN=&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/server-key.pem&quot;</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/server-req.pem&quot;</span>
@@ -3545,9 +3542,7 @@ openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> 
 <span class="w">        </span>-CA<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca.pem&quot;</span><span class="w"> </span>-CAkey<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca-key.pem&quot;</span><span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/server-cert.pem&quot;</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=/ST=/L=/O=/CN=&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-key.pem&quot;</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-req.pem&quot;</span>
-
 openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-key.pem&quot;</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-key.pem&quot;</span>
-
 openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-req.pem&quot;</span><span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=/ST=/L=/O=/CN=&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>-CA<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca.pem&quot;</span><span class="w"> </span>-CAkey<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca-key.pem&quot;</span><span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span>-out<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-cert.pem&quot;</span>
 openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/ca.pem&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/server-cert.pem&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/client-cert.pem&quot;</span>
@@ -3617,7 +3612,6 @@ Your MySQL connection id is 12
 You are enforcing ssl connection via unix socket. Please consider
 switching ssl off as it does not make connection via unix socket
 any more secure
-
 mysql&gt;
 </code></pre></div>
 </details>
@@ -3672,7 +3666,7 @@ mysql&gt;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

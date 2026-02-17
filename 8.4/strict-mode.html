@@ -714,14 +714,14 @@ This mode performs a number of validations at startup and during runtime.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3610,7 +3610,7 @@ or the <code>--pxc-strict-mode</code> option during <code>mysqld</code> startup.
 However, you can dynamically change it during runtime.
 For example, to set PXC Strict Mode to <code>PERMISSIVE</code>,
 run the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3649,7 +3649,7 @@ ENFORCING or MASTER, the server will stop with an error:</p>
 <p><strong>Error message with <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> set to <code>ENFORCING</code> or <code>MASTER</code></strong></p>
 <details class="example">
 <summary>The error message</summary>
-<div class="no-copy highlight"><pre><span></span><code>Group replication cannot be used with PXC in strict mode.
+<div class="highlight"><pre><span></span><code>Group replication cannot be used with PXC in strict mode.
 </code></pre></div>
 </details>
 <p>If <code>pxc_strict_mode</code> is set to <code>DISABLED</code> you can use group
@@ -3658,7 +3658,7 @@ replication at your own risk. Setting <a href="wsrep-system-index.html#pxc_stric
 <p><strong>Warning message with <code>pxc_strict_mode</code> set to <code>PERMISSIVE</code></strong></p>
 <details class="example">
 <summary>Warning message</summary>
-<div class="no-copy highlight"><pre><span></span><code>Using group replication with PXC is only supported for migration. Please
+<div class="highlight"><pre><span></span><code>Using group replication with PXC is only supported for migration. Please
 make sure that group replication is turned off once all data is migrated to PXC.
 </code></pre></div>
 </details>
@@ -3808,14 +3808,9 @@ a warning is logged and startup continues.</p>
 <p>This validation is not performed during runtime, because the <code>innodb_autoinc_lock_mode</code> variable cannot be set dynamically.</p>
 </div>
 <h3 id="combine-schema-and-data-changes-in-a-single-statement">Combine schema and data changes in a single statement<a class="headerlink" href="#combine-schema-and-data-changes-in-a-single-statement" title="Permanent link">&para;</a></h3>
-<p>With strict mode set to <code>ENFORCING</code>, Percona XtraDB Cluster does not support  statements, because they combine both schema and
-data changes. Note that tables in the SELECT clause should be present on all
+<p>With strict mode set to <code>ENFORCING</code>, Percona XtraDB Cluster does not support CREATE TABLE … AS SELECT (CTAS) statements, because they combine both schema and data changes. Note that tables in the SELECT clause should be present on all
 replication nodes.</p>
-<p>With strict mode set to <code>PERMISSIVE</code> or <code>DISABLED</code>, CREATE TABLE … AS SELECT (CTAS) statements are
-replicated using the  method to ensure
-consistency. </p>
-<p>In Percona XtraDB Cluster 5.7, CREATE TABLE … AS SELECT (CTAS) statements were replicated using DML
-write-sets when strict mode was set to <code>PERMISSIVE</code> or <code>DISABLED</code>.</p>
+<p>With strict mode set to <code>PERMISSIVE</code> or <code>DISABLED</code>, CREATE TABLE … AS SELECT (CTAS) statements are replicated using the NBO (Next Binary Operation) method to ensure consistency. </p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> equals to 1.  Percona XtraDB Cluster does not recommend using the MyISAM storage engine. The support for MyISAM may be removed in a future release.</p>
@@ -3870,7 +3865,7 @@ This can lead to data inconsistency if executed on only one node.</p>
 <p>This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code><span class="k">ERROR</span><span class="w"> </span><span class="mi">1105</span><span class="w"> </span><span class="p">(</span><span class="n">HY000</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">Percona</span><span class="o">-</span><span class="n">XtraDB</span><span class="o">-</span><span class="n">Cluster</span><span class="w"> </span><span class="n">prohibits</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="n">versions</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">accepting</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">workload</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">pxc_strict_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ENFORCING</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">MASTER</span>
+<div class="highlight"><pre><span></span><code><span class="n">ERROR</span><span class="w"> </span><span class="mi">1105</span><span class="w"> </span><span class="p">(</span><span class="n">HY000</span><span class="p">):</span><span class="w"> </span><span class="n">Percona</span><span class="o">-</span><span class="n">XtraDB</span><span class="o">-</span><span class="k">Cluster</span><span class="w"> </span><span class="n">prohibits</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="k">versions</span><span class="w"> </span><span class="n">while</span><span class="w"> </span><span class="n">accepting</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">workload</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">pxc_strict_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ENFORCING</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">MASTER</span>
 </code></pre></div>
 </details>
 
@@ -3895,7 +3890,7 @@ This can lead to data inconsistency if executed on only one node.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

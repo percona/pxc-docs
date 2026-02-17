@@ -714,14 +714,14 @@ provided via apt and yum may be outdated and cause errors.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3615,48 +3615,43 @@ procedure are self-signed.</p>
 <ol>
 <li>
 <p>Create conf.d/custom.cnf with minimal SSL settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
-<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
-<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
-<span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
+<div class="highlight"><pre><span></span><code>[mysqld]
+ssl-ca=/etc/mysql/certs/ca.pem
+ssl-cert=/etc/mysql/certs/server-cert.pem
+ssl-key=/etc/mysql/certs/server-key.pem
 </code></pre></div>
 </li>
 <li>
 <p>Create a file named <code>.env</code> in the directory root:</p>
-<div class="highlight"><pre><span></span><code><span class="na">MYSQL_ROOT_PASSWORD</span><span class="o">=</span><span class="s">rootpass</span>
-<span class="na">XTRABACKUP_PASSWORD</span><span class="o">=</span><span class="s">xbpass</span>
+<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=rootpass
+XTRABACKUP_PASSWORD=xbpass
 </code></pre></div>
 <p>Add <code>.env</code> to your .gitignore file to prevent committing secrets to version control.</p>
 </li>
 <li>
 <p>Copy the SSL certificate generation script. Save the script as <code>init/create-ssl-certs.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">#!/bin/bash</span>
-<span class="na">set -e</span>
-
-<span class="na">CERT_DIR</span><span class="o">=</span><span class="s">./certs</span>
-<span class="na">mkdir -p &quot;$CERT_DIR&quot;</span>
-<span class="na">cd &quot;$CERT_DIR&quot;</span>
-
-<span class="c1"># Generate CA key and certificate</span>
-<span class="na">openssl genrsa -out ca-key.pem 2048</span>
-<span class="na">openssl req -new -x509 -nodes -days 3650 \</span>
-<span class="w">    </span><span class="na">-key ca-key.pem \</span>
-<span class="w">    </span><span class="na">-subj &quot;/C</span><span class="o">=</span><span class="s">XX/ST=State/L=City/O=Organization/CN=RootCA&quot; </span>\
-<span class="w">    </span><span class="s">-out ca.pem</span>
-
-<span class="c1"># Generate server key and CSR</span>
-<span class="na">openssl req -newkey rsa</span><span class="o">:</span><span class="s">2048 -nodes </span>\
-<span class="w">    </span><span class="s">-keyout server-key.pem </span>\
-<span class="w">    </span><span class="s">-subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot; </span>\
-<span class="w">    </span><span class="s">-out server-req.pem</span>
-
-<span class="c1"># Sign server certificate with CA</span>
-<span class="na">openssl x509 -req -in server-req.pem -days 3650 \</span>
-<span class="w">    </span><span class="na">-CA ca.pem -CAkey ca-key.pem -set_serial 01 \</span>
-<span class="w">    </span><span class="na">-out server-cert.pem</span>
-
-<span class="c1"># Restrict permissions</span>
-<span class="na">chmod 600 *.pem</span>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+set -e
+CERT_DIR=./certs
+mkdir -p &quot;$CERT_DIR&quot;
+cd &quot;$CERT_DIR&quot;
+Generate CA key and certificate
+openssl genrsa -out ca-key.pem 2048
+openssl req -new -x509 -nodes -days 3650 \
+    -key ca-key.pem \
+    -subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=RootCA&quot; \
+    -out ca.pem
+Generate server key and CSR
+openssl req -newkey rsa:2048 -nodes \
+    -keyout server-key.pem \
+    -subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot; \
+    -out server-req.pem
+Sign server certificate with CA
+openssl x509 -req -in server-req.pem -days 3650 \
+    -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
+    -out server-cert.pem
+Restrict permissions
+chmod 600 *.pem
 </code></pre></div>
 </li>
 <li>
@@ -3678,8 +3673,8 @@ procedure are self-signed.</p>
 mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
 </code></pre></div>
 <p>Then copy the certificates:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
-$<span class="w"> </span>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
+cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
 </code></pre></div>
 <p>If you’re deploying on separate machines, run the following from node 1:</p>
 <div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
@@ -3689,70 +3684,67 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 </li>
 <li>
 <p>Create docker-compose.yml:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">pxc1</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc1</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc2,pxc3</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
-<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3306:3306&quot;</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--wsrep-new-cluster&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
-<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-
-<span class="w">  </span><span class="nt">pxc2</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc2</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1,pxc3</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
-<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
-<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
-<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-
-<span class="w">  </span><span class="nt">pxc3</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
-<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc3</span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1,pxc2</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro</span>
-<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
-<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
-<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
-<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
-
-<span class="nt">networks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">pxcnet</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+<div class="highlight"><pre><span></span><code>services:
+  pxc1:
+    image: percona/percona-xtradb-cluster:8.4
+    container_name: pxc1
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - CLUSTER_NAME=pxc-cluster
+      - CLUSTER_JOIN=pxc2,pxc3
+      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
+    volumes:
+      - ./certs:/etc/mysql/certs:ro
+      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
+    networks:
+      - pxcnet
+    ports:
+      - &quot;3306:3306&quot;
+    command: [&quot;--wsrep-new-cluster&quot;]
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  pxc2:
+    image: percona/percona-xtradb-cluster:8.4
+    container_name: pxc2
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - CLUSTER_NAME=pxc-cluster
+      - CLUSTER_JOIN=pxc1,pxc3
+      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
+    volumes:
+      - ./certs:/etc/mysql/certs:ro
+      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
+    networks:
+      - pxcnet
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  pxc3:
+    image: percona/percona-xtradb-cluster:8.4
+    container_name: pxc3
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - CLUSTER_NAME=pxc-cluster
+      - CLUSTER_JOIN=pxc1,pxc2
+      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
+    volumes:
+      - ./certs:/etc/mysql/certs:ro
+      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
+    networks:
+      - pxcnet
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+networks:
+  pxcnet:
+    driver: bridge
 </code></pre></div>
 </li>
 <li>
@@ -3795,7 +3787,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

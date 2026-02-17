@@ -712,14 +712,14 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3583,15 +3583,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>At this time, telemetry is added only to the Percona packages and Docker images. Percona XtraDB Cluster collects only information about the installation environment. Future releases may add additional metrics.</p>
 <p>Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>An example of the data collected is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;</span><span class="p">,</span>
-<span class="nt">&quot;product_family&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PXC&quot;</span><span class="p">,</span>
-<span class="nt">&quot;instanceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;</span><span class="p">,</span>
-<span class="nt">&quot;createTime&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-16T10:46:23Z&quot;</span><span class="p">,</span>
-<span class="nt">&quot;metrics&quot;</span><span class="p">:</span>
-<span class="p">[{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deployment&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PACKAGE&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.34-26&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oracle Linux Server 8.8&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hardware_arch&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64 x86_64&quot;</span><span class="p">}]}]</span>
+<div class="highlight"><pre><span></span><code>[{&quot;id&quot; : &quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;,
+&quot;product_family&quot; : &quot;PRODUCT_FAMILY_PXC&quot;,
+&quot;instanceId&quot; : &quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;,
+&quot;createTime&quot; : &quot;2023-10-16T10:46:23Z&quot;,
+&quot;metrics&quot;:
+[{&quot;key&quot; : &quot;deployment&quot;,&quot;value&quot; : &quot;PACKAGE&quot;},
+{&quot;key&quot; : &quot;pillar_version&quot;,&quot;value&quot; : &quot;8.0.34-26&quot;},
+{&quot;key&quot; : &quot;OS&quot;,&quot;value&quot; : &quot;Oracle Linux Server 8.8&quot;},
+{&quot;key&quot; : &quot;hardware_arch&quot;,&quot;value&quot; : &quot;x86_64 x86_64&quot;}]}]
 </code></pre></div>
 <h2 id="disable-telemetry">Disable telemetry<a class="headerlink" href="#disable-telemetry" title="Permanent link">&para;</a></h2>
 <p>Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the <code>PERCONA_TELEMETRY_DISABLE=1</code> environment variable for either the root user or in the operating system prior to the installation process.</p>
@@ -3609,7 +3609,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <div class="tabbed-block">
 <p>Add the environment variable when running a command in a new container.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span>percona/percona-xtradb-cluster:8.0
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span>percona/percona-xtradb-cluster:8.4
 </code></pre></div>
 </div>
 </div>
@@ -3636,7 +3636,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

@@ -712,14 +712,14 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3790,7 +3790,6 @@ traffic. For more information, see
 <span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 <span class="p">);</span>
-
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">    </span><span class="n">parent_value</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
@@ -3836,7 +3835,7 @@ Here&rsquo;s what you need to know:</p>
 <p>In this scenario, you have an active 3-node 8.0 cluster.</p>
 <ol>
 <li>
-<p>Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a 4-node cluster: 3 nodes running 8.0 and 1 node running 8.4.</p>
+<p>Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a four-node cluster: three nodes running 8.0 and one node running 8.4.</p>
 </li>
 <li>
 <p>Shut down one of the 8.0 nodes and repeat the procedure to replace each 8.0 node with 8.4.</p>
@@ -3856,7 +3855,7 @@ Here&rsquo;s what you need to know:</p>
 </li>
 </ul>
 </div>
-<p>Therefore, if you are running Percona XtraDB Cluster version 5.7, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.</p>
+<p>Therefore, if you are running a version older than 8.0, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.</p>
 <h2 id="upgrade-an-async-replication-replica-node">Upgrade an async replication replica node<a class="headerlink" href="#upgrade-an-async-replication-replica-node" title="Permanent link">&para;</a></h2>
 <p>If a given PXC node is an async replica of some other server, follow the procedure below:</p>
 <ol>
@@ -3940,7 +3939,7 @@ The key constraint is maintaining data compatibility. New features introduced in
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

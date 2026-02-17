@@ -712,14 +712,14 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3596,6 +3596,7 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <p><em>Galera Arbitrator</em> can be installed from Percona’s repository on RedHat or derivative distributions with the following command:</p>
 <div class="highlight"><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-garbd
 </code></pre></div>
+<p>On RHEL 8 and later, you can use <code>dnf install percona-xtradb-cluster-garbd</code> instead.</p>
 <h2 id="start-garbd-and-configuration">Start <code>garbd</code> and configuration<a class="headerlink" href="#start-garbd-and-configuration" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3613,24 +3614,19 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 </code></pre></div>
 <p>To avoid entering the options each time you start <code>garbd</code>, edit the options in the configuration file. To configure <em>Galera Arbitrator</em> on <em>Ubuntu/Debian</em>, edit the <code>/etc/default/garb</code> file. On RedHat or derivative distributions, the configuration can be found in <code>/etc/sysconfig/garb</code> file.</p>
 <p>The configuration file should look like this after the installation and before you have added your parameters:</p>
-<div class="no-copy highlight"><pre><span></span><code># Copyright (C) 2013-2015 Codership Oy
-# This config file is to be sourced by garb service script.
-
-# REMOVE THIS AFTER CONFIGURATION
-
-# A comma-separated list of node addresses (address[:port]) in the cluster
-# GALERA_NODES=&quot;&quot;
-
-# Galera cluster name, should be the same as on the rest of the nodes.
-# GALERA_GROUP=&quot;&quot;
-
-# Optional Galera internal options string (e.g. SSL settings)
-# see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;&quot;
-
-# Log file for garbd. Optional, by default logs to syslog
-# Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;&quot;
+<div class="no-copy highlight"><pre><span></span><code>Copyright (C) 2013-2015 Codership Oy
+This config file is to be sourced by garb service script.
+REMOVE THIS AFTER CONFIGURATION
+A comma-separated list of node addresses (address[:port]) in the cluster
+GALERA_NODES=&quot;&quot;
+Galera cluster name, should be the same as on the rest of the nodes.
+GALERA_GROUP=&quot;&quot;
+Optional Galera internal options string (e.g. SSL settings)
+see http://galeracluster.com/documentation-webpages/galeraparameters.html
+GALERA_OPTIONS=&quot;&quot;
+Log file for garbd. Optional, by default logs to syslog
+Deprecated for CentOS7, use journalctl to query the log for garbd
+LOG_FILE=&quot;&quot;
 </code></pre></div>
 <p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="configure-cluster-ubuntu.html#configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
@@ -3638,21 +3634,17 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <p>Please note that you need to remove the <code># REMOVE THIS AFTER
 CONFIGURATION</code> line before you can start the service.</p>
 </div>
-<div class="no-copy highlight"><pre><span></span><code># This config file is to be sourced by garb service script.
-
-# A comma-separated list of node addresses (address[:port]) in the cluster
+<div class="no-copy highlight"><pre><span></span><code>This config file is to be sourced by garb service script.
+A comma-separated list of node addresses (address[:port]) in the cluster
 GALERA_NODES=&quot;192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;
-
-# Galera cluster name, should be the same as on the rest of the nodes.
+Galera cluster name, should be the same as on the rest of the nodes.
 GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
-
-# Optional Galera internal options string (e.g. SSL settings)
-# see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem&quot;
-
-# Log file for garbd. Optional, by default logs to syslog
-# Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;/var/log/garbd.log&quot;
+Optional Galera internal options string (e.g. SSL settings)
+see http://galeracluster.com/documentation-webpages/galeraparameters.html
+GALERA_OPTIONS=&quot;socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem;socket.ssl_cipher=AES128-SHA256&quot;
+Log file for garbd. Optional, by default logs to syslog
+Deprecated for CentOS7, use journalctl to query the log for garbd
+LOG_FILE=&quot;/var/log/garbd.log&quot;
 </code></pre></div>
 <p>You can now start the <em>Galera Arbitrator</em> daemon (<code>garbd</code>). Run the following commands as root.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">On Debian or Ubuntu</label><label for="__tabbed_1_2">On Red Hat Enterprise Linux or CentOS</label></div>
@@ -3728,7 +3720,7 @@ GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

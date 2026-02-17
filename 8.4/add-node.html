@@ -714,14 +714,14 @@ running node in the wsrep_cluster_address variable, this node automatically join
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3661,7 +3661,7 @@ scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc
 </code></pre></div>
 <p>After the server starts, it receives <a href="glossary.html#sst">SST</a> automatically.</p>
 <p>To check the status of the second node, <code>mysql@pxc2&gt;</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3688,7 +3688,7 @@ scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc
 </code></pre></div>
 </details>
 <p>The output of <code>SHOW STATUS</code> shows that the new node has been successfully
-added to the cluster.  The cluster size is now 2 nodes, it is the primary
+added to the cluster.  The cluster size is now two nodes, it is the primary
 component, and it is fully connected and ready to receive write-set replication.</p>
 <p>If the state of the second node is <code>Synced</code> as in the previous example, then
 the node received full <a href="glossary.html#sst">SST</a> is synchronized with the cluster, and you can
@@ -3702,10 +3702,10 @@ proceed to add the next node.</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>To check the status of the third node, <code>mysql@pxc3&gt;</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the
-cluster. Cluster size is now 3 nodes, it is the primary component, and it is
+cluster. Cluster size is now three nodes; it is the primary component, and it is
 fully connected and ready to receive write-set replication.</p>
 <details class="example">
 <summary>Expected output</summary>
@@ -3750,7 +3750,7 @@ fully connected and ready to receive write-set replication.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

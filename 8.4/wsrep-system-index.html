@@ -9,8 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona XtraDB Cluster introduces a number of MySQL system variables
-related to write-set replication.">
+        <meta name="description" content="Percona XtraDB Cluster introduces a number of MySQL system variables related to write-set replication.">
       
       
         <meta name="author" content="Percona LLC">
@@ -713,14 +712,14 @@ related to write-set replication.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3488,8 +3487,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="index-of-wsrep-system-variables">Index of wsrep system variables<a class="headerlink" href="#index-of-wsrep-system-variables" title="Permanent link">&para;</a></h1>
-<p>Percona XtraDB Cluster introduces a number of MySQL system variables
-related to write-set replication.</p>
+<p>Percona XtraDB Cluster introduces a number of MySQL system variables related to write-set replication.</p>
 <h3 id="pxc_encrypt_cluster_traffic"><code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3564,13 +3562,11 @@ When disabled, you need to configure SSL manually to encrypt Percona XtraDB Clus
 </tr>
 </tbody>
 </table>
-<p>Specifies the maintenance mode for taking a node down
-without adjusting settings in ProxySQL.</p>
+<p>Specifies the maintenance mode for taking a node down without adjusting settings in ProxySQL.</p>
 <p>The following values are available:</p>
 <ul>
 <li>
-<p><code>DISABLED</code>: This is the default state
-that tells ProxySQL to route traffic to the node as usual.</p>
+<p><code>DISABLED</code>: This is the default state that tells ProxySQL to route traffic to the node as usual.</p>
 </li>
 <li>
 <p><code>SHUTDOWN</code>: This state is set automatically when you initiate node shutdown.</p>
@@ -3611,10 +3607,7 @@ that tells ProxySQL to route traffic to the node as usual.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines the transition period when you change <a href="wsrep-system-index.html#pxc_maint_mode"><code>pxc_maint_mode</code></a> to <code>SHUTDOWN</code> or <code>MAINTENANCE</code>.
-By default, the period is set to 10 seconds,
-which should be enough for most transactions to finish.
-You can increase the value to accommodate longer-running transactions.</p>
+<p>Defines the transition period when you change <a href="wsrep-system-index.html#pxc_maint_mode"><code>pxc_maint_mode</code></a> to <code>SHUTDOWN</code> or <code>MAINTENANCE</code>. By default, the period is set to 10 seconds, which should be enough for most transactions to finish. You can increase the value to accommodate longer-running transactions.</p>
 <p>For more information, see <a href="load-balance-proxysql.html#assisted-maintenance-mode">Assisted Maintenance Mode</a>.</p>
 <h3 id="pxc_strict_mode"><code>pxc_strict_mode</code><a class="headerlink" href="#pxc_strict_mode" title="Permanent link">&para;</a></h3>
 <table>
@@ -3951,15 +3944,15 @@ Enabling this variable will result in larger latencies.</p>
 </tbody>
 </table>
 <p>This variable controls how certification is done in the cluster; it particularly affects how foreign keys are handled.</p>
-<p><strong>STRICT</strong>
+<p>STRICT
    Two INSERTs that happen at about the same time on two different nodes in a
    child table, that inserts different (non-conflicting rows), but both rows
-   point to the same row in the parent table <strong>may result</strong> in the certification
+   point to the same row in the parent table may result in the certification
    failure.</p>
-<p><strong>OPTIMIZED</strong>
+<p>OPTIMIZED
    Two INSERTs that happen at about the same time on two different nodes in a
    child table, that inserts different (non-conflicting rows), but both rows
-   point to the same row in the parent table <strong>will not result</strong> in the
+   point to the same row in the parent table will not result in the
    certification failure.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -4039,14 +4032,14 @@ which is alive and a member of the cluster.
 In practice, it is best (but not necessary) to provide a complete list
 of all possible cluster nodes.
 The value should be of the following format:</p>
-<div class="highlight"><pre><span></span><code>&lt;schema&gt;://&lt;address&gt;[?&lt;option1&gt;=&lt;value1&gt;[&amp;&lt;option2&gt;=&lt;value2&gt;]],...
+<div class="no-copy highlight"><pre><span></span><code>&lt;schema&gt;://&lt;address&gt;[?&lt;option1&gt;=&lt;value1&gt;[&amp;&lt;option2&gt;=&lt;value2&gt;]],...
 </code></pre></div>
 <p>The only back-end schema currently supported is <code>gcomm</code>.
 The IP address can contain a port number after a colon.
 Options are specified after <code>?</code> and separated by <code>&amp;</code>.
 You can specify multiple addresses separated by commas.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>wsrep_cluster_address=&quot;gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678&quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_cluster_address=&quot;gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678&quot;
 </code></pre></div>
 <p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
 (that is, form a new cluster).
@@ -4092,7 +4085,6 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 <p>Specifies the cluster&rsquo;s name, which must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
 <p>Edit the value in the <code>my.cnf</code> in the [galera] section.</p>
 <div class="no-copy highlight"><pre><span></span><code>[galera]
-
     wsrep_cluster_name=simple-cluster
 </code></pre></div>
 <p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
@@ -4230,17 +4222,17 @@ bug.</p>
 </li>
 </ul>
 <p>This variable may be set to one of the following values:</p>
-<p><strong>NONE</strong></p>
+<p>NONE</p>
 <p>No debug-level messages.</p>
-<p><strong>SERVER</strong></p>
+<p>SERVER</p>
 <p><code>wsrep-lib</code> general debug-level messages and detailed debug-level messages
 from the <em>server_state</em> part are printed out.  Galera debug-level logs are
 printed out.</p>
-<p><strong>TRANSACTION</strong></p>
+<p>TRANSACTION</p>
 <p>Same as SERVER + wsrep-lib <em>transaction</em> part</p>
-<p><strong>STREAMING</strong></p>
+<p>STREAMING</p>
 <p>Same as TRANSACTION + wsrep-lib <em>streaming</em> part</p>
-<p><strong>CLIENT</strong></p>
+<p>CLIENT</p>
 <p>Same as STREAMING + wsrep-lib <em>client_service</em> part</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4910,7 +4902,7 @@ For example:</p>
 </li>
 </ul>
 <p>The value should be specified in the following format:</p>
-<div class="highlight"><pre><span></span><code>&lt;ip_address&gt;[:port]
+<div class="no-copy highlight"><pre><span></span><code>&lt;ip_address&gt;[:port]
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5259,7 +5251,7 @@ Rejecting queries can be useful during upgrades,
 when you want to keep the node up and apply write-sets
 without accepting queries.</p>
 <p>When a query is rejected, the following error is returned:</p>
-<div class="highlight"><pre><span></span><code>Error 1047: Unknown command
+<div class="no-copy highlight"><pre><span></span><code>Error 1047: Unknown command
 </code></pre></div>
 <p>The following values are available:</p>
 <ul>
@@ -5341,7 +5333,7 @@ the whole DDL statement is not put under TOI.</p>
 <p>Difference in configuration of <code>pxc-cluster</code> node on <a href="https://www.percona.com/doc/percona-server/8.4/enforce-engine.html">enforce_storage_engine <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> front may result in picking up different engine for the same table on different nodes</p>
 </li>
 <li>
-<p><code>CREATE TABLE AS SELECT</code> (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> is set to <strong>ON</strong>.</p>
+<p><code>CREATE TABLE AS SELECT</code> (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> is set to ON.</p>
 </li>
 </ul>
 </div>
@@ -5746,7 +5738,7 @@ cluster primary component. Restart required.
 becomes the donor and will not be able to serve requests during the state transfer.</p>
 <p>To consider other nodes if the listed nodes are not available,
 add a comma at the end of the list, for example:</p>
-<div class="highlight"><pre><span></span><code>wsrep_sst_donor=node1,node2,
+<div class="no-copy highlight"><pre><span></span><code>wsrep_sst_donor=node1,node2,
 </code></pre></div>
 <p>If you remove the trailing comma from the previous example,
 then the joining node will consider <em>only</em> <code>node1</code> and <code>node2</code>.</p>
@@ -5803,7 +5795,7 @@ if you don’t mind the joiner node waiting for the state transfer indefinitely)
 <li>
 <p><code>xtrabackup-v2</code>: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.0/privileges.html">Percona XtraBackup documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
+can be found in <a href="https://docs.percona.com/percona-xtrabackup/8.4/privileges.html">Percona XtraBackup documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For more information, see <a href="xtrabackup-sst.html#percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a>. The <code>xtrabackup-v2</code> method supports clusters with GTIDs and async replicas.</p>
 </li>
 <li>
 <p><code>clone</code>: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the <a href="clone-sst.html">clone method for SST</a>. </p>
@@ -6050,21 +6042,17 @@ and <code>REPLACE</code> statements.</p>
 </code></pre></div>
 </details>
 <p>You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.</p>
-<div class="no-copy highlight"><pre><span></span><code>node1&gt; BEGIN;
+<div class="no-copy highlight"><pre><span></span><code>BEGIN;
 Query OK, 0 rows affected (0.00 sec)
-
-node1&gt; INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
+INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
 Query OK, 65536 rows affected (15.15 sec)
 Records: 65536 Duplicates: 0 Warnings: 0
-
-node1&gt; UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
+UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
 Query OK, 131072 rows affected (1 min 35.93 sec)
 Rows matched: 131072 Changed: 131072 Warnings: 0
-
-node2&gt; SET SESSION TRANSACTION_ISOLATION = &#39;READ-UNCOMMITTED&#39;;
+SET SESSION TRANSACTION_ISOLATION = &#39;READ-UNCOMMITTED&#39;;
 Query OK, 0 rows affected (0.00 sec)
-
-node2&gt; SELECT * FROM t1 LIMIT 5;
+SELECT * FROM t1 LIMIT 5;
 +---+
 | i |
 +===+
@@ -6078,7 +6066,7 @@ node2&gt; SELECT * FROM t1 LIMIT 5;
 +---+
 | 2 |
 +---+
-node1&gt; DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
+DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
 Query OK, 131072 rows affected (15.09 sec)
 </code></pre></div>
 <h3 id="wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code><a class="headerlink" href="#wsrep_trx_fragment_unit" title="Permanent link">&para;</a></h3>
@@ -6162,7 +6150,7 @@ Query OK, 131072 rows affected (15.09 sec)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

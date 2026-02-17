@@ -9,11 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Unlike the standard MySQL replication, a PXC cluster acts like one logical
-entity, which controls the status and consistency of each node as well as the
-status of the whole cluster. This allows maintaining the data integrity more
-efficiently than with traditional asynchronous replication without losing safe
-writes on multiple nodes at the same time.">
+        <meta name="description" content="Unlike the standard MySQL replication, a PXC cluster acts like one logical entity, which controls the status and consistency of each node as well as the status of the whole cluster. This allows maintaining the data integrity more efficiently than with traditional asynchronous replication without losing safe writes on multiple nodes at the same time.">
       
       
         <meta name="author" content="Percona LLC">
@@ -716,14 +712,14 @@ writes on multiple nodes at the same time.">
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3692,42 +3688,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="crash-recovery">Crash recovery<a class="headerlink" href="#crash-recovery" title="Permanent link">&para;</a></h1>
-<p>Unlike the standard MySQL replication, a PXC cluster acts like one logical
-entity, which controls the status and consistency of each node as well as the
-status of the whole cluster. This allows maintaining the data integrity more
-efficiently than with traditional asynchronous replication without losing safe
-writes on multiple nodes at the same time.</p>
-<p>However, there are scenarios where the database service can stop with no node
-being able to serve requests.</p>
+<p>Unlike the standard MySQL replication, a PXC cluster acts like one logical entity, which controls the status and consistency of each node as well as the status of the whole cluster. This allows maintaining the data integrity more efficiently than with traditional asynchronous replication without losing safe writes on multiple nodes at the same time.</p>
+<p>However, there are scenarios where the database service can stop with no node being able to serve requests.</p>
 <h2 id="scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped<a class="headerlink" href="#scenario-1-node-a-is-gracefully-stopped" title="Permanent link">&para;</a></h2>
-<p>In a three node cluster (node A, Node B, node C), one node (node A, for example)
-is gracefully stopped: for the purpose of maintenance, configuration change,
-etc.</p>
-<p>In this case, the other nodes receive a “good bye” message from the stopped node
-and the cluster size is reduced; some properties like quorum calculation or auto
-increment are automatically changed. As soon as node A is started again, it
-joins the cluster based on its <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable in <code>my.cnf</code>.</p>
-<p>If the writeset cache (<a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a>) on nodes B and/or C still
-has all the transactions executed while node A was down, joining is possible via
-<a href="glossary.html#ist">IST</a>. If <a href="glossary.html#ist">IST</a> is impossible due to missing transactions in donor’s
-gcache, the fallback decision is made by the donor and <a href="glossary.html#sst">SST</a> is started
-automatically.</p>
+<p>In a three node cluster (node A, Node B, node C), one node (node A, for example) is gracefully stopped: for the purpose of maintenance, configuration change, etc.</p>
+<p>In this case, the other nodes receive a “good bye” message from the stopped node and the cluster size is reduced; some properties like quorum calculation or auto increment are automatically changed. As soon as node A is started again, it joins the cluster based on its <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable in <code>my.cnf</code>.</p>
+<p>If the writeset cache (<a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a>) on nodes B and/or C still has all the transactions executed while node A was down, joining is possible via
+<a href="glossary.html#ist">IST</a>. If <a href="glossary.html#ist">IST</a> is impossible due to missing transactions in donor’s gcache, the fallback decision is made by the donor and <a href="glossary.html#sst">SST</a> is started automatically.</p>
 <h2 id="scenario-2-two-nodes-are-gracefully-stopped">Scenario 2: Two nodes are gracefully stopped<a class="headerlink" href="#scenario-2-two-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
-<p>Similar to <a href="#scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>, the cluster size is reduced to
-1 — even the single remaining node C forms the primary component and is able to
-serve client requests. To get the nodes back into the cluster, you just need
-to start them.</p>
-<p>However, when a new node joins the cluster, node C will be switched to the
-“Donor/Desynced” state as it has to provide the state transfer at least to the
-first joining node. It is still possible to read/write to it during that
-process, but it may be much slower, which depends on how large amount of data
-should be sent during the state transfer. Also, some load balancers may consider
-the donor node as not operational and remove it from the pool. So, it is best to
-avoid the situation when only one node is up.</p>
-<p>If you restart node A and then node B, you may want to make sure note B does not
-use node A as the state transfer donor: node A may not have all the needed
-writesets in its gcache. Specify node C node as the donor in your configuration
-file and start the mysql service:</p>
+<p>Similar to <a href="#scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>, the cluster size is reduced to one — even the single remaining node C forms the primary component and is able to serve client requests. To get the nodes back into the cluster, you just need to start them.</p>
+<p>However, when a new node joins the cluster, node C will be switched to the “Donor/Desynced” state as it has to provide the state transfer at least to the first joining node. It is still possible to read/write to it during that process, but it may be much slower, which depends on how large amount of data should be sent during the state transfer. Also, some load balancers may consider the donor node as not operational and remove it from the pool. So, it is best to avoid the situation when only one node is up.</p>
+<p>If you restart node A and then node B, you may want to make sure node B does not use node A as the state transfer donor: node A may not have all the needed writesets in its gcache. Specify node C node as the donor in your configuration file and start the mysql service:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <div class="admonition admonition">
@@ -3735,58 +3706,33 @@ file and start the mysql service:</p>
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MariaDB Galera Documentation: wsrep_sst_donor option <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h2 id="scenario-3-all-three-nodes-are-gracefully-stopped">Scenario 3: All three nodes are gracefully stopped<a class="headerlink" href="#scenario-3-all-three-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
-<p>The cluster is completely stopped and the problem is to initialize it again. It
-is important that a PXC node writes its last executed position to the
-<code>grastate.dat</code> file.</p>
-<p>By comparing the seqno number in this file, you can see which is the most
-advanced node (most likely the last stopped). The cluster must be bootstrapped
-using this node, otherwise nodes that had a more advanced position will have to
-perform the full <a href="glossary.html#sst">SST</a> to join the cluster initialized from the less
-advanced one. As a result, some transactions will be lost). To bootstrap the
-first node, invoke the startup script like this:</p>
+<p>The cluster is completely stopped and the problem is to initialize it again. It is important that a PXC node writes its last executed position to the <code>grastate.dat</code> file.</p>
+<p>By comparing the seqno number in this file, you can see which is the most advanced node (most likely the last stopped). The cluster must be bootstrapped using this node, otherwise nodes that had a more advanced position will have to perform the full <a href="glossary.html#sst">SST</a> to join the cluster initialized from the less advanced one. As a result, some transactions will be lost). To bootstrap the first node, invoke the startup script like this:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Even though you bootstrap from the most advanced node, the other
-nodes have a lower sequence number. They will still have to join via the full <a href="glossary.html#sst">SST</a>
-because the <em>Galera Cache</em> is not retained on restart.</p>
-<p>For this reason, it is recommended to stop writes to the cluster <em>before</em> its
-full shutdown, so that all nodes can stop at the same position. See also <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a>.</p>
+<p>Even though you bootstrap from the most advanced node, the other nodes have a lower sequence number. They will still have to join via the full <a href="glossary.html#sst">SST</a> because the <em>Galera Cache</em> is not retained on restart.</p>
+<p>For this reason, it is recommended to stop writes to the cluster <em>before</em> its full shutdown, so that all nodes can stop at the same position. See also <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a>.</p>
 </div>
 <h2 id="scenario-4-one-node-disappears-from-the-cluster">Scenario 4: One node disappears from the cluster<a class="headerlink" href="#scenario-4-one-node-disappears-from-the-cluster" title="Permanent link">&para;</a></h2>
-<p>This is the case when one node becomes unavailable due to power outage, hardware
-failure, kernel panic, mysqld crash, <strong>kill -9</strong> on mysqld pid, etc.</p>
-<p>Two remaining nodes notice the connection to node A is down and start trying to
-re-connect to it. After several timeouts, node A is removed from the
-cluster. The quorum is saved (2 out of 3 nodes are up), so no service disruption
-happens. After it is restarted, node A joins automatically (as described in <a href="#scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>).</p>
+<p>This is the case when one node becomes unavailable due to power outage, hardware failure, kernel panic, mysqld crash, <strong>kill -9</strong> on mysqld pid, etc.</p>
+<p>Two remaining nodes notice the connection to node A is down and start trying to re-connect to it. After several timeouts, node A is removed from the cluster. The quorum is saved (two out of three nodes are up), so no service disruption happens. After it is restarted, node A joins automatically (as described in <a href="#scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>).</p>
 <h2 id="scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster<a class="headerlink" href="#scenario-5-two-nodes-disappear-from-the-cluster" title="Permanent link">&para;</a></h2>
-<p>Two nodes are not available and the remaining node (node C) is not able to form
-the quorum alone. The cluster has to switch to a non-primary mode, where MySQL
-refuses to serve any SQL queries. In this state, the <strong>mysqld</strong> process
-on node C is still running and can be connected to but any statement related to
-data fails with an error.</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>test.sbtest1<span class="p">;</span>
+<p>Two nodes are not available and the remaining node (node C) is not able to form the quorum alone. The cluster has to switch to a non-primary mode, where MySQL refuses to serve any SQL queries. In this state, the <strong>mysqld</strong> process on node C is still running and can be connected to but any statement related to data fails with an error.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">sbtest1</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>The error message</summary>
 <div class="no-copy highlight"><pre><span></span><code>ERROR 1047 (08S01): WSREP has not yet prepared node for application use
 </code></pre></div>
 </details>
-<p>Reads are possible until node C decides that it cannot access node A and
-node B. New writes are forbidden.</p>
-<p>As soon as the other nodes become available, the cluster is formed again
-automatically. If node B and node C were just network-severed from
-node A, but they can still reach each other, they will keep functioning as
-they still form the quorum.</p>
-<p>If node A and node B crashed, you need to enable the primary component on
-node C manually, before you can bring up node A and node B. The command to do
-this is:</p>
-<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<p>Reads are possible until node C decides that it cannot access node A and node B. New writes are forbidden.</p>
+<p>As soon as the other nodes become available, the cluster is formed again automatically. If node B and node C were just network-severed from node A, but they can still reach each other, they will keep functioning as they still form the quorum.</p>
+<p>If node A and node B crashed, you need to enable the primary component on node C manually, before you can bring up node A and node B. The command to do this is:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>This approach only works if the other nodes are down before doing that!
-Otherwise, you end up with two clusters having different data.</p>
+<p>This approach only works if the other nodes are down before doing that! Otherwise, you end up with two clusters having different data.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a></p>
@@ -3795,33 +3741,33 @@ Otherwise, you end up with two clusters having different data.</p>
 <p>This scenario is possible in the following cases:</p>
 <ul>
 <li>
-<p>A data center power failure</p>
+<p>Data center power failure</p>
 </li>
 <li>
-<p>A MySQL or Galera bug</p>
+<p>MySQL or Galera bug</p>
 </li>
 <li>
-<p>A cluster detects that each node has different data. </p>
+<p>The cluster detects that each node has different data. </p>
 </li>
 </ul>
 <p>In each of these cases, the <code>grastate.dat</code> file is not updated and does not contain a valid sequence number (seqno).</p>
-<p>The <code>grastate.dat</code> file may look like this:</p>
-<div class="highlight"><pre><span></span><code>$ cat /var/lib/mysql/grastate.dat
-# GALERA saved state
+<p>The <code>grastate.dat</code> file may look like this. Run:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/var/lib/mysql/grastate.dat
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
 version: 2.1
 uuid: 220dcdcb-1629-11e4-add3-aec059ad3734
 seqno: -1
 safe_to_bootstrap: 0
 </code></pre></div>
-<p>In this case, you cannot be sure that all nodes are consistent with each
-other. We cannot use <code>safe_to_bootstrap</code> variable to determine the node that has
-the last transaction committed as this variable is set to <strong>0</strong> for each node. An attempt
-to bootstrap from such a node will fail unless you start <code>mysqld</code> with the
-<code>--wsrep-recover</code> parameter:</p>
+</details>
+<p>In this case, you cannot be sure that all nodes are consistent with each other. We cannot use <code>safe_to_bootstrap</code> variable to determine the node that has the last transaction committed as this variable is set to <strong>0</strong> for each node. </p>
+<p>An attempt to bootstrap from such a node will fail unless you start <code>mysqld</code> with the <code>--wsrep-recover</code> option:</p>
 <div class="highlight"><pre><span></span><code>mysqld<span class="w"> </span>--wsrep-recover
 </code></pre></div>
-<p>Search the output for the line that reports the recovered position after the
-node UUID (<strong>1122</strong> in this case):</p>
+<p>Search the output for the line that reports the recovered position after the node UUID (<strong>1122</strong> in this case):</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>...
@@ -3829,17 +3775,15 @@ node UUID (<strong>1122</strong> in this case):</p>
 ...
 </code></pre></div>
 </details>
-<p>The node where the recovered position is marked by the greatest number is the
-best bootstrap candidate. In its <code>grastate.dat</code> file, set the
-safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node.</p>
-<p>After a shutdown, you can boostrap from the node which is marked as safe in the <code>grastate.dat</code> file.</p>
+<p>The node where the recovered position is marked by the greatest number is the best bootstrap candidate. In its <code>grastate.dat</code> file, set the safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+</code></pre></div>
+<p>After a shutdown, you can bootstrap from the node which is marked as safe in the <code>grastate.dat</code> file.</p>
 <div class="no-copy highlight"><pre><span></span><code>...
 safe_to_bootstrap: 1
 ...
 </code></pre></div>
-<p>In recent Galera versions, the option <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it
-saves only a cluster being in the PRIMARY state. An example content of the file
-may look like this:</p>
+<p>In recent Galera versions, the option <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it saves only a cluster being in the PRIMARY state. An example content of the file may look like this:</p>
 <div class="no-copy highlight"><pre><span></span><code>cat /var/lib/mysql/gvwstate.dat
 my_uuid: 76de8ad9-2aac-11e4-8089-d27fd06893b9
 #vwbeg
@@ -3850,9 +3794,7 @@ member: 6d80ec1b-2aac-11e4-8d1e-b2b2f6caf018 0
 member: 76de8ad9-2aac-11e4-8089-d27fd06893b9 0
 #vwend
 </code></pre></div>
-<p>We can see a three node cluster with all members being up. The nodes will try to restore the primary component once all the
-members start to see each other. This makes the PXC cluster automatically
-recover from being powered down without any manual intervention.</p>
+<p>We can see a three node cluster with all members being up. The nodes will try to restore the primary component once all the members start to see each other. This makes the PXC cluster automatically recover from being powered down without any manual intervention.</p>
 <p>The log file shows recovery completion:</p>
 <div class="no-copy highlight"><pre><span></span><code>2024-11-08T12:35:05.890123Z 0 [Note] InnoDB: Waiting for purge to start
 2024-11-08T12:35:06.901234Z 0 [Note] InnoDB: Purge done
@@ -3860,33 +3802,15 @@ recover from being powered down without any manual intervention.</p>
 2024-11-08T12:35:07.123456Z 0 [Note] WSREP: Ready for connections.
 </code></pre></div>
 <h2 id="scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain">Scenario 7: The cluster loses its primary state due to split brain<a class="headerlink" href="#scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain" title="Permanent link">&para;</a></h2>
-<p>For the purpose of this example, let’s assume we have a cluster that consists of
-an even number of nodes: six, for example. Three of them are in one location
-while the other three are in another location and they lose network
-connectivity.  It is best practice to avoid such topology: if you cannot have an
-odd number of real nodes, you can use an additional arbitrator (garbd) node or
-set a higher pc.weight to some nodes. But when the split brain happens any way,
-none of the separated groups can maintain the quorum: all nodes must stop
-serving requests and both parts of the cluster will be continuously trying to
-re-connect.</p>
-<p>If you want to restore the service even
-before the network link is restored, you can make one of the groups primary
-again using the same command as described in <a href="#scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
-<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<p>For the purpose of this example, let’s assume we have a cluster that consists of an even number of nodes: six, for example. Three of them are in one location while the other three are in another location and they lose network connectivity.  It is best practice to avoid such topology: if you cannot have an odd number of real nodes, you can use an additional arbitrator (garbd) node or set a higher pc.weight to some nodes. But when the split brain happens any way, none of the separated groups can maintain the quorum: all nodes must stop serving requests and both parts of the cluster will be continuously trying to re-connect.</p>
+<p>If you want to restore the service even before the network link is restored, you can make one of the groups primary again using the same command as described in <a href="#scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>After this, you are able to work on the manually restored part of the cluster,
-and the other half should be able to automatically re-join using <a href="glossary.html#ist">IST</a> as soon as the network link is restored.</p>
+<p>After this, you are able to work on the manually restored part of the cluster, and the other half should be able to automatically re-join using <a href="glossary.html#ist">IST</a> as soon as the network link is restored.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you set the bootstrap option on both the separated parts, you will end up
-with two living cluster instances, with data likely diverging away from each
-other. Restoring a network link in this case will not make them re-join until
-the nodes are restarted and members specified in configuration
-file are connected again.</p>
-<p>Then, as the Galera replication model truly cares about data consistency:
-once the inconsistency is detected, nodes that cannot execute row change
-statement due to a data difference – an emergency shutdown will be performed and the only
-way to bring the nodes back to the cluster is via the full <a href="glossary.html#sst">SST</a></p>
+<p>If you set the bootstrap option on both the separated parts, you will end up with two living cluster instances, with data likely diverging away from each other. Restoring a network link in this case will not make them re-join until the nodes are restarted and members specified in configuration file are connected again.</p>
+<p>Then, as the Galera replication model truly cares about data consistency: once the inconsistency is detected, nodes that cannot execute row change statement due to a data difference – an emergency shutdown will be performed and the only way to bring the nodes back to the cluster is via the full <a href="glossary.html#sst">SST</a></p>
 </div>
 <p><strong>Based on material from Percona Database Performance Blog</strong></p>
 <p>This article is based on the blog post [Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>]: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p>
@@ -3912,7 +3836,7 @@ way to bring the nodes back to the cluster is via the full <a href="glossary.htm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

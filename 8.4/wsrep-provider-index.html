@@ -9,8 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The following variables can be set and checked in the wsrep_provider_options variable. The value of the variable can be
-changed in the MySQL configuration file, my.cnf, or by setting the variable value in the MySQL client.">
+        <meta name="description" content="You can set and check the following options in the wsrep_provider_options system variable. You can change option values in the MySQL configuration file, my.cnf, or by setting options in the MySQL client.">
       
       
         <meta name="author" content="Percona LLC">
@@ -713,14 +712,14 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3557,17 +3556,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="index-of-wsrep_provider-options">Index of wsrep_provider options<a class="headerlink" href="#index-of-wsrep_provider-options" title="Permanent link">&para;</a></h1>
-<p>The following variables can be set and checked in the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be
-changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
-<p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
+<p>You can set and check the following options in the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> system variable. You can change option values in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting options in the <em>MySQL</em> client.</p>
+<p>To change the value in <code>my.cnf</code>, use the following syntax:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;option1=value1;[option2=value2]&quot;</span>
 </code></pre></div>
-<p>For example to set the size of the Galera buffer storage to 512 MB, specify the following in <code>my.cnf</code>:</p>
+<p>For example, to set the size of the Galera buffer storage (gcache) to 512 MB, specify the following in <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;gcache.size=512M&quot;</span>
 </code></pre></div>
-<p>Dynamic variables can be changed from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command. For example, to change the value of the <a href="wsrep-provider-index.html#pcignore_sb"><code>pc.ignore_sb</code></a>, use the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="ss">&quot;pc.ignore_sb=true&quot;</span><span class="p">;</span>
-</code></pre></div>
+<p>You can change dynamic options from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command (for example, <code>SET GLOBAL wsrep_provider_options="option=value";</code>). For each option below, only the config file syntax is shown; options with Dynamic: Yes in the table can also be set at runtime in the same way.</p>
 <h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
 <h3 id="base_dir"><code>base_dir</code><a class="headerlink" href="#base_dir" title="Permanent link">&para;</a></h3>
 <table>
@@ -3600,7 +3596,10 @@ changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by set
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the data directory.</p>
+<p>This option specifies the data directory.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;base_dir=/var/lib/mysql&quot;
+</code></pre></div>
 <h3 id="base_host"><code>base_host</code><a class="headerlink" href="#base_host" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3632,9 +3631,10 @@ changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by set
 </tr>
 </tbody>
 </table>
-<p>This variable sets the value of the node’s base IP. This is an IP address on
-which Galera listens for connections from other nodes. Setting this value
-incorrectly would stop the node from communicating with other nodes.</p>
+<p>This option sets the value of the node’s base IP. This is an IP address on which Galera listens for connections from other nodes. Setting this value incorrectly would stop the node from communicating with other nodes.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;base_host=/var/lib/mysql&quot;
+</code></pre></div>
 <h3 id="base_port"><code>base_port</code><a class="headerlink" href="#base_port" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3666,9 +3666,10 @@ incorrectly would stop the node from communicating with other nodes.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable sets the port on which Galera listens for connections from other
-nodes. Setting this value incorrectly would stop the node from communicating
-with other nodes.</p>
+<p>This option sets the port on which Galera listens for connections from other nodes. Setting this value incorrectly would stop the node from communicating with other nodes.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;base_port=4567&quot;
+</code></pre></div>
 <h3 id="certlog_conflicts"><code>cert.log_conflicts</code><a class="headerlink" href="#certlog_conflicts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3700,18 +3701,14 @@ with other nodes.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify if the details of the certification failures
-should be logged.</p>
+<p>This option specifies whether the cluster logs the details of certification failures.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;cert.log_conflicts=yes&quot;
+</code></pre></div>
 <h3 id="certoptimistic_pa"><code>cert.optimistic_pa</code><a class="headerlink" href="#certoptimistic_pa" title="Permanent link">&para;</a></h3>
-<p><strong>Enabled</strong></p>
-<div class="highlight"><pre><span></span><code>Allows the full range of parallelization as determined by the certification
-algorithm.
-</code></pre></div>
-<p><strong>Disabled</strong></p>
-<div class="highlight"><pre><span></span><code>Limits the parallel applying window so that it does not exceed the parallel
-applying window seen on the source. In this case, the action starts applying
-no sooner than all actions on the source are committed.
-</code></pre></div>
+<p>This option controls whether parallel applying of replicated transactions is optimistic (allowed to run ahead of the source) or conservative (limited to the source’s apply window). The default is <code>No</code> (Disabled).</p>
+<p>Enabled (<code>Yes</code>): Allows the full range of parallelization as determined by the certification algorithm.</p>
+<p>Disabled (<code>No</code>, default): Limits the parallel applying window so that the window does not exceed the parallel applying window seen on the source. In this case, the action starts applying no sooner than all actions on the source are committed.</p>
 <table>
 <thead>
 <tr>
@@ -3742,12 +3739,6 @@ no sooner than all actions on the source are committed.
 </tr>
 </tbody>
 </table>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>Galera Cluster Documentation:
-* <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#cert.optimistic_pa">Parameter: cert.optimistic_pa <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
-* <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads">Setting parallel slave threads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</div>
 <h3 id="debug"><code>debug</code><a class="headerlink" href="#debug" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3779,7 +3770,10 @@ no sooner than all actions on the source are committed.
 </tr>
 </tbody>
 </table>
-<p>When this variable is set to <code>yes</code>, it will enable debugging.</p>
+<p>When you set this option to <code>yes</code>, debugging is enabled.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;debug=yes&quot;
+</code></pre></div>
 <h3 id="evsauto_evict"><code>evs.auto_evict</code><a class="headerlink" href="#evsauto_evict" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3811,10 +3805,10 @@ no sooner than all actions on the source are committed.
 </tr>
 </tbody>
 </table>
-<p>Number of entries allowed on delayed list until auto eviction takes place.
-Setting value to <code>0</code> disables auto eviction protocol on the node, though node
-response times will still be monitored. EVS protocol version
-(<a href="wsrep-provider-index.html#evsversion"><code>evs.version</code></a>) <code>1</code> is required to enable auto eviction.</p>
+<p>This option specifies the number of entries allowed on the delayed list until auto eviction runs. Set the value to <code>0</code> to disable auto eviction on the node (the cluster still monitors node response times). Auto eviction requires EVS (Extended Virtual Synchrony) protocol version (<a href="wsrep-provider-index.html#evsversion"><code>evs.version</code></a>) <code>1</code>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.auto_evict=5&quot;
+</code></pre></div>
 <h3 id="evscausal_keepalive_period"><code>evs.causal_keepalive_period</code><a class="headerlink" href="#evscausal_keepalive_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3846,8 +3840,10 @@ response times will still be monitored. EVS protocol version
 </tr>
 </tbody>
 </table>
-<p>This variable is used for development purposes and shouldn’t be used by regular
-users.</p>
+<p>Use this option only for development. Do not use the option in production.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.causal_keepalive_period=/var/lib/mysql&quot;
+</code></pre></div>
 <h3 id="evsdebug_log_mask"><code>evs.debug_log_mask</code><a class="headerlink" href="#evsdebug_log_mask" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3879,8 +3875,10 @@ users.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used for EVS (Extended Virtual Synchrony) debugging. It can be
-used only when <a href="wsrep-system-index.html#wsrep_debug"><code>wsrep_debug</code></a> is set to <code>ON</code>.</p>
+<p>Use this option for EVS (Extended Virtual Synchrony) debugging. You can use the option only when <a href="wsrep-system-index.html#wsrep_debug"><code>wsrep_debug</code></a> is set to <code>ON</code>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.debug_log_mask=0x1&quot;
+</code></pre></div>
 <h3 id="evsdelay_margin"><code>evs.delay_margin</code><a class="headerlink" href="#evsdelay_margin" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3912,8 +3910,10 @@ used only when <a href="wsrep-system-index.html#wsrep_debug"><code>wsrep_debug</
 </tr>
 </tbody>
 </table>
-<p>Time period that a node can delay its response from expected until it is added
-to delayed list. The value must be higher than the highest RTT between nodes.</p>
+<p>This option specifies the time period that a node can delay its response from expected before the node is added to the delayed list. The value must be higher than the highest RTT (round-trip time) between nodes.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.delay_margin=PT30S&quot;
+</code></pre></div>
 <h3 id="evsdelayed_keep_period"><code>evs.delayed_keep_period</code><a class="headerlink" href="#evsdelayed_keep_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3945,8 +3945,10 @@ to delayed list. The value must be higher than the highest RTT between nodes.</p
 </tr>
 </tbody>
 </table>
-<p>Time period that node is required to remain responsive until one entry is
-removed from delayed list.</p>
+<p>This option specifies the time period that a node must remain responsive before one entry is removed from the delayed list.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.delayed_keep_period=PT30S&quot;
+</code></pre></div>
 <h3 id="evsevict"><code>evs.evict</code><a class="headerlink" href="#evsevict" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3974,9 +3976,10 @@ removed from delayed list.</p>
 </tr>
 </tbody>
 </table>
-<p>Manual eviction can be triggered by setting the <a href="wsrep-provider-index.html#evsevict"><code>evs.evict</code></a> to a
-certain node value. Setting the <a href="wsrep-provider-index.html#evsevict"><code>evs.evict</code></a> to an empty string will
-clear the evict list on the node where it was set.</p>
+<p>Manual eviction can be triggered by setting the <a href="wsrep-provider-index.html#evsevict"><code>evs.evict</code></a> to a certain node value. Setting the <a href="wsrep-provider-index.html#evsevict"><code>evs.evict</code></a> to an empty string will clear the evict list on the node where the option was set.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.evict=value&quot;
+</code></pre></div>
 <h3 id="evsinactive_check_period"><code>evs.inactive_check_period</code><a class="headerlink" href="#evsinactive_check_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4008,7 +4011,10 @@ clear the evict list on the node where it was set.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines how often to check for peer inactivity.</p>
+<p>This option defines how often to check for peer inactivity.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.inactive_check_period=PT30S&quot;
+</code></pre></div>
 <h3 id="evsinactive_timeout"><code>evs.inactive_timeout</code><a class="headerlink" href="#evsinactive_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4040,8 +4046,10 @@ clear the evict list on the node where it was set.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines the inactivity limit, once this limit is reached the node
-will be considered dead.</p>
+<p>This option defines the inactivity limit. Once the cluster reaches this limit, the cluster considers the node dead.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.inactive_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="evsinfo_log_mask"><code>evs.info_log_mask</code><a class="headerlink" href="#evsinfo_log_mask" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4073,7 +4081,10 @@ will be considered dead.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used for controlling the extra EVS info logging.</p>
+<p>This option controls extra EVS (Extended Virtual Synchrony) info logging.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.info_log_mask=0&quot;
+</code></pre></div>
 <h3 id="evsinstall_timeout"><code>evs.install_timeout</code><a class="headerlink" href="#evsinstall_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4105,8 +4116,10 @@ will be considered dead.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines the timeout on waiting for install message
-acknowledgments.</p>
+<p>This option defines the timeout on waiting for install message acknowledgments.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.install_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="evsjoin_retrans_period"><code>evs.join_retrans_period</code><a class="headerlink" href="#evsjoin_retrans_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4138,8 +4151,10 @@ acknowledgments.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines how often to retransmit EVS join messages when forming
-cluster membership.</p>
+<p>This option defines how often to retransmit EVS (Extended Virtual Synchrony) join messages when forming cluster membership.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.join_retrans_period=PT30S&quot;
+</code></pre></div>
 <h3 id="evskeepalive_period"><code>evs.keepalive_period</code><a class="headerlink" href="#evskeepalive_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4171,8 +4186,10 @@ cluster membership.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines how often to emit keepalive beacons (in the absence of
-any other traffic).</p>
+<p>This option defines how often to emit keepalive beacons (in the absence of any other traffic).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.keepalive_period=PT30S&quot;
+</code></pre></div>
 <h3 id="evsmax_install_timeouts"><code>evs.max_install_timeouts</code><a class="headerlink" href="#evsmax_install_timeouts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4204,8 +4221,10 @@ any other traffic).</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines how many membership install rounds to try before giving
-up (total rounds will be <a href="wsrep-provider-index.html#evsmax_install_timeouts"><code>evs.max_install_timeouts</code></a> + 2).</p>
+<p>This option defines how many membership install rounds to try before giving up (total rounds will be <a href="wsrep-provider-index.html#evsmax_install_timeouts"><code>evs.max_install_timeouts</code></a> + 2).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.max_install_timeouts=1&quot;
+</code></pre></div>
 <h3 id="evssend_window"><code>evs.send_window</code><a class="headerlink" href="#evssend_window" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4237,9 +4256,10 @@ up (total rounds will be <a href="wsrep-provider-index.html#evsmax_install_timeo
 </tr>
 </tbody>
 </table>
-<p>This variable defines the maximum number of data packets in replication at a
-time. For WAN setups, the variable can be set to a considerably higher value
-than default (for example,512). The value must not be less than <a href="wsrep-provider-index.html#evsuser_send_window"><code>evs.user_send_window</code></a>.</p>
+<p>This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512). The value must not be less than <a href="wsrep-provider-index.html#evsuser_send_window"><code>evs.user_send_window</code></a>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.send_window=10&quot;
+</code></pre></div>
 <h3 id="evsstats_report_period"><code>evs.stats_report_period</code><a class="headerlink" href="#evsstats_report_period" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4271,7 +4291,10 @@ than default (for example,512). The value must not be less than <a href="wsrep-p
 </tr>
 </tbody>
 </table>
-<p>This variable defines the control period of EVS statistics reporting.</p>
+<p>This option defines the control period of EVS (Extended Virtual Synchrony) statistics reporting.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.stats_report_period=PT1M&quot;
+</code></pre></div>
 <h3 id="evssuspect_timeout"><code>evs.suspect_timeout</code><a class="headerlink" href="#evssuspect_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4303,9 +4326,10 @@ than default (for example,512). The value must not be less than <a href="wsrep-p
 </tr>
 </tbody>
 </table>
-<p>This variable defines the inactivity period after which the node is
-&ldquo;suspected&rdquo; to be dead. If all remaining nodes agree on that, the node will be
-dropped out of cluster even before <a href="wsrep-provider-index.html#evsinactive_timeout"><code>evs.inactive_timeout</code></a> is reached.</p>
+<p>This option defines the inactivity period after which the node is &ldquo;suspected&rdquo; to be dead. If all remaining nodes agree, the cluster drops the node even before <a href="wsrep-provider-index.html#evsinactive_timeout"><code>evs.inactive_timeout</code></a> is reached.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.suspect_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="evsuse_aggregate"><code>evs.use_aggregate</code><a class="headerlink" href="#evsuse_aggregate" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4337,7 +4361,10 @@ dropped out of cluster even before <a href="wsrep-provider-index.html#evsinactiv
 </tr>
 </tbody>
 </table>
-<p>When this variable is enabled, smaller packets will be aggregated into one.</p>
+<p>When you enable this option, the cluster aggregates smaller packets into one.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.use_aggregate=no&quot;
+</code></pre></div>
 <h3 id="evsuser_send_window"><code>evs.user_send_window</code><a class="headerlink" href="#evsuser_send_window" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4369,9 +4396,10 @@ dropped out of cluster even before <a href="wsrep-provider-index.html#evsinactiv
 </tr>
 </tbody>
 </table>
-<p>This variable defines the maximum number of data packets in replication at a
-time. For WAN setups, the variable can be set to a considerably higher value
-than default (for example, 512).</p>
+<p>This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.user_send_window=4&quot;
+</code></pre></div>
 <h3 id="evsversion"><code>evs.version</code><a class="headerlink" href="#evsversion" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4403,9 +4431,10 @@ than default (for example, 512).</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines the EVS protocol version. Auto eviction is enabled when
-this variable is set to <code>1</code>. Default <code>0</code> is set for backwards
-compatibility.</p>
+<p>This option defines the EVS (Extended Virtual Synchrony) protocol version. Setting this option to <code>1</code> enables auto eviction. The default <code>0</code> keeps backwards compatibility.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.version=0&quot;
+</code></pre></div>
 <h3 id="evsview_forget_timeout"><code>evs.view_forget_timeout</code><a class="headerlink" href="#evsview_forget_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4437,8 +4466,10 @@ compatibility.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines the timeout after which past views will be dropped from
-history.</p>
+<p>This option defines the timeout after which the cluster drops past views from history.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;evs.view_forget_timeout=P1D&quot;
+</code></pre></div>
 <h3 id="gcachedir"><code>gcache.dir</code><a class="headerlink" href="#gcachedir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4470,8 +4501,10 @@ history.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to define the location of the <code>galera.cache</code>
-file.</p>
+<p>Use this option to define the location of the <code>galera.cache</code> file.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.dir=/var/lib/mysql&quot;
+</code></pre></div>
 <h3 id="gcachefreeze_purge_at_seqno"><code>gcache.freeze_purge_at_seqno</code><a class="headerlink" href="#gcachefreeze_purge_at_seqno" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4499,16 +4532,12 @@ file.</p>
 </tr>
 <tr>
 <td>Default Value:</td>
-<td>0</td>
+<td>-1</td>
 </tr>
 </tbody>
 </table>
-<p>This variable controls the purging of the gcache and enables retaining
-more data in it. This variable makes it possible to use <a href="glossary.html#ist">IST (Incremental State Transfer)</a> when the node rejoins instead of
-<a href="glossary.html#sst">SST (State Snapshot Transfer)</a>.</p>
-<p>Set this variable on an existing node of the cluster (that will
-continue to be part of the cluster and can act as a potential
-<a href="glossary.html#donor-node">donor node</a>). This node continues to retain the write-sets and allows restarting the node to rejoin by using <a href="glossary.html#ist">IST</a>.</p>
+<p>This option controls the purging of the gcache (Galera cache) and enables retaining more data in the gcache. This option makes possible the use of <a href="glossary.html#ist">IST (Incremental State Transfer)</a> when the node rejoins instead of <a href="glossary.html#sst">SST (State Snapshot Transfer)</a>.</p>
+<p>Set this option on an existing node of the cluster (that will continue to be part of the cluster and can act as a potential <a href="glossary.html#donor-node">donor node</a>). This node continues to retain the write-sets (replicated transaction data) and allows restarting the node to rejoin by using <a href="glossary.html#ist">IST</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>Percona Database Performance Blog:</p>
@@ -4521,17 +4550,16 @@ continue to be part of the cluster and can act as a potential
 </li>
 </ul>
 </div>
-<p>The <a href="wsrep-provider-index.html#gcachefreeze_purge_at_seqno"><code>gcache.freeze_purge_at_seqno</code></a> variable takes three values:</p>
-<p><strong>-1 (default)</strong></p>
-<p>No freezing of gcache, the purge operates as normal.</p>
-<p><strong>A valid seqno in gcache</strong></p>
-<p>The freeze purge of write-sets may not be smaller than the selected seqno.
-The best way to select an optimal value is to use the value of the
-variable :variable:<code>wsrep_last_applied</code> from the node that you plan to shut down.</p>
-<p><strong>now</strong>
-The freeze purge of write-sets is no less than the smallest seqno currently
-in gcache. Using this value results in freezing the gcache-purge instantly.
-Use this value if selecting a valid seqno in gcache is difficult.</p>
+<p>The <a href="wsrep-provider-index.html#gcachefreeze_purge_at_seqno"><code>gcache.freeze_purge_at_seqno</code></a> option accepts one of the following:</p>
+<p>-1 (default): No freezing of gcache; purge operates as normal.</p>
+<p>A numeric sequence number (seqno): The freeze purge of write-sets may not be smaller than the chosen seqno. To choose a value, use the status variable :variable:<code>wsrep_last_applied</code> on the node that you plan to shut down.</p>
+<p>The literal string <code>now</code>: Set the value to the word <code>now</code> (as a string, not a number). The freeze purge of write-sets is then no less than the smallest seqno currently in gcache, which freezes the gcache purge immediately. Use <code>now</code> when picking a specific seqno is impractical.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.freeze_purge_at_seqno=-1&quot;
+</code></pre></div>
+<p>To freeze purge immediately using the current minimum seqno:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.freeze_purge_at_seqno=now&quot;
+</code></pre></div>
 <h3 id="gcachekeep_pages_count"><code>gcache.keep_pages_count</code><a class="headerlink" href="#gcachekeep_pages_count" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4563,15 +4591,13 @@ Use this value if selecting a valid seqno in gcache is difficult.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to limit the number of overflow pages
-rather than the total memory occupied by all overflow pages.
-Whenever <code>gcache.keep_pages_count</code> is set to a non-zero value,
-excess overflow pages will be deleted
+<p>This option limits the number of overflow pages rather than the total memory occupied by all overflow pages.
+Whenever you set <code>gcache.keep_pages_count</code> to a non-zero value, the cluster deletes excess overflow pages
 (starting from the oldest to the newest).</p>
-<p>Whenever either the <code>gcache.keep_pages_count</code>
-or the <a href="wsrep-provider-index.html#gcachekeep_pages_size"><code>gcache.keep_pages_size</code></a> variable
-is updated at runtime to a non-zero value,
-cleanup is called on excess overflow pages to delete them.</p>
+<p>Whenever you update either <code>gcache.keep_pages_count</code> or <a href="wsrep-provider-index.html#gcachekeep_pages_size"><code>gcache.keep_pages_size</code></a> at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.keep_pages_count=0&quot;
+</code></pre></div>
 <h3 id="gcachekeep_pages_size"><code>gcache.keep_pages_size</code><a class="headerlink" href="#gcachekeep_pages_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4603,15 +4629,11 @@ cleanup is called on excess overflow pages to delete them.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to limit the total size of overflow pages
-rather than the count of all overflow pages.
-Whenever <code>gcache.keep_pages_size</code> is set to a non-zero value,
-excess overflow pages will be deleted
-(starting from the oldest to the newest)
-until the total size is below the specified value.</p>
-<p>Whenever either the <a href="wsrep-provider-index.html#gcachekeep_pages_count"><code>gcache.keep_pages_count</code></a> or the <code>gcache.keep_pages_size</code> variable
-is updated at runtime to a non-zero value,
-cleanup is called on excess overflow pages to delete them.</p>
+<p>This option limits the total size of overflow pages rather than the count of all overflow pages. Whenever you set <code>gcache.keep_pages_size</code> to a non-zero value, the cluster deletes excess overflow pages (starting from the oldest to the newest) until the total size is below the specified value.</p>
+<p>Whenever you update either <a href="wsrep-provider-index.html#gcachekeep_pages_count"><code>gcache.keep_pages_count</code></a> or <code>gcache.keep_pages_size</code> at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.keep_pages_size=0&quot;
+</code></pre></div>
 <h3 id="gcachemem_size"><code>gcache.mem_size</code><a class="headerlink" href="#gcachemem_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4643,9 +4665,11 @@ cleanup is called on excess overflow pages to delete them.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable has been deprecated in <code>5.6.22-25.8</code> and shouldn’t be used as it
-could cause a node to crash.</p>
-<p>This variable was used to define how much RAM is available for the system.</p>
+<p>This option has been deprecated in <code>5.6.22-25.8</code> and shouldn’t be used because the option could cause a node to crash.</p>
+<p>This option was used to define how much RAM is available for the system.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.mem_size=0&quot;
+</code></pre></div>
 <h3 id="gcachename"><code>gcache.name</code><a class="headerlink" href="#gcachename" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4677,7 +4701,10 @@ could cause a node to crash.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to specify the name of the Galera cache file.</p>
+<p>Use this option to specify the name of the Galera cache file.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.name=/var/lib/mysql/galera.cache&quot;
+</code></pre></div>
 <h3 id="gcachepage_size"><code>gcache.page_size</code><a class="headerlink" href="#gcachepage_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4709,12 +4736,14 @@ could cause a node to crash.</p>
 </tr>
 </tbody>
 </table>
-<p>Size of the page files in page storage. The limit on overall page storage is the
-size of the disk. Pages are prefixed by gcache.page.</p>
+<p>Size of the page files in page storage. The limit on overall page storage is the size of the disk. Page file names use the gcache.page prefix.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">Percona Database Performance Blog: All You Need to Know About GCache <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.page_size=128M&quot;
+</code></pre></div>
 <h3 id="gcacherecover"><code>gcache.recover</code><a class="headerlink" href="#gcacherecover" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4746,9 +4775,9 @@ size of the disk. Pages are prefixed by gcache.page.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable attempts to recover a node’s gcache file to a usable state during startup. If the node successfully recovers the gcache file, it provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.</p>
-<p>To enable this variable, add the following to your configuration file:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.recover=yes&quot;
+<p>This option attempts to recover a node’s gcache file to a usable state during startup. If the node successfully recovers the gcache file, the node provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.recover=value&quot;
 </code></pre></div>
 <h3 id="gcachesize"><code>gcache.size</code><a class="headerlink" href="#gcachesize" title="Permanent link">&para;</a></h3>
 <table>
@@ -4781,38 +4810,32 @@ size of the disk. Pages are prefixed by gcache.page.</p>
 </tr>
 </tbody>
 </table>
-<p>Size of the transaction cache for Galera replication. This defines the size of
-the <code>galera.cache</code> file which is used as source for <a href="glossary.html#ist">IST</a>. The bigger the
-value of this variable, the better are chances that the re-joining node will
-get IST instead of <a href="glossary.html#sst">SST</a>.</p>
+<p>Size of the transaction cache for Galera replication. This option defines the size of the <code>galera.cache</code> file, which the cluster uses as the source for <a href="glossary.html#ist">IST</a>. The higher the value of this option, the better the chance that a re-joining node gets IST instead of <a href="glossary.html#sst">SST</a>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.size=512M&quot;
+</code></pre></div>
 <h3 id="gcommthread_prio"><code>gcomm.thread_prio</code><a class="headerlink" href="#gcommthread_prio" title="Permanent link">&para;</a></h3>
-<p>Using this option, you can raise the priority of the gcomm thread to a higher
-level than it normally uses.</p>
-<p>The format for this variable is: &#60;policy&#62;:&#60;priority&#62;. The priority value is an integer.</p>
+<p>Using this option, you can raise the priority of the gcomm thread to a higher level than the thread normally uses.</p>
+<p>The format for this option is: &#60;policy&#62;:&#60;priority&#62;. The priority value is an integer.</p>
 <p>other</p>
-<div class="highlight"><pre><span></span><code>Default time-sharing scheduling in Linux. The threads can run
-until blocked by an I/O request or preempted by higher priorities or
-superior scheduling designations.
+<div class="highlight"><pre><span></span><code>Default time-sharing scheduling in Linux. The threads can run until blocked by an I/O request or preempted by higher priorities or superior scheduling designations.
 </code></pre></div>
 <p>fifo</p>
-<div class="highlight"><pre><span></span><code>First-in First-out (FIFO) scheduling. These threads always immediately
-preempt any currently running other, batch or idle threads. They can run
-until they are either blocked by an I/O request or preempted by a FIFO thread
-of a higher priority.
+<div class="highlight"><pre><span></span><code>First-in First-out (FIFO) scheduling. These threads always immediately preempt any currently running other, batch or idle threads. They can run until they are either blocked by an I/O request or preempted by a FIFO thread of a higher priority.
 </code></pre></div>
 <p>rr</p>
-<div class="highlight"><pre><span></span><code>Round-robin scheduling. These threads always preempt any currently running
-other, batch or idle threads. The scheduler allows these threads to run for a
-fixed period of a time. If the thread is still running when this time period is
-exceeded, they are stopped and moved to the end of the list, allowing another
-round-robin thread of the same priority to run in their place. They can
-otherwise continue to run until they are blocked by an I/O request or are
+<div class="highlight"><pre><span></span><code>Round-robin scheduling. These threads always preempt any currently running other, batch or idle threads. The scheduler allows these threads to run for a
+fixed period of a time. If the thread is still running when this time period is exceeded, they are stopped and moved to the end of the list, allowing another
+round-robin thread of the same priority to run in their place. They can otherwise continue to run until they are blocked by an I/O request or are
 preempted by threads of a higher priority.
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p>For information, see the <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio">MariaDB Galera Cluster documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcomm.thread_prio=value&quot;
+</code></pre></div>
 <h3 id="gcsfc_auto_evict_threshold"><code>gcs.fc_auto_evict_threshold</code><a class="headerlink" href="#gcsfc_auto_evict_threshold" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4844,7 +4867,10 @@ preempted by threads of a higher priority.
 </tr>
 </tbody>
 </table>
-<p>Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the <a href="#gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code></a> variable. The default value is <code>.075</code>, but the value can be set to any value between 0.0 and 1.0. </p>
+<p>This option defines the threshold that the cluster must reach or cross before evicting a node. The option is a ratio of the <a href="#gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code></a> option. The default is <code>.075</code>; you can set the value to any number between 0.0 and 1.0.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_auto_evict_threshold=value&quot;
+</code></pre></div>
 <h3 id="gcsfc_auto_evict_window"><code>gcs.fc_auto_evict_window</code><a class="headerlink" href="#gcsfc_auto_evict_window" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4876,9 +4902,12 @@ preempted by threads of a higher priority.
 </tr>
 </tbody>
 </table>
-<p>The variable defines the time window width within which flow controls are observed. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time &gt;= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.</p>
+<p>This option defines the time window width within which the cluster observes flow control. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time &gt;= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.</p>
 <p>The default value is 0, which means that the feature is disabled.</p>
 <p>The maximum value is <code>DBL_MAX</code>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_auto_evict_window=value&quot;
+</code></pre></div>
 <h3 id="gcsfc_debug"><code>gcs.fc_debug</code><a class="headerlink" href="#gcsfc_debug" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4910,8 +4939,10 @@ preempted by threads of a higher priority.
 </tr>
 </tbody>
 </table>
-<p>This variable specifies after how many writesets the debug statistics about SST
-flow control will be posted.</p>
+<p>This option specifies after how many writesets the cluster posts debug statistics about SST (State Snapshot Transfer) flow control.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_debug=0&quot;
+</code></pre></div>
 <h3 id="gcsfc_factor"><code>gcs.fc_factor</code><a class="headerlink" href="#gcsfc_factor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4943,8 +4974,10 @@ flow control will be posted.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used for replication flow control. Replication is resumed when
-the replica queue drops below <a href="wsrep-provider-index.html#gcsfc_factor"><code>gcs.fc_factor</code></a> * <a href="wsrep-provider-index.html#gcsfc_limit"><code>gcs.fc_limit</code></a>.</p>
+<p>This option controls replication flow. Replication resumes when the replica queue drops below <a href="wsrep-provider-index.html#gcsfc_factor"><code>gcs.fc_factor</code></a> * <a href="wsrep-provider-index.html#gcsfc_limit"><code>gcs.fc_limit</code></a>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_factor=1&quot;
+</code></pre></div>
 <h3 id="gcsfc_limit"><code>gcs.fc_limit</code><a class="headerlink" href="#gcsfc_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4976,10 +5009,10 @@ the replica queue drops below <a href="wsrep-provider-index.html#gcsfc_factor"><
 </tr>
 </tbody>
 </table>
-<p>This variable is used for replication flow control. Replication is paused when
-the replica queue exceeds this limit. In the default operation mode, flow control
-limit is dynamically recalculated based on the amount of nodes in the
-cluster, but this recalculation can be turned off with use of the <a href="wsrep-provider-index.html#gcsfc_master_slave"><code>gcs.fc_master_slave</code></a> variable to make manual setting of the <a href="wsrep-provider-index.html#gcsfc_limit"><code>gcs.fc_limit</code></a> having an effect  (e.g., for configurations when writing is done to a single node in Percona XtraDB Cluster).</p>
+<p>This option controls replication flow. Replication pauses when the replica queue exceeds this limit. In the default operation mode, the cluster recalculates the flow control limit dynamically based on the number of nodes in the cluster. You can turn off this recalculation by using the <a href="wsrep-provider-index.html#gcsfc_master_slave"><code>gcs.fc_master_slave</code></a> option so that manual setting of <a href="wsrep-provider-index.html#gcsfc_limit"><code>gcs.fc_limit</code></a> takes effect (e.g., when only one node in Percona XtraDB Cluster accepts writes).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_limit=100&quot;
+</code></pre></div>
 <h3 id="gcsfc_master_slave"><code>gcs.fc_master_slave</code><a class="headerlink" href="#gcsfc_master_slave" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5011,9 +5044,11 @@ cluster, but this recalculation can be turned off with use of the <a href="wsrep
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify if there is only one source node in the
-cluster. It affects whether flow control limit is recalculated dynamically
+<p>This option specifies if there is only one source node in the cluster. It affects whether flow control limit is recalculated dynamically
 (when <code>NO</code>) or not (when <code>YES</code>).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.fc_master_slave=NO&quot;
+</code></pre></div>
 <h3 id="gcsmax_packet_size"><code>gcs.max_packet_size</code><a class="headerlink" href="#gcsmax_packet_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5045,7 +5080,10 @@ cluster. It affects whether flow control limit is recalculated dynamically
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the writeset size after which they will be fragmented.</p>
+<p>This option specifies the writeset (replicated transaction data) size after which the cluster fragments them.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.max_packet_size=64500&quot;
+</code></pre></div>
 <h3 id="gcsmax_throttle"><code>gcs.max_throttle</code><a class="headerlink" href="#gcsmax_throttle" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5077,10 +5115,10 @@ cluster. It affects whether flow control limit is recalculated dynamically
 </tr>
 </tbody>
 </table>
-<p>This variable specifies how much the replication can be throttled during the
-state transfer in order to avoid running out of memory. Value can be set to
-<code>0.0</code> if stopping replication is acceptable in order to finish state
-transfer.</p>
+<p>This option specifies how much replication can be throttled during state transfer to avoid running out of memory. You can set the value to <code>0.0</code> if stopping replication is acceptable to finish state transfer.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.max_throttle=0.25&quot;
+</code></pre></div>
 <h3 id="gcsrecv_q_hard_limit"><code>gcs.recv_q_hard_limit</code><a class="headerlink" href="#gcsrecv_q_hard_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5112,9 +5150,10 @@ transfer.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the maximum allowed size of the receive queue. This
-should normally be <code>(RAM + swap) / 2</code>. If this limit is exceeded, Galera will
-abort the server.</p>
+<p>This option specifies the maximum allowed size of the receive queue. Set this to <code>(RAM + swap) / 2</code> in most cases. If the limit is exceeded, Galera aborts the server.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.recv_q_hard_limit=9223372036854775807&quot;
+</code></pre></div>
 <h3 id="gcsrecv_q_soft_limit"><code>gcs.recv_q_soft_limit</code><a class="headerlink" href="#gcsrecv_q_soft_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5146,7 +5185,10 @@ abort the server.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the fraction of the <a href="wsrep-provider-index.html#gcsrecv_q_hard_limit"><code>gcs.recv_q_hard_limit</code></a> after which replication rate will be throttled.</p>
+<p>This option specifies the fraction of the <a href="wsrep-provider-index.html#gcsrecv_q_hard_limit"><code>gcs.recv_q_hard_limit</code></a> after which the cluster throttles the replication rate.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.recv_q_soft_limit=0.25&quot;
+</code></pre></div>
 <h3 id="gcssync_donor"><code>gcs.sync_donor</code><a class="headerlink" href="#gcssync_donor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5178,9 +5220,10 @@ abort the server.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable controls if the rest of the cluster should be in sync with the
-donor node. When this variable is set to <code>YES</code>, the whole cluster will be
-blocked if the donor node is blocked with SST.</p>
+<p>This option controls whether the rest of the cluster stays in sync with the donor node. When you set this option to <code>YES</code>, the whole cluster blocks if the donor node is blocked with SST (State Snapshot Transfer).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcs.sync_donor=yes&quot;
+</code></pre></div>
 <h3 id="gmcastlisten_addr"><code>gmcast.listen_addr</code><a class="headerlink" href="#gmcastlisten_addr" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5212,8 +5255,10 @@ blocked if the donor node is blocked with SST.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable defines the address on which the node listens to connections from
-other nodes in the cluster.</p>
+<p>This option defines the address on which the node listens to connections from other nodes in the cluster.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.listen_addr=tcp://0.0.0.0:4567&quot;
+</code></pre></div>
 <h3 id="gmcastmcast_addr"><code>gmcast.mcast_addr</code><a class="headerlink" href="#gmcastmcast_addr" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5245,7 +5290,10 @@ other nodes in the cluster.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable should be set up if UDP multicast should be used for replication.</p>
+<p>Set this option if you use UDP multicast for replication.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.mcast_addr=None&quot;
+</code></pre></div>
 <h3 id="gmcastmcast_ttl"><code>gmcast.mcast_ttl</code><a class="headerlink" href="#gmcastmcast_ttl" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5277,7 +5325,10 @@ other nodes in the cluster.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable can be used to define TTL for multicast packets.</p>
+<p>Use this option to define TTL (time to live) for multicast packets.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.mcast_ttl=1&quot;
+</code></pre></div>
 <h3 id="gmcastpeer_timeout"><code>gmcast.peer_timeout</code><a class="headerlink" href="#gmcastpeer_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5309,7 +5360,10 @@ other nodes in the cluster.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the connection timeout to initiate message relaying.</p>
+<p>This option specifies the connection timeout to initiate message relaying.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.peer_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="gmcastsegment"><code>gmcast.segment</code><a class="headerlink" href="#gmcastsegment" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5341,8 +5395,10 @@ other nodes in the cluster.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the group segment this member should be a part of. Same
-segment members are treated as equally physically close.</p>
+<p>This option specifies the group segment this member belongs to. The cluster treats members in the same segment as equally physically close.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.segment=0&quot;
+</code></pre></div>
 <h3 id="gmcasttime_wait"><code>gmcast.time_wait</code><a class="headerlink" href="#gmcasttime_wait" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5374,8 +5430,10 @@ segment members are treated as equally physically close.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the time to wait until allowing peer declared outside
-of stable view to reconnect.</p>
+<p>This option specifies the time to wait until allowing peer declared outside of stable view to reconnect.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.time_wait=PT30S&quot;
+</code></pre></div>
 <h3 id="gmcastversion"><code>gmcast.version</code><a class="headerlink" href="#gmcastversion" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5407,7 +5465,10 @@ of stable view to reconnect.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable shows which gmcast protocol version is being used.</p>
+<p>This option shows which gmcast protocol version is being used.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gmcast.version=0&quot;
+</code></pre></div>
 <h3 id="istrecv_addr"><code>ist.recv_addr</code><a class="headerlink" href="#istrecv_addr" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5439,8 +5500,10 @@ of stable view to reconnect.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the address on which the node listens for Incremental
-State Transfer (<a href="glossary.html#ist">IST</a>).</p>
+<p>This option specifies the address on which the node listens for Incremental State Transfer (<a href="glossary.html#ist">IST</a>).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;ist.recv_addr=/var/lib/mysql&quot;
+</code></pre></div>
 <h3 id="pcannounce_timeout"><code>pc.announce_timeout</code><a class="headerlink" href="#pcannounce_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5472,8 +5535,10 @@ State Transfer (<a href="glossary.html#ist">IST</a>).</p>
 </tr>
 </tbody>
 </table>
-<p>Cluster joining announcements are sent every &frac12; second for this period of time
-or less if other nodes are discovered.</p>
+<p>The node sends cluster joining announcements every half second (0.5 s) for this period or less if the node discovers other nodes.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.announce_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="pcbootstrap"><code>pc.bootstrap</code><a class="headerlink" href="#pcbootstrap" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5523,11 +5588,14 @@ or less if other nodes are discovered.</p>
 </tr>
 <tr>
 <td>Rejoining a Cluster (Use with Caution)</td>
-<td>If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use <code>pc.bootstrap=TRUE</code>. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline.</td>
+<td>If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use <code>pc.bootstrap=TRUE</code>. This is generally not recommended because bootstrapping can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline.</td>
 </tr>
 </tbody>
 </table>
 <p>By default, pc.bootstrap is disabled (FALSE).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=FALSE&quot;
+</code></pre></div>
 <h3 id="pcchecksum"><code>pc.checksum</code><a class="headerlink" href="#pcchecksum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5559,8 +5627,10 @@ or less if other nodes are discovered.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable controls whether replicated messages should be checksummed or
-not.</p>
+<p>This option controls whether the cluster checksums replicated messages.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.checksum=no&quot;
+</code></pre></div>
 <h3 id="pcignore_quorum"><code>pc.ignore_quorum</code><a class="headerlink" href="#pcignore_quorum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5592,9 +5662,10 @@ not.</p>
 </tr>
 </tbody>
 </table>
-<p>When this variable is set to <code>TRUE</code>, the node will completely ignore quorum
-calculations. This should be used with extreme caution even in source-replica
-setups, because replicas won’t automatically reconnect to source in this case.</p>
+<p>When you set this option to <code>TRUE</code>, the node completely ignores quorum calculations. Use this option with extreme caution even in source-replica setups, because replicas won’t automatically reconnect to source in this case.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.ignore_quorum=false&quot;
+</code></pre></div>
 <h3 id="pcignore_sb"><code>pc.ignore_sb</code><a class="headerlink" href="#pcignore_sb" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5626,10 +5697,10 @@ setups, because replicas won’t automatically reconnect to source in this case.
 </tr>
 </tbody>
 </table>
-<p>When this variable is set to <code>TRUE</code>, the node will process updates even in
-the case of a split brain. This should be used with extreme caution in
-multi-source setup, but should simplify things in source-replica cluster
-(especially if only 2 nodes are used).</p>
+<p>When you set this option to <code>TRUE</code>, the node processes updates even in the case of a split brain. Use this option with extreme caution in multi-source setup, and can simplify things in a source-replica cluster (especially if only two nodes are used).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.ignore_sb=false&quot;
+</code></pre></div>
 <h3 id="pclinger"><code>pc.linger</code><a class="headerlink" href="#pclinger" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5661,8 +5732,10 @@ multi-source setup, but should simplify things in source-replica cluster
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the period for which the PC protocol waits for EVS
-termination.</p>
+<p>This option specifies the period for which the PC (Primary Component) protocol waits for EVS (Extended Virtual Synchrony) termination.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.linger=PT30S&quot;
+</code></pre></div>
 <h3 id="pcnpvo"><code>pc.npvo</code><a class="headerlink" href="#pcnpvo" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5694,8 +5767,10 @@ termination.</p>
 </tr>
 </tbody>
 </table>
-<p>When this variable is set to <code>TRUE</code>, more recent primary components override
-older ones in case of conflicting primaries.</p>
+<p>When you set this option to <code>TRUE</code>, more recent primary components override older ones in case of conflicting primaries.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.npvo=false&quot;
+</code></pre></div>
 <h3 id="pcrecovery"><code>pc.recovery</code><a class="headerlink" href="#pcrecovery" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5727,13 +5802,10 @@ older ones in case of conflicting primaries.</p>
 </tr>
 </tbody>
 </table>
-<p>When this variable is set to <code>true</code>, the node stores the Primary Component
-state to disk. The Primary Component can then recover automatically when all
-nodes that were part of the last saved state re-establish communication with
-each other. This feature allows automatic recovery from full cluster crashes,
-such as in the case of a data center power outage. A subsequent graceful full
-cluster restart will require explicit bootstrapping for a new Primary
-Component.</p>
+<p>When you set this option to <code>true</code>, the node stores the Primary Component state to disk. The Primary Component can then recover automatically when all nodes that were part of the last saved state re-establish communication with each other. This feature allows automatic recovery from full cluster crashes, such as in the case of a data center power outage. A subsequent graceful full cluster restart requires explicit bootstrapping for a new Primary Component.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.recovery=no&quot;
+</code></pre></div>
 <h3 id="pcversion"><code>pc.version</code><a class="headerlink" href="#pcversion" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5765,7 +5837,10 @@ Component.</p>
 </tr>
 </tbody>
 </table>
-<p>This status variable is used to check which PC protocol version is used.</p>
+<p>Use this option to check which PC (Primary Component) protocol version the cluster uses.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.version=0&quot;
+</code></pre></div>
 <h3 id="pcwait_prim"><code>pc.wait_prim</code><a class="headerlink" href="#pcwait_prim" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5797,8 +5872,10 @@ Component.</p>
 </tr>
 </tbody>
 </table>
-<p>When set to <code>TRUE</code>, the node waits for a primary component for the period of
-time specified in <a href="wsrep-provider-index.html#pcwait_prim_timeout"><code>pc.wait_prim_timeout</code></a>. This is useful to bring up a non-primary component and make it primary with <a href="wsrep-provider-index.html#pcbootstrap"><code>pc.bootstrap</code></a>.</p>
+<p>When set to <code>TRUE</code>, the node waits for a primary component for the period of time specified in <a href="wsrep-provider-index.html#pcwait_prim_timeout"><code>pc.wait_prim_timeout</code></a>. Use this to bring up a non-primary component and make that component primary with <a href="wsrep-provider-index.html#pcbootstrap"><code>pc.bootstrap</code></a>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.wait_prim=no&quot;
+</code></pre></div>
 <h3 id="pcwait_prim_timeout"><code>pc.wait_prim_timeout</code><a class="headerlink" href="#pcwait_prim_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5830,8 +5907,10 @@ time specified in <a href="wsrep-provider-index.html#pcwait_prim_timeout"><code>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the period of time to wait for a primary
-component.</p>
+<p>This option specifies the period of time to wait for a primary component.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.wait_prim_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="pcwait_restored_prim_timeout"><code>pc.wait_restored_prim_timeout</code><a class="headerlink" href="#pcwait_restored_prim_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5863,10 +5942,12 @@ component.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the wait period for a primary component when the cluster restores the primary component from the <code>gvwstate.dat</code> file
-after an outage.</p>
+<p>This option specifies the wait period for a primary component when the cluster restores the primary component from the <code>gvwstate.dat</code> file after an outage.</p>
 <p>The default value is <code>PT0S</code> (zero seconds). The node waits for an infinite time, which is the current behavior.</p>
 <p>You can define a wait time with <code>PTNS</code>, replace the <code>N</code> value with the number of seconds. For example, to wait for 90 seconds, set the value to <code>PT90S</code>.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.wait_restored_prim_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="pcweight"><code>pc.weight</code><a class="headerlink" href="#pcweight" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5898,8 +5979,10 @@ after an outage.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the node weight that’s going to be used for Weighted
-Quorum calculations.</p>
+<p>This option specifies the node weight that’s going to be used for Weighted Quorum calculations.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.weight=1&quot;
+</code></pre></div>
 <h3 id="protonetbackend"><code>protonet.backend</code><a class="headerlink" href="#protonetbackend" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5931,8 +6014,10 @@ Quorum calculations.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to define which transport backend should be used.
-Currently only <code>ASIO</code> is supported.</p>
+<p>This option defines which transport backend to use. Currently the cluster supports only ASIO (Asynchronous I/O library).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;protonet.backend=asio&quot;
+</code></pre></div>
 <h3 id="protonetversion"><code>protonet.version</code><a class="headerlink" href="#protonetversion" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5964,8 +6049,10 @@ Currently only <code>ASIO</code> is supported.</p>
 </tr>
 </tbody>
 </table>
-<p>This status variable is used to check which transport backend protocol version
-is used.</p>
+<p>Use this option to check which transport backend protocol version the cluster uses.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;protonet.version=0&quot;
+</code></pre></div>
 <h3 id="replcausal_read_timeout"><code>repl.causal_read_timeout</code><a class="headerlink" href="#replcausal_read_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5997,7 +6084,10 @@ is used.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable specifies the causal read timeout.</p>
+<p>This option specifies the causal read timeout.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;repl.causal_read_timeout=PT30S&quot;
+</code></pre></div>
 <h3 id="replcommit_order"><code>repl.commit_order</code><a class="headerlink" href="#replcommit_order" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6029,8 +6119,7 @@ is used.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify out-of-order committing (which is used to
-improve parallel applying performance). The following values are available:</p>
+<p>This option specifies out-of-order committing (which improves parallel applying performance). You can use the following values:</p>
 <ul>
 <li>
 <p><code>0</code> - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)</p>
@@ -6045,6 +6134,9 @@ improve parallel applying performance). The following values are available:</p>
 <p><code>3</code> - NO_OOOC: no out-of-order committing is allowed (strict total order committing)</p>
 </li>
 </ul>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;repl.commit_order=3&quot;
+</code></pre></div>
 <h3 id="replkey_format"><code>repl.key_format</code><a class="headerlink" href="#replkey_format" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6076,8 +6168,7 @@ improve parallel applying performance). The following values are available:</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the replication key format. The following
-values are available:</p>
+<p>This option specifies the replication key format. You can use the following values:</p>
 <ul>
 <li>
 <p><code>FLAT8</code> - short key with higher probability of key match false positives</p>
@@ -6092,6 +6183,9 @@ values are available:</p>
 <p><code>FLAT16A</code> - same as <code>FLAT16</code> but with annotations for debug purposes</p>
 </li>
 </ul>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;repl.key_format=FLAT8&quot;
+</code></pre></div>
 <h3 id="replmax_ws_size"><code>repl.max_ws_size</code><a class="headerlink" href="#replmax_ws_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6123,8 +6217,10 @@ values are available:</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the maximum size of a write-set in bytes. This
-is limited to 2 gygabytes.</p>
+<p>This option specifies the maximum size of a write-set (replicated transaction data) in bytes. The maximum is 2 gigabytes.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;repl.max_ws_size=2147483647&quot;
+</code></pre></div>
 <h3 id="replproto_max"><code>repl.proto_max</code><a class="headerlink" href="#replproto_max" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6156,8 +6252,10 @@ is limited to 2 gygabytes.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the highest communication protocol version to
-accept in the cluster. Used only for debugging.</p>
+<p>This option specifies the highest communication protocol version to accept in the cluster. Use this option only for debugging.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;repl.proto_max=7&quot;
+</code></pre></div>
 <h3 id="socketchecksum"><code>socket.checksum</code><a class="headerlink" href="#socketchecksum" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6189,7 +6287,7 @@ accept in the cluster. Used only for debugging.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to choose the checksum algorithm for network packets. The <code>CRC32-C</code> option is optimized and may be hardware accelerated on Intel CPUs. The following values are available:</p>
+<p>This option selects the checksum algorithm for network packets. The <code>CRC32-C</code> option is optimized and may be hardware accelerated on Intel CPUs. You can use the following values:</p>
 <ul>
 <li>
 <p><code>0</code> - disable checksum</p>
@@ -6201,7 +6299,10 @@ accept in the cluster. Used only for debugging.</p>
 <p><code>2</code> - hardware accelerated <code>CRC32-C</code></p>
 </li>
 </ul>
-<p>The following is an example of the variable use:</p>
+<p>The following is an example of the option:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.checksum=2&quot;
+</code></pre></div>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.checksum=2&quot;
 </code></pre></div>
 <h3 id="socketssl"><code>socket.ssl</code><a class="headerlink" href="#socketssl" title="Permanent link">&para;</a></h3>
@@ -6235,7 +6336,10 @@ accept in the cluster. Used only for debugging.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify if SSL encryption should be used.</p>
+<p>This option specifies whether to use SSL (Secure Sockets Layer) encryption.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl=yes&quot;
+</code></pre></div>
 <h3 id="socketssl_ca"><code>socket.ssl_ca</code><a class="headerlink" href="#socketssl_ca" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6263,8 +6367,10 @@ accept in the cluster. Used only for debugging.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the path
-to the Certificate Authority (CA) certificate file.</p>
+<p>This option specifies the path to the Certificate Authority (CA) certificate file.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl_ca=/path/to/ca.pem&quot;
+</code></pre></div>
 <h3 id="socketssl_cert"><code>socket.ssl_cert</code><a class="headerlink" href="#socketssl_cert" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6292,8 +6398,10 @@ to the Certificate Authority (CA) certificate file.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the path
-to the server’s certificate file (in PEM format).</p>
+<p>This option specifies the path to the server’s certificate file (in PEM, Privacy Enhanced Mail, format).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl_cert=/path/to/server-cert.pem&quot;
+</code></pre></div>
 <h3 id="socketssl_key"><code>socket.ssl_key</code><a class="headerlink" href="#socketssl_key" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6321,8 +6429,10 @@ to the server’s certificate file (in PEM format).</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify the path
-to the server’s private key file (in PEM format).</p>
+<p>This option specifies the path to the server’s private key file (in PEM, Privacy Enhanced Mail, format).</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl_key=/path/to/server-key.pem&quot;
+</code></pre></div>
 <h3 id="socketssl_compression"><code>socket.ssl_compression</code><a class="headerlink" href="#socketssl_compression" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6354,7 +6464,10 @@ to the server’s private key file (in PEM format).</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify if the SSL compression is to be used.</p>
+<p>This option specifies whether to use SSL (Secure Sockets Layer) compression.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl_compression=no&quot;
+</code></pre></div>
 <h3 id="socketssl_cipher"><code>socket.ssl_cipher</code><a class="headerlink" href="#socketssl_cipher" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6386,7 +6499,10 @@ to the server’s private key file (in PEM format).</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify what cypher will be used for encryption.</p>
+<p>This option specifies which cipher to use for encryption.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl_cipher=AES128-SHA&quot;
+</code></pre></div>
 
 
 
@@ -6409,7 +6525,7 @@ to the server’s private key file (in PEM format).</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

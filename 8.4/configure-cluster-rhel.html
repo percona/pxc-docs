@@ -713,14 +713,14 @@ on Red Hat Enterprise Linux (RHEL) 8 servers, using the packages from Percona re
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3732,28 +3732,20 @@ For more information about bootstrapping the cluster, see <a href="bootstrap.htm
 <p>Make sure that the configuration file <code>/etc/my.cnf</code>
 on the first node (<code>percona1</code>) contains the following:</p>
 <div class="no-copy highlight"><pre><span></span><code>[mysqld]
-
 datadir=/var/lib/mysql
 user=mysql
-
 # Path to Galera library
 wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
 # Cluster connection URL contains the IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
 # Using the MyISAM storage engine is not recommended.
 default_storage_engine=InnoDB
-
 # This InnoDB autoincrement locking mode is a requirement for Galera
 innodb_autoinc_lock_mode=2
-
 # Node 1 address
 wsrep_node_address=192.168.70.71
-
 # SST method
 wsrep_sst_method=xtrabackup-v2
-
 # Cluster name
 wsrep_cluster_name=my_rhel_cluster
 </code></pre></div>
@@ -3791,6 +3783,11 @@ wsrep_cluster_name=my_rhel_cluster
 <p>Copy the automatically generated temporary password for the superuser account:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>[Note] A temporary password is generated for root@localhost: xYz123AbC
+</code></pre></div>
+</details>
 <p>Use this password to log in as root:</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
@@ -3802,6 +3799,14 @@ wsrep_cluster_name=my_rhel_cluster
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
+<p>Exit the MySQL client:</p>
+<div class="highlight"><pre><span></span><code><span class="n">EXIT</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Bye
+</code></pre></div>
+</details>
 </li>
 </ol>
 <h2 id="step-3-configure-the-second-node">Step 3. Configure the second node<a class="headerlink" href="#step-3-configure-the-second-node" title="Permanent link">&para;</a></h2>
@@ -3809,28 +3814,20 @@ wsrep_cluster_name=my_rhel_cluster
 <li>
 <p>Make sure that the configuration file <code>/etc/my.cnf</code> on the second node (<code>percona2</code>) contains the following:</p>
 <div class="no-copy highlight"><pre><span></span><code>[mysqld]
-
 datadir=/var/lib/mysql
 user=mysql
-
 # Path to Galera library
 wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
-
 # This InnoDB auto_increment locking mode is a requirement for Galera
 innodb_autoinc_lock_mode=2
-
 # Node 2 address
 wsrep_node_address=192.168.70.72
-
 # Cluster name
 wsrep_cluster_name=my_rhel_cluster
-
 # SST method
 wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
@@ -3873,28 +3870,20 @@ wsrep_sst_method=xtrabackup-v2
 <li>
 <p>Make sure that the MySQL configuration file <code>/etc/my.cnf</code> on the third node (<code>percona3</code>) contains the following:</p>
 <div class="no-copy highlight"><pre><span></span><code>[mysqld]
-
 datadir=/var/lib/mysql
 user=mysql
-
 # Path to Galera library
 wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
-
 # Cluster connection URL contains IPs of node#1, node#2 and node#3
 wsrep_cluster_address=gcomm://192.168.70.71,192.168.70.72,192.168.70.73
-
 # Using the MyISAM storage engine is not recommended
 default_storage_engine=InnoDB
-
 # This InnoDB auto_increment locking mode is a requirement for Galera
 innodb_autoinc_lock_mode=2
-
 # Node #3 address
 wsrep_node_address=192.168.70.73
-
 # Cluster name
 wsrep_cluster_name=my_rhel_cluster
-
 # SST method
 wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
@@ -3939,18 +3928,17 @@ and add some records to the table on the first node.</p>
 <ol>
 <li>
 <p>Create a new database on the second node, <code>mysql@percona2&gt;</code>:</p>
-<p><code>{shell
-CREATE DATABASE percona;</code></p>
-<p>The following output confirms that a new database has been created:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
+</code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<p><code>{.text .no-copy}
-Query OK, 1 row affected (0.01 sec)</code></p>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+</code></pre></div>
 </details>
 </li>
 <li>
 <p>Switch to a newly created database, <code>mysql@percona3&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
@@ -3961,7 +3949,7 @@ Query OK, 1 row affected (0.01 sec)</code></p>
 </li>
 <li>
 <p>Create a table on the third node, <code>mysql@percona3&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span><span class="n">node_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">));</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
@@ -3972,7 +3960,7 @@ Query OK, 1 row affected (0.01 sec)</code></p>
 </li>
 <li>
 <p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -3983,7 +3971,7 @@ Query OK, 1 row affected (0.01 sec)</code></p>
 </li>
 <li>
 <p>Retrieve all the rows from that table on the second node, <code>mysql@percona2&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
@@ -4022,7 +4010,7 @@ are synchronized and working as intended.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

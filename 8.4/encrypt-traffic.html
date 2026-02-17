@@ -712,14 +712,14 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3731,9 +3731,9 @@ mv<span class="w"> </span>/var/lib/mysql/*.pem<span class="w"> </span>/etc/mysql
 chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/etc/mysql/certs
 </code></pre></div>
 <p>Then update your configuration in /etc/mysql/mysql.conf.d/mysqld.cnf:</p>
-<div class="highlight"><pre><span></span><code><span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
-<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
-<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
+<div class="no-copy highlight"><pre><span></span><code>ssl-key=/etc/mysql/certs/server-key.pem
+ssl-cert=/etc/mysql/certs/server-cert.pem
+ssl-ca=/etc/mysql/certs/ca.pem
 </code></pre></div>
 <p>The system reads the stored key and certificate files to secure client communication when the node restarts. These files encrypt data exchanges, ensuring privacy and protection. MySQL clients only need the second part of the configuration to connect to cluster nodes.</p>
 <p>To ensure all nodes have identical certificates, it is recommended to generate key and certificate files on the first node. After generating the certificates, copy them to all other nodes to maintain consistency. This practice helps meet specific security policies and industry standards.</p>
@@ -3767,14 +3767,13 @@ encryption settings, including <code>encrypt</code>, <code>ssl_key</code>, <code
 exchange between nodes.</p>
 <p>Administrators can explicitly configure encryption in <code>my.cnf</code> configuration file by setting <code>pxc-encrypt-cluster-traffic=ON</code>. </p>
 <p>This configuration applies the following settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
-<span class="na">wsrep_provider_options</span><span class="o">=</span><span class="s">”socket.ssl_key=server-key.pem</span><span class="c1">;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”</span>
-
-<span class="k">[sst]</span>
-<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
-<span class="na">ssl-key</span><span class="o">=</span><span class="s">server-key.pem</span>
-<span class="na">ssl-ca</span><span class="o">=</span><span class="s">ca.pem</span>
-<span class="na">ssl-cert</span><span class="o">=</span><span class="s">server-cert.pem</span>
+<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
+[sst]
+encrypt=4
+ssl-key=server-key.pem
+ssl-ca=ca.pem
+ssl-cert=server-cert.pem
 </code></pre></div>
 <p>For <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
 <h3 id="authentication-and-security-transport-in-replication">Authentication and security transport in replication<a class="headerlink" href="#authentication-and-security-transport-in-replication" title="Permanent link">&para;</a></h3>
@@ -3782,9 +3781,9 @@ exchange between nodes.</p>
 <p><code>Authentication requires secure connection</code></p>
 <p>This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL 8.4, such as accounts created with <code>REQUIRE SSL</code> or the server setting <code>require_secure_transport=ON</code>.</p>
 <p>To resolve this on the replica, configure replication to use SSL:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>STOP<span class="w"> </span>REPLICA<span class="p">;</span>
-mysql&gt;<span class="w"> </span>CHANGE<span class="w"> </span>REPLICATION<span class="w"> </span>SOURCE<span class="w"> </span>TO<span class="w"> </span><span class="nv">SOURCE_SSL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
-mysql&gt;<span class="w"> </span>START<span class="w"> </span>REPLICA<span class="p">;</span>
+<div class="highlight"><pre><span></span><code>STOP<span class="w"> </span>REPLICA<span class="p">;</span>
+CHANGE<span class="w"> </span>REPLICATION<span class="w"> </span>SOURCE<span class="w"> </span>TO<span class="w"> </span><span class="nv">SOURCE_SSL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
+START<span class="w"> </span>REPLICA<span class="p">;</span>
 </code></pre></div>
 <p>This change ensures that the replication channel uses encrypted transport, satisfying the authentication requirements of the source server.</p>
 <h4 id="disable-pxc-encrypt-cluster-traffic-and-assess-security-risks">Disable pxc-encrypt-cluster-traffic and assess security risks<a class="headerlink" href="#disable-pxc-encrypt-cluster-traffic-and-assess-security-risks" title="Permanent link">&para;</a></h4>
@@ -3859,7 +3858,7 @@ a running cluster requires restarting the entire cluster.</p>
 <p>To enable encryption during SST, administrators must configure the necessary settings in the cluster configuration file. When using the keyring_file plugin, encryption becomes mandatory. The system must transfer the keyring along with encrypted data files to ensure decryption. Without this step, the recipient node cannot access the transferred data.</p>
 <p>For more information, see <a href="state-snapshot-transfer.html#state-snapshot-transfer">State snapshot transfer</a>.</p>
 <p>The following options are to be set in <code>my.cnf</code> on all nodes:</p>
-<div class="highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
+<div class="no-copy highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
 keyring-file-data=/path/to/keyring/file
 </code></pre></div>
 <p>The cluster will not work if keyring configuration across nodes is
@@ -3883,18 +3882,18 @@ files to maintain a secure and consistent encryption setup.</p>
 <p>All nodes must use identical key and certificate files to ensure a consistent security setup.</p>
 </div>
 <p>An example configuration in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[sst]</span>
-<span class="na">encrypt</span><span class="o">=</span><span class="s">4</span>
-<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
-<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
-<span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
+<div class="no-copy highlight"><pre><span></span><code>[sst]
+encrypt=4
+ssl-ca=/etc/mysql/certs/ca.pem
+ssl-cert=/etc/mysql/certs/server-cert.pem
+ssl-key=/etc/mysql/certs/server-key.pem
 </code></pre></div>
 <p>SSL clients require DH parameters to be at least 1024 bits, due to the <a href="https://en.wikipedia.org/wiki/Logjam_(computer_security)">logjam vulnerability <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
 However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameters.
 If a <code>dhparams.pem</code> file of the required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.</p>
 <p>To avoid this delay, create the <code>dhparams.pem</code> file manually and place the file in the data directory before joining the node to the cluster.</p>
 <p>An example command to generate the <code>dhparams.pem</code> file:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
@@ -4085,13 +4084,13 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 <li>
 <p>Remove the passphrase:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
 </code></pre></div>
 <p>The command ensures the private key (server-key.pem) is stored without a passphrase.</p>
 </li>
 <li>
 <p>Sign the certificate request using the CA certificate and key:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-out<span class="w"> </span>client-cert.pem
 </code></pre></div>
@@ -4118,7 +4117,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </code></pre></div>
 <p>This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (<code>ca.pem</code>). If the certificates are correctly signed, OpenSSL returns a confirmation message;<br />
 otherwise, error details indicate issues with the certificate chain.</p>
-<div class="highlight"><pre><span></span><code>server-cert.pem: OK
+<div class="no-copy highlight"><pre><span></span><code>server-cert.pem: OK
 client-cert.pem: OK
 </code></pre></div>
 <h3 id="failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a class="headerlink" href="#failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
@@ -4221,7 +4220,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 3, 2026 16:35:36 UTC">February 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     

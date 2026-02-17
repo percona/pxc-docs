@@ -713,14 +713,14 @@
   
   
     <li class="md-nav__item">
-      <a href="release-notes/8.4.0-1.html" class="md-nav__link">
+      <a href="release-notes/8.4.0-1.md" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Percona XtraDB Cluster 8.4.0-1 (2024-11-07)
+    None
   
 
     
@@ -3812,7 +3812,7 @@ for socat encryption based on OpenSSL.</p>
 </li>
 </ul>
 <p>Considering that you have all three necessary files:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="highlight"><pre><span></span><code>[sst]
 encrypt=4
 ssl-ca=ca.pem
 ssl-cert=server-cert.pem
@@ -3822,7 +3822,7 @@ ssl-key=server-key.pem
 <h3 id="sockopt">sockopt<a class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="highlight"><pre><span></span><code>[sst]
 sockopt=&quot;retry=2,interval=3&quot;
 </code></pre></div>
 <p>The previous example causes socat to try to connect three times
@@ -3911,7 +3911,7 @@ For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span c
 that need to be retained in the <a href="glossary.html#datadir">datadir</a> before running SST,
 so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="highlight"><pre><span></span><code>[sst]
 cpat=&#39;.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$&#39;
 </code></pre></div>
 <div class="admonition note">
@@ -3968,7 +3968,6 @@ decompressor=’gzip -dc’</p>
 set <code>compress</code> under <code>[xtrabackup]</code>. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
 compress
-
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
 </code></pre></div>
 <h3 id="inno-backup-opts">inno-backup-opts<a class="headerlink" href="#inno-backup-opts" title="Permanent link">&para;</a></h3>
@@ -4052,7 +4051,7 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 </table>
 <p>This option configures the time the SST operation waits on the joiner to receive more data. The size of the joiner’s sst directory is checked for the amount of data received. For example, the directory has received 50MB of data. The operation rechecks the data size after the default value, 120 seconds, has elapsed. If the data size is still 50MB, this operation is aborted. If the data has increased, the operation continues.</p>
 <p>An example of setting the option:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="highlight"><pre><span></span><code>[sst]
 sst-idle-timeout=0
 </code></pre></div>
 <h3 id="post-processing-timeout">post-processing-timeout<a class="headerlink" href="#post-processing-timeout" title="Permanent link">&para;</a></h3>
@@ -4077,7 +4076,7 @@ sst-idle-timeout=0
 <p>The maximum time the State Snapshot Transfer (SST) procedure waits for the newly provisioned MySQL instance to complete its shutdown or startup. During shutdown, the procedure waits until the process is no longer alive or the Process ID (PID) cleanup completes. During startup, the procedure waits until the procedure successfully connects to the MySQL server.</p>
 <p>The <code>wsrep_sst_common.sh</code> script reads this variable from the configuration file to set the timeout value. For more information about when to increase this value, see <a href="#troubleshoot">Troubleshoot</a>.</p>
 <p>An example of setting the option:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="highlight"><pre><span></span><code>[sst]
 post-processing-timeout=600
 </code></pre></div>
 <h3 id="tmpdir">tmpdir<a class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
@@ -4177,13 +4176,10 @@ and should be specified under the <code>[sst]</code> group.</p>
 <p>Each suppored version of Percona XtraDB Cluster is tested against a specific version of Percona XtraBackup:</p>
 <ul>
 <li>
-<p>Percona XtraDB Cluster 5.6 requires Percona XtraBackup 2.3</p>
-</li>
-<li>
-<p>Percona XtraDB Cluster 5.7 requires Percona XtraBackup 2.4</p>
-</li>
-<li>
 <p>Percona XtraDB Cluster 8.0 requires Percona XtraBackup 8.0</p>
+</li>
+<li>
+<p>Percona XtraDB Cluster 8.4 requires Percona XtraBackup 8.4</p>
 </li>
 </ul>
 <p>Other combinations are not guaranteed to work.</p>
@@ -4293,7 +4289,7 @@ the size of the InnoDB memory buffer will be used:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 5, 2026 16:13:54 UTC">February 5, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
   </span>
 
     
