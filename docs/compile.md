@@ -58,8 +58,6 @@ The glibc (GNU C Library) version can differ across software builds due to sever
 
 Practical Tip: Use `ldd --version` to check your current glibc version and understand potential compatibility constraints in your software ecosystem.
 
-
-
 ## Compile
 
 To compile Percona XtraDB Cluster from source code:
@@ -70,7 +68,7 @@ To compile Percona XtraDB Cluster from source code:
     ```shell
     git clone https://github.com/percona/percona-xtradb-cluster.git
     ```
-    
+
 2. Check out the `{{vers}}` branch and initialize submodules:
 
     ```shell
@@ -91,6 +89,8 @@ To compile Percona XtraDB Cluster from source code:
     mkdir ./pxc-build
     ./build-ps/build-binary.sh ./pxc-build
     ```
+
+    
 
 When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraDB-Cluster-{{vers}}.tar.gz`, that you can deploy on your system.
 

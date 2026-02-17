@@ -26,11 +26,11 @@ and it will use standard configuration again.
 
 To make sure that the cluster, `mysql@pxc1>`, has been initialized, run the following:
 
-```shell
-show status like 'wsrep%';
+```sql
+SHOW STATUS LIKE 'wsrep%';
 ```
 
-The output shows that the cluster size is 1 node,
+The output shows that the cluster size is one node,
 it is the primary component, the node is in the `Synced` state,
 it is fully connected and ready for write-set replication.
 
@@ -53,6 +53,8 @@ it is fully connected and ready for write-set replication.
     +----------------------------+--------------------------------------+
     40 rows in set (0.01 sec)
     ```
+
+    
 
 ## Next steps
 

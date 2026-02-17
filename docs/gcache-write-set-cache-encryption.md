@@ -2,7 +2,6 @@
 
 These features are [tech preview](glossary.md#tech-preview). Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
-
 ## GCache and Write-Set cache encryption
 
 Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  
@@ -14,11 +13,9 @@ Enabling this feature encrypts the Galera GCache and Write-Set cache files with 
 
     For more information, see [Understanding GCache and Record-set Cache](gcache-record-set-cache-difference.md), and the Percona Database Performance Blog: [All you need to know about GCache :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
-
 ??? example "Sample preamble key-value pairs"
 
     ```text
-
     Version: 2
     GID: 3afaa71d-6665-11ed-98de-2aba4aabc65e
     synced: 0
@@ -29,7 +26,6 @@ Enabling this feature encrypts the Galera GCache and Write-Set cache files with 
     enc_mk_uuid: 3ad04c8e-6665-11ed-a947-c7e346da147f
     enc_fk_id: S4hRiibUje4v5GSQ7a+uuS6NBBX9+230nsPHeAXH43k=
     enc_crc: 279433530
-
     ```
 
 ### Key descriptions
@@ -66,7 +62,7 @@ GCache and Write-Set cache encryption uses either a keyring plugin or a keyring 
 Store the keyring file outside the data directory when using a keyring plugin or a keyring component.
 
 ```sql
-mysql> ALTER INSTANCE ROTATE GCACHE MASTER KEY;
+ALTER INSTANCE ROTATE GCACHE MASTER KEY;
 ```
 
 ## Variable descriptions

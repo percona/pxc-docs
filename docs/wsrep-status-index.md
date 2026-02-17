@@ -126,12 +126,13 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 ### Expected results
 | Value | Interpretation |
 |------|----------------|
-| **≈ 1** | Excellent parallelism – most writesets are applied out of order. |
-| **0.5 – 0.8** | Acceptable parallelism; some room for improvement. |
-| **< 0.5** | Limited parallelism – investigate applier‑thread configuration or contention. |
-| **0** | No out‑of‑order execution; applier threads are effectively serial. |
+| ≈ 1 | Excellent parallelism – most writesets are applied out of order. |
+| 0.5 – 0.8 | Acceptable parallelism; some room for improvement. |
+| < 0.5 | Limited parallelism – investigate applier‑thread configuration or contention. |
+| 0 | No out‑of‑order execution; applier threads are effectively serial. |
 
 ### Example usage
+
 ```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_oooe';
 ```
@@ -175,7 +176,6 @@ Interpretation tips
 * Elevated `wsrep_apply_oool` or `wsrep_commit_oooe` – May indicate transaction conflicts or latency in later stages of replication.
 
 Address identified bottlenecks by adjusting the number of applier threads, optimizing transaction size, or scaling hardware/network capacity.
-
 
 # wsrep_apply_oool
 
@@ -675,11 +675,11 @@ Commit) is represented as a *last_entered*, and *last_left* pair:
 wsrep_monitor_status (L/A/C)	[ ( 7, 5), (2, 2), ( 2, 2) ]
 ```
 
-**last_entered**
+last_entered
 
 Shows which transaction or write-set has recently entered the queue.
 
-**last_left**
+last_left
 
 Shows which last transaction or write-set has been executed and left the queue.
 

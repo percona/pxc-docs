@@ -8,7 +8,7 @@ For the purposes of this tutorial, assume the following:
 * The local IP address is `192.168.2.21`.
 
 * Percona XtraDB Cluster is extracted from binary tarball into
-`/usr/local/Percona-XtraDB-Cluster-8.0.x86_64`
+`/usr/local/Percona-XtraDB-Cluster-8.4.x86_64`
 
 To set up the cluster:
 
@@ -16,16 +16,16 @@ To set up the cluster:
 
     * `/etc/my.4000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 4000
     socket=/tmp/mysql.4000.sock
     datadir=/data/bench/d1
-    basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
+    basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
     user=mysql
     log_error=error.log
     wsrep_cluster_address='gcomm://192.168.2.21:5030,192.168.2.21:6030'
-    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
+    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:4020
     wsrep_node_incoming_address=192.168.2.21
     wsrep_cluster_name=trimethylxanthine
@@ -37,19 +37,18 @@ To set up the cluster:
 
     * `/etc/my.5000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 5000
     socket=/tmp/mysql.5000.sock
     datadir=/data/bench/d2
-    basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
+    basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
     user=mysql
     log_error=error.log
     wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:6030'
-    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
+    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:5020
     wsrep_node_incoming_address=192.168.2.21
-
     wsrep_cluster_name=trimethylxanthine
     wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:5030;"
     wsrep_sst_method=xtrabackup-v2
@@ -59,16 +58,16 @@ To set up the cluster:
 
     * `/etc/my.6000.cnf`
 
-    ```text
+    ```{.text .no-copy}
     [mysqld]
     port = 6000
     socket=/tmp/mysql.6000.sock
     datadir=/data/bench/d3
-    basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
+    basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
     user=mysql
     log_error=error.log
     wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:5030'
-    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
+    wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
     wsrep_sst_receive_address=192.168.2.21:6020
     wsrep_node_incoming_address=192.168.2.21
     wsrep_cluster_name=trimethylxanthine

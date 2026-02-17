@@ -8,16 +8,16 @@ the haproxy package and you can install it using the package manager.
 
 Debian or Ubuntu
 
-    ```{.bash data-prompt="$"}
-    $ sudo apt update
-    $ sudo apt install haproxy
+    ```shell
+    sudo apt update
+    sudo apt install haproxy
     ```
 
 Red Hat Enterprise Linux:
 
-    ```{.bash data-prompt="$"}
-    $ sudo yum update
-    $ sudo yum install haproxy
+    ```shell
+    sudo yum update
+    sudo yum install haproxy
     ```
 
 **Supported versions of HAProxy**
@@ -28,15 +28,13 @@ To start HAProxy, use the `haproxy` command. You may pass any
 number of configuration parameters on the command line. To use a
 configuration file, use the `-f` option.
 
-```{.bash data-prompt="$"}
-$ # Passing one configuration file
-$ sudo haproxy -f haproxy-1.cfg
-
-$ # Passing multiple configuration files
-$ sudo haproxy -f haproxy-1.cfg haproxy-2.cfg
-
-$ # Passing a directory
-$ sudo haproxy -f conf-dir
+```shell
+# Passing one configuration file
+sudo haproxy -f haproxy-1.cfg
+# Passing multiple configuration files
+sudo haproxy -f haproxy-1.cfg haproxy-2.cfg
+# Passing a directory
+sudo haproxy -f conf-dir
 ```
 
 You can pass the name of an existing configuration file or a
@@ -52,7 +50,7 @@ multiple times.
 
 ??? example "Example of the HAProxy configuration file"
 
-        ```{.text .no-copy}
+        ```text
         global
                 log 127.0.0.1   local0
                 log 127.0.0.1   local1 notice
@@ -62,7 +60,6 @@ multiple times.
                 daemon
                 #debug
                 #quiet
-
         defaults
                 log     global
                 mode    http
@@ -74,18 +71,14 @@ multiple times.
                 contimeout      5000
                 clitimeout      50000
                 srvtimeout      50000
-
         listen mysql-cluster 0.0.0.0:3306
             mode tcp
             balance roundrobin
             option mysql-check user root
-
             server db01 10.4.29.100:3306 check
             server db02 10.4.29.99:3306 check
             server db03 10.4.29.98:3306 check
-
 Options set in the configuration file
-
 |HAProxy option (with links to HAProxy documentation)|Description|
 | -------------------------------------------------- |-----------|
 |global|A section in the configuration file for process-wide parameters|
@@ -106,36 +99,26 @@ Options set in the configuration file
 |[server :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries)|Declare a server in a backend|
 |[srvtimeout :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout)|Set the maximum inactivity time on the server side|
 |[uid :octicons-link-external-16:](https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid)|Changes the process' user ID to &#60;number&#62;|
-
 With this configuration, HAProxy will balance the load between three nodes.
 In this case, it only checks if `mysqld` listens on port 3306,
 but it doesn’t take into an account the state of the node.
 So it could be sending queries to the node that has `mysqld` running
 even if it’s in `JOINING` or `DISCONNECTED` state.
-
 To check the current status of a node we need a more complex check.
 This idea was taken from [codership-team google groups :octicons-link-external-16:](https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6).
-
 To implement this setup, you will need two scripts:
-
 * **clustercheck** (located in `/usr/local/bin`) and a config for `xinetd`
-
 * **mysqlchk** (located in `/etc/xinetd.d`) on each node
-
 Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.
-
 Change the `/etc/services` file
 by adding the following line on each node:
-
 ```text
 mysqlchk        9200/tcp                # mysqlchk
-```
 
+        ```
 ??? example "Example of the HAProxy configuration file"
-
-        ```{.text .no-copy}
-        # this config needs haproxy-1.4.20
-
+        ```text
+        this config needs haproxy-1.4.20
         global
                 log 127.0.0.1   local0
                 log 127.0.0.1   local1 notice
@@ -145,7 +128,6 @@ mysqlchk        9200/tcp                # mysqlchk
                 #daemon
                 debug
                 #quiet
-
         defaults
                 log     global
                 mode    http
@@ -157,28 +139,23 @@ mysqlchk        9200/tcp                # mysqlchk
                 contimeout      5000
                 clitimeout      50000
                 srvtimeout      50000
-
         listen mysql-cluster 0.0.0.0:3306
             mode tcp
             balance roundrobin
             option  httpchk
-
             server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
             server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
             server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
+
         ```
-
 !!! important
-
     In Percona XtraDB Cluster {{vers}}, the default authentication plugin is
     ``caching_sha2_password``. HAProxy does not support this authentication
     plugin. Create a mysql user using the ``mysql_native_password``
     authentication plugin.
+    ```shell
+    CREATE USER 'haproxy_user'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
 
-    ```{.bash data-prompt="mysql>"}
-    mysql> CREATE USER 'haproxy_user'@'%' IDENTIFIED WITH mysql_native_password by '$3Kr$t';
     ```
-
     !!! admonition "See also"
-
         [MySQL Documentation: CREATE USER statement :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/create-user.html)

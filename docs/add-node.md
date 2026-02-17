@@ -10,7 +10,6 @@ running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluste
     DONOR node. To minimize traffic overhead, avoid joining multiple nodes 
     simultaneously.
 
-
 Percona XtraDB Cluster uses [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
 ## Generate and Copy SSL Certificates
@@ -27,6 +26,8 @@ data directory. After generating the certificates, copy them to all other nodes.
     -x509 -days 365 -out /etc/server-cert.pem
     ```
 
+    
+
 2. Copy the SSL certificates to the other nodes:
 
     ```shell
@@ -36,6 +37,7 @@ data directory. After generating the certificates, copy them to all other nodes.
     scp /etc/server-cert.pem pxc3:/etc/
     ```
 
+    
 
 ## Start the second node
 
@@ -49,8 +51,8 @@ After the server starts, it receives [SST](glossary.md#sst) automatically.
 
 To check the status of the second node, `mysql@pxc2>`, run the following:
 
-```shell
-show status like 'wsrep%';
+```sql
+SHOW STATUS LIKE 'wsrep%';
 ```
 
 ??? example "Expected output"
@@ -78,8 +80,10 @@ show status like 'wsrep%';
     75 rows in set (0.00 sec)
     ```
 
+    
+
 The output of `SHOW STATUS` shows that the new node has been successfully
-added to the cluster.  The cluster size is now 2 nodes, it is the primary
+added to the cluster.  The cluster size is now two nodes, it is the primary
 component, and it is fully connected and ready to receive write-set replication.
 
 If the state of the second node is `Synced` as in the previous example, then
@@ -100,12 +104,12 @@ systemctl start mysql
 
 To check the status of the third node, `mysql@pxc3>`, run the following:
 
-```shell
-show status like 'wsrep%';
+```sql
+SHOW STATUS LIKE 'wsrep%';
 ```
 
 The output shows that the new node has been successfully added to the
-cluster. Cluster size is now 3 nodes, it is the primary component, and it is
+cluster. Cluster size is now three nodes; it is the primary component, and it is
 fully connected and ready to receive write-set replication.
 
 ??? example "Expected output"
@@ -127,6 +131,8 @@ fully connected and ready to receive write-set replication.
     +----------------------------+--------------------------------------+
     40 rows in set (0.01 sec)
     ```
+
+    
 
 ## Next steps
 

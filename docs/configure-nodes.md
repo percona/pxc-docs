@@ -23,17 +23,17 @@ In this section, we will demonstrate how to configure a three node cluster:
     ```shell
     sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
     -x509 -days 365 -out /etc/server-cert.pem
-    sudo cp /etc/server-key.pem pxc2:/etc/
-    sudo cp /etc/server-cert.pem pxc2:/etc/
-    sudo cp /etc/server-key.pem pxc3:/etc/
-    sudo cp /etc/server-cert.pem pxc3:/etc/
+    scp /etc/server-key.pem pxc2:/etc/
+    scp /etc/server-cert.pem pxc2:/etc/
+    scp /etc/server-key.pem pxc3:/etc/
+    scp /etc/server-cert.pem pxc3:/etc/
     ```
-    
+
 3. Edit the configuration file of the first node to provide the cluster settings.
 
     *If you use Debian or Ubuntu*, edit `/etc/mysql/mysql.conf.d/mysqld.cnf`:
 
-    ```ini
+    ```text
     wsrep_provider=/usr/lib/galera4/libgalera_smm.so
     wsrep_cluster_name=pxc-cluster
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
@@ -42,7 +42,7 @@ In this section, we will demonstrate how to configure a three node cluster:
     *If you use Red Hat Enterprise Linux*, edit `/etc/my.cnf`. Note that on these systems you set
     the `wsrep_provider option` to a different value:
 
-    ```ini
+    ```text
     wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
     wsrep_cluster_name=pxc-cluster
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
@@ -50,7 +50,7 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 4. Configure *node 1*.
 
-    ```ini
+    ```text
     wsrep_node_name=pxc1
     wsrep_node_address=192.168.70.61
     pxc_strict_mode=ENFORCING
@@ -59,25 +59,25 @@ In this section, we will demonstrate how to configure a three node cluster:
 5. Set up *node 2* and *node 3* in the same way: Stop the server and update the configuration file applicable to your system. All settings are the same except for [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name) and [`wsrep_node_address`](wsrep-system-index.md#wsrep_node_address).
 
     For node 2
+
         
-        ```ini
+        ```text
         wsrep_node_name=pxc2
         wsrep_node_address=192.168.70.62
         ```
 
     For node 3
 
-        ```ini
+        ```text
         wsrep_node_name=pxc3
         wsrep_node_address=192.168.70.63
         ```
-        
-5. Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates stored in `/etc/`.
 
-    ```ini
+6. Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates stored in `/etc/`.
+
+    ```text
     [mysqld]
     wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
-
     [sst]
     encrypt=4
     ssl-key=server-key.pem
@@ -101,7 +101,6 @@ In this section, we will demonstrate how to configure a three node cluster:
          * [`Security basics`](security-index.md#security-basics)
 	     * [`Encrypting PXC traffic`](encrypt-traffic.md#encrypt-pxc-traffic)
 	     * [`SSL automatic configuration`](encrypt-traffic.md#ssl-automatic-configuration)
-
 
 ## Template of the configuration file
 

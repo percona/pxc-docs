@@ -18,7 +18,6 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
 
 1. Install Percona XtraDB Cluster on three cluster nodes, as described in [Configure on RHEL](configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions).
 
-
 2.  On the client node, install [ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql) and `sysbench`:
 
     ```shell
@@ -55,16 +54,12 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
             Welcome to the MySQL monitor.  Commands end with ; or \g.
             Your MySQL connection id is 2
             Server version: 5.5.30 (ProxySQL Admin Module)
-
             Copyright (c) 2009-2020 Percona LLC and/or its affiliates
             Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-
             Oracle is a registered trademark of Oracle Corporation and/or its
             affiliates. Other names may be trademarks of their respective
             owners.
-
             Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
             mysql>
             ```
 
@@ -193,9 +188,8 @@ version. For Percona XtraDB Cluster {{vers}}, set it to {{vers}} accordingly:
 
 ```sql
 UPDATE GLOBAL_VARIABLES
-SET variable_value='8.0'
+SET variable_value='8.4'
 WHERE variable_name='mysql-server_version';
-
 LOAD MYSQL SERVERS TO RUNTIME;
 SAVE MYSQL SERVERS TO DISK;
 ```
@@ -239,14 +233,11 @@ table:
 INSERT INTO mysql_query_rules (
 username,destination_hostgroup,active,match_digest,apply)
 VALUES ('appuser',10,1,'^SELECT.*FOR UPDATE',1);
-
 INSERT INTO mysql_query_rules (
 username,destination_hostgroup,active,match_digest,apply)
 VALUES ('appuser',11,1,'^SELECT ',1);
-
 LOAD MYSQL QUERY RULES TO RUNTIME;
 SAVE MYSQL QUERY RULES TO DISK;
-
 select hostgroup_id,hostname,port,status,weight from runtime_mysql_servers;
 ```
 
@@ -332,7 +323,6 @@ The following example shows how to configure this user on the ProxySQL node:
 ```sql
 UPDATE global_variables SET variable_value='proxysql'
 WHERE variable_name='mysql-monitor_username';
-
 UPDATE global_variables SET variable_value='ProxySQLPa55'
 WHERE variable_name='mysql-monitor_password';
 ```
@@ -444,14 +434,11 @@ mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 1491
     Server version: 5.5.30 (ProxySQL)
-
     Copyright (c) 2009-2020 Percona LLC and/or its affiliates
     Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-
     Oracle is a registered trademark of Oracle Corporation and/or its
     affiliates. Other names may be trademarks of their respective
     owners.
-
     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
     ```
 
