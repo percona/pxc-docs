@@ -4455,6 +4455,43 @@ the names of which match the names of temporary tables.</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/temporary-table-problems.html">MySQL Documentation: Problems with temporary tables</a></p>
 </div>
 </li>
+<li>
+<p>Audit Log Filter state synchronization</p>
+<p>Percona XtraDB Cluster supports the Audit Log Filter component. While the underlying configuration tables (<code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>) are replicated to all nodes via Galera, the in-memory state of the audit component is local to each node.</p>
+<p>To ensure consistent auditing across the cluster, keep the following limitations in mind:</p>
+<ul>
+<li>
+<p>Manual Cache Refresh: Running an <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> on the audit filter tables on one node replicates the data, but does not trigger a cache refresh on the other nodes.</p>
+</li>
+<li>
+<p>Required Action: You must manually execute <code>SELECT audit_log_filter_flush();</code> on every node in the cluster after modifying the filter tables to ensure the nodes are using the same rules.</p>
+</li>
+<li>
+<p>If the <code>mysql.audit_log_filter</code> or <code>mysql.audit_log_user</code> tables are modified using one of the following user-defined functions (UDFs), then <code>audit_log_filter_flush()</code> must also be run on all the other nodes:</p>
+<ul>
+<li>
+<p><code>audit_log_filter_set_filter</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_set_user</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_remove_filter</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_remove_user</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Session Persistence: The audit log filter is applied at the start of a connection. Even after flushing the cache, existing sessions will continue to be governed by the previous filtering rules. Users must disconnect and reconnect for new filters to take effect.</p>
+</li>
+</ul>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p>For more information on the audit log filter, see the <a href="https://docs.percona.com/percona-server/8.0/audit-log-filter-overview.html">Percona Server 8.0 Audit Log Filter overview</a>.</p>
+</div>
+</li>
 </ul>
 <p>As of version 8.0.21, an INPLACE <a href="https://dev.mysql.com/doc/refman/8.0/en/alter-table.html">ALTER TABLE</a> query takes an internal shared lock on the table during the execution of the query. The <code>LOCK=NONE</code> clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.</p>
 <p>This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:</p>
@@ -4498,7 +4535,7 @@ the names of which match the names of temporary tables.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="January 28, 2026 11:30:54 UTC">January 28, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 17, 2026 11:18:58 UTC">February 17, 2026</span>
   </span>
 
     
