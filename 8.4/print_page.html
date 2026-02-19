@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -5072,6 +5072,19 @@ The default and recommended data transfer method is via Percona <a href="https:/
 </div>
 </li>
 <li>
+<p>When configuring Percona XtraDB Cluster, your server must create a local socket.</p>
+<p>You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won&rsquo;t create a socket.</p>
+<p>State Snapshot Transfer (SST) requires the socket for the following tasks:</p>
+<ul>
+<li>
+<p>Taking backup using Percona XtraBackup</p>
+</li>
+<li>
+<p>Detecting keyring component status</p>
+</li>
+</ul>
+</li>
+<li>
 <p>Avoid reusing the names of persistent tables for temporary tables</p>
 <p>Even though MySQL allows temporary tables to have the same names as persistent tables, using this approach is discouraged. Galera Cluster prevents replication of persistent tables with the same names as temporary tables.</p>
 <p>With wsrep_debug set to <em>1</em>, the error log may contain the following message:</p>
@@ -5084,6 +5097,43 @@ The default and recommended data transfer method is via Percona <a href="https:/
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://dev.mysql.com/doc/refman/8.4/en/temporary-table-problems.html">MySQL Documentation: Problems with temporary tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</div>
+</li>
+<li>
+<p>Audit Log Filter state synchronization</p>
+<p>Percona XtraDB Cluster supports the Audit Log Filter component. While the underlying configuration tables (<code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>) are replicated to all nodes via Galera, the in-memory state of the audit component is local to each node.</p>
+<p>To ensure consistent auditing across the cluster, keep the following limitations in mind:</p>
+<ul>
+<li>
+<p>Manual Cache Refresh: Running an <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> on the audit filter tables on one node replicates the data, but does not trigger a cache refresh on the other nodes.</p>
+</li>
+<li>
+<p>Required Action: You must manually execute <code>SELECT audit_log_filter_flush();</code> on every node in the cluster after modifying the filter tables to ensure the nodes are using the same rules.</p>
+</li>
+<li>
+<p>If the <code>mysql.audit_log_filter</code> or <code>mysql.audit_log_user</code> tables are modified using one of the following user-defined functions (UDFs), then <code>audit_log_filter_flush()</code> must also be run on all the other nodes:</p>
+<ul>
+<li>
+<p><code>audit_log_filter_set_filter</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_set_user</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_remove_filter</code></p>
+</li>
+<li>
+<p><code>audit_log_filter_remove_user</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Session Persistence: The audit log filter is applied at the start of a connection. Even after flushing the cache, existing sessions will continue to be governed by the previous filtering rules. Users must disconnect and reconnect for new filters to take effect.</p>
+</li>
+</ul>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p>For more information on the audit log filter, see the <a href="https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html">Percona Server 8.4 Audit Log Filter overview <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 </li>
 </ul>
