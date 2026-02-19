@@ -4,7 +4,6 @@ Percona XtraDB Cluster will continue to function in a basic setup with three nod
 
 If data changed while a node was down, the node has two options when rejoining the cluster:
 
-
 | Option                     | Description |
 |----------------------------|-------------|
 | State Snapshot Transfer (SST) | SST copies all data from one node to another. The cluster typically uses it when a new node joins and needs to receive the full dataset from an existing node. Percona XtraDB Cluster performs SST using xtrabackup. During this process, xtrabackup does not lock the database for the entire sync; it uses the READ LOCK command only when syncing .frm files, just like in a regular backup. |

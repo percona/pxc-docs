@@ -79,8 +79,8 @@ Detailed information on this method is provided in [Percona XtraBackup SST Confi
 
 For example:
 
-```{.bash .data-prompt="mysql>"}
-mysql> CREATE TABLE t1 (c1 INT PRIMARY KEY) DATA DIRECTORY = '/alternative/directory';
+```shell
+CREATE TABLE t1 (c1 INT PRIMARY KEY) DATA DIRECTORY = '/alternative/directory';
 ```
 
 ### SST using Percona XtraBackup

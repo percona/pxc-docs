@@ -1,25 +1,21 @@
+
 # Index of wsrep_provider options
 
-The following variables can be set and checked in the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) variable. The value of the variable can be
-changed in the *MySQL* configuration file, `my.cnf`, or by setting the variable value in the *MySQL* client.
+You can set and check the following options in the [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options) system variable. You can change option values in the *MySQL* configuration file, `my.cnf`, or by setting options in the *MySQL* client.
 
-To change the value in `my.cnf`, the following syntax should be used:
+To change the value in `my.cnf`, use the following syntax:
 
 ```shell
-wsrep_provider_options="variable1=value1;[variable2=value2]"
+wsrep_provider_options="option1=value1;[option2=value2]"
 ```
 
-For example to set the size of the Galera buffer storage to 512 MB, specify the following in `my.cnf`:
+For example, to set the size of the Galera buffer storage (gcache) to 512 MB, specify the following in `my.cnf`:
 
 ```shell
 wsrep_provider_options="gcache.size=512M"
 ```
 
-Dynamic variables can be changed from the *MySQL* client using the `SET GLOBAL` command. For example, to change the value of the [`pc.ignore_sb`](wsrep-provider-index.md#pcignore_sb), use the following command:
-
-```sql
-SET GLOBAL wsrep_provider_options="pc.ignore_sb=true";
-```
+You can change dynamic options from the *MySQL* client using the `SET GLOBAL` command (for example, `SET GLOBAL wsrep_provider_options="option=value";`). For each option below, only the config file syntax is shown; options with Dynamic: Yes in the table can also be set at runtime in the same way.
 
 ## Index
 
@@ -32,7 +28,13 @@ SET GLOBAL wsrep_provider_options="pc.ignore_sb=true";
 | Dynamic:       | No                 |
 | Default Value: | value of `datadir` |
 
-This variable specifies the data directory.
+This option specifies the data directory.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="base_dir=/var/lib/mysql"
+```
 
 ### `base_host`
 | Option         |  Description       |
@@ -43,9 +45,13 @@ This variable specifies the data directory.
 | Dynamic:       | No                 |
 | Default Value: | value of `wsrep_node_address`|
 
-This variable sets the value of the node’s base IP. This is an IP address on
-which Galera listens for connections from other nodes. Setting this value
-incorrectly would stop the node from communicating with other nodes.
+This option sets the value of the node’s base IP. This is an IP address on which Galera listens for connections from other nodes. Setting this value incorrectly would stop the node from communicating with other nodes.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="base_host=/var/lib/mysql"
+```
 
 ### `base_port`
 
@@ -57,9 +63,13 @@ incorrectly would stop the node from communicating with other nodes.
 | Dynamic:       | No                 |
 | Default Value: | 4567               |
 
-This variable sets the port on which Galera listens for connections from other
-nodes. Setting this value incorrectly would stop the node from communicating
-with other nodes.
+This option sets the port on which Galera listens for connections from other nodes. Setting this value incorrectly would stop the node from communicating with other nodes.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="base_port=4567"
+```
 
 ### `cert.log_conflicts`
 
@@ -71,21 +81,21 @@ with other nodes.
 | Dynamic:       | No                 |
 | Default Value: | no                 |
 
-This variable is used to specify if the details of the certification failures
-should be logged.
+This option specifies whether the cluster logs the details of certification failures.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="cert.log_conflicts=yes"
+```
 
 ### `cert.optimistic_pa`
 
-**Enabled**
+This option controls whether parallel applying of replicated transactions is optimistic (allowed to run ahead of the source) or conservative (limited to the source’s apply window). The default is `No` (Disabled).
 
-    Allows the full range of parallelization as determined by the certification
-    algorithm.
+Enabled (`Yes`): Allows the full range of parallelization as determined by the certification algorithm.
 
-**Disabled**
-
-    Limits the parallel applying window so that it does not exceed the parallel
-    applying window seen on the source. In this case, the action starts applying
-    no sooner than all actions on the source are committed.
+Disabled (`No`, default): Limits the parallel applying window so that the window does not exceed the parallel applying window seen on the source. In this case, the action starts applying no sooner than all actions on the source are committed.
 
 | Option         | Description        |
 | -------------- | ------------------ |
@@ -94,12 +104,6 @@ should be logged.
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Default Value: | No                 |
-
-!!! admonition "See also"
-
-    Galera Cluster Documentation:
-    * [Parameter: cert.optimistic_pa :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#cert.optimistic_pa)
-    * [Setting parallel slave threads :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads)
 
 ### `debug`
 
@@ -111,7 +115,13 @@ should be logged.
 | Dynamic:       | Yes                |
 | Default Value: | no                 |
 
-When this variable is set to `yes`, it will enable debugging.
+When you set this option to `yes`, debugging is enabled.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="debug=yes"
+```
 
 ### `evs.auto_evict`
 
@@ -123,10 +133,13 @@ When this variable is set to `yes`, it will enable debugging.
 | Dynamic:       | Yes                 |
 | Default Value: | 0 |
 
-Number of entries allowed on delayed list until auto eviction takes place.
-Setting value to `0` disables auto eviction protocol on the node, though node
-response times will still be monitored. EVS protocol version
-([`evs.version`](wsrep-provider-index.md#evsversion)) `1` is required to enable auto eviction.
+This option specifies the number of entries allowed on the delayed list until auto eviction runs. Set the value to `0` to disable auto eviction on the node (the cluster still monitors node response times). Auto eviction requires EVS (Extended Virtual Synchrony) protocol version ([`evs.version`](wsrep-provider-index.md#evsversion)) `1`.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.auto_evict=5"
+```
 
 ### `evs.causal_keepalive_period`
 
@@ -138,8 +151,13 @@ response times will still be monitored. EVS protocol version
 | Dynamic:       | No                 |
 | Default Value: | value of [`evs.keepalive_period`](wsrep-provider-index.md#evskeepalive_period)|
 
-This variable is used for development purposes and shouldn’t be used by regular
-users.
+Use this option only for development. Do not use the option in production.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.causal_keepalive_period=/var/lib/mysql"
+```
 
 ### `evs.debug_log_mask`
 
@@ -151,8 +169,13 @@ users.
 | Dynamic:       | Yes                |
 | Default Value: | 0x1 |
 
-This variable is used for EVS (Extended Virtual Synchrony) debugging. It can be
-used only when [`wsrep_debug`](wsrep-system-index.md#wsrep_debug) is set to `ON`.
+Use this option for EVS (Extended Virtual Synchrony) debugging. You can use the option only when [`wsrep_debug`](wsrep-system-index.md#wsrep_debug) is set to `ON`.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.debug_log_mask=0x1"
+```
 
 ### `evs.delay_margin`
 
@@ -164,8 +187,13 @@ used only when [`wsrep_debug`](wsrep-system-index.md#wsrep_debug) is set to `ON`
 | Dynamic:       | Yes                 |
 | Default Value: | PT1S |
 
-Time period that a node can delay its response from expected until it is added
-to delayed list. The value must be higher than the highest RTT between nodes.
+This option specifies the time period that a node can delay its response from expected before the node is added to the delayed list. The value must be higher than the highest RTT (round-trip time) between nodes.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.delay_margin=PT30S"
+```
 
 ### `evs.delayed_keep_period`
 
@@ -177,8 +205,13 @@ to delayed list. The value must be higher than the highest RTT between nodes.
 | Dynamic:       | Yes                 |
 | Default Value: | PT30S |
 
-Time period that node is required to remain responsive until one entry is
-removed from delayed list.
+This option specifies the time period that a node must remain responsive before one entry is removed from the delayed list.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.delayed_keep_period=PT30S"
+```
 
 ### `evs.evict`
 
@@ -189,9 +222,13 @@ removed from delayed list.
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 
-Manual eviction can be triggered by setting the [`evs.evict`](wsrep-provider-index.md#evsevict) to a
-certain node value. Setting the [`evs.evict`](wsrep-provider-index.md#evsevict) to an empty string will
-clear the evict list on the node where it was set.
+Manual eviction can be triggered by setting the [`evs.evict`](wsrep-provider-index.md#evsevict) to a certain node value. Setting the [`evs.evict`](wsrep-provider-index.md#evsevict) to an empty string will clear the evict list on the node where the option was set.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.evict=value"
+```
 
 ### `evs.inactive_check_period`
 
@@ -203,7 +240,13 @@ clear the evict list on the node where it was set.
 | Dynamic:       | No                 |
 | Default Value: | PT0.5S |
 
-This variable defines how often to check for peer inactivity.
+This option defines how often to check for peer inactivity.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.inactive_check_period=PT30S"
+```
 
 ### `evs.inactive_timeout`
 
@@ -215,8 +258,13 @@ This variable defines how often to check for peer inactivity.
 | Dynamic:       | No                 |
 | Default Value: | PT15S |
 
-This variable defines the inactivity limit, once this limit is reached the node
-will be considered dead.
+This option defines the inactivity limit. Once the cluster reaches this limit, the cluster considers the node dead.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.inactive_timeout=PT30S"
+```
 
 ### `evs.info_log_mask`
 
@@ -228,7 +276,13 @@ will be considered dead.
 | Dynamic:       | No                 |
 | Default Value: | 0 |
 
-This variable is used for controlling the extra EVS info logging.
+This option controls extra EVS (Extended Virtual Synchrony) info logging.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.info_log_mask=0"
+```
 
 ### `evs.install_timeout`
 
@@ -240,8 +294,13 @@ This variable is used for controlling the extra EVS info logging.
 | Dynamic:       | Yes                 |
 | Default Value: | PT7.5S |
 
-This variable defines the timeout on waiting for install message
-acknowledgments.
+This option defines the timeout on waiting for install message acknowledgments.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.install_timeout=PT30S"
+```
 
 ### `evs.join_retrans_period`
 
@@ -253,8 +312,13 @@ acknowledgments.
 | Dynamic:       | No                 |
 | Default Value: | PT1S |
 
-This variable defines how often to retransmit EVS join messages when forming
-cluster membership.
+This option defines how often to retransmit EVS (Extended Virtual Synchrony) join messages when forming cluster membership.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.join_retrans_period=PT30S"
+```
 
 ### `evs.keepalive_period`
 
@@ -266,8 +330,13 @@ cluster membership.
 | Dynamic:       | No                 |
 | Default Value: | PT1S |
 
-This variable defines how often to emit keepalive beacons (in the absence of
-any other traffic).
+This option defines how often to emit keepalive beacons (in the absence of any other traffic).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.keepalive_period=PT30S"
+```
 
 ### `evs.max_install_timeouts`
 
@@ -279,8 +348,13 @@ any other traffic).
 | Dynamic:       | No                 |
 | Default Value: | 1 |
 
-This variable defines how many membership install rounds to try before giving
-up (total rounds will be [`evs.max_install_timeouts`](wsrep-provider-index.md#evsmax_install_timeouts) + 2).
+This option defines how many membership install rounds to try before giving up (total rounds will be [`evs.max_install_timeouts`](wsrep-provider-index.md#evsmax_install_timeouts) + 2).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.max_install_timeouts=1"
+```
 
 ### `evs.send_window`
 
@@ -292,9 +366,13 @@ up (total rounds will be [`evs.max_install_timeouts`](wsrep-provider-index.md#ev
 | Dynamic:       | No                 |
 | Default Value: | 10 |
 
-This variable defines the maximum number of data packets in replication at a
-time. For WAN setups, the variable can be set to a considerably higher value
-than default (for example,512). The value must not be less than [`evs.user_send_window`](wsrep-provider-index.md#evsuser_send_window).
+This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512). The value must not be less than [`evs.user_send_window`](wsrep-provider-index.md#evsuser_send_window).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.send_window=10"
+```
 
 ### `evs.stats_report_period`
 
@@ -306,7 +384,13 @@ than default (for example,512). The value must not be less than [`evs.user_send_
 | Dynamic:       | No                 |
 | Default Value: | PT1M   |
 
-This variable defines the control period of EVS statistics reporting.
+This option defines the control period of EVS (Extended Virtual Synchrony) statistics reporting.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.stats_report_period=PT1M"
+```
 
 ### `evs.suspect_timeout`
 
@@ -318,9 +402,13 @@ This variable defines the control period of EVS statistics reporting.
 | Dynamic:       | Yes                |
 | Default Value: | PT5S   |
 
-This variable defines the inactivity period after which the node is
-"suspected" to be dead. If all remaining nodes agree on that, the node will be
-dropped out of cluster even before [`evs.inactive_timeout`](wsrep-provider-index.md#evsinactive_timeout) is reached.
+This option defines the inactivity period after which the node is "suspected" to be dead. If all remaining nodes agree, the cluster drops the node even before [`evs.inactive_timeout`](wsrep-provider-index.md#evsinactive_timeout) is reached.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.suspect_timeout=PT30S"
+```
 
 ### `evs.use_aggregate`
 
@@ -332,7 +420,13 @@ dropped out of cluster even before [`evs.inactive_timeout`](wsrep-provider-index
 | Dynamic:       | No                 |
 | Default Value: | true   |
 
-When this variable is enabled, smaller packets will be aggregated into one.
+When you enable this option, the cluster aggregates smaller packets into one.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.use_aggregate=no"
+```
 
 ### `evs.user_send_window`
 
@@ -344,9 +438,13 @@ When this variable is enabled, smaller packets will be aggregated into one.
 | Dynamic:       | Yes                 |
 | Default Value: | 4   |
 
-This variable defines the maximum number of data packets in replication at a
-time. For WAN setups, the variable can be set to a considerably higher value
-than default (for example, 512).
+This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.user_send_window=4"
+```
 
 ### `evs.version`
 
@@ -358,9 +456,13 @@ than default (for example, 512).
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable defines the EVS protocol version. Auto eviction is enabled when
-this variable is set to `1`. Default `0` is set for backwards
-compatibility.
+This option defines the EVS (Extended Virtual Synchrony) protocol version. Setting this option to `1` enables auto eviction. The default `0` keeps backwards compatibility.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.version=0"
+```
 
 ### `evs.view_forget_timeout`
 
@@ -372,8 +474,13 @@ compatibility.
 | Dynamic:       | No                 |
 | Default Value: | P1D   |
 
-This variable defines the timeout after which past views will be dropped from
-history.
+This option defines the timeout after which the cluster drops past views from history.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="evs.view_forget_timeout=P1D"
+```
 
 ### `gcache.dir`
 
@@ -385,8 +492,13 @@ history.
 | Dynamic:       | No                 |
 | Default Value: | [`datadir`](glossary.md#datadir)   |
 
-This variable can be used to define the location of the `galera.cache`
-file.
+Use this option to define the location of the `galera.cache` file.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.dir=/var/lib/mysql"
+```
 
 ### `gcache.freeze_purge_at_seqno`
 
@@ -396,15 +508,11 @@ file.
 | Config File:   | Yes                |
 | Scope:         | Local, Global             |
 | Dynamic:       | Yes                 |
-| Default Value: | 0   |
+| Default Value: | -1  |
 
-This variable controls the purging of the gcache and enables retaining
-more data in it. This variable makes it possible to use [IST (Incremental State Transfer)](glossary.md#ist) when the node rejoins instead of
-[SST (State Snapshot Transfer)](glossary.md#sst).
+This option controls the purging of the gcache (Galera cache) and enables retaining more data in the gcache. This option makes possible the use of [IST (Incremental State Transfer)](glossary.md#ist) when the node rejoins instead of [SST (State Snapshot Transfer)](glossary.md#sst).
 
-Set this variable on an existing node of the cluster (that will
-continue to be part of the cluster and can act as a potential
-[donor node](glossary.md#donor-node)). This node continues to retain the write-sets and allows restarting the node to rejoin by using [IST](glossary.md#ist).
+Set this option on an existing node of the cluster (that will continue to be part of the cluster and can act as a potential [donor node](glossary.md#donor-node)). This node continues to retain the write-sets (replicated transaction data) and allows restarting the node to rejoin by using [IST](glossary.md#ist).
 
 !!! admonition "See also"
 
@@ -414,22 +522,25 @@ continue to be part of the cluster and can act as a potential
 
       * [Want IST Not SST for Node Rejoins? We Have a Solution! :octicons-link-external-16:](https://www.percona.com/blog/2018/02/13/no-sst-node-rejoins/)
 
-The [`gcache.freeze_purge_at_seqno`](wsrep-provider-index.md#gcachefreeze_purge_at_seqno) variable takes three values:
+The [`gcache.freeze_purge_at_seqno`](wsrep-provider-index.md#gcachefreeze_purge_at_seqno) option accepts one of the following:
 
-**-1 (default)**
+-1 (default): No freezing of gcache; purge operates as normal.
 
-No freezing of gcache, the purge operates as normal.
+A numeric sequence number (seqno): The freeze purge of write-sets may not be smaller than the chosen seqno. To choose a value, use the status variable :variable:`wsrep_last_applied` on the node that you plan to shut down.
 
-**A valid seqno in gcache**
+The literal string `now`: Set the value to the word `now` (as a string, not a number). The freeze purge of write-sets is then no less than the smallest seqno currently in gcache, which freezes the gcache purge immediately. Use `now` when picking a specific seqno is impractical.
 
-The freeze purge of write-sets may not be smaller than the selected seqno.
-The best way to select an optimal value is to use the value of the
-variable :variable:`wsrep_last_applied` from the node that you plan to shut down.
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-**now**
-The freeze purge of write-sets is no less than the smallest seqno currently
-in gcache. Using this value results in freezing the gcache-purge instantly.
-Use this value if selecting a valid seqno in gcache is difficult.
+```text
+wsrep_provider_options="gcache.freeze_purge_at_seqno=-1"
+```
+
+To freeze purge immediately using the current minimum seqno:
+
+```text
+wsrep_provider_options="gcache.freeze_purge_at_seqno=now"
+```
 
 ### `gcache.keep_pages_count`
 
@@ -441,16 +552,17 @@ Use this value if selecting a valid seqno in gcache is difficult.
 | Dynamic:       | Yes                 |
 | Default Value: | 0   |
 
-This variable is used to limit the number of overflow pages
-rather than the total memory occupied by all overflow pages.
-Whenever `gcache.keep_pages_count` is set to a non-zero value,
-excess overflow pages will be deleted
+This option limits the number of overflow pages rather than the total memory occupied by all overflow pages.
+Whenever you set `gcache.keep_pages_count` to a non-zero value, the cluster deletes excess overflow pages
 (starting from the oldest to the newest).
 
-Whenever either the `gcache.keep_pages_count`
-or the [`gcache.keep_pages_size`](wsrep-provider-index.md#gcachekeep_pages_size) variable
-is updated at runtime to a non-zero value,
-cleanup is called on excess overflow pages to delete them.
+Whenever you update either `gcache.keep_pages_count` or [`gcache.keep_pages_size`](wsrep-provider-index.md#gcachekeep_pages_size) at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.keep_pages_count=0"
+```
 
 ### `gcache.keep_pages_size`
 
@@ -462,16 +574,15 @@ cleanup is called on excess overflow pages to delete them.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable is used to limit the total size of overflow pages
-rather than the count of all overflow pages.
-Whenever `gcache.keep_pages_size` is set to a non-zero value,
-excess overflow pages will be deleted
-(starting from the oldest to the newest)
-until the total size is below the specified value.
+This option limits the total size of overflow pages rather than the count of all overflow pages. Whenever you set `gcache.keep_pages_size` to a non-zero value, the cluster deletes excess overflow pages (starting from the oldest to the newest) until the total size is below the specified value.
 
-Whenever either the [`gcache.keep_pages_count`](wsrep-provider-index.md#gcachekeep_pages_count) or the `gcache.keep_pages_size` variable
-is updated at runtime to a non-zero value,
-cleanup is called on excess overflow pages to delete them.
+Whenever you update either [`gcache.keep_pages_count`](wsrep-provider-index.md#gcachekeep_pages_count) or `gcache.keep_pages_size` at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.keep_pages_size=0"
+```
 
 ### `gcache.mem_size`
 
@@ -483,10 +594,15 @@ cleanup is called on excess overflow pages to delete them.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable has been deprecated in `5.6.22-25.8` and shouldn’t be used as it
-could cause a node to crash.
+This option has been deprecated in `5.6.22-25.8` and shouldn’t be used because the option could cause a node to crash.
 
-This variable was used to define how much RAM is available for the system.
+This option was used to define how much RAM is available for the system.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.mem_size=0"
+```
 
 ### `gcache.name`
 
@@ -498,7 +614,13 @@ This variable was used to define how much RAM is available for the system.
 | Dynamic:       | No                 |
 | Default Value: | /var/lib/mysql/galera.cache   |
 
-This variable can be used to specify the name of the Galera cache file.
+Use this option to specify the name of the Galera cache file.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.name=/var/lib/mysql/galera.cache"
+```
 
 ### `gcache.page_size`
 
@@ -510,12 +632,17 @@ This variable can be used to specify the name of the Galera cache file.
 | Dynamic:       | No                 |
 | Default Value: | 128M   |
 
-Size of the page files in page storage. The limit on overall page storage is the
-size of the disk. Pages are prefixed by gcache.page.
+Size of the page files in page storage. The limit on overall page storage is the size of the disk. Page file names use the gcache.page prefix.
 
 !!! admonition "See also"
 
     [Percona Database Performance Blog: All You Need to Know About GCache :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.page_size=128M"
+```
 
 ### `gcache.recover`
 
@@ -527,14 +654,13 @@ size of the disk. Pages are prefixed by gcache.page.
 | Dynamic:            | No          |
 | Default value:      | Yes         |
 
-This variable attempts to recover a node’s gcache file to a usable state during startup. If the node successfully recovers the gcache file, it provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.
+This option attempts to recover a node’s gcache file to a usable state during startup. If the node successfully recovers the gcache file, the node provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.
 
-To enable this variable, add the following to your configuration file:
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
 ```text
-wsrep_provider_options="gcache.recover=yes"
+wsrep_provider_options="gcache.recover=value"
 ```
-
 
 ### `gcache.size`
 
@@ -546,44 +672,44 @@ wsrep_provider_options="gcache.recover=yes"
 | Dynamic:       | No                 |
 | Default Value: | 128M   |
 
-Size of the transaction cache for Galera replication. This defines the size of
-the `galera.cache` file which is used as source for [IST](glossary.md#ist). The bigger the
-value of this variable, the better are chances that the re-joining node will
-get IST instead of [SST](glossary.md#sst).
+Size of the transaction cache for Galera replication. This option defines the size of the `galera.cache` file, which the cluster uses as the source for [IST](glossary.md#ist). The higher the value of this option, the better the chance that a re-joining node gets IST instead of [SST](glossary.md#sst).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcache.size=512M"
+```
 
 ### `gcomm.thread_prio`
 
-Using this option, you can raise the priority of the gcomm thread to a higher
-level than it normally uses.
+Using this option, you can raise the priority of the gcomm thread to a higher level than the thread normally uses.
 
-The format for this variable is: &#60;policy&#62;:&#60;priority&#62;. The priority value is an integer.
+The format for this option is: &#60;policy&#62;:&#60;priority&#62;. The priority value is an integer.
 
 other
 
-    Default time-sharing scheduling in Linux. The threads can run
-    until blocked by an I/O request or preempted by higher priorities or
-    superior scheduling designations.
+    Default time-sharing scheduling in Linux. The threads can run until blocked by an I/O request or preempted by higher priorities or superior scheduling designations.
 
 fifo
 
-    First-in First-out (FIFO) scheduling. These threads always immediately
-    preempt any currently running other, batch or idle threads. They can run
-    until they are either blocked by an I/O request or preempted by a FIFO thread
-    of a higher priority.
+    First-in First-out (FIFO) scheduling. These threads always immediately preempt any currently running other, batch or idle threads. They can run until they are either blocked by an I/O request or preempted by a FIFO thread of a higher priority.
 
 rr
 
-    Round-robin scheduling. These threads always preempt any currently running
-    other, batch or idle threads. The scheduler allows these threads to run for a
-    fixed period of a time. If the thread is still running when this time period is
-    exceeded, they are stopped and moved to the end of the list, allowing another
-    round-robin thread of the same priority to run in their place. They can
-    otherwise continue to run until they are blocked by an I/O request or are
+    Round-robin scheduling. These threads always preempt any currently running other, batch or idle threads. The scheduler allows these threads to run for a
+    fixed period of a time. If the thread is still running when this time period is exceeded, they are stopped and moved to the end of the list, allowing another
+    round-robin thread of the same priority to run in their place. They can otherwise continue to run until they are blocked by an I/O request or are
     preempted by threads of a higher priority.
 
 !!! admonition "See also"
 
     For information, see the [MariaDB Galera Cluster documentation :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#gcomm.thread_prio)
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcomm.thread_prio=value"
+```
 
 ### `gcs.fc_auto_evict_threshold`
 
@@ -595,7 +721,13 @@ rr
 | Dynamic: | No |
 | Default value: | 0.75 |
 
-Defines the threshold that must be reached or crossed before a node is evicted from the cluster. This variable is a ratio of the [`gcs.fc_auto_evict_window`](#gcsfc_auto_evict_window) variable. The default value is `.075`, but the value can be set to any value between 0.0 and 1.0. 
+This option defines the threshold that the cluster must reach or cross before evicting a node. The option is a ratio of the [`gcs.fc_auto_evict_window`](#gcsfc_auto_evict_window) option. The default is `.075`; you can set the value to any number between 0.0 and 1.0.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_auto_evict_threshold=value"
+``` 
 
 ### `gcs.fc_auto_evict_window`
 
@@ -607,11 +739,17 @@ Defines the threshold that must be reached or crossed before a node is evicted f
 | Dynamic: | No |
 | Default value: | 0 |
 
-The variable defines the time window width within which flow controls are observed. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time >= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.
+This option defines the time window width within which the cluster observes flow control. The time span of the window is [now - gcs.fc_audot_evict_window, now]. The window is constantly moving ahead as the time passes. And now, within this window if the flow control summary time >= (gcs.fc_audot-evict_window * gcs.fc_audot_evict_threshold), the node self-leaves the cluster.
 
 The default value is 0, which means that the feature is disabled.
 
 The maximum value is `DBL_MAX`.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_auto_evict_window=value"
+```
 
 ### `gcs.fc_debug`
 
@@ -623,8 +761,13 @@ The maximum value is `DBL_MAX`.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable specifies after how many writesets the debug statistics about SST
-flow control will be posted.
+This option specifies after how many writesets the cluster posts debug statistics about SST (State Snapshot Transfer) flow control.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_debug=0"
+```
 
 ### `gcs.fc_factor`
 
@@ -636,8 +779,13 @@ flow control will be posted.
 | Dynamic:       | Yes                 |
 | Default Value: | 1   |
 
-This variable is used for replication flow control. Replication is resumed when
-the replica queue drops below [`gcs.fc_factor`](wsrep-provider-index.md#gcsfc_factor) * [`gcs.fc_limit`](wsrep-provider-index.md#gcsfc_limit).
+This option controls replication flow. Replication resumes when the replica queue drops below [`gcs.fc_factor`](wsrep-provider-index.md#gcsfc_factor) * [`gcs.fc_limit`](wsrep-provider-index.md#gcsfc_limit).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_factor=1"
+```
 
 ### `gcs.fc_limit`
 
@@ -649,10 +797,13 @@ the replica queue drops below [`gcs.fc_factor`](wsrep-provider-index.md#gcsfc_fa
 | Dynamic:       | Yes                 |
 | Default Value: | 100   |
 
-This variable is used for replication flow control. Replication is paused when
-the replica queue exceeds this limit. In the default operation mode, flow control
-limit is dynamically recalculated based on the amount of nodes in the
-cluster, but this recalculation can be turned off with use of the [`gcs.fc_master_slave`](wsrep-provider-index.md#gcsfc_master_slave) variable to make manual setting of the [`gcs.fc_limit`](wsrep-provider-index.md#gcsfc_limit) having an effect  (e.g., for configurations when writing is done to a single node in Percona XtraDB Cluster).
+This option controls replication flow. Replication pauses when the replica queue exceeds this limit. In the default operation mode, the cluster recalculates the flow control limit dynamically based on the number of nodes in the cluster. You can turn off this recalculation by using the [`gcs.fc_master_slave`](wsrep-provider-index.md#gcsfc_master_slave) option so that manual setting of [`gcs.fc_limit`](wsrep-provider-index.md#gcsfc_limit) takes effect (e.g., when only one node in Percona XtraDB Cluster accepts writes).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_limit=100"
+```
 
 ### `gcs.fc_master_slave`
 
@@ -664,9 +815,14 @@ cluster, but this recalculation can be turned off with use of the [`gcs.fc_maste
 | Dynamic:       | NO                 |
 | Default Value: | NO   |
 
-This variable is used to specify if there is only one source node in the
-cluster. It affects whether flow control limit is recalculated dynamically
+This option specifies if there is only one source node in the cluster. It affects whether flow control limit is recalculated dynamically
 (when `NO`) or not (when `YES`).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.fc_master_slave=NO"
+```
 
 ### `gcs.max_packet_size`
 
@@ -678,7 +834,13 @@ cluster. It affects whether flow control limit is recalculated dynamically
 | Dynamic:       | No                 |
 | Default Value: | 64500   |
 
-This variable is used to specify the writeset size after which they will be fragmented.
+This option specifies the writeset (replicated transaction data) size after which the cluster fragments them.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.max_packet_size=64500"
+```
 
 ### `gcs.max_throttle`
 
@@ -690,10 +852,13 @@ This variable is used to specify the writeset size after which they will be frag
 | Dynamic:       | No                 |
 | Default Value: | 0.25   |
 
-This variable specifies how much the replication can be throttled during the
-state transfer in order to avoid running out of memory. Value can be set to
-`0.0` if stopping replication is acceptable in order to finish state
-transfer.
+This option specifies how much replication can be throttled during state transfer to avoid running out of memory. You can set the value to `0.0` if stopping replication is acceptable to finish state transfer.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.max_throttle=0.25"
+```
 
 ### `gcs.recv_q_hard_limit`
 
@@ -705,9 +870,13 @@ transfer.
 | Dynamic:       | No                 |
 | Default Value: | 9223372036854775807   |
 
-This variable specifies the maximum allowed size of the receive queue. This
-should normally be `(RAM + swap) / 2`. If this limit is exceeded, Galera will
-abort the server.
+This option specifies the maximum allowed size of the receive queue. Set this to `(RAM + swap) / 2` in most cases. If the limit is exceeded, Galera aborts the server.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.recv_q_hard_limit=9223372036854775807"
+```
 
 ### `gcs.recv_q_soft_limit`
 
@@ -719,7 +888,13 @@ abort the server.
 | Dynamic:       | No                 |
 | Default Value: | 0.25   |
 
-This variable specifies the fraction of the [`gcs.recv_q_hard_limit`](wsrep-provider-index.md#gcsrecv_q_hard_limit) after which replication rate will be throttled.
+This option specifies the fraction of the [`gcs.recv_q_hard_limit`](wsrep-provider-index.md#gcsrecv_q_hard_limit) after which the cluster throttles the replication rate.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.recv_q_soft_limit=0.25"
+```
 
 ### `gcs.sync_donor`
 
@@ -731,9 +906,13 @@ This variable specifies the fraction of the [`gcs.recv_q_hard_limit`](wsrep-prov
 | Dynamic:       | No                 |
 | Default Value: | No   |
 
-This variable controls if the rest of the cluster should be in sync with the
-donor node. When this variable is set to `YES`, the whole cluster will be
-blocked if the donor node is blocked with SST.
+This option controls whether the rest of the cluster stays in sync with the donor node. When you set this option to `YES`, the whole cluster blocks if the donor node is blocked with SST (State Snapshot Transfer).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gcs.sync_donor=yes"
+```
 
 ### `gmcast.listen_addr`
 
@@ -745,8 +924,13 @@ blocked if the donor node is blocked with SST.
 | Dynamic:       | No                 |
 | Default Value: | tcp://0.0.0.0:4567   |
 
-This variable defines the address on which the node listens to connections from
-other nodes in the cluster.
+This option defines the address on which the node listens to connections from other nodes in the cluster.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.listen_addr=tcp://0.0.0.0:4567"
+```
 
 ### `gmcast.mcast_addr`
 
@@ -758,7 +942,13 @@ other nodes in the cluster.
 | Dynamic:       | No                 |
 | Default Value: | None   |
 
-This variable should be set up if UDP multicast should be used for replication.
+Set this option if you use UDP multicast for replication.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.mcast_addr=None"
+```
 
 ### `gmcast.mcast_ttl`
 
@@ -770,7 +960,13 @@ This variable should be set up if UDP multicast should be used for replication.
 | Dynamic:       | No                 |
 | Default Value: | 1   |
 
-This variable can be used to define TTL for multicast packets.
+Use this option to define TTL (time to live) for multicast packets.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.mcast_ttl=1"
+```
 
 ### `gmcast.peer_timeout`
 
@@ -782,7 +978,13 @@ This variable can be used to define TTL for multicast packets.
 | Dynamic:       | No                 |
 | Default Value: | PT3S   |
 
-This variable specifies the connection timeout to initiate message relaying.
+This option specifies the connection timeout to initiate message relaying.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.peer_timeout=PT30S"
+```
 
 ### `gmcast.segment`
 
@@ -794,8 +996,13 @@ This variable specifies the connection timeout to initiate message relaying.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable specifies the group segment this member should be a part of. Same
-segment members are treated as equally physically close.
+This option specifies the group segment this member belongs to. The cluster treats members in the same segment as equally physically close.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.segment=0"
+```
 
 ### `gmcast.time_wait`
 
@@ -807,8 +1014,13 @@ segment members are treated as equally physically close.
 | Dynamic:       | No                 |
 | Default Value: | PT5S   |
 
-This variable specifies the time to wait until allowing peer declared outside
-of stable view to reconnect.
+This option specifies the time to wait until allowing peer declared outside of stable view to reconnect.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.time_wait=PT30S"
+```
 
 ### `gmcast.version`
 
@@ -820,7 +1032,13 @@ of stable view to reconnect.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This variable shows which gmcast protocol version is being used.
+This option shows which gmcast protocol version is being used.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="gmcast.version=0"
+```
 
 ### `ist.recv_addr`
 
@@ -832,8 +1050,13 @@ This variable shows which gmcast protocol version is being used.
 | Dynamic:       | No                 |
 | Default Value: | value of `wsrep_node_address`   |
 
-This variable specifies the address on which the node listens for Incremental
-State Transfer ([IST](glossary.md#ist)).
+This option specifies the address on which the node listens for Incremental State Transfer ([IST](glossary.md#ist)).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="ist.recv_addr=/var/lib/mysql"
+```
 
 ### `pc.announce_timeout`
 
@@ -845,8 +1068,13 @@ State Transfer ([IST](glossary.md#ist)).
 | Dynamic:       | No                 |
 | Default Value: | PT3S   |
 
-Cluster joining announcements are sent every 1/2 second for this period of time
-or less if other nodes are discovered.
+The node sends cluster joining announcements every half second (0.5 s) for this period or less if the node discovers other nodes.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.announce_timeout=PT30S"
+```
 
 ### `pc.bootstrap`
 
@@ -869,9 +1097,15 @@ You can use `pc.bootstrap` in the following:
 | Action | Description |
 |---|---|
 | Bootstrap a New Cluster | When setting up a new Galera cluster, designate one node as the bootstrap node by setting `pc.bootstrap=YES` on that node. This allows the node to initialize the cluster and become the primary component. Other nodes can then discover and join this primary node. |
-| Rejoining a Cluster (Use with Caution) | If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use `pc.bootstrap=TRUE`. This is generally not recommended as it can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline. |
+| Rejoining a Cluster (Use with Caution) | If a Galera node needs to rejoin the cluster as the primary component (for example, after a disconnect or restart), you can use `pc.bootstrap=TRUE`. This is generally not recommended because bootstrapping can lead to data loss if other cluster nodes made changes while the bootstrapping node was offline. |
 
 By default, pc.bootstrap is disabled (FALSE).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.bootstrap=FALSE"
+```
 
 ### `pc.checksum`
 
@@ -883,8 +1117,13 @@ By default, pc.bootstrap is disabled (FALSE).
 | Dynamic:       | No                 |
 | Default Value: | true   |
 
-This variable controls whether replicated messages should be checksummed or
-not.
+This option controls whether the cluster checksums replicated messages.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.checksum=no"
+```
 
 ### `pc.ignore_quorum`
 
@@ -896,9 +1135,13 @@ not.
 | Dynamic:       | No                 |
 | Default Value: | false   |
 
-When this variable is set to `TRUE`, the node will completely ignore quorum
-calculations. This should be used with extreme caution even in source-replica
-setups, because replicas won’t automatically reconnect to source in this case.
+When you set this option to `TRUE`, the node completely ignores quorum calculations. Use this option with extreme caution even in source-replica setups, because replicas won’t automatically reconnect to source in this case.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.ignore_quorum=false"
+```
 
 ### `pc.ignore_sb`
 
@@ -910,10 +1153,13 @@ setups, because replicas won’t automatically reconnect to source in this case.
 | Dynamic:       | Yes                 |
 | Default Value: | false   |
 
-When this variable is set to `TRUE`, the node will process updates even in
-the case of a split brain. This should be used with extreme caution in
-multi-source setup, but should simplify things in source-replica cluster
-(especially if only 2 nodes are used).
+When you set this option to `TRUE`, the node processes updates even in the case of a split brain. Use this option with extreme caution in multi-source setup, and can simplify things in a source-replica cluster (especially if only two nodes are used).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.ignore_sb=false"
+```
 
 ### `pc.linger`
 
@@ -925,8 +1171,13 @@ multi-source setup, but should simplify things in source-replica cluster
 | Dynamic:       | No                 |
 | Default Value: | PT20S   |
 
-This variable specifies the period for which the PC protocol waits for EVS
-termination.
+This option specifies the period for which the PC (Primary Component) protocol waits for EVS (Extended Virtual Synchrony) termination.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.linger=PT30S"
+```
 
 ### `pc.npvo`
 
@@ -938,8 +1189,13 @@ termination.
 | Dynamic:       | No                 |
 | Default Value: | false   |
 
-When this variable is set to `TRUE`, more recent primary components override
-older ones in case of conflicting primaries.
+When you set this option to `TRUE`, more recent primary components override older ones in case of conflicting primaries.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.npvo=false"
+```
 
 ### `pc.recovery`
 
@@ -951,13 +1207,13 @@ older ones in case of conflicting primaries.
 | Dynamic:       | No                 |
 | Default Value: | true   |
 
-When this variable is set to `true`, the node stores the Primary Component
-state to disk. The Primary Component can then recover automatically when all
-nodes that were part of the last saved state re-establish communication with
-each other. This feature allows automatic recovery from full cluster crashes,
-such as in the case of a data center power outage. A subsequent graceful full
-cluster restart will require explicit bootstrapping for a new Primary
-Component.
+When you set this option to `true`, the node stores the Primary Component state to disk. The Primary Component can then recover automatically when all nodes that were part of the last saved state re-establish communication with each other. This feature allows automatic recovery from full cluster crashes, such as in the case of a data center power outage. A subsequent graceful full cluster restart requires explicit bootstrapping for a new Primary Component.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.recovery=no"
+```
 
 ### `pc.version`
 
@@ -969,7 +1225,13 @@ Component.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This status variable is used to check which PC protocol version is used.
+Use this option to check which PC (Primary Component) protocol version the cluster uses.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.version=0"
+```
 
 ### `pc.wait_prim`
 
@@ -981,8 +1243,13 @@ This status variable is used to check which PC protocol version is used.
 | Dynamic:       | No                 |
 | Default Value: | true   |
 
-When set to `TRUE`, the node waits for a primary component for the period of
-time specified in [`pc.wait_prim_timeout`](wsrep-provider-index.md#pcwait_prim_timeout). This is useful to bring up a non-primary component and make it primary with [`pc.bootstrap`](wsrep-provider-index.md#pcbootstrap).
+When set to `TRUE`, the node waits for a primary component for the period of time specified in [`pc.wait_prim_timeout`](wsrep-provider-index.md#pcwait_prim_timeout). Use this to bring up a non-primary component and make that component primary with [`pc.bootstrap`](wsrep-provider-index.md#pcbootstrap).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.wait_prim=no"
+```
 
 ### `pc.wait_prim_timeout`
 
@@ -994,8 +1261,13 @@ time specified in [`pc.wait_prim_timeout`](wsrep-provider-index.md#pcwait_prim_t
 | Dynamic:       | No                 |
 | Default Value: | PT30S   |
 
-This variable is used to specify the period of time to wait for a primary
-component.
+This option specifies the period of time to wait for a primary component.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.wait_prim_timeout=PT30S"
+```
 
 ### `pc.wait_restored_prim_timeout`
 
@@ -1007,13 +1279,17 @@ component.
 | Dynamic | No |
 | Default Value: | PT0S |
 
-This variable specifies the wait period for a primary component when the cluster restores the primary component from the `gvwstate.dat` file
-after an outage.
+This option specifies the wait period for a primary component when the cluster restores the primary component from the `gvwstate.dat` file after an outage.
 
 The default value is `PT0S` (zero seconds). The node waits for an infinite time, which is the current behavior.
 
 You can define a wait time with `PTNS`, replace the `N` value with the number of seconds. For example, to wait for 90 seconds, set the value to `PT90S`.
 
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.wait_restored_prim_timeout=PT30S"
+```
 
 ### `pc.weight`
 
@@ -1025,8 +1301,13 @@ You can define a wait time with `PTNS`, replace the `N` value with the number of
 | Dynamic:       | Yes                 |
 | Default Value: | 1   |
 
-This variable specifies the node weight that’s going to be used for Weighted
-Quorum calculations.
+This option specifies the node weight that’s going to be used for Weighted Quorum calculations.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="pc.weight=1"
+```
 
 ### `protonet.backend`
 
@@ -1038,8 +1319,13 @@ Quorum calculations.
 | Dynamic:       | No                 |
 | Default Value: | asio   |
 
-This variable is used to define which transport backend should be used.
-Currently only `ASIO` is supported.
+This option defines which transport backend to use. Currently the cluster supports only ASIO (Asynchronous I/O library).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="protonet.backend=asio"
+```
 
 ### `protonet.version`
 
@@ -1051,8 +1337,13 @@ Currently only `ASIO` is supported.
 | Dynamic:       | No                 |
 | Default Value: | 0   |
 
-This status variable is used to check which transport backend protocol version
-is used.
+Use this option to check which transport backend protocol version the cluster uses.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="protonet.version=0"
+```
 
 ### `repl.causal_read_timeout`
 
@@ -1064,7 +1355,13 @@ is used.
 | Dynamic:       | Yes                 |
 | Default Value: | PT30S   |
 
-This variable specifies the causal read timeout.
+This option specifies the causal read timeout.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.causal_read_timeout=PT30S"
+```
 
 ### `repl.commit_order`
 
@@ -1076,8 +1373,7 @@ This variable specifies the causal read timeout.
 | Dynamic:       | No                 |
 | Default Value: | 3   |
 
-This variable is used to specify out-of-order committing (which is used to
-improve parallel applying performance). The following values are available:
+This option specifies out-of-order committing (which improves parallel applying performance). You can use the following values:
 
 * `0` - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
 
@@ -1086,6 +1382,12 @@ improve parallel applying performance). The following values are available:
 * `2` - LOCAL_OOOC: allow out-of-order committing only for local transactions
 
 * `3` - NO_OOOC: no out-of-order committing is allowed (strict total order committing)
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.commit_order=3"
+```
 
 ### `repl.key_format`
 
@@ -1097,8 +1399,7 @@ improve parallel applying performance). The following values are available:
 | Dynamic:       | Yes                 |
 | Default Value: | FLAT8   |
 
-This variable is used to specify the replication key format. The following
-values are available:
+This option specifies the replication key format. You can use the following values:
  
 * `FLAT8` - short key with higher probability of key match false positives
 
@@ -1107,6 +1408,12 @@ values are available:
 * `FLAT8A` - same as `FLAT8` but with annotations for debug purposes
 
 * `FLAT16A` - same as `FLAT16` but with annotations for debug purposes
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.key_format=FLAT8"
+```
 
 ### `repl.max_ws_size`
 
@@ -1118,8 +1425,13 @@ values are available:
 | Dynamic:       | No                 |
 | Default Value: | 2147483647   |
 
-This variable is used to specify the maximum size of a write-set in bytes. This
-is limited to 2 gygabytes.
+This option specifies the maximum size of a write-set (replicated transaction data) in bytes. The maximum is 2 gigabytes.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.max_ws_size=2147483647"
+```
 
 ### `repl.proto_max`
 
@@ -1131,8 +1443,13 @@ is limited to 2 gygabytes.
 | Dynamic:       | No                 |
 | Default Value: | 7   |
 
-This variable is used to specify the highest communication protocol version to
-accept in the cluster. Used only for debugging.
+This option specifies the highest communication protocol version to accept in the cluster. Use this option only for debugging.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.proto_max=7"
+```
 
 ### `socket.checksum`
 
@@ -1144,7 +1461,7 @@ accept in the cluster. Used only for debugging.
 | Dynamic:       | No                 |
 | Default Value: | 2   |
 
-This variable is used to choose the checksum algorithm for network packets. The ``CRC32-C`` option is optimized and may be hardware accelerated on Intel CPUs. The following values are available:
+This option selects the checksum algorithm for network packets. The ``CRC32-C`` option is optimized and may be hardware accelerated on Intel CPUs. You can use the following values:
 
 * `0` - disable checksum
 
@@ -1152,7 +1469,13 @@ This variable is used to choose the checksum algorithm for network packets. The 
 
 * `2` - hardware accelerated `CRC32-C`
 
-The following is an example of the variable use:
+The following is an example of the option:
+
+```text
+wsrep_provider_options="socket.checksum=2"
+```
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
 ```text
 wsrep_provider_options="socket.checksum=2"
@@ -1168,7 +1491,13 @@ wsrep_provider_options="socket.checksum=2"
 | Dynamic:       | No                 |
 | Default Value: | No                 |
 
-This variable is used to specify if SSL encryption should be used.
+This option specifies whether to use SSL (Secure Sockets Layer) encryption.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl=yes"
+```
 
 ### `socket.ssl_ca`
 
@@ -1179,8 +1508,13 @@ This variable is used to specify if SSL encryption should be used.
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 
-This variable is used to specify the path
-to the Certificate Authority (CA) certificate file.
+This option specifies the path to the Certificate Authority (CA) certificate file.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl_ca=/path/to/ca.pem"
+```
 
 ### `socket.ssl_cert`
 
@@ -1191,8 +1525,13 @@ to the Certificate Authority (CA) certificate file.
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 
-This variable is used to specify the path
-to the server’s certificate file (in PEM format).
+This option specifies the path to the server’s certificate file (in PEM, Privacy Enhanced Mail, format).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl_cert=/path/to/server-cert.pem"
+```
 
 ### `socket.ssl_key`
 
@@ -1203,8 +1542,13 @@ to the server’s certificate file (in PEM format).
 | Scope:         | Global             |
 | Dynamic:       | No                 |
 
-This variable is used to specify the path
-to the server’s private key file (in PEM format).
+This option specifies the path to the server’s private key file (in PEM, Privacy Enhanced Mail, format).
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl_key=/path/to/server-key.pem"
+```
 
 ### `socket.ssl_compression`
 
@@ -1216,7 +1560,13 @@ to the server’s private key file (in PEM format).
 | Dynamic:       | No                 |
 | Default Value: | Yes                |
 
-This variable is used to specify if the SSL compression is to be used.
+This option specifies whether to use SSL (Secure Sockets Layer) compression.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl_compression=no"
+```
 
 ### `socket.ssl_cipher`
 
@@ -1228,4 +1578,10 @@ This variable is used to specify if the SSL compression is to be used.
 | Dynamic:       | No                 |
 | Default Value: | AES128-SHA         |
 
-This variable is used to specify what cypher will be used for encryption.
+This option specifies which cipher to use for encryption.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="socket.ssl_cipher=AES128-SHA"
+```

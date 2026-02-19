@@ -54,28 +54,20 @@ for the first node (`pxc1`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib/libgalera_smm.so
-
     # Cluster connection URL contains the IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
-
     # This InnoDB autoincrement locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node #1 address
     wsrep_node_address=192.168.70.61
-
     # SST method
     wsrep_sst_method=xtrabackup-v2
-
     # Cluster name
     wsrep_cluster_name=my_ubuntu_cluster
     ```
@@ -93,7 +85,7 @@ cluster status can be checked with the following command:
 
     ```sql
     show status like 'wsrep%';
-    ``` 
+    ```
 
     The following outut shows the cluste status:
 
@@ -139,29 +131,21 @@ on the second node (`pxc2`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib/libgalera_smm.so
-
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
-
     # This InnoDB autoincrement locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node #2 address
     wsrep_node_address=192.168.70.62
-
     # Cluster name
     wsrep_cluster_name=my_ubuntu_cluster
-
-    # SST method
+    SST method
     wsrep_sst_method=xtrabackup-v2
     ```
 
@@ -203,37 +187,30 @@ on the second node (`pxc2`) contains the following:
 
 ## Step 4. Configure the third node
 
-
 1. Make sure that the MySQL configuration file `/etc/mysql/my.cnf`
 on the third node (`pxc3`) contains the following:
 
     ```{.text .no-copy}
     [mysqld]
-
     datadir=/var/lib/mysql
     user=mysql
-
     # Path to Galera library
     wsrep_provider=/usr/lib/libgalera_smm.so
-
     # Cluster connection URL contains IPs of node#1, node#2 and node#3
     wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
-
     # Using the MyISAM storage engine is not recommended
     default_storage_engine=InnoDB
-
     # This InnoDB autoincrement locking mode is a requirement for Galera
     innodb_autoinc_lock_mode=2
-
     # Node #3 address
     wsrep_node_address=192.168.70.63
-
     # Cluster name
     wsrep_cluster_name=my_ubuntu_cluster
-
     # SST method
     wsrep_sst_method=xtrabackup-v2
     ```
+
+    
 
 2. Start the third node, `[root@pxc3 ~]#`, with the following command:
 
@@ -294,7 +271,7 @@ and add some records to the table on the first node.
     ```shell
     USE percona;
     ```
-    
+
     The following output confirms that a database has been changed:
 
     ??? example "Expected output"
@@ -336,7 +313,7 @@ and add some records to the table on the first node.
     ```shell
     SELECT * FROM percona.example;
     ```
-    
+
     The following output confirms that all the rows have been retrieved:
 
     ??? example "Expected output"

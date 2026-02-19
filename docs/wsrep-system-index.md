@@ -1,7 +1,6 @@
 # Index of wsrep system variables
 
-Percona XtraDB Cluster introduces a number of MySQL system variables
-related to write-set replication.
+Percona XtraDB Cluster introduces a number of MySQL system variables related to write-set replication.
 
 ### `pxc_encrypt_cluster_traffic`
 
@@ -34,13 +33,11 @@ For more information, see [SSL Automatic Configuration](encrypt-traffic.md#ssl-a
 | Dynamic:       | Yes                 |
 | Default Value: | ``DISABLED`` |
 
-Specifies the maintenance mode for taking a node down
-without adjusting settings in ProxySQL.
+Specifies the maintenance mode for taking a node down without adjusting settings in ProxySQL.
 
 The following values are available:
 
-* `DISABLED`: This is the default state
-that tells ProxySQL to route traffic to the node as usual.
+* `DISABLED`: This is the default state that tells ProxySQL to route traffic to the node as usual.
 
 * `SHUTDOWN`: This state is set automatically when you initiate node shutdown.
 
@@ -58,10 +55,7 @@ For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#a
 | Dynamic:       | Yes                 |
 | Default Value: | ``10`` (ten seconds) |
 
-Defines the transition period when you change [`pxc_maint_mode`](wsrep-system-index.md#pxc_maint_mode) to `SHUTDOWN` or ``MAINTENANCE``.
-By default, the period is set to 10 seconds,
-which should be enough for most transactions to finish.
-You can increase the value to accommodate longer-running transactions.
+Defines the transition period when you change [`pxc_maint_mode`](wsrep-system-index.md#pxc_maint_mode) to `SHUTDOWN` or ``MAINTENANCE``. By default, the period is set to 10 seconds, which should be enough for most transactions to finish. You can increase the value to accommodate longer-running transactions.
 
 For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#assisted-maintenance-mode).
 
@@ -256,16 +250,16 @@ Enabling this variable will result in larger latencies.
 
 This variable controls how certification is done in the cluster; it particularly affects how foreign keys are handled.
 
-**STRICT**
+STRICT
    Two INSERTs that happen at about the same time on two different nodes in a
    child table, that inserts different (non-conflicting rows), but both rows
-   point to the same row in the parent table **may result** in the certification
+   point to the same row in the parent table may result in the certification
    failure.
 
-**OPTIMIZED**
+OPTIMIZED
    Two INSERTs that happen at about the same time on two different nodes in a
    child table, that inserts different (non-conflicting rows), but both rows
-   point to the same row in the parent table **will not result** in the
+   point to the same row in the parent table will not result in the
    certification failure.
 
 !!! admonition "See also"
@@ -309,7 +303,7 @@ In practice, it is best (but not necessary) to provide a complete list
 of all possible cluster nodes.
 The value should be of the following format:
 
-```text
+```{.text .no-copy}
 <schema>://<address>[?<option1>=<value1>[&<option2>=<value2>]],...
 ```
 
@@ -320,7 +314,7 @@ You can specify multiple addresses separated by commas.
 
 For example:
 
-```text
+```{.text .no-copy}
 wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
 ```
 
@@ -351,7 +345,6 @@ Edit the value in the `my.cnf` in the [galera] section.
 
 ```{.text .no-copy}
 [galera]
-
     wsrep_cluster_name=simple-cluster
 ```
 
@@ -370,6 +363,7 @@ SHOW VARIABLES LIKE 'wsrep_cluster_name';
     | wsrep_cluster_name | simple-cluster |
     +--------------------+----------------+
     ```
+
 !!! note
 
     It should not exceed 32 characters. A node cannot join the cluster if the cluster names do not match. You must re-bootstrap the cluster after a name change.
@@ -435,25 +429,25 @@ You can set `wsrep_debug` in the following `my.cnf` groups:
 
 This variable may be set to one of the following values:
 
-**NONE**
+NONE
 
 No debug-level messages.
 
-**SERVER**
+SERVER
 
 ``wsrep-lib`` general debug-level messages and detailed debug-level messages
 from the *server_state* part are printed out.  Galera debug-level logs are
 printed out.
 
-**TRANSACTION**
+TRANSACTION
 
 Same as SERVER + wsrep-lib *transaction* part
 
-**STREAMING**
+STREAMING
 
 Same as TRANSACTION + wsrep-lib *streaming* part
 
-**CLIENT**
+CLIENT
 
 Same as STREAMING + wsrep-lib *client_service* part
 
@@ -806,7 +800,7 @@ For example:
 
 The value should be specified in the following format:
 
-```text
+```{.text .no-copy}
 <ip_address>[:port]
 ```
 
@@ -912,7 +906,6 @@ that the node uses to replicate DDL statements.
 
 For information on the available methods, see [Online Schema upgrade](online-schema-upgrade.md) and for information on Non-blocking operations, see [NBO](nbo.md).
 
-
 !!! admonition "See also"
 
     [MySQL wsrep option: wsrep_OSU_method :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method)
@@ -981,7 +974,7 @@ without accepting queries.
 
 When a query is rejected, the following error is returned:
 
-```text
+```{.text .no-copy}
 Error 1047: Unknown command
 ```
 
@@ -1038,7 +1031,7 @@ the whole DDL statement is not put under TOI.
 
      * Difference in configuration of `pxc-cluster` node on [enforce_storage_engine :octicons-link-external-16:](https://www.percona.com/doc/percona-server/{{vers}}/enforce-engine.html) front may result in picking up different engine for the same table on different nodes
 
-     * `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to **ON**.
+     * `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to ON.
 
 ### `wsrep_restart_replica`
 
@@ -1245,6 +1238,7 @@ that the current node should prefer as donors for [SST](glossary.md#sst) and [IS
 !!! warning
 
     Using IP addresses of nodes instead of node names (the value of [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name)) as values of [`wsrep_sst_donor`](wsrep-system-index.md#wsrep_sst_donor) results in an error.
+
     
     ```{.text .no-copy}
     ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
@@ -1258,7 +1252,7 @@ becomes the donor and will not be able to serve requests during the state transf
 To consider other nodes if the listed nodes are not available,
 add a comma at the end of the list, for example:
 
-```text
+```{.text .no-copy}
 wsrep_sst_donor=node1,node2,
 ```
 
@@ -1297,7 +1291,7 @@ Available values are:
 
 * `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in [Percona XtraBackup documentation :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/8.0/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+can be found in [Percona XtraBackup documentation :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/8.4/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
 
 * `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](clone-sst.md). 
 
@@ -1468,21 +1462,17 @@ SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
 You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.
 
 ```{.text .no-copy}
-node1> BEGIN;
+BEGIN;
 Query OK, 0 rows affected (0.00 sec)
-
-node1> INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
+INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
 Query OK, 65536 rows affected (15.15 sec)
 Records: 65536 Duplicates: 0 Warnings: 0
-
-node1> UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
+UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
 Query OK, 131072 rows affected (1 min 35.93 sec)
 Rows matched: 131072 Changed: 131072 Warnings: 0
-
-node2> SET SESSION TRANSACTION_ISOLATION = 'READ-UNCOMMITTED';
+SET SESSION TRANSACTION_ISOLATION = 'READ-UNCOMMITTED';
 Query OK, 0 rows affected (0.00 sec)
-
-node2> SELECT * FROM t1 LIMIT 5;
+SELECT * FROM t1 LIMIT 5;
 +---+
 | i |
 +===+
@@ -1496,7 +1486,7 @@ node2> SELECT * FROM t1 LIMIT 5;
 +---+
 | 2 |
 +---+
-node1> DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
+DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
 Query OK, 131072 rows affected (15.09 sec)
 ```
 

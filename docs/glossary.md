@@ -87,7 +87,6 @@ The node joining the cluster, usually a state transfer target.
 
 Log Serial Number. A term used in relation to the [`InnoDB`](#innodb) or `XtraDB` storage engines. There are System-level LSNs and Page-level LSNs. The System LSN represents the most recent LSN value assigned to page changes. Each InnoDB page contains a Page LSN which is the max LSN for that page for changes that reside on the disk. This LSN is updated when the page is flushed to disk.
 
-
 ## MariaDB
 
 A fork of [`MySQL`](#mysql) that is maintained primarily by Monty Program AB. It aims to add features, fix bugs while maintaining 100% backwards compatibility with MySQL.
@@ -100,10 +99,9 @@ installation. Note that this is not the only way of configuring the
 server, some systems does not have one even and rely on the command
 options to start the server and its defaults values.
 
-
 ## MyISAM
 
-A [`MySQL`](#mysql) [`Storage Engine`](#storage-engine) that was the default until MySQL 5.5. It doesn't fully support transactions but in some scenarios may be faster than [`InnoDB`](#innodb). Each table is stored on disk in 3 files: [`.frm`](#frm),i `.MYD`, `.MYI`.
+A [`MySQL`](#mysql) [`Storage Engine`](#storage-engine) that was the default until MySQL 5.5. It doesn't fully support transactions but in some scenarios may be faster than [`InnoDB`](#innodb). Each table is stored on disk in three files: [`.frm`](#frm),i `.MYD`, `.MYI`.
 
 ## MySQL
 

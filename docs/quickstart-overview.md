@@ -30,4 +30,3 @@ Percona Monitoring and Management (PMM )monitors and provides actionable perform
 
 [Install PMM and connect your MySQL instances to it :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html).
 
-

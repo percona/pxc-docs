@@ -40,7 +40,6 @@ Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the k
 | Rolling upgrade      | When performing a rolling upgrade, the donor node (running an older version) can still use the keyring plugin, while the 8.4 node uses the keyring component. Since both use the keyring for encryption, they remain compatible and work together seamlessly. |
 | Other requirements   | All other requirements, such as ensuring the SST (State Snapshot Transfer) channel is SSL-encrypted when using the keyring plugin or component, remain the same as in version 8.0. |
 
-
 ### Default authentication plugin
 
 In Percona XtraDB Cluster 8.4, the default authentication plugin is
@@ -80,7 +79,6 @@ CREATE TABLE parent (
     value INT,
     INDEX (value)
 );
-
 CREATE TABLE child (
     id INT,
     parent_value INT,
@@ -93,7 +91,6 @@ Here, parent.value is indexed but not unique. In 8.4, the foreign key reference 
 Since DDL is replicated as a TOI (transactional operation), it gets executed on all nodes. If it succeeds on 8.4 but fails on 8.0, the cluster will detect the inconsistency and evict the 8.0 node.
 
 In a mixed-version cluster, it’s better to use the lower version node as the writer. When executing DDL, make sure it behaves the same way on all nodes.
-
 
 ## Major upgrade scenarios
 
@@ -130,7 +127,7 @@ You can upgrade a cluster by booting a fresh 8.4 node and joining it to the exis
 
 In this scenario, you have an active 3-node 8.0 cluster.
 
-1. Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a 4-node cluster: 3 nodes running 8.0 and 1 node running 8.4.
+1. Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a four-node cluster: three nodes running 8.0 and one node running 8.4.
 
 2. Shut down one of the 8.0 nodes and repeat the procedure to replace each 8.0 node with 8.4.
 
@@ -142,7 +139,7 @@ In this scenario, you have an active 3-node 8.0 cluster.
 
     * You cannot join an 8.4 node to clusters older than 8.0.
 
-Therefore, if you are running Percona XtraDB Cluster version 5.7, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.
+Therefore, if you are running a version older than 8.0, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.
 
 ## Upgrade an async replication replica node
 
@@ -155,7 +152,6 @@ If a given PXC node is an async replica of some other server, follow the procedu
 3. Start async replication
 
 4. Ensure async replication works
-
 
 ## Minor upgrade
 

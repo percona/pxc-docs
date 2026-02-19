@@ -4,8 +4,7 @@ Specific information on the supported platforms, products, and versions
 is described in [Percona Software and Platform Lifecycle :octicons-link-external-16:](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 The packages are available in the official Percona software repository
-and on the [Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
-It is recommended to install Percona XtraDB Cluster from the official repository
+and on the [Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads). We recommended that you install Percona XtraDB Cluster from the official repository
 using APT.
 
 We gather [Telemetry data] in the Percona packages and Docker images.
@@ -20,12 +19,9 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 
     * 3306
 
-
     * 4444
 
-
     * 4567
-
 
     * 4568
 
@@ -38,11 +34,13 @@ We gather [Telemetry data] in the Percona packages and Docker images.
 The following steps install from the APT repository.
 {.power-number}
 
-1. Update the sytem:
+1. Update the system:
 
     ```shell
     sudo apt update
     ```
+
+    
 
 2. Install the necessary packages:
 
@@ -50,11 +48,15 @@ The following steps install from the APT repository.
     sudo apt install -y wget gnupg2 lsb-release curl
     ```
 
+    
+
 3. Download the repository package
 
     ```shell
     wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
     ```
+
+    
 
 4. Install the package with `dpkg`:
 
@@ -62,11 +64,15 @@ The following steps install from the APT repository.
     sudo dpkg -i percona-release_latest.generic_all.deb
     ```
 
+    
+
 5. Refresh the local cache to update the package information:
 
     ```shell
     sudo apt update
     ```
+
+    
 
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
@@ -74,11 +80,15 @@ The following steps install from the APT repository.
     sudo percona-release setup pxc-84-lts
     ```
 
+    
+
 7. Install the cluster:
 
     ```shell
     sudo apt install -y percona-xtradb-cluster
     ```
+
+    
 
 During the installation, you are requested to provide a password for the `root` user on the database node.
 
@@ -111,7 +121,6 @@ During the installation, you are requested to provide a password for the `root` 
     * `percona-xtradb-cluster-source`
 
     * `percona-xtradb-cluster-test`
-
 
 ## Next steps
 

@@ -31,12 +31,10 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
     ssl-ca = /cert/ca.pem
     ssl-cert = /cert/server-cert.pem
     ssl-key = /cert/server-key.pem
-
     [client]
     ssl-ca = /cert/ca.pem
     ssl-cert = /cert/client-cert.pem
     ssl-key = /cert/client-key.pem
-
     [sst]
     encrypt = 4
     ssl-ca = /cert/ca.pem
@@ -52,12 +50,11 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
 
 4.  Create a create-ssl-certs.sh file with the following contents, and place the file in the cert directory
 
-    ```{.bash .no-copy}
+    ```shell
     #!/bin/bash
     set -e
     OUTPUT_DIR="/cert"
     openssl genrsa 2048 > "${OUTPUT_DIR}/ca-key.pem"
-    
     openssl req -new -x509 -nodes -days 3600 -subj "/C=/ST=/L=/O=/CN=" -key "${OUTPUT_DIR}/ca-key.pem" -out "${OUTPUT_DIR}/ca.pem"
     openssl req -newkey rsa:2048 -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
             -nodes -keyout "${OUTPUT_DIR}/server-key.pem" -out "${OUTPUT_DIR}/server-req.pem"
@@ -66,9 +63,7 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
             -CA "${OUTPUT_DIR}/ca.pem" -CAkey "${OUTPUT_DIR}/ca-key.pem" -set_serial 01 -out "${OUTPUT_DIR}/server-cert.pem"
     openssl req -newkey rsa:2048 -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
             -nodes -keyout "${OUTPUT_DIR}/client-key.pem" -out "${OUTPUT_DIR}/client-req.pem"
-
     openssl rsa -in "${OUTPUT_DIR}/client-key.pem" -out "${OUTPUT_DIR}/client-key.pem"
-
     openssl x509 -req -in "${OUTPUT_DIR}/client-req.pem" -days 3600 -subj "/C=/ST=/L=/O=/CN=" \
             -CA "${OUTPUT_DIR}/ca.pem" -CAkey "${OUTPUT_DIR}/ca-key.pem" -set_serial 01 -out "${OUTPUT_DIR}/client-cert.pem"
     openssl verify -CAfile "${OUTPUT_DIR}/ca.pem" "${OUTPUT_DIR}/server-cert.pem" "${OUTPUT_DIR}/client-cert.pem"
@@ -145,7 +140,6 @@ To verify the cluster is available, do the following:
         You are enforcing ssl connection via unix socket. Please consider
         switching ssl off as it does not make connection via unix socket
         any more secure
-
         mysql>
         ```
 

@@ -176,6 +176,8 @@ create (id primary key) -> insert (1), (2), (3), (4);
     node-2: insert(5).
     ```
 
+    
+
 The `insert(5)` statement will generate a write-set
 that will then be replicated to Node 1.
 Node 1 will try to apply it but will fail with `duplicate-key-error`,
