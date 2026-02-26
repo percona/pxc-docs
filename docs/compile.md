@@ -104,13 +104,7 @@ To compile Percona XtraDB Cluster from source code:
     ./build-ps/build-binary.sh ./pxc-build
     ```
 
-<<<<<<< PXC-4848
 When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraBackup-{{vers}}.tar.gz`, that you can deploy on your system.
-=======
-    
-
-When the compilation completes, `pxc-build` contains a tarball, such as `Percona-XtraDB-Cluster-{{vers}}.tar.gz`, that you can deploy on your system.
->>>>>>> 8.4
 
 !!! note
 
