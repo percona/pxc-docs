@@ -1079,16 +1079,7 @@ This variable specifies the causal read timeout.
 | Dynamic:       | No                 |
 | Default Value: | 3   |
 
-This variable is used to specify out-of-order committing (which is used to
-improve parallel applying performance). The following values are available:
-
-* `0` - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
-
-* `1` - OOOC: allow out-of-order committing for all transactions
-
-* `2` - LOCAL_OOOC: allow out-of-order committing only for local transactions
-
-* `3` - NO_OOOC: no out-of-order committing is allowed (strict total order committing)
+This variable controls the commit order of replicated transactions across the cluster. The value is fixed at `3`, which enforces the same commit order on all nodes and provides the highest level of consistency. No other values can be set.
 
 ### `repl.key_format`
 
