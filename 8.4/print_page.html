@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -6158,8 +6158,20 @@ git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w
 </code></pre></div>
 </li>
 <li>
-<p>Download the matching Percona XtraDB Cluster 8.4 tarball (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The following example extracts the Percona XtraDB Cluster 8.4 tar.gz file to the target directory <code>./pxc-build</code>:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.31.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
+<p>Download <strong>both</strong> Percona XtraBackup 8.4 and Percona XtraBackup 8.0 tarballs (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Both XtraBackup versions are required:</p>
+<ul>
+<li>Percona XtraBackup 8.4 is used for backup and restore operations</li>
+<li>Percona XtraBackup 8.0 is required for State Snapshot Transfer (SST)</li>
+</ul>
+<p>Extract the tarballs into the <code>pxc-build/pxc_extra</code> directory and ensure the directories are named exactly as shown below:</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./pxc-build/pxc_extra
+
+tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
+mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.4-Linux-x86_64.glibc2.xx<span class="w"> </span>./pxc-build/pxc_extra/pxb-<span class="o">{{</span><span class="w"> </span>vers_major<span class="w"> </span><span class="o">}}</span>
+
+tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.0.x-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
+mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.0.x-Linux-x86_64.glibc2.xx<span class="w"> </span>./pxc-build/pxc_extra/pxb-8.0
 </code></pre></div>
 </li>
 <li>
@@ -6169,7 +6181,7 @@ git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w
 </code></pre></div>
 </li>
 </ol>
-<p>When the compilation completes, <code>pxc-build</code> contains a tarball, such as <code>Percona-XtraDB-Cluster-8.4.tar.gz</code>, that you can deploy on your system.</p>
+<p>When the compilation completes, <code>pxc-build</code> contains a tarball, such as <code>Percona-XtraBackup-8.4.tar.gz</code>, that you can deploy on your system.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The exact version and release numbers may differ.</p>
