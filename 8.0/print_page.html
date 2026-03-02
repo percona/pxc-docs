@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -21218,22 +21218,7 @@ is used.</p>
 </tr>
 </tbody>
 </table>
-<p>This variable is used to specify out-of-order committing (which is used to
-improve parallel applying performance). The following values are available:</p>
-<ul>
-<li>
-<p><code>0</code> - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)</p>
-</li>
-<li>
-<p><code>1</code> - OOOC: allow out-of-order committing for all transactions</p>
-</li>
-<li>
-<p><code>2</code> - LOCAL_OOOC: allow out-of-order committing only for local transactions</p>
-</li>
-<li>
-<p><code>3</code> - NO_OOOC: no out-of-order committing is allowed (strict total order committing)</p>
-</li>
-</ul>
+<p>This variable controls the commit order of replicated transactions across the cluster. The value is fixed at <code>3</code>, which enforces the same commit order on all nodes and provides the highest level of consistency. No other values can be set.</p>
 <h3 id="wsrep-provider-index-replkey_format"><code>repl.key_format</code><a class="headerlink" href="#wsrep-provider-index-replkey_format" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
