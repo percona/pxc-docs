@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -9393,12 +9393,22 @@ it is fully connected and ready for write-set replication.</p>
 <p>New nodes that are <a href="#configure-nodes-configure-nodes-for-write-set-replication">properly configured</a> are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
+<p>The command to start MySQL on a new node (for example, <code>systemctl start mysql</code>) triggers a <a href="#glossary-state-snapshot-transfer-sst">State Snapshot Transfer (SST)</a>: the new node contacts an existing node (the Donor) and any existing data in the new node&rsquo;s data directory is completely removed or overwritten by the cluster&rsquo;s data. This is irreversible. Any existing data and configuration are overwritten to match the data and configuration of the DONOR node.</p>
+<p>Before running <code>systemctl start mysql</code> (or <code>service mysql start</code>), complete the following tasks:</p>
+<ul>
+<li>
+<p>Ensure there is no unique or unbacked-up data on this server. If the node has local data you care about, back it up first or do not use this server as a joiner.</p>
+</li>
+<li>
+<p>Confirm in <code>my.cnf</code> that <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> points to the intended cluster.</p>
+</li>
+<li>
+<p>Use a clean (empty) data directory on the new node to avoid conflicts; SST will overwrite it, but starting from a clean state is best practice.</p>
+</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Any existing data and configuration will be overwritten
-to match the data and configuration of the DONOR node.
-Do not join several nodes at the same time
-to avoid overhead due to large amounts of traffic when a new node joins. </p>
+<p>Add nodes one at a time to avoid the traffic and overhead of multiple simultaneous joins. </p>
 </div>
 <p>Percona XtraDB Cluster uses <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">Percona XtraBackup</a> for <a href="#glossary-state-snapshot-transfer-sst">State Snapshot Transfer</a> and the <code>wsrep_sst_method</code> variable is always set to <code>xtrabackup-v2</code>.</p>
 <h2 id="add-node-start-the-second-node">Start the second node<a class="headerlink" href="#add-node-start-the-second-node" title="Permanent link">&para;</a></h2>
