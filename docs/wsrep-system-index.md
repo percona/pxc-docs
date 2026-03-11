@@ -1079,8 +1079,8 @@ while the node is in a non-primary state.
 | -------------- | ------------------ |
 | Command Line:  | ``--wsrep-retry-autocommit`` |
 | Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | No                 |
+| Scope:         | Session           |
+| Dynamic:       | Yes                 |
 | Default Value: | ``1`` |
 
 Specifies the number of times autocommit transactions will be retried
