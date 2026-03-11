@@ -4,12 +4,19 @@ New nodes that are [properly configured](configure-nodes.md#configure-nodes-for-
 automatically.  When you start a node with the address of at least one other
 running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
 
+The command to start MySQL on a new node (for example, `systemctl start mysql`) triggers a [State Snapshot Transfer (SST)](glossary.md#state-snapshot-transfer-sst): the new node contacts an existing node (the Donor) and any existing data in the new node's data directory is completely removed or overwritten by the cluster's data. This is irreversible. Any existing data and configuration are overwritten to match the data and configuration of the DONOR node.
+
+Before running `systemctl start mysql` (or `service mysql start`), complete the following tasks:
+
+* Ensure there is no unique or unbacked-up data on this server. If the node has local data you care about, back it up first or do not use this server as a joiner.
+
+* Confirm in `my.cnf` that [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) points to the intended cluster.
+
+* Use a clean (empty) data directory on the new node to avoid conflicts; SST will overwrite it, but starting from a clean state is best practice.
+
 !!! note
 
-    Any existing data and configuration will be overwritten
-    to match the data and configuration of the DONOR node.
-    Do not join several nodes at the same time
-    to avoid overhead due to large amounts of traffic when a new node joins. 
+    Add nodes one at a time to avoid the traffic and overhead of multiple simultaneous joins. 
 
 Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#state-snapshot-transfer-sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
