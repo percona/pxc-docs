@@ -1,6 +1,5 @@
 # State Snapshot Transfer (SST) Method using Clone plugin
 
---8<--- "tech-preview.md:3:3"
 
 ## SST Method: Clone
 
