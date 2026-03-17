@@ -3,7 +3,7 @@
 Specific information on the supported platforms, products, and versions is described in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql).
 
 The packages are available in the official Percona software repository
-and on the [download page](https://www.percona.com/downloads/Percona-XtraDB-Cluster-57/LATEST/).
+and on [Percona Software Downloads](https://www.percona.com/downloads).
 It is recommended to install Percona XtraDB Cluster from the official repository
 using **yum**.
 
