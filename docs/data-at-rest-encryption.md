@@ -231,11 +231,9 @@ Run the migration server:
 --component_keyring_vault_config=/dev/shm/pxc80/vault/component_keyring_vault.cnf &
 ```
 
-??? example "Expected output"
+??? example "Expected log output"
 
     ```{.text .no-copy}
-    ... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
-        --explicit_defaults_for_timestamp server option (see documentation for more details).
     ... [Note] --secure-file-priv is set to NULL. Operations related to importing and
         exporting data are disabled
     ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode

@@ -584,26 +584,6 @@ Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 wsrep_provider_options="gcache.keep_pages_size=0"
 ```
 
-### `gcache.mem_size`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | Yes                |
-| Config File:   | Yes                |
-| Scope:         | Global             |
-| Dynamic:       | No                 |
-| Default Value: | 0   |
-
-This option has been deprecated in `5.6.22-25.8` and shouldn’t be used because the option could cause a node to crash.
-
-This option was used to define how much RAM is available for the system.
-
-Example (config file): Add to the `[mysqld]` section of `my.cnf`:
-
-```text
-wsrep_provider_options="gcache.mem_size=0"
-```
-
 ### `gcache.name`
 
 | Option         | Description        |

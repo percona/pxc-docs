@@ -5,9 +5,7 @@ based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.
 
 It is assumed that each PXC node is installed on Amazon T2.micro instances
-running RHEL 8. However, the information in this section should apply if you
-used another virtualization technology (for example, VirtualBox) with any Linux
-distribution.
+running RHEL 9. This procedure documents a single RHEL 9 path.
 
 Each of the tree Percona XtraDB Cluster nodes is installed on a separate virtual machine. One
 more virtual machine has ProxySQL, which redirects requests to the nodes.
@@ -21,7 +19,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
 2.  On the client node, install [ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql) and `sysbench`:
 
     ```shell
-    yum -y install proxysql2 sysbench
+    dnf -y install proxysql sysbench
     ```
 
 3.  When all cluster nodes are started, configure ProxySQL using the admin
@@ -53,12 +51,8 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.
             ```{.text .no-copy}
             Welcome to the MySQL monitor.  Commands end with ; or \g.
             Your MySQL connection id is 2
-            Server version: 5.5.30 (ProxySQL Admin Module)
-            Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-            Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-            Oracle is a registered trademark of Oracle Corporation and/or its
-            affiliates. Other names may be trademarks of their respective
-            owners.
+            Server version: ... (ProxySQL Admin Module)
+            ...
             Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
             mysql>
             ```
@@ -298,12 +292,6 @@ elected for write requests.
 To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with `USAGE`
 privilege on any node in the cluster and configure the user in ProxySQL.
 
-The following example shows how to add a monitoring user on Node 2 if you are using the deprecated `mysql_native_password` authentication method:
-
-```sql
-CREATE USER 'proxysql'@'%' IDENTIFIED WITH mysql_native_password BY 'ProxySQLPa55';
-```
-
 The following example adds a monitoring user on Node 2 if you are using the `caching_sha2_password` authentication method:
 
 ```sql
@@ -433,21 +421,10 @@ mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
     ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 1491
-    Server version: 5.5.30 (ProxySQL)
-    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-    Oracle is a registered trademark of Oracle Corporation and/or its
-    affiliates. Other names may be trademarks of their respective
-    owners.
+    Server version: ... (ProxySQL)
+    ...
     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
     ```
-
-The following example adds an `appuser` user account, if you are using the deprecated `mysql_native_password` authentication method:
-
-```sql
-CREATE USER 'appuser'@'192.168.70.74'
-IDENTIFIED WITH mysql_native_password by '$3kRetp@$sW0rd';
-```
 
 The following example adds an `appuser` user account if you are using the `caching_sha2_password` authentication method:
 
@@ -462,6 +439,47 @@ The following example command grants the `appuser` account all privileges on all
 ```sql
 GRANT ALL ON *.* TO 'appuser'@'192.168.70.74';
 ```
+
+## Verification checklist
+
+Run the following checks after setup to confirm that the virtual sandbox is working.
+
+1. Verify ProxySQL admin login:
+
+```shell
+mysql -u admin -padmin -h 127.0.0.1 -P 6032
+```
+
+Expected result: ProxySQL admin prompt opens without errors.
+
+2. Verify backend status in ProxySQL:
+
+```sql
+SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
+```
+
+Expected result: all configured backend nodes show `ONLINE`.
+
+3. Verify end-to-end query routing through ProxySQL:
+
+```shell
+mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033 -e "SELECT @@hostname;"
+```
+
+Expected result: query returns a backend node hostname.
+
+4. Verify failover behavior (sanity check):
+
+* Stop one backend node.
+
+* Re-run:
+
+    ```sql
+    SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
+    ```
+
+Expected result: stopped node changes from `ONLINE` to an offline state
+such as `OFFLINE_SOFT`, while remaining nodes continue serving traffic.
 
 ## Testing the cluster with the sysbench benchmark tool
 
@@ -507,10 +525,11 @@ the `sysbench` benchmarking tool.
 
 ---
 
-**Related sections and additional reading**
+For more information, see:
 
 * [Load balancing with ProxySQL](load-balance-proxysql.md#load-balance-with-proxysql)
 * [Configure on RHEL](configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions)
-* [Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC) :octicons-link-external-16:](https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/)
-* [GitHub repository for the sysbench benchmarking tool :octicons-link-external-16:](https://github.com/akopytov/sysbench/)
+* [Verify replication in Percona XtraDB Cluster](verify-replication.md)
+* [Crash recovery](crash-recovery.md)
+* [High availability](high-availability.md)
 

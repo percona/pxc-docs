@@ -159,7 +159,7 @@ To be precise, the commits are “virtually” synchronous, which means that the
 
 ## Does Percona XtraDB Cluster work with regular MySQL replication?
 
-Yes. On the node you are going to use as source, enable binary logging and replica updates: set `log_bin` and `log_replica_updates` (or the deprecated `log_slave_updates`) in your configuration.
+Yes. On the node you are going to use as source, set a unique non-zero `server_id`, enable binary logging (`log_bin`), and enable `log_replica_updates` (or the deprecated `log_slave_updates`) so cluster-applied writes are recorded in the binary log for downstream replicas.
 
 ## Why the MySQL init script does not start?
 

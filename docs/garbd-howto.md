@@ -38,39 +38,50 @@ On RHEL 8 and later, you can use `dnf install percona-xtradb-cluster-garbd` inst
 
     On **Percona XtraDB Cluster** {{vers}}, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure `garbd` to use the certificates.
 
-    It is necessary to specify the cipher. In this example, it is `AES128-SHA256`. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.
+    You must specify a cipher. This document uses `AES128-SHA256` as an example.
+    Choose a cipher that matches your security policy and OpenSSL configuration.
+    If no cipher is specified, startup can fail with a “Terminate called after
+    throwing an instance of ‘gnu::NotSet’” message.
 
     For more information, see [socket.ssl_cipher :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher)
 
 When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:
 
 ```shell
-garbd --group=my_ubuntu_cluster \
---address="gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567" \
---option="socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \
-socket.ssl_cert=/etc/ssl/mysql/server-cert.pem; \
-socket.ssl_ca=/etc/ssl/mysql/ca.pem; \
+garbd --group=<CLUSTER_NAME> \
+--address="gcomm://<NODE1_IP>:4567,<NODE2_IP>:4567,<NODE3_IP>:4567" \
+--option="socket.ssl=YES; socket.ssl_key=<SSL_KEY_PATH>; \
+socket.ssl_cert=<SSL_CERT_PATH>; \
+socket.ssl_ca=<SSL_CA_PATH>; \
 socket.ssl_cipher=AES128-SHA256"
 ```
 
 To avoid entering the options each time you start `garbd`, edit the options in the configuration file. To configure *Galera Arbitrator* on *Ubuntu/Debian*, edit the `/etc/default/garb` file. On RedHat or derivative distributions, the configuration can be found in `/etc/sysconfig/garb` file.
 
-The configuration file should look like this after the installation and before you have added your parameters:
+Replace placeholder values such as `<CLUSTER_NAME>`, `<NODE1_IP>`,
+`<NODE2_IP>`, `<NODE3_IP>`, `<SSL_KEY_PATH>`, `<SSL_CERT_PATH>`, and
+`<SSL_CA_PATH>` with values from your environment.
+
+After installation, before you add your cluster settings, **`/etc/default/garb`** (Debian/Ubuntu) from **Percona XtraDB Cluster** {{vers}} packages matches the following template:
 
 ```{.text .no-copy}
-Copyright (C) 2013-2015 Codership Oy
-This config file is to be sourced by garb service script.
-REMOVE THIS AFTER CONFIGURATION
-A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=""
-Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=""
-Optional Galera internal options string (e.g. SSL settings)
-see http://galeracluster.com/documentation-webpages/galeraparameters.html
-GALERA_OPTIONS=""
-Log file for garbd. Optional, by default logs to syslog
-Deprecated for CentOS7, use journalctl to query the log for garbd
-LOG_FILE=""
+# Copyright (C) 2012 Codership Oy
+# This config file is to be sourced by garb service script.
+
+# REMOVE THIS AFTER CONFIGURATION
+
+# A comma-separated list of node addresses (address[:port]) in the cluster
+# GALERA_NODES=""
+
+# Galera cluster name, should be the same as on the rest of the nodes.
+# GALERA_GROUP=""
+
+# Optional Galera internal options string (e.g. SSL settings)
+# see http://galeracluster.com/documentation-webpages/galeraparameters.html
+# GALERA_OPTIONS=""
+
+# Log file for garbd. Optional, by default logs to syslog
+# LOG_FILE=""
 ```
 
 Add the parameter information about the cluster. For this document, we use the cluster information from [Configuring Percona XtraDB Cluster on Ubuntu](configure-cluster-ubuntu.md#configure-a-cluster-on-debian-or-ubuntu).
@@ -83,49 +94,44 @@ Add the parameter information about the cluster. For this document, we use the c
 ```{.text .no-copy}
 This config file is to be sourced by garb service script.
 A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES="192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"
+GALERA_NODES="<NODE1_IP>:4567,<NODE2_IP>:4567,<NODE3_IP>:4567"
 Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP="my_ubuntu_cluster"
+GALERA_GROUP="<CLUSTER_NAME>"
 Optional Galera internal options string (e.g. SSL settings)
 see http://galeracluster.com/documentation-webpages/galeraparameters.html
-GALERA_OPTIONS="socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem;socket.ssl_cipher=AES128-SHA256"
+GALERA_OPTIONS="socket.ssl_key=<SSL_KEY_PATH>;socket.ssl_cert=<SSL_CERT_PATH>;socket.ssl_ca=<SSL_CA_PATH>;socket.ssl_cipher=AES128-SHA256"
 Log file for garbd. Optional, by default logs to syslog
-Deprecated for CentOS7, use journalctl to query the log for garbd
 LOG_FILE="/var/log/garbd.log"
 ```
 
 You can now start the *Galera Arbitrator* daemon (`garbd`). Run the following commands as root.
 
+!!! note
+
+    The systemd service name is `garb`, while the daemon binary name is `garbd`.
+
 === "On Debian or Ubuntu"
 
     ```shell
-    service garbd start
+    systemctl start garb
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
-        [ ok ] Starting /usr/bin/garbd: :.
+        # No output on success
         ```
 
-    !!! note 
-
-        On systems that run `systemd` as the default system and service manager, use `systemctl` instead of `service` to invoke the command. Currently, both are supported.
-
-        ```shell
-        systemctl start garb
-        ```
-
-=== "On Red Hat Enterprise Linux or CentOS"
+=== "On Red Hat Enterprise Linux"
 
     ```shell
-    service garb start
+    systemctl start garb
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
-        [ ok ] Starting /usr/bin/garbd: :.
+        # No output on success
         ```
 
 Additionally, you can check the `arbitrator` status by running:
@@ -133,23 +139,76 @@ Additionally, you can check the `arbitrator` status by running:
 === "On Debian or Ubuntu"
 
     ```shell
-    service garbd status
+    systemctl is-active garb
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
-        [ ok ] garb is running.
+        active
         ```
 
-=== "On Red Hat Enterprise Linux or CentOS"
+## Verify arbitrator participation
+
+1. Check the arbitrator service state:
 
     ```shell
-    service garb status
+    systemctl is-active garb
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
-        [ ok ] garb is running.
+        active
+        ```
+
+2. Check recent arbitrator logs for successful cluster communication:
+
+    ```shell
+    journalctl -u garb --no-pager -n 20
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        ... WSREP: ...
+        ... connected ...
+        ```
+
+3. On a Percona XtraDB Cluster node, confirm that the cluster remains in `Primary` state:
+
+    ```shell
+    mysql -e "SHOW STATUS LIKE 'wsrep_cluster_status';"
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        +----------------------+---------+
+        | Variable_name        | Value   |
+        +----------------------+---------+
+        | wsrep_cluster_status | Primary |
+        +----------------------+---------+
+        ```
+
+## Troubleshooting
+
+* `gnu::NotSet` at startup: set `socket.ssl_cipher` in `GALERA_OPTIONS`.
+
+* Arbitrator cannot join cluster: verify `GALERA_NODES` format (`IP:4567` entries separated by commas, no missing ports).
+
+* No connectivity to cluster nodes: verify firewall and routing for port `4567` between arbitrator and all cluster nodes.
+
+* Service starts then exits: review `journalctl -u garb --no-pager` and validate certificate file paths in `GALERA_OPTIONS`.
+
+=== "On Red Hat Enterprise Linux"
+
+    ```shell
+    systemctl is-active garb
+    ```
+
+    ??? example "Expected output"
+
+        ```{.text .no-copy}
+        active
         ```
