@@ -212,9 +212,9 @@ It can be disabled in source-replica clusters.
 
     [`MySQL wsrep option: wsrep_auto_increment_control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control)
 
-### `wsrep_causal_reads`
+###`wsrep_causal_reads`
 
-| Option         | Description        |
+| Option         | Descriptio n        |
 | -------------- | ------------------ |
 | Command Line:  | ``--wsrep-causal-reads`` |
 | Config File:   | Yes                |
@@ -527,7 +527,7 @@ SELECT @@wsrep_dirty_reads;
     ```{.text .no-copy}
     +-----------------------+
     | @@wsrep_dirty_reads   |
-    +=======================+
+    +-----------------------+
     | OFF                   |
     +-----------------------+
     ```
@@ -541,7 +541,7 @@ SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
     ```{.text .no-copy}
     +-----------------------+
     | @@wsrep_dirty_reads   |
-    +=======================+
+    +-----------------------+
     | ON                    |
     +-----------------------+
     ```
@@ -1362,7 +1362,7 @@ SELECT @@wsrep_sync_wait;
     ```{.text .no-copy}
     +---------------------+
     | @@wsrep_sync_wait   |
-    +=====================+
+    +---------------------+
     | 3                   |
     +---------------------+
     ```
@@ -1376,7 +1376,7 @@ SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
     ```{.text .no-copy}
     +---------------------+
     | @@wsrep_sync_wait   |
-    +=====================+
+    +---------------------+
     | 7                   |
     +---------------------+
     ```
@@ -1428,7 +1428,7 @@ Defines the the streaming replication fragment size. This variable is measured i
 You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
 ```sql
-SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
+SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
 ??? example "Expected output"
@@ -1436,8 +1436,10 @@ SELECT @@@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
     ```{.text .no-copy}
     +------------------------------+
     | @@wsrep_trx_fragment_unit    |
-    +==============================+
+    +------------------------------+
     | statements                   |
+    +------------------------------+
+
     +------------------------------+
     | @@wsrep_trx_fragment_size    |
     +------------------------------+
@@ -1454,7 +1456,7 @@ SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
     ```{.text .no-copy}
     +------------------------------+
     | @@wsrep_trx_fragment_size    |
-    +==============================+
+    +------------------------------+
     | 5                            |
     +------------------------------+
     ```
@@ -1475,7 +1477,7 @@ Query OK, 0 rows affected (0.00 sec)
 SELECT * FROM t1 LIMIT 5;
 +---+
 | i |
-+===+
++---+
 | 2 |
 +---+
 | 2 |
@@ -1513,8 +1515,10 @@ SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
     ```{.text .no-copy}
     +------------------------------+
     | @@wsrep_trx_fragment_unit    |
-    +==============================+
+    +------------------------------+
     | statements                   |
+    +------------------------------+
+
     +------------------------------+
     | @@wsrep_trx_fragment_size    |
     +------------------------------+
@@ -1531,7 +1535,7 @@ SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
     ```{.text .no-copy}
     +------------------------------+
     | @@wsrep_trx_fragment_unit    |
-    +==============================+
+    +------------------------------+
     | rows                         |
     +------------------------------+
     ```

@@ -32,9 +32,9 @@ to ports 3306, 4444, 4567 and 4568.
 
 * SELinux on all nodes is disabled.
 
-!!! admonition "Different from previous versions"
+Percona XtraDB Cluster {{vers}} creates the internal MySQL account [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession), which the SST process uses to run the SQL needed for node synchronization.
 
-   The variable `wsrep_sst_auth` has been removed. Percona XtraDB Cluster {{vers}} automatically creates the system user [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession). During [SST](glossary.md#sst), the user `mysql.pxc.sst.user` and the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole) are created on the donor node.
+During [SST](glossary.md#sst), that account creates the user `mysql.pxc.sst.user` on the donor node and assigns it the role [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole).
 
 ## Step 1. Install 
 
