@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.">
+        <meta name="description" content="This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.">
       
       
         <meta name="author" content="Percona LLC">
@@ -28,7 +28,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -2706,6 +2706,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Load balancing with HAProxy
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="haproxy.html" class="md-nav__link md-nav__link--active">
         
   
@@ -2722,6 +2740,60 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configure-haproxy-with-clustercheck-health-checks-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure HAProxy with clustercheck health checks (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-haproxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify HAProxy configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-haproxy-health-check-example-tcp-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy HAProxy health check example (TCP-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -3458,6 +3530,47 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configure-haproxy-with-clustercheck-health-checks-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure HAProxy with clustercheck health checks (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-haproxy-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify HAProxy configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-haproxy-health-check-example-tcp-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy HAProxy health check example (TCP-only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                     </div>
                   </div>
@@ -3487,119 +3600,146 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="load-balancing-with-haproxy">Load balancing with HAProxy<a class="headerlink" href="#load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
-<p>This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
-<p>Start by installing HAProxy on a <a href="glossary.html#node">node</a> that you intend to use
-for load balancing. The operating systems that support Percona XtraDB Cluster provide
-the haproxy package and you can install it using the package manager.</p>
-<p>Debian or Ubuntu</p>
-<div class="highlight"><pre><span></span><code>```shell
-sudo apt update
-sudo apt install haproxy
-```
+<p>This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
+<p>Start by installing HAProxy on a <a href="glossary.html#node">node</a> intended for load balancing.
+Operating systems that support Percona XtraDB Cluster provide the <code>haproxy</code> package,
+and package managers install the package.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install HAProxy from the default APT repositories:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>haproxy
 </code></pre></div>
-<p>Red Hat Enterprise Linux:</p>
-<div class="highlight"><pre><span></span><code>```shell
-sudo yum update
-sudo yum install haproxy
-```
+</div>
+<div class="tabbed-block">
+<p>Install HAProxy from the default DNF repositories:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>haproxy
 </code></pre></div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
+</div>
+</div>
+</div>
 <p><strong>Supported versions of HAProxy</strong></p>
-<p>The lowest supported version of HAProxy is 1.4.20. </p>
+<p>Use the HAProxy version provided by your supported operating system repositories.</p>
 <p>To start HAProxy, use the <code>haproxy</code> command. You may pass any
 number of configuration parameters on the command line. To use a
 configuration file, use the <code>-f</code> option.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Passing one configuration file</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;
 <span class="c1"># Passing multiple configuration files</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg<span class="w"> </span>haproxy-2.cfg
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;<span class="w"> </span>&lt;HAPROXY_EXTRA_CFG_PATH&gt;
 <span class="c1"># Passing a directory</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>conf-dir
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_DIRECTORY&gt;
 </code></pre></div>
 <p>You can pass the name of an existing configuration file or a
 directory. HAProxy includes all files with the <em>.cfg</em> extension in the the
 supplied directory. Another way to pass multiple files is to use <code>-f</code>
 multiple times.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>HAProxy Documentation:
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/management.html"><code>Managing HAProxy (including available options)</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2"><code>More information about how to configure HAProxy</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```text
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        daemon
-        #debug
-        #quiet
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option mysql-check user root
-    server db01 10.4.29.100:3306 check
-    server db02 10.4.29.99:3306 check
-    server db03 10.4.29.98:3306 check
-</code></pre></div>
-</details>
-<p>Options set in the configuration file
-|HAProxy option (with links to HAProxy documentation)|Description|
-| -------------------------------------------------- |-----------|
-|global|A section in the configuration file for process-wide parameters|
-|defaults|A section in the configuration file for default parameters for all other following sections|
-|listen|A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance">balance <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Load balancing algorithm to be used in a backend|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout">clitimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum inactivity time on the client side|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout">contimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum time to wait for a connection attempt to a server to succeed.|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon">daemon <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>| Makes the process fork into background (recommended mode of operation)|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid">gid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Changes the process&rsquo; group ID to &#60;number&#62;|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log">log <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Adds a global syslog server|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn">maxconn <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Sets the maximum per-process number of concurrent connections to &#60;number&#62;|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode">mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the running mode or protocol of the instance|
-|option dontlognull|Disable logging of null connections|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog">option tcplog <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Enable advanced logging of TCP connections with session state and timers|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch">redispatch <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Enable or disable session redistribution in case of connection failure|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">retries <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the number of retries to perform on a server after a connection failure|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Declare a server in a backend|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout">srvtimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum inactivity time on the server side|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid">uid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Changes the process&rsquo; user ID to &#60;number&#62;|
-With this configuration, HAProxy will balance the load between three nodes.
-In this case, it only checks if <code>mysqld</code> listens on port 3306,
-but it doesn’t take into an account the state of the node.
-So it could be sending queries to the node that has <code>mysqld</code> running
-even if it’s in <code>JOINING</code> or <code>DISCONNECTED</code> state.
+<p>Replace placeholder values such as <code>&lt;NODE1_IP&gt;</code>, <code>&lt;NODE2_IP&gt;</code>, <code>&lt;NODE3_IP&gt;</code>,
+<code>&lt;HAPROXY_CFG_PATH&gt;</code>, and <code>&lt;HEALTHCHECK_PORT&gt;</code> with values from your environment.</p>
+<p>Options set in the configuration file</p>
+<table>
+<thead>
+<tr>
+<th>HAProxy option (with links to HAProxy documentation)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>global</td>
+<td>A section in the configuration file for process-wide parameters</td>
+</tr>
+<tr>
+<td>defaults</td>
+<td>A section in the configuration file for default parameters for all other following sections</td>
+</tr>
+<tr>
+<td>listen</td>
+<td>A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-balance">balance <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Load balancing algorithm to be used in a backend</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20client">timeout client <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum inactivity time on the client side</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20connect">timeout connect <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum time to wait for a connection attempt to a server to succeed.</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#daemon">daemon <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Makes the process fork into background (recommended mode of operation)</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-gid">gid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Changes the process&rsquo; group ID to &#60;number&#62;</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-log">log <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Adds a global syslog server</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.2-maxconn">maxconn <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Sets the maximum per-process number of concurrent connections to &#60;number&#62;</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-mode">mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the running mode or protocol of the instance</td>
+</tr>
+<tr>
+<td>option dontlognull</td>
+<td>Disable logging of null connections</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-option%20tcplog">option tcplog <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Enable advanced logging of TCP connections with session state and timers</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-redispatch">redispatch <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Enable or disable session redistribution in case of connection failure</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-retries">retries <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the number of retries to perform on a server after a connection failure</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-retries">server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Declare a server in a backend</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20server">timeout server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum inactivity time on the server side</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-uid">uid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Changes the process&rsquo; user ID to &#60;number&#62;</td>
+</tr>
+</tbody>
+</table>
+<p>With the following legacy configuration, HAProxy balances the load between three nodes.
+The health check only verifies that <code>mysqld</code> listens on port 3306,
+but the health check does not account for node state.
+As a result, HAProxy can send queries to a node with <code>mysqld</code> running
+even when the node state is <code>JOINING</code> or <code>DISCONNECTED</code>.
 To check the current status of a node we need a more complex check.
-This idea was taken from <a href="https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6">codership-team google groups <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
-To implement this setup, you will need two scripts:
-* <strong>clustercheck</strong> (located in <code>/usr/local/bin</code>) and a config for <code>xinetd</code>
-* <strong>mysqlchk</strong> (located in <code>/etc/xinetd.d</code>) on each node
-Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.
-Change the <code>/etc/services</code> file
-by adding the following line on each node:
-```text
-mysqlchk        9200/tcp                # mysqlchk</p>
-<div class="highlight"><pre><span></span><code>    ```
+The following approach uses <code>clustercheck</code> with HAProxy <code>httpchk</code> health checks.</p>
+<p>For Percona XtraDB Cluster 8.4 deployments, configure <code>clustercheck</code> on each node
+through a <code>systemd</code> socket/service workflow that listens on port <code>&lt;HEALTHCHECK_PORT&gt;</code>.</p>
+<p>The legacy <code>xinetd</code>-based workflow with <code>/etc/xinetd.d/mysqlchk</code> remains available
+for environments that still use <code>xinetd</code>.</p>
+<p>For the legacy <code>xinetd</code> workflow, add the following service entry on each node:</p>
+<div class="highlight"><pre><span></span><code>mysqlchk        9200/tcp                # mysqlchk
 </code></pre></div>
+<h2 id="configure-haproxy-with-clustercheck-health-checks-recommended">Configure HAProxy with <code>clustercheck</code> health checks (recommended)<a class="headerlink" href="#configure-haproxy-with-clustercheck-health-checks-recommended" title="Permanent link">&para;</a></h2>
 <details class="example">
 <summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```text
-this config needs haproxy-1.4.20
-global
+<div class="highlight"><pre><span></span><code>global
         log 127.0.0.1   local0
         log 127.0.0.1   local1 notice
         maxconn 4096
@@ -3616,33 +3756,131 @@ defaults
         retries 3
         redispatch
         maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-listen mysql-cluster 0.0.0.0:3306
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+listen mysql-cluster 0.0.0.0:&lt;PXC_SERVICE_PORT&gt;
     mode tcp
     balance roundrobin
     option  httpchk
-    server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-
-```
+    server db01 &lt;NODE1_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
+    server db02 &lt;NODE2_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
+    server db03 &lt;NODE3_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
 </code></pre></div>
 </details>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In Percona XtraDB Cluster 8.4, the default authentication plugin is
-<code>caching_sha2_password</code>. HAProxy does not support this authentication
-plugin. Create a mysql user using the <code>mysql_native_password</code>
-authentication plugin.
-```shell
-CREATE USER &lsquo;haproxy_user&rsquo;@&rsquo;%&rsquo; IDENTIFIED WITH mysql_native_password by &lsquo;$3Kr$t&rsquo;;</p>
-<p>```</p>
+<p>For the <code>option httpchk</code> configuration shown in <a href="#configure-haproxy-with-clustercheck-health-checks">Configure HAProxy with <code>clustercheck</code> health checks</a>, HAProxy checks
+node health through the <code>clustercheck</code> endpoint on port <code>&lt;HEALTHCHECK_PORT&gt;</code>. The
+<code>clustercheck</code> health check path does not require HAProxy to authenticate to
+MySQL with a user authentication plugin.</p>
+<h2 id="verify-haproxy-configuration">Verify HAProxy configuration<a class="headerlink" href="#verify-haproxy-configuration" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Validate the HAProxy configuration syntax:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>haproxy<span class="w"> </span>-c<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Configuration file is valid
+</code></pre></div>
+</details>
+<ol>
+<li>Restart HAProxy and confirm service state:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>haproxy
+sudo<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>haproxy
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>active
+</code></pre></div>
+</details>
+<ol>
+<li>Verify that HAProxy listens on port <code>&lt;PXC_SERVICE_PORT&gt;</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-ltn<span class="w"> </span><span class="p">|</span><span class="w"> </span>rg<span class="w"> </span><span class="s1">&#39;:&lt;PXC_SERVICE_PORT&gt;&#39;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>LISTEN 0      128      0.0.0.0:&lt;PXC_SERVICE_PORT&gt;      0.0.0.0:*
+</code></pre></div>
+</details>
+<ol>
+<li>Verify the node health endpoint on each cluster node:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-i<span class="w"> </span>http://&lt;NODE1_IP&gt;:&lt;HEALTHCHECK_PORT&gt;/
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>HTTP/1.1 200 OK
+Content-Type: text/plain
+</code></pre></div>
+</details>
+<ol>
+<li>Run an end-to-end query through HAProxy:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h<span class="w"> </span>&lt;HAPROXY_IP&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PXC_SERVICE_PORT&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+
+| @@hostname |
++------------+
+| &lt;NODE_NAME&gt;|
++------------+
+</code></pre></div>
+</details>
+<h2 id="legacy-haproxy-health-check-example-tcp-only">Legacy HAProxy health check example (TCP-only)<a class="headerlink" href="#legacy-haproxy-health-check-example-tcp-only" title="Permanent link">&para;</a></h2>
+<p>The following example uses a basic TCP/MySQL check. The following example does
+not verify node state and can route traffic to nodes that are not ready for
+application traffic.</p>
+<details class="example">
+<summary>Legacy HAProxy configuration example</summary>
+<div class="highlight"><pre><span></span><code>global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 notice
+        maxconn 4096
+        uid 99
+        gid 99
+        daemon
+        #debug
+        #quiet
+defaults
+        log     global
+        mode    http
+        option  tcplog
+        option  dontlognull
+        retries 3
+        redispatch
+        maxconn 2000
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+listen mysql-cluster 0.0.0.0:&lt;PXC_SERVICE_PORT&gt;
+    mode tcp
+    balance roundrobin
+    option mysql-check user root
+    server db01 &lt;NODE1_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+    server db02 &lt;NODE2_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+    server db03 &lt;NODE3_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+</code></pre></div>
+</details>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/create-user.html">MySQL Documentation: CREATE USER statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</div>
+<ul>
+<li><a href="configure-cluster-rhel.html">Configure a cluster on Red Hat-based distributions</a></li>
+<li><a href="configure-cluster-ubuntu.html">Configure a cluster on Debian or Ubuntu</a></li>
+<li><a href="high-availability.html">High availability</a></li>
+<li><a href="load-balance-proxysql.html">Load balancing with ProxySQL</a></li>
+<li><a href="monitoring.html#manual-monitoring">Manual monitoring</a></li>
+<li><a href="monitoring.html#alerting">Alerting</a></li>
+<li><a href="failover.html">Failover</a></li>
+<li><a href="add-node.html#start-the-second-node">Start the second node</a></li>
+<li><a href="add-node.html#starting-the-third-node">Starting the Third Node</a></li>
+<li><a href="verify-replication.html">Verify replication</a></li>
+<li><a href="bootstrap.html#bootstrap-the-first-node">Bootstrapping the First Node</a></li>
+<li><a href="https://www.haproxy.org/#docs">HAProxy Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.4/en/create-user.html">MySQL Documentation: CREATE USER statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+</ul>
 </div>
 
 
@@ -3666,7 +3904,7 @@ CREATE USER &lsquo;haproxy_user&rsquo;@&rsquo;%&rsquo; IDENTIFIED WITH mysql_nat
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
   </span>
 
     

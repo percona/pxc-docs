@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -10185,10 +10185,8 @@ component is loaded.
 --component_keyring_vault_config<span class="o">=</span>/dev/shm/pxc80/vault/component_keyring_vault.cnf<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>... [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
-    --explicit_defaults_for_timestamp server option (see documentation for more details).
-... [Note] --secure-file-priv is set to NULL. Operations related to importing and
+<summary>Expected log output</summary>
+<div class="no-copy highlight"><pre><span></span><code>... [Note] --secure-file-priv is set to NULL. Operations related to importing and
     exporting data are disabled
 ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
 ... [Note] /dev/shm/pxc84/bin/mysqld (mysqld 8.4-debug) starting as process 5710 ...
@@ -10444,10 +10442,8 @@ to ports 3306, 4444, 4567 and 4568.</p>
 <p>SELinux on all nodes is disabled.</p>
 </li>
 </ul>
-<div class="admonition admonition">
-<p class="admonition-title">Different from previous versions</p>
-</div>
-<p>The variable <code>wsrep_sst_auth</code> has been removed. Percona XtraDB Cluster 8.4 automatically creates the system user <a href="#glossary-mysqlpxcinternalsession"><code>mysql.pxc.internal.session</code></a>. During <a href="#glossary-sst">SST</a>, the user <code>mysql.pxc.sst.user</code> and the role <a href="#glossary-mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a> are created on the donor node.</p>
+<p>Percona XtraDB Cluster 8.4 creates the internal MySQL account <a href="#glossary-mysqlpxcinternalsession"><code>mysql.pxc.internal.session</code></a>, which the SST process uses to run the SQL needed for node synchronization.</p>
+<p>During <a href="#glossary-sst">SST</a>, that account creates the user <code>mysql.pxc.sst.user</code> on the donor node and assigns it the role <a href="#glossary-mysqlpxcsstrole"><code>mysql.pxc.sst.role</code></a>.</p>
 <h2 id="configure-cluster-rhel-step-1-install">Step 1. Install<a class="headerlink" href="#configure-cluster-rhel-step-1-install" title="Permanent link">&para;</a></h2>
 <p>Install Percona XtraDB Cluster on all three nodes as described in <a href="#yum-install-from-percona-software-repository">Install on Red Hat Enterprise Linux</a>.</p>
 <h2 id="configure-cluster-rhel-step-2-configure-the-first-node">Step 2. Configure the first node<a class="headerlink" href="#configure-cluster-rhel-step-2-configure-the-first-node" title="Permanent link">&para;</a></h2>
@@ -11047,32 +11043,42 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On <strong>Percona XtraDB Cluster</strong> 8.4, SSL is enabled by default. To run the Galera Arbitrator, you must copy the SSL certificates and configure <code>garbd</code> to use the certificates.</p>
-<p>It is necessary to specify the cipher. In this example, it is <code>AES128-SHA256</code>. If you do not specify the cipher, an error occurs with a “Terminate called after throwing an instance of ‘gnu::NotSet’” message.</p>
+<p>You must specify a cipher. This document uses <code>AES128-SHA256</code> as an example.
+Choose a cipher that matches your security policy and OpenSSL configuration.
+If no cipher is specified, startup can fail with a “Terminate called after
+throwing an instance of ‘gnu::NotSet’” message.</p>
 <p>For more information, see <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher">socket.ssl_cipher <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
-<div class="highlight"><pre><span></span><code>garbd<span class="w"> </span>--group<span class="o">=</span>my_ubuntu_cluster<span class="w"> </span><span class="se">\</span>
---address<span class="o">=</span><span class="s2">&quot;gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;</span><span class="w"> </span><span class="se">\</span>
---option<span class="o">=</span><span class="s2">&quot;socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \</span>
-<span class="s2">socket.ssl_cert=/etc/ssl/mysql/server-cert.pem; \</span>
-<span class="s2">socket.ssl_ca=/etc/ssl/mysql/ca.pem; \</span>
+<div class="highlight"><pre><span></span><code>garbd<span class="w"> </span>--group<span class="o">=</span>&lt;CLUSTER_NAME&gt;<span class="w"> </span><span class="se">\</span>
+--address<span class="o">=</span><span class="s2">&quot;gcomm://&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567&quot;</span><span class="w"> </span><span class="se">\</span>
+--option<span class="o">=</span><span class="s2">&quot;socket.ssl=YES; socket.ssl_key=&lt;SSL_KEY_PATH&gt;; \</span>
+<span class="s2">socket.ssl_cert=&lt;SSL_CERT_PATH&gt;; \</span>
+<span class="s2">socket.ssl_ca=&lt;SSL_CA_PATH&gt;; \</span>
 <span class="s2">socket.ssl_cipher=AES128-SHA256&quot;</span>
 </code></pre></div>
 <p>To avoid entering the options each time you start <code>garbd</code>, edit the options in the configuration file. To configure <em>Galera Arbitrator</em> on <em>Ubuntu/Debian</em>, edit the <code>/etc/default/garb</code> file. On RedHat or derivative distributions, the configuration can be found in <code>/etc/sysconfig/garb</code> file.</p>
-<p>The configuration file should look like this after the installation and before you have added your parameters:</p>
-<div class="no-copy highlight"><pre><span></span><code>Copyright (C) 2013-2015 Codership Oy
-This config file is to be sourced by garb service script.
-REMOVE THIS AFTER CONFIGURATION
-A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=&quot;&quot;
-Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=&quot;&quot;
-Optional Galera internal options string (e.g. SSL settings)
-see http://galeracluster.com/documentation-webpages/galeraparameters.html
-GALERA_OPTIONS=&quot;&quot;
-Log file for garbd. Optional, by default logs to syslog
-Deprecated for CentOS7, use journalctl to query the log for garbd
-LOG_FILE=&quot;&quot;
+<p>Replace placeholder values such as <code>&lt;CLUSTER_NAME&gt;</code>, <code>&lt;NODE1_IP&gt;</code>,
+<code>&lt;NODE2_IP&gt;</code>, <code>&lt;NODE3_IP&gt;</code>, <code>&lt;SSL_KEY_PATH&gt;</code>, <code>&lt;SSL_CERT_PATH&gt;</code>, and
+<code>&lt;SSL_CA_PATH&gt;</code> with values from your environment.</p>
+<p>After installation, before you add your cluster settings, <strong><code>/etc/default/garb</code></strong> (Debian/Ubuntu) from <strong>Percona XtraDB Cluster</strong> 8.4 packages matches the following template:</p>
+<div class="no-copy highlight"><pre><span></span><code># Copyright (C) 2012 Codership Oy
+# This config file is to be sourced by garb service script.
+
+# REMOVE THIS AFTER CONFIGURATION
+
+# A comma-separated list of node addresses (address[:port]) in the cluster
+# GALERA_NODES=&quot;&quot;
+
+# Galera cluster name, should be the same as on the rest of the nodes.
+# GALERA_GROUP=&quot;&quot;
+
+# Optional Galera internal options string (e.g. SSL settings)
+# see http://galeracluster.com/documentation-webpages/galeraparameters.html
+# GALERA_OPTIONS=&quot;&quot;
+
+# Log file for garbd. Optional, by default logs to syslog
+# LOG_FILE=&quot;&quot;
 </code></pre></div>
 <p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="#configure-cluster-ubuntu-configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
@@ -11082,63 +11088,117 @@ CONFIGURATION</code> line before you can start the service.</p>
 </div>
 <div class="no-copy highlight"><pre><span></span><code>This config file is to be sourced by garb service script.
 A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=&quot;192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;
+GALERA_NODES=&quot;&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567&quot;
 Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
+GALERA_GROUP=&quot;&lt;CLUSTER_NAME&gt;&quot;
 Optional Galera internal options string (e.g. SSL settings)
 see http://galeracluster.com/documentation-webpages/galeraparameters.html
-GALERA_OPTIONS=&quot;socket.ssl_key=/etc/ssl/mysql/server-key.pem;socket.ssl_cert=/etc/ssl/mysql/server-cert.pem;socket.ssl_ca=/etc/ssl/mysql/ca.pem;socket.ssl_cipher=AES128-SHA256&quot;
+GALERA_OPTIONS=&quot;socket.ssl_key=&lt;SSL_KEY_PATH&gt;;socket.ssl_cert=&lt;SSL_CERT_PATH&gt;;socket.ssl_ca=&lt;SSL_CA_PATH&gt;;socket.ssl_cipher=AES128-SHA256&quot;
 Log file for garbd. Optional, by default logs to syslog
-Deprecated for CentOS7, use journalctl to query the log for garbd
 LOG_FILE=&quot;/var/log/garbd.log&quot;
 </code></pre></div>
 <p>You can now start the <em>Galera Arbitrator</em> daemon (<code>garbd</code>). Run the following commands as root.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="garbd-howto-__tabbed_1_1" name="garbd-howto-__tabbed_1" type="radio" /><input id="garbd-howto-__tabbed_1_2" name="garbd-howto-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_1_1">On Debian or Ubuntu</label><label for="garbd-howto-__tabbed_1_2">On Red Hat Enterprise Linux or CentOS</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>garbd<span class="w"> </span>start
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>[ ok ] Starting /usr/bin/garbd: :.
-</code></pre></div>
-</details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>On systems that run <code>systemd</code> as the default system and service manager, use <code>systemctl</code> instead of <code>service</code> to invoke the command. Currently, both are supported.</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
-</code></pre></div>
+<p>The systemd service name is <code>garb</code>, while the daemon binary name is <code>garbd</code>.</p>
 </div>
-</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="garbd-howto-__tabbed_1_1" name="garbd-howto-__tabbed_1" type="radio" /><input id="garbd-howto-__tabbed_1_2" name="garbd-howto-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_1_1">On Debian or Ubuntu</label><label for="garbd-howto-__tabbed_1_2">On Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>garb<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>[ ok ] Starting /usr/bin/garbd: :.
+<div class="no-copy highlight"><pre><span></span><code># No output on success
+</code></pre></div>
+</details>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code># No output on success
 </code></pre></div>
 </details>
 </div>
 </div>
 </div>
 <p>Additionally, you can check the <code>arbitrator</code> status by running:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="garbd-howto-__tabbed_2_1" name="garbd-howto-__tabbed_2" type="radio" /><input id="garbd-howto-__tabbed_2_2" name="garbd-howto-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_2_1">On Debian or Ubuntu</label><label for="garbd-howto-__tabbed_2_2">On Red Hat Enterprise Linux or CentOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="garbd-howto-__tabbed_2_1" name="garbd-howto-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_2_1">On Debian or Ubuntu</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>garbd<span class="w"> </span>status
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>[ ok ] garb is running.
+<div class="no-copy highlight"><pre><span></span><code>active
 </code></pre></div>
 </details>
 </div>
-<div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>garb<span class="w"> </span>status
+</div>
+</div>
+<h2 id="garbd-howto-verify-arbitrator-participation">Verify arbitrator participation<a class="headerlink" href="#garbd-howto-verify-arbitrator-participation" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Check the arbitrator service state:</p>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>[ ok ] garb is running.
+<div class="no-copy highlight"><pre><span></span><code>active
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Check recent arbitrator logs for successful cluster communication:</p>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>garb<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>... WSREP: ...
+... connected ...
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>On a Percona XtraDB Cluster node, confirm that the cluster remains in <code>Primary</code> state:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+----------------------+---------+
+| Variable_name        | Value   |
++----------------------+---------+
+| wsrep_cluster_status | Primary |
++----------------------+---------+
+</code></pre></div>
+</details>
+</li>
+</ol>
+<h2 id="garbd-howto-troubleshooting">Troubleshooting<a class="headerlink" href="#garbd-howto-troubleshooting" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><code>gnu::NotSet</code> at startup: set <code>socket.ssl_cipher</code> in <code>GALERA_OPTIONS</code>.</p>
+</li>
+<li>
+<p>Arbitrator cannot join cluster: verify <code>GALERA_NODES</code> format (<code>IP:4567</code> entries separated by commas, no missing ports).</p>
+</li>
+<li>
+<p>No connectivity to cluster nodes: verify firewall and routing for port <code>4567</code> between arbitrator and all cluster nodes.</p>
+</li>
+<li>
+<p>Service starts then exits: review <code>journalctl -u garb --no-pager</code> and validate certificate file paths in <code>GALERA_OPTIONS</code>.</p>
+</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="garbd-howto-__tabbed_3_1" name="garbd-howto-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_3_1">On Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>active
 </code></pre></div>
 </details>
 </div>
@@ -11431,119 +11491,146 @@ CREATE<span class="w"> </span>DATABASE<span class="w"> </span>hello_tom<span cla
 </li>
 </ol>
 <p>The new database will be propagated to all nodes.</p></section><section class="print-page" id="haproxy" heading-number="11.7"><h1 id="haproxy-load-balancing-with-haproxy">Load balancing with HAProxy<a class="headerlink" href="#haproxy-load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
-<p>This manual describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
-<p>Start by installing HAProxy on a <a href="#glossary-node">node</a> that you intend to use
-for load balancing. The operating systems that support Percona XtraDB Cluster provide
-the haproxy package and you can install it using the package manager.</p>
-<p>Debian or Ubuntu</p>
-<div class="highlight"><pre><span></span><code>```shell
-sudo apt update
-sudo apt install haproxy
-```
+<p>This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
+<p>Start by installing HAProxy on a <a href="#glossary-node">node</a> intended for load balancing.
+Operating systems that support Percona XtraDB Cluster provide the <code>haproxy</code> package,
+and package managers install the package.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="haproxy-__tabbed_1_1" name="haproxy-__tabbed_1" type="radio" /><input id="haproxy-__tabbed_1_2" name="haproxy-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="haproxy-__tabbed_1_1">Debian or Ubuntu</label><label for="haproxy-__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install HAProxy from the default APT repositories:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>haproxy
 </code></pre></div>
-<p>Red Hat Enterprise Linux:</p>
-<div class="highlight"><pre><span></span><code>```shell
-sudo yum update
-sudo yum install haproxy
-```
+</div>
+<div class="tabbed-block">
+<p>Install HAProxy from the default DNF repositories:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>haproxy
 </code></pre></div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
+</div>
+</div>
+</div>
 <p><strong>Supported versions of HAProxy</strong></p>
-<p>The lowest supported version of HAProxy is 1.4.20. </p>
+<p>Use the HAProxy version provided by your supported operating system repositories.</p>
 <p>To start HAProxy, use the <code>haproxy</code> command. You may pass any
 number of configuration parameters on the command line. To use a
 configuration file, use the <code>-f</code> option.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Passing one configuration file</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;
 <span class="c1"># Passing multiple configuration files</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>haproxy-1.cfg<span class="w"> </span>haproxy-2.cfg
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;<span class="w"> </span>&lt;HAPROXY_EXTRA_CFG_PATH&gt;
 <span class="c1"># Passing a directory</span>
-sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>conf-dir
+sudo<span class="w"> </span>haproxy<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_DIRECTORY&gt;
 </code></pre></div>
 <p>You can pass the name of an existing configuration file or a
 directory. HAProxy includes all files with the <em>.cfg</em> extension in the the
 supplied directory. Another way to pass multiple files is to use <code>-f</code>
 multiple times.</p>
-<div class="admonition admonition">
-<p class="admonition-title">See also</p>
-<p>HAProxy Documentation:
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/management.html"><code>Managing HAProxy (including available options)</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
- * <a href="http://cbonte.github.io/haproxy-dconv/2.0/configuration.html#2"><code>More information about how to configure HAProxy</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</div>
-<details class="example">
-<summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```text
-global
-        log 127.0.0.1   local0
-        log 127.0.0.1   local1 notice
-        maxconn 4096
-        uid 99
-        gid 99
-        daemon
-        #debug
-        #quiet
-defaults
-        log     global
-        mode    http
-        option  tcplog
-        option  dontlognull
-        retries 3
-        redispatch
-        maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-listen mysql-cluster 0.0.0.0:3306
-    mode tcp
-    balance roundrobin
-    option mysql-check user root
-    server db01 10.4.29.100:3306 check
-    server db02 10.4.29.99:3306 check
-    server db03 10.4.29.98:3306 check
-</code></pre></div>
-</details>
-<p>Options set in the configuration file
-|HAProxy option (with links to HAProxy documentation)|Description|
-| -------------------------------------------------- |-----------|
-|global|A section in the configuration file for process-wide parameters|
-|defaults|A section in the configuration file for default parameters for all other following sections|
-|listen|A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-balance">balance <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Load balancing algorithm to be used in a backend|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-clitimeout">clitimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum inactivity time on the client side|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-contimeout">contimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum time to wait for a connection attempt to a server to succeed.|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#daemon">daemon <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>| Makes the process fork into background (recommended mode of operation)|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-gid">gid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Changes the process&rsquo; group ID to &#60;number&#62;|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-log">log <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Adds a global syslog server|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.2-maxconn">maxconn <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Sets the maximum per-process number of concurrent connections to &#60;number&#62;|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4-mode">mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the running mode or protocol of the instance|
-|option dontlognull|Disable logging of null connections|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-option%20tcplog">option tcplog <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Enable advanced logging of TCP connections with session state and timers|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-redispatch">redispatch <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Enable or disable session redistribution in case of connection failure|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">retries <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the number of retries to perform on a server after a connection failure|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-retries">server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Declare a server in a backend|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#4.2-srvtimeout">srvtimeout <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Set the maximum inactivity time on the server side|
-|<a href="https://cbonte.github.io/haproxy-dconv/2.0/configuration.html#3.1-uid">uid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>|Changes the process&rsquo; user ID to &#60;number&#62;|
-With this configuration, HAProxy will balance the load between three nodes.
-In this case, it only checks if <code>mysqld</code> listens on port 3306,
-but it doesn’t take into an account the state of the node.
-So it could be sending queries to the node that has <code>mysqld</code> running
-even if it’s in <code>JOINING</code> or <code>DISCONNECTED</code> state.
+<p>Replace placeholder values such as <code>&lt;NODE1_IP&gt;</code>, <code>&lt;NODE2_IP&gt;</code>, <code>&lt;NODE3_IP&gt;</code>,
+<code>&lt;HAPROXY_CFG_PATH&gt;</code>, and <code>&lt;HEALTHCHECK_PORT&gt;</code> with values from your environment.</p>
+<p>Options set in the configuration file</p>
+<table>
+<thead>
+<tr>
+<th>HAProxy option (with links to HAProxy documentation)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>global</td>
+<td>A section in the configuration file for process-wide parameters</td>
+</tr>
+<tr>
+<td>defaults</td>
+<td>A section in the configuration file for default parameters for all other following sections</td>
+</tr>
+<tr>
+<td>listen</td>
+<td>A section in the configuration file that defines a complete proxy with its frontend and backend parts combined in one section</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-balance">balance <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Load balancing algorithm to be used in a backend</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20client">timeout client <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum inactivity time on the client side</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20connect">timeout connect <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum time to wait for a connection attempt to a server to succeed.</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#daemon">daemon <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Makes the process fork into background (recommended mode of operation)</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-gid">gid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Changes the process&rsquo; group ID to &#60;number&#62;</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-log">log <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Adds a global syslog server</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.2-maxconn">maxconn <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Sets the maximum per-process number of concurrent connections to &#60;number&#62;</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-mode">mode <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the running mode or protocol of the instance</td>
+</tr>
+<tr>
+<td>option dontlognull</td>
+<td>Disable logging of null connections</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-option%20tcplog">option tcplog <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Enable advanced logging of TCP connections with session state and timers</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-redispatch">redispatch <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Enable or disable session redistribution in case of connection failure</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-retries">retries <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the number of retries to perform on a server after a connection failure</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4.2-retries">server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Declare a server in a backend</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#4-timeout%20server">timeout server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Set the maximum inactivity time on the server side</td>
+</tr>
+<tr>
+<td><a href="https://docs.haproxy.org/3.0/configuration.html#3.1-uid">uid <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></td>
+<td>Changes the process&rsquo; user ID to &#60;number&#62;</td>
+</tr>
+</tbody>
+</table>
+<p>With the following legacy configuration, HAProxy balances the load between three nodes.
+The health check only verifies that <code>mysqld</code> listens on port 3306,
+but the health check does not account for node state.
+As a result, HAProxy can send queries to a node with <code>mysqld</code> running
+even when the node state is <code>JOINING</code> or <code>DISCONNECTED</code>.
 To check the current status of a node we need a more complex check.
-This idea was taken from <a href="https://groups.google.com/group/codership-team/browse_thread/thread/44ee59c8b9c458aa/98b47d41125cfae6">codership-team google groups <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
-To implement this setup, you will need two scripts:
-* <strong>clustercheck</strong> (located in <code>/usr/local/bin</code>) and a config for <code>xinetd</code>
-* <strong>mysqlchk</strong> (located in <code>/etc/xinetd.d</code>) on each node
-Both scripts are available in binaries and source distributions of Percona XtraDB Cluster.
-Change the <code>/etc/services</code> file
-by adding the following line on each node:
-```text
-mysqlchk        9200/tcp                # mysqlchk</p>
-<div class="highlight"><pre><span></span><code>    ```
+The following approach uses <code>clustercheck</code> with HAProxy <code>httpchk</code> health checks.</p>
+<p>For Percona XtraDB Cluster 8.4 deployments, configure <code>clustercheck</code> on each node
+through a <code>systemd</code> socket/service workflow that listens on port <code>&lt;HEALTHCHECK_PORT&gt;</code>.</p>
+<p>The legacy <code>xinetd</code>-based workflow with <code>/etc/xinetd.d/mysqlchk</code> remains available
+for environments that still use <code>xinetd</code>.</p>
+<p>For the legacy <code>xinetd</code> workflow, add the following service entry on each node:</p>
+<div class="highlight"><pre><span></span><code>mysqlchk        9200/tcp                # mysqlchk
 </code></pre></div>
+<h2 id="haproxy-configure-haproxy-with-clustercheck-health-checks-recommended">Configure HAProxy with <code>clustercheck</code> health checks (recommended)<a class="headerlink" href="#haproxy-configure-haproxy-with-clustercheck-health-checks-recommended" title="Permanent link">&para;</a></h2>
 <details class="example">
 <summary>Example of the HAProxy configuration file</summary>
-<div class="highlight"><pre><span></span><code>```text
-this config needs haproxy-1.4.20
-global
+<div class="highlight"><pre><span></span><code>global
         log 127.0.0.1   local0
         log 127.0.0.1   local1 notice
         maxconn 4096
@@ -11560,33 +11647,131 @@ defaults
         retries 3
         redispatch
         maxconn 2000
-        contimeout      5000
-        clitimeout      50000
-        srvtimeout      50000
-listen mysql-cluster 0.0.0.0:3306
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+listen mysql-cluster 0.0.0.0:&lt;PXC_SERVICE_PORT&gt;
     mode tcp
     balance roundrobin
     option  httpchk
-    server db01 10.4.29.100:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db02 10.4.29.99:3306 check port 9200 inter 12000 rise 3 fall 3
-    server db03 10.4.29.98:3306 check port 9200 inter 12000 rise 3 fall 3
-
-```
+    server db01 &lt;NODE1_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
+    server db02 &lt;NODE2_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
+    server db03 &lt;NODE3_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check port &lt;HEALTHCHECK_PORT&gt; inter 12000 rise 3 fall 3
 </code></pre></div>
 </details>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>In Percona XtraDB Cluster 8.4, the default authentication plugin is
-<code>caching_sha2_password</code>. HAProxy does not support this authentication
-plugin. Create a mysql user using the <code>mysql_native_password</code>
-authentication plugin.
-```shell
-CREATE USER &lsquo;haproxy_user&rsquo;@&rsquo;%&rsquo; IDENTIFIED WITH mysql_native_password by &lsquo;$3Kr$t&rsquo;;</p>
-<p>```</p>
+<p>For the <code>option httpchk</code> configuration shown in <a href="#haproxy-configure-haproxy-with-clustercheck-health-checks">Configure HAProxy with <code>clustercheck</code> health checks</a>, HAProxy checks
+node health through the <code>clustercheck</code> endpoint on port <code>&lt;HEALTHCHECK_PORT&gt;</code>. The
+<code>clustercheck</code> health check path does not require HAProxy to authenticate to
+MySQL with a user authentication plugin.</p>
+<h2 id="haproxy-verify-haproxy-configuration">Verify HAProxy configuration<a class="headerlink" href="#haproxy-verify-haproxy-configuration" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Validate the HAProxy configuration syntax:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>haproxy<span class="w"> </span>-c<span class="w"> </span>-f<span class="w"> </span>&lt;HAPROXY_CFG_PATH&gt;
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Configuration file is valid
+</code></pre></div>
+</details>
+<ol>
+<li>Restart HAProxy and confirm service state:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>haproxy
+sudo<span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>haproxy
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>active
+</code></pre></div>
+</details>
+<ol>
+<li>Verify that HAProxy listens on port <code>&lt;PXC_SERVICE_PORT&gt;</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-ltn<span class="w"> </span><span class="p">|</span><span class="w"> </span>rg<span class="w"> </span><span class="s1">&#39;:&lt;PXC_SERVICE_PORT&gt;&#39;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>LISTEN 0      128      0.0.0.0:&lt;PXC_SERVICE_PORT&gt;      0.0.0.0:*
+</code></pre></div>
+</details>
+<ol>
+<li>Verify the node health endpoint on each cluster node:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>-i<span class="w"> </span>http://&lt;NODE1_IP&gt;:&lt;HEALTHCHECK_PORT&gt;/
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>HTTP/1.1 200 OK
+Content-Type: text/plain
+</code></pre></div>
+</details>
+<ol>
+<li>Run an end-to-end query through HAProxy:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h<span class="w"> </span>&lt;HAPROXY_IP&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PXC_SERVICE_PORT&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+
+| @@hostname |
++------------+
+| &lt;NODE_NAME&gt;|
++------------+
+</code></pre></div>
+</details>
+<h2 id="haproxy-legacy-haproxy-health-check-example-tcp-only">Legacy HAProxy health check example (TCP-only)<a class="headerlink" href="#haproxy-legacy-haproxy-health-check-example-tcp-only" title="Permanent link">&para;</a></h2>
+<p>The following example uses a basic TCP/MySQL check. The following example does
+not verify node state and can route traffic to nodes that are not ready for
+application traffic.</p>
+<details class="example">
+<summary>Legacy HAProxy configuration example</summary>
+<div class="highlight"><pre><span></span><code>global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 notice
+        maxconn 4096
+        uid 99
+        gid 99
+        daemon
+        #debug
+        #quiet
+defaults
+        log     global
+        mode    http
+        option  tcplog
+        option  dontlognull
+        retries 3
+        redispatch
+        maxconn 2000
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+listen mysql-cluster 0.0.0.0:&lt;PXC_SERVICE_PORT&gt;
+    mode tcp
+    balance roundrobin
+    option mysql-check user root
+    server db01 &lt;NODE1_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+    server db02 &lt;NODE2_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+    server db03 &lt;NODE3_IP&gt;:&lt;PXC_SERVICE_PORT&gt; check
+</code></pre></div>
+</details>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
-<p><a href="https://dev.mysql.com/doc/refman/8.4/en/create-user.html">MySQL Documentation: CREATE USER statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-</div>
+<ul>
+<li><a href="#configure-cluster-rhel">Configure a cluster on Red Hat-based distributions</a></li>
+<li><a href="#configure-cluster-ubuntu">Configure a cluster on Debian or Ubuntu</a></li>
+<li><a href="#high-availability">High availability</a></li>
+<li><a href="#load-balance-proxysql">Load balancing with ProxySQL</a></li>
+<li><a href="#monitoring-manual-monitoring">Manual monitoring</a></li>
+<li><a href="#monitoring-alerting">Alerting</a></li>
+<li><a href="#failover">Failover</a></li>
+<li><a href="#add-node-start-the-second-node">Start the second node</a></li>
+<li><a href="#add-node-starting-the-third-node">Starting the Third Node</a></li>
+<li><a href="#verify-replication">Verify replication</a></li>
+<li><a href="#bootstrap-bootstrap-the-first-node">Bootstrapping the First Node</a></li>
+<li><a href="https://www.haproxy.org/#docs">HAProxy Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.4/en/create-user.html">MySQL Documentation: CREATE USER statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+</ul>
 </div></section><section class="print-page" id="load-balance-proxysql" heading-number="11.8"><h1 id="load-balance-proxysql-load-balance-with-proxysql">Load balance with ProxySQL<a class="headerlink" href="#load-balance-proxysql-load-balance-with-proxysql" title="Permanent link">&para;</a></h1>
 <p><a href="http://www.proxysql.com/">ProxySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is a high-performance SQL proxy. ProxySQL runs as a daemon watched by a monitoring process. The process monitors the daemon and restarts it in case of a crash to minimize downtime.</p>
 <p>The daemon accepts incoming traffic from MySQL clients and forwards it to backend MySQL servers.</p>
@@ -11595,7 +11780,7 @@ CREATE USER &lsquo;haproxy_user&rsquo;@&rsquo;%&rsquo; IDENTIFIED WITH mysql_nat
 <p class="admonition-title">See also</p>
 <p><a href="https://proxysql.com/documentation/">ProxySQL Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
-<p><a href="#proxysql-v2-proxysql-admin-utilities">ProxySQL v2</a> natively supports Percona XtraDB Cluster. With this version, the <code>proxysql-admin</code> tool does not require any custom scripts to keep track of Percona XtraDB Cluster status.</p>
+<p><a href="https://proxysql.com/documentation/">ProxySQL 3</a> is the current major release and works with Percona XtraDB Cluster. ProxySQL 2 also works with Percona XtraDB Cluster, and the <code>proxysql-admin</code> tool does not require custom scripts to track Percona XtraDB Cluster status.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In version 8.4, Percona XtraDB Cluster does not support ProxySQL v1.</p>
@@ -11613,66 +11798,84 @@ CREATE USER &lsquo;haproxy_user&rsquo;@&rsquo;%&rsquo; IDENTIFIED WITH mysql_nat
 <tbody>
 <tr>
 <td>Node 1</td>
-<td>pxc1</td>
-<td>192.168.70.71</td>
+<td><code>&lt;PXC_NODE1_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE1_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 2</td>
-<td>pxc2</td>
-<td>192.168.70.72</td>
+<td><code>&lt;PXC_NODE2_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE2_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 3</td>
-<td>pxc3</td>
-<td>192.168.70.73</td>
+<td><code>&lt;PXC_NODE3_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE3_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 4</td>
-<td>proxysql</td>
-<td>192.168.70.74</td>
+<td><code>&lt;PROXYSQL_NAME&gt;</code></td>
+<td><code>&lt;PROXYSQL_IP&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <p>ProxySQL can be configured either using the <code>/etc/proxysql.cnf</code> file or through the admin interface. The admin interface is recommended because it can dynamically change the configuration without restarting the proxy.</p>
+<p>Replace placeholder values such as <code>&lt;PXC_NODE1_IP&gt;</code>, <code>&lt;PROXYSQL_IP&gt;</code>,
+<code>&lt;PROXYSQL_ADMIN_PASSWORD&gt;</code>, <code>&lt;MONITOR_PASSWORD&gt;</code>, <code>&lt;APP_USER&gt;</code>,
+<code>&lt;APP_PASSWORD&gt;</code>, and <code>&lt;PROXYSQL_RW_PORT&gt;</code> with values from your environment.</p>
 <p>To connect to the ProxySQL admin interface, you need a <code>mysql</code> client. You can either connect from Percona XtraDB Cluster nodes that already have the <code>mysql</code> client installed (Node 1, Node 2, Node 3) or install the client on Node 4 and connect locally. For this tutorial, install Percona XtraDB Cluster on Node 4:</p>
 <p>Changes in the installation procedure</p>
 <p>In Percona XtraDB Cluster 8.4, ProxySQL is not installed automatically as a dependency of the <code>percona-xtradb-cluster-client-8.4</code> package. You should install the <code>proxysql</code> package separately.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ProxySQL has multiple versions in the version 2 series.</p>
+<p>ProxySQL has multiple versions across the version 2 and version 3 series.</p>
 </div>
 <p>Run the following commands as root.</p>
-<ul>
-<li>On Debian or Ubuntu for ProxySQL 2.x:</li>
-</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="load-balance-proxysql-__tabbed_1_1" name="load-balance-proxysql-__tabbed_1" type="radio" /><input id="load-balance-proxysql-__tabbed_1_2" name="load-balance-proxysql-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="load-balance-proxysql-__tabbed_1_1">Debian or Ubuntu</label><label for="load-balance-proxysql-__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install the ProxySQL client tools and server package:</p>
 <div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
-apt<span class="w"> </span>install<span class="w"> </span>proxysql2
+apt<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
-<ul>
-<li>On Red Hat Enterprise Linux for ProxySQL 2.x:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>proxysql2
+</div>
+<div class="tabbed-block">
+<p>Install the ProxySQL client tools and server package:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
-<p>On RHEL 8 and later, you can use <code>dnf</code> instead of <code>yum</code>.</p>
+</div>
+</div>
+</div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
+<p>Some repositories still publish package names such as <code>proxysql2</code>. Use the
+package name available from your configured repository.</p>
 <p>To connect to the admin interface, use the credentials, host name and port specified in the <a href="https://github.com/sysown/proxysql/blob/master/doc/global_variables.md">global variables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Do not use default credentials in production!</p>
 </div>
+<h3 id="load-balance-proxysql-recommended-security-posture">Recommended security posture<a class="headerlink" href="#load-balance-proxysql-recommended-security-posture" title="Permanent link">&para;</a></h3>
+<p>Apply the following hardening practices before production rollout:</p>
+<ul>
+<li>
+<p>Change default admin credentials immediately.</p>
+</li>
+<li>
+<p>Scope user hosts to required sources (for example, <code>&lt;PROXYSQL_IP&gt;</code>) instead of <code>%</code>.</p>
+</li>
+<li>
+<p>Use unique secrets for the monitoring user and application user.</p>
+</li>
+</ul>
 <p>The following example shows how to connect to the ProxySQL admin interface with default credentials:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-padmin<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p&lt;PROXYSQL_ADMIN_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
-Server version: 5.5.30 (ProxySQL Admin Module)
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (ProxySQL Admin Module)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 mysql@proxysql&gt;
 </code></pre></div>
@@ -11690,8 +11893,9 @@ mysql@proxysql&gt;
 | 2   | disk    | /var/lib/proxysql/proxysql.db |
 | 3   | stats   |                               |
 | 4   | monitor |                               |
+...
 +-----+---------+-------------------------------+
-4 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
@@ -11714,8 +11918,9 @@ mysql@proxysql&gt;
 | runtime_mysql_servers                |
 | runtime_scheduler                    |
 | scheduler                            |
+...
 +--------------------------------------+
-12 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <p>For more information about admin databases and tables, see <a href="https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md">Admin Tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -11742,9 +11947,9 @@ mysql@proxysql&gt;
 <p>ProxySQL uses the concept of <em>hostgroups</em> to group cluster nodes. This enables you to balance the load in a cluster by routing different types of traffic to different groups. There are many ways you can configure hostgroups (for example, source and replicas, read and write load, etc.), and every node can be a member of multiple hostgroups.</p>
 </div>
 <p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>), which receives both write and read traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.71&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.72&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.73&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE1_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE2_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE3_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
 </code></pre></div>
 <p>To see the nodes:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span>
@@ -11755,28 +11960,27 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-| 0            | 192.168.70.71 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.72 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.73 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <h3 id="load-balance-proxysql-create-proxysql-monitoring-user">Create ProxySQL monitoring user<a class="headerlink" href="#load-balance-proxysql-create-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code> privilege on any node in the cluster and configure the user in ProxySQL.</p>
-<p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<p>For production deployments, avoid broad host patterns where possible. Use a host
+scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead of <code>%</code>.</p>
+<p>The following example adds a monitoring user on Node 2 using the <code>caching_sha2_password</code> authentication plugin:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;MONITOR_PASSWORD&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the user account privileges:</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
-<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;&lt;MONITOR_PASSWORD&gt;&#39;</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To load this configuration at runtime, issue a <code>LOAD</code> command. To save these changes to disk (ensuring that they persist after ProxySQL shuts down), issue a <code>SAVE</code> command.</p>
@@ -11791,14 +11995,12 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+----------------------+---------------+
 | hostname      | port | time_start_us    | connect_success_time | connect_error |
 +---------------+------+------------------+----------------------+---------------+
-| 192.168.70.71 | 3306 | 1469635762434625 | 1695                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635762434625 | 1779                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635762434625 | 1627                 | NULL          |
-| 192.168.70.71 | 3306 | 1469635642434517 | 1557                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635642434517 | 2737                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635642434517 | 1447                 | NULL          |
+| &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...                  | NULL          |
+| &lt;PXC_NODE2_IP&gt; | 3306 | ...              | ...                  | NULL          |
+| &lt;PXC_NODE3_IP&gt; | 3306 | ...              | ...                  | NULL          |
+...
 +---------------+------+------------------+----------------------+---------------+
-6 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_ping_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
@@ -11808,14 +12010,12 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+-------------------+------------+
 | hostname      | port | time_start_us    | ping_success_time | ping_error |
 +---------------+------+------------------+-------------------+------------+
-| 192.168.70.71 | 3306 | 1469635762416190 | 948               | NULL       |
-| 192.168.70.72 | 3306 | 1469635762416190 | 803               | NULL       |
-| 192.168.70.73 | 3306 | 1469635762416190 | 711               | NULL       |
-| 192.168.70.71 | 3306 | 1469635702416062 | 783               | NULL       |
-| 192.168.70.72 | 3306 | 1469635702416062 | 631               | NULL       |
-| 192.168.70.73 | 3306 | 1469635702416062 | 542               | NULL       |
+| &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...               | NULL       |
+| &lt;PXC_NODE2_IP&gt; | 3306 | ...              | ...               | NULL       |
+| &lt;PXC_NODE3_IP&gt; | 3306 | ...              | ...               | NULL       |
+...
 +---------------+------+------------------+-------------------+------------+
-6 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <p>The previous examples show that ProxySQL is able to connect and ping the nodes you have added.</p>
@@ -11825,7 +12025,7 @@ mysql@proxysql&gt;
 <h3 id="load-balance-proxysql-create-proxysql-client-user">Create ProxySQL client user<a class="headerlink" href="#load-balance-proxysql-create-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;sbuser&#39;</span><span class="p">,</span><span class="s1">&#39;sbpass&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11834,37 +12034,49 @@ mysql@proxysql&gt;
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ProxySQL currently doesn’t encrypt passwords.</p>
+<p>ProxySQL does not automatically encrypt plaintext passwords that you insert
+into <code>mysql_users.password</code>; use supported hashed password formats where
+applicable.
+For supported password hash formats and examples, see
+<a href="https://proxysql.com/documentation/password-management">ProxySQL Password Management <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <p>Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):</p>
 <div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 </code></pre></div>
 <p>To confirm that the user has been set up correctly, you can try to log in as root:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>sbuser<span class="w"> </span>-psbpass<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
-Server version: 8.4.6 (Percona XtraDB Cluster)
-Copyright (c) 2009-2024 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (Percona XtraDB Cluster)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 </code></pre></div>
 </details>
+<p>To verify end-to-end query routing through ProxySQL, run:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+
+| @@hostname |
++------------+
+| &lt;PXC_NODEX_NAME&gt; |
++------------+
+</code></pre></div>
+</details>
 <p>To provide read/write access to the cluster for ProxySQL, add this user on one of the Percona XtraDB Cluster nodes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;sbuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;sbuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -11873,16 +12085,21 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 </details>
 <h3 id="load-balance-proxysql-test-cluster-with-sysbench">Test cluster with sysbench<a class="headerlink" href="#load-balance-proxysql-test-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
 <p>You can install <code>sysbench</code> from Percona software repositories:</p>
-<ul>
-<li>For Debian or Ubuntu:</li>
-</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="load-balance-proxysql-__tabbed_2_1" name="load-balance-proxysql-__tabbed_2" type="radio" /><input id="load-balance-proxysql-__tabbed_2_2" name="load-balance-proxysql-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="load-balance-proxysql-__tabbed_2_1">Debian or Ubuntu</label><label for="load-balance-proxysql-__tabbed_2_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install <code>sysbench</code> with APT:</p>
 <div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
-<ul>
-<li>For Red Hat Enterprise Linux</li>
-</ul>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>sysbench
+</div>
+<div class="tabbed-block">
+<p>Install <code>sysbench</code> with DNF:</p>
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
+</div>
+</div>
+</div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>sysbench</code> requires ProxySQL client user credentials that you created in Creating ProxySQL Client User.</p>
@@ -11898,8 +12115,8 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 <div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
---oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+--oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span><span class="se">\</span>
 prepare
 </code></pre></div>
 <ol>
@@ -11908,8 +12125,8 @@ prepare
 <div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
---oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+--oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span><span class="se">\</span>
 run
 </code></pre></div>
 <p>ProxySQL stores collected data in the <code>stats</code> schema:</p>
@@ -11933,6 +12150,7 @@ run
 <p>For example, to see the number of commands that run on the cluster:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats_mysql_commands_counters</span><span class="p">;</span>
 </code></pre></div>
+<p>The exact timing and counter values vary by workload, host resources, and test duration.</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
@@ -11973,15 +12191,15 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE |
 +--------------+---------------+------+--------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <p>To test problem detection and fail-over mechanism, shut down Node 3:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>ProxySQL will detect that the node is down and update its status to <code>OFFLINE_SOFT</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -11991,15 +12209,15 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------------+
 | hostgroup_id | hostname      | port | status       |
 +--------------+---------------+------+--------------+
-| 0            | 192.168.70.71 | 3306 | ONLINE       |
-| 0            | 192.168.70.72 | 3306 | ONLINE       |
-| 0            | 192.168.70.73 | 3306 | OFFLINE_SOFT |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE       |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE       |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | OFFLINE_SOFT |
 +--------------+---------------+------+--------------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <p>Now start Node 3 again:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>The script will detect the change and mark the node as <code>ONLINE</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -12009,9 +12227,9 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE |
 +--------------+---------------+------+--------+
 3 rows in set (0.00 sec)
 </code></pre></div>
@@ -12060,9 +12278,7 @@ run
 based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.</p>
 <p>It is assumed that each PXC node is installed on Amazon T2.micro instances
-running RHEL 8. However, the information in this section should apply if you
-used another virtualization technology (for example, VirtualBox) with any Linux
-distribution.</p>
+running RHEL 9. This procedure documents a single RHEL 9 path.</p>
 <p>Each of the tree Percona XtraDB Cluster nodes is installed on a separate virtual machine. One
 more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 <div class="admonition admonition">
@@ -12075,7 +12291,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 </li>
 <li>
 <p>On the client node, install <a href="#load-balance-proxysql-load-balance-with-proxysql">ProxySQL</a> and <code>sysbench</code>:</p>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>proxysql2<span class="w"> </span>sysbench
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>proxysql<span class="w"> </span>sysbench
 </code></pre></div>
 </li>
 <li>
@@ -12107,12 +12323,8 @@ mysql -u admin -padmin -h 127.0.0.1 -P 6032
     ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 2
-    Server version: 5.5.30 (ProxySQL Admin Module)
-    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-    Oracle is a registered trademark of Oracle Corporation and/or its
-    affiliates. Other names may be trademarks of their respective
-    owners.
+    Server version: ... (ProxySQL Admin Module)
+    ...
     Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
     mysql&gt;
     ```
@@ -12358,9 +12570,6 @@ elected for write requests.</p>
 <h3 id="virtual-sandbox-creating-a-proxysql-monitoring-user">Creating a ProxySQL monitoring user<a class="headerlink" href="#virtual-sandbox-creating-a-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
-<p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
-</code></pre></div>
 <p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
@@ -12452,19 +12661,11 @@ you added.</p>
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
-Server version: 5.5.30 (ProxySQL)
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (ProxySQL)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 </code></pre></div>
 </details>
-<p>The following example adds an <code>appuser</code> user account, if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span>
-<span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
-</code></pre></div>
 <p>The following example adds an <code>appuser</code> user account if you are using the <code>caching_sha2_password</code> authentication method:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
@@ -12473,6 +12674,41 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 <p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
 </code></pre></div>
+<h2 id="virtual-sandbox-verification-checklist">Verification checklist<a class="headerlink" href="#virtual-sandbox-verification-checklist" title="Permanent link">&para;</a></h2>
+<p>Run the following checks after setup to confirm that the virtual sandbox is working.</p>
+<ol>
+<li>Verify ProxySQL admin login:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-padmin<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
+</code></pre></div>
+<p>Expected result: ProxySQL admin prompt opens without errors.</p>
+<ol>
+<li>Verify backend status in ProxySQL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+</code></pre></div>
+<p>Expected result: all configured backend nodes show <code>ONLINE</code>.</p>
+<ol>
+<li>Verify end-to-end query routing through ProxySQL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>appuser<span class="w"> </span>-p<span class="nv">$3</span>kRetp@<span class="nv">$sW0rd</span><span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<p>Expected result: query returns a backend node hostname.</p>
+<ol>
+<li>
+<p>Verify failover behavior (sanity check):</p>
+</li>
+<li>
+<p>Stop one backend node.</p>
+</li>
+<li>
+<p>Re-run:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<p>Expected result: stopped node changes from <code>ONLINE</code> to an offline state
+such as <code>OFFLINE_SOFT</code>, while remaining nodes continue serving traffic.</p>
 <h2 id="virtual-sandbox-testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a class="headerlink" href="#virtual-sandbox-testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
 <p>After you set up Percona XtraDB Cluster in your testing environment, you can test it using
 the <code>sysbench</code> benchmarking tool.</p>
@@ -12515,12 +12751,13 @@ The following output confirms that a new database has been created:
 </li>
 </ol>
 <hr />
-<p><strong>Related sections and additional reading</strong></p>
+<p>For more information, see:</p>
 <ul>
 <li><a href="#load-balance-proxysql-load-balance-with-proxysql">Load balancing with ProxySQL</a></li>
 <li><a href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure on RHEL</a></li>
-<li><a href="https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/">Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://github.com/akopytov/sysbench/">GitHub repository for the sysbench benchmarking tool <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li><a href="#verify-replication">Verify replication in Percona XtraDB Cluster</a></li>
+<li><a href="#crash-recovery">Crash recovery</a></li>
+<li><a href="#high-availability">High availability</a></li>
 </ul></section></section>
                     <section class='print-page md-section' id='section-12' heading-number='12'>
                         <h1>Reference<a class='headerlink' href='#section-12' title='Permanent link'></a>
@@ -14060,7 +14297,7 @@ It can be disabled in source-replica clusters.</p>
 <thead>
 <tr>
 <th>Option</th>
-<th>Description</th>
+<th>Descriptio n</th>
 </tr>
 </thead>
 <tbody>
@@ -14534,7 +14771,7 @@ set the <a href="#wsrep-system-index-wsrep_sync_wait"><code>wsrep_sync_wait</cod
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------+
 | @@wsrep_dirty_reads   |
-+=======================+
++-----------------------+
 | OFF                   |
 +-----------------------+
 </code></pre></div>
@@ -14545,7 +14782,7 @@ set the <a href="#wsrep-system-index-wsrep_sync_wait"><code>wsrep_sync_wait</cod
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+-----------------------+
 | @@wsrep_dirty_reads   |
-+=======================+
++-----------------------+
 | ON                    |
 +-----------------------+
 </code></pre></div>
@@ -16117,7 +16354,7 @@ that is fully synced with the cluster.</p>
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------+
 | @@wsrep_sync_wait   |
-+=====================+
++---------------------+
 | 3                   |
 +---------------------+
 </code></pre></div>
@@ -16128,7 +16365,7 @@ that is fully synced with the cluster.</p>
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------+
 | @@wsrep_sync_wait   |
-+=====================+
++---------------------+
 | 7                   |
 +---------------------+
 </code></pre></div>
@@ -16207,14 +16444,16 @@ and <code>REPLACE</code> statements.</p>
 </table>
 <p>Defines the the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
-+==============================+
++------------------------------+
 | statements                   |
++------------------------------+
+
 +------------------------------+
 | @@wsrep_trx_fragment_size    |
 +------------------------------+
@@ -16228,7 +16467,7 @@ and <code>REPLACE</code> statements.</p>
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_size    |
-+==============================+
++------------------------------+
 | 5                            |
 +------------------------------+
 </code></pre></div>
@@ -16247,7 +16486,7 @@ Query OK, 0 rows affected (0.00 sec)
 SELECT * FROM t1 LIMIT 5;
 +---+
 | i |
-+===+
++---+
 | 2 |
 +---+
 | 2 |
@@ -16300,8 +16539,10 @@ Query OK, 131072 rows affected (15.09 sec)
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
-+==============================+
++------------------------------+
 | statements                   |
++------------------------------+
+
 +------------------------------+
 | @@wsrep_trx_fragment_size    |
 +------------------------------+
@@ -16315,7 +16556,7 @@ Query OK, 131072 rows affected (15.09 sec)
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
-+==============================+
++------------------------------+
 | rows                         |
 +------------------------------+
 </code></pre></div>
@@ -17397,42 +17638,6 @@ Whenever you set <code>gcache.keep_pages_count</code> to a non-zero value, the c
 <p>Whenever you update either <a href="#wsrep-provider-index-gcachekeep_pages_count"><code>gcache.keep_pages_count</code></a> or <code>gcache.keep_pages_size</code> at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.</p>
 <p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.keep_pages_size=0&quot;
-</code></pre></div>
-<h3 id="wsrep-provider-index-gcachemem_size"><code>gcache.mem_size</code><a class="headerlink" href="#wsrep-provider-index-gcachemem_size" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Command Line:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Config File:</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Scope:</td>
-<td>Global</td>
-</tr>
-<tr>
-<td>Dynamic:</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Default Value:</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>This option has been deprecated in <code>5.6.22-25.8</code> and shouldn’t be used because the option could cause a node to crash.</p>
-<p>This option was used to define how much RAM is available for the system.</p>
-<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.mem_size=0&quot;
 </code></pre></div>
 <h3 id="wsrep-provider-index-gcachename"><code>gcache.name</code><a class="headerlink" href="#wsrep-provider-index-gcachename" title="Permanent link">&para;</a></h3>
 <table>
@@ -19559,7 +19764,7 @@ Percona XtraDB Cluster Node is not synced.
 <p>Percona XtraDB Cluster does not support “async” mode, all commits are synchronous on all nodes.</p>
 <p>To be precise, the commits are “virtually” synchronous, which means that the transaction should pass <em>certification</em> on nodes, not physical commit. Certification means a guarantee that the transaction does not have conflicts with other transactions on the corresponding node.</p>
 <h2 id="faq-does-percona-xtradb-cluster-work-with-regular-mysql-replication">Does Percona XtraDB Cluster work with regular MySQL replication?<a class="headerlink" href="#faq-does-percona-xtradb-cluster-work-with-regular-mysql-replication" title="Permanent link">&para;</a></h2>
-<p>Yes. On the node you are going to use as source, enable binary logging and replica updates: set <code>log_bin</code> and <code>log_replica_updates</code> (or the deprecated <code>log_slave_updates</code>) in your configuration.</p>
+<p>Yes. On the node you are going to use as source, set a unique non-zero <code>server_id</code>, enable binary logging (<code>log_bin</code>), and enable <code>log_replica_updates</code> (or the deprecated <code>log_slave_updates</code>) so cluster-applied writes are recorded in the binary log for downstream replicas.</p>
 <h2 id="faq-why-the-mysql-init-script-does-not-start">Why the MySQL init script does not start?<a class="headerlink" href="#faq-why-the-mysql-init-script-does-not-start" title="Permanent link">&para;</a></h2>
 <p>On systemd-based systems, use <code>systemctl start mysql</code> or <code>systemctl start mysqld</code> instead of the init script. If the service does not start, SELinux can block it. Prefer configuring SELinux to allow MySQL (for example, setting the correct file context or booleans) rather than disabling it. Only as a last resort for troubleshooting, you can temporarily set SELinux to permissive:</p>
 <div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">0</span>

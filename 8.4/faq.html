@@ -28,7 +28,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -3979,7 +3979,7 @@ Percona XtraDB Cluster Node is not synced.
 <p>Percona XtraDB Cluster does not support “async” mode, all commits are synchronous on all nodes.</p>
 <p>To be precise, the commits are “virtually” synchronous, which means that the transaction should pass <em>certification</em> on nodes, not physical commit. Certification means a guarantee that the transaction does not have conflicts with other transactions on the corresponding node.</p>
 <h2 id="does-percona-xtradb-cluster-work-with-regular-mysql-replication">Does Percona XtraDB Cluster work with regular MySQL replication?<a class="headerlink" href="#does-percona-xtradb-cluster-work-with-regular-mysql-replication" title="Permanent link">&para;</a></h2>
-<p>Yes. On the node you are going to use as source, enable binary logging and replica updates: set <code>log_bin</code> and <code>log_replica_updates</code> (or the deprecated <code>log_slave_updates</code>) in your configuration.</p>
+<p>Yes. On the node you are going to use as source, set a unique non-zero <code>server_id</code>, enable binary logging (<code>log_bin</code>), and enable <code>log_replica_updates</code> (or the deprecated <code>log_slave_updates</code>) so cluster-applied writes are recorded in the binary log for downstream replicas.</p>
 <h2 id="why-the-mysql-init-script-does-not-start">Why the MySQL init script does not start?<a class="headerlink" href="#why-the-mysql-init-script-does-not-start" title="Permanent link">&para;</a></h2>
 <p>On systemd-based systems, use <code>systemctl start mysql</code> or <code>systemctl start mysqld</code> instead of the init script. If the service does not start, SELinux can block it. Prefer configuring SELinux to allow MySQL (for example, setting the correct file context or booleans) rather than disabling it. Only as a last resort for troubleshooting, you can temporarily set SELinux to permissive:</p>
 <div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">0</span>
@@ -4008,7 +4008,7 @@ Percona XtraDB Cluster Node is not synced.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
   </span>
 
     

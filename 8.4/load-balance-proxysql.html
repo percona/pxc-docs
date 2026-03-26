@@ -28,7 +28,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -3585,7 +3585,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">See also</p>
 <p><a href="https://proxysql.com/documentation/">ProxySQL Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
-<p><a href="proxysql-v2.html#proxysql-admin-utilities">ProxySQL v2</a> natively supports Percona XtraDB Cluster. With this version, the <code>proxysql-admin</code> tool does not require any custom scripts to keep track of Percona XtraDB Cluster status.</p>
+<p><a href="https://proxysql.com/documentation/">ProxySQL 3</a> is the current major release and works with Percona XtraDB Cluster. ProxySQL 2 also works with Percona XtraDB Cluster, and the <code>proxysql-admin</code> tool does not require custom scripts to track Percona XtraDB Cluster status.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>In version 8.4, Percona XtraDB Cluster does not support ProxySQL v1.</p>
@@ -3603,66 +3603,84 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td>Node 1</td>
-<td>pxc1</td>
-<td>192.168.70.71</td>
+<td><code>&lt;PXC_NODE1_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE1_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 2</td>
-<td>pxc2</td>
-<td>192.168.70.72</td>
+<td><code>&lt;PXC_NODE2_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE2_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 3</td>
-<td>pxc3</td>
-<td>192.168.70.73</td>
+<td><code>&lt;PXC_NODE3_NAME&gt;</code></td>
+<td><code>&lt;PXC_NODE3_IP&gt;</code></td>
 </tr>
 <tr>
 <td>Node 4</td>
-<td>proxysql</td>
-<td>192.168.70.74</td>
+<td><code>&lt;PROXYSQL_NAME&gt;</code></td>
+<td><code>&lt;PROXYSQL_IP&gt;</code></td>
 </tr>
 </tbody>
 </table>
 <p>ProxySQL can be configured either using the <code>/etc/proxysql.cnf</code> file or through the admin interface. The admin interface is recommended because it can dynamically change the configuration without restarting the proxy.</p>
+<p>Replace placeholder values such as <code>&lt;PXC_NODE1_IP&gt;</code>, <code>&lt;PROXYSQL_IP&gt;</code>,
+<code>&lt;PROXYSQL_ADMIN_PASSWORD&gt;</code>, <code>&lt;MONITOR_PASSWORD&gt;</code>, <code>&lt;APP_USER&gt;</code>,
+<code>&lt;APP_PASSWORD&gt;</code>, and <code>&lt;PROXYSQL_RW_PORT&gt;</code> with values from your environment.</p>
 <p>To connect to the ProxySQL admin interface, you need a <code>mysql</code> client. You can either connect from Percona XtraDB Cluster nodes that already have the <code>mysql</code> client installed (Node 1, Node 2, Node 3) or install the client on Node 4 and connect locally. For this tutorial, install Percona XtraDB Cluster on Node 4:</p>
 <p>Changes in the installation procedure</p>
 <p>In Percona XtraDB Cluster 8.4, ProxySQL is not installed automatically as a dependency of the <code>percona-xtradb-cluster-client-8.4</code> package. You should install the <code>proxysql</code> package separately.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ProxySQL has multiple versions in the version 2 series.</p>
+<p>ProxySQL has multiple versions across the version 2 and version 3 series.</p>
 </div>
 <p>Run the following commands as root.</p>
-<ul>
-<li>On Debian or Ubuntu for ProxySQL 2.x:</li>
-</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install the ProxySQL client tools and server package:</p>
 <div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
-apt<span class="w"> </span>install<span class="w"> </span>proxysql2
+apt<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
-<ul>
-<li>On Red Hat Enterprise Linux for ProxySQL 2.x:</li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>proxysql2
+</div>
+<div class="tabbed-block">
+<p>Install the ProxySQL client tools and server package:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
-<p>On RHEL 8 and later, you can use <code>dnf</code> instead of <code>yum</code>.</p>
+</div>
+</div>
+</div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
+<p>Some repositories still publish package names such as <code>proxysql2</code>. Use the
+package name available from your configured repository.</p>
 <p>To connect to the admin interface, use the credentials, host name and port specified in the <a href="https://github.com/sysown/proxysql/blob/master/doc/global_variables.md">global variables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Do not use default credentials in production!</p>
 </div>
+<h3 id="recommended-security-posture">Recommended security posture<a class="headerlink" href="#recommended-security-posture" title="Permanent link">&para;</a></h3>
+<p>Apply the following hardening practices before production rollout:</p>
+<ul>
+<li>
+<p>Change default admin credentials immediately.</p>
+</li>
+<li>
+<p>Scope user hosts to required sources (for example, <code>&lt;PROXYSQL_IP&gt;</code>) instead of <code>%</code>.</p>
+</li>
+<li>
+<p>Use unique secrets for the monitoring user and application user.</p>
+</li>
+</ul>
 <p>The following example shows how to connect to the ProxySQL admin interface with default credentials:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-padmin<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p&lt;PROXYSQL_ADMIN_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
-Server version: 5.5.30 (ProxySQL Admin Module)
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (ProxySQL Admin Module)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 mysql@proxysql&gt;
 </code></pre></div>
@@ -3680,8 +3698,9 @@ mysql@proxysql&gt;
 | 2   | disk    | /var/lib/proxysql/proxysql.db |
 | 3   | stats   |                               |
 | 4   | monitor |                               |
+...
 +-----+---------+-------------------------------+
-4 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
@@ -3704,8 +3723,9 @@ mysql@proxysql&gt;
 | runtime_mysql_servers                |
 | runtime_scheduler                    |
 | scheduler                            |
+...
 +--------------------------------------+
-12 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <p>For more information about admin databases and tables, see <a href="https://github.com/sysown/proxysql/blob/master/doc/admin_tables.md">Admin Tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -3732,9 +3752,9 @@ mysql@proxysql&gt;
 <p>ProxySQL uses the concept of <em>hostgroups</em> to group cluster nodes. This enables you to balance the load in a cluster by routing different types of traffic to different groups. There are many ways you can configure hostgroups (for example, source and replicas, read and write load, etc.), and every node can be a member of multiple hostgroups.</p>
 </div>
 <p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>), which receives both write and read traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.71&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.72&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;192.168.70.73&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE1_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE2_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;&lt;PXC_NODE3_IP&gt;&#39;</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
 </code></pre></div>
 <p>To see the nodes:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span>
@@ -3745,28 +3765,27 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
-| 0            | 192.168.70.71 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.72 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
-| 0            | 192.168.70.73 | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <h3 id="create-proxysql-monitoring-user">Create ProxySQL monitoring user<a class="headerlink" href="#create-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code> privilege on any node in the cluster and configure the user in ProxySQL.</p>
-<p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
-</code></pre></div>
-<p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<p>For production deployments, avoid broad host patterns where possible. Use a host
+scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead of <code>%</code>.</p>
+<p>The following example adds a monitoring user on Node 2 using the <code>caching_sha2_password</code> authentication plugin:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;MONITOR_PASSWORD&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the user account privileges:</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
-<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;&lt;MONITOR_PASSWORD&gt;&#39;</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>To load this configuration at runtime, issue a <code>LOAD</code> command. To save these changes to disk (ensuring that they persist after ProxySQL shuts down), issue a <code>SAVE</code> command.</p>
@@ -3781,14 +3800,12 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+----------------------+---------------+
 | hostname      | port | time_start_us    | connect_success_time | connect_error |
 +---------------+------+------------------+----------------------+---------------+
-| 192.168.70.71 | 3306 | 1469635762434625 | 1695                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635762434625 | 1779                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635762434625 | 1627                 | NULL          |
-| 192.168.70.71 | 3306 | 1469635642434517 | 1557                 | NULL          |
-| 192.168.70.72 | 3306 | 1469635642434517 | 2737                 | NULL          |
-| 192.168.70.73 | 3306 | 1469635642434517 | 1447                 | NULL          |
+| &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...                  | NULL          |
+| &lt;PXC_NODE2_IP&gt; | 3306 | ...              | ...                  | NULL          |
+| &lt;PXC_NODE3_IP&gt; | 3306 | ...              | ...                  | NULL          |
+...
 +---------------+------+------------------+----------------------+---------------+
-6 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_ping_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
@@ -3798,14 +3815,12 @@ mysql@proxysql&gt;
 <div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+-------------------+------------+
 | hostname      | port | time_start_us    | ping_success_time | ping_error |
 +---------------+------+------------------+-------------------+------------+
-| 192.168.70.71 | 3306 | 1469635762416190 | 948               | NULL       |
-| 192.168.70.72 | 3306 | 1469635762416190 | 803               | NULL       |
-| 192.168.70.73 | 3306 | 1469635762416190 | 711               | NULL       |
-| 192.168.70.71 | 3306 | 1469635702416062 | 783               | NULL       |
-| 192.168.70.72 | 3306 | 1469635702416062 | 631               | NULL       |
-| 192.168.70.73 | 3306 | 1469635702416062 | 542               | NULL       |
+| &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...               | NULL       |
+| &lt;PXC_NODE2_IP&gt; | 3306 | ...              | ...               | NULL       |
+| &lt;PXC_NODE3_IP&gt; | 3306 | ...              | ...               | NULL       |
+...
 +---------------+------+------------------+-------------------+------------+
-6 rows in set (0.00 sec)
+... rows in set (...)
 </code></pre></div>
 </details>
 <p>The previous examples show that ProxySQL is able to connect and ping the nodes you have added.</p>
@@ -3815,7 +3830,7 @@ mysql@proxysql&gt;
 <h3 id="create-proxysql-client-user">Create ProxySQL client user<a class="headerlink" href="#create-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;sbuser&#39;</span><span class="p">,</span><span class="s1">&#39;sbpass&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3824,37 +3839,49 @@ mysql@proxysql&gt;
 </details>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>ProxySQL currently doesn’t encrypt passwords.</p>
+<p>ProxySQL does not automatically encrypt plaintext passwords that you insert
+into <code>mysql_users.password</code>; use supported hashed password formats where
+applicable.
+For supported password hash formats and examples, see
+<a href="https://proxysql.com/documentation/password-management">ProxySQL Password Management <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <p>Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):</p>
 <div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 </code></pre></div>
 <p>To confirm that the user has been set up correctly, you can try to log in as root:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>sbuser<span class="w"> </span>-psbpass<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
-Server version: 8.4.6 (Percona XtraDB Cluster)
-Copyright (c) 2009-2024 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (Percona XtraDB Cluster)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 </code></pre></div>
 </details>
+<p>To verify end-to-end query routing through ProxySQL, run:</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------+
+| @@hostname |
++------------+
+| &lt;PXC_NODEX_NAME&gt; |
++------------+
+</code></pre></div>
+</details>
 <p>To provide read/write access to the cluster for ProxySQL, add this user on one of the Percona XtraDB Cluster nodes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;sbuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;sbuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="o">@</span><span class="s1">&#39;&lt;PROXYSQL_IP&gt;&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3863,16 +3890,21 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 </details>
 <h3 id="test-cluster-with-sysbench">Test cluster with sysbench<a class="headerlink" href="#test-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
 <p>You can install <code>sysbench</code> from Percona software repositories:</p>
-<ul>
-<li>For Debian or Ubuntu:</li>
-</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Debian or Ubuntu</label><label for="__tabbed_2_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install <code>sysbench</code> with APT:</p>
 <div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
-<ul>
-<li>For Red Hat Enterprise Linux</li>
-</ul>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>sysbench
+</div>
+<div class="tabbed-block">
+<p>Install <code>sysbench</code> with DNF:</p>
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
+</div>
+</div>
+</div>
+<p>On environments that use YUM, use equivalent <code>yum</code> commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>sysbench</code> requires ProxySQL client user credentials that you created in Creating ProxySQL Client User.</p>
@@ -3888,8 +3920,8 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 <div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
---oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+--oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span><span class="se">\</span>
 prepare
 </code></pre></div>
 <ol>
@@ -3898,8 +3930,8 @@ prepare
 <div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
---oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">&#39;&lt;APP_USER&gt;&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;&lt;APP_PASSWORD&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+--oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span><span class="se">\</span>
 run
 </code></pre></div>
 <p>ProxySQL stores collected data in the <code>stats</code> schema:</p>
@@ -3923,6 +3955,7 @@ run
 <p>For example, to see the number of commands that run on the cluster:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats_mysql_commands_counters</span><span class="p">;</span>
 </code></pre></div>
+<p>The exact timing and counter values vary by workload, host resources, and test duration.</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
@@ -3963,15 +3996,15 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE |
 +--------------+---------------+------+--------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <p>To test problem detection and fail-over mechanism, shut down Node 3:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>ProxySQL will detect that the node is down and update its status to <code>OFFLINE_SOFT</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -3981,15 +4014,15 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------------+
 | hostgroup_id | hostname      | port | status       |
 +--------------+---------------+------+--------------+
-| 0            | 192.168.70.71 | 3306 | ONLINE       |
-| 0            | 192.168.70.72 | 3306 | ONLINE       |
-| 0            | 192.168.70.73 | 3306 | OFFLINE_SOFT |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE       |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE       |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | OFFLINE_SOFT |
 +--------------+---------------+------+--------------+
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
 <p>Now start Node 3 again:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>The script will detect the change and mark the node as <code>ONLINE</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -3999,9 +4032,9 @@ run
 <div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
-| 0            | 192.168.70.71 | 3306 | ONLINE |
-| 0            | 192.168.70.72 | 3306 | ONLINE |
-| 0            | 192.168.70.73 | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE2_IP&gt; | 3306 | ONLINE |
+| 0            | &lt;PXC_NODE3_IP&gt; | 3306 | ONLINE |
 +--------------+---------------+------+--------+
 3 rows in set (0.00 sec)
 </code></pre></div>
@@ -4059,7 +4092,7 @@ run
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
   </span>
 
     

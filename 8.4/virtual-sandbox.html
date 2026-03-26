@@ -30,7 +30,7 @@ tool.">
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -2845,6 +2845,17 @@ tool.">
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#testing-the-cluster-with-the-sysbench-benchmark-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3517,6 +3528,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#verification-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#testing-the-cluster-with-the-sysbench-benchmark-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3562,9 +3584,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.</p>
 <p>It is assumed that each PXC node is installed on Amazon T2.micro instances
-running RHEL 8. However, the information in this section should apply if you
-used another virtualization technology (for example, VirtualBox) with any Linux
-distribution.</p>
+running RHEL 9. This procedure documents a single RHEL 9 path.</p>
 <p>Each of the tree Percona XtraDB Cluster nodes is installed on a separate virtual machine. One
 more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 <div class="admonition admonition">
@@ -3577,7 +3597,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 </li>
 <li>
 <p>On the client node, install <a href="load-balance-proxysql.html#load-balance-with-proxysql">ProxySQL</a> and <code>sysbench</code>:</p>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>proxysql2<span class="w"> </span>sysbench
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>proxysql<span class="w"> </span>sysbench
 </code></pre></div>
 </li>
 <li>
@@ -3609,12 +3629,8 @@ mysql -u admin -padmin -h 127.0.0.1 -P 6032
     ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 2
-    Server version: 5.5.30 (ProxySQL Admin Module)
-    Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-    Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-    Oracle is a registered trademark of Oracle Corporation and/or its
-    affiliates. Other names may be trademarks of their respective
-    owners.
+    Server version: ... (ProxySQL Admin Module)
+    ...
     Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
     mysql&gt;
     ```
@@ -3860,9 +3876,6 @@ elected for write requests.</p>
 <h3 id="creating-a-proxysql-monitoring-user">Creating a ProxySQL monitoring user<a class="headerlink" href="#creating-a-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
-<p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
-</code></pre></div>
 <p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
@@ -3954,19 +3967,11 @@ you added.</p>
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
-Server version: 5.5.30 (ProxySQL)
-Copyright (c) 2009-2020 Percona LLC and/or its affiliates
-Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+Server version: ... (ProxySQL)
+...
 Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
 </code></pre></div>
 </details>
-<p>The following example adds an <code>appuser</code> user account, if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span>
-<span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
-</code></pre></div>
 <p>The following example adds an <code>appuser</code> user account if you are using the <code>caching_sha2_password</code> authentication method:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
@@ -3975,6 +3980,41 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 <p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
 </code></pre></div>
+<h2 id="verification-checklist">Verification checklist<a class="headerlink" href="#verification-checklist" title="Permanent link">&para;</a></h2>
+<p>Run the following checks after setup to confirm that the virtual sandbox is working.</p>
+<ol>
+<li>Verify ProxySQL admin login:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-padmin<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
+</code></pre></div>
+<p>Expected result: ProxySQL admin prompt opens without errors.</p>
+<ol>
+<li>Verify backend status in ProxySQL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+</code></pre></div>
+<p>Expected result: all configured backend nodes show <code>ONLINE</code>.</p>
+<ol>
+<li>Verify end-to-end query routing through ProxySQL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>appuser<span class="w"> </span>-p<span class="nv">$3</span>kRetp@<span class="nv">$sW0rd</span><span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+</code></pre></div>
+<p>Expected result: query returns a backend node hostname.</p>
+<ol>
+<li>
+<p>Verify failover behavior (sanity check):</p>
+</li>
+<li>
+<p>Stop one backend node.</p>
+</li>
+<li>
+<p>Re-run:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<p>Expected result: stopped node changes from <code>ONLINE</code> to an offline state
+such as <code>OFFLINE_SOFT</code>, while remaining nodes continue serving traffic.</p>
 <h2 id="testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a class="headerlink" href="#testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
 <p>After you set up Percona XtraDB Cluster in your testing environment, you can test it using
 the <code>sysbench</code> benchmarking tool.</p>
@@ -4017,12 +4057,13 @@ The following output confirms that a new database has been created:
 </li>
 </ol>
 <hr />
-<p><strong>Related sections and additional reading</strong></p>
+<p>For more information, see:</p>
 <ul>
 <li><a href="load-balance-proxysql.html#load-balance-with-proxysql">Load balancing with ProxySQL</a></li>
 <li><a href="configure-cluster-rhel.html#configure-a-cluster-on-red-hat-based-distributions">Configure on RHEL</a></li>
-<li><a href="https://www.percona.com/blog/2019/02/20/proxysql-native-support-for-percona-xtradb-cluster-pxc/">Percona Blog post: ProxySQL Native Support for Percona XtraDB Cluster (PXC) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
-<li><a href="https://github.com/akopytov/sysbench/">GitHub repository for the sysbench benchmarking tool <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
+<li><a href="verify-replication.html">Verify replication in Percona XtraDB Cluster</a></li>
+<li><a href="crash-recovery.html">Crash recovery</a></li>
+<li><a href="high-availability.html">High availability</a></li>
 </ul>
 
 
@@ -4046,7 +4087,7 @@ The following output confirms that a new database has been created:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
   </span>
 
     
