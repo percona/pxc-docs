@@ -6,7 +6,7 @@ By default, Percona XtraDB Cluster does not encrypt or protect stored data. To e
 |-------|-------------|
 | [Securing the Network](secure-network.md#secure-the-network) | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster. |
 | [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster {{vers}}, traffic encryption is enabled by default. |
-| Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/data-at-rest-encryption.html). |
+| Data-at-rest encryption | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. See [Quickstart: encrypt data](quickstart-encrypt-data.md), [Data at rest encryption](data-at-rest-encryption.md), and [Operate encrypted PXC clusters](operate-encrypted-pxc-clusters.md). |
 
 ## Security modules
 

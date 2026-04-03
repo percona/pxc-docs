@@ -212,6 +212,9 @@ nav:
       - security-index.md
       - secure-network.md
       - encrypt-traffic.md
+      - quickstart-encrypt-data.md
+      - data-at-rest-encryption.md
+      - operate-encrypted-pxc-clusters.md
       - apparmor.md
       - selinux.md
   - User's manual:
@@ -228,7 +231,6 @@ nav:
       - gcache-record-set-cache-difference.md
       - gcache-write-set-cache-encryption.md
       - performance-schema-instrumentation.md
-      - data-at-rest-encryption.md
   - How-tos:
       - crash-recovery.md
       - configure-cluster-rhel.md

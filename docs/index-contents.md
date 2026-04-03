@@ -12,6 +12,8 @@
   - [Copyright and licensing information](copyright-and-licensing-information.md)
   - [Crash recovery](crash-recovery.md)
   - [Data at Rest Encryption](data-at-rest-encryption.md)
+  - [Encrypt data for the first time](quickstart-encrypt-data.md)
+  - [Operate encrypted PXC clusters](operate-encrypted-pxc-clusters.md)
   - [Enable AppArmor](apparmor.md)
   - [Enable SELinux](selinux.md)
   - [Encrypt PXC traffic](encrypt-traffic.md)
