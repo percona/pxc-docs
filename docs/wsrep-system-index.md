@@ -135,8 +135,6 @@ This is enabled by default.
 | Dynamic:       | Yes                |
 | Default Value: | ``1``              |
 
-As of Percona XtraDB Cluster 8.0.26-16, the ``wsrep_slave_threads`` variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
-
 Specifies the number of threads
 that can apply replication transactions in parallel.
 Galera supports true parallel replication
@@ -161,7 +159,7 @@ For more configuration tips, see [`Setting Parallel Slave Threads` :octicons-lin
 
 !!! admonition "See also"
 
-    [`MySQL wsrep option: wsrep_applier_threads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads)
+    [`MySQL wsrep option: wsrep_applier_threads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_applier_threads)
 
 ### `wsrep_applier_UK_checks`
 
@@ -1043,8 +1041,6 @@ the whole DDL statement is not put under TOI.
 | Dynamic:       | Yes                 |
 | Default Value: | ``OFF`` |
 
-As of *Percona XtraDB Cluster* 8.0.26-16, the ``wsrep_restart_slave`` variable is deprecated in favor of this variable. 
-
 Defines whether the replication replica should be restarted
 when the node joins the cluster.
 Enabling this can be useful because the asynchronous replication replica thread
@@ -1053,25 +1049,7 @@ while the node is in a non-primary state.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_restart_slave :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica)
-
-### `wsrep_restart_slave`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-restart-slave`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``OFF`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, the ``wsrep_restart_slave`` variable is deprecated and may be removed in later versions. Use ``wsrep_restart_replica``.
-
-Defines whether the replication replica should be restarted
-when the node joins the cluster.
-Enabling this can be useful because the asynchronous replication replica thread
-is stopped when the node tries to apply the next replication event
-while the node is in a non-primary state.
+    [MySQL wsrep option: wsrep_restart_replica :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica)
 
 ### `wsrep_retry_autocommit`
 
@@ -1142,45 +1120,6 @@ As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be
 
 Defines whether foreign key checking is done for applier threads.
 This is enabled by default.
-
-### `wsrep_slave_threads`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-slave-threads`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``1`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
-
-Specifies the number of threads
-that can apply replication transactions in parallel.
-Galera supports true parallel replication
-that applies transactions in parallel only when it is safe to do so.
-This variable is dynamic.
-You can increase/decrease it at any time.
-
-!!! note
-
-    When you decrease the number of threads,
-    it won’t kill the threads immediately,
-    but stop them after they are done applying the current transaction
-    (the effect with an increase is immediate, though).
-
-If any replication consistency problems are encountered,
-it’s recommended to set this back to `1` to see if that resolves the issue.
-The default value can be increased for better throughput.
-
-You may want to increase it as suggested
-in [`Codership documentation for flow control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster):
-when the node is in ``JOINED`` state,
-increasing the number of replica threads can speed up the catch-up to ``SYNCED``.
-
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation :octicons-link-external-16:](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor).
-
-For more configuration tips, see [this document :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
 
 ### `wsrep_slave_UK_checks`
 
