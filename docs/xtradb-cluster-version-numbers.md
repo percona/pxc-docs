@@ -1,5 +1,7 @@
 # Understand version numbers
 
+<!-- Update for 9.7 when we know the release name-->
+
 A version number identifies the product release. The product contains the latest Generally Available (GA) features at the time of that release.
 
 | 8.0.20| -11. | 2 |

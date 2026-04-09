@@ -402,9 +402,9 @@ and should be specified under the `[sst]` group.
 
 Each suppored version of Percona XtraDB Cluster is tested against a specific version of Percona XtraBackup:
 
-* Percona XtraDB Cluster 8.0 requires Percona XtraBackup 8.0
-
 * Percona XtraDB Cluster 8.4 requires Percona XtraBackup 8.4
+
+* Percona XtraDB Cluster 9.7 requires Percona XtraBackup 9.7
 
 Other combinations are not guaranteed to work.
 

@@ -82,7 +82,7 @@ even when the node state is `JOINING` or `DISCONNECTED`.
 To check the current status of a node we need a more complex check.
 The following approach uses `clustercheck` with HAProxy `httpchk` health checks.
 
-For Percona XtraDB Cluster 8.4 deployments, configure `clustercheck` on each node
+For Percona XtraDB Cluster {{vers}} deployments, configure `clustercheck` on each node
 through a `systemd` socket/service workflow that listens on port `<HEALTHCHECK_PORT>`.
 
 The legacy `xinetd`-based workflow with `/etc/xinetd.d/mysqlchk` remains available

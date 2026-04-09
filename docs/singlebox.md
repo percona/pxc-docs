@@ -1,5 +1,7 @@
 # How to set up a three-node cluster on a single box
 
+<!-- Clarify the path where Percona XtraDB Cluster is extracted into for 9.7-->
+
 This tutorial describes how to set up a 3-node cluster
 on a single physical box.
 

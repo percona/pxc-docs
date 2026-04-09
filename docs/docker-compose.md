@@ -8,7 +8,7 @@ We gather [Telemetry data](telemetry.md) in the Percona packages and Docker imag
 
 --8<--- "get-help-snip.md"
 
-This guide shows you how to deploy a three-node Percona XtraDB Cluster 8.4 using Docker Compose. You generate SSL certificates on the first node and copy them to the other two nodes to enable secure communication.
+This guide shows you how to deploy a three-node Percona XtraDB Cluster {{vers}} using Docker Compose. You generate SSL certificates on the first node and copy them to the other two nodes to enable secure communication.
 
 The following procedure describes setting up a simple 3-node cluster
 for evaluation and testing purposes. Do not use these instructions in a
@@ -138,7 +138,7 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
     ```text
     services:
       pxc1:
-        image: percona/percona-xtradb-cluster:8.4
+        image: percona/percona-xtradb-cluster:9.7
         container_name: pxc1
         environment:
           - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -159,7 +159,7 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
           timeout: 5s
           retries: 5
       pxc2:
-        image: percona/percona-xtradb-cluster:8.4
+        image: percona/percona-xtradb-cluster:9.7
         container_name: pxc2
         environment:
           - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -177,7 +177,7 @@ This structure helps manage configuration files, TLS/SSL certificates, and setup
           timeout: 5s
           retries: 5
       pxc3:
-        image: percona/percona-xtradb-cluster:8.4
+        image: percona/percona-xtradb-cluster:9.7
         container_name: pxc3
         environment:
           - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

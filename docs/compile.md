@@ -77,6 +77,8 @@ To compile Percona XtraDB Cluster from source code:
     git submodule update --init --recursive
     ```
 
+<!-- Clarify whether step 3 is valid for 9.7-->
+
 
 3. Download **both** Percona XtraBackup {{vers}} and Percona XtraBackup 8.0 tarballs (*.tar.gz) for your operating system from [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads/).
 

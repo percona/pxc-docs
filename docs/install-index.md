@@ -32,6 +32,8 @@ If you want to build Percona XtraDB Cluster from source, see [Compiling and Inst
 
 If you want to run Percona XtraDB Cluster using Docker, see [Run in a Docker container](docker.md).
 
+<!-- Clarify the version numbers for 9.7-->
+
 ## Product version numbering
 
 The version number in PXC releases contains the following components:

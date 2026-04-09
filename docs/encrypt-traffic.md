@@ -119,11 +119,11 @@ For [`wsrep_provider_options`](wsrep-system-index.md#wsrep_provider_options), on
 
 ### Authentication and security transport in replication
 
-Percona XtraDB Cluster enforces secure transport for both client and replication traffic. When using MySQL 8.4, administrators may encounter the following error during replication setup:
+Percona XtraDB Cluster enforces secure transport for both client and replication traffic. When using MySQL {{vers}}, administrators may encounter the following error during replication setup:
 
 ```Authentication requires secure connection```
 
-This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL 8.4, such as accounts created with ```REQUIRE SSL``` or the server setting ```require_secure_transport=ON```.
+This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL {{vers}}, such as accounts created with ```REQUIRE SSL``` or the server setting ```require_secure_transport=ON```.
 
 To resolve this on the replica, configure replication to use SSL:
 

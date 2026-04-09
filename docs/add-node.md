@@ -26,8 +26,6 @@ data directory. After generating the certificates, copy them to all other nodes.
     -x509 -days 365 -out /etc/server-cert.pem
     ```
 
-    
-
 2. Copy the SSL certificates to the other nodes:
 
     ```shell
@@ -36,8 +34,6 @@ data directory. After generating the certificates, copy them to all other nodes.
     scp /etc/server-key.pem pxc3:/etc/
     scp /etc/server-cert.pem pxc3:/etc/
     ```
-
-    
 
 ## Start the second node
 
@@ -79,8 +75,6 @@ SHOW STATUS LIKE 'wsrep%';
     +----------------------------------+--------------------------------------------------+
     75 rows in set (0.00 sec)
     ```
-
-    
 
 The output of `SHOW STATUS` shows that the new node has been successfully
 added to the cluster.  The cluster size is now two nodes, it is the primary
@@ -131,8 +125,6 @@ fully connected and ready to receive write-set replication.
     +----------------------------+--------------------------------------+
     40 rows in set (0.01 sec)
     ```
-
-    
 
 ## Next steps
 

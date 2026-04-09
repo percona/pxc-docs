@@ -27,7 +27,7 @@ func main() {
         maxDepth := 5
         excludeDirs := map[string]struct{}{
                 "_static": {}, "assets": {}, "css": {}, "fonts": {}, "js": {},
-                "release-notes": {}, filepath.Join("release-notes", "8.0"): {},
+                "release-notes": {}, filepath.Join("release-notes", "9.7"): {},
         }
         excludeFiles := map[string]struct{}{
                 "404.md": {}, indexFileName: {},
