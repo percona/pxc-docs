@@ -1,5 +1,7 @@
 # Upgrade Percona XtraDB Cluster
 
+<!-- Update for 9.7-->
+
 ___You must make backups before attempting an upgrade.___
 
 This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 without causing downtime. This process is called a “rolling upgrade,” which means you can upgrade the cluster one node at a time without shutting down the whole cluster. Keep in mind that rolling upgrades to 8.4 are only supported if your current version is 8.0 or newer. Be sure you are running on the latest 8.0 version before you upgrade to 8.4.

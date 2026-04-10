@@ -72,7 +72,7 @@ In this procedure, all of the nodes run Percona XtraDB Cluster {{vers}} in separ
 5.  Generate the self-signed certs
 
     ```shell
-    docker run --name pxc-cert --rm  -v ~/pxc-docker-test/cert:/cert percona/percona-xtradb-cluster:8.4 /bin/bash /cert/create-ssl-certs.sh
+    docker run --name pxc-cert --rm  -v ~/pxc-docker-test/cert:/cert percona/percona-xtradb-cluster:9.7 /bin/bash /cert/create-ssl-certs.sh
     ```
 
 6.  Create a Docker network:

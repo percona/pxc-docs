@@ -12,7 +12,7 @@ The `mysqld` profile allows the execution of the SST script in PUx mode with the
 
 ## Profile adjustments
 
-The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile :octicons-link-external-16:](https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld)  in Percona Server.
+The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/apparmor.html#modify-mysqld)  in Percona Server.
 
 ## Work with `pxc_encrypt_cluster_traffic`
 
@@ -36,6 +36,6 @@ This rule is present in both profiles (usr.sbin.mysqld and usr.bin.wsrep_sst_xtr
 
 !!! note "How to apply"
 
-    Add or edit the rule in the profile file (for example, `/etc/apparmor.d/usr.sbin.mysqld` and `/etc/apparmor.d/usr.bin.wsrep_sst_xtrabackup-v2`), then reload AppArmor (for example, `sudo systemctl reload apparmor`). For the full procedure, see [modifying the mysqld profile :octicons-link-external-16:](https://www.percona.com/doc/percona-server/8.0/apparmor.html#modify-mysqld) in Percona Server.
+    Add or edit the rule in the profile file (for example, `/etc/apparmor.d/usr.sbin.mysqld` and `/etc/apparmor.d/usr.bin.wsrep_sst_xtrabackup-v2`), then reload AppArmor (for example, `sudo systemctl reload apparmor`). For the full procedure, see [modifying the mysqld profile :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/apparmor.html#modify-mysqld) in Percona Server.
 
 The server certificates must be accessible to the mysql user and are readable only by this user.

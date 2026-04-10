@@ -46,7 +46,7 @@
   - [ProxySQL admin utilities](proxysql-v2.md)
   - [Quickstart Guide for Percona XtraDB Cluster](quickstart-overview.md)
   - [Restart the cluster nodes](restarting-nodes.md)
-  - [Restore 8.0 backup to 8.4 cluster](upgrade-backup.md)
+  - [Restore 8.4 backup to 9.7 cluster](upgrade-backup.md)
   - [Running Percona XtraDB Cluster in a Docker Container](docker.md)
   - [Secure the network](secure-network.md)
   - [Security basics](security-index.md)

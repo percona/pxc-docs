@@ -37,7 +37,7 @@ To connect to the ProxySQL admin interface, you need a `mysql` client. You can e
 
 Changes in the installation procedure
 
-In Percona XtraDB Cluster {{vers}}, ProxySQL is not installed automatically as a dependency of the `percona-xtradb-cluster-client-8.4` package. You should install the `proxysql` package separately.
+In Percona XtraDB Cluster {{vers}}, ProxySQL is not installed automatically as a dependency of the `percona-xtradb-cluster-client-9.7` package. You should install the `proxysql` package separately.
 
 !!! note
 

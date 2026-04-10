@@ -237,7 +237,7 @@ Run the migration server:
     ... [Note] --secure-file-priv is set to NULL. Operations related to importing and
         exporting data are disabled
     ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
-    ... [Note] /dev/shm/pxc84/bin/mysqld (mysqld 8.4-debug) starting as process 5710 ...
+    ... [Note] /dev/shm/pxc84/bin/mysqld (mysqld 9.7-debug) starting as process 5710 ...
     ... [Note] Keyring migration successful.
     ```
 

@@ -182,7 +182,7 @@ version. For Percona XtraDB Cluster {{vers}}, set it to {{vers}} accordingly:
 
 ```sql
 UPDATE GLOBAL_VARIABLES
-SET variable_value='8.4'
+SET variable_value='9.7'
 WHERE variable_name='mysql-server_version';
 LOAD MYSQL SERVERS TO RUNTIME;
 SAVE MYSQL SERVERS TO DISK;

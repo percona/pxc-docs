@@ -115,7 +115,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
     !!! admonition "See also"
 
-        For more information on the audit log filter, see the [Percona Server 8.4 Audit Log Filter overview :octicons-link-external-16:](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html).
+        For more information on the audit log filter, see the [Percona Server {{vers}} Audit Log Filter overview :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/audit-log-filter-overview.html).
 
 An INPLACE [ALTER TABLE :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. Due to this change, the `LOCK=NONE` clause is no longer allowed for all `INPLACE ALTER TABLE` queries.
 

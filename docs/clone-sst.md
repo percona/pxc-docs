@@ -3,7 +3,7 @@
 
 ## SST Method: Clone
 
-Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a modern and efficient method that leverages MySQL's native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.
+Clone SST is a modern and efficient method that leverages MySQL's native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.
 
 ## Limitations
 
@@ -21,8 +21,6 @@ Clone limitations are described in [Clone plugin limitations :octicons-link-exte
 ## Prerequisites
 
 The requirements for enabling SST transfers with the Clone plugin are as follows:
-
-* Percona XtraDB Cluster (PXC) version 8.4.4-4 or later
 
 * Sufficient disk space and network bandwidth for data transfer
 
@@ -57,8 +55,6 @@ The Clone State Snapshot Transfer (SST) method in Percona XtraDB Cluster allows 
 ### Donor and Joiner
 
 To enable the `clone` SST method, ensure the [`wsrep_sst_allowed_methods`](wsrep-system-index.md#wsrep_sst_allowed_methods) variable in the configuration file (`my.cnf`) includes the `clone` method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).
-
-Starting from Percona XtraDB Cluster 8.4.4-4, the default value of `wsrep_sst_allowed_methods` includes `clone`, which removes the need to configure this option manually in most cases.
 
 ```text
 [mysqld]

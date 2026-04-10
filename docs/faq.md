@@ -171,4 +171,4 @@ setenforce 0
 
 ## What does “nc: invalid option – ‘d’” in the sst.err log file mean?
 
-This error can occur on Debian and Ubuntu when SST uses netcat (`transferfmt=nc`) and the system provides a netcat that does not support the `-d` option. In Percona XtraDB Cluster 8.4 the default transfer format is `socat`, not netcat, so you typically see this only if you set `transferfmt=nc`. To fix it, install the `netcat-openbsd` package and ensure it is used for `nc`, or switch to the default `socat` transfer format. See bug [PXC-941 :octicons-link-external-16:](https://jira.percona.com/browse/PXC-941).
+This error can occur on Debian and Ubuntu when SST uses netcat (`transferfmt=nc`) and the system provides a netcat that does not support the `-d` option. In Percona XtraDB Cluster {{vers}} the default transfer format is `socat`, not netcat, so you typically see this only if you set `transferfmt=nc`. To fix it, install the `netcat-openbsd` package and ensure it is used for `nc`, or switch to the default `socat` transfer format. See bug [PXC-941 :octicons-link-external-16:](https://jira.percona.com/browse/PXC-941).

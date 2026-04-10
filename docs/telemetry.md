@@ -17,14 +17,14 @@ An example of the data collected is the following:
 "createTime" : "2023-10-16T10:46:23Z",
 "metrics":
 [{"key" : "deployment","value" : "PACKAGE"},
-{"key" : "pillar_version","value" : "8.0.34-26"},
+{"key" : "pillar_version","value" : "9.7.0-0"},
 {"key" : "OS","value" : "Oracle Linux Server 8.8"},
 {"key" : "hardware_arch","value" : "x86_64 x86_64"}]}]
 ```
 
 ## Disable telemetry
 
-Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the `PERCONA_TELEMETRY_DISABLE=1` environment variable for either the root user or in the operating system prior to the installation process.
+Telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the `PERCONA_TELEMETRY_DISABLE=1` environment variable for either the root user or in the operating system prior to the installation process.
 
 === "Debian-derived distribution"
 
@@ -49,5 +49,5 @@ Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by defaul
 
     
     ```shell
-    docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:8.4
+    docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 -e CLUSTER_NAME=pxc-cluster1 --name=pxc-node1 percona/percona-xtradb-cluster:9.7
     ```

@@ -1,4 +1,4 @@
-# Restore 8.0 backup to 8.4 cluster
+# Restore 8.4 backup to 9.7 cluster
 
 Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.
 
@@ -29,9 +29,9 @@ To ensure the upgrade was successful, verify the data by performing the followin
 
 To create the 2nd and subsequent nodes, follow these steps:
 
-1. Install Percona XtraDB Cluster (PXC) 8.4.
+1. Install Percona XtraDB Cluster (PXC) 9.7.
 
 2. Join the cluster using State Snapshot Transfer (SST).
 
-Starting from version 8.0.34, this procedure can also be used to downgrade within the same LTS version.
+This procedure can also be used to downgrade within the same LTS version.
 

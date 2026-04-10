@@ -41,9 +41,7 @@ Xtrabackup SST uses backup locks, so the Galera provider continues running witho
 
     If the `gcs.sync_donor` variable is set to `Yes` (the default is `No`), the whole cluster will be blocked if SST blocks the donor.
 
-#### Version changes
-
-Starting with Percona XtraDB Cluster 8.4.7-7, the `xtrabackup` SST method uses the [Reduced backup lock time :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/reduction-in-locks.html) feature. This enhancement minimizes blocking on the **Donor node** during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired `lock_ddl` value in the [xtrabackup] section of the `my.cnf` configuration file. For more information about the `--lock-ddl` option and its available values, refer to the [xtrabackup command-line options :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/xtrabackup-option-reference.html#lock-ddl) documentation.
+The `xtrabackup` SST method uses the [Reduced backup lock time :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/reduction-in-locks.html) feature. This enhancement minimizes blocking on the **Donor node** during SST process while the backup is being prepared. The Percona XtraBackup reduced lock feature is enabled by default. To modify this behavior, set the desired `lock_ddl` value in the [xtrabackup] section of the `my.cnf` configuration file. For more information about the `--lock-ddl` option and its available values, refer to the [xtrabackup command-line options :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/xtrabackup-option-reference.html#lock-ddl) documentation.
 
 ## Limitation
 
