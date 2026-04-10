@@ -116,8 +116,6 @@ For more information, see [PXC Strict Mode](strict-mode.md#percona-xtradb-cluste
 | Dynamic:       | Yes                |
 | Default Value: | ``ON``             |
 
-As of Percona XtraDB Cluster 8.0.26-16, the ``wsrep_slave_FK_checks`` variable is deprecated in favor of this variable.
-
 Defines whether foreign key checking is done for applier threads.
 This is enabled by default.
 
@@ -134,8 +132,6 @@ This is enabled by default.
 | Scope:         | Global             |
 | Dynamic:       | Yes                |
 | Default Value: | ``1``              |
-
-As of Percona XtraDB Cluster 8.0.26-16, the ``wsrep_slave_threads`` variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
 
 Specifies the number of threads
 that can apply replication transactions in parallel.
@@ -173,8 +169,6 @@ For more configuration tips, see [`Setting Parallel Slave Threads` :octicons-lin
 | Dynamic:       | Yes                |
 | Default Value: | ``OFF``            |
 
-As of *Percona XtraDB Cluster* 8.0.26-16, the ``wsrep_slave_UK_checks`` variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_UK_checks`` variable.
-
 Defines whether unique key checking is done for applier threads.
 This is disabled by default.
 
@@ -211,31 +205,6 @@ It can be disabled in source-replica clusters.
 !!! admonition "See also"
 
     [`MySQL wsrep option: wsrep_auto_increment_control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control)
-
-###`wsrep_causal_reads`
-
-| Option         | Descriptio n        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-causal-reads`` |
-| Config File:   | Yes                |
-| Scope:         | Global, Session             |
-| Dynamic:       | Yes                 |
-| Default Value: | ``OFF`` |
-
-In some cases, the source may apply events faster than a replica,
-which can cause the source and replica to become out of sync for a brief moment.
-When this variable is set to `ON`, the replica will wait
-until that event is applied before doing any other queries.
-Enabling this variable will result in larger latencies.
-
-!!! note
-
-    This variable was deprecated because enabling it is the equivalent of setting
-    [`wsrep_sync_wait`](wsrep-system-index.md#wsrep_sync_wait) to `1`.
-
-!!! admonition "See also"
-
-    [`MySQL wsrep option: wsrep_causal_reads` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_causal_reads)
 
 ### `wsrep_certification_rules`
 
@@ -1043,8 +1012,6 @@ the whole DDL statement is not put under TOI.
 | Dynamic:       | Yes                 |
 | Default Value: | ``OFF`` |
 
-As of *Percona XtraDB Cluster* 8.0.26-16, the ``wsrep_restart_slave`` variable is deprecated in favor of this variable. 
-
 Defines whether the replication replica should be restarted
 when the node joins the cluster.
 Enabling this can be useful because the asynchronous replication replica thread
@@ -1053,25 +1020,7 @@ while the node is in a non-primary state.
 
 !!! admonition "See also"
 
-    [MySQL wsrep option: wsrep_restart_slave :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_restart_replica)
-
-### `wsrep_restart_slave`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-restart-slave`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``OFF`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, the ``wsrep_restart_slave`` variable is deprecated and may be removed in later versions. Use ``wsrep_restart_replica``.
-
-Defines whether the replication replica should be restarted
-when the node joins the cluster.
-Enabling this can be useful because the asynchronous replication replica thread
-is stopped when the node tries to apply the next replication event
-while the node is in a non-primary state.
+    [MySQL wsrep option: wsrep_restart_slave :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables?ask=#wsrep_restart_slave)
 
 ### `wsrep_retry_autocommit`
 
@@ -1129,74 +1078,6 @@ microseconds. Unit of variable is in microseconds, so set accordingly.
     wait, and that can result in RSU starvation. User is expected to block
     active RSU traffic while performing the operation.
 
-### `wsrep_slave_FK_checks`
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-slave-FK-checks`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``ON`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_FK_checks`` variable.
-
-Defines whether foreign key checking is done for applier threads.
-This is enabled by default.
-
-### `wsrep_slave_threads`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-slave-threads`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``1`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
-
-Specifies the number of threads
-that can apply replication transactions in parallel.
-Galera supports true parallel replication
-that applies transactions in parallel only when it is safe to do so.
-This variable is dynamic.
-You can increase/decrease it at any time.
-
-!!! note
-
-    When you decrease the number of threads,
-    it won’t kill the threads immediately,
-    but stop them after they are done applying the current transaction
-    (the effect with an increase is immediate, though).
-
-If any replication consistency problems are encountered,
-it’s recommended to set this back to `1` to see if that resolves the issue.
-The default value can be increased for better throughput.
-
-You may want to increase it as suggested
-in [`Codership documentation for flow control` :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster):
-when the node is in ``JOINED`` state,
-increasing the number of replica threads can speed up the catch-up to ``SYNCED``.
-
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation :octicons-link-external-16:](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor).
-
-For more configuration tips, see [this document :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads).
-
-### `wsrep_slave_UK_checks`
-
-| Option         | Description        |
-| -------------- | ------------------ |
-| Command Line:  | ``--wsrep-slave-UK-checks`` |
-| Config File:   | Yes                |
-| Scope:         | Global            |
-| Dynamic:       | Yes                 |
-| Default Value: | ``OFF`` |
-
-As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_UK_checks`` variable.
-
-Defines whether unique key checking is done for applier threads.
-This is disabled by default.
-
 ### `wsrep_SR_store`
 
 | Option         | Description        |
@@ -1218,8 +1099,6 @@ Defines storage for streaming replication fragments. The available values are `t
 | Scope:         | Global            |
 | Dynamic:       | No                 |
 | Default Value: | ``xtrabackup-v2, clone`` |
-
-Percona XtraDB Cluster 8.4.4-1 adds `clone` to the default value. For older versions of Percona XtraDB Cluster, the default value is `xtrabackup-v2`.
 
 This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2` or `clone`.
 
@@ -1291,9 +1170,9 @@ Available values are:
 
 * `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default.
 Privileges and permissions for running Percona XtraBackup
-can be found in [Percona XtraBackup documentation :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/8.4/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+can be found in [Percona XtraBackup documentation :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/{{vers}}/privileges.html). For more information, see [Percona XtraBackup SST Configuration](xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
 
-* `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](clone-sst.md). 
+* `clone`: Uses the [clone method for SST](clone-sst.md). 
 
 * `ist_only`: This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node's start. This action leaves the data directory unchanged. This value prevents starting a node that does not have a `grastate.dat` file after a manual backup restoration. This missing file could initiate a full-state transfer (SST), which can be more time- and resource-intensive.
 
