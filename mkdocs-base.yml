@@ -269,6 +269,8 @@ nav:
       - virtual-sandbox.md
 
   - Reference:
+      - Replication internals:
+        - binary-log-contents.md
       - wsrep-status-index.md
       - wsrep-system-index.md
       - wsrep-provider-index.md
