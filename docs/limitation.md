@@ -8,9 +8,9 @@ The following limitations apply to Percona XtraDB Cluster:
 
 * Unsupported queries:
 
-    `LOCK TABLES` and `UNLOCK TABLES` is not supported in multi-source setups
+    - `LOCK TABLES` and `UNLOCK TABLES` are not supported in multi-source configurations.
 
-    Lock functions, such as `GET_LOCK()`, `RELEASE_LOCK()`, and so on
+    - Lock functions, such as `GET_LOCK()` and `RELEASE_LOCK()`, are not supported.
 
 * Query log cannot be directed to table.
 
@@ -22,13 +22,17 @@ The following limitations apply to Percona XtraDB Cluster:
 
     Use `general_log` and `general_log_file` to choose query logging and the log file name.
 
-* Maximum allowed transaction size is defined by the [`wsrep_max_ws_rows`](wsrep-system-index.md#wsrep_max_ws_rows) and [`wsrep_max_ws_size`](wsrep-system-index.md#wsrep_max_ws_size) variables. 
+* Maximum allowed transaction size is defined by the [`wsrep_max_ws_rows`](wsrep-system-index.md#wsrep_max_ws_rows) and [`wsrep_max_ws_size`](wsrep-system-index.md#wsrep_max_ws_size) variables.
 
-    `LOAD DATA INFILE` processing will commit every 10 000 rows. So large transactions due to `LOAD DATA` will be split into a series of small transactions.
+    `LOAD DATA INFILE` processing commits every 10 000 rows.
+    Percona XtraDB Cluster splits large `LOAD DATA` transactions into a series of smaller transactions.
 
 * Transaction issuing `COMMIT` may still be aborted at that stage.
 
-    Due to cluster-level optimistic concurrency control, there can be two transactions writing to the same rows and committing on separate Percona XtraDB Cluster nodes, and only one of them can successfully commit. The failing one will be aborted. For cluster-level aborts, Percona XtraDB Cluster returns a deadlock error code:
+    Cluster-level optimistic concurrency control allows two transactions to write to the same rows on separate Percona XtraDB Cluster nodes.
+    Only one of these transactions commits successfully.
+    The other transaction is aborted.
+    Percona XtraDB Cluster returns the following deadlock error code for cluster-level aborts:
 
     ??? example "Error message"
 
@@ -42,11 +46,12 @@ The following limitations apply to Percona XtraDB Cluster:
 
 * Write throughput of the whole cluster is limited by the weakest node.
 
-    If one node becomes slow, the whole cluster slows down. If you have requirements for stable high performance, it should be supported by corresponding hardware.
+    A slow node slows the entire cluster.
+    Provision matching hardware on every node when you require stable high performance.
 
-* Minimal recommended size of cluster is three nodes.
+* The minimum recommended cluster size is three nodes.
 
-    The 3rd node can be an arbitrator.
+    The third node can act as an arbitrator.
 
 * `enforce_storage_engine=InnoDB` is not compatible with `wsrep_replicate_myisam=OFF`
 
@@ -54,11 +59,17 @@ The following limitations apply to Percona XtraDB Cluster:
 
 * Avoid `ALTER TABLE ... IMPORT/EXPORT` workloads when running Percona XtraDB Cluster in cluster mode.
 
-    It can lead to node inconsistency if not executed in sync on all nodes.
+    These statements can produce node inconsistency when not run in sync on every node.
 
 * All tables must have a primary key.
 
-    This ensures that the same rows appear in the same order on different nodes. The `DELETE` statement is not supported on tables without a primary key.
+    A primary key keeps row order identical on every node.
+    The `DELETE` statement is not supported on tables without a primary key.
+
+    When [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster sets [`sql_require_primary_key` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON`.
+    The cluster rejects any attempt to set `sql_require_primary_key` to `OFF`.
+    `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key fail.
+    For details, see [Primary key requirement](strict-mode.md#primary-key-requirement).
 
     !!! admonition "See also"
 
@@ -66,13 +77,15 @@ The following limitations apply to Percona XtraDB Cluster:
 
 * When configuring Percona XtraDB Cluster, your server must create a local socket.
 
-    You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: `socket=`. If you do, the server won't create a socket.
+    Configure the socket by providing a path, or skip the explicit configuration to use the default.
+    Do not leave the `socket` variable in `my.cnf` empty, as in `socket=`.
+    An empty value prevents the server from creating a socket.
 
     State Snapshot Transfer (SST) requires the socket for the following tasks:
 
-    * Taking backup using Percona XtraBackup
+    - Detecting keyring component status
 
-    * Detecting keyring component status
+    - Taking a backup with Percona XtraBackup
 
 * Avoid reusing the names of persistent tables for temporary tables
 
@@ -117,9 +130,9 @@ The following limitations apply to Percona XtraDB Cluster:
 
         For more information on the audit log filter, see the [Percona Server 8.4 Audit Log Filter overview :octicons-link-external-16:](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html).
 
-An INPLACE [ALTER TABLE :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during the execution of the query. Due to this change, the `LOCK=NONE` clause is no longer allowed for all `INPLACE ALTER TABLE` queries.
-
-This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:
+An `INPLACE` [`ALTER TABLE` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/alter-table.html) query takes an internal shared lock on the table during query execution.
+The `LOCK=NONE` clause is no longer allowed for any `INPLACE ALTER TABLE` query.
+The lock change addresses a deadlock that could cause a cluster node to hang in the following scenario:
 
 * An INPLACE `ALTER TABLE` query in one session or being applied as Total Order Isolation (TOI)
 

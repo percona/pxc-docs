@@ -195,36 +195,60 @@ At runtime, any attempt to change [`wsrep_replicate_myisam`](wsrep-system-index.
 
     The [`wsrep_replicate_myisam`](wsrep-system-index.md#wsrep_replicate_myisam) variable controls *replication* for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.
 
-### Tables without primary keys
+### Primary key requirement
 
-Percona XtraDB Cluster cannot properly propagate certain write operations
-to tables that do not have primary keys defined.
-Undesirable operations include data manipulation statements
-that perform writing to table (especially `DELETE`).
+Percona XtraDB Cluster requires every replicated table to have an explicit primary key.
+A missing primary key prevents write-set replication from guaranteeing identical row order across nodes.
+The `DELETE` statement also fails on tables without a primary key.
+For related guidance, see [Limitations](limitation.md) and [`wsrep_certify_nonPK`](wsrep-system-index.md#wsrep_certify_nonpk).
 
-Depending on the selected mode, the following happens:
+The [`sql_require_primary_key` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_sql_require_primary_key) variable rejects `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key.
+When [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster manages `sql_require_primary_key` to align both policies.
 
-`DISABLED`
+The following rules apply while [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`:
 
-At startup, no validation is performed.
+* Switching to `ENFORCING` or `MASTER` sets the global `sql_require_primary_key` to `ON` when the previous value was `OFF`. The server log records the change:
 
-At runtime, all operations are permitted.
+    ```{.text .no-copy}
+    Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
+    ```
 
-`PERMISSIVE`
+* Setting `sql_require_primary_key=OFF` is rejected. Both `SET GLOBAL` and `SET SESSION` return the following error:
 
-At startup, no validation is performed.
+    ```{.text .no-copy}
+    ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
+    ```
 
-At runtime, all operations are permitted,
-but a warning is logged when an undesirable operation
-is performed on a table without an explicit primary key defined.
+    The error log records the reason:
 
-`ENFORCING` or `MASTER`
+    ```{.text .no-copy}
+    Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
+    ```
 
-At startup, no validation is performed.
+* Existing sessions retain their session value of `sql_require_primary_key`. Reconnect or update the session value explicitly to inherit the updated global default.
 
-At runtime, any undesirable operation
-performed on a table without an explicit primary key
-is denied and an error is logged.
+* Lowering [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) to `DISABLED` or `PERMISSIVE` does not reset `sql_require_primary_key`. Set the variable explicitly to allow tables without a primary key.
+
+The following table summarizes startup and runtime behavior by mode:
+
+| Mode                   | Startup behavior                                                                                                  | Runtime behavior                                                                                                                                                                                                |
+|------------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `DISABLED`             | No validation runs. `sql_require_primary_key` keeps the configured value.                                         | All operations are permitted. `sql_require_primary_key` accepts `ON` or `OFF`.                                                                                                                                  |
+| `PERMISSIVE`           | No validation runs. `sql_require_primary_key` keeps the configured value.                                         | All operations are permitted. A warning is logged for any undesirable operation on a table without an explicit primary key. `sql_require_primary_key` accepts `ON` or `OFF`.                                    |
+| `ENFORCING` / `MASTER` | If Galera is active and `sql_require_primary_key` is `OFF`, Percona XtraDB Cluster forces the value to `ON`.      | Switching to this mode sets `sql_require_primary_key` to `ON` when the previous value was `OFF`. Setting `sql_require_primary_key=OFF` is rejected. Creating or altering a table without a primary key fails.   |
+
+??? example "Error message when creating or altering a table without a primary key"
+
+    ```{.text .no-copy}
+    ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+    ```
+
+!!! note
+
+    Replication applier threads use replicated session metadata for each event.
+    Events that originated on a non-strict source continue to apply on a strict-mode node.
+    The events apply even when the source had `sql_require_primary_key` set to `OFF`.
+    Use [`wsrep_certify_nonPK`](wsrep-system-index.md#wsrep_certify_nonpk) only as a fallback for existing tables without a primary key.
 
 ### Log output
 
