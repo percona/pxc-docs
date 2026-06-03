@@ -325,19 +325,30 @@ To upgrade the cluster, follow these steps for each node:
 
 1. Make sure that all nodes are synchronized.
 
-2. Stop the `mysql` service:
+2. Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:
+
+    ```{.bash data-prompt="$"}
+    $ mysql -u root -p -e "SET GLOBAL innodb_fast_shutdown=0;"
+    ```
+
+3. Stop the `mysql` service:
 
     ```{.bash data-prompt="$"}
     $ sudo service mysql stop
     ```
 
-3. Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
+4. Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
 For more information, see [Installing Percona XtraDB Cluster](install-index.md#install-percona-xtradb-cluster).
 
-1. Back up `grastate.dat`, so that you can restore it
-if it is corrupted or zeroed out due to network issue.
+5. Back up `grastate.dat` so that you can restore the file if `grastate.dat` is corrupted or zeroed out due to network issues.
 
-1. Now, start the cluster node with 8.0 packages installed, PXC will upgrade
+6. While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the `grastate.dat` file with those values if the file is corrupted or zeroed out due to network issues:
+
+    ```{.bash data-prompt="$"}
+    $ mysqld --wsrep_recover --user=mysql --log-error=/tmp/wsrep-recover.log
+    ```
+
+7. Now, start the cluster node with 8.0 packages installed, PXC will upgrade
 the data directory as needed - either as part of the startup process or a
 state transfer (IST/SST).
 
@@ -362,6 +373,6 @@ state transfer (IST/SST).
     traffic. For more information, see
     [Traffic encryption is enabled by default](#traffic-encryption-is-enabled-by-default).
 
-1. Repeat this procedure for the next node in the cluster
+8. Repeat this procedure for the next node in the cluster
 until you upgrade all nodes.
 
