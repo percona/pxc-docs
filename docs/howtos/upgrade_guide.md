@@ -29,13 +29,19 @@ To upgrade the cluster, follow these steps for each node:
 
 1. Make sure that all nodes are synchronized.
 
-2. Stop the `mysql` service:
+2. Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:
+
+    ```shell
+    $ mysql -u root -p -e "SET GLOBAL innodb_fast_shutdown=0;"
+    ```
+
+3. Stop the `mysql` service:
 
     ```shell
     $ sudo service mysql stop
     ```
 
-3. Remove existing Percona XtraDB Cluster and Percona XtraBackup packages,
+4. Remove existing Percona XtraDB Cluster and Percona XtraBackup packages,
    then install Percona XtraDB Cluster version 5.7 packages.
    For more information, see [Installing Percona XtraDB Cluster](../install/index.md#install).
 
@@ -56,16 +62,22 @@ To upgrade the cluster, follow these steps for each node:
     $ sudo apt install percona-xtradb-cluster-57
     ```
 
-4. In case of Debian or Ubuntu, the `mysql` service starts automatically after install.
+5. In case of Debian or Ubuntu, the `mysql` service starts automatically after install.
     Stop the service:
 
     ```shell
     $ sudo service mysql stop
     ```
 
-5. Back up `grastate.dat`, so that you can restore it if it is corrupted or zeroed out due to network issue.
+6. Back up `grastate.dat` in case the file becomes corrupted or zeroed out due to network issues.
 
-6. Start the node outside the cluster (in standalone mode) by setting the [`wsrep_provider`](../wsrep-system-index.md#wsrep_provider) variable to `none`.
+7. While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the `grastate.dat` file with those values if it is corrupted or zeroed out due to network issues:
+
+    ```shell
+    $ mysqld --wsrep_recover --user=mysql --log-error=/tmp/wsrep-recover.log
+    ```
+
+8. Start the node outside the cluster (in standalone mode) by setting the [`wsrep_provider`](../wsrep-system-index.md#wsrep_provider) variable to `none`.
    
     For example:
 
@@ -86,11 +98,11 @@ To upgrade the cluster, follow these steps for each node:
         alternatively you may want to divert any incoming traffic from your
         application to other operational nodes.
 
-7. Open another session and run `mysql_upgrade`.
+9. Open another session and run `mysql_upgrade`.
 
-8. When the upgrade is done, stop the `mysqld` process.
-   You can either run `sudo kill` on the `mysqld` process ID,
-   or `sudo mysqladmin shutdown` with the MySQL root user credentials.
+10. When the upgrade is done, stop the `mysqld` process.
+    You can either run `sudo kill` on the `mysqld` process ID,
+    or `sudo mysqladmin shutdown` with the MySQL root user credentials.
 
     !!! note
 
@@ -99,7 +111,7 @@ To upgrade the cluster, follow these steps for each node:
         Make sure to rename it back
         before joining the upgraded node back to the cluster. 
 
-9. Now you can join the upgraded node back to the cluster.
+11. Now you can join the upgraded node back to the cluster.
 
     In most cases, starting the `mysql` service
     should run the node with your previous configuration:
@@ -131,7 +143,7 @@ To upgrade the cluster, follow these steps for each node:
         Also switch back to `ENFORCING` may be done by restarting the node
         with updated `my.cnf`. 
 
-10. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
+12. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
 
 It is important that on rejoining, the node should synchronize using
 [IST](../glossary.md#ist). For this, it is best not to leave the cluster node being
@@ -141,7 +153,7 @@ When performing any upgrade (major or minor), [SST](../glossary.md#sst) could
 be initiated by the joiner node after the upgrade if the server
 was offline for some time. After [SST](../glossary.md#sst) completes, the data
 directory structure needs to be upgraded (using mysql_upgrade)
-once more time to ensure compatibility with the newer version
+one more time to ensure compatibility with the newer version
 of binaries.
 
 !!! note
@@ -159,13 +171,19 @@ To upgrade the cluster, follow these steps for each node:
 
 1. Make sure that all nodes are synchronized.
 
-2. Stop the `mysql` service:
+2. Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:
+
+    ```shell
+    $ mysql -u root -p -e "SET GLOBAL innodb_fast_shutdown=0;"
+    ```
+
+3. Stop the `mysql` service:
  
     ```shell
     $ sudo service mysql stop
     ```
 
-3. Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
+4. Upgrade Percona XtraDB Cluster and Percona XtraBackup packages.
    For more information, see [Installing Percona XtraDB Cluster](../install/index.md#install).
 
     For example, if you have Percona software repositories configured,
@@ -183,7 +201,7 @@ To upgrade the cluster, follow these steps for each node:
       $ sudo apt install --only-upgrade percona-xtradb-cluster-57
       ```
 
-4. In case of Debian or Ubuntu,
+5. In case of Debian or Ubuntu,
    the `mysql` service starts automatically after install.
     
     Stop the service:
@@ -192,9 +210,15 @@ To upgrade the cluster, follow these steps for each node:
      $ sudo service mysql stop
      ```
 
-5. Back up `grastate.dat`, so that you can restore it if it is corrupted or zeroed out due to network issue.
+6. Back up `grastate.dat` in case the file becomes corrupted or zeroed out due to network issues.
 
-6. Start the node outside the cluster (in standalone mode)
+7. While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the `grastate.dat` file with those values if it is corrupted or zeroed out due to network issues:
+
+    ```shell
+    $ mysqld --wsrep_recover --user=mysql --log-error=/tmp/wsrep-recover.log
+    ```
+
+8. Start the node outside the cluster (in standalone mode)
    by setting the [`wsrep_provider`](../wsrep-system-index.md#wsrep_provider) variable to `none`.
     
     For example:
@@ -216,11 +240,11 @@ To upgrade the cluster, follow these steps for each node:
         alternatively you may want to divert any incoming traffic from your
         application to other operational nodes.
 
-7. Open another session and run `mysql_upgrade`.
+9. Open another session and run `mysql_upgrade`.
 
-8. When the upgrade is done, stop the `mysqld` process.
-   You can either run `sudo kill` on the `mysqld` process ID,
-   or `sudo mysqladmin shutdown` with the MySQL root user credentials.
+10. When the upgrade is done, stop the `mysqld` process.
+    You can either run `sudo kill` on the `mysqld` process ID,
+    or `sudo mysqladmin shutdown` with the MySQL root user credentials.
 
     !!! note
 
@@ -229,7 +253,7 @@ To upgrade the cluster, follow these steps for each node:
         Make sure to rename it back
         before joining the upgraded node back to the cluster.
 
-9. Now you can join the upgraded node back to the cluster.
+11. Now you can join the upgraded node back to the cluster.
 
     In most cases, starting the `mysql` service
     should run the node with your previous configuration:
@@ -260,7 +284,7 @@ To upgrade the cluster, follow these steps for each node:
         Also switch back to `ENFORCING` may be done by restarting the node
         with updated `my.cnf`.
 
-10. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
+12. Repeat this procedure for the next node in the cluster until you upgrade all nodes.
 
 ## Dealing with IST/SST synchronization while upgrading
 
