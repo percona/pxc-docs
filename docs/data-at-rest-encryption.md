@@ -106,7 +106,7 @@ The `keyring_vault` plugin allows storing the master-key in vault-server
 ### Configuration
 
 Configuration options are the same as
-[upstream](https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html).
+[upstream](https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html).
 The `my.cnf` configuration file should contain the following options:
 
 ```text
@@ -125,7 +125,7 @@ vault_ca = /data/keyring_vault_confs/vault_ca.crt
 ```
 
 The detailed description of these options can be found in the [upstream
-documentation](https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html).
+documentation](https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html).
 
 Vault-server is an external server, so make sure the PXC node can reach the
 server.
