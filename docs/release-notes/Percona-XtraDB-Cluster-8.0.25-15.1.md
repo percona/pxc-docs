@@ -12,7 +12,7 @@
     [Installing Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html).
 
 
-Percona XtraDB Cluster 8.0.25-15.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding [release notes for Percona Server for MySQL 8.0.25-15](https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.25-15.html) for more details on these changes.
+Percona XtraDB Cluster 8.0.25-15.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding [release notes for Percona Server for MySQL 8.0.25-15](https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.25-15.html) for more details on these changes.
 
 Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.
 
