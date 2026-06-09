@@ -10019,6 +10019,11 @@ with the upgrade using the procedure described in
 <p>Make sure that all nodes are synchronized.</p>
 </li>
 <li>
+<p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+</code></pre></div>
+</li>
+<li>
 <p>Stop the <code>mysql</code> service:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
@@ -10028,8 +10033,12 @@ with the upgrade using the procedure described in
 For more information, see <a href="#install-index-install-percona-xtradb-cluster">Installing Percona XtraDB Cluster</a>.</p>
 </li>
 <li>
-<p>Back up <code>grastate.dat</code>, so that you can restore it
-if it is corrupted or zeroed out due to network issue.</p>
+<p>Back up <code>grastate.dat</code> so that you can restore the file if <code>grastate.dat</code> is corrupted or zeroed out due to network issues.</p>
+</li>
+<li>
+<p>While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the <code>grastate.dat</code> file with those values if the file is corrupted or zeroed out due to network issues:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
+</code></pre></div>
 </li>
 <li>
 <p>Now, start the cluster node with 8.0 packages installed, PXC will upgrade
