@@ -6152,13 +6152,12 @@ libgpg-error0<span class="w"> </span>libssl1.1<span class="w"> </span>libstdc++6
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>socat<span class="w">  </span><span class="se">\</span>
 procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>procps-ng<span class="w"> </span>coreutils<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
 </code></pre></div></section><section class="print-page" id="compile" heading-number="7.6"><h1 id="compile-compile-and-install-from-source-code">Compile and install from source code<a class="headerlink" href="#compile-compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
-<p>If you want to compile Percona XtraDB Cluster, you can find the source code on
-<a href="https://github.com/percona/percona-xtradb-cluster">GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.
-Before you begin, make sure that the following packages are installed:</p>
+<p>For routine deployments, install from <a href="#tarball">official packages or a binary tarball</a>. Compile here only when you package PXC yourself, maintain local patches, or develop the server.</p>
+<p>Clone <a href="https://github.com/percona/percona-xtradb-cluster">GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and add every package from the table.</p>
 <table>
 <thead>
 <tr>
-<th></th>
+<th>Package</th>
 <th>apt</th>
 <th>yum</th>
 </tr>
@@ -6246,9 +6245,8 @@ Before you begin, make sure that the following packages are installed:</p>
 </tr>
 </tbody>
 </table>
-<h2 id="compile-check-packages">Check packages<a class="headerlink" href="#compile-check-packages" title="Permanent link">&para;</a></h2>
-<p>You may have already installed most of the packages. Run one of the following commands to install any missing
-dependencies:</p>
+<h2 id="compile-install-dependencies">Install dependencies<a class="headerlink" href="#compile-install-dependencies" title="Permanent link">&para;</a></h2>
+<p>Install anything still missing with one of these commands:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="compile-__tabbed_1_1" name="compile-__tabbed_1" type="radio" /><input id="compile-__tabbed_1_2" name="compile-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="compile-__tabbed_1_1">on Debian or Ubuntu</label><label for="compile-__tabbed_1_2">on Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -6266,82 +6264,80 @@ socat<span class="w"> </span>libcurl-devel
 </div>
 </div>
 <h3 id="compile-glibc-version">glibc version<a class="headerlink" href="#compile-glibc-version" title="Permanent link">&para;</a></h3>
-<p>The glibc (GNU C Library) version can differ across software builds due to several key factors:</p>
-<table>
-<thead>
-<tr>
-<th>Reason</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Operating system variation</td>
-<td>When you build software on different Linux distributions or versions, each may ship with a different default glibc version. For example, Red Hat Enterprise Linux or Ubuntu might have distinct system library versions that impact compilation.</td>
-</tr>
-<tr>
-<td>Backward compatibility considerations</td>
-<td>Some applications are compiled to support multiple glibc versions. <br> - Developers often create builds that can run on older systems. <br> - This means intentionally targeting a slightly older glibc version for wider compatibility.</td>
-</tr>
-<tr>
-<td>System architecture differences</td>
-<td>32-bit and 64-bit systems might require different glibc implementations. <br> - ARM, x86, and other processor architectures can have unique library requirements.</td>
-</tr>
-<tr>
-<td>Security and patch levels</td>
-<td>Distributions backport security patches at different rates. <br> - A system&rsquo;s glibc version reflects its current security update status. <br> - Critical security updates can prompt version changes.</td>
-</tr>
-<tr>
-<td>Compilation environment</td>
-<td>The specific development environment and build tools used can directly influence which glibc version gets linked during compilation. Container environments, cross-compilation setups, and build servers might have unique library configurations.</td>
-</tr>
-</tbody>
-</table>
-<p>Practical Tip: Use <code>ldd --version</code> to check your current glibc version and understand potential compatibility constraints in your software ecosystem.</p>
+<p>XtraBackup archives stamp glibc into the filename; treat <code>glibc2.xx</code> as a placeholder and substitute your real suffix (for example <code>glibc2.28</code>). Pick tarballs whose glibc matches what you compile and run. Check the host with:</p>
+<div class="highlight"><pre><span></span><code>ldd<span class="w"> </span>--version
+</code></pre></div>
+<p>If the compile host and the runtime host differ, match CPU architecture and glibc, or build on a machine that resembles production.</p>
 <h2 id="compile-compile">Compile<a class="headerlink" href="#compile-compile" title="Permanent link">&para;</a></h2>
-<p class="power-number">To compile Percona XtraDB Cluster from source code:</p>
+<p class="power-number">Compile Percona XtraDB Cluster from source:</p>
 <ol>
 <li>
-<p>Clone the latest repository or update it to the latest state. The old codebase may not be compatible with the build script. Clone the Percona XtraDB Cluster repository:</p>
+<p>Clone a fresh tree—stale checkouts can break the build scripts:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/percona/percona-xtradb-cluster.git
 </code></pre></div>
 </li>
 <li>
-<p>Check out the <code>8.4</code> branch and initialize submodules:</p>
+<p>Check out the <code>8.4</code> branch and pull submodules:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>percona-xtradb-cluster
 git<span class="w"> </span>checkout<span class="w"> </span><span class="m">8</span>.4
 git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
 </code></pre></div>
 </li>
 <li>
-<p>Download <strong>both</strong> Percona XtraBackup 8.4 and Percona XtraBackup 8.0 tarballs (*.tar.gz) for your operating system from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>Both XtraBackup versions are required:</p>
+<p>Download Percona XtraBackup 8.4 and Percona XtraBackup 8.4 <code>*.tar.gz</code> bundles for your OS from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>The repository does not ship XtraBackup; <code>build-binary.sh</code> copies it out of <code>pxc-build/pxc_extra</code>. It looks for two separate install trees with fixed names—<code>pxb-{{ vers_major }}</code> powers backup and restore, <code>pxb-8.4</code> powers State Snapshot Transfer (SST):</p>
 <ul>
-<li>Percona XtraBackup 8.4 is used for backup and restore operations</li>
-<li>Percona XtraBackup 8.0 is required for State Snapshot Transfer (SST)</li>
+<li>
+<p>Percona XtraBackup 8.4 backs up and restores data through the integrated tooling.</p>
+</li>
+<li>
+<p>Percona XtraBackup 8.4 drives SST.</p>
+</li>
 </ul>
-<p>Extract the tarballs into the <code>pxc-build/pxc_extra</code> directory and ensure the directories are named exactly as shown below:</p>
+<p>You need two directories on disk, not always two different releases. When one tarball satisfies both roles (same version, glibc, and CPU), unpack once, copy the folder into the second <code>pxb-*</code> path, or run the extract twice on the same file.</p>
+<p>The snippets target <code>Linux-x86_64</code>. On ARM64, rewrite filenames for your chip (<code>aarch64</code>, <code>arm64</code>, …); never reuse paths that disagree with your download.</p>
+<p>Stage everything under <code>pxc-build/pxc_extra</code>, then rename to match the <code>mv</code> targets in the snippet. Map <code>glibc2.xx</code> and <code>8.4.x</code> to the strings in your real filenames (for example <code>8.4.0-3</code>). Aim each <code>tar</code> and <code>mv</code> at the top-level folder that unpack creates.</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./pxc-build/pxc_extra
 
 tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
 mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.4-Linux-x86_64.glibc2.xx<span class="w"> </span>./pxc-build/pxc_extra/pxb-<span class="o">{{</span><span class="w"> </span>vers_major<span class="w"> </span><span class="o">}}</span>
 
-tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.0.x-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
-mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.0.x-Linux-x86_64.glibc2.xx<span class="w"> </span>./pxc-build/pxc_extra/pxb-8.0
+tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-8.4.x-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
+mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.4.x-Linux-x86_64.glibc2.xx<span class="w"> </span>./pxc-build/pxc_extra/pxb-8.4
 </code></pre></div>
 </li>
 <li>
-<p>Run the build script <code>./build-ps/build-binary.sh</code>. By default, it attempts to build into the current directory. Specify the target output directory, such as <code>./pxc-build</code>:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>./pxc-build
+<p>Run <code>./build-ps/build-binary.sh</code> and pass an output directory (the script defaults to the current directory):</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./pxc-build
 ./build-ps/build-binary.sh<span class="w"> </span>./pxc-build
 </code></pre></div>
 </li>
 </ol>
-<p>When the compilation completes, <code>pxc-build</code> contains a tarball, such as <code>Percona-XtraBackup-8.4.tar.gz</code>, that you can deploy on your system.</p>
+<p>A clean build drops a fresh archive in <code>pxc-build</code>, typically <code>Percona-XtraDB-Cluster_&lt;version-number&gt;-Linux.x86_64.glibc2.xx.tar.gz</code> (full and minimal builds can both appear). Harvest <code>&lt;version-number&gt;</code> and <code>glibc2.xx</code> from the name the script prints.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact version and release numbers may differ.</p>
-</div></section><section class="print-page" id="docker" heading-number="7.7"><h1 id="docker-run-in-a-docker-container">Run in a Docker container<a class="headerlink" href="#docker-run-in-a-docker-container" title="Permanent link">&para;</a></h1>
+<p>Published version strings, glibc tags, and archive names vary by release.</p>
+</div>
+<h2 id="compile-install-and-next-steps">Install and next steps<a class="headerlink" href="#compile-install-and-next-steps" title="Permanent link">&para;</a></h2>
+<p>Deploy the tarball like any <a href="#tarball-install-from-binary-tarball">binary tarball</a>: one directory tree holds binaries, libraries, and helpers—see the version and archive table on that page.</p>
+<ol>
+<li>
+<p>Unpack it on every node at the path you will treat as <code>basedir</code>.</p>
+</li>
+<li>
+<p>Install runtime OS packages from the Debian, Ubuntu, or Red Hat lists in <a href="#tarball">Install from Binary Tarball</a>.</p>
+</li>
+<li>
+<p>Create <code>datadir</code> and a MySQL option file, point <code>basedir</code> and <code>datadir</code> at your paths, and merge <a href="#configure-nodes-configure-nodes-for-write-set-replication">Galera and cluster settings</a> into the file.</p>
+</li>
+<li>
+<p>Initialize the data directory before the first boot (for example <code>./bin/mysqld --initialize</code> from the unpacked tree, using the account and permissions your policy requires).</p>
+</li>
+<li>
+<p>Start the cluster: <a href="#bootstrap-bootstrap-the-first-node">bootstrap the first node</a>, then <a href="#add-node-add-nodes-to-cluster">join the rest</a>.</p>
+</li>
+</ol>
+<p>Package installs default to <code>/usr</code> and systemd; tarball or hand-built trees use other paths, but bootstrap and join order stay the same. See <a href="#get-started-cluster-get-started-with-percona-xtradb-cluster">Get started with Percona XtraDB Cluster</a> and <a href="#install-index-install-percona-xtradb-cluster">Install Percona XtraDB Cluster</a> for end-to-end context.</p></section><section class="print-page" id="docker" heading-number="7.7"><h1 id="docker-run-in-a-docker-container">Run in a Docker container<a class="headerlink" href="#docker-run-in-a-docker-container" title="Permanent link">&para;</a></h1>
 <p>Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at
 <a href="https://hub.docker.com/r/percona/percona-xtradb-cluster/">https://hub.docker.com/r/percona/percona-xtradb-cluster/ <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Make
