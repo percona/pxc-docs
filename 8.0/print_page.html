@@ -6762,7 +6762,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The data and the GTIDs backed up by mysqldump were inconsistent when the options <code>--single-transaction</code> and <code>--set-gtid-purged=ON</code> were both used. It was because in between the transaction started by mysqldump and the fetching of GTID_EXECUTED, GTIDs on the server could have increased already. With this fixed, a FLUSH TABLES <code>WITH READ LOCK</code> is performed before the fetching of <code>GTID_EXECUTED</code> to ensure its value is consistent with the snapshot taken by mysqldump.</p>
 <p>The MySQL fix also added a requirement when using <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html#option_mysqldump_single-transaction">&ndash;single-transaction</a> and executing FLUSH TABLES WITH READ LOCK for the <a href="https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_reload">RELOAD</a> privilege. (<a href="https://bugs.mysql.com/bug.php?id=109701">MySQL bug #109701</a>, <a href="https://bugs.mysql.com/bug.php?id=105761">MySQL bug #105761</a>)</p>
 <p>The Percona Server version of the <code>mysqldump</code> utility, in some modes, can be used with MySQL Server. This utility provides a temporary workaround for the &ldquo;additional RELOAD privilege&rdquo; limitation introduced by Oracle MySQL Server 8.0.32. </p>
-<p>For more information, see the Percona Performance Blog <a href="https://www.percona.com/blog/workaround-for-the-reload-flush_tables-privilege-required-problem-when-using-oracle-mysqldump-8-0-32/">A Workaround for the &ldquo;RELOAD/FLUSH_TABLES privilege required&rdquo; Problem When Using Oracle mysqldump 8.0.32</a>.</p>
+<p>For more information, see the Percona Performance Blog <a href="https://www.percona.com/blog/a-workaround-for-the-reload-flush_tables-privilege-required-problem-when-using-oracle-mysqldump-8-0-32/">A Workaround for the &ldquo;RELOAD/FLUSH_TABLES privilege required&rdquo; Problem When Using Oracle mysqldump 8.0.32</a>.</p>
 <p>Improvements and bug fixes introduced by Oracle for MySQL 8.0.32 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
@@ -7008,7 +7008,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 <tr>
 <td>Download this version</td>
-<td><a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster</a></td>
+<td><a href="https://www.percona.com/downloads">Percona XtraDB Cluster</a></td>
 </tr>
 </tbody>
 </table>
@@ -7087,7 +7087,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul></section><section class="print-page" id="release-notes-8.0.29-21" heading-number="3.21"><h1 id="release-notes-8.0.29-21-percona-xtradb-cluster-8029-21-2022-09-12">Percona XtraDB Cluster 8.0.29-21 (2022-09-12)<a class="headerlink" href="#release-notes-8.0.29-21-percona-xtradb-cluster-8029-21-2022-09-12" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-8.0.29-21-release-highlights">Release Highlights<a class="headerlink" href="#release-notes-8.0.29-21-release-highlights" title="Permanent link">&para;</a></h2>
-<p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/latest/release-notes/8.0.29-21.html">Percona Server for MySQL 8.0.29-21 (2022-08-08) release notes</a>.</p>
+<p>Percona XtraDB Cluster is based on Percona Server for MySQL. Find a complete list of improvements and bug fixes in the <a href="https://docs.percona.com/percona-server/8.0/release-notes/8.0.29-21.html">Percona Server for MySQL 8.0.29-21 (2022-08-08) release notes</a>.</p>
 <p>The improvements and bug fixes for MySQL 8.0.29, provided by Oracle, and included in Percona Server for MySQL are the following:</p>
 <p>The Performance Schema tracks if a query was processed on the PRIMARY engine, InnoDB, or a SECONDARY engine, HeatWave. An EXECUTION_ENGINE column, which indicates the engine used, was added to the Performance Schema statement event tables and the sys.processlist and the sys.x$processlist views.</p>
 <p>Added support for the IF NOT EXISTS option for the CREATE FUNCTION, CREATE PROCEDURE, and CREATE TRIGGER statements.</p>
@@ -7119,7 +7119,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Percona XtraDB Cluster installation instructions</a></p>
 </li>
 <li>
-<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+<p>The <a href="https://www.percona.com/downloads">Percona XtraDB Cluster downloads</a></p>
 </li>
 <li>
 <p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
@@ -7179,7 +7179,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Percona XtraDB Cluster installation instructions</a></p>
 </li>
 <li>
-<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+<p>The <a href="https://www.percona.com/downloads">Percona XtraDB Cluster downloads</a></p>
 </li>
 <li>
 <p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
@@ -7222,7 +7222,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Percona XtraDB Cluster installation instructions</a></p>
 </li>
 <li>
-<p>The <a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#">Percona XtraDB Cluster downloads</a></p>
+<p>The <a href="https://www.percona.com/downloads">Percona XtraDB Cluster downloads</a></p>
 </li>
 <li>
 <p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
@@ -7320,7 +7320,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a>.</p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.25-15.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.25-15.html">release notes for Percona Server for MySQL 8.0.25-15</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.25-15.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.25-15.html">release notes for Percona Server for MySQL 8.0.25-15</a> for more details on these changes.</p>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.25-15.1-release-highlights">Release Highlights<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.25-15.1-release-highlights" title="Permanent link">&para;</a></h2>
 <p>A Non-Blocking Operation method for online schema changes in Percona XtraDB Cluster. This mode is similar to the Total Order Isolation (TOI) mode, whereas a data definition language (DDL) statement (for example, <code>ALTER</code>) is executed on all nodes in sync. The difference is that in the NBO mode, the DDL statement acquires a metadata lock that locks the table or schema at a late stage of the operation, which is a more efficient locking strategy.</p>
@@ -7391,7 +7391,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a>.</p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.23-14.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.23-14.html">release notes for Percona Server for MySQL 8.0.23-14</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.23-14.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.23-14.html">release notes for Percona Server for MySQL 8.0.23-14</a> for more details on these changes.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.23-14.1-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.23-14.1-improvements" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://jira.percona.com/browse/PXC-3092">PXC-3092</a>: Log a warning at startup if a keyring is specified, but the cluster traffic encryption is turned off</li>
@@ -7439,7 +7439,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a></p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.22-13.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.22-13.html">release notes for Percona Server for MySQL 8.0.22-13</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.22-13.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.22-13.html">release notes for Percona Server for MySQL 8.0.22-13</a> for more details on these changes.</p>
 <p>This release fixes security vulnerability <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27928">CVE-2021-27928</a>, a similar issue to <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-15180">CVE-2020-15180</a></p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.22-13.1-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.22-13.1-improvements" title="Permanent link">&para;</a></h2>
 <ul>
@@ -7493,7 +7493,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a></p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.21-12.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.21-12.html">release notes for Percona Server for MySQL 8.0.21-12</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.21-12.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.21-12.html">release notes for Percona Server for MySQL 8.0.21-12</a> for more details on these changes.</p>
 <p>Implement an inconsistency voting policy. In the best case scenario, the node with the inconsistent data is aborted and the cluster continues to operate.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.21-12.1-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.21-12.1-improvements" title="Permanent link">&para;</a></h2>
 <ul>
@@ -7554,7 +7554,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a></p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.20-11 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.20-11.html">release notes for Percona Server for MySQL 8.0.20-11</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.20-11 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.20-11.html">release notes for Percona Server for MySQL 8.0.20-11</a> for more details on these changes.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.20-11-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.20-11-improvements" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://jira.percona.com/browse/PXC-2603">PXC-2603</a>: Update Index for PXC status variables - apply consistent definitions</li>
@@ -7633,7 +7633,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a></p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.19-10 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.19-10.html">release notes for Percona Server for MySQL 8.0.19-10</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.19-10 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.19-10.html">release notes for Percona Server for MySQL 8.0.19-10</a> for more details on these changes.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.19-10-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.19-10-improvements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -7743,7 +7743,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html">Installing Percona XtraDB Cluster</a></p>
 </li>
 </ul>
-<p>Percona XtraDB Cluster 8.0.18-9.3 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.18-9.html">release notes for Percona Server for MySQL 8.0.18-9</a> for more details on these changes.</p>
+<p>Percona XtraDB Cluster 8.0.18-9.3 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding <a href="https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.18-9.html">release notes for Percona Server for MySQL 8.0.18-9</a> for more details on these changes.</p>
 <h2 id="release-notes-percona-xtradb-cluster-8.0.18-9.3-improvements">Improvements<a class="headerlink" href="#release-notes-percona-xtradb-cluster-8.0.18-9.3-improvements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -8820,7 +8820,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </s
 for manual installation.</p>
 <p>Check out our <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
 <p>You can download the appropriate tarball package from
-<a href="https://www.percona.com/downloads/Percona-XtraDB-Cluster-80">https://www.percona.com/downloads/Percona-XtraDB-Cluster-80</a></p>
+<a href="https://www.percona.com/downloads">Percona Software Downloads</a></p>
 <h3 id="tarball-version-updates">Version updates<a class="headerlink" href="#tarball-version-updates" title="Permanent link">&para;</a></h3>
 <p>Starting with <em>Percona XtraDB Cluster</em> 8.0.20-11, the <strong>Linux - Generic</strong>
 section lists only full or minimal tar files. Each tarball file replaces the
@@ -10655,7 +10655,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
 </ul>
 <p>The <code>mysqld</code> profile allows the execution of the SST script in PUx mode with the /{usr/}bin/wsrep_sst_*PUx command. The profile is applied if the script contains a profile. The SST script runs in unconfined mode if the script does not contain a profile. The system administrator can change the execution mode to Pix. This action causes a fallback to inherited mode in case the SST script profile is absent.</p>
 <h2 id="apparmor-profile-adjustments">Profile adjustments<a class="headerlink" href="#apparmor-profile-adjustments" title="Permanent link">&para;</a></h2>
-<p>The <code>mysqld</code> profile and the <code>SST</code> script profile can be adjusted, such as moving the data directory, in the same way as <a href="https://www.percona.com/doc/percona-server/LATEST/security/apparmor.html#modify-mysqld">modifying the mysqld profile</a>  in Percona Server.</p>
+<p>The <code>mysqld</code> profile and the <code>SST</code> script profile can be adjusted, such as moving the data directory, in the same way as <a href="https://docs.percona.com/percona-server/8.0/security/apparmor.html">modifying the mysqld profile</a>  in Percona Server.</p>
 <h2 id="apparmor-work-with-pxc_encrypt_cluster_traffic">Work with <code>pxc_encrypt_cluster_traffic</code><a class="headerlink" href="#apparmor-work-with-pxc_encrypt_cluster_traffic" title="Permanent link">&para;</a></h2>
 <p>By default, the <code>pxc_encrypt_cluster_traffic</code> is <code>ON</code>, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.</p>
 <p><a href="https://www.percona.com/doc/percona-xtradb-cluster/8.0/encrypt-traffic.html#encrypt-replication">Set up the certificates</a> describes the certificate setup.</p>
@@ -12584,7 +12584,7 @@ higher version JOINER can join from lower version DONOR, but not vice-versa.</p>
 </div>
 <h3 id="data-at-rest-encryption-configuration_1">Configuration<a class="headerlink" href="#data-at-rest-encryption-configuration_1" title="Permanent link">&para;</a></h3>
 <p>Configuration options are the same as
-<a href="https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html">upstream</a>.
+<a href="https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html">upstream</a>.
 The <code>my.cnf</code> configuration file should contain the following options:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
 early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
@@ -12596,7 +12596,7 @@ secret_mount_point = secret1
 token = e0345eb4-35dd-3ddd-3b1e-e42bb9f2525d
 vault_ca = /data/keyring_vault_confs/vault_ca.crt
 </code></pre></div>
-<p>The detailed description of these options can be found in the <a href="https://www.percona.com/doc/percona-server/8.0/security/using-keyring-plugin.html">upstream
+<p>The detailed description of these options can be found in the <a href="https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html">upstream
 documentation</a>.</p>
 <p>Vault-server is an external server, so make sure the PXC node can reach the
 server.</p>
