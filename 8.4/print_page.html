@@ -6494,191 +6494,560 @@ mysql&gt;
 </details>
 </li>
 </ol></section><section class="print-page" id="docker-compose" heading-number="7.8"><h1 id="docker-compose-run-with-docker-compose">Run with Docker Compose<a class="headerlink" href="#docker-compose-run-with-docker-compose" title="Permanent link">&para;</a></h1>
-<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Make
-sure that you are using the latest version of Docker. The ones
-provided via <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
-<p>We gather <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
+<p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Use the latest version of Docker. Versions provided through <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
+<p>Percona collects <a href="#telemetry">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
-<p>This guide shows you how to deploy a three-node Percona XtraDB Cluster 8.4 using Docker Compose. You generate SSL certificates on the first node and copy them to the other two nodes to enable secure communication.</p>
-<p>The following procedure describes setting up a simple 3-node cluster
-for evaluation and testing purposes. Do not use these instructions in a
-production environment because the MySQL certificates generated in this
-procedure are self-signed.</p>
-<p>In a production environment, you should generate and store the certificates to be used by Docker and configure proper storage, security, backup, and monitoring systems.</p>
+<p>This guide describes how to deploy a three-node Percona XtraDB Cluster (PXC) 8.4 with Docker Compose. You generate Secure Sockets Layer (SSL) certificates on the first node. You then copy the certificates to the other two nodes to enable secure communication.</p>
+<p><img alt="Percona XtraDB Cluster with Docker" src="_static/pxc-docker.png" /></p>
+<p>The following procedure is for evaluation and testing only. The MySQL certificates generated here are self-signed. For production, generate and store proper certificates. Also configure storage, <a href="#secure-network">secure networking</a>, backup, and <a href="#monitoring">monitoring</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Single-host deployment limits availability</p>
+<p>This guide runs all three nodes on a single host, which is not highly available. If the host reboots or the disk fails, the entire cluster fails and data can be lost. For production, run each of the three nodes on different physical machines or distinct failure domains. Use scheduling such as Docker Swarm or Kubernetes with anti-affinity to prevent a single failure from taking out the cluster. For production guidance, see <a href="#high-availability">High availability</a>.</p>
+</div>
 <h2 id="docker-compose-prerequisites">Prerequisites<a class="headerlink" href="#docker-compose-prerequisites" title="Permanent link">&para;</a></h2>
+<p>The deployment requires the following:</p>
 <ul>
 <li>
-<p>Docker and Docker Compose installed</p>
+<p>Docker and Docker Compose installed (or Podman 4.1 or later and Podman Compose; see <a href="#docker-compose-appendix-podman-alternative">Appendix: Podman alternative</a>)</p>
 </li>
 <li>
-<p>At least 3 GB of memory per container</p>
+<p>At least 3 GB of memory per container. Percona XtraDB Cluster requires substantial memory. Without enough Random-Access Memory (RAM), the Out-of-Memory (OOM) killer can terminate the MySQL process. Termination commonly occurs during startup or during the State Snapshot Transfer (SST). The cluster can then fail or restart in a loop. Allocate enough free RAM for three nodes plus overhead (for example, at least 10 GB total). The example Compose file sets a 3 GB limit per container. If the host has more RAM, increase the limit accordingly.</p>
 </li>
 <li>
 <p>Familiarity with Docker volumes and networks</p>
 </li>
 </ul>
-<h2 id="docker-compose-directory-structure">Directory Structure<a class="headerlink" href="#docker-compose-directory-structure" title="Permanent link">&para;</a></h2>
-<p>You must create a separate directory structure to organize your configuration, certificate files, and Docker Compose setup. This step keeps your deployment clean and easy to manage.</p>
+<h2 id="docker-compose-directory-structure">Directory structure<a class="headerlink" href="#docker-compose-directory-structure" title="Permanent link">&para;</a></h2>
+<p>Create a directory structure to organize configuration, certificate files, and the Docker Compose definition.</p>
 <p>Run the following commands to create the directory structure:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
 <span class="nb">cd</span><span class="w"> </span>pxc-cluster
 </code></pre></div>
-<p>After running these commands, your working directory (pxc-cluster/) will contain:</p>
-<p><img alt="PXC cluster directories" src="_static/pxc-cluster-dirs.png" /></p>
-<p class="power-number">This structure helps manage configuration files, TLS/SSL certificates, and setup scripts, ensuring a tidy and easy-to-manage deployment.</p>
+<p>Expected result: No output. The current directory is <code>pxc-cluster</code> with subdirectories <code>certs</code>, <code>conf.d</code>, and <code>init</code>.</p>
+<p>After you run these commands, the <code>pxc-cluster/</code> working directory contains the following layout:</p>
+<div class="highlight"><pre><span></span><code>pxc-cluster/
+├── certs/
+├── conf.d/
+└── init/
+</code></pre></div>
+<p>The directory structure separates configuration files, Transport Layer Security (TLS) and SSL certificates, and initialization scripts.</p>
+<h2 id="docker-compose-configuration-files">Configuration files<a class="headerlink" href="#docker-compose-configuration-files" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Create conf.d/custom.cnf with minimal SSL settings:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
-ssl-ca=/etc/mysql/certs/ca.pem
-ssl-cert=/etc/mysql/certs/server-cert.pem
-ssl-key=/etc/mysql/certs/server-key.pem
+<p>Create <code>conf.d/custom.cnf</code> with minimal SSL settings:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
+<span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
+<span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
 </code></pre></div>
 </li>
 <li>
-<p>Create a file named <code>.env</code> in the directory root:</p>
-<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=rootpass
-XTRABACKUP_PASSWORD=xbpass
+<p>Configure password storage with Docker Secrets or <code>.env</code>.</p>
+<p>A <code>.env</code> file is convenient but exposes secret values through <code>docker inspect</code> and process listings. Prefer Docker Secrets (or Podman secrets), which mount passwords as files instead of environment variables.</p>
+<p>Choose one of the following options:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="docker-compose-__tabbed_1_1" name="docker-compose-__tabbed_1" type="radio" /><input id="docker-compose-__tabbed_1_2" name="docker-compose-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="docker-compose-__tabbed_1_1">Option A: Docker Secrets (recommended)</label><label for="docker-compose-__tabbed_1_2">Option B: .env (quick local test only)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Create two secret files in the project root. Each file must contain only the password with no trailing newline. Generate strong passwords and write them in one step:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>mysql_root_password
+openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>xtrabackup_password
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>mysql_root_password<span class="w"> </span>xtrabackup_password
 </code></pre></div>
-<p>Add <code>.env</code> to your .gitignore file to prevent committing secrets to version control.</p>
+<p>Each file contains a single line with no trailing newline:</p>
+<ul>
+<li>
+<p><code>mysql_root_password</code> — the MySQL root password.</p>
 </li>
 <li>
-<p>Copy the SSL certificate generation script. Save the script as <code>init/create-ssl-certs.sh</code>:</p>
-<div class="highlight"><pre><span></span><code>#!/bin/bash
-set -e
-CERT_DIR=./certs
-mkdir -p &quot;$CERT_DIR&quot;
-cd &quot;$CERT_DIR&quot;
-Generate CA key and certificate
-openssl genrsa -out ca-key.pem 2048
-openssl req -new -x509 -nodes -days 3650 \
-    -key ca-key.pem \
-    -subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=RootCA&quot; \
-    -out ca.pem
-Generate server key and CSR
-openssl req -newkey rsa:2048 -nodes \
-    -keyout server-key.pem \
-    -subj &quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot; \
-    -out server-req.pem
-Sign server certificate with CA
-openssl x509 -req -in server-req.pem -days 3650 \
-    -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
-    -out server-cert.pem
-Restrict permissions
-chmod 600 *.pem
+<p><code>xtrabackup_password</code> — the XtraBackup replication password.</p>
+</li>
+</ul>
+<p>Add <code>mysql_root_password</code> and <code>xtrabackup_password</code> to your <code>.gitignore</code>. The Compose file in <a href="#docker-compose-docker-compose-setup">Docker Compose setup</a> references these files through the <code>secrets:</code> block. The container reads passwords from the mounted files through <code>MYSQL_ROOT_PASSWORD_FILE</code> and <code>XTRABACKUP_PASSWORD_FILE</code>. The Percona XtraDB Cluster 8.4 image supports these <code>_FILE</code> variables. If your image does not support <code>_FILE</code> variables, use Option B.</p>
+</div>
+<div class="tabbed-block">
+<p>Create a file named <code>.env</code> in the directory root with the following contents:</p>
+<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=&lt;password&gt;
+XTRABACKUP_PASSWORD=&lt;password&gt;
+</code></pre></div>
+<p>Add <code>.env</code> to your <code>.gitignore</code>. In the Compose file, replace the <code>secrets</code> block and the <code>_FILE</code> variables with <code>MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</code> and <code>XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</code>.</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+<h2 id="docker-compose-ssl-certificate-generation">SSL certificate generation<a class="headerlink" href="#docker-compose-ssl-certificate-generation" title="Permanent link">&para;</a></h2>
+<p>For broader guidance on protecting cluster traffic, see <a href="#encrypt-traffic">Encrypt traffic</a>.</p>
+<ol>
+<li>
+<p>Copy the SSL certificate generation script. The script uses OpenSSL to create a Certificate Authority (CA), generate a Certificate Signing Request (CSR), and sign the server certificate. Save the script as <code>init/create-ssl-certs.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span><span class="w"> </span>-e
+<span class="nv">CERT_DIR</span><span class="o">=</span>./certs
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CERT_DIR</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CERT_DIR</span><span class="s2">&quot;</span>
+<span class="c1"># Generate CA key and certificate</span>
+openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca-key.pem<span class="w"> </span><span class="m">2048</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-key<span class="w"> </span>ca-key.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-subj<span class="w"> </span><span class="s2">&quot;/C=XX/ST=State/L=City/O=Organization/CN=RootCA&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-out<span class="w"> </span>ca.pem
+<span class="c1"># Generate server key and CSR</span>
+openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-keyout<span class="w"> </span>server-key.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-subj<span class="w"> </span><span class="s2">&quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-out<span class="w"> </span>server-req.pem
+<span class="c1"># Sign server certificate with CA</span>
+openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-out<span class="w"> </span>server-cert.pem
+<span class="c1"># Restrict permissions</span>
+chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>*.pem
 </code></pre></div>
 </li>
 <li>
 <p>Make the script executable:</p>
 <div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
 </code></pre></div>
+<p>Expected result: No output.</p>
 </li>
 <li>
 <p>Run the script to create the certs:</p>
 <div class="highlight"><pre><span></span><code>./init/create-ssl-certs.sh
 </code></pre></div>
+<p>Expected result: No output. The script creates <code>ca-key.pem</code>, <code>ca.pem</code>, <code>server-key.pem</code>, <code>server-req.pem</code>, and <code>server-cert.pem</code> in <code>certs/</code>.</p>
+<p>The certificates expire in 10 years. For production environments, implement certificate rotation and expiration monitoring.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To regenerate certificates, delete the <code>certs/</code> directory first, then run the script again. Running the script twice without removing existing files can fail or overwrite keys. Overwritten keys break trust across nodes already joined to the cluster.</p>
+</div>
 </li>
 <li>
-<p>Copy Certificates to All Nodes</p>
-<p>All three nodes in the cluster must use the same set of SSL certificates. After generating the certificates in the certs/ directory on node 1, you need to copy them to the directories for node 2 and node 3.</p>
-<p>If you run all containers from a single project directory (like with Docker Compose on one host), you can reuse the same certs/ directory for all nodes. However, you must explicitly copy the certificates if you’re organizing them into separate directories or deploying on separate hosts.</p>
-<p>To create the directories for node 2 and node 3:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node2
-mkdir<span class="w"> </span>-p<span class="w"> </span>certs-node3
-</code></pre></div>
-<p>Then copy the certificates:</p>
-<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node2/
-cp<span class="w"> </span>-r<span class="w"> </span>certs/*<span class="w"> </span>certs-node3/
-</code></pre></div>
-<p>If you’re deploying on separate machines, run the following from node 1:</p>
+<p>Copy certificates to all nodes (only for multi-host).</p>
+<p>All three nodes must use the same set of SSL certificates. The <code>docker-compose.yml</code> in this guide mounts the same <code>./certs</code> directory for all three services (pxc1, pxc2, pxc3). For a single-host deployment, all nodes share the <code>certs/</code> directory created in step 3.</p>
+<p>For a multi-host deployment, copy the certificates to each machine. Each host must have its own <code>certs/</code> directory (or equivalent path) for its Compose project. From node 1, run the following commands:</p>
 <div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
 scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
 </code></pre></div>
-<p>Ensure each container mounts its own copy of the certs/ directory.</p>
-</li>
-<li>
-<p>Create docker-compose.yml:</p>
-<div class="highlight"><pre><span></span><code>services:
-  pxc1:
-    image: percona/percona-xtradb-cluster:8.4
-    container_name: pxc1
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - CLUSTER_NAME=pxc-cluster
-      - CLUSTER_JOIN=pxc2,pxc3
-      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
-    volumes:
-      - ./certs:/etc/mysql/certs:ro
-      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
-    networks:
-      - pxcnet
-    ports:
-      - &quot;3306:3306&quot;
-    command: [&quot;--wsrep-new-cluster&quot;]
-    healthcheck:
-      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-  pxc2:
-    image: percona/percona-xtradb-cluster:8.4
-    container_name: pxc2
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - CLUSTER_NAME=pxc-cluster
-      - CLUSTER_JOIN=pxc1,pxc3
-      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
-    volumes:
-      - ./certs:/etc/mysql/certs:ro
-      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
-    networks:
-      - pxcnet
-    healthcheck:
-      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-  pxc3:
-    image: percona/percona-xtradb-cluster:8.4
-    container_name: pxc3
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - CLUSTER_NAME=pxc-cluster
-      - CLUSTER_JOIN=pxc1,pxc2
-      - XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}
-    volumes:
-      - ./certs:/etc/mysql/certs:ro
-      - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro
-    networks:
-      - pxcnet
-    healthcheck:
-      test: [&quot;CMD&quot;, &quot;mysqladmin&quot;, &quot;ping&quot;, &quot;-h&quot;, &quot;localhost&quot;]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-networks:
-  pxcnet:
-    driver: bridge
-</code></pre></div>
-</li>
-<li>
-<p>Start the Cluster</p>
-<p>Start node 1 to initialize the cluster:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
-</code></pre></div>
-<p>Then, start the remaining nodes:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
-</code></pre></div>
-</li>
-<li>
-<p>Validate the Cluster</p>
-<p>Check the status of each node:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="si">${</span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="si">}</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
-</code></pre></div>
+<p>Expected result: Progress or confirmation for each file copied to each host. No output indicates success after the transfer completes.</p>
+<p>Ensure each host&rsquo;s Compose file mounts that host&rsquo;s certificate directory. See <a href="#docker-compose-multi-host-deployment">Multi-host deployment</a> for firewall, name resolution, and time synchronization.</p>
 </li>
 </ol>
-<p>You should see all three nodes joined and synchronized.</p></section><section class="print-page" id="configure-nodes" heading-number="7.9"><h1 id="configure-nodes-configure-nodes-for-write-set-replication">Configure nodes for write-set replication<a class="headerlink" href="#configure-nodes-configure-nodes-for-write-set-replication" title="Permanent link">&para;</a></h1>
+<h2 id="docker-compose-multi-host-deployment">Multi-host deployment<a class="headerlink" href="#docker-compose-multi-host-deployment" title="Permanent link">&para;</a></h2>
+<p>When you run each node on a separate machine, configure the following on every host in addition to copying certificates.</p>
+<h3 id="docker-compose-firewall">Firewall<a class="headerlink" href="#docker-compose-firewall" title="Permanent link">&para;</a></h3>
+<p>Allow cluster and client traffic between hosts. Open the following ports on each host for the other hosts&rsquo; Internet Protocol (IP) addresses or subnet:</p>
+<ul>
+<li>
+<p>3306 (MySQL client)</p>
+</li>
+<li>
+<p>4444 (Percona XtraBackup snapshot transfer)</p>
+</li>
+<li>
+<p>4567 (Galera replication)</p>
+</li>
+<li>
+<p>4568 (Galera incremental state transfer)</p>
+</li>
+</ul>
+<h3 id="docker-compose-name-resolution-and-cluster_join">Name resolution and CLUSTER_JOIN<a class="headerlink" href="#docker-compose-name-resolution-and-cluster_join" title="Permanent link">&para;</a></h3>
+<p>Containers on one host must reach containers on other hosts by hostname or IP address. The example Compose file uses <code>CLUSTER_JOIN=pxc1</code>, which works only when all containers run on the same host. The name <code>pxc1</code> resolves only inside the host network where that container runs.</p>
+<p>For a multi-host deployment, set <code>CLUSTER_JOIN</code> to the IP address or Fully Qualified Domain Name (FQDN). Use the address of the host that runs the bootstrap node. On the hosts that run pxc2 and pxc3, set one of the following:</p>
+<ul>
+<li>
+<p><code>CLUSTER_JOIN=&lt;IP_OF_NODE_1&gt;</code></p>
+</li>
+<li>
+<p><code>CLUSTER_JOIN=&lt;FQDN_OF_NODE_1&gt;</code></p>
+</li>
+</ul>
+<p>Replace the placeholder with the actual IP address or FQDN of the machine where pxc1 runs. Add Domain Name System (DNS) records or <code>/etc/hosts</code> entries on each host. The value in <code>CLUSTER_JOIN</code> must resolve to the correct machine.</p>
+<h3 id="docker-compose-time-synchronization">Time synchronization<a class="headerlink" href="#docker-compose-time-synchronization" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster and Galera require consistent time across nodes. Synchronize the clock on every host with a Network Time Protocol (NTP) implementation such as <code>chrony</code> or <code>systemd-timesyncd</code>. Clock skew between hosts can cause replication issues and cluster instability. Enable and run NTP before starting the cluster.</p>
+<h2 id="docker-compose-docker-compose-setup">Docker Compose setup<a class="headerlink" href="#docker-compose-docker-compose-setup" title="Permanent link">&para;</a></h2>
+<p>Create <code>docker-compose.yml</code> in the project root. The following example uses Docker Secrets (Option A in <a href="#docker-compose-configuration-files">Configuration files</a>). If you chose the <code>.env</code> option (Option B), make these changes:</p>
+<ul>
+<li>
+<p>Remove the top-level <code>secrets:</code> block.</p>
+</li>
+<li>
+<p>Remove each service&rsquo;s <code>secrets:</code> list.</p>
+</li>
+<li>
+<p>Replace the <code>_FILE</code> variables with <code>MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</code> and <code>XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</code>.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the host runs out of memory, the cluster can fail. Ensure the host has at least enough free RAM for three nodes plus overhead (for example, 10 GB total). The following example sets a 3 GB memory limit per container. The daemon does not start a container when the host cannot satisfy the limit. If the host has more RAM, increase the limit (for example, 4 GB per container for a 12 GB+ host).</p>
+</div>
+<p>The memory limit syntax depends on the Compose runtime. Docker Compose v2 (the <code>docker compose</code> plugin) honors the <code>deploy.resources.limits.memory</code> block in the following example. <code>podman-compose</code> and legacy <code>docker-compose</code> v1 ignore the <code>deploy:</code> block.</p>
+<div class="admonition note">
+<p class="admonition-title">Memory limits with Podman Compose</p>
+<p>If you run the stack with <code>podman compose</code> or <code>podman-compose</code>, replace the <code>deploy.resources.limits.memory</code> block on each service with <code>mem_limit: 3g</code>. The <code>mem_limit:</code> key sits at the service level.</p>
+</div>
+<p>The example sets the following environment variables on each service:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MYSQL_ROOT_PASSWORD_FILE</code></td>
+<td>Yes</td>
+<td>Path inside the container to the file holding the MySQL root password. Required when using Docker Secrets (Option A).</td>
+<td><code>/run/secrets/mysql_root_password</code></td>
+</tr>
+<tr>
+<td><code>XTRABACKUP_PASSWORD_FILE</code></td>
+<td>Yes</td>
+<td>Path inside the container to the file holding the XtraBackup replication password. Required when using Docker Secrets (Option A).</td>
+<td><code>/run/secrets/xtrabackup_password</code></td>
+</tr>
+<tr>
+<td><code>CLUSTER_NAME</code></td>
+<td>Yes</td>
+<td>Logical name shared by all three nodes. Must be identical across pxc1, pxc2, and pxc3.</td>
+<td><code>pxc-cluster</code></td>
+</tr>
+<tr>
+<td><code>CLUSTER_JOIN</code></td>
+<td>On join nodes only</td>
+<td>Address of the bootstrap node. Omit on the bootstrap node (pxc1). On a single host, use the container name. On multiple hosts, use the IP address or FQDN.</td>
+<td><code>pxc1</code></td>
+</tr>
+<tr>
+<td><code>MYSQL_ROOT_PASSWORD</code></td>
+<td>Option B only</td>
+<td>MySQL root password value. Used in place of <code>MYSQL_ROOT_PASSWORD_FILE</code> when configuring with <code>.env</code>.</td>
+<td><code>${MYSQL_ROOT_PASSWORD}</code></td>
+</tr>
+<tr>
+<td><code>XTRABACKUP_PASSWORD</code></td>
+<td>Option B only</td>
+<td>XtraBackup replication password value. Used in place of <code>XTRABACKUP_PASSWORD_FILE</code> when configuring with <code>.env</code>.</td>
+<td><code>${XTRABACKUP_PASSWORD}</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mysql_root_password</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./mysql_root_password</span>
+<span class="w">  </span><span class="nt">xtrabackup_password</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./xtrabackup_password</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pxc1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc1</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password</span>
+<span class="w">    </span><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xtrabackup_password</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data-pxc1:/var/lib/mysql,Z</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3306:3306&quot;</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--wsrep-new-cluster&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">pxc2</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc2</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password</span>
+<span class="w">    </span><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xtrabackup_password</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data-pxc2:/var/lib/mysql,Z</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">pxc1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
+<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">pxc3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-xtradb-cluster:8.4</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxc3</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_NAME=pxc-cluster</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLUSTER_JOIN=pxc1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XTRABACKUP_PASSWORD_FILE=/run/secrets/xtrabackup_password</span>
+<span class="w">    </span><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql_root_password</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xtrabackup_password</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./data-pxc3:/var/lib/mysql,Z</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">pxc1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_healthy</span>
+<span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
+<span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
+<span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pxcnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</code></pre></div>
+<p>Volume persistence: The example uses bind mounts (<code>./data-pxc1</code>, <code>./data-pxc2</code>, <code>./data-pxc3</code>). Data lives on the host and survives <code>docker compose down</code>. For production, consider named volumes. Named volumes let the runtime manage storage instead of tying data to a single host path. Without bind mounts or named volumes, database data is ephemeral and is lost when containers are removed.</p>
+<p>SELinux and rootless: The example uses <code>:Z</code> (or <code>:z</code>) on all volume mounts. The runtime relabels them for the container. SELinux relabeling is required when SELinux is enabled. RHEL, CentOS Stream, Rocky, AlmaLinux, and Fedora enable SELinux by default. Rootless runtimes (Podman or Docker rootless) also commonly need relabeling. Without relabeling, the container cannot read <code>certs/</code>, <code>conf.d/</code>, or the data directories and fails at startup. On systems without SELinux, remove <code>,Z</code> from the volume suffixes. For more on SELinux configuration, see <a href="#selinux">SELinux</a>.</p>
+<h2 id="docker-compose-deployment">Deployment<a class="headerlink" href="#docker-compose-deployment" title="Permanent link">&para;</a></h2>
+<p>The Compose file sets <code>depends_on: pxc1: condition: service_healthy</code> for pxc2 and pxc3. The join nodes start only after pxc1 passes its healthcheck. This dependency prevents a race where the join nodes start before the bootstrap node is ready. Choose one of the following approaches:</p>
+<ul>
+<li>
+<p>Run <code>docker compose up -d</code> once. Compose starts pxc1, waits for the healthcheck to pass, then starts pxc2 and pxc3.</p>
+</li>
+<li>
+<p>Start pxc1 first, then start the other nodes after pxc1 reports healthy. The following procedure shows this approach.</p>
+</li>
+<li>
+<p>Start the bootstrap node to initialize the cluster:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
+</code></pre></div>
+<p>Expected result: A line such as <code>[+] Running 1/1 - Container pxc1  Started</code>. The container pxc1 is running.</p>
+<p>With Podman, use <code>podman compose up -d pxc1</code> or <code>podman-compose up -d pxc1</code>.</p>
+</li>
+<li>
+<p>Wait for pxc1 to report healthy before starting pxc2 and pxc3. The bootstrap node must accept connections, or the other nodes can fail to join. Use a wait loop:</p>
+<div class="highlight"><pre><span></span><code><span class="k">until</span><span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqladmin<span class="w"> </span>ping<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for pxc1...&quot;</span>
+<span class="w">  </span>sleep<span class="w"> </span><span class="m">2</span>
+<span class="k">done</span>
+</code></pre></div>
+<p>Expected result: The loop prints <code>Waiting for pxc1...</code> until the node responds, then exits with no further output.</p>
+</li>
+<li>
+<p>Start the remaining nodes:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
+</code></pre></div>
+<p>Expected result: Lines such as <code>[+] Running 2/2 - Container pxc2  Started - Container pxc3  Started</code>. Both containers are running.</p>
+<p>With Podman, use <code>podman compose up -d pxc2 pxc3</code> or <code>podman-compose up -d pxc2 pxc3</code>.</p>
+</li>
+</ul>
+<h2 id="docker-compose-validation">Validation<a class="headerlink" href="#docker-compose-validation" title="Permanent link">&para;</a></h2>
+<p>Check the status of each node from the host. Pass the root password according to your secret store:</p>
+<ul>
+<li>
+<p>Docker Secrets: <code>-p$(cat mysql_root_password)</code></p>
+</li>
+<li>
+<p><code>.env</code>: <code>-p${MYSQL_ROOT_PASSWORD}</code></p>
+</li>
+</ul>
+<p>With Podman, use <code>podman exec</code> instead of <code>docker exec</code> in every command.</p>
+<ol>
+<li>
+<p>Verify cluster size and primary status:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected result: <code>wsrep_cluster_size</code> returns a row with value <code>3</code>. <code>wsrep_cluster_status</code> returns <code>Primary</code>. If the value is <code>non-Primary</code>, the node is isolated.</p>
+</li>
+<li>
+<p>Verify additional cluster health indicators on any node (for example, pxc1):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_ready&#39;;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_connected&#39;;&quot;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_local_state_comment&#39;;&quot;</span>
+</code></pre></div>
+<p>Expected result: <code>wsrep_ready</code> = <code>ON</code>, <code>wsrep_connected</code> = <code>ON</code>, <code>wsrep_local_state_comment</code> = <code>Synced</code>.</p>
+</li>
+</ol>
+<p>All three nodes are joined and synchronized when the listed health indicators show the expected values. To validate replication end-to-end, see <a href="#verify-replication">Verify replication</a>.</p>
+<h2 id="docker-compose-backup">Backup<a class="headerlink" href="#docker-compose-backup" title="Permanent link">&para;</a></h2>
+<p>Back up data before major changes or shutdown. The following example dumps all databases from pxc1 to a file on the host. Use the root password from your secret file or <code>.env</code>:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqldump<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>--all-databases<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
+</code></pre></div>
+<p>Expected result: The file <code>backup.sql</code> is created in the current directory with SQL statements for all databases. If you use <code>.env</code>, substitute <code>-p${MYSQL_ROOT_PASSWORD}</code>. With Podman, use <code>podman exec</code> instead of <code>docker exec</code>.</p>
+<h2 id="docker-compose-troubleshooting">Troubleshooting<a class="headerlink" href="#docker-compose-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>View container logs for debugging:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc1
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc2
+docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc3
+</code></pre></div>
+<p>Each command streams that container&rsquo;s logs (stdout and stderr). The <code>-f</code> option follows the log output. Omit <code>-f</code> for a one-off dump.</p>
+<p>Expected result: Log lines from MySQL and PXC until you press Ctrl+C.</p>
+<p>With Podman, use <code>podman compose logs -f pxc1</code>.</p>
+<p>The following sections cover common issues.</p>
+<h3 id="docker-compose-containers-exit-or-fail-to-start">Containers exit or fail to start<a class="headerlink" href="#docker-compose-containers-exit-or-fail-to-start" title="Permanent link">&para;</a></h3>
+<p>This issue typically appears at startup before the cluster forms:</p>
+<ul>
+<li>
+<p>Symptom: One or more containers exit immediately or fail to reach the healthy state.</p>
+</li>
+<li>
+<p>Diagnosis: Check the container logs with <code>docker compose logs pxc1</code> (and <code>pxc2</code>, <code>pxc3</code>).</p>
+</li>
+<li>
+<p>Solution: Ensure the bootstrap node (pxc1) is healthy before starting pxc2 and pxc3.</p>
+</li>
+</ul>
+<h3 id="docker-compose-cluster-size-stays-at-1">Cluster size stays at 1<a class="headerlink" href="#docker-compose-cluster-size-stays-at-1" title="Permanent link">&para;</a></h3>
+<p>The bootstrap node started, but the join nodes failed to register:</p>
+<ul>
+<li>
+<p>Symptom: <code>wsrep_cluster_size</code> returns <code>1</code> instead of <code>3</code>.</p>
+</li>
+<li>
+<p>Diagnosis: The join nodes started before pxc1 became ready.</p>
+</li>
+<li>
+<p>Solution: Start pxc1 first. Wait for the healthcheck to pass. Restart pxc2 and pxc3 after pxc1 is up.</p>
+</li>
+</ul>
+<h3 id="docker-compose-permission-denied-on-certs-or-config">Permission denied on certs or config<a class="headerlink" href="#docker-compose-permission-denied-on-certs-or-config" title="Permanent link">&para;</a></h3>
+<p>The container cannot read mounted host paths:</p>
+<ul>
+<li>
+<p>Symptom: The container fails to read <code>certs/</code> or <code>conf.d/</code>.</p>
+</li>
+<li>
+<p>Diagnosis: SELinux blocks the container from accessing host paths without relabeling.</p>
+</li>
+<li>
+<p>Solution: Add <code>:Z</code> or <code>:z</code> to all volume mounts. See the SELinux note in <a href="#docker-compose-docker-compose-setup">Docker Compose setup</a> and <a href="#docker-compose-appendix-podman-alternative">Appendix: Podman alternative</a>.</p>
+</li>
+</ul>
+<h3 id="docker-compose-nodes-cannot-reach-each-other">Nodes cannot reach each other<a class="headerlink" href="#docker-compose-nodes-cannot-reach-each-other" title="Permanent link">&para;</a></h3>
+<p>Network configuration blocks communication between cluster members:</p>
+<ul>
+<li>
+<p>Symptom: Galera reports nodes as unreachable, or the cluster size remains <code>1</code>.</p>
+</li>
+<li>
+<p>Diagnosis: Network configuration prevents nodes from communicating.</p>
+</li>
+<li>
+<p>Solution: On a single host, verify all containers are on the same network with <code>docker network inspect pxc-cluster_pxcnet</code>. On multiple hosts, see <a href="#docker-compose-multi-host-deployment">Multi-host deployment</a> for firewall rules, name resolution, and NTP.</p>
+</li>
+</ul>
+<h2 id="docker-compose-cleanup-and-shutdown">Cleanup and shutdown<a class="headerlink" href="#docker-compose-cleanup-and-shutdown" title="Permanent link">&para;</a></h2>
+<p>To stop the cluster and remove containers (data in <code>data-pxc1/</code>, <code>data-pxc2/</code>, <code>data-pxc3/</code> is preserved):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
+</code></pre></div>
+<p>Expected result: Containers pxc1, pxc2, and pxc3 are stopped and removed. Project network is removed. Data in <code>data-pxc1/</code>, <code>data-pxc2/</code>, and <code>data-pxc3/</code> remains on the host.</p>
+<p>To stop and remove containers and volumes (the <code>-v</code> option deletes all database data):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v
+</code></pre></div>
+<p>Expected result: Containers and any named volumes are removed. Bind-mounted data directories (<code>data-pxc1/</code>, <code>data-pxc2/</code>, <code>data-pxc3/</code>) are not removed by this command.</p>
+<div class="admonition warning">
+<p class="admonition-title">Data loss</p>
+<p>The Compose file in this guide uses bind mounts (<code>./data-pxc1</code>, <code>./data-pxc2</code>, <code>./data-pxc3</code>), not named volumes, so <code>docker compose down -v</code> removes only named volumes if present. To fully reset, remove the data directories manually after stopping the containers:</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>data-pxc1<span class="w"> </span>data-pxc2<span class="w"> </span>data-pxc3
+</code></pre></div>
+<p>This operation deletes all database data permanently.</p>
+</div>
+<h2 id="docker-compose-appendix-podman-alternative">Appendix: Podman alternative<a class="headerlink" href="#docker-compose-appendix-podman-alternative" title="Permanent link">&para;</a></h2>
+<p><a href="https://podman.io/">Podman</a> runs the same container images as Docker and accepts the Compose file in this guide. Podman differs from Docker in the following defaults that affect this deployment:</p>
+<ul>
+<li>
+<p>Rootless containers run as a non-root user.</p>
+</li>
+<li>
+<p>SELinux relabeling is enforced on bind mounts.</p>
+</li>
+<li>
+<p>Networking uses <code>netavark</code> (or the older Container Network Interface (CNI)) instead of the Docker bridge driver.</p>
+</li>
+<li>
+<p>Some Compose keys are honored by Docker Compose v2 but not by <code>podman-compose</code> (for example, <code>deploy.resources.limits.memory</code>).</p>
+</li>
+</ul>
+<p>This deployment is designed and primarily tested with Docker Compose. The same Compose file and workflow run with Podman after the adjustments described in the following sections. Use Podman 4.1 or later. The built-in <code>podman compose</code> subcommand requires 4.1 or newer. With older Podman, use the separate <code>podman-compose</code> tool. If you use Podman, verify that the cluster operates correctly before using it beyond testing or experimentation.</p>
+<p>Use the following with Podman:</p>
+<ul>
+<li>
+<p>Prerequisites: Podman and Podman Compose. Install Podman Compose if you are not using built-in <code>podman compose</code> (for example, <code>pip install podman-compose</code> or your distribution&rsquo;s package). For rootless Podman, ensure the user has enough resources (for example, <code>sysctl user.max_user_namespaces</code> and subuid/subgid ranges).</p>
+</li>
+<li>
+<p>Commands: Replace <code>docker compose</code> with <code>podman compose</code> or <code>podman-compose</code>. Replace <code>docker exec</code> with <code>podman exec</code>. Examples:</p>
+<ul>
+<li>
+<p>Start node 1: <code>podman compose up -d pxc1</code> (or <code>podman-compose up -d pxc1</code>)</p>
+</li>
+<li>
+<p>Start other nodes: <code>podman compose up -d pxc2 pxc3</code></p>
+</li>
+<li>
+<p>Validate: <code>podman exec pxc1 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_cluster_size';"</code> (or <code>-p${MYSQL_ROOT_PASSWORD}</code> if using <code>.env</code>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Directory structure: The same layout (<code>pxc-cluster/</code> with <code>certs/</code>, <code>conf.d/</code>, and <code>init/</code>) works with Podman. Run <code>podman compose</code> from the project directory so the relative volume paths in the Compose file resolve correctly.</p>
+</li>
+<li>
+<p>Compose file: The <code>docker-compose.yml</code> works as-is with Podman; the <code>bridge</code> network and volume mounts are supported. For rootless Podman, see the volume mount options in <a href="#docker-compose-handle-rootless-permissions-for-podman">Handle rootless permissions for Podman</a>.</p>
+</li>
+</ul>
+<h3 id="docker-compose-handle-rootless-permissions-for-podman">Handle rootless permissions for Podman<a class="headerlink" href="#docker-compose-handle-rootless-permissions-for-podman" title="Permanent link">&para;</a></h3>
+<p>In Docker, the daemon runs as root and can override file permissions. In Podman running as a normal user, the MySQL process inside the container runs as User Identifier (UID) 1001 or 999. That UID may lack permission to read host files. Ensure host files are readable by the container. On systems with SELinux, use the <code>:Z</code> or <code>:z</code> mount option to relabel the volume for the container. Use <code>:Z</code> for private relabeling and <code>:z</code> for shared relabeling. Use the following in your <code>docker-compose.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
+</code></pre></div>
+<p>Apply the same volume options to every service (pxc1, pxc2, pxc3). Without <code>:Z</code> or <code>:z</code>, the container may fail to read certs or config when running rootless on SELinux.</p>
+<h3 id="docker-compose-compare-podman-compose-and-docker-compose">Compare <code>podman-compose</code> and <code>docker-compose</code><a class="headerlink" href="#docker-compose-compare-podman-compose-and-docker-compose" title="Permanent link">&para;</a></h3>
+<p>The two tools differ in stability and behavior:</p>
+<ul>
+<li>
+<p>If you use <code>podman-compose</code> (the Python tool): <code>podman-compose</code> reads the directory structure and either the secret files or <code>.env</code> the same way as Docker.</p>
+</li>
+<li>
+<p>If you use <code>docker-compose</code> with the Podman socket: This combination is often more stable for PXC. Set <code>DOCKER_HOST</code> to reference the Podman socket (for example, <code>unix:///run/user/$(id -u)/podman/podman.sock</code>) so <code>docker compose</code> connects to Podman.</p>
+</li>
+</ul>
+<h3 id="docker-compose-resolve-podman-network-issues">Resolve Podman network issues<a class="headerlink" href="#docker-compose-resolve-podman-network-issues" title="Permanent link">&para;</a></h3>
+<p>PXC uses specific ports for cluster communication (4567, 4568, 4444). Podman uses different networking (netavark or CNI). If nodes cannot find each other, try the following:</p>
+<ul>
+<li>
+<p>Keep using a named network in the Compose file (for example, <code>pxcnet</code>) so Podman can resolve container names (pxc1, pxc2, pxc3).</p>
+</li>
+<li>
+<p>If problems persist, set <code>network_mode: slirp4netns</code> on the services, or run the stack rootful to use the default bridge.</p>
+</li>
+</ul></section><section class="print-page" id="configure-nodes" heading-number="7.9"><h1 id="configure-nodes-configure-nodes-for-write-set-replication">Configure nodes for write-set replication<a class="headerlink" href="#configure-nodes-configure-nodes-for-write-set-replication" title="Permanent link">&para;</a></h1>
 <p>After installing Percona XtraDB Cluster on each node, you need to configure the cluster.
 In this section, we will demonstrate how to configure a three node cluster:</p>
 <table>
@@ -9353,15 +9722,31 @@ The query used is:</p>
 </tr>
 </tbody>
 </table></section></section><section class="print-page" id="restarting-nodes" heading-number="10.3"><h1 id="restarting-nodes-restart-the-cluster-nodes">Restart the cluster nodes<a class="headerlink" href="#restarting-nodes-restart-the-cluster-nodes" title="Permanent link">&para;</a></h1>
-<p>To restart a cluster node, shut down MySQL and restart the service. The node leaves the cluster, reducing the total vote count for quorum. </p>
-<p>The quorum refers to the minimum number of votes required for the cluster to operate effectively and make decisions. Each node in the cluster typically represents one vote. When a node leaves the cluster, the total number of votes decreases, affecting the cluster&rsquo;s ability to achieve quorum. If the cluster does not maintain quorum, it may become unable to process transactions or make changes, potentially leading to a split-brain scenario where different parts of the cluster operate independently.</p>
-<p>Upon rejoining, the node synchronizes using IST (Incremental State Transfer). IST allows the node to catch up with the current state of the cluster by transferring only the changes that occurred while the node was offline. If the necessary changes for IST do not exist in the <code>gcache</code> file on any other node within the cluster, the process will perform SST (State Snapshot Transfer) instead. SST involves transferring a complete database snapshot to the node, which can be more time-consuming but ensures that the node receives all data. This approach makes restarting cluster nodes for rolling configuration changes, or software upgrades straightforward from the cluster’s perspective. </p>
-<p>If a node restarts with an invalid configuration change that prevents MySQL from loading, Galera drops the node’s state and forces an SST for that node.</p>
-<p>In the event of a MySQL failure, the system does not remove the PID file because the system deletes this file only during a clean shutdown. As a result, the server does not restart if an existing PID file is present. When MySQL encounters a failure, check the log records for details. You must remove the PID file manually. </p>
-<p>Use the <code>rm</code> command in a Unix/Linux shell to do this:</p>
-<div class="highlight"><pre><span></span><code>bash<span class="w"> </span>rm<span class="w"> </span>/path/to/mysql.pid
-</code></pre></div>
-<p>Replace <code>/path/to/mysql.pid</code> with the actual path to your MySQL PID file. The default location for the PID file is often <code>/var/run/mysqld/mysqld.pid</code> or <code>/var/lib/mysql/mysql.pid</code>, but this can vary based on your configuration. Before executing this command, ensure that MySQL is not running, as removing the PID file while the server is active can lead to issues.</p></section><section class="print-page" id="failover" heading-number="10.4"><h1 id="failover-cluster-failover">Cluster failover<a class="headerlink" href="#failover-cluster-failover" title="Permanent link">&para;</a></h1>
+<p>This page is the entry point for restarts and recovery when nodes are managed directly (systemd, bare metal, or VMs). In PXC 8.4, Clone SST (<code>wsrep_sst_method=clone</code>) is the default rejoin path—set it once and most restarts are &ldquo;clear port/process, start the service, let Clone run.&rdquo; For Kubernetes, use the <a href="https://docs.percona.com/percona-operator-for-mysql/pxc/">Percona Operator for MySQL</a> (PXC-based); it automates bootstrap and recovery. For full-cluster down (all nodes stopped, bootstrap from scratch), see <a href="#crash-recovery">Crash recovery</a>.</p>
+<p>Which problem do you have?</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nodes are up but traffic is blocked — Cluster accepts connections but refuses every SQL query (<code>WSREP has not yet prepared node for application use</code>). Quorum or primary component lost.</td>
+<td><a href="#emergency-quorum-recovery">Emergency quorum recovery</a></td>
+</tr>
+<tr>
+<td>Nodes refuse to join — Joiner won&rsquo;t sync, SST/Clone fails, or node never reaches <code>Synced</code>.</td>
+<td><a href="#sst-clone-failure-recovery">SST/Clone failure recovery</a></td>
+</tr>
+<tr>
+<td>Environmental blockers — AppArmor, systemd killing the process mid-SST, or firewalls blocking SST/GCOMM.</td>
+<td><a href="#environmental-blockers">Environmental blockers</a></td>
+</tr>
+</tbody>
+</table>
+<p>Each topic is a separate page with step-by-step procedures. Start with the one that matches your situation; the pages cross-link where needed (for example, SST/Clone failure recovery points to Environmental blockers when the cause is AppArmor or systemd).</p></section><section class="print-page" id="failover" heading-number="10.4"><h1 id="failover-cluster-failover">Cluster failover<a class="headerlink" href="#failover-cluster-failover" title="Permanent link">&para;</a></h1>
 <h2 id="failover-cluster-membership-and-size">Cluster membership and size<a class="headerlink" href="#failover-cluster-membership-and-size" title="Permanent link">&para;</a></h2>
 <p>Cluster membership depends on which nodes connect to the rest of the cluster; 
 no configuration setting explicitly defines the list of all possible cluster 
@@ -10419,12 +10804,18 @@ port=16400
                     <section class="print-page" id="crash-recovery" heading-number="11.1"><h1 id="crash-recovery-crash-recovery">Crash recovery<a class="headerlink" href="#crash-recovery-crash-recovery" title="Permanent link">&para;</a></h1>
 <p>Unlike the standard MySQL replication, a PXC cluster acts like one logical entity, which controls the status and consistency of each node as well as the status of the whole cluster. This allows maintaining the data integrity more efficiently than with traditional asynchronous replication without losing safe writes on multiple nodes at the same time.</p>
 <p>However, there are scenarios where the database service can stop with no node being able to serve requests.</p>
+<div class="admonition note">
+<p class="admonition-title">PXC 8.4 and full state transfer</p>
+<p>When this page says a full <a href="#glossary-sst">SST</a>, PXC 8.4 usually delivers that with the MySQL Clone plugin if <a href="#wsrep-system-index-wsrep_sst_method"><code>wsrep_sst_method</code></a> is <code>clone</code>; otherwise the configured method (for example <code>xtrabackup-v2</code>) runs. The cluster behavior is the same—a full copy from a donor—only the mechanism differs. See <a href="#clone-sst">State Snapshot Transfer (SST) Method using Clone plugin</a> and <a href="#sst-clone-failure-recovery">SST/Clone failure recovery</a>.</p>
+</div>
 <h2 id="crash-recovery-scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped<a class="headerlink" href="#crash-recovery-scenario-1-node-a-is-gracefully-stopped" title="Permanent link">&para;</a></h2>
+<p><img alt="Scenario 1: Node A gracefully stopped in a three-node cluster" src="_static/scenario-1.png" /></p>
 <p>In a three node cluster (node A, Node B, node C), one node (node A, for example) is gracefully stopped: for the purpose of maintenance, configuration change, etc.</p>
 <p>In this case, the other nodes receive a “good bye” message from the stopped node and the cluster size is reduced; some properties like quorum calculation or auto increment are automatically changed. As soon as node A is started again, it joins the cluster based on its <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable in <code>my.cnf</code>.</p>
 <p>If the writeset cache (<a href="#wsrep-provider-index-gcachesize"><code>gcache.size</code></a>) on nodes B and/or C still has all the transactions executed while node A was down, joining is possible via
-<a href="#glossary-ist">IST</a>. If <a href="#glossary-ist">IST</a> is impossible due to missing transactions in donor’s gcache, the fallback decision is made by the donor and <a href="#glossary-sst">SST</a> is started automatically.</p>
+<a href="#glossary-ist">IST</a>. If <a href="#glossary-ist">IST</a> is impossible due to missing transactions in donor’s gcache, the fallback decision is made by the donor and a full <a href="#glossary-sst">SST</a> is started automatically, using whatever SST method is configured (<code>clone</code>, <code>xtrabackup-v2</code>, and so on).</p>
 <h2 id="crash-recovery-scenario-2-two-nodes-are-gracefully-stopped">Scenario 2: Two nodes are gracefully stopped<a class="headerlink" href="#crash-recovery-scenario-2-two-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
+<p><img alt="Scenario 2: Two nodes gracefully stopped; one node remains in the cluster" src="_static/scenario-2.png" /></p>
 <p>Similar to <a href="#crash-recovery-scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>, the cluster size is reduced to one — even the single remaining node C forms the primary component and is able to serve client requests. To get the nodes back into the cluster, you just need to start them.</p>
 <p>However, when a new node joins the cluster, node C will be switched to the “Donor/Desynced” state as it has to provide the state transfer at least to the first joining node. It is still possible to read/write to it during that process, but it may be much slower, which depends on how large amount of data should be sent during the state transfer. Also, some load balancers may consider the donor node as not operational and remove it from the pool. So, it is best to avoid the situation when only one node is up.</p>
 <p>If you restart node A and then node B, you may want to make sure node B does not use node A as the state transfer donor: node A may not have all the needed writesets in its gcache. Specify node C node as the donor in your configuration file and start the mysql service:</p>
@@ -10435,38 +10826,45 @@ port=16400
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor">MariaDB Galera Documentation: wsrep_sst_donor option <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h2 id="crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped">Scenario 3: All three nodes are gracefully stopped<a class="headerlink" href="#crash-recovery-scenario-3-all-three-nodes-are-gracefully-stopped" title="Permanent link">&para;</a></h2>
+<p><img alt="Scenario 3: All three cluster nodes gracefully stopped" src="_static/scenario-3.png" /></p>
 <p>The cluster is completely stopped and the problem is to initialize it again. It is important that a PXC node writes its last executed position to the <code>grastate.dat</code> file.</p>
-<p>By comparing the seqno number in this file, you can see which is the most advanced node (most likely the last stopped). The cluster must be bootstrapped using this node, otherwise nodes that had a more advanced position will have to perform the full <a href="#glossary-sst">SST</a> to join the cluster initialized from the less advanced one. As a result, some transactions will be lost). To bootstrap the first node, invoke the startup script like this:</p>
+<p>If every node shut down cleanly, comparing the <code>seqno</code> value in <code>grastate.dat</code> is usually enough to pick the most advanced node (most likely the last stopped). If any node might have crashed, been killed, or lost power, do not rely on <code>grastate.dat</code> alone: run the <a href="#crash-recovery-validation-step-recover-and-record-position-on-every-node">validation step</a> from Scenario 6 (<code>mysqld --wsrep-recover</code>) on every node before you choose the bootstrap candidate.</p>
+<p>The cluster must be bootstrapped from the most advanced node (highest <code>seqno</code> from <code>grastate.dat</code> after a verified clean stop, or highest recovered <code>seqno</code> from <code>mysqld --wsrep-recover</code> on each node if you used Scenario 6 validation). Otherwise, nodes that held a more advanced position must perform a full <a href="#glossary-sst">SST</a> to join a cluster bootstrapped from a less advanced node, and some transactions will be lost. To bootstrap the first node, start the bootstrap systemd template instance. With the usual Percona package layout:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
+<p>If your unit is named <code>mysqld</code> instead of <code>mysql</code>, use the matching template your packages provide (for example <code>mysqld@bootstrap.service</code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Even though you bootstrap from the most advanced node, the other nodes have a lower sequence number. They will still have to join via the full <a href="#glossary-sst">SST</a> because the <em>Galera Cache</em> is not retained on restart.</p>
+<p>Even though you bootstrap from the most advanced node, the other nodes have a lower sequence number. They will still need a full <a href="#glossary-sst">SST</a> (Clone, xtrabackup-v2, or another configured method) to join because the <em>Galera Cache</em> is not retained on restart.</p>
 <p>For this reason, it is recommended to stop writes to the cluster <em>before</em> its full shutdown, so that all nodes can stop at the same position. See also <a href="#wsrep-provider-index-pcrecovery"><code>pc.recovery</code></a>.</p>
 </div>
 <h2 id="crash-recovery-scenario-4-one-node-disappears-from-the-cluster">Scenario 4: One node disappears from the cluster<a class="headerlink" href="#crash-recovery-scenario-4-one-node-disappears-from-the-cluster" title="Permanent link">&para;</a></h2>
-<p>This is the case when one node becomes unavailable due to power outage, hardware failure, kernel panic, mysqld crash, <strong>kill -9</strong> on mysqld pid, etc.</p>
+<p><img alt="Scenario 4: One node disappears from the cluster" src="_static/scenario-4.png" /></p>
+<p>This is the case when one node becomes unavailable due to power outage, hardware failure, kernel panic, mysqld crash, kill -9 on mysqld pid, etc.</p>
 <p>Two remaining nodes notice the connection to node A is down and start trying to re-connect to it. After several timeouts, node A is removed from the cluster. The quorum is saved (two out of three nodes are up), so no service disruption happens. After it is restarted, node A joins automatically (as described in <a href="#crash-recovery-scenario-1-node-a-is-gracefully-stopped">Scenario 1: Node A is gracefully stopped</a>).</p>
 <h2 id="crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster<a class="headerlink" href="#crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster" title="Permanent link">&para;</a></h2>
-<p>Two nodes are not available and the remaining node (node C) is not able to form the quorum alone. The cluster has to switch to a non-primary mode, where MySQL refuses to serve any SQL queries. In this state, the <strong>mysqld</strong> process on node C is still running and can be connected to but any statement related to data fails with an error.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">sbtest1</span><span class="p">;</span>
+<p><img alt="Scenario 5: Two nodes disappear from the cluster" src="_static/scenario-5.png" /></p>
+<p>Two nodes are not available and the remaining node (node C) is not able to form the quorum alone. The cluster has to switch to a non-primary mode. While node C is still deciding whether it can reach the other nodes, reads may still work and new writes are usually refused. Once node C gives up and the component is non-primary, <code>wsrep_ready</code> is <code>OFF</code> and normal client queries—including trivial selects—fail.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">DUAL</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>The error message</summary>
 <div class="no-copy highlight"><pre><span></span><code>ERROR 1047 (08S01): WSREP has not yet prepared node for application use
 </code></pre></div>
 </details>
-<p>Reads are possible until node C decides that it cannot access node A and node B. New writes are forbidden.</p>
+<p>The SQLSTATE is <code>08S01</code>; some builds or code paths may show <code>ERROR 1047 (08S01): Unknown Command</code> instead of the longer WSREP text—both are the same class of failure when the node is not prepared for application use.</p>
 <p>As soon as the other nodes become available, the cluster is formed again automatically. If node B and node C were just network-severed from node A, but they can still reach each other, they will keep functioning as they still form the quorum.</p>
 <p>If node A and node B crashed, you need to enable the primary component on node C manually, before you can bring up node A and node B. The command to do this is:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=YES&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>This approach only works if the other nodes are down before doing that! Otherwise, you end up with two clusters having different data.</p>
+<p><code>pc.bootstrap=YES</code> and <code>pc.bootstrap=true</code> are equivalent. This approach only works if the other nodes are down before doing that! Otherwise, you end up with two clusters having different data.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="#add-node-add-nodes-to-cluster">Adding Nodes to Cluster</a></p>
 </div>
 <h2 id="crash-recovery-scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure">Scenario 6: All nodes went down without a proper shutdown procedure<a class="headerlink" href="#crash-recovery-scenario-6-all-nodes-went-down-without-a-proper-shutdown-procedure" title="Permanent link">&para;</a></h2>
+<p><img alt="Scenario 6: All nodes went down without a proper shutdown" src="_static/scenario-6.png" /></p>
 <p>This scenario is possible in the following cases:</p>
 <ul>
 <li>
@@ -10492,26 +10890,71 @@ seqno: -1
 safe_to_bootstrap: 0
 </code></pre></div>
 </details>
-<p>In this case, you cannot be sure that all nodes are consistent with each other. We cannot use <code>safe_to_bootstrap</code> variable to determine the node that has the last transaction committed as this variable is set to <strong>0</strong> for each node. </p>
-<p>An attempt to bootstrap from such a node will fail unless you start <code>mysqld</code> with the <code>--wsrep-recover</code> option:</p>
-<div class="highlight"><pre><span></span><code>mysqld<span class="w"> </span>--wsrep-recover
+<p>In this case, you cannot be sure that all nodes are consistent with each other. The <code>safe_to_bootstrap</code> variable is set to 0 on every node and cannot be used to identify which node has the last transaction committed.</p>
+<div class="admonition warning">
+<p class="admonition-title">Risk of split-brain</p>
+<p>Setting <code>safe_to_bootstrap: 1</code> on a node without first confirming that node has the highest recovered position can cause split-brain and data loss. Always run the validation step below on every node and bootstrap only from the node with the highest seqno.</p>
+</div>
+<h3 id="crash-recovery-validation-step-recover-and-record-position-on-every-node">Validation step: recover and record position on every node<a class="headerlink" href="#crash-recovery-validation-step-recover-and-record-position-on-every-node" title="Permanent link">&para;</a></h3>
+<p>On each node that was part of the cluster, run <code>mysqld</code> with the <code>--wsrep-recover</code> option so that the server prints the recovered position and exits (the server does not stay running). Use the same option file and privileges you use for production, and run as the account that owns the data directory (often <code>mysql</code>), with any running <code>mysqld</code> on that node stopped first.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>--defaults-file<span class="o">=</span>/etc/mysql/my.cnf<span class="w"> </span>--wsrep-recover
 </code></pre></div>
-<p>Search the output for the line that reports the recovered position after the node UUID (<strong>1122</strong> in this case):</p>
+<p>Adjust <code>--defaults-file</code> and the <code>mysqld</code> path for your installation (for example <code>/etc/my.cnf</code> on RHEL-style layouts, or <code>mysqld</code> under <code>/usr/libexec</code> on some systems).</p>
+<p>In the output, find the line that reports the recovered position in the form <code>UUID:seqno</code>:</p>
 <details class="example">
-<summary>Expected output</summary>
+<summary>Example output</summary>
 <div class="no-copy highlight"><pre><span></span><code>...
 ... [Note] WSREP: Recovered position: 220dcdcb-1629-11e4-add3-aec059ad3734:1122
 ...
 </code></pre></div>
 </details>
-<p>The node where the recovered position is marked by the greatest number is the best bootstrap candidate. In its <code>grastate.dat</code> file, set the safe_to_bootstrap variable to <strong>1</strong>. Then, bootstrap from this node:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+<p>Run the command on every node and record the UUID and seqno from each. Use a table like the following so that you can compare and choose the correct bootstrap candidate:</p>
+<table>
+<thead>
+<tr>
+<th>Node (hostname or label)</th>
+<th>UUID</th>
+<th>seqno</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>node2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>node3</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">When highest seqno is not safe to use</p>
+<p>The procedure below assumes you have access to every node that was in the cluster and that the recovered positions are trustworthy. If either is false, bootstrapping from the node with the highest seqno can permanently destroy data.</p>
+<ul>
+<li>
+<p>Access to all nodes: If a node is unreachable (for example, in another datacenter or still down), you cannot assume the highest seqno you see is the true cluster state. The missing node may have had a higher seqno. Bootstrap only after you have run <code>mysqld --wsrep-recover</code> on every member and recorded the result.</p>
+</li>
+<li>
+<p>Trustworthiness of the &ldquo;highest&rdquo; node: A node can report a higher seqno but have corrupt or incomplete data—for example, after a partition (it was in a minority and applied writes that were never committed cluster-wide), a write-ahead or disk failure (it reported a seqno that was not fully persisted), or an unclean shutdown. Bootstrapping from that node forces the rest of the cluster to sync to that state. The cluster will then permanently drop or overwrite the transactions that existed only on the other nodes. If you suspect the &ldquo;highest&rdquo; node was partitioned, had storage or write-ahead issues, or you cannot verify its history, do not bootstrap from it without expert guidance or a verified backup strategy. Prefer <a href="#get-help">Get help from Percona</a> or your support channel when in doubt.</p>
+</li>
+</ul>
+</div>
+<p>If you have verified all nodes and trust the node with the greatest seqno, that node is the intended bootstrap candidate. If two nodes show the same UUID and seqno, either can be used.</p>
+<h3 id="crash-recovery-bootstrap-step-set-safe_to_bootstrap-and-start-the-first-node">Bootstrap step: set safe_to_bootstrap and start the first node<a class="headerlink" href="#crash-recovery-bootstrap-step-set-safe_to_bootstrap-and-start-the-first-node" title="Permanent link">&para;</a></h3>
+<p>Only on the node that has the highest seqno from the validation step (and only after the caveats above are satisfied), set <code>safe_to_bootstrap</code> to 1 in that node’s <code>grastate.dat</code> file, then bootstrap from that node:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># On the chosen node only: edit grastate.dat and set safe_to_bootstrap: 1, then:</span>
+systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
-<p>After a shutdown, you can bootstrap from the node which is marked as safe in the <code>grastate.dat</code> file.</p>
-<div class="no-copy highlight"><pre><span></span><code>...
-safe_to_bootstrap: 1
-...
-</code></pre></div>
+<p>If your service name is <code>mysqld</code>, use <code>mysqld@bootstrap.service</code> (or the unit your package documents).</p>
+<p>After a clean shutdown in the future, you can bootstrap from the node which is marked as safe in the <code>grastate.dat</code> file (where <code>safe_to_bootstrap: 1</code>).</p>
 <p>In recent Galera versions, the option <a href="#wsrep-provider-index-pcrecovery"><code>pc.recovery</code></a> (enabled by default) saves the cluster state into a file named <code>gvwstate.dat</code> on each member node. As the name of this option suggests (pc – primary component), it saves only a cluster being in the PRIMARY state. An example content of the file may look like this:</p>
 <div class="no-copy highlight"><pre><span></span><code>cat /var/lib/mysql/gvwstate.dat
 my_uuid: 76de8ad9-2aac-11e4-8089-d27fd06893b9
@@ -10524,25 +10967,25 @@ member: 76de8ad9-2aac-11e4-8089-d27fd06893b9 0
 #vwend
 </code></pre></div>
 <p>We can see a three node cluster with all members being up. The nodes will try to restore the primary component once all the members start to see each other. This makes the PXC cluster automatically recover from being powered down without any manual intervention.</p>
-<p>The log file shows recovery completion:</p>
+<p>The following log excerpt is illustrative (timestamps are examples only):</p>
 <div class="no-copy highlight"><pre><span></span><code>2024-11-08T12:35:05.890123Z 0 [Note] InnoDB: Waiting for purge to start
 2024-11-08T12:35:06.901234Z 0 [Note] InnoDB: Purge done
 2024-11-08T12:35:07.012345Z 0 [Note] InnoDB: Buffer pool(s) load completed at 2024-11-08T12:35:07.012345Z
 2024-11-08T12:35:07.123456Z 0 [Note] WSREP: Ready for connections.
 </code></pre></div>
 <h2 id="crash-recovery-scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain">Scenario 7: The cluster loses its primary state due to split brain<a class="headerlink" href="#crash-recovery-scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain" title="Permanent link">&para;</a></h2>
-<p>For the purpose of this example, let’s assume we have a cluster that consists of an even number of nodes: six, for example. Three of them are in one location while the other three are in another location and they lose network connectivity.  It is best practice to avoid such topology: if you cannot have an odd number of real nodes, you can use an additional arbitrator (garbd) node or set a higher pc.weight to some nodes. But when the split brain happens any way, none of the separated groups can maintain the quorum: all nodes must stop serving requests and both parts of the cluster will be continuously trying to re-connect.</p>
-<p>If you want to restore the service even before the network link is restored, you can make one of the groups primary again using the same command as described in <a href="#crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<p><img alt="Scenario 7: Split brain; cluster loses primary state" src="_static/scenario-7.png" /></p>
+<p>We have a six-node cluster. Three of them are in one location while the other three are in another location and they lose network connectivity.  </p>
+<p>Best practice is to avoid this topology. If you cannot run an odd number of data nodes, add an arbitrator (<code>garbd</code>) or increase <code>pc.weight</code> on selected nodes so one side can keep quorum. With an even number, if the split brain happens, neither location can maintain a quorum: both groups must stop serving requests and keep trying to reconnect.</p>
+<p>To restore the service before the network link is restored, you can make one of the groups primary again using the same command as described in <a href="#crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=YES&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>After this, you are able to work on the manually restored part of the cluster, and the other half should be able to automatically re-join using <a href="#glossary-ist">IST</a> as soon as the network link is restored.</p>
+<p>After this command, you can work on the partition where you formed a primary again. When the network link returns, the other half can rejoin with <a href="#glossary-ist">IST</a> only if it did not execute writes that diverge from the primary you chose (read-only or idle during the partition). If both sides accepted writes, treat the cluster as divergent: plan for a full <a href="#glossary-sst">SST</a> or Clone-based rejoin (or restore from backup) for nodes that cannot IST safely; see <a href="#sst-clone-failure-recovery">SST/Clone failure recovery</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you set the bootstrap option on both the separated parts, you will end up with two living cluster instances, with data likely diverging away from each other. Restoring a network link in this case will not make them re-join until the nodes are restarted and members specified in configuration file are connected again.</p>
-<p>Then, as the Galera replication model truly cares about data consistency: once the inconsistency is detected, nodes that cannot execute row change statement due to a data difference – an emergency shutdown will be performed and the only way to bring the nodes back to the cluster is via the full <a href="#glossary-sst">SST</a></p>
-</div>
-<p><strong>Based on material from Percona Database Performance Blog</strong></p>
-<p>This article is based on the blog post [Galera replication - how to recover a PXC cluster by <em>Przemysław Malkowski</em> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span>]: https://www.percona.com/blog/2014/09/01/galera-replication-how-to-recover-a-pxc-cluster/ </p></section><section class="print-page" id="configure-cluster-rhel" heading-number="11.2"><h1 id="configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure a cluster on Red Hat-based distributions<a class="headerlink" href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions" title="Permanent link">&para;</a></h1>
+<p>If you set the bootstrap option on both separated parts, you will have two independent clusters and diverging data. Restoring the network link does not merge them automatically; you must restart nodes and ensure <code>wsrep_cluster_address</code> points at a single primary component before the cluster can reunite.</p>
+<p>Galera enforces consistency: when nodes detect conflicting row data, affected nodes may perform an emergency shutdown. Bringing them back into a single cluster usually requires a full <a href="#glossary-sst">SST</a> (Clone, xtrabackup-v2, or another configured method) so every node shares the same dataset again.</p>
+</div></section><section class="print-page" id="configure-cluster-rhel" heading-number="11.2"><h1 id="configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions">Configure a cluster on Red Hat-based distributions<a class="headerlink" href="#configure-cluster-rhel-configure-a-cluster-on-red-hat-based-distributions" title="Permanent link">&para;</a></h1>
 <p>This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
 on Red Hat Enterprise Linux (RHEL) 8 servers, using the packages from Percona repositories.</p>
 <ul>
@@ -20076,6 +20519,9 @@ manually when upgrading your system from an older version.</p>
 <li><a href="#proxysql-v2">ProxySQL admin utilities</a></li>
 <li><a href="#quickstart-overview">Quickstart Guide for Percona XtraDB Cluster</a></li>
 <li><a href="#restarting-nodes">Restart the cluster nodes</a></li>
+<li><a href="#emergency-quorum-recovery">Emergency quorum recovery</a></li>
+<li><a href="#sst-clone-failure-recovery">SST/Clone failure recovery</a></li>
+<li><a href="#environmental-blockers">Environmental blockers</a></li>
 <li><a href="#upgrade-backup">Restore 8.0 backup to 8.4 cluster</a></li>
 <li><a href="#docker">Running Percona XtraDB Cluster in a Docker Container</a></li>
 <li><a href="#secure-network">Secure the network</a></li>

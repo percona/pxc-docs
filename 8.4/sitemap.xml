@@ -69,7 +69,15 @@
          <lastmod>2026-06-09</lastmod>
     </url>
     <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/emergency-quorum-recovery.html</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
+    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.html</loc>
          <lastmod>2026-06-09</lastmod>
     </url>
     <url>
@@ -178,6 +186,10 @@
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/singlebox.html</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.html</loc>
          <lastmod>2026-06-09</lastmod>
     </url>
     <url>
