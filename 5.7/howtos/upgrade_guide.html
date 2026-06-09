@@ -30,7 +30,7 @@ there is no need to take down the complete cluster during the upgrade.">
       
       
       <link rel="icon" href="../_static/percona-favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
     
     
       
@@ -4115,6 +4115,11 @@ mentioned in these documents when upgrading to Percona XtraDB Cluster 5.7.</p>
 <p>Make sure that all nodes are synchronized.</p>
 </li>
 <li>
+<p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+</code></pre></div>
+</li>
+<li>
 <p>Stop the <code>mysql</code> service:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
@@ -4145,7 +4150,12 @@ $<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>
 </code></pre></div>
 </li>
 <li>
-<p>Back up <code>grastate.dat</code>, so that you can restore it if it is corrupted or zeroed out due to network issue.</p>
+<p>Back up <code>grastate.dat</code> in case the file becomes corrupted or zeroed out due to network issues.</p>
+</li>
+<li>
+<p>While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the <code>grastate.dat</code> file with those values if it is corrupted or zeroed out due to network issues:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
+</code></pre></div>
 </li>
 <li>
 <p>Start the node outside the cluster (in standalone mode) by setting the <a href="../wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>.</p>
@@ -4171,8 +4181,8 @@ application to other operational nodes.</p>
 </li>
 <li>
 <p>When the upgrade is done, stop the <code>mysqld</code> process.
-   You can either run <code>sudo kill</code> on the <code>mysqld</code> process ID,
-   or <code>sudo mysqladmin shutdown</code> with the MySQL root user credentials.</p>
+    You can either run <code>sudo kill</code> on the <code>mysqld</code> process ID,
+    or <code>sudo mysqladmin shutdown</code> with the MySQL root user credentials.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On CentOS, the <code>my.cnf</code> configuration file
@@ -4216,7 +4226,7 @@ upgraded offline for an extended period. More on this below.</p>
 be initiated by the joiner node after the upgrade if the server
 was offline for some time. After <a href="../glossary.html#sst">SST</a> completes, the data
 directory structure needs to be upgraded (using mysql_upgrade)
-once more time to ensure compatibility with the newer version
+one more time to ensure compatibility with the newer version
 of binaries.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4232,6 +4242,11 @@ synchronization.</p>
 <ol>
 <li>
 <p>Make sure that all nodes are synchronized.</p>
+</li>
+<li>
+<p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+</code></pre></div>
 </li>
 <li>
 <p>Stop the <code>mysql</code> service:</p>
@@ -4262,7 +4277,12 @@ you might use the following commands:</p>
 </code></pre></div>
 </li>
 <li>
-<p>Back up <code>grastate.dat</code>, so that you can restore it if it is corrupted or zeroed out due to network issue.</p>
+<p>Back up <code>grastate.dat</code> in case the file becomes corrupted or zeroed out due to network issues.</p>
+</li>
+<li>
+<p>While the server is stopped, execute the following command to fetch the value of UUID/seqno combo in the log file, so that you can restore the <code>grastate.dat</code> file with those values if it is corrupted or zeroed out due to network issues:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
+</code></pre></div>
 </li>
 <li>
 <p>Start the node outside the cluster (in standalone mode)
@@ -4289,8 +4309,8 @@ application to other operational nodes.</p>
 </li>
 <li>
 <p>When the upgrade is done, stop the <code>mysqld</code> process.
-   You can either run <code>sudo kill</code> on the <code>mysqld</code> process ID,
-   or <code>sudo mysqladmin shutdown</code> with the MySQL root user credentials.</p>
+    You can either run <code>sudo kill</code> on the <code>mysqld</code> process ID,
+    or <code>sudo mysqladmin shutdown</code> with the MySQL root user credentials.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On CentOS, the <code>my.cnf</code> configuration file
@@ -4385,7 +4405,7 @@ directory structure after <a href="../glossary.html#sst">SST</a> (after the norm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    2022-08-16
+    2026-06-03
   </span>
 
     
