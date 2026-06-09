@@ -12,7 +12,7 @@ The `mysqld` profile allows the execution of the SST script in PUx mode with the
 
 ## Profile adjustments
 
-The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile](https://www.percona.com/doc/percona-server/LATEST/security/apparmor.html#modify-mysqld)  in Percona Server.
+The `mysqld` profile and the `SST` script profile can be adjusted, such as moving the data directory, in the same way as [modifying the mysqld profile](https://docs.percona.com/percona-server/8.0/security/apparmor.html)  in Percona Server.
 
 ## Work with `pxc_encrypt_cluster_traffic`
 

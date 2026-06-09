@@ -6,7 +6,7 @@ for manual installation.
 --8<--- "get-help-snip.md"
 
 You can download the appropriate tarball package from
-[https://www.percona.com/downloads/Percona-XtraDB-Cluster-80](https://www.percona.com/downloads/Percona-XtraDB-Cluster-80)
+[Percona Software Downloads](https://www.percona.com/downloads)
 
 ### Version updates
 

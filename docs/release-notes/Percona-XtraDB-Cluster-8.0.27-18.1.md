@@ -36,7 +36,7 @@ Find the full list of bug fixes and changes in the [MySQL 8.0.27 Release Notes](
 * The [Percona XtraDB Cluster installation instructions](https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html)
 
 
-* The [Percona XtraDB Cluster downloads](https://www.percona.com/downloads/Percona-XtraDB-Cluster-LATEST/#)
+* The [Percona XtraDB Cluster downloads](https://www.percona.com/downloads)
 
 
 * The [Percona XtraDB Cluster GitHub location](https://github.com/percona/percona-xtradb-cluster)

@@ -12,7 +12,7 @@
     [Installing Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.0/install-index.html)
 
 
-Percona XtraDB Cluster 8.0.22-13.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding [release notes for Percona Server for MySQL 8.0.22-13](https://www.percona.com/doc/percona-server/LATEST/release-notes/Percona-Server-8.0.22-13.html) for more details on these changes.
+Percona XtraDB Cluster 8.0.22-13.1 includes all of the features and bug fixes available in Percona Server for MySQL. See the corresponding [release notes for Percona Server for MySQL 8.0.22-13](https://docs.percona.com/percona-server/8.0/release-notes/Percona-Server-8.0.22-13.html) for more details on these changes.
 
 This release fixes security vulnerability [CVE-2021-27928](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27928), a similar issue to [CVE-2020-15180](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-15180)
 
