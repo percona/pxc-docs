@@ -26,6 +26,8 @@ The following limitations apply to Percona XtraDB Cluster:
 
     `LOAD DATA INFILE` processing will commit every 10 000 rows. So large transactions due to `LOAD DATA` will be split into a series of small transactions.
 
+    For transactions that exceed these limits or cause replication lag and flow control, use [streaming replication](streaming-replication.md) (available in Galera 4) instead of raising the limits globally.
+
 * Transaction issuing `COMMIT` may still be aborted at that stage.
 
     Due to cluster-level optimistic concurrency control, there can be two transactions writing to the same rows and committing on separate Percona XtraDB Cluster nodes, and only one of them can successfully commit. The failing one will be aborted. For cluster-level aborts, Percona XtraDB Cluster returns a deadlock error code:
