@@ -9,7 +9,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="You must make backups before attempting an upgrade.">
+        <meta name="description" content="This guide describes how to upgrade Percona XtraDB Cluster to version 8.4 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 8.4 require version 8.0 or later. Upgrade to the latest 8.0 release before upgrading to 8.4.">
       
       
         <meta name="author" content="Percona LLC">
@@ -3768,12 +3768,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="upgrade-percona-xtradb-cluster">Upgrade Percona XtraDB Cluster<a class="headerlink" href="#upgrade-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
-<p><strong><em>You must make backups before attempting an upgrade.</em></strong></p>
-<p>This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 without causing downtime. This process is called a “rolling upgrade,” which means you can upgrade the cluster one node at a time without shutting down the whole cluster. Keep in mind that rolling upgrades to 8.4 are only supported if your current version is 8.0 or newer. Be sure you are running on the latest 8.0 version before you upgrade to 8.4.</p>
+<div class="admonition warning">
+<p class="admonition-title">Required: Back up before upgrading</p>
+<p>Create backups before attempting any upgrade.</p>
+</div>
+<p>This guide describes how to upgrade Percona XtraDB Cluster to version 8.4 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 8.4 require version 8.0 or later. Upgrade to the latest 8.0 release before upgrading to 8.4.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>A node with a newer (higher) protocol version cannot join a cluster running an older (lower) Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption or incompatibility issues that may arise if a node introduces a feature the cluster doesn&rsquo;t understand.</p>
-<p>Run the command on a current cluster member and on the node that is about to join, then compare the two outputs.</p>
+<p>A node with a newer protocol version cannot join a cluster running an older Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption and incompatibility issues.</p>
+<p>Run the following command on a cluster member and on the joining node, then compare the outputs.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_protocol_version&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -3786,11 +3789,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 </div>
-<p>Upgrading to Percona Server 8.4 is similar to upgrading between minor versions of 8.0, like from 8.0.x to 8.0.y. There are a few specific details to keep in mind for 8.4, but the overall process isn’t very different. We also recommend checking out the Percona Server upgrade documentation for more information: <a href="https://docs.percona.com/percona-server/8.4/upgrade.html">Percona Server for MySQL 8.4 Upgrade Guide <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Upgrading to Percona Server 8.4 follows the same process as minor 8.0 upgrades. Review the <a href="https://docs.percona.com/percona-server/8.4/upgrade.html">Percona Server for MySQL 8.4 Upgrade Guide <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for additional details.</p>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
 <h2 id="important-changes-in-percona-xtradb-cluster-84">Important changes in Percona XtraDB Cluster 8.4<a class="headerlink" href="#important-changes-in-percona-xtradb-cluster-84" title="Permanent link">&para;</a></h2>
 <h3 id="keyring-plugin-vs-keyring-component">Keyring Plugin vs. Keyring Component<a class="headerlink" href="#keyring-plugin-vs-keyring-component" title="Permanent link">&para;</a></h3>
-<p>Starting with version 8.4, Percona XtraDB Cluster (PXC) no longer supports the keyring plugin. Instead, it uses the keyring component.</p>
+<p>Percona XtraDB Cluster (PXC) 8.4 replaces the keyring plugin with the keyring component.</p>
 <table>
 <thead>
 <tr>
@@ -3801,48 +3804,42 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <tbody>
 <tr>
 <td>In-place upgrade</td>
-<td>During an in-place upgrade, you need to update your <code>my.cnf</code> configuration. Replace the keyring plugin settings with the keyring component configuration. This includes updating the manifest and the component configuration file. <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Learn more about installing the keyring component here <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</td>
+<td>During an in-place upgrade, update your <code>my.cnf</code> configuration. Replace the keyring plugin settings with the keyring component configuration. This change includes updating the manifest and the component configuration file. <a href="https://dev.mysql.com/doc/refman/8.4/en/keyring-component-installation.html">Learn more about installing the keyring component <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</td>
 </tr>
 <tr>
 <td>Rolling upgrade</td>
-<td>When performing a rolling upgrade, the donor node (running an older version) can still use the keyring plugin, while the 8.4 node uses the keyring component. Since both use the keyring for encryption, they remain compatible and work together seamlessly.</td>
+<td>During a rolling upgrade, the donor node (running an older version) can use the keyring plugin. The 8.4 node uses the keyring component. Both use the keyring for encryption and remain compatible.</td>
 </tr>
 <tr>
 <td>Other requirements</td>
-<td>All other requirements, such as ensuring the SST (State Snapshot Transfer) channel is SSL-encrypted when using the keyring plugin or component, remain the same as in version 8.0.</td>
+<td>All other requirements remain the same as in version 8.0. For example, ensure the State Snapshot Transfer (SST) channel is SSL-encrypted when using the keyring plugin or component.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="default-authentication-plugin">Default authentication plugin<a class="headerlink" href="#default-authentication-plugin" title="Permanent link">&para;</a></h3>
-<p>In Percona XtraDB Cluster 8.4, the default authentication plugin is
-<code>caching_sha2_password</code>. In ProxySQL 2.6.2 or later, use the <code>caching_sha2_password</code> authentication method.</p>
+<p>In Percona XtraDB Cluster 8.4, the default authentication plugin is <code>caching_sha2_password</code>. In ProxySQL 2.6.2 or later, use the <code>caching_sha2_password</code> authentication method.</p>
 <h3 id="proxysql-262-or-later">ProxySQL 2.6.2 or later<a class="headerlink" href="#proxysql-262-or-later" title="Permanent link">&para;</a></h3>
-<p>If you are using a version before ProxySQL 2.6.2, the option <a href="proxysql-v2.html#proxysql-admin-utilities">–syncusers</a> would not work if the Percona XtraDB Cluster user is
-created using <code>caching_sha2_password</code>. Use the <code>mysql_native_password</code>
-authentication plugin in these cases. You must manually load this authentication plugin.</p>
+<p>If you use a version before ProxySQL 2.6.2, the option <a href="proxysql-v2.html#proxysql-admin-utilities">&ndash;syncusers</a> does not work if the Percona XtraDB Cluster user is created using <code>caching_sha2_password</code>. Use the <code>mysql_native_password</code> authentication plugin in these cases. You must manually load this authentication plugin.</p>
 <h2 id="default-security-and-compatibility-settings">Default security and compatibility settings<a class="headerlink" href="#default-security-and-compatibility-settings" title="Permanent link">&para;</a></h2>
-<p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default, which may result in denying any
-unsupported operations and may halt the server.</p>
-<p><code>pxc-encrypt-cluster-traffic</code> is enabled by default. You need to configure
-each node accordingly and avoid joining a cluster with unencrypted cluster
-traffic. For more information, see
-<a href="encrypt-traffic.html#encrypt-pxc-traffic">Traffic encryption is enabled by default</a>.</p>
+<p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default. This mode denies unsupported operations and may halt the server.</p>
+<p><code>pxc-encrypt-cluster-traffic</code> is enabled by default. Configure each node accordingly and avoid joining a cluster with unencrypted cluster traffic. For more information, see <a href="encrypt-traffic.html#encrypt-pxc-traffic">Traffic encryption is enabled by default</a>.</p>
 <h2 id="do-not-mix-pxc-80-nodes-with-pxc-84-nodes">Do not mix PXC 8.0 nodes with PXC 8.4 nodes<a class="headerlink" href="#do-not-mix-pxc-80-nodes-with-pxc-84-nodes" title="Permanent link">&para;</a></h2>
-<p>In Percona Server for MySQL versions 8.0 and 8.4, both use Galera 4, so there are no issues at the Galera protocol layer that would prevent any node from being a writer in a mixed-version cluster. However, 8.4 introduces changes that might not work on 8.0. If you run these changes on 8.4 and replicate them to 8.0, it could cause node inconsistencies, and the node might be evicted from the cluster due to the inconsistency voting protocol.</p>
-<p>Percona Server for MySQL 8.4 also introduces several DDL (Data Definition Language) enhancements that are not supported in 8.0. If you try to run these DDL statements on 8.0, you’ll get errors. A key difference is:</p>
+<p>Percona Server for MySQL versions 8.0 and 8.4 both use Galera 4. No Galera protocol layer issues prevent any node from being a writer in a mixed-version cluster. However, 8.4 introduces changes that may not work on 8.0. Running these changes on 8.4 and replicating them to 8.0 can cause node inconsistencies. The cluster may evict the node due to the inconsistency voting protocol.</p>
+<p>Percona Server for MySQL 8.4 introduces several Data Definition Language (DDL) enhancements not supported in 8.0. Running these DDL statements on 8.0 produces errors. A key difference is foreign key handling:</p>
 <ul>
 <li>
-<p>Foreign Keys Referencing Non-Unique or Partial Keys:</p>
+<p>Foreign keys referencing non-unique or partial keys:</p>
 <ul>
 <li>
-<p>8.4: Supports foreign keys referencing non-unique or partial keys.</p>
+<p>8.4: Supports foreign keys referencing non-unique or partial keys</p>
 </li>
 <li>
-<p>8.0: Doesn’t allow this and will fail the DDL statement.</p>
+<p>8.0: Does not allow this configuration and fails the DDL statement</p>
 </li>
 </ul>
 </li>
 </ul>
+<p>The following example shows a foreign key referencing a non-unique index:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
@@ -3854,52 +3851,51 @@ traffic. For more information, see
 <span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">parent_value</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">parent</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
-<p>Here, parent.value is indexed but not unique. In 8.4, the foreign key reference is allowed, but in 8.0, this operation fails.</p>
-<p>Since DDL is replicated as a TOI (transactional operation), it gets executed on all nodes. If it succeeds on 8.4 but fails on 8.0, the cluster will detect the inconsistency and evict the 8.0 node.</p>
-<p>In a mixed-version cluster, it’s better to use the lower version node as the writer. When executing DDL, make sure it behaves the same way on all nodes.</p>
+<p>In this example, <code>parent.value</code> is indexed but not unique. Version 8.4 allows the foreign key reference. Version 8.0 fails this operation.</p>
+<p>DDL statements replicate as Total Order Isolation (TOI) operations and execute on all nodes. If a statement succeeds on 8.4 but fails on 8.0, the cluster detects the inconsistency and evicts the 8.0 node.</p>
+<p>In a mixed-version cluster, use the lower version node as the writer. Verify that DDL statements behave the same way on all nodes.</p>
 <h2 id="major-upgrade-scenarios">Major upgrade scenarios<a class="headerlink" href="#major-upgrade-scenarios" title="Permanent link">&para;</a></h2>
-<p>Before upgrading your Percona XtraDB Cluster (PXC) to version 8.4, check your current version. You must run version 8.0 before upgrading to 8.4 - direct upgrades from older versions don&rsquo;t work.
-Here&rsquo;s what you need to know:</p>
+<p>Verify your version before upgrading PXC to version 8.4. Direct upgrades from versions older than 8.0 are not supported.</p>
 <ul>
 <li>
-<p>If you run version 8.0, you can upgrade directly to 8.4</p>
+<p>Version 8.0 clusters can upgrade directly to 8.4</p>
 </li>
 <li>
-<p>If you run a version older than 8.0, first upgrade to the latest 8.0 release</p>
+<p>Clusters older than 8.0 must first upgrade to the latest 8.0 release</p>
 </li>
 </ul>
-<p>The exact upgrade steps depend on your cluster setup and database activity. Your specific configuration and workload will shape the upgrade process, so you&rsquo;ll need to plan accordingly.</p>
+<p>The upgrade steps vary based on cluster configuration and workload.</p>
 <h3 id="in-place-rolling-upgrade">In-place rolling upgrade<a class="headerlink" href="#in-place-rolling-upgrade" title="Permanent link">&para;</a></h3>
-<p>If you want to upgrade an N-node Percona XtraDB Cluster (PXC) cluster with minimal downtime, you can use an in-place rolling upgrade. This process updates the nodes one at a time. While upgrading, make sure your application sends writes only to lower-version nodes. You can use any node for reads.</p>
-<p>Before upgrading, verify your application can function with a reduced cluster size. When a cluster operates with an even number of nodes, split-brain scenarios become possible.</p>
-<p>The upgrade process automatically detects the 8.0 data directory and initiates the upgrade during node boot-up. The data directory transforms to be compatible with PXC 8.4. Afterward, the node joins the cluster and enters a synced state. The result is a N-node cluster with N-1 8.0 and 1 8.4.</p>
-<p>Here’s how to upgrade a node from Percona XtraDB Cluster (PXC) 8.0 to 8.4:</p>
+<p>An in-place rolling upgrade updates an N-node PXC cluster with minimal downtime. This process updates nodes one at a time. During the upgrade, direct application writes only to lower-version nodes. Any node can handle reads.</p>
+<p>Before upgrading, verify your application can function with a reduced cluster size. A cluster with an even number of nodes can experience split-brain scenarios.</p>
+<p>The upgrade process automatically detects the 8.0 data directory and initiates the upgrade during node startup. The data directory transforms to be compatible with PXC 8.4. The node then joins the cluster and enters a synced state. The result is an N-node cluster with N-1 nodes on 8.0 and one node on 8.4.</p>
+<p>To upgrade a node from PXC 8.0 to 8.4:</p>
 <ol>
 <li>
-<p>Shut down an 8.0 node: Pick one of the nodes running PXC 8.0 and stop it.</p>
+<p>Stop one of the nodes running PXC 8.0.</p>
 </li>
 <li>
-<p>Remove PXC 8.0 packages: Uninstall the PXC 8.0 packages, but make sure you don’t delete the data directory.</p>
+<p>Uninstall the PXC 8.0 packages. Do not delete the data directory.</p>
 </li>
 <li>
-<p>Install PXC 8.4 packages: Replace the old packages with PXC 8.4 packages.</p>
+<p>Install the PXC 8.4 packages.</p>
 </li>
 <li>
-<p>Restart the mysqld service: Start the node again.</p>
+<p>Start the <code>mysqld</code> service.</p>
 </li>
 </ol>
 <h2 id="add-84-node-to-80-cluster">Add 8.4 node to 8.0 cluster<a class="headerlink" href="#add-84-node-to-80-cluster" title="Permanent link">&para;</a></h2>
-<p>You can upgrade a cluster by booting a fresh 8.4 node and joining it to the existing 8.0 cluster as an additional node instead of performing an in-place rolling upgrade.</p>
-<p>In this scenario, you have an active 3-node 8.0 cluster.</p>
+<p>You can upgrade a cluster by starting a fresh 8.4 node and joining the existing 8.0 cluster as an additional node.</p>
+<p>This scenario assumes an active three-node 8.0 cluster:</p>
 <ol>
 <li>
-<p>Join the new 8.4 node to the cluster. It will get a dump of the cluster through SST and stay part of the cluster. You have a four-node cluster: three nodes running 8.0 and one node running 8.4.</p>
+<p>Join the 8.4 node to the cluster. The node receives a State Snapshot Transfer (SST) and joins the cluster. The cluster has four nodes: three running 8.0 and one running 8.4.</p>
 </li>
 <li>
-<p>Shut down one of the 8.0 nodes and repeat the procedure to replace each 8.0 node with 8.4.</p>
+<p>Stop one of the 8.0 nodes. Repeat the procedure to replace each 8.0 node with 8.4.</p>
 </li>
 <li>
-<p>Once all nodes are running 8.4, the upgrade is complete.</p>
+<p>After all nodes run 8.4, the upgrade is complete.</p>
 </li>
 </ol>
 <div class="admonition warning">
@@ -3913,68 +3909,76 @@ Here&rsquo;s what you need to know:</p>
 </li>
 </ul>
 </div>
-<p>Therefore, if you are running a version older than 8.0, first upgrade all nodes to the latest 8.0 (using any procedure described), then upgrade to 8.4.</p>
+<p>If you run a version older than 8.0, first upgrade all nodes to the latest 8.0 release, then upgrade to 8.4.</p>
 <h2 id="upgrade-an-async-replication-replica-node">Upgrade an async replication replica node<a class="headerlink" href="#upgrade-an-async-replication-replica-node" title="Permanent link">&para;</a></h2>
-<p>If a given PXC node is an async replica of some other server, follow the procedure below:</p>
+<p>If a PXC node is an async replica of another server, follow this procedure:</p>
 <ol>
 <li>
-<p>Stop async replication</p>
+<p>Stop async replication.</p>
 </li>
 <li>
-<p>Upgrade PXC node using any described method</p>
+<p>Upgrade the PXC node using any described method.</p>
 </li>
 <li>
-<p>Start async replication</p>
+<p>Start async replication.</p>
 </li>
 <li>
-<p>Ensure async replication works</p>
+<p>Verify async replication works.</p>
 </li>
 </ol>
 <h2 id="minor-upgrade">Minor upgrade<a class="headerlink" href="#minor-upgrade" title="Permanent link">&para;</a></h2>
-<p>A minor upgrade for Percona XtraDB Cluster 8.4 means upgrading to a newer version within the 8.4 series. For example, moving from version 8.4.0 to 8.4.1. These upgrades include bug fixes and small improvements but don&rsquo;t change major functionality.</p>
+<p>A minor upgrade moves Percona XtraDB Cluster 8.4 to a newer version within the 8.4 series (for example, from 8.4.0 to 8.4.1). These upgrades include bug fixes and minor improvements without major functionality changes.</p>
 <p>To upgrade the cluster, follow these steps for each node:</p>
 <ol>
 <li>
-<p>Make sure that all nodes are synchronized.</p>
+<p>Verify all nodes are synchronized.</p>
 </li>
 <li>
-<p>Stop the mysql service:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<p>Disable fast shutdown to ensure all data files are fully prepared before the upgrade:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Stop the <code>mysql</code> service:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
 <p>Upgrade Percona XtraDB Cluster packages. For more information, see <a href="install-index.html">Install Percona XtraDB Cluster</a>.</p>
 </li>
 <li>
-<p>Back up <code>grastate.dat</code>, so that you can restore it if it is corrupted or zeroed out due to network issues.</p>
+<p>Back up the <code>grastate.dat</code> file. You can restore this file if corruption or network issues zero out the values.</p>
+</li>
+<li>
+<p>With the server stopped, run the following command to fetch the UUID and sequence number. Store these values to restore the <code>grastate.dat</code> file if needed:</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
+</code></pre></div>
 </li>
 <li>
 <p>Start the Percona XtraDB Cluster node with the new packages.</p>
-<p>In most cases, starting the <code>mysql</code> service should run the node with your
-previous configuration. For more information, see <a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+<p>Starting the <code>mysql</code> service runs the node with your previous configuration. For more information, see <a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a>.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
-<p>On Red Hat Enterprise Linux, the <code>/etc/my.cnf</code> configuration file is renamed to <code>my.cnf.rpmsave</code>. Make sure to rename this file back to the original name before joining the upgraded node back to the cluster.</p>
-<p>The node automatically upgrades its data directory.</p>
-<p>This upgrade happens in one of two ways:</p>
+<p>On Red Hat Enterprise Linux, the <code>/etc/my.cnf</code> configuration file is renamed to <code>my.cnf.rpmsave</code>. Rename this file back to the original name before joining the upgraded node to the cluster.</p>
+<p>The node automatically upgrades the data directory. This upgrade happens in one of two ways:</p>
 <ul>
 <li>
 <p>During the node startup process</p>
 </li>
 <li>
-<p>Through a state transfer (either IST or SST) from another node</p>
+<p>Through a state transfer (Incremental State Transfer (IST) or SST) from another node</p>
 </li>
 </ul>
-<p>The cluster handles the upgrade process automatically - you need to start the node with the new packages installed, and PXC manages the data directory upgrade process.</p>
+<p>The cluster handles the upgrade process automatically. Start the node with the new packages installed, and PXC manages the data directory upgrade.</p>
 </li>
 <li>
-<p>Repeat this procedure for the next node in the cluster until you upgrade all nodes.</p>
+<p>Repeat this procedure for the next node in the cluster until all nodes are upgraded.</p>
 </li>
 </ol>
 <h2 id="downgrade">Downgrade<a class="headerlink" href="#downgrade" title="Permanent link">&para;</a></h2>
-<p>Starting from version 8.0.34, MySQL-compatible database servers allow downgrades within the same Long-Term Support (LTS) version scope, provided the server has not applied any new server functionality to the data. While downgrading a node is not recommended, administrators can perform the downgrade using the established procedure.
-The key constraint is maintaining data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Administrators must carefully verify that no version-specific modifications have been made before attempting a downgrade.</p>
-<p>While possible, downgrades carry inherent risks and should be approached with caution and thorough planning.</p>
+<p>MySQL-compatible database servers (version 8.0.34 and later) allow downgrades within the same Long-Term Support (LTS) version scope. The server must not have applied any new functionality to the data. Downgrading a node is not recommended, but administrators can perform the downgrade using the established procedure.</p>
+<p>The key constraint is data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Verify that no version-specific modifications have been made before attempting a downgrade.</p>
+<p>Downgrades carry inherent risks. Approach downgrades with caution and thorough planning.</p>
 
 
 
