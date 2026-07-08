@@ -2049,6 +2049,8 @@
       
         
       
+        
+      
     
     
     
@@ -2363,6 +2365,34 @@
     
   
     Certification in Percona XtraDB Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streaming-replication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming replication for large transactions
   
 
     
@@ -4182,6 +4212,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
+  <a href="#streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming replication for large transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#threading-model" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5191,6 +5232,7 @@ The default and recommended data transfer method is via Percona <a href="https:/
 <li>
 <p>Maximum allowed transaction size is defined by the <a href="#wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> and <a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> variables. </p>
 <p><code>LOAD DATA INFILE</code> processing will commit every 10 000 rows. So large transactions due to <code>LOAD DATA</code> will be split into a series of small transactions.</p>
+<p>For transactions that exceed these limits or cause replication lag and flow control, use <a href="#streaming-replication">streaming replication</a> (available in Galera 4) instead of raising the limits globally.</p>
 </li>
 <li>
 <p>Transaction issuing <code>COMMIT</code> may still be aborted at that stage.</p>
@@ -10177,7 +10219,586 @@ That way errant packets don’t cause GTID to increment.</p>
 <p>Also, group packet <code>id</code> is not confused with GTID.
 Without errant packets,
 it may seem that these two counters are the same,
-but they are not related.</p></section><section class="print-page" id="threading-model" heading-number="10.7"><h1 id="threading-model-percona-xtradb-cluster-threading-model">Percona XtraDB Cluster threading model<a class="headerlink" href="#threading-model-percona-xtradb-cluster-threading-model" title="Permanent link">&para;</a></h1>
+but they are not related.</p></section><section class="print-page" id="streaming-replication" heading-number="10.7"><h1 id="streaming-replication-streaming-replication-for-large-transactions">Streaming replication for large transactions<a class="headerlink" href="#streaming-replication-streaming-replication-for-large-transactions" title="Permanent link">&para;</a></h1>
+<p>Streaming replication optimizes replication of large or long-running transactions in Percona XtraDB Cluster (PXC). A node normally executes a transaction fully. The node replicates the complete <a href="#glossary-write-set">write-set</a> to other nodes at <code>COMMIT</code> time. Standard replication works well for most workloads. Very large or lengthy transactions can overwhelm standard replication.</p>
+<p>With streaming replication, the initiating node divides the transaction into smaller fragments. Galera <a href="#glossary-certification">certifies</a> and replicates each fragment while the transaction remains open. Certified fragments lock their rows across the cluster. A later fragment in the same transaction can still fail certification. Streaming replication supports transaction totals larger than 2 GB when each fragment stays within global write-set limits.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Streaming replication is available in Galera Cluster 4.0 and later. PXC uses Galera 4 (<code>libgalera_smm.so</code> in the <code>galera4</code> directory).</p>
+</div>
+<h2 id="streaming-replication-prerequisites">Prerequisites<a class="headerlink" href="#streaming-replication-prerequisites" title="Permanent link">&para;</a></h2>
+<p>The following PXC concepts appear throughout this page:</p>
+<ul>
+<li>
+<p><a href="#glossary-write-set">Write-set</a>: the replicated payload that describes row changes in a transaction or fragment.</p>
+</li>
+<li>
+<p><a href="#glossary-certification">Certification</a>: the conflict-detection step that runs before Galera applies a write-set. See <a href="#certification">Certification in Percona XtraDB Cluster</a>.</p>
+</li>
+<li>
+<p><a href="#glossary-flow-control">Flow control</a>: the mechanism that throttles replication when a node falls behind. See <a href="#wsrep-status-index-flow-control-variables">Index of wsrep status variables</a>.</p>
+</li>
+<li>
+<p>Write-set caching: how Galera buffers transaction data before commit. See <a href="#gcache-record-set-cache-difference">Understand GCache and Record-Set cache</a>.</p>
+</li>
+</ul>
+<h2 id="streaming-replication-when-should-you-use-streaming-replication">When should you use streaming replication?<a class="headerlink" href="#streaming-replication-when-should-you-use-streaming-replication" title="Permanent link">&para;</a></h2>
+<p>Standard replication is sufficient for most workloads. Streaming replication targets specific scenarios. Enable streaming replication at the session level for transactions that require fragmentation.</p>
+<h3 id="streaming-replication-when-do-large-data-transactions-need-streaming-replication">When do large data transactions need streaming replication?<a class="headerlink" href="#streaming-replication-when-do-large-data-transactions-need-streaming-replication" title="Permanent link">&para;</a></h3>
+<p>Large data transactions are the primary use case. A massive <code>UPDATE</code>, <code>DELETE</code>, or <code>INSERT</code> forces the originating node to hold the full transaction locally. The node sends one large write-set at commit time. Large write-sets can cause these problems:</p>
+<ul>
+<li>
+<p>Significant replication lag, because the cluster waits for transfer and application of the large write-set.</p>
+</li>
+<li>
+<p><a href="#glossary-flow-control">Flow control</a> on peer nodes. Cluster nodes that apply a large transaction cannot commit other transactions. Busy peer nodes can trigger <a href="#wsrep-status-index-wsrep_flow_control_interval">flow control</a> and throttle the cluster.</p>
+</li>
+</ul>
+<p>Streaming replication sends data in fragments throughout the transaction lifetime. Fragmentation spreads network load across the transaction duration. Peer nodes can apply concurrent transactions between fragments. Cluster performance impact stays lower than with a single large write-set at commit.</p>
+<h3 id="streaming-replication-when-do-long-running-transactions-need-streaming-replication">When do long-running transactions need streaming replication?<a class="headerlink" href="#streaming-replication-when-do-long-running-transactions-need-streaming-replication" title="Permanent link">&para;</a></h3>
+<p>A long-running transaction conflicts more often with smaller transactions that commit first. Galera aborts the long-running transaction when a conflict occurs at commit time.</p>
+<p>Streaming replication certifies the transaction in fragments. A certified fragment cannot abort because of a conflicting transaction on the rows that fragment already modified. A later fragment in the same streaming transaction is not protected. The later fragment must pass certification against the current cluster state, including transactions that committed after earlier fragments.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Certification keys derive from record locks, not gap locks. A streaming transaction that holds a gap lock does not block conflicting write-sets in that gap. Another node can apply a write-set in the gap and abort the streaming transaction.</p>
+</div>
+<h3 id="streaming-replication-when-do-high-contention-records-need-streaming-replication">When do high-contention records need streaming replication?<a class="headerlink" href="#streaming-replication-when-do-high-contention-records-need-streaming-replication" title="Permanent link">&para;</a></h3>
+<p>Applications that update the same row repeatedly include counters, job queues, and locking schemes. Streaming replication can force a critical update to replicate immediately. The update locks the contended record on all nodes. Other transactions cannot modify the record until certification completes. Critical transactions commit with a higher success rate.</p>
+<h2 id="streaming-replication-how-does-fragment-certification-affect-rollbacks">How does fragment certification affect rollbacks?<a class="headerlink" href="#streaming-replication-how-does-fragment-certification-affect-rollbacks" title="Permanent link">&para;</a></h2>
+<p>Certified fragments and streaming transaction rollbacks operate at different levels.</p>
+<p>A certified fragment is final for the rows that fragment touched. Galera will not abort a certified fragment because a later transaction conflicts with those rows. The fragment remains applied on every node.</p>
+<p>The streaming transaction as a whole is not final until <code>COMMIT</code>. A later fragment can fail certification when another transaction commits conflicting changes first. Galera then aborts the entire streaming transaction. Every node must roll back all fragments from that transaction, including fragments that already passed certification.</p>
+<p>Frequent rollbacks of streaming transactions increase resource use on every node. Prefer shorter transactions when possible. Size fragments so each certification step has a lower conflict risk.</p>
+<h2 id="streaming-replication-how-do-global-write-set-limits-apply-to-fragments">How do global write-set limits apply to fragments?<a class="headerlink" href="#streaming-replication-how-do-global-write-set-limits-apply-to-fragments" title="Permanent link">&para;</a></h2>
+<p><a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> and <a href="#wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> apply to each fragment write-set, not to the full streaming transaction total.</p>
+<p>Galera evaluates limits when a fragment is replicated and certified. Each fragment must pass <code>wsrep_max_ws_size</code> and <code>wsrep_max_ws_rows</code> independently. A 5 GB transaction can succeed with streaming replication when fragmentation keeps every fragment under the configured limits.</p>
+<p>You do not need to raise <code>wsrep_max_ws_size</code> or <code>wsrep_max_ws_rows</code> globally for a large streaming transaction. Instead, reduce fragment size until each fragment complies with the existing limits. Raising the global limits affects every transaction on the cluster, not only the large job.</p>
+<p>When <code>wsrep_trx_fragment_unit</code> is <code>bytes</code>, compare the fragment threshold against <code>wsrep_max_ws_size</code>. When the unit is <code>rows</code>, compare against <code>wsrep_max_ws_rows</code>.</p>
+<h2 id="streaming-replication-how-do-you-enable-streaming-replication">How do you enable streaming replication?<a class="headerlink" href="#streaming-replication-how-do-you-enable-streaming-replication" title="Permanent link">&para;</a></h2>
+<p>Enable streaming replication at the session level for transactions that need fragmentation. Two session variables control fragmentation:</p>
+<ul>
+<li>
+<p><a href="#wsrep-system-index-wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code></a> defines the unit of replication.</p>
+</li>
+<li>
+<p><a href="#wsrep-system-index-wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a> defines how many units form one fragment.</p>
+</li>
+</ul>
+<p>Set both variables to enable streaming replication:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;statements&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">,</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that streaming replication is enabled for the session:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
++--------------------------+---------------------------+
+| @@wsrep_trx_fragment_unit | @@wsrep_trx_fragment_size |
++--------------------------+---------------------------+
+| statements               | 10                        |
++--------------------------+---------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The following example creates, certifies, and replicates one fragment after every 10 SQL statements in the transaction.</p>
+<h3 id="streaming-replication-configuration-variables">Configuration variables<a class="headerlink" href="#streaming-replication-configuration-variables" title="Permanent link">&para;</a></h3>
+<p>The following table summarizes the streaming replication variables:</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Default Value</th>
+<th>Scope</th>
+<th>Dynamic</th>
+<th>Valid Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wsrep_trx_fragment_unit</code></td>
+<td><code>bytes</code></td>
+<td>Global, Session</td>
+<td>Yes</td>
+<td><code>bytes</code>, <code>rows</code>, <code>statements</code></td>
+</tr>
+<tr>
+<td><code>wsrep_trx_fragment_size</code></td>
+<td><code>0</code></td>
+<td>Global, Session</td>
+<td>Yes</td>
+<td><code>0</code> to <code>2147483647</code> (<code>0</code> disables streaming replication)</td>
+</tr>
+<tr>
+<td><code>wsrep_SR_store</code></td>
+<td><code>table</code></td>
+<td>Global</td>
+<td>No</td>
+<td><code>table</code>, <code>none</code></td>
+</tr>
+</tbody>
+</table>
+<p>A value of <code>0</code> for <code>wsrep_trx_fragment_size</code> disables streaming replication.</p>
+<h3 id="streaming-replication-fragment-unit-values">Fragment unit values<a class="headerlink" href="#streaming-replication-fragment-unit-values" title="Permanent link">&para;</a></h3>
+<p><code>wsrep_trx_fragment_unit</code> accepts these values:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bytes</code></td>
+<td>Fragment size is measured in the transaction binlog events buffer size. Galera counts the internal write-set payload, not the SQL text or raw InnoDB page size.</td>
+</tr>
+<tr>
+<td><code>rows</code></td>
+<td>Fragment size is measured in affected rows.</td>
+</tr>
+<tr>
+<td><code>statements</code></td>
+<td>Fragment size is measured in executed SQL statements.</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>wsrep_trx_fragment_unit</code> is <code>bytes</code>, set <code>wsrep_trx_fragment_size</code> from write-set size, not from SQL statement length. A 1 MB SQL statement can produce a much larger write-set.</p>
+<h4 id="streaming-replication-how-are-bytes-counted">How are bytes counted?<a class="headerlink" href="#streaming-replication-how-are-bytes-counted" title="Permanent link">&para;</a></h4>
+<p>Galera measures the transaction binlog events buffer for the current streaming transaction. The counter includes the internal write-set payload Galera builds for certification. The counter excludes SQL text length, result set size, and raw InnoDB page size on disk.</p>
+<p>Galera creates a new fragment when the accumulated buffer reaches <code>wsrep_trx_fragment_size</code> bytes since the previous fragment.</p>
+<h4 id="streaming-replication-what-is-a-safe-byte-threshold">What is a safe byte threshold?<a class="headerlink" href="#streaming-replication-what-is-a-safe-byte-threshold" title="Permanent link">&para;</a></h4>
+<p>Use these starting points and tune from production observations:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Guidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum practical size</td>
+<td><code>262144</code> (256 KB) or higher. Sizes below 256 KB often create fragment thrashing.</td>
+</tr>
+<tr>
+<td>Common starting size</td>
+<td><code>1048576</code> (1 MB). Percona testing found 1 MB fragments balance cluster catch-up and origin-node overhead.</td>
+</tr>
+<tr>
+<td>Upper bound</td>
+<td>Each fragment must stay below <a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> (default 2 GB).</td>
+</tr>
+<tr>
+<td>Tuning signal</td>
+<td>Rising <code>mysql.wsrep_streaming_log</code> row counts with minimal row progress indicate fragments are too small.</td>
+</tr>
+</tbody>
+</table>
+<p>Compare byte thresholds against <code>wsrep_max_ws_size</code>, not against SQL or application payload estimates. Tune from observed <code>mysql.wsrep_streaming_log</code> growth and <a href="#wsrep-status-index-wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code></a> rates during test jobs.</p>
+<p>Set <a href="#wsrep-system-index-wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a> to <code>0</code> to disable streaming replication for the session:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that streaming replication is disabled for the session:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+
++---------------------------+
+| @@wsrep_trx_fragment_size |
++---------------------------+
+| 0                         |
++---------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>Apply <a href="#wsrep-system-index-wsrep_trx_fragment_size">optimizer <code>SET_VAR</code> hints</a> to individual data manipulation language (DML) statements within a transaction. Hints help when a single statement dominates the transaction size.</p>
+<h3 id="streaming-replication-how-do-set_var-hints-scope-inside-a-transaction">How do SET_VAR hints scope inside a transaction?<a class="headerlink" href="#streaming-replication-how-do-set_var-hints-scope-inside-a-transaction" title="Permanent link">&para;</a></h3>
+<p>A <code>SET_VAR</code> hint applies only to the single statement that contains the hint. The hint does not change session variables for later statements in the same transaction.</p>
+<p>Session variables set with <code>SET SESSION</code> remain in effect for all subsequent statements until you change them again. A <code>SET_VAR</code> hint overrides the session value only while the annotated statement runs.</p>
+<p>Example within one transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 500) */</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t3</span><span class="p">;</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<p>The first <code>INSERT</code> fragments at 500 units. The second <code>INSERT</code> uses the session value of 10.</p>
+<p>Verify session state after a hinted statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that the session value is unchanged:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+---------------------------+
+| @@wsrep_trx_fragment_size |
++---------------------------+
+| 10                        |
++---------------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>You can apply hints on separate statements within one transaction. The <a href="#wsrep-system-index-wsrep_trx_fragment_size">wsrep-system-index example</a> uses <code>SET_VAR(wsrep_trx_fragment_size = 100)</code> on separate <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> statements. Each statement gets its own fragment threshold. Other statements in the transaction keep the session defaults.</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 100) */</span><span class="w"> </span><span class="n">work_orders</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that the optimizer hint applied the fragment size for the statement:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 150 rows affected (2.34 sec)
+Rows matched: 150  Changed: 150  Warnings: 0
+</code></pre></div>
+</details>
+<h2 id="streaming-replication-how-do-you-monitor-active-streaming-replication">How do you monitor active streaming replication?<a class="headerlink" href="#streaming-replication-how-do-you-monitor-active-streaming-replication" title="Permanent link">&para;</a></h2>
+<p>Galera does not expose a dedicated <code>wsrep_streaming_*</code> status variable or a cumulative fragment counter. Use <code>mysql.wsrep_streaming_log</code> for real-time fragment visibility. Use general <code>wsrep_*</code> status variables for cluster pressure during streaming jobs.</p>
+<h3 id="streaming-replication-which-wsrep-status-variables-should-you-watch">Which wsrep status variables should you watch?<a class="headerlink" href="#streaming-replication-which-wsrep-status-variables-should-you-watch" title="Permanent link">&para;</a></h3>
+<p>The following table lists variables useful for dashboards and alerts during streaming replication workloads:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>What it indicates</th>
+<th>Alert when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mysql.wsrep_streaming_log</code> row count</td>
+<td>Active certified fragments on this node (query with <code>SELECT COUNT(*)</code>)</td>
+<td>Count stays above zero outside known maintenance windows</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue"><code>wsrep_local_recv_queue</code></a></td>
+<td>Applier backlog on the local node</td>
+<td>Sustained high values during streaming jobs</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_recv_queue_avg"><code>wsrep_local_recv_queue_avg</code></a></td>
+<td>Smoothed applier backlog</td>
+<td>Sustained increase over baseline</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_flow_control_sent"><code>wsrep_flow_control_sent</code></a></td>
+<td>Flow control pauses this node initiated</td>
+<td>Rate spikes during large streaming jobs</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_flow_control_recv"><code>wsrep_flow_control_recv</code></a></td>
+<td>Flow control pauses this node received</td>
+<td>Rate spikes during large streaming jobs</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_flow_control_paused"><code>wsrep_flow_control_paused</code></a></td>
+<td>Time spent paused by flow control</td>
+<td>Sustained non-zero growth</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_replicated"><code>wsrep_replicated</code></a></td>
+<td>Write-sets this node sent to the cluster (includes fragment write-sets)</td>
+<td>Unusual rate increase on the originating node</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_received"><code>wsrep_received</code></a></td>
+<td>Write-sets this node received (includes fragment write-sets)</td>
+<td>Unusual rate increase on peer nodes</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code></a></td>
+<td>Bytes this node sent in write-sets</td>
+<td>Sudden sustained increase during streaming</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_received_bytes"><code>wsrep_received_bytes</code></a></td>
+<td>Bytes this node received in write-sets</td>
+<td>Sudden sustained increase during streaming</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_cert_failures"><code>wsrep_local_cert_failures</code></a></td>
+<td>Certification failures, including streaming aborts</td>
+<td>Any sustained increase</td>
+</tr>
+<tr>
+<td><a href="#wsrep-status-index-wsrep_local_bf_aborts"><code>wsrep_local_bf_aborts</code></a></td>
+<td>Local transactions aborted by conflicting replicated transactions</td>
+<td>Increase during hot-row streaming</td>
+</tr>
+</tbody>
+</table>
+<p>Galera counts each certified fragment as a separate write-set in <code>wsrep_replicated</code> and <code>wsrep_received</code>. A single large streaming transaction increases these counters incrementally as fragments certify, not only at final <code>COMMIT</code>.</p>
+<p>Query the recommended variables on every node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_local_recv_queue&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_local_recv_queue_avg&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_sent&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_recv&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_paused&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_replicated&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_received&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_replicated_bytes&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_received_bytes&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_local_cert_failures&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;wsrep_local_bf_aborts&#39;</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Combine the query above with <code>mysql.wsrep_streaming_log</code> on each node for a complete streaming replication dashboard. See <a href="#monitoring">Monitor the cluster</a> for general PXC alerting guidance.</p>
+<h3 id="streaming-replication-check-active-fragments-in-mysqlwsrep_streaming_log">Check active fragments in mysql.wsrep_streaming_log<a class="headerlink" href="#streaming-replication-check-active-fragments-in-mysqlwsrep_streaming_log" title="Permanent link">&para;</a></h3>
+<p>Each row in <code>mysql.wsrep_streaming_log</code> represents one certified fragment from an in-progress streaming transaction. Query metadata columns only. The <code>frag</code> column contains full binary log events and can exceed <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_max_allowed_packet"><code>max_allowed_packet</code></a>.</p>
+<p>Count active fragments on a node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output shows no active streaming transactions:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+
+| active_fragments |
++------------------+
+|                0 |
++------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>List active streaming transactions during a large job:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="p">,</span><span class="w"> </span><span class="n">seqno</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output shows the latest certified fragment (<code>seqno = 4</code>) for one in-progress transaction:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+--------+-------+-------+
+| node_uuid                            | trx_id | seqno | flags |
++--------------------------------------+--------+-------+-------+
+| a006244a-7ed8-11e9-bf00-867215999c7c |     26 |     4 |     1 |
++--------------------------------------+--------+-------+-------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+<p>The <code>seqno</code> value increases as Galera certifies additional fragments for the same <code>trx_id</code>. The <code>node_uuid</code> column identifies the cluster node that originated the streaming transaction.</p>
+<h3 id="streaming-replication-check-related-cluster-status-variables">Check related cluster status variables<a class="headerlink" href="#streaming-replication-check-related-cluster-status-variables" title="Permanent link">&para;</a></h3>
+<p>The variables in the table above cover cluster pressure during streaming jobs. Query all wsrep status variables when you need broader context:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_%&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>For broader cluster monitoring guidance, see <a href="#monitoring">Monitor the cluster</a>.</p>
+<h2 id="streaming-replication-what-does-wsrep_sr_store-control">What does wsrep_SR_store control?<a class="headerlink" href="#streaming-replication-what-does-wsrep_sr_store-control" title="Permanent link">&para;</a></h2>
+<p><a href="#wsrep-system-index-wsrep_sr_store"><code>wsrep_SR_store</code></a> defines where Galera persists streaming replication fragments. The variable is global and not dynamic. Change the value only at startup.</p>
+<h3 id="streaming-replication-when-wsrep_sr_store-is-table">When wsrep_SR_store is table<a class="headerlink" href="#streaming-replication-when-wsrep_sr_store-is-table" title="Permanent link">&para;</a></h3>
+<p>The default value is <code>table</code>. Galera writes each fragment to <code>mysql.wsrep_streaming_log</code> on every node. The table provides durable storage for partial streaming transactions.</p>
+<p>Disk writes add overhead during active streaming replication. The overhead is the trade-off for crash recovery. After a node crash, Galera can use the log to recover or roll back in-progress streaming transactions.</p>
+<h3 id="streaming-replication-when-wsrep_sr_store-is-none">When wsrep_SR_store is none<a class="headerlink" href="#streaming-replication-when-wsrep_sr_store-is-none" title="Permanent link">&para;</a></h3>
+<p>The value <code>none</code> disables persistence to <code>mysql.wsrep_streaming_log</code>. Galera still replicates and certifies fragments in memory during normal operation. Fragments are not double-written to the log table.</p>
+<p>The <code>none</code> setting reduces log-table I/O. The setting also removes the durable recovery path for partial streaming transactions. After a crash, Galera cannot reconstruct in-progress streaming fragments from the log. Recovery may require manual intervention or transaction rollback.</p>
+<p>The <code>none</code> setting does not eliminate memory use. Each node still buffers fragment write-sets during replication and certification. Very small fragment sizes increase fragment count and can raise memory pressure across the cluster.</p>
+<p>Use <code>wsrep_SR_store = 'none'</code> only when you accept the crash-recovery trade-off and you have tested fragment sizing under peak load. Keep the default <code>table</code> value for production workloads unless profiling shows a clear benefit.</p>
+<h3 id="streaming-replication-what-is-the-lifecycle-of-mysqlwsrep_streaming_log">What is the lifecycle of mysql.wsrep_streaming_log?<a class="headerlink" href="#streaming-replication-what-is-the-lifecycle-of-mysqlwsrep_streaming_log" title="Permanent link">&para;</a></h3>
+<p>Galera manages <code>mysql.wsrep_streaming_log</code> automatically. Do not manually <code>DELETE</code> from or <code>TRUNCATE</code> the table.</p>
+<p>The table holds rows only while a streaming transaction is open and has certified fragments. Each row stores one fragment&rsquo;s metadata and, when <code>wsrep_SR_store</code> is <code>table</code>, the fragment payload in the <code>frag</code> column.</p>
+<p>Galera removes fragment rows from every node when the streaming transaction completes normally:</p>
+<ul>
+<li>
+<p><code>COMMIT</code>: Galera removes all fragment rows after the final fragment certifies.</p>
+</li>
+<li>
+<p><code>ROLLBACK</code>: Galera removes fragment rows and rolls back applied fragment data on every node.</p>
+</li>
+</ul>
+<p>The table is empty when no streaming transaction is active on the cluster. A non-zero <code>COUNT(*)</code> during idle periods indicates an open streaming transaction somewhere in the cluster.</p>
+<p>An abandoned client session can leave fragment rows in place until the server ends the transaction. The server rolls back the transaction when the client disconnects or when <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_wait_timeout"><code>wait_timeout</code></a> or <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_interactive_timeout"><code>interactive_timeout</code></a> closes the idle connection. Until that rollback completes, fragment rows and <code>frag</code> data remain on disk.</p>
+<p>A long-running streaming transaction with an open connection can grow <code>mysql.wsrep_streaming_log</code> on every node. Monitor fragment counts during large jobs. Size fragments to balance replication progress against log-table growth.</p>
+<h3 id="streaming-replication-how-do-you-force-kill-a-runaway-streaming-transaction">How do you force-kill a runaway streaming transaction?<a class="headerlink" href="#streaming-replication-how-do-you-force-kill-a-runaway-streaming-transaction" title="Permanent link">&para;</a></h3>
+<p>Do not manually delete rows from <code>mysql.wsrep_streaming_log</code>. End the open transaction on the originating node instead. A connection-level <code>KILL</code> rolls back the streaming transaction through Galera on every node. The operation does not cause a cluster split-brain event. Split-brain results from network partitions and quorum loss, not from terminating a single client session.</p>
+<p class="power-number">Use this emergency playbook when log-table growth threatens disk space:</p>
+<ol>
+<li>
+<p>Confirm active streaming fragments on each node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Identify the originating node and session. Query fragment metadata to find the origin node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>node_uuid</code> value identifies the cluster node where the streaming transaction started. Query <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-tables"><code>mysql.wsrep_cluster_members</code></a> on any node to map the UUID to a host name or address. Run <code>SHOW FULL PROCESSLIST</code> on that node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">FULL</span><span class="w"> </span><span class="n">PROCESSLIST</span><span class="p">;</span>
+</code></pre></div>
+<p>Look for a long-running DML statement or an open transaction in the <code>State</code> column. Note the connection <code>Id</code>. The streaming log does not expose the connection <code>Id</code> directly.</p>
+</li>
+<li>
+<p>Terminate the connection on the node where the session runs:</p>
+<div class="highlight"><pre><span></span><code><span class="n">KILL</span><span class="w"> </span><span class="o">&lt;</span><span class="n">connection_id</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Replace <code>&lt;connection_id&gt;</code> with the <code>Id</code> from <code>SHOW FULL PROCESSLIST</code>. <code>KILL</code> is shorthand for <code>KILL CONNECTION</code>.</p>
+</li>
+<li>
+<p>Wait for Galera rollback to finish on all nodes. Rollback duration depends on the number of certified fragments.</p>
+</li>
+<li>
+<p>Verify cleanup on every node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that no fragments remain:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>+------------------+
+| active_fragments |
++------------------+
+|                0 |
++------------------+
+1 row in set (0.00 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Confirm cluster health:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_status&#39;</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Expect <code>Primary</code> cluster status and <code>Synced</code> local state on healthy nodes.</p>
+</li>
+</ol>
+<p><code>KILL QUERY &lt;connection_id&gt;</code> ends only the current statement. Use <code>KILL CONNECTION</code> when the session sits idle inside an open transaction.</p>
+<p>Avoid waiting for <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_wait_timeout"><code>wait_timeout</code></a> or <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_interactive_timeout"><code>interactive_timeout</code></a> when disk use is already critical. A forced disconnect triggers immediate rollback and log cleanup across the cluster.</p>
+<h2 id="streaming-replication-do-tables-need-a-primary-key-for-streaming-replication">Do tables need a primary key for streaming replication?<a class="headerlink" href="#streaming-replication-do-tables-need-a-primary-key-for-streaming-replication" title="Permanent link">&para;</a></h2>
+<p>Streaming replication uses the same <a href="#glossary-certification">certification</a> and write-set machinery as standard Galera replication. Tables involved in streaming transactions must have a primary key.</p>
+<p>Galera uses primary-key values to identify rows for certification and cluster-wide locking. Without a primary key, Galera cannot reliably order or lock individual rows across nodes during fragment certification.</p>
+<p>Under <a href="#strict-mode-tables-without-primary-keys"><code>pxc_strict_mode=ENFORCING</code></a>, PXC denies <code>DELETE</code> and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming <code>DELETE</code> against a table without a primary key fails with an error when strict mode is <code>ENFORCING</code>.</p>
+<p>All tables in the cluster should define a primary key. See <a href="#limitation">Percona XtraDB Cluster limitations</a> and <a href="#strict-mode-tables-without-primary-keys">Tables without primary keys</a>.</p>
+<h2 id="streaming-replication-how-does-streaming-replication-interact-with-pxc_strict_mode">How does streaming replication interact with pxc_strict_mode?<a class="headerlink" href="#streaming-replication-how-does-streaming-replication-interact-with-pxc_strict_mode" title="Permanent link">&para;</a></h2>
+<p>Streaming replication does not require a dedicated <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> setting. The default value <code>ENFORCING</code> is supported and recommended.</p>
+<p>Streaming replication is a supported Galera 4 feature. <a href="#strict-mode"><code>PXC Strict Mode</code></a> does not treat streaming replication as a tech preview capability.</p>
+<p>Strict mode validations still apply inside streaming transactions. Operations that strict mode blocks on a standard transaction are also blocked when streaming replication is enabled for the session. Examples include unsupported storage engines and conflicting plugins listed in <a href="#strict-mode-validations">PXC Strict Mode validations</a>.</p>
+<p>Keep <code>pxc_strict_mode=ENFORCING</code> on all cluster nodes. Streaming replication does not bypass strict mode checks on peer nodes.</p>
+<h2 id="streaming-replication-how-does-streaming-replication-affect-binary-logging-and-async-replicas">How does streaming replication affect binary logging and async replicas?<a class="headerlink" href="#streaming-replication-how-does-streaming-replication-affect-binary-logging-and-async-replicas" title="Permanent link">&para;</a></h2>
+<p>Streaming replication affects Galera cluster nodes and downstream async replicas differently.</p>
+<h3 id="streaming-replication-galera-cluster-replication-between-pxc-nodes">Galera cluster replication (between PXC nodes)<a class="headerlink" href="#streaming-replication-galera-cluster-replication-between-pxc-nodes" title="Permanent link">&para;</a></h3>
+<p>Galera replicates certified fragments to every cluster node while the transaction remains open. Fragments travel through the Galera write-set path. Fragments do not appear in the MySQL binary log during the open transaction. Partial fragment data is stored in <code>mysql.wsrep_streaming_log</code> when <a href="#wsrep-system-index-wsrep_sr_store"><code>wsrep_SR_store</code></a> is <code>table</code>.</p>
+<p>Other cluster nodes apply certified fragments before final <code>COMMIT</code>. Applied fragments hold cluster-wide row locks, but they remain part of an in-progress transaction on every peer node. Under normal isolation levels, other sessions do not read the uncommitted fragment data. Instead, sessions that try to modify the affected rows block on the fragment locks until the originating session commits or rolls back. Only the full transaction boundary is atomic from the application perspective.</p>
+<h3 id="streaming-replication-binary-log-on-the-originating-pxc-node">Binary log on the originating PXC node<a class="headerlink" href="#streaming-replication-binary-log-on-the-originating-pxc-node" title="Permanent link">&para;</a></h3>
+<p>The MySQL binary log records the client transaction when the originating session issues <code>COMMIT</code>. Galera does not write streaming fragments to <code>log_bin</code> as separate binlog events during the open transaction.</p>
+<p>A streaming transaction therefore produces one binlog transaction entry at commit time on the node where the client connected. The binlog event size reflects the full committed change set, not individual fragment sizes.</p>
+<p>Galera builds row-format write-sets internally. Set <code>binlog_format=ROW</code> on nodes that serve as async replication sources or that require row-based binary logging.</p>
+<h3 id="streaming-replication-downstream-asynchronous-mysql-replicas">Downstream asynchronous MySQL replicas<a class="headerlink" href="#streaming-replication-downstream-asynchronous-mysql-replicas" title="Permanent link">&para;</a></h3>
+<p>Downstream async replicas do not receive streaming fragments in real time. The replica SQL thread applies the transaction when the source node commits and writes the binlog event.</p>
+<p>A large streaming transaction can still produce a sudden downstream replication lag spike at commit time. The async replica receives one large binlog transaction, even though PXC cluster nodes applied fragments incrementally during the open transaction.</p>
+<p>Configure the PXC source node for async replication as described in <a href="#faq-does-percona-xtradb-cluster-work-with-regular-mysql-replication">Does Percona XtraDB Cluster work with regular MySQL replication?</a>:</p>
+<ul>
+<li>
+<p>Unique non-zero <code>server_id</code> on each PXC node.</p>
+</li>
+<li>
+<p><code>log_bin</code> enabled on the node that acts as the replication source. Client writes that originate on the source node are written to the binary log at commit time.</p>
+</li>
+<li>
+<p><a href="https://dev.mysql.com/doc/refman/8.4/en/replication-options-replica.html#sysvar_log_replica_updates"><code>log_replica_updates</code></a> (or deprecated <code>log_slave_updates</code>) enabled when the source node must relay writes that executed on other PXC nodes and were received through Galera. Without this setting, only locally originated writes appear in the source binary log.</p>
+</li>
+</ul>
+<p>Streaming replication reduces lag and flow control between PXC nodes during the open transaction. Streaming replication does not spread downstream async apply load across the transaction lifetime. Plan async replica capacity for peak commit-time binlog volume.</p>
+<h2 id="streaming-replication-how-do-you-manage-a-hot-record">How do you manage a hot record?<a class="headerlink" href="#streaming-replication-how-do-you-manage-a-hot-record" title="Permanent link">&para;</a></h2>
+<p>A work order queue must assign each user a unique queue position. Streaming replication can protect the critical update that increments the queue position.</p>
+<h3 id="streaming-replication-why-not-use-select-for-update">Why not use SELECT &hellip; FOR UPDATE?<a class="headerlink" href="#streaming-replication-why-not-use-select-for-update" title="Permanent link">&para;</a></h3>
+<p><code>SELECT ... FOR UPDATE</code> locks rows on the local node only. Galera uses optimistic replication by default. Other nodes do not see those locks until the transaction commits and the write-set replicates. A concurrent transaction on another node can modify the same row and win certification first.</p>
+<p>Streaming replication certifies and applies the critical fragment on all nodes before the transaction continues. The fragment propagates cluster-wide locks for the rows the fragment modified. Other nodes block conflicting changes on those rows during certification. The queue update reaches every node before non-critical work in the same transaction runs.</p>
+<p><code>SELECT ... FOR UPDATE</code> still helps for local read consistency within one node. Streaming replication addresses cluster-wide ordering under Galera&rsquo;s certification model.</p>
+<p class="power-number">Configure streaming replication for the queue update with these steps:</p>
+<ol>
+<li>
+<p>Begin the transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that the transaction has started:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Read the data the transaction requires. Enable streaming replication for the next statement:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;statements&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that streaming replication is enabled for the next statement:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Run the critical update. Galera fragments and replicates the statement immediately:</p>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">work_orders</span>
+<span class="w">   </span><span class="k">SET</span><span class="w"> </span><span class="n">queue_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue_position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that the queue position was updated:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Disable streaming replication for the remainder of the transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that streaming replication is disabled:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Complete non-critical work for the work order. Commit the transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<p>The following output confirms that the transaction committed:</p>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+</code></pre></div>
+</details>
+</li>
+</ol>
+<p>The <code>queue_position</code> update replicates and certifies across the cluster before the transaction continues. Race conditions on queue assignment are less likely.</p>
+<h2 id="streaming-replication-what-happens-when-the-initiating-node-crashes-mid-transaction">What happens when the initiating node crashes mid-transaction?<a class="headerlink" href="#streaming-replication-what-happens-when-the-initiating-node-crashes-mid-transaction" title="Permanent link">&para;</a></h2>
+<p>A streaming transaction is incomplete until the originating session issues <code>COMMIT</code>. Certified fragments on surviving nodes are not final committed work from the application perspective until the full transaction completes.</p>
+<h3 id="streaming-replication-when-the-originating-node-fails">When the originating node fails<a class="headerlink" href="#streaming-replication-when-the-originating-node-fails" title="Permanent link">&para;</a></h3>
+<p>If the initiating node crashes or is evicted from the cluster, the open transaction on that node is lost. Surviving nodes retain the certified fragments they already applied.</p>
+<p>Galera treats the incomplete streaming transaction as aborted. The rollbacker thread rolls back applied fragment data on every surviving node. Galera also removes the corresponding rows from <code>mysql.wsrep_streaming_log</code> on those nodes. Surviving nodes do not keep partial streaming changes as committed data.</p>
+<p>There is no separate administrator timeout for orphaned streaming fragments on healthy nodes. Cleanup runs as part of Galera&rsquo;s transaction abort handling when the originator disappears or the transaction fails.</p>
+<h3 id="streaming-replication-when-the-crashed-node-rejoins">When the crashed node rejoins<a class="headerlink" href="#streaming-replication-when-the-crashed-node-rejoins" title="Permanent link">&para;</a></h3>
+<p>The rejoining node was behind the cluster state at the moment of failure. The node typically receives an <a href="#glossary-ist">IST</a> or <a href="#glossary-sst">SST</a> from a donor to resynchronize. See <a href="#crash-recovery">Crash recovery</a>.</p>
+<p>When <code>wsrep_SR_store</code> is <code>table</code>, Galera can use <code>mysql.wsrep_streaming_log</code> on the restarted node to recover or roll back that node&rsquo;s own partial streaming state after a crash. When <code>wsrep_SR_store</code> is <code>none</code>, that local recovery path is not available.</p>
+<h3 id="streaming-replication-when-the-entire-cluster-stops-during-streaming">When the entire cluster stops during streaming<a class="headerlink" href="#streaming-replication-when-the-entire-cluster-stops-during-streaming" title="Permanent link">&para;</a></h3>
+<p>A power loss or full cluster outage may leave nodes with <code>seqno: -1</code> in <code>grastate.dat</code>. Follow <a href="#crash-recovery">Crash recovery</a> to identify the most advanced node and bootstrap the cluster. Streaming log rows from incomplete transactions are resolved during Galera startup and transaction recovery on each node.</p>
+<h2 id="streaming-replication-what-are-the-limitations">What are the limitations?<a class="headerlink" href="#streaming-replication-what-are-the-limitations" title="Permanent link">&para;</a></h2>
+<p>Review these limitations before you enable streaming replication.</p>
+<h3 id="streaming-replication-what-is-the-performance-overhead">What is the performance overhead?<a class="headerlink" href="#streaming-replication-what-is-the-performance-overhead" title="Permanent link">&para;</a></h3>
+<p>Galera records write-sets to <code>mysql.wsrep_streaming_log</code> on every node when streaming replication is enabled and <a href="#wsrep-system-index-wsrep_sr_store"><code>wsrep_SR_store</code></a> is <code>table</code>. The log provides crash recovery for partial transactions. Log writes add overhead. Use streaming replication only when fragmentation is required.</p>
+<h3 id="streaming-replication-what-is-the-rollback-cost">What is the rollback cost?<a class="headerlink" href="#streaming-replication-what-is-the-rollback-cost" title="Permanent link">&para;</a></h3>
+<p>Galera must roll back every certified fragment on all nodes when a streaming transaction aborts after partial certification. A failure in any fragment aborts the full streaming transaction. Frequent rollbacks of streaming transactions increase resource use on every node.</p>
+<p>Prefer shorter, smaller transactions in application design. When large transactions are unavoidable, use streaming replication with appropriately sized fragments instead of raising <a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> and <a href="#wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> globally.</p>
+<h3 id="streaming-replication-what-happens-with-savepoints-inside-a-streaming-transaction">What happens with SAVEPOINTs inside a streaming transaction?<a class="headerlink" href="#streaming-replication-what-happens-with-savepoints-inside-a-streaming-transaction" title="Permanent link">&para;</a></h3>
+<p><code>SAVEPOINT</code>, <code>ROLLBACK TO SAVEPOINT</code>, and <code>RELEASE SAVEPOINT</code> are discouraged inside streaming transactions. Galera does not support partial savepoint rollback across the cluster.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Galera does not send compensation write-sets for savepoint rollbacks. Once fragments are certified on peer nodes, <code>ROLLBACK TO SAVEPOINT</code> escalates to a full transaction rollback on every node.</p>
+</div>
+<h4 id="streaming-replication-explicit-savepoints">Explicit savepoints<a class="headerlink" href="#streaming-replication-explicit-savepoints" title="Permanent link">&para;</a></h4>
+<p>An explicit savepoint records a rollback point in the local transaction on the originating node only. Peer nodes do not receive savepoint events. Peer nodes have already certified and applied fragments from statements that ran after the savepoint was created.</p>
+<p>Consider a transaction that runs five statements and streams a fragment after each statement. The session then executes <code>ROLLBACK TO SAVEPOINT sp1</code> after statement five. Peer nodes still hold certified fragments from statements two through five. Galera cannot undo only those fragments on peer nodes.</p>
+<p>Galera does not send compensation write-sets to reverse savepoint rollbacks on peer nodes. Partial savepoint rollback does not produce cluster-wide consistency.</p>
+<p>Once any statement in the streaming transaction has replicated one or more fragments, Galera treats <code>ROLLBACK TO SAVEPOINT</code> as unsafe. Galera escalates the savepoint rollback to a full transaction rollback on every node. All certified fragments from the streaming transaction are undone cluster-wide. The <code>mysql.wsrep_streaming_log</code> table becomes empty after rollback completes.</p>
+<p><code>SAVEPOINT</code> before any fragment is replicated may succeed locally. Any later <code>ROLLBACK TO SAVEPOINT</code> after fragments were replicated still triggers the full cluster-wide rollback described above.</p>
+<h4 id="streaming-replication-implicit-statement-rollbacks">Implicit statement rollbacks<a class="headerlink" href="#streaming-replication-implicit-statement-rollbacks" title="Permanent link">&para;</a></h4>
+<p>An implicit statement rollback occurs when a single statement fails inside an open transaction. MySQL rolls back that statement&rsquo;s changes on the local node. Examples include duplicate-key errors and constraint violations on a multi-row <code>INSERT</code>.</p>
+<p>Galera applies the same safety rule as explicit savepoint rollbacks. Once the failing statement has replicated one or more fragments, Galera cannot perform a statement-only rollback on peer nodes. Galera aborts the entire streaming transaction and rolls back all certified fragments on every node.</p>
+<h4 id="streaming-replication-application-guidance">Application guidance<a class="headerlink" href="#streaming-replication-application-guidance" title="Permanent link">&para;</a></h4>
+<p>Prefer plain <code>BEGIN</code>, <code>COMMIT</code>, and <code>ROLLBACK</code> boundaries for streaming transactions. Split complex logic into separate transactions instead of nested savepoints. For general cluster limitations on transaction types, see <a href="#limitation">Percona XtraDB Cluster limitations</a>.</p></section><section class="print-page" id="threading-model" heading-number="10.8"><h1 id="threading-model-percona-xtradb-cluster-threading-model">Percona XtraDB Cluster threading model<a class="headerlink" href="#threading-model-percona-xtradb-cluster-threading-model" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster creates a set of threads to service its operations,
 which are not related to existing MySQL threads.
 There are three main groups of threads:</p>
@@ -10262,7 +10883,7 @@ SST creates threads for donor and joiner
 IST creates receiver and async sender threads,
 PageStore creates a background thread for removing the files that were created.</p>
 <p>If the checksum is enabled and the replicated write-set is big enough,
-the checksum is done as part of a separate thread.</p></section><section class="print-page" id="gcache-record-set-cache-difference" heading-number="10.8"><h1 id="gcache-record-set-cache-difference-understand-gcache-and-record-set-cache">Understand GCache and Record-Set cache<a class="headerlink" href="#gcache-record-set-cache-difference-understand-gcache-and-record-set-cache" title="Permanent link">&para;</a></h1>
+the checksum is done as part of a separate thread.</p></section><section class="print-page" id="gcache-record-set-cache-difference" heading-number="10.9"><h1 id="gcache-record-set-cache-difference-understand-gcache-and-record-set-cache">Understand GCache and Record-Set cache<a class="headerlink" href="#gcache-record-set-cache-difference-understand-gcache-and-record-set-cache" title="Permanent link">&para;</a></h1>
 <p>In Percona XtraDB Cluster, there is a concept of GCache and Record-Set cache
 (which can also be called transaction write-set cache).
 The use of these two caches is often confusing
@@ -10283,8 +10904,7 @@ then the storage is switched from Heap to Page
 <p>All these limits are non-configurable,
 but having a memory-page size greater than 4MB per transaction
 can cause things to stall due to memory pressure,
-so this limit is reasonable. This is another
-limitation to address when Galera supports large transaction.</p>
+so this limit is reasonable. For large or long-running transactions that exceed these caches, use <a href="#streaming-replication">streaming replication</a>.</p>
 <p>The same long-running transaction will also generate binlog data
 that also appends to out-write-set on commit (<code>HeapStore-&gt;FileStore</code>).
 This data can be significant,
@@ -10323,7 +10943,7 @@ similar to the following:</p>
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000001
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000002
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_keys.000000
-</code></pre></div></section><section class="print-page" id="gcache-write-set-cache-encryption" heading-number="10.9"><h1 id="gcache-write-set-cache-encryption-gcache-encryption-and-write-set-cache-encryption">GCache encryption and Write-Set cache encryption<a class="headerlink" href="#gcache-write-set-cache-encryption-gcache-encryption-and-write-set-cache-encryption" title="Permanent link">&para;</a></h1>
+</code></pre></div></section><section class="print-page" id="gcache-write-set-cache-encryption" heading-number="10.10"><h1 id="gcache-write-set-cache-encryption-gcache-encryption-and-write-set-cache-encryption">GCache encryption and Write-Set cache encryption<a class="headerlink" href="#gcache-write-set-cache-encryption-gcache-encryption-and-write-set-cache-encryption" title="Permanent link">&para;</a></h1>
 <p>These features are <a href="#glossary-tech-preview">tech preview</a>. Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
 <h2 id="gcache-write-set-cache-encryption-gcache-and-write-set-cache-encryption">GCache and Write-Set cache encryption<a class="headerlink" href="#gcache-write-set-cache-encryption-gcache-and-write-set-cache-encryption" title="Permanent link">&para;</a></h2>
 <p>Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  </p>
@@ -10458,7 +11078,7 @@ All variables are read-only.</p>
 <p>Every Write-Set encrypted file has an encryption.cache, which consists of pages. Use <code>allocator.encryption_cache_size</code> to configure the size of the <code>encryption.cache</code>. </p>
 <p>Configure the page size in the cache with <a href="#gcache-write-set-cache-encryption-allocatorencryption_cache_page_size"><code>allocator.encryption_cache_page_size</code></a>. </p>
 <p>The maximum size for the encryption.cache is 512 pages. This value is a hint. If the value is larger than the maximum, the value is rounded down to 512 x gcache.encryption_cache_page_size.</p>
-<p>The minimum size for the encryption.cache is 2 pages. If the value is smaller, the value is rounded up.</p></section><section class="print-page" id="performance-schema-instrumentation" heading-number="10.10"><h1 id="performance-schema-instrumentation-perfomance-schema-instrumentation">Perfomance Schema instrumentation<a class="headerlink" href="#performance-schema-instrumentation-perfomance-schema-instrumentation" title="Permanent link">&para;</a></h1>
+<p>The minimum size for the encryption.cache is 2 pages. If the value is smaller, the value is rounded up.</p></section><section class="print-page" id="performance-schema-instrumentation" heading-number="10.11"><h1 id="performance-schema-instrumentation-perfomance-schema-instrumentation">Perfomance Schema instrumentation<a class="headerlink" href="#performance-schema-instrumentation-perfomance-schema-instrumentation" title="Permanent link">&para;</a></h1>
 <p>To improve monitoring <em>Percona XtraDB Cluster</em> has implemented an
 infrastructure to expose Galera instruments (mutexes, cond-variables, files,
 threads) as a part of <code>PERFORMANCE_SCHEMA</code>.</p>
@@ -10557,7 +11177,7 @@ information.</p>
 +-----------+--------------------------------------+--------+-------------+---------+
 3 rows in set (0.00 sec)
 </code></pre></div>
-</details></section><section class="print-page" id="data-at-rest-encryption" heading-number="10.11"><h1 id="data-at-rest-encryption-data-at-rest-encryption">Data at Rest Encryption<a class="headerlink" href="#data-at-rest-encryption-data-at-rest-encryption" title="Permanent link">&para;</a></h1>
+</details></section><section class="print-page" id="data-at-rest-encryption" heading-number="10.12"><h1 id="data-at-rest-encryption-data-at-rest-encryption">Data at Rest Encryption<a class="headerlink" href="#data-at-rest-encryption-data-at-rest-encryption" title="Permanent link">&para;</a></h1>
 <h2 id="data-at-rest-encryption-introduction">Introduction<a class="headerlink" href="#data-at-rest-encryption-introduction" title="Permanent link">&para;</a></h2>
 <p>Data at rest encryption refers to encrypting data stored on a disk on a server. If an unauthorized user accesses the data files from the file system, encryption ensures the user cannot read the file contents. Percona Server allows you to enable, disable, and apply encryptions to the following objects:</p>
 <ul>
@@ -15804,6 +16424,7 @@ that produced the conflict.</p>
 The maximum allowed value is <code>1048576</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
+<p><a href="#streaming-replication">Streaming replication for large transactions</a></p>
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows">MySQL wsrep option: wsrep_max_ws_rows <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code><a class="headerlink" href="#wsrep-system-index-wsrep_max_ws_size" title="Permanent link">&para;</a></h3>
@@ -15840,8 +16461,10 @@ The maximum allowed value is <code>1048576</code>.</p>
 <p>Defines the maximum write-set size (in bytes).
 Anything bigger than the specified value will be rejected.</p>
 <p>You can set it to any value between <code>1024</code> and the default <code>2147483647</code>.</p>
+<p>For transactions that exceed this limit, consider <a href="#streaming-replication">streaming replication</a> instead of raising the limit globally.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
+<p><a href="#streaming-replication">Streaming replication for large transactions</a></p>
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size">MySQL wsrep option: wsrep_max_ws_size <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep-system-index-wsrep_mode"><code>wsrep_mode</code><a class="headerlink" href="#wsrep-system-index-wsrep_mode" title="Permanent link">&para;</a></h3>
@@ -16708,7 +17331,13 @@ This is disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>, which disables the variable. </p>
+<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>.</p>
+<p>When the value is <code>table</code>, Galera persists fragments to <code>mysql.wsrep_streaming_log</code> on every node. The log supports crash recovery for in-progress streaming transactions.</p>
+<p>When the value is <code>none</code>, Galera skips the log table. Fragment replication still uses memory during normal operation. Crash recovery for partial streaming transactions is not available from the log.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="#streaming-replication-what-does-wsrep_sr_store-control">What does wsrep_SR_store control?</a></p>
+</div>
 <h3 id="wsrep-system-index-wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code><a class="headerlink" href="#wsrep-system-index-wsrep_sst_allowed_methods" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -17058,7 +17687,8 @@ and <code>REPLACE</code> statements.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines the the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647.</p>
+<p>Defines the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647. A value of <code>0</code> disables streaming replication.</p>
+<p>For an overview of when and how to use streaming replication, see <a href="#streaming-replication">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
@@ -17147,7 +17777,8 @@ Query OK, 131072 rows affected (15.09 sec)
 </tr>
 </tbody>
 </table>
-<p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements. </p>
+<p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements.</p>
+<p>For an overview of when and how to use streaming replication, see <a href="#streaming-replication">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
@@ -20399,6 +21030,8 @@ extension containing the table definition (for all storage engines).</p>
 <h2 id="glossary-cluster-replication">Cluster replication<a class="headerlink" href="#glossary-cluster-replication" title="Permanent link">&para;</a></h2>
 <p>Normal replication path for cluster members. Can be encrypted (not by
 default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by default.</p>
+<h2 id="glossary-certification">Certification<a class="headerlink" href="#glossary-certification" title="Permanent link">&para;</a></h2>
+<p>Process by which Galera validates that a transaction&rsquo;s changes do not conflict with changes already committed on other cluster nodes. For details, see <a href="#glossary-certification">Certification in Percona XtraDB Cluster</a>.</p>
 <h2 id="glossary-consistency">Consistency<a class="headerlink" href="#glossary-consistency" title="Permanent link">&para;</a></h2>
 <p>This property guarantees that each transaction that modifies the database takes it from one consistent state to another. Consistency is implied with <a href="#glossary-isolation">Isolation</a>.</p>
 <h2 id="glossary-datadir">datadir<a class="headerlink" href="#glossary-datadir" title="Permanent link">&para;</a></h2>
@@ -20407,6 +21040,8 @@ default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by
 <p>The node elected to provide a state transfer (SST or IST).</p>
 <h2 id="glossary-durability">Durability<a class="headerlink" href="#glossary-durability" title="Permanent link">&para;</a></h2>
 <p>Once a transaction is committed, it will remain so and is resistant to a server exit.</p>
+<h2 id="glossary-flow-control">Flow control<a class="headerlink" href="#glossary-flow-control" title="Permanent link">&para;</a></h2>
+<p>Mechanism that pauses write-set replication when a node&rsquo;s receive queue exceeds configured thresholds. Flow control throttles the cluster to let slow nodes catch up. Monitor flow control with the status variables in <a href="#wsrep-status-index-flow-control-variables">Index of wsrep status variables</a>.</p>
 <h2 id="glossary-foreign-key">Foreign Key<a class="headerlink" href="#glossary-foreign-key" title="Permanent link">&para;</a></h2>
 <p>A referential constraint between two tables. Example: A purchase order in the purchase_orders table must have been made by a customer that exists in the customers table.</p>
 <h2 id="glossary-general-availability-ga">General availability (GA)<a class="headerlink" href="#glossary-general-availability-ga" title="Permanent link">&para;</a></h2>
@@ -20468,6 +21103,8 @@ attempting to read or write from the database.</p>
 <p>A majority (&gt; 50%) of nodes. In the event of a network partition, only the cluster partition that retains a quorum (if any) will remain Primary by default.</p>
 <h2 id="glossary-split-brain">split brain<a class="headerlink" href="#glossary-split-brain" title="Permanent link">&para;</a></h2>
 <p>Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.</p>
+<h2 id="glossary-streaming-replication">Streaming replication<a class="headerlink" href="#glossary-streaming-replication" title="Permanent link">&para;</a></h2>
+<p>A Galera 4 feature that divides large or long-running transactions into smaller fragments. Galera certifies and replicates each fragment while the transaction remains open. Enable streaming replication at the session level with <a href="#wsrep-system-index-wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code></a> and <a href="#wsrep-system-index-wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a>. For details, see <a href="#streaming-replication">Streaming replication for large transactions</a>.</p>
 <h2 id="glossary-sst">SST<a class="headerlink" href="#glossary-sst" title="Permanent link">&para;</a></h2>
 <p>State Snapshot Transfer is the full copy of data from one node to another.  It&rsquo;s used when a new node joins the cluster, it has to transfer data from an existing node.
 Percona XtraDB Cluster: uses the <code>xtrabackup</code> program for this purpose. <code>xtrabackup</code> does not require <code>READ LOCK</code> for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).</p>
@@ -20479,6 +21116,8 @@ manually when upgrading your system from an older version.</p>
 <p>A <a href="#glossary-storage-engine"><code>Storage Engine</code></a> is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the <a href="#glossary-mysql"><code>MySQL</code></a> ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. <a href="#glossary-myisam"><code>MyISAM</code></a>, InnoDB).</p>
 <h2 id="glossary-tech-preview">Tech preview<a class="headerlink" href="#glossary-tech-preview" title="Permanent link">&para;</a></h2>
 <p>A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as <a href="#glossary-general-availability-ga">general availability(GA)</a> or removed if not useful. The item’s functionality can change from tech preview to GA.</p>
+<h2 id="glossary-write-set">Write-set<a class="headerlink" href="#glossary-write-set" title="Permanent link">&para;</a></h2>
+<p>Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for <a href="#glossary-certification">certification</a> and application. Write-set caching during long transactions is described in <a href="#gcache-record-set-cache-difference">Understand GCache and Record-Set cache</a>.</p>
 <h2 id="glossary-uuid">UUID<a class="headerlink" href="#glossary-uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p></section><section class="print-page" id="copyright-and-licensing-information" heading-number="12.8"><h1 id="copyright-and-licensing-information-copyright-and-licensing-information">Copyright and licensing information<a class="headerlink" href="#copyright-and-licensing-information-copyright-and-licensing-information" title="Permanent link">&para;</a></h1>
 <h2 id="copyright-and-licensing-information-documentation-licensing">Documentation licensing<a class="headerlink" href="#copyright-and-licensing-information-documentation-licensing" title="Permanent link">&para;</a></h2>
@@ -20549,6 +21188,7 @@ manually when upgrading your system from an older version.</p>
 <li><a href="#security-index">Security basics</a></li>
 <li><a href="#virtual-sandbox">Set up a testing environment with ProxySQL</a></li>
 <li><a href="#garbd-howto">Set up Galera arbitrator</a></li>
+<li><a href="#streaming-replication">Streaming replication for large transactions</a></li>
 <li><a href="#state-snapshot-transfer">State snapshot transfer</a></li>
 <li><a href="#clone-sst">State Snapshot Transfer (SST) Method using Clone plugin</a></li>
 <li><a href="#telemetry">Telemetry on Percona XtraDB Cluster</a></li>
@@ -20667,15 +21307,17 @@ manually when upgrading your system from an older version.</p>
 
 .print-site-enumerate-headings #certification > h1:before { content: '10.6 ' }
 
-.print-site-enumerate-headings #threading-model > h1:before { content: '10.7 ' }
+.print-site-enumerate-headings #streaming-replication > h1:before { content: '10.7 ' }
 
-.print-site-enumerate-headings #gcache-record-set-cache-difference > h1:before { content: '10.8 ' }
+.print-site-enumerate-headings #threading-model > h1:before { content: '10.8 ' }
 
-.print-site-enumerate-headings #gcache-write-set-cache-encryption > h1:before { content: '10.9 ' }
+.print-site-enumerate-headings #gcache-record-set-cache-difference > h1:before { content: '10.9 ' }
 
-.print-site-enumerate-headings #performance-schema-instrumentation > h1:before { content: '10.10 ' }
+.print-site-enumerate-headings #gcache-write-set-cache-encryption > h1:before { content: '10.10 ' }
 
-.print-site-enumerate-headings #data-at-rest-encryption > h1:before { content: '10.11 ' }
+.print-site-enumerate-headings #performance-schema-instrumentation > h1:before { content: '10.11 ' }
+
+.print-site-enumerate-headings #data-at-rest-encryption > h1:before { content: '10.12 ' }
 
 .print-site-enumerate-headings #section-11 > h1:before { content: '11 ' }
 .print-site-enumerate-headings #crash-recovery > h1:before { content: '11.1 ' }

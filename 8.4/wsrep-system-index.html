@@ -2041,6 +2041,8 @@
       
         
       
+        
+      
     
     
     
@@ -2355,6 +2357,34 @@
     
   
     Certification in Percona XtraDB Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streaming-replication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming replication for large transactions
   
 
     
@@ -4817,6 +4847,7 @@ that produced the conflict.</p>
 The maximum allowed value is <code>1048576</code>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
+<p><a href="streaming-replication.html">Streaming replication for large transactions</a></p>
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows">MySQL wsrep option: wsrep_max_ws_rows <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_max_ws_size"><code>wsrep_max_ws_size</code><a class="headerlink" href="#wsrep_max_ws_size" title="Permanent link">&para;</a></h3>
@@ -4853,8 +4884,10 @@ The maximum allowed value is <code>1048576</code>.</p>
 <p>Defines the maximum write-set size (in bytes).
 Anything bigger than the specified value will be rejected.</p>
 <p>You can set it to any value between <code>1024</code> and the default <code>2147483647</code>.</p>
+<p>For transactions that exceed this limit, consider <a href="streaming-replication.html">streaming replication</a> instead of raising the limit globally.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
+<p><a href="streaming-replication.html">Streaming replication for large transactions</a></p>
 <p><a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size">MySQL wsrep option: wsrep_max_ws_size <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <h3 id="wsrep_mode"><code>wsrep_mode</code><a class="headerlink" href="#wsrep_mode" title="Permanent link">&para;</a></h3>
@@ -5721,7 +5754,13 @@ This is disabled by default.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>, which disables the variable. </p>
+<p>Defines storage for streaming replication fragments. The available values are <code>table</code>, the default value, and <code>none</code>.</p>
+<p>When the value is <code>table</code>, Galera persists fragments to <code>mysql.wsrep_streaming_log</code> on every node. The log supports crash recovery for in-progress streaming transactions.</p>
+<p>When the value is <code>none</code>, Galera skips the log table. Fragment replication still uses memory during normal operation. Crash recovery for partial streaming transactions is not available from the log.</p>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<p><a href="streaming-replication.html#what-does-wsrep_sr_store-control">What does wsrep_SR_store control?</a></p>
+</div>
 <h3 id="wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code><a class="headerlink" href="#wsrep_sst_allowed_methods" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6071,7 +6110,8 @@ and <code>REPLACE</code> statements.</p>
 </tr>
 </tbody>
 </table>
-<p>Defines the the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647.</p>
+<p>Defines the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647. A value of <code>0</code> disables streaming replication.</p>
+<p>For an overview of when and how to use streaming replication, see <a href="streaming-replication.html">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
@@ -6160,7 +6200,8 @@ Query OK, 131072 rows affected (15.09 sec)
 </tr>
 </tbody>
 </table>
-<p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements. </p>
+<p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements.</p>
+<p>For an overview of when and how to use streaming replication, see <a href="streaming-replication.html">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
@@ -6212,7 +6253,7 @@ Query OK, 131072 rows affected (15.09 sec)
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 11, 2026 11:26:40 UTC">June 11, 2026</span>
   </span>
 
     

@@ -2041,6 +2041,8 @@
       
         
       
+        
+      
     
     
     
@@ -2355,6 +2357,34 @@
     
   
     Certification in Percona XtraDB Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streaming-replication.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streaming replication for large transactions
   
 
     
@@ -3232,6 +3262,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#certification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#consistency" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3269,6 +3310,17 @@
     <span class="md-ellipsis">
       
         Durability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow control
       
     </span>
   </a>
@@ -3551,6 +3603,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming replication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sst" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3577,6 +3640,17 @@
     <span class="md-ellipsis">
       
         Tech preview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write-set
       
     </span>
   </a>
@@ -4035,6 +4109,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#certification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#consistency" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4072,6 +4157,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Durability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow control
       
     </span>
   </a>
@@ -4354,6 +4450,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#streaming-replication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming replication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sst" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4380,6 +4487,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Tech preview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Write-set
       
     </span>
   </a>
@@ -4440,6 +4558,8 @@ extension containing the table definition (for all storage engines).</p>
 <h2 id="cluster-replication">Cluster replication<a class="headerlink" href="#cluster-replication" title="Permanent link">&para;</a></h2>
 <p>Normal replication path for cluster members. Can be encrypted (not by
 default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by default.</p>
+<h2 id="certification">Certification<a class="headerlink" href="#certification" title="Permanent link">&para;</a></h2>
+<p>Process by which Galera validates that a transaction&rsquo;s changes do not conflict with changes already committed on other cluster nodes. For details, see <a href="certification.html">Certification in Percona XtraDB Cluster</a>.</p>
 <h2 id="consistency">Consistency<a class="headerlink" href="#consistency" title="Permanent link">&para;</a></h2>
 <p>This property guarantees that each transaction that modifies the database takes it from one consistent state to another. Consistency is implied with <a href="#isolation">Isolation</a>.</p>
 <h2 id="datadir">datadir<a class="headerlink" href="#datadir" title="Permanent link">&para;</a></h2>
@@ -4448,6 +4568,8 @@ default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by
 <p>The node elected to provide a state transfer (SST or IST).</p>
 <h2 id="durability">Durability<a class="headerlink" href="#durability" title="Permanent link">&para;</a></h2>
 <p>Once a transaction is committed, it will remain so and is resistant to a server exit.</p>
+<h2 id="flow-control">Flow control<a class="headerlink" href="#flow-control" title="Permanent link">&para;</a></h2>
+<p>Mechanism that pauses write-set replication when a node&rsquo;s receive queue exceeds configured thresholds. Flow control throttles the cluster to let slow nodes catch up. Monitor flow control with the status variables in <a href="wsrep-status-index.html#flow-control-variables">Index of wsrep status variables</a>.</p>
 <h2 id="foreign-key">Foreign Key<a class="headerlink" href="#foreign-key" title="Permanent link">&para;</a></h2>
 <p>A referential constraint between two tables. Example: A purchase order in the purchase_orders table must have been made by a customer that exists in the customers table.</p>
 <h2 id="general-availability-ga">General availability (GA)<a class="headerlink" href="#general-availability-ga" title="Permanent link">&para;</a></h2>
@@ -4509,6 +4631,8 @@ attempting to read or write from the database.</p>
 <p>A majority (&gt; 50%) of nodes. In the event of a network partition, only the cluster partition that retains a quorum (if any) will remain Primary by default.</p>
 <h2 id="split-brain">split brain<a class="headerlink" href="#split-brain" title="Permanent link">&para;</a></h2>
 <p>Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.</p>
+<h2 id="streaming-replication">Streaming replication<a class="headerlink" href="#streaming-replication" title="Permanent link">&para;</a></h2>
+<p>A Galera 4 feature that divides large or long-running transactions into smaller fragments. Galera certifies and replicates each fragment while the transaction remains open. Enable streaming replication at the session level with <a href="wsrep-system-index.html#wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code></a> and <a href="wsrep-system-index.html#wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a>. For details, see <a href="streaming-replication.html">Streaming replication for large transactions</a>.</p>
 <h2 id="sst">SST<a class="headerlink" href="#sst" title="Permanent link">&para;</a></h2>
 <p>State Snapshot Transfer is the full copy of data from one node to another.  It&rsquo;s used when a new node joins the cluster, it has to transfer data from an existing node.
 Percona XtraDB Cluster: uses the <code>xtrabackup</code> program for this purpose. <code>xtrabackup</code> does not require <code>READ LOCK</code> for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).</p>
@@ -4520,6 +4644,8 @@ manually when upgrading your system from an older version.</p>
 <p>A <a href="#storage-engine"><code>Storage Engine</code></a> is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the <a href="#mysql"><code>MySQL</code></a> ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. <a href="#myisam"><code>MyISAM</code></a>, InnoDB).</p>
 <h2 id="tech-preview">Tech preview<a class="headerlink" href="#tech-preview" title="Permanent link">&para;</a></h2>
 <p>A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as <a href="#general-availability-ga">general availability(GA)</a> or removed if not useful. The item’s functionality can change from tech preview to GA.</p>
+<h2 id="write-set">Write-set<a class="headerlink" href="#write-set" title="Permanent link">&para;</a></h2>
+<p>Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for <a href="#certification">certification</a> and application. Write-set caching during long transactions is described in <a href="gcache-record-set-cache-difference.html">Understand GCache and Record-Set cache</a>.</p>
 <h2 id="uuid">UUID<a class="headerlink" href="#uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p>
 
@@ -4544,7 +4670,7 @@ manually when upgrading your system from an older version.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 11, 2026 11:26:40 UTC">June 11, 2026</span>
   </span>
 
     
