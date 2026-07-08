@@ -227,6 +227,7 @@ nav:
       - failover.md
       - monitoring.md
       - certification.md
+      - streaming-replication.md
       - threading-model.md
       - gcache-record-set-cache-difference.md
       - gcache-write-set-cache-encryption.md

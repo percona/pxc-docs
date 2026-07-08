@@ -22,6 +22,10 @@ This property guarantees that all updates of a transaction occur in the database
 Normal replication path for cluster members. Can be encrypted (not by
 default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by default.
 
+## Certification
+
+Process by which Galera validates that a transaction's changes do not conflict with changes already committed on other cluster nodes. For details, see [Certification in Percona XtraDB Cluster](certification.md).
+
 ## Consistency
 
 This property guarantees that each transaction that modifies the database takes it from one consistent state to another. Consistency is implied with [Isolation](#isolation).
@@ -37,6 +41,10 @@ The node elected to provide a state transfer (SST or IST).
 ## Durability
 
 Once a transaction is committed, it will remain so and is resistant to a server exit.
+
+## Flow control
+
+Mechanism that pauses write-set replication when a node's receive queue exceeds configured thresholds. Flow control throttles the cluster to let slow nodes catch up. Monitor flow control with the status variables in [Index of wsrep status variables](wsrep-status-index.md#flow-control-variables).
 
 ## Foreign Key
 
@@ -149,6 +157,10 @@ A majority (> 50%) of nodes. In the event of a network partition, only the clus
 
 Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.
 
+## Streaming replication
+
+A Galera 4 feature that divides large or long-running transactions into smaller fragments. Galera certifies and replicates each fragment while the transaction remains open. Enable streaming replication at the session level with [`wsrep_trx_fragment_unit`](wsrep-system-index.md#wsrep_trx_fragment_unit) and [`wsrep_trx_fragment_size`](wsrep-system-index.md#wsrep_trx_fragment_size). For details, see [Streaming replication for large transactions](streaming-replication.md).
+
 ## SST
 
 State Snapshot Transfer is the full copy of data from one node to another.  It's used when a new node joins the cluster, it has to transfer data from an existing node.
@@ -167,6 +179,10 @@ A [`Storage Engine`](#storage-engine) is a piece of software that implements the
 ## Tech preview 
 
 A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item’s functionality can change from tech preview to GA.
+
+## Write-set
+
+Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for [certification](#certification) and application. Write-set caching during long transactions is described in [Understand GCache and Record-Set cache](gcache-record-set-cache-difference.md).
 
 ## UUID
 

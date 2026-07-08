@@ -55,6 +55,7 @@
   - [Security basics](security-index.md)
   - [Set up a testing environment with ProxySQL](virtual-sandbox.md)
   - [Set up Galera arbitrator](garbd-howto.md)
+  - [Streaming replication for large transactions](streaming-replication.md)
   - [State snapshot transfer](state-snapshot-transfer.md)
   - [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md)
   - [Telemetry on Percona XtraDB Cluster](telemetry.md)
