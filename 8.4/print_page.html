@@ -7486,7 +7486,7 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <p class="admonition-title">Warning</p>
 <p>A node with a newer (higher) protocol version cannot join a cluster running an older (lower) Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption or incompatibility issues that may arise if a node introduces a feature the cluster doesn&rsquo;t understand.</p>
 <p>Run the command on a current cluster member and on the node that is about to join, then compare the two outputs.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_protocol_version&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_protocol_version&#39;</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
