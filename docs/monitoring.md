@@ -85,6 +85,22 @@ at least for the following:
 
 Please refer to the [official documentation :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/) for details on Percona Monitoring and Management installation and setup.
 
+!!! note "Query Analytics data sources and prepared statements"
+
+    PMM Query Analytics (QAN) collects MySQL queries from either the slow query log
+    written to a file (`log_output=FILE`) or from Performance Schema. It cannot read
+    the general query log or a slow query log written to a table (`log_output=TABLE`).
+
+    If your application uses server-side prepared statements (common with drivers
+    such as JDBC), expect partial data on the Performance Schema source: query
+    examples appear as placeholders (`?`) instead of literal values, and EXPLAIN is
+    unavailable for them. This is how upstream MySQL exposes prepared statements to
+    Performance Schema, not a PMM limitation. The file-based slow query log records
+    executed statements with their real values, so examples and EXPLAIN are fuller
+    there. See the
+    [PMM Query Analytics documentation :octicons-link-external-16:](https://docs.percona.com/percona-monitoring-and-management/3/use/qan/index.html)
+    for details.
+
 ## Other reading
 
 * [Realtime stats to pay attention to in PXC and Galera :octicons-link-external-16:](https://www.mysqlperformanceblog.com/2012/11/26/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/)
