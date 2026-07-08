@@ -9959,6 +9959,21 @@ at least for the following:</p>
 </li>
 </ol>
 <p>Please refer to the <a href="https://docs.percona.com/percona-monitoring-and-management/3/">official documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for details on Percona Monitoring and Management installation and setup.</p>
+<div class="admonition note">
+<p class="admonition-title">Query Analytics data sources and prepared statements</p>
+<p>PMM Query Analytics (QAN) collects MySQL queries from either the slow query log
+written to a file (<code>log_output=FILE</code>) or from Performance Schema. It cannot read
+the general query log or a slow query log written to a table (<code>log_output=TABLE</code>).</p>
+<p>If your application uses server-side prepared statements (common with drivers
+such as JDBC), expect partial data on the Performance Schema source: query
+examples appear as placeholders (<code>?</code>) instead of literal values, and EXPLAIN is
+unavailable for them. This is how upstream MySQL exposes prepared statements to
+Performance Schema, not a PMM limitation. The file-based slow query log records
+executed statements with their real values, so examples and EXPLAIN are fuller
+there. See the
+<a href="https://docs.percona.com/percona-monitoring-and-management/3/use/qan/index.html">PMM Query Analytics documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
+for details.</p>
+</div>
 <h2 id="monitoring-other-reading">Other reading<a class="headerlink" href="#monitoring-other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.mysqlperformanceblog.com/2012/11/26/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/">Realtime stats to pay attention to in PXC and Galera <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
