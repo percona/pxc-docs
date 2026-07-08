@@ -11,7 +11,7 @@ This guide explains how to upgrade a Percona XtraDB Cluster to version 8.4 witho
     Run the command on a current cluster member and on the node that is about to join, then compare the two outputs.
 
     ```sql
-    SHOW STATUS LIKE 'wsrep_protocol_version';
+    SHOW GLOBAL STATUS LIKE 'wsrep_protocol_version';
     ```
 
     ??? example "Expected output"
