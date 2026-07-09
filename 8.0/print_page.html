@@ -7909,8 +7909,14 @@ The default and recommended data transfer method is via <a href="https://www.per
 </li>
 <li>
 <p>Unsupported queries:</p>
-<p><code>LOCK TABLES</code> and <code>UNLOCK TABLES</code> is not supported in multi-source setups</p>
-<p>Lock functions, such as <code>GET_LOCK()</code>, <code>RELEASE_LOCK()</code>, and so on</p>
+<ul>
+<li>
+<p><code>LOCK TABLES</code> and <code>UNLOCK TABLES</code> are not supported in multi-source configurations.</p>
+</li>
+<li>
+<p>Lock functions, such as <code>GET_LOCK()</code> and <code>RELEASE_LOCK()</code>, are not supported.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Query log cannot be directed to table.</p>
@@ -7921,17 +7927,16 @@ The default and recommended data transfer method is via <a href="https://www.per
 and the log file name.</p>
 </li>
 <li>
-<p>Maximum allowed transaction size is defined by the <a href="#wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> and <a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> variables. </p>
-<p><code>LOAD DATA INFILE</code> processing will commit every 10 000 rows.  So large
-transactions due to <code>LOAD DATA</code> will be split to series of small
-transactions.</p>
+<p>Maximum allowed transaction size is defined by the <a href="#wsrep-system-index-wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> and <a href="#wsrep-system-index-wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> variables.</p>
+<p><code>LOAD DATA INFILE</code> processing commits every 10 000 rows.
+Percona XtraDB Cluster splits large <code>LOAD DATA</code> transactions into a series of smaller transactions.</p>
 </li>
 <li>
 <p>Transaction issuing <code>COMMIT</code> may still be aborted at that stage.</p>
-<p>Due to cluster-level optimistic concurrency control,  there can be two
-transactions writing to the same rows and committing in separate Percona XtraDB Cluster nodes,
-and only one of them can successfully commit. The failing one will be
-aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock error code:</p>
+<p>Cluster-level optimistic concurrency control allows two transactions to write to the same rows on separate Percona XtraDB Cluster nodes.
+Only one of these transactions commits successfully.
+The other transaction is aborted.
+Percona XtraDB Cluster returns the following deadlock error code for cluster-level aborts:</p>
 <details class="example">
 <summary>Error message</summary>
 <div class="no-copy highlight"><pre><span></span><code>(Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
@@ -7944,13 +7949,12 @@ aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock er
 </li>
 <li>
 <p>Write throughput of the whole cluster is limited by the weakest node.</p>
-<p>If one node becomes slow, the whole cluster slows down.  If you have
-requirements for stable high performance, then it should be supported by
-corresponding hardware.</p>
+<p>A slow node slows the entire cluster.
+Provision matching hardware on every node when you require stable high performance.</p>
 </li>
 <li>
-<p>Minimal recommended size of cluster is 3 nodes.</p>
-<p>The 3<sup>rd</sup> node can be an arbitrator.</p>
+<p>The minimum recommended cluster size is three nodes.</p>
+<p>The third node can act as an arbitrator.</p>
 </li>
 <li>
 <p><code>enforce_storage_engine=InnoDB</code> is not compatible with <code>wsrep_replicate_myisam=OFF</code></p>
@@ -7958,13 +7962,15 @@ corresponding hardware.</p>
 </li>
 <li>
 <p>Avoid <code>ALTER TABLE ... IMPORT/EXPORT</code> workloads when running Percona XtraDB Cluster in cluster mode.</p>
-<p>It can lead to node inconsistency if not executed in sync on all nodes.</p>
+<p>These statements can produce node inconsistency when not run in sync on every node.</p>
 </li>
 <li>
 <p>All tables must have a primary key.</p>
-<p>This ensures that the same rows appear in the same order on different
-nodes. The <code>DELETE</code> statement is not supported on tables without a primary
-key.</p>
+<p>A primary key keeps row order identical on every node.
+The <code>DELETE</code> statement is not supported on tables without a primary key.</p>
+<p>When <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>, Percona XtraDB Cluster sets the global <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code></a> variable to <code>ON</code> and rejects attempts to set it <code>OFF</code>.
+<code>CREATE TABLE</code> and <code>ALTER TABLE</code> statements that would leave a table without a primary key fail.
+For details, see <a href="#strict-mode-primary-key-requirement">Primary key requirement</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://mariadb.com/docs/server/architecture/server-constraints/primary-key-constraints">MariaDB Galera Documentation: Tables without Primary Keys</a></p>
@@ -7972,11 +7978,13 @@ key.</p>
 </li>
 <li>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket.</p>
-<p>You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket.</p>
+<p>Configure the socket by providing a path, or skip the explicit configuration to use the default.
+Do not leave the <code>socket</code> variable in <code>my.cnf</code> empty, as in <code>socket=</code>.
+An empty value prevents the server from creating a socket.</p>
 <p>State Snapshot Transfer (SST) requires the socket for the following tasks:</p>
 <ul>
 <li>
-<p>Taking backup using Percona XtraBackup</p>
+<p>Taking a backup with Percona XtraBackup</p>
 </li>
 <li>
 <p>Detecting keyring component status</p>
@@ -8039,8 +8047,9 @@ the names of which match the names of temporary tables.</p>
 </div>
 </li>
 </ul>
-<p>As of version 8.0.21, an INPLACE <a href="https://dev.mysql.com/doc/refman/8.0/en/alter-table.html">ALTER TABLE</a> query takes an internal shared lock on the table during the execution of the query. The <code>LOCK=NONE</code> clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.</p>
-<p>This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:</p>
+<p>Starting with version 8.0.21, an <code>INPLACE</code> <a href="https://dev.mysql.com/doc/refman/8.0/en/alter-table.html"><code>ALTER TABLE</code></a> query takes an internal shared lock on the table during query execution.
+The <code>LOCK=NONE</code> clause is no longer allowed for any <code>INPLACE ALTER TABLE</code> query.
+The lock change addresses a deadlock that could cause a cluster node to hang in the following scenario:</p>
 <ul>
 <li>
 <p>An INPLACE <code>ALTER TABLE</code> query in one session or being applied as Total Order Isolation (TOI)</p>
@@ -8173,35 +8182,30 @@ log a warning and continue running. The available modes include:</p>
 </tr>
 </tbody>
 </table>
-<p>By default, PXC Strict Mode operates in <code>ENFORCING</code> mode. When a node acts
-as a standalone server or during bootstrapping, the mode defaults to
-<code>DISABLED</code>.</p>
-<p>Selecting <code>ENFORCING</code> as the default mode is strongly recommended. Using
-this mode ensures that unsupported operations and tech preview features are
-denied, thereby protecting data consistency and prompting a review of cluster
-configuration.</p>
-<p>Choosing any mode other than <code>ENFORCING</code> requires a clear understanding of
-the potential risks to data integrity. Refer to the <a href="#strict-mode-validations">Validations</a>
-section for detailed information.</p>
-<p>To specify the mode, define the <code>pxc_strict_mode</code> variable in the configuration
-file or use the <code>--pxc-strict-mode</code> option during <code>mysqld</code> startup.</p>
+<p>By default, PXC Strict Mode operates in <code>ENFORCING</code> mode.
+When a node acts as a standalone server or during bootstrapping, the mode defaults to <code>DISABLED</code>.</p>
+<p>Percona recommends <code>ENFORCING</code> as the default mode.
+The <code>ENFORCING</code> mode denies unsupported operations and tech preview features, which protects data consistency and prompts a review of cluster configuration.</p>
+<p>Any mode other than <code>ENFORCING</code> requires a clear understanding of the risks to data integrity.
+For detailed information, see the <a href="#strict-mode-validations">Validations</a> section.</p>
+<p>To select the mode, set the <code>pxc_strict_mode</code> variable in the configuration file or pass <code>--pxc-strict-mode</code> to <code>mysqld</code> at startup.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is better to start the server with the necessary mode
-(the default <code>ENFORCING</code> is highly recommended).
-However, you can dynamically change the mode during runtime.
-For example, to set PXC Strict Mode to <code>PERMISSIVE</code>,
-run the following command:</p>
+<p>Start the server with the required mode.
+The default <code>ENFORCING</code> mode is recommended.
+You can also change the mode at runtime.
+For example, to set PXC Strict Mode to <code>PERMISSIVE</code>, run the following command:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
 </code></pre></div>
-<p>To ensure data consistency, all nodes in the cluster should use the same
-configuration, including the value of the
-<a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> variable.</p>
+<p>Use the same value of <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> on every node in the cluster to preserve data consistency.</p>
 </div>
 <h2 id="strict-mode-validations">Validations<a class="headerlink" href="#strict-mode-validations" title="Permanent link">&para;</a></h2>
-<p>PXC Strict Mode validations are implemented to ensure the smooth and reliable operation of cluster environments. These validations are particularly effective for standard cluster setups that do not require tech preview features or operations that are not supported by Percona XtraDB Cluster.</p>
-<p>If <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>DISABLED</code> or <code>PERMISSIVE</code> on the originating node, unsupported operations can bypass strict mode validations. When these operations are replicated, they are not validated on destination nodes, even if those nodes have <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> set to <code>ENFORCING</code>. This behavior underscores the importance of carefully managing cluster configurations to avoid inconsistencies.</p>
-<p>By adhering to strict mode recommendations, users can ensure smoother cluster operations while minimizing risks associated with unsupported actions.</p>
+<p>PXC Strict Mode runs the validations described in the following sections to block tech preview features and unsupported operations.
+Use these validations on standard cluster deployments that do not require tech preview features.</p>
+<p><a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> validates operations only on the node where the operation runs.
+When the originating node uses <code>DISABLED</code> or <code>PERMISSIVE</code>, unsupported operations can bypass validation.
+Replicated copies of these operations are not revalidated on destination nodes, even when destination nodes use <code>ENFORCING</code>.
+Apply the same <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> value on every node to prevent inconsistencies.</p>
 <h3 id="strict-mode-auto-increment-lock-mode">Auto-increment lock mode<a class="headerlink" href="#strict-mode-auto-increment-lock-mode" title="Permanent link">&para;</a></h3>
 <p>The lock mode for generating auto-increment values must be <em>interleaved</em>
 to ensure that each node generates a unique (but non-sequential) identifier.</p>
@@ -8236,14 +8240,13 @@ the following happens:</p>
 <p>Percona XtraDB Cluster supports only the default row-based binary logging format. </p>
 <p>In 8.0, setting the <a href="https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_format">binlog_format</a> variable to anything but <code>ROW</code> at startup or runtime is not allowed regardless of the value of the <code>pxc_strict_mode</code> variable.</p>
 <h3 id="strict-mode-combine-schema-and-data-changes-in-a-single-statement">Combine schema and data changes in a single statement<a class="headerlink" href="#strict-mode-combine-schema-and-data-changes-in-a-single-statement" title="Permanent link">&para;</a></h3>
-<p>With the strict mode set to <code>ENFORCING</code>, Percona XtraDB Cluster does not support  statements, because they combine both schema and
-data changes. Note that tables in the SELECT clause should be present on all
-replication nodes.</p>
-<p>With the strict mode set to <code>PERMISSIVE</code> or <code>DISABLED</code>, CREATE TABLE … AS SELECT (CTAS) statements are
-replicated using the  method to ensure
-consistency. </p>
-<p>MyISAM tables are created and loaded even if <code>wsrep_replicate_myisam</code> equals <code>1</code>. Percona XtraDB Cluster does not recommend using the MyISAM storage engine. The support for MyISAM may be removed in a future release.</p>
-<p>Depending on the strict mode selected, the following happens:</p>
+<p>With the strict mode set to <code>ENFORCING</code>, Percona XtraDB Cluster does not support <code>CREATE TABLE ... AS SELECT</code> (CTAS) statements because they combine schema and data changes.
+Tables referenced in the <code>SELECT</code> clause must exist on every replication node.</p>
+<p>With the strict mode set to <code>PERMISSIVE</code> or <code>DISABLED</code>, Percona XtraDB Cluster replicates CTAS statements through Total Order Isolation (TOI) to preserve consistency.</p>
+<p>MyISAM tables are created and loaded even when <code>wsrep_replicate_myisam</code> equals <code>1</code>.
+Percona XtraDB Cluster does not recommend the MyISAM storage engine.
+Support for MyISAM may be removed in a future release.</p>
+<p>The following table summarizes runtime behavior by mode:</p>
 <table>
 <thead>
 <tr>
@@ -8253,21 +8256,23 @@ consistency. </p>
 </thead>
 <tbody>
 <tr>
-<td>DISABLED</td>
+<td><code>DISABLED</code></td>
 <td>At startup, no validation is performed. At runtime, all operations are permitted.</td>
 </tr>
 <tr>
-<td>PERMISSIVE</td>
-<td>At startup, no validation is performed. At runtime, all operations are permitted, but a warning is logged when a CREATE TABLE … AS SELECT (CTAS) operation is performed.</td>
+<td><code>PERMISSIVE</code></td>
+<td>At startup, no validation is performed. At runtime, all operations are permitted, and a warning is logged for each CTAS.</td>
 </tr>
 <tr>
-<td>ENFORCING</td>
+<td><code>ENFORCING</code></td>
 <td>At startup, no validation is performed. At runtime, any CTAS operation is denied and an error is logged.</td>
 </tr>
 </tbody>
 </table>
-<p>Although <code>CREATE TABLE ... AS SELECT</code> (CTAS) operations for temporary tables are permitted even in <code>STRICT</code> mode, temporary tables should not be used as <em>source</em> tables in <code>CREATE TABLE ... AS SELECT</code> (CTAS) operations due to the fact that temporary tables are not present on all nodes.</p>
-<p>If <code>node-1</code> has a temporary and a non-temporary table with the same name, CREATE TABLE &hellip; AS SELECT (CTAS) on <code>node-1</code> will use temporary and CREATE TABLE &hellip; AS SELECT (CTAS) on <code>node-2</code> will use the non-temporary table resulting in a data level inconsistency.</p>
+<p>CTAS operations on temporary tables are permitted in strict mode.
+Do not use temporary tables as source tables for CTAS operations because temporary tables do not exist on every node.</p>
+<p>For example, when <code>node-1</code> has both a temporary table and a non-temporary table with the same name, CTAS on <code>node-1</code> reads from the temporary table.
+CTAS on <code>node-2</code> reads from the non-temporary table, which produces data-level inconsistency.</p>
 <h3 id="strict-mode-discard-and-import-tablespaces">Discard and import tablespaces<a class="headerlink" href="#strict-mode-discard-and-import-tablespaces" title="Permanent link">&para;</a></h3>
 <p><code>DISCARD TABLESPACE</code> and <code>IMPORT TABLESPACE</code> are not replicated using TOI.
 This can lead to data inconsistency if executed on only one node.</p>
@@ -8296,9 +8301,8 @@ This can lead to data inconsistency if executed on only one node.</p>
 </tbody>
 </table>
 <h3 id="strict-mode-explicit-table-locking">Explicit table locking<a class="headerlink" href="#strict-mode-explicit-table-locking" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster provides only the tech-preview-level of support for explicit table locking operations,
-The following undesirable operations lead to explicit table locking
-and are covered by this validation:</p>
+<p>Percona XtraDB Cluster provides only tech-preview support for explicit table locking operations.
+This validation covers the following operations that introduce explicit table locking:</p>
 <ul>
 <li>
 <p><code>LOCK TABLES</code></p>
@@ -8337,14 +8341,12 @@ and are covered by this validation:</p>
 </tbody>
 </table>
 <h3 id="strict-mode-group-replication">Group replication<a class="headerlink" href="#strict-mode-group-replication" title="Permanent link">&para;</a></h3>
-<p><em>Group replication</em> is a feature of MySQL that <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication.html">provides distributed state
-machine replication with strong coordination between servers</a>. It is
-implemented as a plugin which, if activated, may conflict with PXC. Group
-replication cannot be activated to run alongside PXC. However, you can migrate
-to PXC from the environment that uses group replication.</p>
-<p>For the strict mode to work correctly, make sure that the group replication
-plugin is <em>not active</em>. In fact, if <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to
-ENFORCING or MASTER, the server will stop with an error:</p>
+<p><em>Group replication</em> is a MySQL feature that <a href="https://dev.mysql.com/doc/refman/8.0/en/group-replication.html">provides distributed state machine replication with strong coordination between servers</a>.
+MySQL implements group replication as a plugin, which conflicts with PXC when activated.
+Group replication cannot run alongside PXC.
+You can, however, migrate from a group-replication environment to PXC.</p>
+<p>Disable the group replication plugin before strict mode runs.
+When <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>, the server stops with the following error:</p>
 <p><strong>Error message with <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> set to <code>ENFORCING</code> or <code>MASTER</code></strong></p>
 <details class="example">
 <summary>The error message</summary>
@@ -8362,8 +8364,36 @@ make sure that group replication is turned off once all data is migrated to PXC.
 </code></pre></div>
 </details>
 <h3 id="strict-mode-log-output">Log output<a class="headerlink" href="#strict-mode-log-output" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output. By default, log entries are written to file. This validation checks the value of the log_output variable.</p>
-<p>Depending on the selected mode, the following happens:</p>
+<p>Percona XtraDB Cluster does not support tables in the MySQL database as the destination for log output.
+By default, the server writes log entries to a file.
+This validation checks the value of the <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_log_output"><code>log_output</code></a> variable.</p>
+<p>The following table summarizes startup and runtime behavior by mode:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Startup behavior</th>
+<th>Runtime behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DISABLED</code></td>
+<td>No validation is performed.</td>
+<td>You can set <code>log_output</code> to any value.</td>
+</tr>
+<tr>
+<td><code>PERMISSIVE</code></td>
+<td>If <code>log_output</code> is set only to <code>TABLE</code>, a warning is logged and startup continues.</td>
+<td>You can change <code>log_output</code> to any value. Setting <code>log_output</code> only to <code>TABLE</code> logs a warning.</td>
+</tr>
+<tr>
+<td><code>ENFORCING</code> / <code>MASTER</code></td>
+<td>If <code>log_output</code> is set only to <code>TABLE</code>, an error is logged and startup is aborted.</td>
+<td>Any attempt to change <code>log_output</code> only to <code>TABLE</code> fails and an error is logged.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="strict-mode-major-version-check">Major version check<a class="headerlink" href="#strict-mode-major-version-check" title="Permanent link">&para;</a></h3>
 <p>This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.</p>
 <details class="example">
@@ -8372,16 +8402,12 @@ make sure that group replication is turned off once all data is migrated to PXC.
 </code></pre></div>
 </details>
 <h3 id="strict-mode-myisam-replication">MyISAM replication<a class="headerlink" href="#strict-mode-myisam-replication" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster provides support for replication of tables
-that use the MyISAM storage engine. The use of the MyISAM storage engine
-in a cluster is not recommended and if you use the storage engine, this is
-your own risk.
-Due to the non-transactional nature of MyISAM, the storage
-engine is not fully-supported in Percona XtraDB Cluster.</p>
-<p>MyISAM replication is controlled using the <code>wsrep_replicate_myisam</code> variable,
-which is set to <code>OFF</code> by default.
-Due to its unreliability, MyISAM replication should not be enabled
-if you want to ensure data consistency.</p>
+<p>Percona XtraDB Cluster supports replication of tables that use the MyISAM storage engine.
+Percona does not recommend MyISAM in a cluster, and any such use is at your own risk.
+MyISAM is non-transactional, so Percona XtraDB Cluster does not fully support the engine.</p>
+<p>The <code>wsrep_replicate_myisam</code> variable controls MyISAM replication.
+The default value is <code>OFF</code>.
+Keep MyISAM replication disabled to preserve data consistency.</p>
 <p>Depending on the selected mode, the following happens:</p>
 <table>
 <thead>
@@ -8410,20 +8436,86 @@ if you want to ensure data consistency.</p>
 </tbody>
 </table>
 <p>The <a href="#wsrep-system-index-wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> variable controls <em>replication</em> for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.</p>
-<h3 id="strict-mode-storage-engine">Storage engine<a class="headerlink" href="#strict-mode-storage-engine" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster currently supports replication only for tables
-that use a transactional storage engine (XtraDB or InnoDB).
-To ensure data consistency,
-the following statements should not be allowed for tables
-that use a non-transactional storage engine (MyISAM, MEMORY, CSV, and others):</p>
+<h3 id="strict-mode-primary-key-requirement">Primary key requirement<a class="headerlink" href="#strict-mode-primary-key-requirement" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster requires every replicated table to have an explicit primary key.
+A missing primary key prevents write-set replication from guaranteeing identical row order across nodes.
+The <code>DELETE</code> statement also fails on tables without a primary key.
+For related guidance, see <a href="#limitation">Limitations</a> and <a href="#wsrep-system-index-wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code></a>.</p>
+<p>The <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code></a> variable rejects <code>CREATE TABLE</code> and <code>ALTER TABLE</code> statements that would leave a table without a primary key.
+When <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>, Percona XtraDB Cluster manages <code>sql_require_primary_key</code> to keep both policies aligned.</p>
+<p>The following rules apply while <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>:</p>
 <ul>
 <li>
-<p>Data manipulation statements that perform writing to table
-(for example, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, etc.)</p>
+<p>Switching to <code>ENFORCING</code> or <code>MASTER</code> sets the global <code>sql_require_primary_key</code> to <code>ON</code> when the previous value was <code>OFF</code>.
+  The server log records the change:</p>
+<div class="no-copy highlight"><pre><span></span><code>Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
+</code></pre></div>
 </li>
 <li>
-<p>The following administrative statements:
-<code>CHECK</code>, <code>OPTIMIZE</code>, <code>REPAIR</code>, and <code>ANALYZE</code></p>
+<p>Setting <code>sql_require_primary_key=OFF</code> is rejected.
+  Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
+<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable &#39;sql_require_primary_key&#39; can&#39;t be set to the value of &#39;OFF&#39;
+</code></pre></div>
+<p>The error log records the reason:</p>
+<div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
+</code></pre></div>
+</li>
+<li>
+<p>Existing sessions retain their session value of <code>sql_require_primary_key</code>.
+  Reconnect or update the session value explicitly to inherit the updated global default.</p>
+</li>
+<li>
+<p>Lowering <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> to <code>DISABLED</code> or <code>PERMISSIVE</code> does not reset <code>sql_require_primary_key</code>.
+  Set the variable explicitly to allow tables without a primary key.</p>
+</li>
+</ul>
+<p>The following table summarizes startup and runtime behavior by mode:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Startup behavior</th>
+<th>Runtime behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DISABLED</code></td>
+<td>No validation is performed. <code>sql_require_primary_key</code> keeps the configured value.</td>
+<td>All operations are permitted. <code>sql_require_primary_key</code> accepts <code>ON</code> or <code>OFF</code>.</td>
+</tr>
+<tr>
+<td><code>PERMISSIVE</code></td>
+<td>No validation is performed. <code>sql_require_primary_key</code> keeps the configured value.</td>
+<td>All operations are permitted. <code>sql_require_primary_key</code> accepts <code>ON</code> or <code>OFF</code>.</td>
+</tr>
+<tr>
+<td><code>ENFORCING</code> / <code>MASTER</code></td>
+<td>If Galera is active and <code>sql_require_primary_key</code> is <code>OFF</code>, startup forces the global value to <code>ON</code> to match strict mode.</td>
+<td>Switching to this mode sets the global <code>sql_require_primary_key</code> to <code>ON</code> when previously <code>OFF</code>. Setting <code>sql_require_primary_key=OFF</code> is rejected. Creating or altering a table without a primary key fails.</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>Error message when creating or altering a table without a primary key</summary>
+<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable &#39;sql_require_primary_key&#39; is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replication applier threads use replicated session metadata for each event.
+Events that originated on a non-strict source continue to apply on a strict-mode node, even when <code>sql_require_primary_key</code> was <code>OFF</code> on the source.
+Use <a href="#wsrep-system-index-wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code></a> only as a fallback for existing tables without a primary key.</p>
+</div>
+<h3 id="strict-mode-storage-engine">Storage engine<a class="headerlink" href="#strict-mode-storage-engine" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster supports replication only for tables that use a transactional storage engine, such as XtraDB or InnoDB.
+To preserve data consistency, the following statements must not run on tables that use a non-transactional storage engine (MyISAM, MEMORY, CSV, and others):</p>
+<ul>
+<li>
+<p>Data manipulation statements that write to the table, such as <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code></p>
+</li>
+<li>
+<p>Administrative statements: <code>CHECK</code>, <code>OPTIMIZE</code>, <code>REPAIR</code>, and <code>ANALYZE</code></p>
 </li>
 <li>
 <p><code>TRUNCATE TABLE</code> and <code>ALTER TABLE</code></p>
@@ -16220,43 +16312,40 @@ You can increase the value to accommodate for longer-running transactions.</p>
 </tr>
 </tbody>
 </table>
-<p>Controls <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
-<p>Depending on the actual mode you select,
-upon encountering a failed validation,
-the server will either throw an error
-(halting startup or denying the operation),
-or log a warning and continue running as normal.
+<p>Controls <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.
+Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.</p>
+<p>When a validation fails, the server takes one of the following actions:</p>
+<ul>
+<li>
+<p>Throw an error and halt startup or deny the operation.</p>
+</li>
+<li>
+<p>Log a warning and continue running.</p>
+</li>
+</ul>
+<p>The action depends on the selected mode.
 The following modes are available:</p>
 <ul>
 <li>
-<p><code>DISABLED</code>: Do not perform strict mode validations
-and run as normal.</p>
+<p><code>DISABLED</code>: skip strict mode validations and run normally.</p>
 </li>
 <li>
-<p><code>PERMISSIVE</code>: If a validation fails, log a warning and continue running
-as normal.</p>
+<p><code>PERMISSIVE</code>: log a warning when a validation fails, then continue running.</p>
 </li>
 <li>
-<p><code>ENFORCING</code>: If a validation fails during startup,
-halt the server and throw an error.
-If a validation fails during runtime,
-deny the operation and throw an error.</p>
+<p><code>ENFORCING</code>: throw an error and halt the server when a validation fails at startup.
+  Throw an error and deny the operation when a validation fails at runtime.</p>
 </li>
 <li>
-<p><code>MASTER</code>: The same as <code>ENFORCING</code> except that the validation of
-<a href="#strict-mode-explicit-table-locking">explicit table locking</a> is not performed.
-This mode can be used with clusters
-in which write operations are isolated to a single node.</p>
+<p><code>MASTER</code>: behave as <code>ENFORCING</code> but skip the <a href="#strict-mode-explicit-table-locking">explicit table locking</a> validation.
+  Use this mode with clusters in which write operations are isolated to a single node.</p>
 </li>
 </ul>
-<p>By default, <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>,
-except if the node is acting as a standalone server
-or the node is bootstrapping, then <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> defaults to <code>DISABLED</code>.</p>
+<p>By default, <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>.
+The variable defaults to <code>DISABLED</code> when the node acts as a standalone server or during bootstrapping.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When changing the value of <code>pxc_strict_mode</code>
-from <code>DISABLED</code> or <code>PERMISSIVE</code> to <code>ENFORCING</code> or <code>MASTER</code>,
-ensure that the following configuration is used:</p>
+<p>When changing <code>pxc_strict_mode</code> from <code>DISABLED</code> or <code>PERMISSIVE</code> to <code>ENFORCING</code> or <code>MASTER</code>, apply the following configuration:</p>
 <ul>
 <li>
 <p><code>wsrep_replicate_myisam=OFF</code></p>
@@ -16265,10 +16354,14 @@ ensure that the following configuration is used:</p>
 <p><code>binlog_format=ROW</code></p>
 </li>
 <li>
-<p><code>log_output=FILE</code> or <code>log_output=NONE</code> or <code>log_output=FILE,NONE</code></p>
+<p><code>log_output=FILE</code>, <code>log_output=NONE</code>, or <code>log_output=FILE,NONE</code></p>
 </li>
 </ul>
-<p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
+<p>The <code>SERIALIZABLE</code> isolation level is not allowed in <code>ENFORCING</code> mode.</p>
+<p>Switching to <code>ENFORCING</code> or <code>MASTER</code> also sets the global <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code></a> variable to <code>ON</code> when the previous value was <code>OFF</code>.
+Setting <code>sql_require_primary_key=OFF</code> is rejected while strict mode remains <code>ENFORCING</code> or <code>MASTER</code>.
+Existing sessions retain their session value until each session reconnects or updates the value explicitly.
+For details, see <a href="#strict-mode-primary-key-requirement">Primary key requirement</a>.</p>
 </div>
 <p>For more information, see <a href="#strict-mode-percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.</p>
 <h3 id="wsrep-system-index-replica-enable-eventname"><code>replica-enable-event=name</code><a class="headerlink" href="#wsrep-system-index-replica-enable-eventname" title="Permanent link">&para;</a></h3>

@@ -4421,8 +4421,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Unsupported queries:</p>
-<p><code>LOCK TABLES</code> and <code>UNLOCK TABLES</code> is not supported in multi-source setups</p>
-<p>Lock functions, such as <code>GET_LOCK()</code>, <code>RELEASE_LOCK()</code>, and so on</p>
+<ul>
+<li>
+<p><code>LOCK TABLES</code> and <code>UNLOCK TABLES</code> are not supported in multi-source configurations.</p>
+</li>
+<li>
+<p>Lock functions, such as <code>GET_LOCK()</code> and <code>RELEASE_LOCK()</code>, are not supported.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>Query log cannot be directed to table.</p>
@@ -4433,17 +4439,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 and the log file name.</p>
 </li>
 <li>
-<p>Maximum allowed transaction size is defined by the <a href="wsrep-system-index.html#wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> and <a href="wsrep-system-index.html#wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> variables. </p>
-<p><code>LOAD DATA INFILE</code> processing will commit every 10 000 rows.  So large
-transactions due to <code>LOAD DATA</code> will be split to series of small
-transactions.</p>
+<p>Maximum allowed transaction size is defined by the <a href="wsrep-system-index.html#wsrep_max_ws_rows"><code>wsrep_max_ws_rows</code></a> and <a href="wsrep-system-index.html#wsrep_max_ws_size"><code>wsrep_max_ws_size</code></a> variables.</p>
+<p><code>LOAD DATA INFILE</code> processing commits every 10 000 rows.
+Percona XtraDB Cluster splits large <code>LOAD DATA</code> transactions into a series of smaller transactions.</p>
 </li>
 <li>
 <p>Transaction issuing <code>COMMIT</code> may still be aborted at that stage.</p>
-<p>Due to cluster-level optimistic concurrency control,  there can be two
-transactions writing to the same rows and committing in separate Percona XtraDB Cluster nodes,
-and only one of them can successfully commit. The failing one will be
-aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock error code:</p>
+<p>Cluster-level optimistic concurrency control allows two transactions to write to the same rows on separate Percona XtraDB Cluster nodes.
+Only one of these transactions commits successfully.
+The other transaction is aborted.
+Percona XtraDB Cluster returns the following deadlock error code for cluster-level aborts:</p>
 <details class="example">
 <summary>Error message</summary>
 <div class="no-copy highlight"><pre><span></span><code>(Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
@@ -4456,13 +4461,12 @@ aborted. For cluster-level aborts, Percona XtraDB Cluster gives back deadlock er
 </li>
 <li>
 <p>Write throughput of the whole cluster is limited by the weakest node.</p>
-<p>If one node becomes slow, the whole cluster slows down.  If you have
-requirements for stable high performance, then it should be supported by
-corresponding hardware.</p>
+<p>A slow node slows the entire cluster.
+Provision matching hardware on every node when you require stable high performance.</p>
 </li>
 <li>
-<p>Minimal recommended size of cluster is 3 nodes.</p>
-<p>The 3<sup>rd</sup> node can be an arbitrator.</p>
+<p>The minimum recommended cluster size is three nodes.</p>
+<p>The third node can act as an arbitrator.</p>
 </li>
 <li>
 <p><code>enforce_storage_engine=InnoDB</code> is not compatible with <code>wsrep_replicate_myisam=OFF</code></p>
@@ -4470,13 +4474,15 @@ corresponding hardware.</p>
 </li>
 <li>
 <p>Avoid <code>ALTER TABLE ... IMPORT/EXPORT</code> workloads when running Percona XtraDB Cluster in cluster mode.</p>
-<p>It can lead to node inconsistency if not executed in sync on all nodes.</p>
+<p>These statements can produce node inconsistency when not run in sync on every node.</p>
 </li>
 <li>
 <p>All tables must have a primary key.</p>
-<p>This ensures that the same rows appear in the same order on different
-nodes. The <code>DELETE</code> statement is not supported on tables without a primary
-key.</p>
+<p>A primary key keeps row order identical on every node.
+The <code>DELETE</code> statement is not supported on tables without a primary key.</p>
+<p>When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>, Percona XtraDB Cluster sets the global <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code></a> variable to <code>ON</code> and rejects attempts to set it <code>OFF</code>.
+<code>CREATE TABLE</code> and <code>ALTER TABLE</code> statements that would leave a table without a primary key fail.
+For details, see <a href="strict-mode.html#primary-key-requirement">Primary key requirement</a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://mariadb.com/docs/server/architecture/server-constraints/primary-key-constraints">MariaDB Galera Documentation: Tables without Primary Keys</a></p>
@@ -4484,11 +4490,13 @@ key.</p>
 </li>
 <li>
 <p>When configuring Percona XtraDB Cluster, your server must create a local socket.</p>
-<p>You can set up a socket by providing a path, or you can skip creating one explicitly. However, do not leave the <socket> variable in my.cnf empty, like this: <code>socket=</code>. If you do, the server won’t create a socket.</p>
+<p>Configure the socket by providing a path, or skip the explicit configuration to use the default.
+Do not leave the <code>socket</code> variable in <code>my.cnf</code> empty, as in <code>socket=</code>.
+An empty value prevents the server from creating a socket.</p>
 <p>State Snapshot Transfer (SST) requires the socket for the following tasks:</p>
 <ul>
 <li>
-<p>Taking backup using Percona XtraBackup</p>
+<p>Taking a backup with Percona XtraBackup</p>
 </li>
 <li>
 <p>Detecting keyring component status</p>
@@ -4551,8 +4559,9 @@ the names of which match the names of temporary tables.</p>
 </div>
 </li>
 </ul>
-<p>As of version 8.0.21, an INPLACE <a href="https://dev.mysql.com/doc/refman/8.0/en/alter-table.html">ALTER TABLE</a> query takes an internal shared lock on the table during the execution of the query. The <code>LOCK=NONE</code> clause is no longer allowed for all of the INPLACE ALTER TABLE queries due to this change.</p>
-<p>This change addresses a deadlock, which could cause a cluster node to hang in the following scenario:</p>
+<p>Starting with version 8.0.21, an <code>INPLACE</code> <a href="https://dev.mysql.com/doc/refman/8.0/en/alter-table.html"><code>ALTER TABLE</code></a> query takes an internal shared lock on the table during query execution.
+The <code>LOCK=NONE</code> clause is no longer allowed for any <code>INPLACE ALTER TABLE</code> query.
+The lock change addresses a deadlock that could cause a cluster node to hang in the following scenario:</p>
 <ul>
 <li>
 <p>An INPLACE <code>ALTER TABLE</code> query in one session or being applied as Total Order Isolation (TOI)</p>
@@ -4593,7 +4602,7 @@ the names of which match the names of temporary tables.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 17, 2026 11:18:58 UTC">February 17, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 1, 2026 00:16:17 UTC">May 1, 2026</span>
   </span>
 
     
