@@ -87,48 +87,47 @@ For more information, see [Assisted Maintenance Mode](load-balance-proxysql.md#a
 | Dynamic:       | Yes                 |
 | Default Value: | ``ENFORCING`` or ``DISABLED`` |
 
-Controls [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode), which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.
+Controls [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode).
+Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.
 
-Depending on the actual mode you select,
-upon encountering a failed validation,
-the server will either throw an error
-(halting startup or denying the operation),
-or log a warning and continue running as normal.
+When a validation fails, the server takes one of the following actions:
+
+- Throw an error and halt startup or deny the operation.
+
+- Log a warning and continue running.
+
+The action depends on the selected mode.
 The following modes are available:
 
-* `DISABLED`: Do not perform strict mode validations
-and run as normal.
+- `DISABLED`: skip strict mode validations and run normally.
 
-* `PERMISSIVE`: If a validation fails, log a warning and continue running
-as normal.
+- `PERMISSIVE`: log a warning when a validation fails, then continue running.
 
-* `ENFORCING`: If a validation fails during startup,
-halt the server and throw an error.
-If a validation fails during runtime,
-deny the operation and throw an error.
+- `ENFORCING`: throw an error and halt the server when a validation fails at startup.
+  Throw an error and deny the operation when a validation fails at runtime.
 
-* `MASTER`: The same as `ENFORCING` except that the validation of
-[explicit table locking](strict-mode.md#explicit-table-locking) is not performed.
-This mode can be used with clusters
-in which write operations are isolated to a single node.
+- `MASTER`: behave as `ENFORCING` but skip the [explicit table locking](strict-mode.md#explicit-table-locking) validation.
+  Use this mode with clusters in which write operations are isolated to a single node.
 
-By default, [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) is set to `ENFORCING`,
-except if the node is acting as a standalone server
-or the node is bootstrapping, then [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) defaults to `DISABLED`.
+By default, [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode) is set to `ENFORCING`.
+The variable defaults to `DISABLED` when the node acts as a standalone server or during bootstrapping.
 
 !!! note
 
-    When changing the value of `pxc_strict_mode`
-    from `DISABLED` or `PERMISSIVE` to `ENFORCING` or `MASTER`,
-    ensure that the following configuration is used:
-     
-     * `wsrep_replicate_myisam=OFF`
-     
-     * `binlog_format=ROW`
-     
-     * `log_output=FILE` or `log_output=NONE` or `log_output=FILE,NONE`
-     
-    The `SERIALIZABLE` method of isolation is not allowed in `ENFORCING` mode.
+    When changing `pxc_strict_mode` from `DISABLED` or `PERMISSIVE` to `ENFORCING` or `MASTER`, apply the following configuration:
+
+    - `wsrep_replicate_myisam=OFF`
+
+    - `binlog_format=ROW`
+
+    - `log_output=FILE`, `log_output=NONE`, or `log_output=FILE,NONE`
+
+    The `SERIALIZABLE` isolation level is not allowed in `ENFORCING` mode.
+
+    Switching to `ENFORCING` or `MASTER` also sets the global [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_sql_require_primary_key) variable to `ON` when the previous value was `OFF`.
+    Setting `sql_require_primary_key=OFF` is rejected while strict mode remains `ENFORCING` or `MASTER`.
+    Existing sessions retain their session value until each session reconnects or updates the value explicitly.
+    For details, see [Primary key requirement](strict-mode.md#primary-key-requirement).
 
 For more information, see [PXC Strict Mode](strict-mode.md#percona-xtradb-cluster-strict-mode).
 
