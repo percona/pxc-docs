@@ -3808,25 +3808,74 @@ if you want to ensure data consistency.</p>
 <p class="admonition-title">Note</p>
 <p>The <a href="wsrep-system-index.html#wsrep_replicate_myisam"><code>wsrep_replicate_myisam</code></a> variable controls <em>replication</em> for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.</p>
 </div>
-<h3 id="tables-without-primary-keys">Tables without primary keys<a class="headerlink" href="#tables-without-primary-keys" title="Permanent link">&para;</a></h3>
-<p>Percona XtraDB Cluster cannot properly propagate certain write operations
-to tables that do not have primary keys defined.
-Undesirable operations include data manipulation statements
-that perform writing to table (especially <code>DELETE</code>).</p>
-<p>Depending on the selected mode, the following happens:</p>
-<p><code>DISABLED</code></p>
-<p>At startup, no validation is performed.</p>
-<p>At runtime, all operations are permitted.</p>
-<p><code>PERMISSIVE</code></p>
-<p>At startup, no validation is performed.</p>
-<p>At runtime, all operations are permitted,
-but a warning is logged when an undesirable operation
-is performed on a table without an explicit primary key defined.</p>
-<p><code>ENFORCING</code> or <code>MASTER</code></p>
-<p>At startup, no validation is performed.</p>
-<p>At runtime, any undesirable operation
-performed on a table without an explicit primary key
-is denied and an error is logged.</p>
+<h3 id="primary-key-requirement">Primary key requirement<a class="headerlink" href="#primary-key-requirement" title="Permanent link">&para;</a></h3>
+<p>Percona XtraDB Cluster requires every replicated table to have an explicit primary key.
+A missing primary key prevents write-set replication from guaranteeing identical row order across nodes.
+The <code>DELETE</code> statement also fails on tables without a primary key.
+For related guidance, see <a href="limitation.html">Limitations</a> and <a href="wsrep-system-index.html#wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code></a>.</p>
+<p>The <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> variable rejects <code>CREATE TABLE</code> and <code>ALTER TABLE</code> statements that would leave a table without a primary key.
+When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>, Percona XtraDB Cluster manages <code>sql_require_primary_key</code> to align both policies.</p>
+<p>The following rules apply while <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is <code>ENFORCING</code> or <code>MASTER</code>:</p>
+<ul>
+<li>
+<p>Switching to <code>ENFORCING</code> or <code>MASTER</code> sets the global <code>sql_require_primary_key</code> to <code>ON</code> when the previous value was <code>OFF</code>. The server log records the change:</p>
+<div class="no-copy highlight"><pre><span></span><code>Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
+</code></pre></div>
+</li>
+<li>
+<p>Setting <code>sql_require_primary_key=OFF</code> is rejected. Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
+<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable &#39;sql_require_primary_key&#39; can&#39;t be set to the value of &#39;OFF&#39;
+</code></pre></div>
+<p>The error log records the reason:</p>
+<div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
+</code></pre></div>
+</li>
+<li>
+<p>Existing sessions retain their session value of <code>sql_require_primary_key</code>. Reconnect or update the session value explicitly to inherit the updated global default.</p>
+</li>
+<li>
+<p>Lowering <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> to <code>DISABLED</code> or <code>PERMISSIVE</code> does not reset <code>sql_require_primary_key</code>. Set the variable explicitly to allow tables without a primary key.</p>
+</li>
+</ul>
+<p>The following table summarizes startup and runtime behavior by mode:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Startup behavior</th>
+<th>Runtime behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DISABLED</code></td>
+<td>No validation runs. <code>sql_require_primary_key</code> keeps the configured value.</td>
+<td>All operations are permitted. <code>sql_require_primary_key</code> accepts <code>ON</code> or <code>OFF</code>.</td>
+</tr>
+<tr>
+<td><code>PERMISSIVE</code></td>
+<td>No validation runs. <code>sql_require_primary_key</code> keeps the configured value.</td>
+<td>All operations are permitted. A warning is logged for any undesirable operation on a table without an explicit primary key. <code>sql_require_primary_key</code> accepts <code>ON</code> or <code>OFF</code>.</td>
+</tr>
+<tr>
+<td><code>ENFORCING</code> / <code>MASTER</code></td>
+<td>If Galera is active and <code>sql_require_primary_key</code> is <code>OFF</code>, Percona XtraDB Cluster forces the value to <code>ON</code>.</td>
+<td>Switching to this mode sets <code>sql_require_primary_key</code> to <code>ON</code> when the previous value was <code>OFF</code>. Setting <code>sql_require_primary_key=OFF</code> is rejected. Creating or altering a table without a primary key fails.</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>Error message when creating or altering a table without a primary key</summary>
+<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable &#39;sql_require_primary_key&#39; is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+</code></pre></div>
+</details>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replication applier threads use replicated session metadata for each event.
+Events that originated on a non-strict source continue to apply on a strict-mode node.
+The events apply even when the source had <code>sql_require_primary_key</code> set to <code>OFF</code>.
+Use <a href="wsrep-system-index.html#wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code></a> only as a fallback for existing tables without a primary key.</p>
+</div>
 <h3 id="log-output">Log output<a class="headerlink" href="#log-output" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster does not support tables in the MySQL database
 as the destination for log output.
@@ -3978,7 +4027,7 @@ This can lead to data inconsistency if executed on only one node.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 1, 2026 10:01:47 UTC">May 1, 2026</span>
   </span>
 
     

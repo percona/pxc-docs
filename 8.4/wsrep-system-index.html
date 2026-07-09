@@ -3728,46 +3728,50 @@ When disabled, you need to configure SSL manually to encrypt Percona XtraDB Clus
 </tr>
 </tbody>
 </table>
-<p>Controls <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>, which runs validations to avoid the use of experimental and unsupported features in Percona XtraDB Cluster.</p>
-<p>Depending on the actual mode you select, upon encountering a failed validation, the server will either throw an error (halting startup or denying the operation) or log a warning and continue running as normal.
-The following modes are available:</p>
+<p>Controls <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.
+Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.</p>
+<p>When a validation fails, the server takes one of the following actions:</p>
 <ul>
 <li>
-<p><code>DISABLED</code>: Do not perform strict mode validations
-and run as normal.</p>
+<p>Throw an error and halt startup or deny the operation.</p>
 </li>
 <li>
-<p><code>PERMISSIVE</code>: If a validation fails, log a warning and continue running
-as normal.</p>
-</li>
-<li>
-<p><code>ENFORCING</code>: If a validation fails during startup, halt the server and throw an error.
-If a validation fails during runtime,
-deny the operation and throw an error.</p>
-</li>
-<li>
-<p><code>MASTER</code>: The same as <code>ENFORCING</code> except that the validation of
-<a href="strict-mode.html#explicit-table-locking">explicit table locking</a> is not performed.
-This mode can be used with clusters in which write operations are isolated to a single node.</p>
+<p>Log a warning and continue running.</p>
 </li>
 </ul>
-<p>By default, <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>,
-except if the node is acting as a standalone server
-or the node is bootstrapping, then <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> defaults to <code>DISABLED</code>.</p>
+<p>The action depends on the selected mode. The following modes are available:</p>
+<ul>
+<li>
+<p><code>DISABLED</code>: skip strict mode validations and run normally.</p>
+</li>
+<li>
+<p><code>PERMISSIVE</code>: log a warning when a validation fails, then continue running.</p>
+</li>
+<li>
+<p><code>ENFORCING</code>: throw an error on validation failure. Halt the server at startup. Deny the operation at runtime.</p>
+</li>
+<li>
+<p><code>MASTER</code>: behave as <code>ENFORCING</code> but skip the <a href="strict-mode.html#explicit-table-locking">explicit table locking</a> validation. Use this mode with clusters in which write operations are isolated to a single node.</p>
+</li>
+</ul>
+<p>By default, <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> is set to <code>ENFORCING</code>.
+The variable defaults to <code>DISABLED</code> when the node acts as a standalone server or during bootstrapping.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When changing the value of <code>pxc_strict_mode</code>
-from <code>DISABLED</code> or <code>PERMISSIVE</code> to <code>ENFORCING</code> or <code>MASTER</code>,
-ensure that the following configuration is used:</p>
+<p>When changing <code>pxc_strict_mode</code> from <code>DISABLED</code> or <code>PERMISSIVE</code> to <code>ENFORCING</code> or <code>MASTER</code>, apply the following configuration:</p>
 <ul>
+<li>
+<p><code>log_output=FILE</code>, <code>NONE</code>, or <code>FILE,NONE</code></p>
+</li>
 <li>
 <p><code>wsrep_replicate_myisam=OFF</code></p>
 </li>
-<li>
-<p><code>log_output=FILE</code> or <code>log_output=NONE</code> or <code>log_output=FILE,NONE</code></p>
-</li>
 </ul>
-<p>The <code>SERIALIZABLE</code> method of isolation is not allowed in <code>ENFORCING</code> mode.</p>
+<p>The <code>SERIALIZABLE</code> isolation level is not allowed in <code>ENFORCING</code> mode.</p>
+<p>Switching to <code>ENFORCING</code> or <code>MASTER</code> also sets <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key"><code>sql_require_primary_key</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to <code>ON</code> when the previous value was <code>OFF</code>.
+Setting <code>sql_require_primary_key=OFF</code> is rejected while strict mode remains <code>ENFORCING</code> or <code>MASTER</code>.
+Existing sessions retain their session value until each session reconnects or updates the value explicitly.
+For details, see <a href="strict-mode.html#primary-key-requirement">Primary key requirement</a>.</p>
 </div>
 <p>For more information, see <a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a>.</p>
 <h3 id="wsrep_applier_fk_checks"><code>wsrep_applier_FK_checks</code><a class="headerlink" href="#wsrep_applier_fk_checks" title="Permanent link">&para;</a></h3>
