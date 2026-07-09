@@ -116,7 +116,7 @@ For more information, see [PXC Strict Mode](strict-mode.md#percona-xtradb-cluste
 | Dynamic:       | Yes                |
 | Default Value: | ``ON``             |
 
-As of Percona XtraDB Cluster 8.0.26-16, the ``wsrep_slave_FK_checks`` variable is deprecated in favor of this variable.
+The ``wsrep_slave_FK_checks`` variable is deprecated in favor of this variable.
 
 Defines whether foreign key checking is done for applier threads.
 This is enabled by default.
@@ -135,7 +135,7 @@ This is enabled by default.
 | Dynamic:       | Yes                |
 | Default Value: | ``1``              |
 
-As of Percona XtraDB Cluster 8.0.26-16, the ``wsrep_slave_threads`` variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
+The ``wsrep_slave_threads`` variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_threads`` variable.
 
 Specifies the number of threads
 that can apply replication transactions in parallel.
@@ -1144,7 +1144,7 @@ microseconds. Unit of variable is in microseconds, so set accordingly.
 | Dynamic:       | Yes                 |
 | Default Value: | ``ON`` |
 
-As of *Percona XtraDB Cluster* 8.0.26-16, this variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_FK_checks`` variable.
+This variable is deprecated and may be removed in a later version. Use the ``wsrep_applier_FK_checks`` variable.
 
 Defines whether foreign key checking is done for applier threads.
 This is enabled by default.
