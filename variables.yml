@@ -1,6 +1,6 @@
 # variables for HTML output
 
-release: '8.0.46-37'
+release: '8.0.46-38'
 version: '8.0'
 release_date: '2026-07-23'
 title_date: '2026-07-23'
