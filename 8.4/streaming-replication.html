@@ -28,7 +28,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -36,7 +36,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1357,7 +1357,7 @@
   <span class="md-ellipsis">
     
   
-    Percona Software Download Instructions
+    Percona Software Download instructions
   
 
     
@@ -4350,8 +4350,8 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <h2 id="do-tables-need-a-primary-key-for-streaming-replication">Do tables need a primary key for streaming replication?<a class="headerlink" href="#do-tables-need-a-primary-key-for-streaming-replication" title="Permanent link">&para;</a></h2>
 <p>Streaming replication uses the same <a href="glossary.html#certification">certification</a> and write-set machinery as standard Galera replication. Tables involved in streaming transactions must have a primary key.</p>
 <p>Galera uses primary-key values to identify rows for certification and cluster-wide locking. Without a primary key, Galera cannot reliably order or lock individual rows across nodes during fragment certification.</p>
-<p>Under <a href="strict-mode.html#tables-without-primary-keys"><code>pxc_strict_mode=ENFORCING</code></a>, PXC denies <code>DELETE</code> and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming <code>DELETE</code> against a table without a primary key fails with an error when strict mode is <code>ENFORCING</code>.</p>
-<p>All tables in the cluster should define a primary key. See <a href="limitation.html">Percona XtraDB Cluster limitations</a> and <a href="strict-mode.html#tables-without-primary-keys">Tables without primary keys</a>.</p>
+<p>Under <a href="strict-mode.html"><code>pxc_strict_mode=ENFORCING</code></a>, PXC denies <code>DELETE</code> and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming <code>DELETE</code> against a table without a primary key fails with an error when strict mode is <code>ENFORCING</code>.</p>
+<p>All tables in the cluster should define a primary key. See <a href="limitation.html">Percona XtraDB Cluster limitations</a> and <a href="strict-mode.html">Tables without primary keys</a>.</p>
 <h2 id="how-does-streaming-replication-interact-with-pxc_strict_mode">How does streaming replication interact with pxc_strict_mode?<a class="headerlink" href="#how-does-streaming-replication-interact-with-pxc_strict_mode" title="Permanent link">&para;</a></h2>
 <p>Streaming replication does not require a dedicated <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> setting. The default value <code>ENFORCING</code> is supported and recommended.</p>
 <p>Streaming replication is a supported Galera 4 feature. <a href="strict-mode.html"><code>PXC Strict Mode</code></a> does not treat streaming replication as a tech preview capability.</p>
@@ -4509,7 +4509,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 11, 2026 11:26:40 UTC">June 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 23, 2026 14:01:47 UTC">July 23, 2026</span>
   </span>
 
     
@@ -4612,7 +4612,7 @@ Rows matched: 1  Changed: 1  Warnings: 0
     
     
    
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
