@@ -435,9 +435,9 @@ Streaming replication uses the same [certification](glossary.md#certification) a
 
 Galera uses primary-key values to identify rows for certification and cluster-wide locking. Without a primary key, Galera cannot reliably order or lock individual rows across nodes during fragment certification.
 
-Under [`pxc_strict_mode=ENFORCING`](strict-mode.md#tables-without-primary-keys), PXC denies `DELETE` and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming `DELETE` against a table without a primary key fails with an error when strict mode is `ENFORCING`.
+Under [`pxc_strict_mode=ENFORCING`](strict-mode.md), PXC denies `DELETE` and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming `DELETE` against a table without a primary key fails with an error when strict mode is `ENFORCING`.
 
-All tables in the cluster should define a primary key. See [Percona XtraDB Cluster limitations](limitation.md) and [Tables without primary keys](strict-mode.md#tables-without-primary-keys).
+All tables in the cluster should define a primary key. See [Percona XtraDB Cluster limitations](limitation.md) and [Tables without primary keys](strict-mode.md).
 
 ## How does streaming replication interact with pxc_strict_mode?
 

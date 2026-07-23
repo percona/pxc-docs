@@ -1,15 +1,24 @@
-# Percona Software Download Instructions
+# Percona Software Download instructions
 
-Do the following steps to select the software, the software version, and download the packages:
+## Select the software
 
-1. Go to [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
-2. Locate Percona XtraDB Cluster.
-3. Select the required product in `Select Product`, for example, Percona XtraDB Cluster 8.4.
-4. Select your distribution version in the `Select Product Version` dropdown, for example, `Percona-XtraDB-Cluster-8.4.3`.
-5. Select your platform in the `Select Platform` dropdown, for example, `Ubuntu 24.04 (Noble Numbat)`.
+Do the following steps to select the software:
 
-The `Package Download Options` may include both `AMD64` and `ARM64` packages. Select the correct CPU architecture for your system.
+1. Open [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
+2. Select a product, for example, Percona XtraDB Cluster.
+3. In `Product Group`, select which product, for example, Percona XtraDB Cluster {{vers}}.
+4. In `Version`, select the version, for example, `Percona-XtraDB-Cluster-8.4.3`.
+5. In `Platform`, select the operating system, for example, `Ubuntu 24.04 (Noble Numbat)`.
 
-You can download specific packages one by one or download all packages using the `DOWNLOAD ALL PACKAGES` button. The easiest method is to download all packages.
+The `Package Download Options` may mix `amd64` and `arm64` packages. Select the correct CPU architecture for your system.
 
-The packages are downloaded to the local computer.
+## Download to a local computer
+
+In `Package Download Options`, select a specific package and click `Download`. This action downloads the selected packages to the local computer.
+
+## Download to another computer
+
+In `Package Download Options`, select a specific package and right-click on the `DOWNLOAD`, and in the drop-down menu, choose `Copy Link Address`
+
+Paste the link in your terminal to download the selected package.
+
