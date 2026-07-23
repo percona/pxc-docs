@@ -1,17 +1,24 @@
-# Percona Software Download Instructions
+# Percona Software Download instructions
 
-<!-- Clarify the version numbers for 9.7-->
+## Select the software
 
-Do the following steps to select the software, the software version, and download the packages:
+Do the following steps to select the software:
 
-1. Go to [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
-2. Locate Percona XtraDB Cluster.
-3. Select the required product in `Select Product`, for example, Percona XtraDB Cluster {{vers}}.
-4. Select your distribution version in the `Select Product Version` dropdown, for example, `Percona-XtraDB-Cluster-9.7.0`.
-5. Select your platform in the `Select Platform` dropdown, for example, `Ubuntu 24.04 (Noble Numbat)`.
+1. Open [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads).
+2. Select a product, for example, Percona XtraDB Cluster.
+3. In `Product Group`, select which product, for example, Percona XtraDB Cluster {{vers}}.
+4. In `Version`, select the version, for example, `Percona-XtraDB-Cluster-{{vers}}`.
+5. In `Platform`, select the operating system, for example, `Ubuntu 24.04 (Noble Numbat)`.
 
-The `Package Download Options` may include both `AMD64` and `ARM64` packages. Select the correct CPU architecture for your system.
+The `Package Download Options` may mix `amd64` and `arm64` packages. Select the correct CPU architecture for your system.
 
-You can download specific packages one by one or download all packages using the `DOWNLOAD ALL PACKAGES` button. The easiest method is to download all packages.
+## Download to a local computer
 
-The packages are downloaded to the local computer.
+In `Package Download Options`, select a specific package and click `Download`. This action downloads the selected packages to the local computer.
+
+## Download to another computer
+
+In `Package Download Options`, select a specific package and right-click on the `DOWNLOAD`, and in the drop-down menu, choose `Copy Link Address`
+
+Paste the link in your terminal to download the selected package.
+
