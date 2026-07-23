@@ -144,41 +144,23 @@
     </div>
     <div data-md-component="announce">
       
-        <aside class="md-banner">
-          <div class="md-banner__inner md-grid md-typeset">
-            
-            
-<div class="md-banner" style="text-align: center;">
-  Where the open source database community meets:
-  Secure your spot for Percona Live.
-
-  <a
-    class="breakdance-link button-atom button-atom--primary bde-button__button"
-    href="https://perconalive.com/2026-amsterdam/registration/"
-      target="_blank"
-      data-type="url"
-      style="
-        padding: 5px 20px;
-        display: inline-block;
-        margin-left: 10px;
-        background-color: #e65a15;
-        border-radius: 999px;
-        text-decoration: none;
-      "
-    >
-      <span class="button-atom__text" style="font-size: 16px; color: #ffffff;">
-        Register
-      </span>
-    </a>
-  </div>
-
-          </div>
-          
-        </aside>
-      
     </div>
     
       <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+<div><strong>Percona XtraDB Cluster 8.0 reached end-of-life (EOL) in July 2026.</strong></div>
+<div>
+  Do you need help upgrading to MySQL 8.4? Do you need to stay on MySQL 8.0 a bit longer?
+  We will support you either way.
+  <a href="https://www.percona.com/mysql-8-0-eol-support/"><strong>Learn more</strong></a>
+</div>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("/percona-xtradb-cluster/8.0"),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
         
       </div>
     
@@ -2025,7 +2007,7 @@
   <span class="md-ellipsis">
     
   
-    Percona Software Download Instructions
+    Percona Software Download instructions
   
 
     
@@ -4971,7 +4953,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   <a href="#download-instructions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Percona Software Download Instructions
+        Percona Software Download instructions
       
     </span>
   </a>
@@ -5766,6 +5748,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             </div>
         </section>
         <section class="print-page" id="index" heading-number="1"><h1 id="index-percona-xtradb-cluster-80-documentation">Percona XtraDB Cluster 8.0 Documentation<a class="headerlink" href="#index-percona-xtradb-cluster-80-documentation" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">End of life alert</p>
+<p>Percona XtraDB Cluster 8.0 has reached end of life. This core documentation is now read-only. However, we will continue to publish release notes for post-EOL builds as they become available.</p>
+</div>
 <div class="admonition note">
 <p>This documentation is for the latest release: Percona XtraDB Cluster 8.0.46-37 (<a href="#release-notes-8.0.46-37">Release Notes</a>).</p>
 </div>
@@ -8827,18 +8813,22 @@ for manual installation:</p>
 <li><a href="#tarball-install-percona-xtradb-cluster-from-binary-tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
 </ul>
 <p>If you want to build Percona XtraDB Cluster from source, see <a href="#compile-compile-and-install-from-source-code">Compiling and Installing from Source Code</a>.</p>
-<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker-running-percona-xtradb-cluster-in-a-docker-container">Running Percona XtraDB Cluster in a Docker Container</a>.</p></section><section class="print-page" id="download-instructions" heading-number="7.2"><h1 id="download-instructions-percona-software-download-instructions">Percona Software Download Instructions<a class="headerlink" href="#download-instructions-percona-software-download-instructions" title="Permanent link">&para;</a></h1>
-<p>Do the following steps to select the software, the software version, and download the packages:</p>
+<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker-running-percona-xtradb-cluster-in-a-docker-container">Running Percona XtraDB Cluster in a Docker Container</a>.</p></section><section class="print-page" id="download-instructions" heading-number="7.2"><h1 id="download-instructions-percona-software-download-instructions">Percona Software Download instructions<a class="headerlink" href="#download-instructions-percona-software-download-instructions" title="Permanent link">&para;</a></h1>
+<h2 id="download-instructions-select-the-software">Select the software<a class="headerlink" href="#download-instructions-select-the-software" title="Permanent link">&para;</a></h2>
+<p>Do the following steps to select the software:</p>
 <ol>
-<li>Go to <a href="https://www.percona.com/downloads">Percona Software Downloads</a>.</li>
-<li>Locate Percona XtraDB Cluster.</li>
-<li>Select the required product in <code>Select Product</code>, for example, Percona XtraDB Cluster 8.0.</li>
-<li>Select your distribution version in the <code>Select Product Version</code> dropdown, for example, <code>Percona-XtraDB-Cluster-8.0.41</code>.</li>
-<li>Select your platform in the <code>Select Platform</code> dropdown, for example, <code>Ubuntu 24.04 (Noble Numbat)</code>.</li>
+<li>Open <a href="https://www.percona.com/downloads">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</li>
+<li>Select a product, for example, Percona XtraDB Cluster.</li>
+<li>In <code>Product Group</code>, select which product, for example, Percona XtraDB Cluster {{ vers }}.</li>
+<li>In <code>Version</code>, select the version, for example, <code>Percona-XtraDB-Cluster-8.0.41</code>.</li>
+<li>In <code>Platform</code>, select the operating system, for example, <code>Ubuntu 24.04 (Noble Numbat)</code>.</li>
 </ol>
-<p>The <code>Package Download Options</code> may include both <code>AMD64</code> and <code>ARM64</code> packages. Select the correct CPU architecture for your system.</p>
-<p>You can download specific packages one by one or download all packages using the <code>DOWNLOAD ALL PACKAGES</code> button. The easiest method is to download all packages.</p>
-<p>The packages are downloaded to the local computer.</p></section><section class="print-page" id="apt" heading-number="7.3"><h1 id="apt-install-percona-xtradb-cluster-on-debian-or-ubuntu">Install Percona XtraDB Cluster on Debian or Ubuntu<a class="headerlink" href="#apt-install-percona-xtradb-cluster-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
+<p>The <code>Package Download Options</code> may mix <code>amd64</code> and <code>arm64</code> packages. Select the correct CPU architecture for your system.</p>
+<h2 id="download-instructions-download-to-a-local-computer">Download to a local computer<a class="headerlink" href="#download-instructions-download-to-a-local-computer" title="Permanent link">&para;</a></h2>
+<p>In <code>Package Download Options</code>, select a specific package and click <code>Download</code>. This action downloads the selected packages to the local computer.</p>
+<h2 id="download-instructions-download-to-another-computer">Download to another computer<a class="headerlink" href="#download-instructions-download-to-another-computer" title="Permanent link">&para;</a></h2>
+<p>In <code>Package Download Options</code>, select a specific package and right-click on the <code>DOWNLOAD</code>, and in the drop-down menu, choose <code>Copy Link Address</code></p>
+<p>Paste the link in your terminal to download the selected package.</p></section><section class="print-page" id="apt" heading-number="7.3"><h1 id="apt-install-percona-xtradb-cluster-on-debian-or-ubuntu">Install Percona XtraDB Cluster on Debian or Ubuntu<a class="headerlink" href="#apt-install-percona-xtradb-cluster-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
 <p>Specific information on the supported platforms, products, and versions
 is described in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a>.</p>
 <p>The packages are available in the official Percona software repository
