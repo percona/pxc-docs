@@ -4,6 +4,6 @@ release: '8.4.10-10'
 version: '8.4'
 vers: '8.4' # we are going to use it instead of version
 pkg: 'pxc-84-lts'
-release_date: '2026-07-23'
-title_date: '2026-07-23'
+release_date: '2026-07-27'
+title_date: '2026-07-27'
 
