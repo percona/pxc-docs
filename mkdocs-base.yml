@@ -174,6 +174,7 @@ nav:
   - get-help.md
   - Release notes:
       - Release notes index: release-notes/release-notes_index.md
+      - release-notes/8.4.10-10.md
       - release-notes/8.4.8-8.md
       - release-notes/8.4.7-7.md
       - release-notes/8.4.6-6.md
