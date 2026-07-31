@@ -11,7 +11,7 @@ You can install Percona XtraDB Cluster with the following methods:
 
 * Use the official repository using YUM
 
-* Download and manually install the Percona XtraDB Cluster packages from [Percona Software Downloads :octicons-link-external-16:](http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/).
+* Download and manually install the Percona XtraDB Cluster packages from [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads/).
 
 * Use the Percona Software repositories 
 

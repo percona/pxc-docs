@@ -18,7 +18,7 @@ In `Package Download Options`, select a specific package and click `Download`. T
 
 ## Download to another computer
 
-In `Package Download Options`, select a specific package and right-click on the `DOWNLOAD`, and in the drop-down menu, choose `Copy Link Address`
+In `Package Download Options`, select a specific package and right-click on the `Download`, and in the drop-down menu, choose `Copy Link Address`
 
 Paste the link in your terminal to download the selected package.
 

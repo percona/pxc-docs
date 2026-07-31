@@ -32,17 +32,4 @@ If you want to build Percona XtraDB Cluster from source, see [Compiling and Inst
 
 If you want to run Percona XtraDB Cluster using Docker, see [Run in a Docker container](docker.md).
 
-<!-- Clarify the version numbers for 9.7-->
-
-## Product version numbering
-
-The version number in PXC releases contains the following components:
-
-* The version of Percona Server for MySQL that the given PXC release is based on
-
-* The sequence number which represents the PXC built.
-
-For example, version number *8.0.18-9.3* means that this is the third PXC
-build based on Percona Server for MySQL 8.0.18-9.
-
 [Telemetry data]: telemetry.md

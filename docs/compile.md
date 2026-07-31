@@ -83,7 +83,7 @@ Compile Percona XtraDB Cluster from source:
 
     The snippets target `Linux-x86_64`. On ARM64, rewrite filenames for your chip (`aarch64`, `arm64`, …); never reuse paths that disagree with your download.
 
-    Stage everything under `pxc-build/pxc_extra`, then rename to match the `mv` targets in the snippet. Map `glibc2.xx`, `{{vers}}.x`, and `8.4.x` to the strings in your real filenames (for example `{{release}}` and `8.4.0-3`). Aim each `tar` and `mv` at the top-level folder that unpack creates.
+    Stage everything under `pxc-build/pxc_extra`, then rename to match the `mv` targets in the snippet. Map `glibc2.xx`, `{{vers}}.x`, and `8.4.x` to the strings in your real filenames (for example `{{release}}` and `8.4.2-2`). Aim each `tar` and `mv` at the top-level folder that unpack creates.
 
     ```shell
     mkdir -p ./pxc-build/pxc_extra
