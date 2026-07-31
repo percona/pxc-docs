@@ -17,6 +17,10 @@ Asynchronous replication is a technique where data is first written to the prima
 
 This property guarantees that all updates of a transaction occur in the database or no updates occur. This guarantee also applies with a server exit. If a transaction fails, the entire operation rolls back.
 
+## bootstrap
+
+The process of starting the first node of a cluster so that node initializes the Primary Component. See [Bootstrap the first node](bootstrap.md).
+
 ## Cluster replication
 
 Normal replication path for cluster members. Can be encrypted (not by
@@ -161,6 +165,10 @@ Split brain occurs when two parts of a computer cluster are disconnected, each p
 
 A Galera 4 feature that divides large or long-running transactions into smaller fragments. Galera certifies and replicates each fragment while the transaction remains open. Enable streaming replication at the session level with [`wsrep_trx_fragment_unit`](wsrep-system-index.md#wsrep_trx_fragment_unit) and [`wsrep_trx_fragment_size`](wsrep-system-index.md#wsrep_trx_fragment_size). For details, see [Streaming replication for large transactions](streaming-replication.md).
 
+## Strict Mode
+
+Percona XtraDB Cluster Strict Mode validates unsupported and tech preview features at startup and during runtime. See [Percona XtraDB Cluster strict mode](strict-mode.md).
+
 ## SST
 
 State Snapshot Transfer is the full copy of data from one node to another.  It's used when a new node joins the cluster, it has to transfer data from an existing node.
@@ -183,6 +191,10 @@ A tech preview item can be a feature, a variable, or a value within a variable. 
 ## Write-set
 
 Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for [certification](#certification) and application. Write-set caching during long transactions is described in [Understand GCache and Record-Set cache](gcache-record-set-cache-difference.md).
+
+## wsrep
+
+Write Set REPlication. The Galera API and the related status and system variables that control cluster replication. See [Index of wsrep system variables](wsrep-system-index.md) and [Index of wsrep status variables](wsrep-status-index.md).
 
 ## UUID
 
