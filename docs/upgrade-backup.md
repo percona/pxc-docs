@@ -33,5 +33,5 @@ To create the 2nd and subsequent nodes, follow these steps:
 
 2. Join the cluster using State Snapshot Transfer (SST).
 
-Starting from version 8.0.34, this procedure can also be used to downgrade within the same LTS version.
+This procedure can also be used to downgrade within the same LTS version.
 

@@ -21,10 +21,10 @@ Make a full backup (or dump if possible) of your database. Move the database con
         The following example downloads Percona Server for MySQL {{release}} packages for Debian 11.0:
 
         ```shell
-        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/bullseye/x86_64/Percona-Server-{{release}}-r582ebeef-bullseye-x86_64-bundle.tar
+        wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/debian/bullseye/x86_64/Percona-Server-{{release}}-rd76e81f4-bullseye-x86_64-bundle.tar
         ```
 
-    4. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-x86_64-bundle.tar`.
+    4. Unpack the bundle to get the packages: `tar xvf Percona-Server-{{release}}-rd76e81f4-bullseye-x86_64-bundle.tar`.
 
         After you unpack the bundle, you should see the following packages:
 
@@ -107,13 +107,13 @@ Make a full backup (or dump if possible) of your database. Move the database con
     3. Download the packages of the desired series for your architecture from the [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads). The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL {{release}} packages for CentOS 9:
 
         ```shell
-        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-r582ebeef-el9-x86_64-bundle.tar
+        wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/redhat/9/x86_64/Percona-Server-{{release}}-rd76e81f4-el9-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages
 
         ```shell
-        tar xvf Percona-Server-{{release}}-r582ebeef-el9-x86_64-bundle.tar
+        tar xvf Percona-Server-{{release}}-rd76e81f4-el9-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages: `ls \*.rpm`

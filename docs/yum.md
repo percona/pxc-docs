@@ -11,7 +11,7 @@ You can install Percona XtraDB Cluster with the following methods:
 
 * Use the official repository using YUM
 
-* Download and manually install the Percona XtraDB Cluster packages from [Percona Software Downloads :octicons-link-external-16:](http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/).
+* Download and manually install the Percona XtraDB Cluster packages from [Percona Software Downloads :octicons-link-external-16:](https://www.percona.com/downloads/).
 
 * Use the Percona Software repositories 
 
@@ -47,7 +47,7 @@ sudo yum module disable mysql
 
 ```shell
 sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-sudo percona-release setup pxc-84-lts
+sudo percona-release setup {{pkg}}
 sudo yum install percona-xtradb-cluster
 ```
 
@@ -86,7 +86,7 @@ Next, install the Percona repository and the cluster.
 
 ```shell
 sudo dnf install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
-sudo percona-release setup pxc-84-lts
+sudo percona-release setup {{pkg}}
 sudo dnf install percona-xtradb-cluster
 ```
 
