@@ -6139,19 +6139,7 @@ for manual installation:</p>
 <li><a href="#tarball-install-from-binary-tarball">Installing Percona XtraDB Cluster from Binary Tarball</a></li>
 </ul>
 <p>If you want to build Percona XtraDB Cluster from source, see <a href="#compile-compile">Compiling and Installing from Source Code</a>.</p>
-<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker">Run in a Docker container</a>.</p>
-<h2 id="install-index-product-version-numbering">Product version numbering<a class="headerlink" href="#install-index-product-version-numbering" title="Permanent link">&para;</a></h2>
-<p>The version number in PXC releases contains the following components:</p>
-<ul>
-<li>
-<p>The version of Percona Server for MySQL that the given PXC release is based on</p>
-</li>
-<li>
-<p>The sequence number which represents the PXC built.</p>
-</li>
-</ul>
-<p>For example, version number <em>8.0.18-9.3</em> means that this is the third PXC
-build based on Percona Server for MySQL 8.0.18-9.</p></section><section class="print-page" id="download-instructions" heading-number="7.2"><h1 id="download-instructions-percona-software-download-instructions">Percona Software Download instructions<a class="headerlink" href="#download-instructions-percona-software-download-instructions" title="Permanent link">&para;</a></h1>
+<p>If you want to run Percona XtraDB Cluster using Docker, see <a href="#docker">Run in a Docker container</a>.</p></section><section class="print-page" id="download-instructions" heading-number="7.2"><h1 id="download-instructions-percona-software-download-instructions">Percona Software Download instructions<a class="headerlink" href="#download-instructions-percona-software-download-instructions" title="Permanent link">&para;</a></h1>
 <h2 id="download-instructions-select-the-software">Select the software<a class="headerlink" href="#download-instructions-select-the-software" title="Permanent link">&para;</a></h2>
 <p>Do the following steps to select the software:</p>
 <ol>
@@ -6299,7 +6287,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 <p>Use the official repository using YUM</p>
 </li>
 <li>
-<p>Download and manually install the Percona XtraDB Cluster packages from <a href="http://www.percona.com/downloads/Percona-XtraDB-Cluster-80/LATEST/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>Download and manually install the Percona XtraDB Cluster packages from <a href="https://www.percona.com/downloads/">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </li>
 <li>
 <p>Use the Percona Software repositories </p>
@@ -8006,7 +7994,7 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <p>Join the cluster using State Snapshot Transfer (SST).</p>
 </li>
 </ol>
-<p>Starting from version 8.0.34, this procedure can also be used to downgrade within the same LTS version.</p></section><section class="print-page" id="upgrade-packages" heading-number="8.3"><h1 id="upgrade-packages-upgrade-cluster-from-packages">Upgrade cluster from packages<a class="headerlink" href="#upgrade-packages-upgrade-cluster-from-packages" title="Permanent link">&para;</a></h1>
+<p>This procedure can also be used to downgrade within the same LTS version.</p></section><section class="print-page" id="upgrade-packages" heading-number="8.3"><h1 id="upgrade-packages-upgrade-cluster-from-packages">Upgrade cluster from packages<a class="headerlink" href="#upgrade-packages-upgrade-cluster-from-packages" title="Permanent link">&para;</a></h1>
 <p>Make a full backup (or dump if possible) of your database. Move the database configuration file, <code>my.cnf</code>, to another direction to save it. Stop the server with <code>/etc/init.d/mysql stop</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="upgrade-packages-__tabbed_1_1" name="upgrade-packages-__tabbed_1" type="radio" /><input id="upgrade-packages-__tabbed_1_2" name="upgrade-packages-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="upgrade-packages-__tabbed_1_1">Debian-derived distribution</label><label for="upgrade-packages-__tabbed_1_2">Red Hat-derived distributions</label></div>
 <div class="tabbed-content">
@@ -8035,11 +8023,11 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 </li>
 </ul>
 <p>The following example downloads Percona Server for MySQL 8.4.10-10 packages for Debian 11.0:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-8.4.10-10/binary/debian/bullseye/x86_64/Percona-Server-8.4.10-10-r582ebeef-bullseye-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.10-10/binary/debian/bullseye/x86_64/Percona-Server-8.4.10-10-rd76e81f4-bullseye-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
-<p>Unpack the bundle to get the packages: <code>tar xvf Percona-Server-8.4.10-10-x86_64-bundle.tar</code>.</p>
+<p>Unpack the bundle to get the packages: <code>tar xvf Percona-Server-8.4.10-10-rd76e81f4-bullseye-x86_64-bundle.tar</code>.</p>
 <p>After you unpack the bundle, you should see the following packages:</p>
 <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.deb
 </code></pre></div>
@@ -8112,12 +8100,12 @@ percona-server-server-8.4.10-10.el9.x86_64
 </li>
 <li>
 <p>Download the packages of the desired series for your architecture from the <a href="https://www.percona.com/downloads">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 8.4.10-10 packages for CentOS 9:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-8.4.10-10/binary/redhat/9/x86_64/Percona-Server-8.4.10-10-r582ebeef-el9-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.10-10/binary/redhat/9/x86_64/Percona-Server-8.4.10-10-rd76e81f4-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.10-10-r582ebeef-el9-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.10-10-rd76e81f4-el9-x86_64-bundle.tar
 </code></pre></div>
 <p>After you unpack the bundle, you should see the following packages: <code>ls \*.rpm</code></p>
 </li>
