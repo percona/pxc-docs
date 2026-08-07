@@ -173,7 +173,8 @@ nav:
   - Home: index.md
   - get-help.md
   - Release notes:
-      - Release notes index: release-notes/release-notes_index.md
+      - Release notes index: release-notes/release-notes-index.md
+      - 9.7.1-1.md
   - Introduction:
       - intro.md
       - limitation.md
