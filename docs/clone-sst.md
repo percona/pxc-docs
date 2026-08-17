@@ -108,6 +108,10 @@ clone_ssl_key = /path/to/client-key.pem
 
 Ensure the `<path>` used is not the data directory to avoid conflicts during the Clone SST process.
 
+## Clone SST temporary password
+
+When `wsrep_sst_method=clone`, the joiner creates a temporary password for the short-lived `clone_sst` account used during SST. The donor uses the same password to connect to the joiner. If `validate_password` is enabled, the temporary password must meet the policy on both the joiner and the donor. Configure adjustments on the joiner. The password may contain only characters that are safe for the SST credential handshake (`user:password@host:port`). Characters such as `@`, `:`, quotes, and spaces are not allowed.
+
 ## Variables
 
 ### SST variables
