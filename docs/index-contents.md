@@ -57,7 +57,7 @@
   - [Set up Galera arbitrator](garbd-howto.md)
   - [Streaming replication for large transactions](streaming-replication.md)
   - [State snapshot transfer](state-snapshot-transfer.md)
-  - [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md)
+  - [State Snapshot Transfer method with the Clone plugin](clone-sst.md)
   - [Telemetry on Percona XtraDB Cluster](telemetry.md)
   - [Trademark policy](trademark-policy.md)
   - [Understand GCache and Record-Set cache](gcache-record-set-cache-difference.md)

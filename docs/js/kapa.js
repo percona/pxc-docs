@@ -77,7 +77,7 @@
 
         script.setAttribute(
             "data-modal-example-questions",
-            "How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+            "How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer method with the Clone plugin?"
         );
 
         script.setAttribute(

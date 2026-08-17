@@ -1,64 +1,67 @@
-# State Snapshot Transfer (SST) Method using Clone plugin
+# State Snapshot Transfer method with the Clone plugin
 
+## Overview
 
-## SST Method: Clone
+Clone State Snapshot Transfer (SST) is available in Percona XtraDB Cluster (PXC) 8.4.4-4 and later.
 
-Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a modern and efficient method that leverages MySQL's native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.
+Clone SST uses the MySQL Clone plugin to copy data from a Donor node to a Joiner node.
+
+Clone SST transfers data at the file level.
+
+Clone SST uses fewer resources than `xtrabackup` or `rsync`.
 
 ## Limitations
 
-Clone limitations are described in [Clone plugin limitations :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/clone-plugin.html)
+See [Clone plugin limitations :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/clone-plugin.html).
 
 ## Key features
 
-| Feature                 | Description                                                 |
-|-------------------------|-------------------------------------------------------------|
-| Efficient data transfer | The clone plugin transfers data at the file level, reducing overhead. |
-| Consistency            | Ensures data consistency between the donor and Joiner nodes. |
-| Minimal Downtime       | Reduces the time required for node synchronization.         |
-| Native Integration     | Fully integrated into MySQL, eliminating the need for external tools. |
+| Feature | Description |
+|---------|-------------|
+| File-level transfer | The Clone plugin copies data files with less overhead |
+| Consistency | The Donor and Joiner keep consistent data |
+| Shorter sync time | Node synchronization takes less time |
+| Native MySQL support | The method uses MySQL. External tools are not required |
 
 ## Prerequisites
 
-The requirements for enabling SST transfers with the Clone plugin are as follows:
+Clone SST requires the following:
 
-* Percona XtraDB Cluster (PXC) version 8.4.4-4 or later
+* Percona XtraDB Cluster 8.4.4-4 or later
 
-* Sufficient disk space and network bandwidth for data transfer
+* Enough disk space and network bandwidth for the data transfer
 
-* Properly configured PXC cluster with at least one donor node
+* A configured PXC cluster with at least one Donor node
 
-* NetCat package installed
+* The NetCat package
 
-* The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes when you use Percona Xtrabackup SST
+* Port `4444` open for SST data transfer by default
 
 ## Best practices
 
-The following best practices are for using SST with the Clone plugin:
-
-| Recommendation           | Description                                                                                  |
-|-------------------------------|--------------------------------------------------------------------------------------------------|
-| Choose a Suitable Donor       | Select a Donor node with low load and sufficient resources to avoid performance degradation.     |
-| Monitor Resources             | Monitor CPU, memory, and disk usage during the SST process.                                      |
-| Test in Staging               | Test the SST process in a staging environment before deploying it in production.                 |
+| Recommendation | Description |
+|----------------|-------------|
+| Select a suitable Donor | Choose a Donor with low load and enough resources |
+| Monitor resource use | Track CPU, memory, and disk use during SST |
+| Test before production | Run Clone SST in a staging environment first |
 
 ## Process outline
 
-A high-level outline of the process:
+The following diagram shows the Clone SST process:
 
 <div style="text-align: center;">
   <img src="./_static/clone-sst-process.png" alt="Clone SST process" width="200" />
 </div>
 
-## Enable the Clone SST Method
-
-The Clone State Snapshot Transfer (SST) method in Percona XtraDB Cluster allows for efficient data synchronization between nodes. Proper configuration of this method ensures smooth and reliable cluster operations. This section explains how to enable the Clone SST method, including necessary variable settings and SSL configuration for secure data transfer.
+## Enable the Clone SST method
 
 ### Donor and Joiner
 
-To enable the `clone` SST method, ensure the [`wsrep_sst_allowed_methods`](wsrep-system-index.md#wsrep_sst_allowed_methods) variable in the configuration file (`my.cnf`) includes the `clone` method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).
+Set [`wsrep_sst_allowed_methods`](wsrep-system-index.md#wsrep_sst_allowed_methods) to include `clone` on the Donor and the Joiner.
 
-Starting from Percona XtraDB Cluster 8.4.4-4, the default value of `wsrep_sst_allowed_methods` includes `clone`, which removes the need to configure this option manually in most cases.
+From PXC 8.4.4-4, the default value of `wsrep_sst_allowed_methods` includes `clone`.
+
+In most cases, you do not need to set this option manually.
 
 ```text
 [mysqld]
@@ -67,73 +70,109 @@ wsrep_sst_allowed_methods = xtrabackup-v2,clone
 
 ### Joiner
 
-On the Joiner server, set the [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable to `clone` in the configuration file (`my.cnf`). This setting is the only accepted value for the Clone SST process.
+On the Joiner, set [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) to `clone` in `my.cnf`.
+
+`clone` is the only accepted value for Clone SST.
 
 ```text
 [mysqld]
 wsrep_sst_method = clone
 ```
 
-### Additional Information
+### Read-only SST variables
 
-The `wsrep_sst_allowed_methods` and `wsrep_sst_method` variables are read-only and cannot be modified at runtime. You must set them in the configuration file before starting the server. Attempting to change these variables while the server is running will result in errors and may cause inconsistencies during node synchronization operations.
+`wsrep_sst_allowed_methods` and `wsrep_sst_method` are read-only at runtime.
 
-For Percona XtraDB Cluster, any variables related to the SST mechanism, such as `wsrep_sst_allowed_methods` and `wsrep_sst_method`, must be defined before the  server startup to ensure proper synchronization.
+Set these variables in `my.cnf` before you start the server.
+
+A change while the server runs causes errors and can break node synchronization.
 
 ## Enable SSL for Clone SST
 
-To enable SSL for the Clone SST process, place the SSL certificates in a directory other than the data directory, as the clone process modifies this directory.
+Store SSL certificates outside the data directory.
 
-We recommend explicitly setting the SSL certificates in the `my.cnf` file as follows:
+The Clone process changes the data directory.
+
+Set the SSL certificates in `my.cnf`:
 
 ```text
 [client]
-ssl-ca = /<path>/ca.pem
-ssl-cert = /<path>/client-cert.pem
-ssl-key = /<path>/client-key.pem
+ssl-ca = /<PATH>/ca.pem
+ssl-cert = /<PATH>/client-cert.pem
+ssl-key = /<PATH>/client-key.pem
 [mysqld]
-ssl-ca = /<path>/ca.pem
-ssl-cert = /<path>/server-cert.pem
-ssl-key = /<path>/server-key.pem
+ssl-ca = /<PATH>/ca.pem
+ssl-cert = /<PATH>/server-cert.pem
+ssl-key = /<PATH>/server-key.pem
 ```
 
-Alternatively, you can configure the following SSL settings specifically for the Clone SST process on the Joiner:
+You can also set Clone-specific SSL options on the Joiner:
 
 ```text
 [mysqld]
-clone_ssl_ca = /path/to/ca.pem
-clone_ssl_cert = /path/to/client-cert.pem
-clone_ssl_key = /path/to/client-key.pem
+clone_ssl_ca = /<PATH>/ca.pem
+clone_ssl_cert = /<PATH>/client-cert.pem
+clone_ssl_key = /<PATH>/client-key.pem
 ```
 
-Ensure the `<path>` used is not the data directory to avoid conflicts during the Clone SST process.
+Do not set `<PATH>` to the data directory.
 
 ## Clone SST temporary password
 
-When [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is `clone`, the Joiner creates a temporary password for the short-lived `clone_sst` account used during SST. The Donor uses the same password when it connects back to the Joiner.
+When `wsrep_sst_method` is `clone`, the Joiner creates a temporary password for the short-lived `clone_sst` account.
 
-If [`validate_password` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/validate-password.html) is enabled, that password must meet the policy on both the Joiner and the Donor. Configure adjustments on the Joiner.
+The Donor uses the same password to connect back to the Joiner.
 
-The password may contain only characters that are safe for the SST credential handshake (`user:password@host:port`). Characters such as `@`, `:`, quotes, and spaces are not allowed.
+If [`validate_password` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/validate-password.html) is enabled, the password must meet the policy on the Joiner and the Donor.
+
+Configure password adjustments on the Joiner.
+
+The password may use only characters that are safe for the SST credential handshake (`user:password@host:port`).
 
 ### Default password
 
-By default, no extra configuration is needed. The generated password is 36 characters long and contains at least one uppercase letter, one lowercase letter, one digit, and one special character (`.`). This composition is usually enough for basic `validate_password` settings.
+The default password needs no extra configuration.
+
+The default password includes the following:
+
+* Length: 36 characters
+
+* At least one uppercase letter
+
+* At least one lowercase letter
+
+* At least one digit
+
+* At least one special character (`.`)
+
+This default password meets most basic `validate_password` settings.
 
 ### Adjust the password for stricter validate_password rules
 
-If your policy is stricter (for example, a longer minimum length or higher mixed-case, digit, or special-character requirements), add a suffix in `my.cnf` on the Joiner:
+For a stricter policy, add a suffix in `my.cnf` on the Joiner.
+
+Examples of stricter rules include a longer minimum length or higher mixed-case, digit, or special-character counts.
 
 ```text
 [sst]
 sst-password-suffix=AAA..//2344
 ```
 
-The suffix is appended to the default generated password. Both `sst-password-suffix` and `sst_password_suffix` are accepted.
+The suffix is appended to the default generated password.
 
-Allowed characters in the suffix are letters (`A-Z`, `a-z`), digits (`0-9`), and these special characters only: `.` `_` `/` `-`. Other characters (including `+`, `=`, spaces, quotes, `@`, `:`, and commas) are not allowed and cause SST to fail early.
+Both `sst-password-suffix` and `sst_password_suffix` are accepted.
 
-For a policy like the following:
+Allowed characters in the suffix are the following:
+
+* Letters (`A-Z`, `a-z`)
+
+* Digits (`0-9`)
+
+* Special characters: `.` `_` `/` `-`
+
+Other characters cause SST to fail early.
+
+Example policy:
 
 ```text
 validate_password.length = 40
@@ -142,42 +181,48 @@ validate_password.number_count = 3
 validate_password.special_char_count = 2
 ```
 
-you might use:
+Example suffix for that policy:
 
 ```text
 [sst]
 sst-password-suffix=AAA..//2344
 ```
 
-Adjust the suffix to match your site's policy. The final password must pass validation on both the Donor and the Joiner.
+Match the suffix to your site policy.
 
-Configure `sst-password-suffix` on the Joiner only. The Donor receives the final password from the Joiner during SST.
+The final password must pass validation on the Donor and the Joiner.
+
+Configure `sst-password-suffix` on the Joiner only.
+
+The Donor receives the final password from the Joiner during SST.
 
 ## Variables
 
 ### SST variables
 
-State Snapshot Transfer (SST) in Galera Cluster relies on specific variables that control its configuration and behavior. You must set these variables appropriately to ensure seamless synchronization between nodes during the SST process. The following lists of the most commonly used variables and their purposes.
+Set the following variables for SST:
 
-| Variable                        | Description                                                                                                   | Link                                      |
-|---------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------|
-| `sst_idle_timeout`              | Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. You must define this variable in the `[sst]` section of the `my.cnf` file. |  |
-| `wsrep_sst_donor`               | Defines the preferred donor node for SST. If not specified, the cluster automatically selects a donor.      | [Learn more](wsrep-system-index.md#wsrep_sst_donor) |
-| `wsrep_sst_method`              | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected. | [Learn more](wsrep-system-index.md#wsrep_sst_method) |
-| `wsrep_sst_receive_address`     | Specifies the IP address and port on the Joiner node to receive SST data.                                   | [Learn more](wsrep-system-index.md#wsrep_sst_receive_address) |
+| Variable | Description | Link |
+|----------|-------------|------|
+| `sst_idle_timeout` | Maximum idle time in seconds before SST fails. Set this option in the `[sst]` section of `my.cnf`. | |
+| `wsrep_sst_donor` | Preferred Donor for SST. If unset, the cluster selects a Donor. | [Learn more](wsrep-system-index.md#wsrep_sst_donor) |
+| `wsrep_sst_method` | SST method. Only one value is allowed. | [Learn more](wsrep-system-index.md#wsrep_sst_method) |
+| `wsrep_sst_receive_address` | IP address and port on the Joiner that receives SST data. | [Learn more](wsrep-system-index.md#wsrep_sst_receive_address) |
 
-### Timeout and password variables
+### Timeout and password options
 
-During the Clone SST process, there are three key moments when the Joiner or Donor must wait for the other to complete a specific action. These moments are governed by the following configurable timeout variables. You can also set an optional password suffix for `validate_password` compliance.
+Clone SST uses the following wait points between the Joiner and the Donor.
 
-| Variable                          | Default | Description                                                                                                                                                       |
-|-----------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `joiner-timeout-wait-donor-message` | 60 | Seconds the Joiner waits for the Donor SST/IST message. If the timeout is reached, the process aborts. |
-| `joiner-timeout-clone-instance`    | 90 | Seconds the Joiner waits for the clone recipient to accept connections. If the timeout is reached, the process aborts. |
-| `donor-timeout-wait-joiner`       | 200 | Seconds the Donor waits for the Joiner clone instance. In slower systems, this value may need to be increased. The Donor log will provide a countdown and indicate if a timeout occurs. |
-| `sst-password-suffix`             | empty | Optional suffix appended to the default Clone SST temporary password so the final password meets stricter `validate_password` rules. Configure on the Joiner only. Both `sst-password-suffix` and `sst_password_suffix` are accepted. |
+You can also set an optional password suffix for `validate_password`.
 
-These options can be configured in the `my.cnf` file as follows:
+| Option | Default | Description |
+|--------|---------|-------------|
+| `joiner-timeout-wait-donor-message` | 60 | Seconds the Joiner waits for the Donor SST or Incremental State Transfer (IST) message. The process stops when the timeout is reached. |
+| `joiner-timeout-clone-instance` | 90 | Seconds the Joiner waits for the clone recipient to accept connections. The process stops when the timeout is reached. |
+| `donor-timeout-wait-joiner` | 200 | Seconds the Donor waits for the Joiner clone instance. Increase this value on slower systems. The Donor log shows a countdown and a timeout message. |
+| `sst-password-suffix` | empty | Optional suffix appended to the default Clone SST temporary password. Use this option so the final password meets stricter `validate_password` rules. Configure this option on the Joiner only. Both `sst-password-suffix` and `sst_password_suffix` are accepted. |
+
+Example configuration:
 
 ```text
 [sst]
@@ -189,25 +234,26 @@ sst-password-suffix=AAA..//2344
 
 ## Debug the process
 
-In the same context, if you must debug the process and need more information, you can enable the debug output in my.cnf:
+To write more debug output, set the following option in `my.cnf`:
 
 ```text
 [sst]
 wsrep-debug=true
 ```
 
-The default port used by the SST process is 4444.
+The default SST port is 4444.
 
 ## Monitor the process
 
-The Joiner log reports the clone process as a `% of the data transfer completed`.
-The query used is:
+The Joiner log reports Clone progress as a percent of data transfer complete.
+
+Use the following query:
 
 ```shell
 SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';
 ```
 
-For more information on the progress, you can also use the query:
+To check status and errors, use the following query:
 
 ```shell
 SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
@@ -215,15 +261,14 @@ SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
 
 ## Troubleshoot
 
-| Problem | Possible Cause | Solution |
-|---------|---------------|----------|
-| Clone operation fails | Network interruptions | Ensure stable network connection between nodes and sufficient bandwidth for data transfer |
-| Clone operation times out | Insufficient timeout values | Increase the timeout values in the `[sst]` section of my.cnf |
-| "No space left on device" error | Insufficient disk space | Verify that both donor and Joiner nodes have at least 1.5x the database size in free disk space |
-| Permission denied errors | Incorrect MySQL user privileges | Ensure the MySQL user has CLONE_ADMIN privileges on both nodes |
-| Connection refused on port 4444 | Firewall blocking traffic | Check firewall settings to allow traffic on port 4444 between cluster nodes |
-| Certificate validation failure | Incorrect SSL configuration | Verify SSL certificates are properly configured and accessible in non-data directories |
-| Clone plugin not found | Plugin not installed | Install the clone plugin using `INSTALL PLUGIN clone SONAME 'mysql_clone.so'` |
-| Data inconsistency after clone | Interrupted clone process | Check MySQL error logs and restart the clone process |
-| Password validation failure during Clone SST | `validate_password` policy stricter than the default temporary password | Set `sst-password-suffix` on the Joiner so the final password meets the policy on both nodes. Use only allowed suffix characters. |
-
+| Problem | Possible cause | Solution |
+|---------|----------------|----------|
+| Clone operation fails | Network interruptions | Confirm a stable network and enough bandwidth between nodes |
+| Clone operation times out | Timeout values are too low | Increase the timeout values in the `[sst]` section of `my.cnf` |
+| "No space left on device" error | Not enough disk space | Confirm that the Donor and Joiner each have free disk space of at least 1.5 times the database size |
+| Permission denied errors | Incorrect MySQL user privileges | Grant `CLONE_ADMIN` to the MySQL user on both nodes |
+| Connection refused on port 4444 | Firewall blocks traffic | Allow traffic on port 4444 between cluster nodes |
+| Certificate validation failure | Incorrect SSL configuration | Confirm that SSL certificates are valid and stored outside the data directory |
+| Clone plugin not found | Plugin is not installed | Install the plugin with `INSTALL PLUGIN clone SONAME 'mysql_clone.so'` |
+| Data inconsistency after clone | Interrupted clone process | Check the MySQL error logs and restart the clone process |
+| Password validation failure during Clone SST | `validate_password` policy is stricter than the default temporary password | Set `sst-password-suffix` on the Joiner so the final password meets the policy on both nodes. Use only allowed suffix characters. |

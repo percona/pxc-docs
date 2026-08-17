@@ -64,7 +64,7 @@ Learn about how Percona XtraDB Cluster delivers high availability.
 
 </div><div data-banner markdown>
 
-## :fontawesome-solid-gears: State Snapshot Transfer (SST) Method using Clone plugin { .title }
+## :fontawesome-solid-gears: State Snapshot Transfer method with the Clone plugin { .title }
 
 Learn about a modern and efficient method that leverages MySQL’s native cloning capabilities to transfer data from a donor node to a Joiner node.
 

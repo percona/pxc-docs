@@ -6,7 +6,7 @@ First step: Use Clone SST if you are not already. Set `wsrep_sst_method=clone` a
 
 ## Use Clone SST first (recommended for small-to-mid datasets)
 
-In PXC 8.4, the Clone plugin is the main stability improvement for rejoining: set `wsrep_sst_method=clone` and the joiner gets a full copy from a donor with a single restart—no grastate.dat editing, no xtrabackup-v2 scripts, and far fewer failure modes. For full setup, SSL, and options, see [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md).
+In PXC 8.4, the Clone plugin is the main stability improvement for rejoining: set `wsrep_sst_method=clone` and the joiner gets a full copy from a donor with a single restart—no grastate.dat editing, no xtrabackup-v2 scripts, and far fewer failure modes. For full setup, SSL, and options, see [State Snapshot Transfer method with the Clone plugin](clone-sst.md).
 
 1. On every node (donor and joiner), set [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) and [`wsrep_sst_allowed_methods`](wsrep-system-index.md#wsrep_sst_allowed_methods) in the configuration file (read-only at runtime; must be in `my.cnf` before startup):
 
@@ -16,7 +16,7 @@ In PXC 8.4, the Clone plugin is the main stability improvement for rejoining: se
    wsrep_sst_allowed_methods = xtrabackup-v2,clone
    ```
 
-2. Meet the [Clone SST prerequisites](clone-sst.md#prerequisites) (Clone plugin, privileges, disk space, SSL if used). See [Enable the Clone SST Method](clone-sst.md#enable-the-clone-sst-method).
+2. Meet the [Clone SST prerequisites](clone-sst.md#prerequisites) (Clone plugin, privileges, disk space, SSL if used). See [Enable the Clone SST method](clone-sst.md#enable-the-clone-sst-method).
 
 3. Restart the joiner. If the node will do a full SST, increase the [systemd start timeout](environmental-blockers.md#systemd-timeout-the-silent-killer) first. For many restarts, the node joins without grastate surgery or security tweaks.
 
@@ -91,7 +91,7 @@ On a donor, run `SHOW STATUS LIKE 'wsrep_last_committed'` and `SHOW STATUS LIKE 
 
 ## Clone SST in detail
 
-Full setup (SSL, timeouts, prerequisites) is in [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md).
+Full setup (SSL, timeouts, prerequisites) is in [State Snapshot Transfer method with the Clone plugin](clone-sst.md).
 
 ## PXC 8.4: applier threads and replica timers
 

@@ -6,7 +6,7 @@ However, there are scenarios where the database service can stop with no node be
 
 !!! note "PXC 8.4 and full state transfer"
 
-    When this page says a full [SST](glossary.md#sst), PXC 8.4 usually delivers that with the MySQL Clone plugin if [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is `clone`; otherwise the configured method (for example `xtrabackup-v2`) runs. The cluster behavior is the same—a full copy from a donor—only the mechanism differs. See [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md) and [SST/Clone failure recovery](sst-clone-failure-recovery.md).
+    When this page says a full [SST](glossary.md#sst), PXC 8.4 usually delivers that with the MySQL Clone plugin if [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is `clone`; otherwise the configured method (for example `xtrabackup-v2`) runs. The cluster behavior is the same—a full copy from a donor—only the mechanism differs. See [State Snapshot Transfer method with the Clone plugin](clone-sst.md) and [SST/Clone failure recovery](sst-clone-failure-recovery.md).
 
 ## Scenario 1: Node A is gracefully stopped
 
