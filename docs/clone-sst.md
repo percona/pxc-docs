@@ -108,6 +108,51 @@ clone_ssl_key = /path/to/client-key.pem
 
 Ensure the `<path>` used is not the data directory to avoid conflicts during the Clone SST process.
 
+## Clone SST temporary password
+
+When [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) is `clone`, the Joiner creates a temporary password for the short-lived `clone_sst` account used during SST. The Donor uses the same password when it connects back to the Joiner.
+
+If [`validate_password` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/validate-password.html) is enabled, that password must meet the policy on both the Joiner and the Donor. Configure adjustments on the Joiner.
+
+The password may contain only characters that are safe for the SST credential handshake (`user:password@host:port`). Characters such as `@`, `:`, quotes, and spaces are not allowed.
+
+### Default password
+
+By default, no extra configuration is needed. The generated password is 36 characters long and contains at least one uppercase letter, one lowercase letter, one digit, and one special character (`.`). This composition is usually enough for basic `validate_password` settings.
+
+### Adjust the password for stricter validate_password rules
+
+If your policy is stricter (for example, a longer minimum length or higher mixed-case, digit, or special-character requirements), add a suffix in `my.cnf` on the Joiner:
+
+```text
+[sst]
+sst-password-suffix=AAA..//2344
+```
+
+The suffix is appended to the default generated password. Both `sst-password-suffix` and `sst_password_suffix` are accepted.
+
+Allowed characters in the suffix are letters (`A-Z`, `a-z`), digits (`0-9`), and these special characters only: `.` `_` `/` `-`. Other characters (including `+`, `=`, spaces, quotes, `@`, `:`, and commas) are not allowed and cause SST to fail early.
+
+For a policy like the following:
+
+```text
+validate_password.length = 40
+validate_password.mixed_case_count = 7
+validate_password.number_count = 3
+validate_password.special_char_count = 2
+```
+
+you might use:
+
+```text
+[sst]
+sst-password-suffix=AAA..//2344
+```
+
+Adjust the suffix to match your site's policy. The final password must pass validation on both the Donor and the Joiner.
+
+Configure `sst-password-suffix` on the Joiner only. The Donor receives the final password from the Joiner during SST.
+
 ## Variables
 
 ### SST variables
@@ -121,23 +166,25 @@ State Snapshot Transfer (SST) in Galera Cluster relies on specific variables tha
 | `wsrep_sst_method`              | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected. | [Learn more](wsrep-system-index.md#wsrep_sst_method) |
 | `wsrep_sst_receive_address`     | Specifies the IP address and port on the Joiner node to receive SST data.                                   | [Learn more](wsrep-system-index.md#wsrep_sst_receive_address) |
 
-### Timeout variables
+### Timeout and password variables
 
-During the Clone SST process, there are three key moments when the Joiner or Donor must wait for the other to complete a specific action. These moments are governed by the following configurable timeout variables:
+During the Clone SST process, there are three key moments when the Joiner or Donor must wait for the other to complete a specific action. These moments are governed by the following configurable timeout variables. You can also set an optional password suffix for `validate_password` compliance.
 
-| Variable                          | Description                                                                                                                                                       |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `joiner_timeout_wait_donor_message` | Determines how long (in seconds) the Joiner waits for the Donor to respond, indicating whether the action to perform is SST or IST. The default value is 60 seconds, which is usually sufficient. If the timeout is reached, the process aborts. |
-| `donor_timeout_wait_joiner`       | Specifies how long (in seconds) the Donor waits for the Joiner to initialize the MySQL instance. The default value is 200 seconds. In slower systems, this value may need to be increased. The Donor log will provide a countdown and indicate if a timeout occurs. If the timeout is reached, the process aborts. |
-| `joiner_timeout_clone_instance`    | Sets the time (in seconds) the Joiner waits to detect the MySQL instance where the Clone action will take place. The default value is 90 seconds. If the timeout is reached, the process aborts.             |
+| Variable                          | Default | Description                                                                                                                                                       |
+|-----------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `joiner-timeout-wait-donor-message` | 60 | Seconds the Joiner waits for the Donor SST/IST message. If the timeout is reached, the process aborts. |
+| `joiner-timeout-clone-instance`    | 90 | Seconds the Joiner waits for the clone recipient to accept connections. If the timeout is reached, the process aborts. |
+| `donor-timeout-wait-joiner`       | 200 | Seconds the Donor waits for the Joiner clone instance. In slower systems, this value may need to be increased. The Donor log will provide a countdown and indicate if a timeout occurs. |
+| `sst-password-suffix`             | empty | Optional suffix appended to the default Clone SST temporary password so the final password meets stricter `validate_password` rules. Configure on the Joiner only. Both `sst-password-suffix` and `sst_password_suffix` are accepted. |
 
-These timeout variables can be configured in the `my.cnf` file as follows:
+These options can be configured in the `my.cnf` file as follows:
 
 ```text
 [sst]
-joiner_timeout_wait_donor_message=60
-donor_timeout_wait_Joiner=200
-joiner_timeout_clone_instance=90
+joiner-timeout-wait-donor-message=60
+donor-timeout-wait-joiner=200
+joiner-timeout-clone-instance=90
+sst-password-suffix=AAA..//2344
 ```
 
 ## Debug the process
@@ -178,4 +225,5 @@ SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
 | Certificate validation failure | Incorrect SSL configuration | Verify SSL certificates are properly configured and accessible in non-data directories |
 | Clone plugin not found | Plugin not installed | Install the clone plugin using `INSTALL PLUGIN clone SONAME 'mysql_clone.so'` |
 | Data inconsistency after clone | Interrupted clone process | Check MySQL error logs and restart the clone process |
+| Password validation failure during Clone SST | `validate_password` policy stricter than the default temporary password | Set `sst-password-suffix` on the Joiner so the final password meets the policy on both nodes. Use only allowed suffix characters. |
 
