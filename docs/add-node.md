@@ -1,53 +1,32 @@
 # Add nodes to cluster
 
-New nodes that are [properly configured](configure-nodes.md#configure-nodes-for-write-set-replication) are provisioned
-automatically.  When you start a node with the address of at least one other
-running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
+Percona XtraDB Cluster uses the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluster_address) variable to determine how a node starts. An empty value initializes the first node and starts the cluster. See [Bootstrap the first node](bootstrap.md). A value with the address of at least one running node adds the new node to an existing cluster. Percona XtraDB Cluster provisions properly configured new nodes automatically.
 
 !!! note
 
-    Existing data and configuration will be replaced to align with those of the 
-    DONOR node. To minimize traffic overhead, avoid joining multiple nodes 
-    simultaneously.
+    Before you add a node to the cluster, review the following:
 
-Percona XtraDB Cluster uses [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
+    * When a node joins the cluster, State Snapshot Transfer replaces its existing data and configuration with data from the DONOR node.
 
-## Generate and Copy SSL Certificates
+    * When multiple nodes join at the same time, network traffic increases. Add nodes one at a time.
 
-Before starting the nodes, ensure that you generate the SSL certificates on the 
-first node. All nodes must use identical key and certificate files to ensure 
-a consistent security setup. Store the certificates in `/etc/`, not in the 
-data directory. After generating the certificates, copy them to all other nodes.
+    * SSL certificates must exist on the first node and on every node you plan to add. Use identical key and certificate files on all nodes. See [Generate and copy SSL certificates](bootstrap.md#generate-and-copy-ssl-certificates).
 
-1. Generate the SSL certificates on the first node, `[root@pxc1 ~]#`:
+Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst). The [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method) variable is always set to `xtrabackup-v2`.
 
-    ```shell
-    openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
-    -x509 -days 365 -out /etc/server-cert.pem
-    ```
+## Start the first node
 
-    
-
-2. Copy the SSL certificates to the other nodes:
-
-    ```shell
-    scp /etc/server-key.pem pxc2:/etc/
-    scp /etc/server-cert.pem pxc2:/etc/
-    scp /etc/server-key.pem pxc3:/etc/
-    scp /etc/server-cert.pem pxc3:/etc/
-    ```
-
-    
+To start the first node, see [Bootstrap the first node](bootstrap.md). The first node initializes the cluster. Nodes added after the first node join an existing cluster.
 
 ## Start the second node
 
 Start the second node, `[root@pxc2 ~]#`, using the following command:
 
-```shell
+```sql
 systemctl start mysql
 ```
 
-After the server starts, it receives [SST](glossary.md#sst) automatically.
+The node starts and receives SST automatically.
 
 To check the status of the second node, `mysql@pxc2>`, run the following:
 
@@ -75,30 +54,30 @@ SHOW STATUS LIKE 'wsrep%';
     | wsrep_provider_vendor            | Codership Oy <info@codership.com>                |
     | wsrep_provider_version           | 4.3(r752664d)                                    |
     | wsrep_ready                      | ON                                               |
-    | ...                              | ...                                              | 
+    | ...                              | ...                                              |
     +----------------------------------+--------------------------------------------------+
     75 rows in set (0.00 sec)
     ```
 
-    
+The `SHOW STATUS` output confirms that the second node joined the cluster:
 
-The output of `SHOW STATUS` shows that the new node has been successfully
-added to the cluster.  The cluster size is now two nodes, it is the primary
-component, and it is fully connected and ready to receive write-set replication.
+* Cluster size: two nodes
 
-If the state of the second node is `Synced` as in the previous example, then
-the node received full [SST](glossary.md#sst) is synchronized with the cluster, and you can
-proceed to add the next node.
+* Cluster status: primary component
+
+* Connection status: fully connected and ready for write-set replication
+
+If the second node's state is `Synced`, the node received full [SST](glossary.md#sst) and synchronized with the cluster. This state matches the previous example. You can add the next node.
 
 !!! note
 
-    If the state of the node is `Joiner`, it means that SST hasn’t finished. Do not add new nodes until all others are in `Synced` state. 
+    If the node's state is `Joiner`, SST has not finished. Do not add new nodes until all other nodes reach `Synced` state.
 
-## Starting the Third Node
+## Start the third node
 
-To add the third node, `[root@pxc3 ~]#`, start it as usual:
+To add the third node, `[root@pxc3 ~]#`, start the node:
 
-```shell
+```sql
 systemctl start mysql
 ```
 
@@ -108,9 +87,13 @@ To check the status of the third node, `mysql@pxc3>`, run the following:
 SHOW STATUS LIKE 'wsrep%';
 ```
 
-The output shows that the new node has been successfully added to the
-cluster. Cluster size is now three nodes; it is the primary component, and it is
-fully connected and ready to receive write-set replication.
+The `SHOW STATUS` output confirms that the third node joined the cluster:
+
+* Cluster size: three nodes
+
+* Cluster status: primary component
+
+* Connection status: fully connected and ready for write-set replication
 
 ??? example "Expected output"
 
@@ -132,9 +115,6 @@ fully connected and ready to receive write-set replication.
     40 rows in set (0.01 sec)
     ```
 
-    
-
 ## Next steps
 
-When you add all nodes to the cluster, you can [verify replication](verify-replication.md#verify-replication) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.
-
+After you add all nodes to the cluster, [verify replication](verify-replication.md#verify-replication). Run queries and change data on different nodes. Confirm that the cluster synchronizes the changes across all nodes.
