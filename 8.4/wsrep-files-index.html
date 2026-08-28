@@ -3598,11 +3598,11 @@ at<span class="w"> </span><span class="m">4</span>
 <span class="c1">#160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup</span>
 Warning:<span class="w"> </span>this<span class="w"> </span>binlog<span class="w"> </span>is<span class="w"> </span>either<span class="w"> </span><span class="k">in</span><span class="w"> </span>use<span class="w"> </span>or<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>closed<span class="w"> </span>properly.
 ROLLBACK/*!*/<span class="p">;</span>
-BINLOG<span class="w"> </span><span class="s1">&#39;</span>
+BINLOG<span class="w"> </span><span class="s1">'</span>
 <span class="s1">nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
 <span class="s1">AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA</span>
 <span class="s1">ALfQ8hw=</span>
-<span class="s1">&#39;</span>/*!*/<span class="p">;</span>
+<span class="s1">'</span>/*!*/<span class="p">;</span>
 at<span class="w"> </span><span class="m">123</span>
 <span class="c1">#160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0</span>
 use<span class="w"> </span><span class="sb">`</span><span class="nb">test</span><span class="sb">`</span>/*!*/<span class="p">;</span>
@@ -3617,7 +3617,7 @@ SET<span class="w"> </span>@@session.lc_time_names<span class="o">=</span><span 
 SET<span class="w"> </span>@@session.collation_database<span class="o">=</span>DEFAULT/*!*/<span class="p">;</span>
 drop<span class="w"> </span>table<span class="w"> </span>t
 /*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">&#39;AUTOMATIC&#39;</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
+SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">'AUTOMATIC'</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
 DELIMITER<span class="w"> </span><span class="p">;</span>
 End<span class="w"> </span>of<span class="w"> </span>log<span class="w"> </span>file
 /*!50003<span class="w"> </span>SET<span class="w"> </span><span class="nv">COMPLETION_TYPE</span><span class="o">=</span>@OLD_COMPLETION_TYPE*/<span class="p">;</span>
@@ -3626,7 +3626,7 @@ End<span class="w"> </span>of<span class="w"> </span>log<span class="w"> </span>
 <p>This information can be used for checking the MySQL error log for the corresponding error message.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error &#39;Unknown table &#39;test&#39;&#39; on query. Default database: &#39;test&#39;. Query: &#39;drop table test&#39;, Error_code: 1051
+<div class="highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
 160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
 </code></pre></div>
 </details>
@@ -3704,7 +3704,7 @@ cert_index:
 
 * member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
 
-??? example &quot;Example of the file&quot;
+??? example "Example of the file"
 
     ```text
     my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408

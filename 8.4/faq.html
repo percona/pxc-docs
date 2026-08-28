@@ -3979,14 +3979,14 @@ In a single-node workload, locking is handled in the same way as <em>InnoDB</em>
 </ul>
 <p>You can also check a node’s health with the <code>clustercheck</code> script.
 First set up the <code>clustercheck</code> user:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'clustercheck'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">mysql_native_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'password'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">PROCESS</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="n">PROCESS</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'clustercheck'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4027,7 +4027,7 @@ Percona XtraDB Cluster Node is not synced.
 <p>The mechanism is described in detail in <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="how-would-the-quorum-mechanism-handle-split-brain">How would the quorum mechanism handle split brain?<a class="headerlink" href="#how-would-the-quorum-mechanism-handle-split-brain" title="Permanent link">&para;</a></h2>
 <p>Split brain occurs when parts of the cluster are disconnected and each part believes the other is no longer running; this can lead to data inconsistency. The quorum mechanism cannot resolve split brain. If there is no way to decide on the primary component, Percona XtraDB Cluster has no way to resolve a <a href="glossary.html#split-brain">split brain</a> situation. The minimal recommendation is to have three nodes. However, you can allow a node to handle traffic with the following option:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.ignore_sb = yes&quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options="pc.ignore_sb = yes"
 </code></pre></div>
 <h2 id="a-node-stops-accepting-commands-when-the-other-node-fails-in-a-2-node-setup">A node stops accepting commands when the other node fails in a 2-node setup<a class="headerlink" href="#a-node-stops-accepting-commands-when-the-other-node-fails-in-a-2-node-setup" title="Permanent link">&para;</a></h2>
 <p>This is expected behavior to prevent <a href="glossary.html#split-brain">split brain</a>. For more information, see the previous section or <a href="https://mariadb.com/docs/galera-cluster/">MariaDB Galera documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -4049,7 +4049,7 @@ Percona XtraDB Cluster Node is not synced.
 </li>
 <li>
 <p><strong>Port for group communication.</strong> The default is 4567. To use a different port, add the following to the <code>[mysqld]</code> section of your configuration file:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options =&quot;gmcast.listen_addr=tcp://0.0.0.0:4010; &quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options ="gmcast.listen_addr=tcp://0.0.0.0:4010; "
 </code></pre></div>
 </li>
 <li>
@@ -4059,7 +4059,7 @@ Percona XtraDB Cluster Node is not synced.
 </li>
 <li>
 <p><strong>Port for Incremental State Transfer.</strong> The default is the group communication port plus 1, or 4568. To use a different address or port, add the following to the <code>[mysqld]</code> section:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options = &quot;ist.recv_addr=10.11.12.206:7777; &quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options = "ist.recv_addr=10.11.12.206:7777; "
 </code></pre></div>
 </li>
 </ol>

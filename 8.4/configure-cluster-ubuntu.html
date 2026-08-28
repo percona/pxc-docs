@@ -3851,7 +3851,7 @@ wsrep_cluster_name=my_ubuntu_cluster
 <li>
 <p>After the first node has been started,
 cluster status can be checked with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following outut shows the cluste status:</p>
 <details class="example">
@@ -3878,8 +3878,8 @@ cluster status can be checked with the following command:</p>
 </ol>
 <p>To perform <a href="state-snapshot-transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
 set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/8.4/privileges.html">privileges</a>:</p>
-<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;s3cretPass&#39;</span><span class="p">;</span>
-GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sstuser&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'sstuser'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'s3cretPass'</span><span class="p">;</span>
+GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'sstuser'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
 FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
@@ -3919,7 +3919,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (<code>pxc2</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -3976,7 +3976,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically. Cluster status can be checked on all nodes. The following is an example of status from the third node (<code>pxc3</code>):</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -4038,7 +4038,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">

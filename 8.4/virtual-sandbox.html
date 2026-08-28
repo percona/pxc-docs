@@ -3691,7 +3691,7 @@ more virtual machine has ProxySQL, which redirects requests to the nodes.</p>
 <li>
 <p>When all cluster nodes are started, configure ProxySQL using the admin
     interface.</p>
-<div class="highlight"><pre><span></span><code>!!! admonition &quot;Tip&quot;
+<div class="highlight"><pre><span></span><code>!!! admonition "Tip"
 
     To connect to the ProxySQL admin interface, you need a ``mysql`` client.
     You can either connect to the admin interface from Percona XtraDB Cluster nodes
@@ -3712,14 +3712,14 @@ with default credentials (assuming that ProxySQL IP is 192.168.70.74):
 mysql -u admin -padmin -h 127.0.0.1 -P 6032
 ```
 
-??? example &quot;Expected output&quot;
+??? example "Expected output"
 
     ```{.text .no-copy}
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 2
     Server version: ... (ProxySQL Admin Module)
     ...
-    Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
     mysql&gt;
     ```
 
@@ -3732,7 +3732,7 @@ SHOW DATABASES;
 
 The following output shows the list of the ProxySQL databases:
 
-??? example &quot;Expected output&quot;
+??? example "Expected output"
 
     ```{.text .no-copy}
     +-----+---------------+-------------------------------------+
@@ -3753,7 +3753,7 @@ SHOW TABLES;
 
 The following output shows the list of tables:
 
-??? example &quot;Expected output&quot;
+??? example "Expected output"
 
     ```{.text .no-copy}
     +----------------------------------------------------+
@@ -3816,9 +3816,9 @@ For more information about admin databases and tables, see [Admin Tables :octico
 <h3 id="adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a class="headerlink" href="#adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
 <p>To configure the backend Percona XtraDB Cluster nodes in ProxySQL, insert corresponding
 records into the mysql_servers table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.71&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.72&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.73&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.71'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.72'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.73'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
 </code></pre></div>
 <p>ProxySQL v2.0 supports PXC natlively. It uses the concept of <em>hostgroups</em>
 (see the value of hostgroup_id in the mysql_servers table) to group cluster
@@ -3875,8 +3875,8 @@ different groups.</p>
 <p>Make sure that the variable mysql-server_version refers to the correct
 version. For Percona XtraDB Cluster 8.4, set it to 8.4 accordingly:</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">GLOBAL_VARIABLES</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;8.4&#39;</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-server_version&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'8.4'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-server_version'</span><span class="p">;</span>
 <span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 </code></pre></div>
@@ -3908,10 +3908,10 @@ version. For Percona XtraDB Cluster 8.4, set it to 8.4 accordingly:</p>
 table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_query_rules</span><span class="w"> </span><span class="p">(</span>
 <span class="n">username</span><span class="p">,</span><span class="n">destination_hostgroup</span><span class="p">,</span><span class="n">active</span><span class="p">,</span><span class="n">match_digest</span><span class="p">,</span><span class="n">apply</span><span class="p">)</span>
-<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;appuser&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;^SELECT.*FOR UPDATE&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'appuser'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'^SELECT.*FOR UPDATE'</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_query_rules</span><span class="w"> </span><span class="p">(</span>
 <span class="n">username</span><span class="p">,</span><span class="n">destination_hostgroup</span><span class="p">,</span><span class="n">active</span><span class="p">,</span><span class="n">match_digest</span><span class="p">,</span><span class="n">apply</span><span class="p">)</span>
-<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;appuser&#39;</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;^SELECT &#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'appuser'</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'^SELECT '</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 <span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="n">RULES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="n">RULES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 <span class="k">select</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="p">,</span><span class="n">weight</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -3965,18 +3965,18 @@ elected for write requests.</p>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
 <p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="err">\</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
-<span class="w">        </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">BY</span><span class="w"> </span><span class="s1">'ProxySQLPa55'</span><span class="p">;</span>
 </code></pre></div>
 <p>For either authentication method, run the following command to give the user account named &lsquo;proxysql&rsquo; permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;proxysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
-<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_username'</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'ProxySQLPa55'</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="saving-and-loading-the-configuration">Saving and loading the configuration<a class="headerlink" href="#saving-and-loading-the-configuration" title="Permanent link">&para;</a></h3>
 <p>To load this configuration at runtime, issue the <code>LOAD</code> command. To save these
@@ -4028,7 +4028,7 @@ you added.</p>
 <h3 id="creating-proxysql-client-user">Creating ProxySQL Client User<a class="headerlink" href="#creating-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;appuser&#39;</span><span class="p">,</span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'appuser'</span><span class="p">,</span><span class="s1">'$3kRetp@$sW0rd'</span><span class="p">);</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
 <details class="example">
@@ -4057,16 +4057,16 @@ you added.</p>
 Your MySQL connection id is 1491
 Server version: ... (ProxySQL)
 ...
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>The following example adds an <code>appuser</code> user account if you are using the <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="err">\</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'appuser'</span><span class="o">@</span><span class="s1">'192.168.70.74'</span><span class="w"> </span><span class="err">\</span>
 <span class="w">        </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="err">\</span>
-<span class="w">        </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">BY</span><span class="w"> </span><span class="s1">'$3kRetp@$sW0rd'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;appuser&#39;</span><span class="o">@</span><span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'appuser'</span><span class="o">@</span><span class="s1">'192.168.70.74'</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="verification-checklist">Verification checklist<a class="headerlink" href="#verification-checklist" title="Permanent link">&para;</a></h2>
 <p>Run the following checks after setup to confirm that the virtual sandbox is working.</p>
@@ -4085,7 +4085,7 @@ Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the cu
 <ol>
 <li>Verify end-to-end query routing through ProxySQL:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>appuser<span class="w"> </span>-p<span class="nv">$3</span>kRetp@<span class="nv">$sW0rd</span><span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT @@hostname;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>appuser<span class="w"> </span>-p<span class="nv">$3</span>kRetp@<span class="nv">$sW0rd</span><span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6033</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@hostname;"</span>
 </code></pre></div>
 <p>Expected result: query returns a backend node hostname.</p>
 <ol>
@@ -4116,7 +4116,7 @@ CREATE DATABASE sysbenchdb;
 
 The following output confirms that a new database has been created:
 
-??? example &quot;Expected output&quot;
+??? example "Expected output"
 
     ```{.text .no-copy}
     Query OK, 1 row affected (0.01 sec)

@@ -3824,7 +3824,7 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 </li>
 <li>
 <p>Setting <code>sql_require_primary_key=OFF</code> is rejected. Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable &#39;sql_require_primary_key&#39; can&#39;t be set to the value of &#39;OFF&#39;
+<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
 </code></pre></div>
 <p>The error log records the reason:</p>
 <div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
@@ -3866,7 +3866,7 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 </table>
 <details class="example">
 <summary>Error message when creating or altering a table without a primary key</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable &#39;sql_require_primary_key&#39; is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
 </code></pre></div>
 </details>
 <div class="admonition note">

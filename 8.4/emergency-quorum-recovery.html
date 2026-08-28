@@ -3588,7 +3588,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <h2 id="emergency-override-force-a-primary-when-traffic-is-blocked">Emergency override: force a primary when traffic is blocked<a class="headerlink" href="#emergency-override-force-a-primary-when-traffic-is-blocked" title="Permanent link">&para;</a></h2>
 <p>Run the following on one node that is still up (connected as a user with sufficient privileges):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=YES&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=YES'</span><span class="p">;</span>
 </code></pre></div>
 <p>The <a href="wsrep-provider-index.html#pcbootstrap"><code>pc.bootstrap</code></a> option makes that node form a new primary component. After the command runs, the node accepts writes; the cluster is effectively that one node until the others are started and rejoin (via IST or SST). Then start the other nodes so they join this primary.</p>
 <div class="admonition warning">

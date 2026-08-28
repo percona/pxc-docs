@@ -3775,8 +3775,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Install the component using a manifest file and add the following options in the configuration file:</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
- &quot;read_local_manifest&quot;: false,
- &quot;components&quot;: &quot;file://component_keyring_file&quot;
+ "read_local_manifest": false,
+ "components": "file://component_keyring_file"
 }
 </code></pre></div>
 <p>Add the following options to your configuration file:</p>
@@ -3820,18 +3820,18 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <p>Configuration options are the same as <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
- &quot;read_local_manifest&quot;: false,
- &quot;components&quot;: &quot;file://component_keyring_vault&quot;
+ "read_local_manifest": false,
+ "components": "file://component_keyring_vault"
 }
 </code></pre></div>
 <p>Create a configuration file <code>component_keyring_vault.cnf</code> in JSON format:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
- &quot;timeout&quot;: 15,
- &quot;vault_url&quot;: &quot;https://vault.public.com:8202&quot;,
- &quot;secret_mount_point&quot;: &quot;secret&quot;,
- &quot;secret_mount_point_version&quot;: &quot;AUTO&quot;,
- &quot;token&quot;: &quot;{randomly-generated-alphanumeric-string}&quot;,
- &quot;vault_ca&quot;: &quot;/data/keyring_vault_confs/vault_ca.crt&quot;
+ "timeout": 15,
+ "vault_url": "https://vault.public.com:8202",
+ "secret_mount_point": "secret",
+ "secret_mount_point_version": "AUTO",
+ "token": "{randomly-generated-alphanumeric-string}",
+ "vault_ca": "/data/keyring_vault_confs/vault_ca.crt"
 }
 </code></pre></div>
 <p>The <code>secret_mount_point_version</code> parameter defaults to <code>AUTO</code> and controls whether the Vault KV Secrets Engine is version 1 (kv) or version 2 (kv-v2). Using the wrong KV version can cause silent failures during keyring operations.</p>
@@ -3851,12 +3851,12 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Component component_keyring_vault reported:
-&#39;There is no vault_ca specified in component_keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in component_keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:54:33.977145Z 0 [ERROR] Component component_keyring_vault reported:
-&#39;CURL returned this error code: 7 with error message : Failed to connect
-to 127.0.0.1 port 8200: Connection refused&#39;
+'CURL returned this error code: 7 with error message : Failed to connect
+to 127.0.0.1 port 8200: Connection refused'
 </code></pre></div>
 </details>
 <p>When vault server connectivity issues occur, only the affected nodes fail to start. For example, if node-1 can connect to the vault server but node-2 cannot, only node-2 will refuse to start.</p>
@@ -3865,23 +3865,23 @@ to 127.0.0.1 port 8200: Connection refused&#39;
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Component component_keyring_vault reported:
-&#39;There is no vault_ca specified in component_keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in component_keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:58:54.577477Z 0 [ERROR] Component component_keyring_vault reported:
-&#39;Could not retrieve list of keys from Vault. Vault has returned the
-following error(s): [&quot;permission denied&quot;]&#39;
+'Could not retrieve list of keys from Vault. Vault has returned the
+following error(s): ["permission denied"]'
 </code></pre></div>
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no error during server restart, but the node still refuses to start:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring
+<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
 component is loaded.
-... [ERROR] Component component_keyring_vault reported: &#39;Could not write key to Vault. ...
-... [ERROR] Component component_keyring_vault reported: &#39;Could not flush keys to keyring&#39;
+... [ERROR] Component component_keyring_vault reported: 'Could not write key to Vault. ...
+... [ERROR] Component component_keyring_vault reported: 'Could not flush keys to keyring'
 </code></pre></div>
 </details>
 <h2 id="mix-keyring-component-types">Mix keyring component types<a class="headerlink" href="#mix-keyring-component-types" title="Permanent link">&para;</a></h2>
@@ -3949,7 +3949,7 @@ component is loaded.
 --keyring-migration-host=localhost \
 --keyring-migration-user=root \
 --keyring-migration-port=16300 \
---keyring-migration-password=&#39;&#39; &amp;
+--keyring-migration-password='' &amp;
 </code></pre></div>
 <p>On a successful migration, the destination keystore receives the additional migrated keys. Any pre-existing keys in the destination keystore are unchanged. The source keystore retains the keys as the migration performs a copy operation and not a move operation.</p>
 <p>If the migration fails, the destination keystore is not changed.</p>

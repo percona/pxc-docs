@@ -3741,11 +3741,11 @@ throwing an instance of ‘gnu::NotSet’” message.</p>
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
 <div class="highlight"><pre><span></span><code>garbd<span class="w"> </span>--group<span class="o">=</span>&lt;CLUSTER_NAME&gt;<span class="w"> </span><span class="se">\</span>
---address<span class="o">=</span><span class="s2">&quot;gcomm://&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567&quot;</span><span class="w"> </span><span class="se">\</span>
---option<span class="o">=</span><span class="s2">&quot;socket.ssl=YES; socket.ssl_key=&lt;SSL_KEY_PATH&gt;; \</span>
+--address<span class="o">=</span><span class="s2">"gcomm://&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567"</span><span class="w"> </span><span class="se">\</span>
+--option<span class="o">=</span><span class="s2">"socket.ssl=YES; socket.ssl_key=&lt;SSL_KEY_PATH&gt;; \</span>
 <span class="s2">socket.ssl_cert=&lt;SSL_CERT_PATH&gt;; \</span>
 <span class="s2">socket.ssl_ca=&lt;SSL_CA_PATH&gt;; \</span>
-<span class="s2">socket.ssl_cipher=AES128-SHA256&quot;</span>
+<span class="s2">socket.ssl_cipher=AES128-SHA256"</span>
 </code></pre></div>
 <p>To avoid entering the options each time you start <code>garbd</code>, edit the options in the configuration file. To configure <em>Galera Arbitrator</em> on <em>Ubuntu/Debian</em>, edit the <code>/etc/default/garb</code> file. On RedHat or derivative distributions, the configuration can be found in <code>/etc/sysconfig/garb</code> file.</p>
 <p>Replace placeholder values such as <code>&lt;CLUSTER_NAME&gt;</code>, <code>&lt;NODE1_IP&gt;</code>,
@@ -3758,17 +3758,17 @@ throwing an instance of ‘gnu::NotSet’” message.</p>
 # REMOVE THIS AFTER CONFIGURATION
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
-# GALERA_NODES=&quot;&quot;
+# GALERA_NODES=""
 
 # Galera cluster name, should be the same as on the rest of the nodes.
-# GALERA_GROUP=&quot;&quot;
+# GALERA_GROUP=""
 
 # Optional Galera internal options string (e.g. SSL settings)
 # see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;&quot;
+# GALERA_OPTIONS=""
 
 # Log file for garbd. Optional, by default logs to syslog
-# LOG_FILE=&quot;&quot;
+# LOG_FILE=""
 </code></pre></div>
 <p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="configure-cluster-ubuntu.html#configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
@@ -3778,14 +3778,14 @@ CONFIGURATION</code> line before you can start the service.</p>
 </div>
 <div class="no-copy highlight"><pre><span></span><code>This config file is to be sourced by garb service script.
 A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=&quot;&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567&quot;
+GALERA_NODES="&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567"
 Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=&quot;&lt;CLUSTER_NAME&gt;&quot;
+GALERA_GROUP="&lt;CLUSTER_NAME&gt;"
 Optional Galera internal options string (e.g. SSL settings)
 see http://galeracluster.com/documentation-webpages/galeraparameters.html
-GALERA_OPTIONS=&quot;socket.ssl_key=&lt;SSL_KEY_PATH&gt;;socket.ssl_cert=&lt;SSL_CERT_PATH&gt;;socket.ssl_ca=&lt;SSL_CA_PATH&gt;;socket.ssl_cipher=AES128-SHA256&quot;
+GALERA_OPTIONS="socket.ssl_key=&lt;SSL_KEY_PATH&gt;;socket.ssl_cert=&lt;SSL_CERT_PATH&gt;;socket.ssl_ca=&lt;SSL_CA_PATH&gt;;socket.ssl_cipher=AES128-SHA256"
 Log file for garbd. Optional, by default logs to syslog
-LOG_FILE=&quot;/var/log/garbd.log&quot;
+LOG_FILE="/var/log/garbd.log"
 </code></pre></div>
 <p>You can now start the <em>Galera Arbitrator</em> daemon (<code>garbd</code>). Run the following commands as root.</p>
 <div class="admonition note">
@@ -3853,7 +3853,7 @@ LOG_FILE=&quot;/var/log/garbd.log&quot;
 </li>
 <li>
 <p>On a Percona XtraDB Cluster node, confirm that the cluster remains in <code>Primary</code> state:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_status';"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

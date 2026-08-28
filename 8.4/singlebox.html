@@ -3602,12 +3602,12 @@ datadir=/data/bench/d1
 basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
 user=mysql
 log_error=error.log
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:5030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:5030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:4020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:4030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:4030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node4000
 innodb_autoinc_lock_mode=2
@@ -3622,12 +3622,12 @@ datadir=/data/bench/d2
 basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
 user=mysql
 log_error=error.log
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:5020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:5030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:5030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node5000
 innodb_autoinc_lock_mode=2
@@ -3642,12 +3642,12 @@ datadir=/data/bench/d3
 basedir=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64
 user=mysql
 log_error=error.log
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:5030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:5030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.4.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:6020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:6030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:6030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node6000
 innodb_autoinc_lock_mode=2
@@ -3696,7 +3696,7 @@ you should see the following output:</p>
 <span class="m">111215</span><span class="w"> </span><span class="m">19</span>:22:26<span class="w"> </span><span class="o">[</span>Note<span class="o">]</span><span class="w"> </span>WSREP:<span class="w"> </span>Synchronized<span class="w"> </span>with<span class="w"> </span>group,<span class="w"> </span>ready<span class="w"> </span><span class="k">for</span><span class="w"> </span>connections
 </code></pre></div>
 <p>To check the cluster size, run the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;show global status like &#39;wsrep_cluster_size&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"show global status like 'wsrep_cluster_size';"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -3711,7 +3711,7 @@ you should see the following output:</p>
 which will be automatically synchronized with other nodes.
 For example, to create a database on the second node,
 you can run the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE DATABASE hello_peter&quot;</span>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE DATABASE hello_peter"</span>
 </code></pre></div>
 </li>
 </ol>

@@ -4076,7 +4076,7 @@ wsrep-debug=true
 <h2 id="monitor-the-process">Monitor the process<a class="headerlink" href="#monitor-the-process" title="Permanent link">&para;</a></h2>
 <p>The Joiner log reports the clone process as a <code>% of the data transfer completed</code>.
 The query used is:</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">&#39;completed%&#39;</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;FILE_COPY&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">'completed%'</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'FILE_COPY'</span><span class="p">;</span>
 </code></pre></div>
 <p>For more information on the progress, you can also use the query:</p>
 <div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>

@@ -4152,7 +4152,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 </tbody>
 </table>
 <h3 id="example-usage">Example usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_oooe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_oooe'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4203,7 +4203,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 </table>
 <h4 id="monitor-parallelization-performance">Monitor parallelization performance<a class="headerlink" href="#monitor-parallelization-performance" title="Permanent link">&para;</a></h4>
 <p>Run a single query to collect all relevant metrics:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_oooe|wsrep_apply_window|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_oooe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_oooe|wsrep_apply_window|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_oooe'</span><span class="p">;</span>
 </code></pre></div>
 <p>Interpretation tips</p>
 <ul>
@@ -4225,7 +4225,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 <p>A value near <code>0</code> is ideal, showing that writesets generally apply in the correct order. Larger values signal that slow‑running transactions are creating a bottleneck, forcing applier threads to skip ahead and apply newer writesets first. When the metric rises, investigate the performance of long‑duration transactions or adjust applier‑thread settings.</p>
 <h2 id="example-of-use">Example of use<a class="headerlink" href="#example-of-use" title="Permanent link">&para;</a></h2>
 <p>Run the following command on any node in the cluster; only the <code>PROCESS</code> privilege is required, and the result reflects the status of the node where the command executes.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_oool&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_oool'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4269,7 +4269,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 </table>
 <h3 id="monitoring-out-of-order-application">Monitoring out-of-order application<a class="headerlink" href="#monitoring-out-of-order-application" title="Permanent link">&para;</a></h3>
 <p>Execute the following query to obtain a comprehensive snapshot of the relevant metrics:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_oool|wsrep_apply_oooe|wsrep_apply_window|wsrep_local_recv_queue_avg|wsrep_cert_deps_distance|wsrep_commit_oooe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_oool|wsrep_apply_oooe|wsrep_apply_window|wsrep_local_recv_queue_avg|wsrep_cert_deps_distance|wsrep_commit_oooe'</span><span class="p">;</span>
 </code></pre></div>
 <p>Analyzing the results helps pinpoint the root cause of out‑of‑order application, which may stem from:</p>
 <ul>
@@ -4296,7 +4296,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 <p>Higher values signal a healthy, efficiently parallelized cluster that keeps pace with the replication flow. Lower values suggest a bottleneck in the applier threads, which may stem from resource constraints or a prevalence of large, conflicting transactions.</p>
 <h3 id="example-of-use_1">Example of use<a class="headerlink" href="#example-of-use_1" title="Permanent link">&para;</a></h3>
 <p>Run the following command on any node; only the <code>PROCESS</code> privilege is required, and the result reflects the status of the node where the command is executed.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_window&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_window'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4346,7 +4346,7 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 </table>
 <h3 id="monitoring-parallelization-window-performance">Monitoring parallelization window performance<a class="headerlink" href="#monitoring-parallelization-window-performance" title="Permanent link">&para;</a></h3>
 <p>Execute the following query to obtain a comprehensive snapshot of the relevant metrics:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_apply_window|wsrep_apply_oooe|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_window&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_apply_window|wsrep_apply_oooe|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_window'</span><span class="p">;</span>
 </code></pre></div>
 <p>This query helps you identify whether window performance issues are due to the following:</p>
 <ul>
@@ -4778,7 +4778,7 @@ of cluster peers in the given <a href="wsrep-provider-index.html#gmcastsegment">
 <p>The recommended value depends on your application’s need for consistency versus performance. For most cases, <code>1</code> (causal reads) is sufficient.  </p>
 <h5 id="example-of-use_2">Example of use<a class="headerlink" href="#example-of-use_2" title="Permanent link">&para;</a></h5>
 <p>You can run this command on any node in the cluster; it requires only the <code>PROCESS</code> privilege. Results reflect the status of the node where the query is executed.  </p>
-<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_sync_wait&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'wsrep_sync_wait'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4818,7 +4818,7 @@ of cluster peers in the given <a href="wsrep-provider-index.html#gmcastsegment">
 </table>
 <h4 id="monitor-consistency-waits">Monitor consistency waits<a class="headerlink" href="#monitor-consistency-waits" title="Permanent link">&para;</a></h4>
 <p>To get a comprehensive view of how <code>wsrep_sync_wait</code> interacts with replication and flow control, run this query:</p>
-<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_sync_wait|wsrep_local_recv_queue_avg|wsrep_flow_control_paused|wsrep_apply_oooe&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SHOW<span class="w"> </span>GLOBAL<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'wsrep_sync_wait|wsrep_local_recv_queue_avg|wsrep_flow_control_paused|wsrep_apply_oooe'</span><span class="p">;</span>
 </code></pre></div>
 <p>This query helps you determine whether query stalls under wsrep_sync_wait are caused by:</p>
 <ul>

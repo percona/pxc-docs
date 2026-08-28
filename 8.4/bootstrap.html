@@ -3664,7 +3664,7 @@ and it will use standard configuration again.</p>
 <p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
 </div>
 <p>To make sure that the cluster, <code>mysql@pxc1&gt;</code>, has been initialized, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the cluster size is one node,
 it is the primary component, the node is in the <code>Synced</code> state,

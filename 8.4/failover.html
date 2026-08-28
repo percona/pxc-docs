@@ -3879,7 +3879,7 @@ data loss or inconsistency.</p>
 usage can lead to split-brain scenarios. This results in multiple independent 
 clusters with differing data, causing inconsistencies and corruption.</p>
 <p>To recover the node from the non-primary state, execute the following command:</p>
-<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>This command enables the bootstrap process for the primary component, allowing
 the node and all connected nodes to become a primary cluster. By setting this

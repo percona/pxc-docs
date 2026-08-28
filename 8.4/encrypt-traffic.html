@@ -4024,7 +4024,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 </ul>
 <p>To configure these encryption settings, define the required parameters in the configuration file using the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. This ensures secure replication traffic across the cluster.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"</span>
 </code></pre></div>
 <p>All nodes must share the same key and certificate files to maintain a secure and consistent encryption setup. Ideally, use the same files configured for <a href="#encrypt-client-server-communication">Encrypt client-server</a> communication to simplify management and ensure compatibility across the cluster.</p>
 <p>Check <a href="#upgrade-certificates">upgrade-certificate</a> section on how to upgrade existing certificates.</p>
@@ -4271,12 +4271,12 @@ and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
 <p>Set the <a href="wsrep-system-index.html#index-of-wsrep-system-variables"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart the second node with the <a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"</span>
 </code></pre></div>
 </li>
 <li>

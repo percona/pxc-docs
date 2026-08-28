@@ -3671,15 +3671,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>At this time, telemetry is added only to the Percona packages and Docker images. Percona XtraDB Cluster collects only information about the installation environment. Future releases may add additional metrics.</p>
 <p>Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>An example of the data collected is the following:</p>
-<div class="highlight"><pre><span></span><code>[{&quot;id&quot; : &quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;,
-&quot;product_family&quot; : &quot;PRODUCT_FAMILY_PXC&quot;,
-&quot;instanceId&quot; : &quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;,
-&quot;createTime&quot; : &quot;2023-10-16T10:46:23Z&quot;,
-&quot;metrics&quot;:
-[{&quot;key&quot; : &quot;deployment&quot;,&quot;value&quot; : &quot;PACKAGE&quot;},
-{&quot;key&quot; : &quot;pillar_version&quot;,&quot;value&quot; : &quot;8.0.34-26&quot;},
-{&quot;key&quot; : &quot;OS&quot;,&quot;value&quot; : &quot;Oracle Linux Server 8.8&quot;},
-{&quot;key&quot; : &quot;hardware_arch&quot;,&quot;value&quot; : &quot;x86_64 x86_64&quot;}]}]
+<div class="highlight"><pre><span></span><code>[{"id" : "c416c3ee-48cd-471c-9733-37c2886f8231",
+"product_family" : "PRODUCT_FAMILY_PXC",
+"instanceId" : "6aef422e-56a7-4530-af9d-94cc02198343",
+"createTime" : "2023-10-16T10:46:23Z",
+"metrics":
+[{"key" : "deployment","value" : "PACKAGE"},
+{"key" : "pillar_version","value" : "8.0.34-26"},
+{"key" : "OS","value" : "Oracle Linux Server 8.8"},
+{"key" : "hardware_arch","value" : "x86_64 x86_64"}]}]
 </code></pre></div>
 <h2 id="disable-telemetry">Disable telemetry<a class="headerlink" href="#disable-telemetry" title="Permanent link">&para;</a></h2>
 <p>Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the <code>PERCONA_TELEMETRY_DISABLE=1</code> environment variable for either the root user or in the operating system prior to the installation process.</p>

@@ -3911,7 +3911,7 @@ ssl-key=server-key.pem
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-sockopt=&quot;retry=2,interval=3&quot;
+sockopt="retry=2,interval=3"
 </code></pre></div>
 <p>The previous example causes socat to try to connect three times
 (initial attempt and two retries with a 3-second interval between attempts).</p>
@@ -4000,7 +4000,7 @@ that need to be retained in the <a href="glossary.html#datadir">datadir</a> befo
 so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-cpat=&#39;.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$&#39;
+cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4326,7 +4326,7 @@ is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
 under <code>[sst]</code> as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
-inno-apply-opts<span class="o">=</span><span class="s2">&quot;--use-memory=500M&quot;</span>
+inno-apply-opts<span class="o">=</span><span class="s2">"--use-memory=500M"</span>
 </code></pre></div>
 <p>If it is not specified,
 the <code>use-memory</code> option under <code>[xtrabackup]</code> will be used:</p>

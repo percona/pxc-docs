@@ -3941,8 +3941,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Create two secret files in the project root. Each file must contain only the password with no trailing newline. Generate strong passwords and write them in one step:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>mysql_root_password
-openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>xtrabackup_password
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span>&gt;<span class="w"> </span>mysql_root_password
+openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span>&gt;<span class="w"> </span>xtrabackup_password
 chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>mysql_root_password<span class="w"> </span>xtrabackup_password
 </code></pre></div>
 <p>Each file contains a single line with no trailing newline:</p>
@@ -3975,18 +3975,18 @@ XTRABACKUP_PASSWORD=&lt;password&gt;
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span><span class="w"> </span>-e
 <span class="nv">CERT_DIR</span><span class="o">=</span>./certs
-mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CERT_DIR</span><span class="s2">&quot;</span>
-<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$CERT_DIR</span><span class="s2">&quot;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$CERT_DIR</span><span class="s2">"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CERT_DIR</span><span class="s2">"</span>
 <span class="c1"># Generate CA key and certificate</span>
 openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca-key.pem<span class="w"> </span><span class="m">2048</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-key<span class="w"> </span>ca-key.pem<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-subj<span class="w"> </span><span class="s2">&quot;/C=XX/ST=State/L=City/O=Organization/CN=RootCA&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-subj<span class="w"> </span><span class="s2">"/C=XX/ST=State/L=City/O=Organization/CN=RootCA"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-out<span class="w"> </span>ca.pem
 <span class="c1"># Generate server key and CSR</span>
 openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-keyout<span class="w"> </span>server-key.pem<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-subj<span class="w"> </span><span class="s2">&quot;/C=XX/ST=State/L=City/O=Organization/CN=pxc-node&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-subj<span class="w"> </span><span class="s2">"/C=XX/ST=State/L=City/O=Organization/CN=pxc-node"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-out<span class="w"> </span>server-req.pem
 <span class="c1"># Sign server certificate with CA</span>
 openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w"> </span><span class="se">\</span>
@@ -4150,14 +4150,14 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pxcnet</span>
 <span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3306:3306&quot;</span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--wsrep-new-cluster&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"3306:3306"</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"--wsrep-new-cluster"</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
 <span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"mysqladmin"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"ping"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-h"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"localhost"</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
 <span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
 <span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -4186,7 +4186,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
 <span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"mysqladmin"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"ping"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-h"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"localhost"</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
 <span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
 <span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -4215,7 +4215,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3G</span>
 <span class="w">    </span><span class="nt">healthcheck</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;CMD&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;mysqladmin&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;ping&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;-h&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">test</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"CMD"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"mysqladmin"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"ping"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"-h"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"localhost"</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
 <span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5s</span>
 <span class="w">      </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
@@ -4244,7 +4244,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <li>
 <p>Wait for pxc1 to report healthy before starting pxc2 and pxc3. The bootstrap node must accept connections, or the other nodes can fail to join. Use a wait loop:</p>
 <div class="highlight"><pre><span></span><code><span class="k">until</span><span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqladmin<span class="w"> </span>ping<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for pxc1...&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Waiting for pxc1..."</span>
 <span class="w">  </span>sleep<span class="w"> </span><span class="m">2</span>
 <span class="k">done</span>
 </code></pre></div>
@@ -4272,16 +4272,16 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <ol>
 <li>
 <p>Verify cluster size and primary status:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_size&#39;;&quot;</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_cluster_status&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_size';"</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_status';"</span>
 </code></pre></div>
 <p>Expected result: <code>wsrep_cluster_size</code> returns a row with value <code>3</code>. <code>wsrep_cluster_status</code> returns <code>Primary</code>. If the value is <code>non-Primary</code>, the node is isolated.</p>
 </li>
 <li>
 <p>Verify additional cluster health indicators on any node (for example, pxc1):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_ready&#39;;&quot;</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_connected&#39;;&quot;</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW STATUS LIKE &#39;wsrep_local_state_comment&#39;;&quot;</span>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_ready';"</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_connected';"</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_local_state_comment';"</span>
 </code></pre></div>
 <p>Expected result: <code>wsrep_ready</code> = <code>ON</code>, <code>wsrep_connected</code> = <code>ON</code>, <code>wsrep_local_state_comment</code> = <code>Synced</code>.</p>
 </li>

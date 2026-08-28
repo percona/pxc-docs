@@ -3973,7 +3973,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Set both variables to enable streaming replication:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;statements&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">,</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
@@ -4131,7 +4131,7 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>You can apply hints on separate statements within one transaction. The <a href="wsrep-system-index.html#wsrep_trx_fragment_size">wsrep-system-index example</a> uses <code>SET_VAR(wsrep_trx_fragment_size = 100)</code> on separate <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> statements. Each statement gets its own fragment threshold. Other statements in the transaction keep the session defaults.</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 100) */</span><span class="w"> </span><span class="n">work_orders</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;active&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 100) */</span><span class="w"> </span><span class="n">work_orders</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'active'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the optimizer hint applied the fragment size for the statement:</p>
 <details class="example">
@@ -4218,17 +4218,17 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <p>Galera counts each certified fragment as a separate write-set in <code>wsrep_replicated</code> and <code>wsrep_received</code>. A single large streaming transaction increases these counters incrementally as fragments certify, not only at final <code>COMMIT</code>.</p>
 <p>Query the recommended variables on every node:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_local_recv_queue&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_local_recv_queue_avg&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_sent&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_recv&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_flow_control_paused&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_replicated&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_received&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_replicated_bytes&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_received_bytes&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_local_cert_failures&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="s1">&#39;wsrep_local_bf_aborts&#39;</span>
+<span class="w">  </span><span class="s1">'wsrep_local_recv_queue'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_local_recv_queue_avg'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_flow_control_sent'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_flow_control_recv'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_flow_control_paused'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_replicated'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_received'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_replicated_bytes'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_received_bytes'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_local_cert_failures'</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">'wsrep_local_bf_aborts'</span>
 <span class="p">);</span>
 </code></pre></div>
 <p>Combine the query above with <code>mysql.wsrep_streaming_log</code> on each node for a complete streaming replication dashboard. See <a href="monitoring.html">Monitor the cluster</a> for general PXC alerting guidance.</p>
@@ -4266,7 +4266,7 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <p>The <code>seqno</code> value increases as Galera certifies additional fragments for the same <code>trx_id</code>. The <code>node_uuid</code> column identifies the cluster node that originated the streaming transaction.</p>
 <h3 id="check-related-cluster-status-variables">Check related cluster status variables<a class="headerlink" href="#check-related-cluster-status-variables" title="Permanent link">&para;</a></h3>
 <p>The variables in the table above cover cluster pressure during streaming jobs. Query all wsrep status variables when you need broader context:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_%'</span><span class="p">;</span>
 </code></pre></div>
 <p>For broader cluster monitoring guidance, see <a href="monitoring.html">Monitor the cluster</a>.</p>
 <h2 id="what-does-wsrep_sr_store-control">What does wsrep_SR_store control?<a class="headerlink" href="#what-does-wsrep_sr_store-control" title="Permanent link">&para;</a></h2>
@@ -4339,8 +4339,8 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </li>
 <li>
 <p>Confirm cluster health:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_status&#39;</span><span class="p">;</span>
-<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>
 </code></pre></div>
 <p>Expect <code>Primary</code> cluster status and <code>Synced</code> local state on healthy nodes.</p>
 </li>
@@ -4403,7 +4403,7 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </li>
 <li>
 <p>Read the data the transaction requires. Enable streaming replication for the next statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;statements&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that streaming replication is enabled for the next statement:</p>
