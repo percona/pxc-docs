@@ -16,7 +16,7 @@ You can install Percona XtraDB Cluster using different methods.
 
 Percona Server for MySQL (PS) is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, increased visibility, and instrumentation. Percona Server for MySQL is trusted by thousands of enterprises to provide better performance and concurrency for their most demanding workloads.
 
-Install [Percona Server for MySQL :octicons-link-external-16:](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/install/index.html).
+Install [Percona Server for MySQL :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/installation.html).
 
 ## For backups and restores
 

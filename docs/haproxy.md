@@ -94,7 +94,7 @@ For the legacy `xinetd` workflow, add the following service entry on each node:
 mysqlchk        9200/tcp                # mysqlchk
 ```
 
-## Configure HAProxy with `clustercheck` health checks (recommended)
+## Configure HAProxy with clustercheck health checks (recommended)
 
 ??? example "Example of the HAProxy configuration file"
 
@@ -128,7 +128,7 @@ mysqlchk        9200/tcp                # mysqlchk
         server db03 <NODE3_IP>:<PXC_SERVICE_PORT> check port <HEALTHCHECK_PORT> inter 12000 rise 3 fall 3
     ```
 
-For the `option httpchk` configuration shown in [Configure HAProxy with `clustercheck` health checks](#configure-haproxy-with-clustercheck-health-checks), HAProxy checks
+For the `option httpchk` configuration, HAProxy checks
 node health through the `clustercheck` endpoint on port `<HEALTHCHECK_PORT>`. The
 `clustercheck` health check path does not require HAProxy to authenticate to
 MySQL with a user authentication plugin.
