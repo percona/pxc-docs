@@ -220,7 +220,7 @@ files to maintain a secure and consistent encryption setup.
 
 ### xtrabackup
 
-The only available SST method is xtrabackup-v2, which relies on Percona XtraBackup to transfer data securely between nodes. The `wsrep_sst_method` parameter is always set to xtrabackup-v2 and cannot be changed.
+`xtrabackup-v2` is the default SST method and relies on Percona XtraBackup to transfer data securely between nodes. Like other SST methods, `wsrep_sst_method` is set in `my.cnf` before startup and can't be changed at runtime. For an alternative SST method that uses MySQL's native clone plugin instead of XtraBackup, see [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md).
 
 Encryption for this method is controlled by the `encrypt` option:
 
@@ -259,6 +259,41 @@ openssl dhparam -out /path/to/datadir/dhparams.pem 2048
 ```
 
 For more information, see [Percona XtraDB Cluster: “dh key too small” error during an SST using SSL :octicons-link-external-16:](https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/).
+
+### clone
+
+Clone SST uses MySQL's native clone plugin rather than XtraBackup, so it doesn't use the `[sst]` section `encrypt` option described in [xtrabackup](#xtrabackup). Instead, encryption relies on the standard MySQL SSL settings under `[mysqld]`/`[client]`, or on a set of variables specific to the Clone SST process.
+
+Configure encryption using the shared MySQL SSL settings:
+
+```ini
+[client]
+ssl-ca = /<path>/ca.pem
+ssl-cert = /<path>/client-cert.pem
+ssl-key = /<path>/client-key.pem
+[mysqld]
+ssl-ca = /<path>/ca.pem
+ssl-cert = /<path>/server-cert.pem
+ssl-key = /<path>/server-key.pem
+```
+
+
+Alternatively, configure SSL settings specifically for the Clone SST process on the Joiner:
+
+```ini
+[mysqld]
+clone_ssl_ca = /path/to/ca.pem
+clone_ssl_cert = /path/to/client-cert.pem
+clone_ssl_key = /path/to/client-key.pem
+```
+
+!!! note
+
+    Place these certificate files in a directory other than the data directory. The clone process modifies the data directory during SST, which can cause conflicts if certificates are stored there.
+
+All nodes must use identical key and certificate files to ensure a consistent security setup.
+
+For full configuration details, see [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md).
 
 ### Encrypt replication/IST traffic
 

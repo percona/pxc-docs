@@ -30,7 +30,7 @@ The requirements for enabling SST transfers with the Clone plugin are as follows
 
 * NetCat package installed
 
-* The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes when you use Percona Xtrabackup SST
+* The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes
 
 ## Best practices
 
@@ -116,7 +116,7 @@ State Snapshot Transfer (SST) in Galera Cluster relies on specific variables tha
 
 | Variable                        | Description                                                                                                   | Link                                      |
 |---------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------|
-| `sst_idle_timeout`              | Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. You must define this variable in the `[sst]` section of the `my.cnf` file. |  |
+| `sst_idle_timeout`              | Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. Default: 120 seconds. You must define this variable in the `[sst]` section of the `my.cnf` file. |  |
 | `wsrep_sst_donor`               | Defines the preferred donor node for SST. If not specified, the cluster automatically selects a donor.      | [Learn more](wsrep-system-index.md#wsrep_sst_donor) |
 | `wsrep_sst_method`              | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected. | [Learn more](wsrep-system-index.md#wsrep_sst_method) |
 | `wsrep_sst_receive_address`     | Specifies the IP address and port on the Joiner node to receive SST data.                                   | [Learn more](wsrep-system-index.md#wsrep_sst_receive_address) |
