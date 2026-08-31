@@ -125,6 +125,10 @@ Enables SST encryption mode in Percona XtraBackup:
   ssl-key=server-key.pem
   ```
 
+!!! note
+
+    The default value of `4` depends on [`pxc-encrypt-cluster-traffic`](wsrep-system-index.md#pxc_encrypt_cluster_traffic), which is `ON` by default and automatically sets `encrypt=4`. If `pxc-encrypt-cluster-traffic` is disabled, `encrypt` reverts to `0` unless you set the value explicitly.
+
 For more information, see [Encrypting PXC Traffic](encrypt-traffic.md#encrypt-pxc-traffic).
 
 ### sockopt
@@ -207,11 +211,11 @@ For more information, see [pv(1) :octicons-link-external-16:](https://linux.die.
 
 ### cpat
 
-**Default**: `'.\*\\.pem$\\|.\*init\\.ok$\\|.\*galera\\.cache$\\|.\*sst_in_progress$\\|.\*\\.sst$\\|.\*gvwstate\\.dat$\\|.\*grastate\\.dat$\\|.\*\\.err$\\|.\*\\.log$\\|.\*RPM_UPGRADE_MARKER$\\|.\*RPM_UPGRADE_HISTORY$'`
+```txt
+**Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
+```
 
-Used to define the files
-that need to be retained in the [datadir](glossary.md#datadir) before running SST,
-so that the state of the other node can be restored cleanly.
+Used to define the files that need to be retained in the [datadir](glossary.md#datadir) before running SST, so that the state of the other node can be restored cleanly.
 
 For example:
 
@@ -262,22 +266,50 @@ compress
 
 ### inno-backup-opts
 
+| Parameter | Description   |
+| --------- | ------------- |
+| Default:  | Empty         |
+| Type:     | Quoted String |
+
+This option passes extra XtraBackup options to the backup stage.
+
+When the value omits `--parallel`, the SST script appends `--parallel=` with the [`backup_threads`](#backup_threads) value.
+
 ### inno-apply-opts
+
+| Parameter | Description   |
+| --------- | ------------- |
+| Default:  | Empty         |
+| Type:     | Quoted String |
+
+This option passes extra XtraBackup options to the `--prepare` stage.
+
+When the value omits `--use-memory`, the SST script appends `--use-memory` with the buffer pool size.
+
+For details, see [Memory allocation](#memory-allocation).
 
 ### inno-move-opts
 
-| Parameter      | Description        |
-| -------------- | ------------------ |
-| Default:       | Empty              |
-| Type:          | Quoted String      |
+| Parameter | Description   |
+| --------- | ------------- |
+| Default:  | Empty         |
+| Type:     | Quoted String |
 
-This group of options is used to pass XtraBackup options
-for backup, apply, and move stages.
-The SST script doesn’t alter, tweak, or optimize these options.
+This option passes extra XtraBackup options to the move-to-datadir stage.
+
+The SST script uses the original value.
 
 !!! note
 
-    Although these options are related to XtraBackup SST, they cannot be specified in `my.cnf`, because they are for passing innobackupex options.
+    The `[sst]` group accepts the following options as quoted strings:
+
+    * `inno-backup-opts`
+
+    * `inno-apply-opts`
+
+    * `inno-move-opts`
+
+    Each option applies to one XtraBackup stage.
 
 ### sst-initial-timeout
 
@@ -372,19 +404,6 @@ This option can be set in the following `my.cnf` groups:
 * Under `[mysqld]` it enables debug logging for `mysqld` and the SST script
 
 * Under `[sst]` it enables debug logging for the SST script only
-
-### encrypt_threads
-
-| Parameter      | Description        |
-| -------------- | ------------------ |
-| Default:       | `4`                |
-
-Specifies the number of threads that XtraBackup should use for encrypting data
-(when `encrypt=1`).
-The value is passed using the `--encrypt-threads` option in XtraBackup.
-
-This option affects only SST with XtraBackup
-and should be specified under the `[sst]` group.
 
 ### backup_threads
 
