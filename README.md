@@ -1,6 +1,6 @@
 # Percona XtraDB Cluster
 
-![PXC logo](docs/_static/Percona_Logo_Color.png)
+![PXC logo](docs/_static/Percona_Color_Dark.svg)
 
 
 For more information about the Percona XtraDB Cluster components and how to use this product, see [Percona XtraDB Cluster documentation](https://docs.percona.com/percona-xtradb-cluster/)
@@ -11,11 +11,11 @@ You can install Percona XtraDB Cluster using the following methods:
 - from the Percona repository 
 - Build from the [source code](https://github.com/percona/percona-xtradb-cluster)
 
-You can find the installation instructions in the [official documentation](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/install-index.html).
+You can find the installation instructions in the [official documentation](https://docs.percona.com/percona-xtradb-cluster/8.4/install-index.html).
 
 ## Release Notes
 
-The Release Notes are located [here](https://docs.percona.com/percona-xtradb-cluster/{{vers}}/release-notes/release-notes_index.html)
+The Release Notes are located [here](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/release-notes_index.html)
 
 The Release Announcements are available [here](https://forums.percona.com/c/percona-news/software-new-releases/)
 
@@ -41,4 +41,4 @@ We encourage contributions and are always looking for new members that are as de
 ## Contact
 You can reach us by using the [Forum](https://forums.percona.com/c/mysql-mariadb/percona-xtradb-cluster-8-x/)
 
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
