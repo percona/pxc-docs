@@ -1,6 +1,6 @@
 # Percona XtraDB Cluster
 
-![PXC logo](docs/_static/Percona_Logo_Color.png)
+![PXC logo](docs/_static/Percona_Color_Dark.svg)
 
 
 For more information about the Percona XtraDB Cluster components and how to use this product, see [Percona XtraDB Cluster documentation](https://docs.percona.com/percona-xtradb-cluster/)
@@ -41,4 +41,4 @@ We encourage contributions and are always looking for new members that are as de
 ## Contact
 You can reach us by using the [Forum](https://forums.percona.com/c/mysql-mariadb/percona-xtradb-cluster-8-x/)
 
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
