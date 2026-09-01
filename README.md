@@ -36,7 +36,7 @@ Percona XtraDB Cluster documentation is licensed under a [Creative Commons Attri
 
 ## Contribute to the documentation
 
-We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/pxc-docs/blob/8.0/contributing.md) contains instructions on how you can contribute.
+We encourage contributions and are always looking for new members that are as dedicated to serving the community as we are. The [Contributing Guide](https://github.com/percona/pxc-docs/blob/8.4/contributing.md) contains instructions on how you can contribute.
 
 ## Contact
 You can reach us by using the [Forum](https://forums.percona.com/c/mysql-mariadb/percona-xtradb-cluster-8-x/)
