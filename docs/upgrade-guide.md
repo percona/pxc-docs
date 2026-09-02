@@ -5,6 +5,8 @@
 
 This guide describes how to upgrade Percona XtraDB Cluster to version 8.4 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 8.4 require version 8.0 or later. Upgrade to the latest 8.0 release before upgrading to 8.4.
 
+If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Cluster, use [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](migrate-mysql-galera.md) first. Complete that distribution change on a matching major version, then return here for any major-version upgrade.
+
 !!! warning
 
     A node with a newer protocol version cannot join a cluster running an older Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption and incompatibility issues.
