@@ -21,7 +21,6 @@ Possible values:
 
 * `OFF`, `0`, `false`: Disabled 
 
-For more information, see [SSL Automatic Configuration](encrypt-traffic.md#ssl-automatic-configuration).
 
 ### `pxc_maint_mode`
 
