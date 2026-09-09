@@ -1369,6 +1369,38 @@ Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 wsrep_provider_options="repl.commit_order=3"
 ```
 
+### `repl.force_sst_after_inconsistency`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | Yes                |
+| Config File:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | Yes                |
+| Default Value: | no                 |
+
+This option is available in Percona XtraDB Cluster 8.4.11 and later. It is Percona XtraDB Cluster–specific.
+
+When a node is voted out of the cluster because of a data inconsistency, Galera marks that node’s state as corrupt and rewrites [`grastate.dat`](wsrep-files-index.md#grastatedat) with a zero UUID and `seqno` of `-1`. That file does not, by itself, force a full [State Snapshot Transfer (SST)](glossary.md#sst) on the next start. On restart, `mysqld_safe` treats `seqno = -1` as unusable, runs `mysqld --wsrep-recover`, and recovers a valid `uuid:seqno` from InnoDB. The cluster then offers [Incremental State Transfer (IST)](glossary.md#ist) and replays write sets on top of the still-inconsistent local dataset. The inconsistency is never repaired.
+
+Set this option to `yes` so that a node that leaves because of an inconsistency also removes `grastate.dat`. The next start finds no usable position and can rejoin only through a full SST, which replaces the inconsistent dataset.
+
+The default is `no`, which keeps the previous behavior: `grastate.dat` remains in the data directory so you can inspect the corrupt file. To force SST without enabling this option, remove `grastate.dat` manually before you restart the node.
+
+When the option is `yes`, the node unlinks `grastate.dat` as soon as it marks the state corrupt (when it leaves the cluster, including after a failed IST apply). Copy the file first if you still need it for investigation. With the default (`no`), the corrupt file remains available while the evicted node is kept up and after shutdown.
+
+Example (config file): Add to the `[mysqld]` section of `my.cnf`:
+
+```text
+wsrep_provider_options="repl.force_sst_after_inconsistency=yes"
+```
+
+Example (runtime):
+
+```sql
+SET GLOBAL wsrep_provider_options="repl.force_sst_after_inconsistency=yes";
+```
+
 ### `repl.key_format`
 
 | Option         | Description        |
