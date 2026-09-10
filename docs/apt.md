@@ -88,21 +88,19 @@ The following steps install from the APT repository.
     sudo apt install -y percona-xtradb-cluster
     ```
 
-    
-
 During the installation, you are requested to provide a password for the `root` user on the database node.
 
 !!! note
 
-    If needed, you could also install the `percona-xtradb-cluster-full` meta-package, which includes the following additional packages:
+    If needed, you could also install the `percona-xtradb-cluster-full` meta-package, which includes the following additional packages.
 
-    * `libperconaserverclient21`
-
-    * `libperconaserverclient21-dev`
-
-    * `percona-xtradb-cluster`
+    * `percona-telemetry-agent`
 
     * `percona-xtradb-cluster-client`
+
+    * `percona-xtradb-cluster-client-core`
+
+    * `percona-xtradb-cluster-client-plugins`
 
     * `percona-xtradb-cluster-common`
 
@@ -116,11 +114,12 @@ During the installation, you are requested to provide a password for the `root` 
 
     * `percona-xtradb-cluster-server`
 
+    * `percona-xtradb-cluster-server-core`
+
     * `percona-xtradb-cluster-server-debug`
 
-    * `percona-xtradb-cluster-source`
-
     * `percona-xtradb-cluster-test`
+
 
 ## Next steps
 

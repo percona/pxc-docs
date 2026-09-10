@@ -37,6 +37,32 @@ For information on SELinux, see [Enabling SELinux](selinux.md#enable-selinux).
 
 For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation :octicons-link-external-16:](https://docs.percona.com/percona-software-repositories/index.html).
 
+Installing `percona-xtradb-cluster` pulls in the following packages:
+
+* `percona-telemetry-agent`
+
+* `percona-xtradb-cluster-client`
+
+* `percona-xtradb-cluster-client-plugins`
+
+* `percona-xtradb-cluster-debuginfo`
+
+* `percona-xtradb-cluster-debugsource`
+
+* `percona-xtradb-cluster-devel`
+
+* `percona-xtradb-cluster-full`
+
+* `percona-xtradb-cluster-garbd`
+
+* `percona-xtradb-cluster-icu-data-files`
+
+* `percona-xtradb-cluster-server`
+
+* `percona-xtradb-cluster-shared`
+
+* `percona-xtradb-cluster-test`
+
 ## Install on Red Hat 8
 
 RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module: 
