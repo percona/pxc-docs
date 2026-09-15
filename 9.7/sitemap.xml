@@ -2,266 +2,266 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/apt.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/certification.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/compile.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-rhel.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-ubuntu.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/copyright-and-licensing-information.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/crash-recovery.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/data-at-rest-encryption.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/docker-compose.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/docker.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/download-instructions.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/failover.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/faq.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/garbd-howto.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-record-set-cache-difference.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-write-set-cache-encryption.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/get-started-cluster.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/haproxy.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/index-contents.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/intro.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/legal-notice.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/limitation.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/monitoring.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/nbo.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/online-schema-upgrade.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/performance-schema-instrumentation.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/proxysql-v2.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/quickstart-overview.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/restarting-nodes.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/security-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/set-up-3nodes-ec2.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/singlebox.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/state-snapshot-transfer.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/tarball.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/threading-model.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/trademark-policy.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-backup.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-guide.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-packages.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/virtual-sandbox.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-files-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/xtrabackup-sst.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/xtradb-cluster-version-numbers.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/yum.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.1-1.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
     <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/release-notes-index.html</loc>
-         <lastmod>2026-09-10</lastmod>
+         <lastmod>2026-09-15</lastmod>
     </url>
 </urlset>
