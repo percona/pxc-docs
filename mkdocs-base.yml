@@ -209,6 +209,7 @@ nav:
       - verify-replication.md
   - Upgrade:
       - upgrade-guide.md
+      - migrate-mysql-galera.md
       - upgrade-backup.md
       - upgrade-packages.md
   - PXC security:
