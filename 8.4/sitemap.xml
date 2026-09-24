@@ -145,6 +145,10 @@
          <lastmod>2026-09-24</lastmod>
     </url>
     <url>
+         <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.html</loc>
+         <lastmod>2026-09-24</lastmod>
+    </url>
+    <url>
          <loc>https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html</loc>
          <lastmod>2026-09-24</lastmod>
     </url>

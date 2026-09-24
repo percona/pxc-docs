@@ -1649,6 +1649,8 @@
       
         
       
+        
+      
     
     
     
@@ -1704,6 +1706,34 @@
     
   
     Upgrade Percona XtraDB Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate-mysql-galera.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migrate from MySQL Galera Cluster to Percona XtraDB Cluster
   
 
     
@@ -3968,6 +3998,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Upgrade Percona XtraDB Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrate-mysql-galera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrate from MySQL Galera Cluster to Percona XtraDB Cluster
       
     </span>
   </a>
@@ -7703,6 +7744,7 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <p>Create backups before attempting any upgrade.</p>
 </div>
 <p>This guide describes how to upgrade Percona XtraDB Cluster to version 8.4 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 8.4 require version 8.0 or later. Upgrade to the latest 8.0 release before upgrading to 8.4.</p>
+<p>If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Cluster, use <a href="#migrate-mysql-galera">Migrate from MySQL Galera Cluster to Percona XtraDB Cluster</a> first. Complete that migration, then return here for any major-version upgrade.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>A node with a newer protocol version cannot join a cluster running an older Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption and incompatibility issues.</p>
@@ -7908,7 +7950,211 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <h2 id="upgrade-guide-downgrade">Downgrade<a class="headerlink" href="#upgrade-guide-downgrade" title="Permanent link">&para;</a></h2>
 <p>MySQL-compatible database servers (version 8.0.34 and later) allow downgrades within the same Long-Term Support (LTS) version scope. The server must not have applied any new functionality to the data. Downgrading a node is not recommended, but administrators can perform the downgrade using the established procedure.</p>
 <p>The key constraint is data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Verify that no version-specific modifications have been made before attempting a downgrade.</p>
-<p>Downgrades carry inherent risks. Approach downgrades with caution and thorough planning.</p></section><section class="print-page" id="upgrade-backup" heading-number="8.2"><h1 id="upgrade-backup-restore-80-backup-to-84-cluster">Restore 8.0 backup to 8.4 cluster<a class="headerlink" href="#upgrade-backup-restore-80-backup-to-84-cluster" title="Permanent link">&para;</a></h1>
+<p>Downgrades carry inherent risks. Approach downgrades with caution and thorough planning.</p></section><section class="print-page" id="migrate-mysql-galera" heading-number="8.2"><h1 id="migrate-mysql-galera-migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster">Migrate from MySQL Galera Cluster to Percona XtraDB Cluster<a class="headerlink" href="#migrate-mysql-galera-migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster (PXC) uses the same <a href="#glossary-write-set">write-set</a> replication model as MySQL Galera Cluster, so a migration replaces the binaries and keeps the <a href="#glossary-datadir">datadir</a>. The schemas, data, user accounts, and privileges carry over.</p>
+<p>Starting in PXC 8.4.11, a PXC node can join a running MySQL Galera Cluster. You can convert nodes one at a time, in place, so the cluster stays available throughout and no extra hardware is required.</p>
+<p>You can use either of the following methods:</p>
+<ul>
+<li>
+<p>Stop one node in an N-node Galera Cluster, replace the binaries with PXC, start PXC on the existing datadir, and let that node rejoin</p>
+</li>
+<li>
+<p>Add a new PXC node to the Galera Cluster</p>
+</li>
+</ul>
+<p>Both approaches keep the cluster available. Earlier PXC versions cannot form a mixed cluster with Galera Cluster, so those migrations need a short full-cluster outage.</p>
+<div class="admonition important">
+<p class="admonition-title">Set these before you start a PXC node</p>
+<ul>
+<li>
+<p>Use <code>wsrep_sst_method=xtrabackup-v2</code>. PXC requires this SST method.</p>
+</li>
+<li>
+<p>PXC encrypts the Galera channel by default. Set <a href="#encrypt-traffic-encrypt-pxc-traffic"><code>pxc_encrypt_cluster_traffic</code></a> so it matches the Galera Cluster before you start the PXC node.</p>
+</li>
+</ul>
+</div>
+<p>Review <a href="#get-help">Get more help</a> for ways that we can work with you.</p>
+<div class="admonition warning">
+<p class="admonition-title">Back up your data before you start</p>
+<p>Create and verify a physical backup with <a href="https://docs.percona.com/percona-xtrabackup/">Percona XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> before you change any node. A backup is the only reliable way back if a step fails.</p>
+</div>
+<h2 id="migrate-mysql-galera-before-you-start">Before you start<a class="headerlink" href="#migrate-mysql-galera-before-you-start" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>An N-node MySQL Galera Cluster where every node is <code>Synced</code> and the cluster is <code>Primary</code>.</p>
+</li>
+<li>
+<p>PXC packages for your platform. See <a href="#apt">Install on Debian or Ubuntu</a> or <a href="#yum">Install on Red Hat Enterprise Linux</a>.</p>
+</li>
+<li>
+<p>Root or <code>sudo</code> access on every node.</p>
+</li>
+</ul>
+<p>Reuse the Galera Cluster <code>my.cnf</code>. Keep <a href="#glossary-wsrep"><code>wsrep</code></a> cluster identity the same (<code>wsrep_cluster_name</code>, <code>wsrep_cluster_address</code>, and the per-node <code>wsrep_node_name</code> and <code>wsrep_node_address</code>), then change only what PXC requires:</p>
+<ul>
+<li>
+<p><code>wsrep_sst_method=xtrabackup-v2</code>. PXC uses Percona XtraBackup for SST. Do not carry over <code>rsync</code>, MariaBackup, or a custom SST script. See <a href="#xtrabackup-sst">Percona XtraBackup SST configuration</a>.</p>
+</li>
+<li>
+<p><code>wsrep_provider</code> must point at the PXC Galera library. See <a href="#configure-nodes">Configure nodes for write-set replication</a>.</p>
+</li>
+<li>
+<p><a href="#encrypt-traffic-encrypt-pxc-traffic"><code>pxc_encrypt_cluster_traffic</code></a> must match the Galera Cluster. PXC enables it by default.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Traffic encryption</p>
+<p>PXC enables <a href="#encrypt-traffic-encrypt-pxc-traffic"><code>pxc_encrypt_cluster_traffic</code></a> by default. If your Galera Cluster does not encrypt replication traffic, set <code>pxc_encrypt_cluster_traffic=OFF</code> on the PXC nodes. Otherwise, distribute identical certificates to every node. See <a href="#encrypt-traffic">Encrypt PXC traffic</a>.</p>
+</div>
+<h2 id="migrate-mysql-galera-migrate-with-pxc-8411-or-newer">Migrate with PXC 8.4.11 or newer<a class="headerlink" href="#migrate-mysql-galera-migrate-with-pxc-8411-or-newer" title="Permanent link">&para;</a></h2>
+<p>Introduced in Percona XtraDB Cluster 8.4.11, you can join a running Galera Cluster. Choose either scenario. Both keep the cluster available throughout.</p>
+<h3 id="migrate-mysql-galera-scenario-1-convert-each-node-in-place">Scenario 1: Convert each node in place<a class="headerlink" href="#migrate-mysql-galera-scenario-1-convert-each-node-in-place" title="Permanent link">&para;</a></h3>
+<p class="power-number">The node keeps its datadir, so it rejoins with <a href="#glossary-ist">IST</a> instead of a full data copy. This scenario needs no extra hardware.</p>
+<ol>
+<li>
+<p>Stop one Galera Cluster node.</p>
+</li>
+<li>
+<p>Install PXC on that host. Keep the Galera Cluster <code>my.cnf</code>, apply the adjustments in <a href="#migrate-mysql-galera-before-you-start">Before you start</a>, and start the node. It joins the cluster with IST.</p>
+</li>
+<li>
+<p>Wait for the node to reach <code>Synced</code>, then repeat steps 1 and 2 on the next node.</p>
+</li>
+</ol>
+<h3 id="migrate-mysql-galera-scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes">Scenario 2: Add PXC nodes and retire Galera Cluster nodes<a class="headerlink" href="#migrate-mysql-galera-scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes" title="Permanent link">&para;</a></h3>
+<p class="power-number">Use this scenario when you also move to new hosts. Each new node joins with <a href="#glossary-sst">SST</a>, so plan for the transfer time and the load on the <a href="#glossary-donor-node">donor</a>.</p>
+<ol>
+<li>
+<p>Start a fresh PXC node and join it to the existing Galera Cluster. Copy the Galera Cluster <code>my.cnf</code>, apply the same adjustments, and start the node. It joins with SST.</p>
+</li>
+<li>
+<p>Wait for the new node to reach <code>Synced</code>.</p>
+</li>
+<li>
+<p>Decommission one Galera Cluster node.</p>
+</li>
+<li>
+<p>Repeat steps 1 through 3 until every Galera Cluster node is replaced.</p>
+</li>
+</ol>
+<h2 id="migrate-mysql-galera-migrate-with-pxc-earlier-than-8411">Migrate with PXC earlier than 8.4.11<a class="headerlink" href="#migrate-mysql-galera-migrate-with-pxc-earlier-than-8411" title="Permanent link">&para;</a></h2>
+<p class="power-number">These PXC versions cannot form a cluster with Galera Cluster nodes, so you bootstrap a new cluster from an existing datadir during a maintenance window.</p>
+<ol>
+<li>
+<p>Stop application writes, then stop MySQL on all Galera Cluster nodes.</p>
+</li>
+<li>
+<p>Using the datadir of the last node you stopped, <a href="#glossary-bootstrap">bootstrap</a> a new cluster with the PXC binaries:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+</code></pre></div>
+<p>See <a href="#bootstrap">Bootstrap the first node</a>.</p>
+</li>
+<li>
+<p>Delete the <code>grastate.dat</code> file from the datadir of every other node. This forces those nodes to join with <a href="#glossary-sst">SST</a>.</p>
+</li>
+<li>
+<p>Start the other nodes one at a time with a normal start. Wait for each node to reach <code>Synced</code> before you start the next one.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+</li>
+<li>
+<p>Stop the bootstrap unit on the first node and start it normally so it uses <code>wsrep_cluster_address</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql@bootstrap.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+</li>
+</ol>
+<h2 id="migrate-mysql-galera-verify-the-migration">Verify the migration<a class="headerlink" href="#migrate-mysql-galera-verify-the-migration" title="Permanent link">&para;</a></h2>
+<p>Run these checks on every node:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_size'</span><span class="p">;</span>
+<span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>
+</code></pre></div>
+<p><code>VERSION()</code> must identify Percona XtraDB Cluster, <code>wsrep_cluster_status</code> must be <code>Primary</code>, <code>wsrep_local_state_comment</code> must be <code>Synced</code>, and <code>wsrep_cluster_size</code> must equal your node count.</p>
+<p>Then <a href="#verify-replication">verify replication</a> with a write on one node and a read on the others.</p>
+<h2 id="migrate-mysql-galera-after-you-migrate">After you migrate<a class="headerlink" href="#migrate-mysql-galera-after-you-migrate" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="#glossary-strict-mode">PXC Strict Mode</a> defaults to <code>ENFORCING</code> and blocks unsupported operations. If your workload needs it, start with <code>PERMISSIVE</code>, validate the application, then move to <code>ENFORCING</code>. See <a href="#strict-mode">Percona XtraDB Cluster strict mode</a>.</p>
+</li>
+<li>
+<p>Replace a Codership <code>garbd</code> arbitrator with the matching Percona package. See <a href="#garbd-howto">Set up Galera arbitrator</a>.</p>
+</li>
+<li>
+<p>Point backup jobs and monitoring at the new cluster. <a href="https://docs.percona.com/percona-monitoring-and-management/">Percona Monitoring and Management <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is the recommended option. See <a href="#monitoring">Monitor the cluster</a>.</p>
+</li>
+<li>
+<p>Keep the pre-migration backup until the cluster runs cleanly in production for an agreed observation period.</p>
+</li>
+</ul>
+<p>To change major versions, complete the migration first, then use <a href="#upgrade-guide">Upgrade Percona XtraDB Cluster</a>.</p>
+<h2 id="migrate-mysql-galera-troubleshooting">Troubleshooting<a class="headerlink" href="#migrate-mysql-galera-troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node fails to join</td>
+<td>Encryption mismatch</td>
+<td><code>pxc_encrypt_cluster_traffic</code> must match on every node. Certificates must be identical. See <a href="#encrypt-traffic">Encrypt PXC traffic</a>.</td>
+</tr>
+<tr>
+<td>Node starts its own cluster</td>
+<td>Wrong <code>wsrep_cluster_address</code> or an accidental bootstrap</td>
+<td>Bootstrap only one node, and only when you form a new cluster.</td>
+</tr>
+<tr>
+<td>SST fails</td>
+<td>Unsupported SST method</td>
+<td><code>wsrep_sst_method</code> must be <code>xtrabackup-v2</code>. See <a href="#wsrep-system-index-wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code></a> and <a href="#xtrabackup-sst">XtraBackup SST configuration</a>.</td>
+</tr>
+<tr>
+<td>Client login fails</td>
+<td>Authentication plugin mismatch</td>
+<td>Accounts keep the plugin stored in <code>mysql.user</code>. Older connectors need TLS or RSA key exchange for <code>caching_sha2_password</code>. With ProxySQL, use 2.6.2 or later. See <a href="#load-balance-proxysql">Load balance with ProxySQL</a>.</td>
+</tr>
+<tr>
+<td>Application errors after migration</td>
+<td>Strict Mode rejects statements</td>
+<td><code>pxc_strict_mode</code> and the error log. See <a href="#strict-mode">Percona XtraDB Cluster strict mode</a>.</td>
+</tr>
+<tr>
+<td>Configuration missing after a yum or dnf install</td>
+<td>RHEL replaced <code>my.cnf</code></td>
+<td>Restore your settings from <code>/etc/my.cnf.rpmsave</code>.</td>
+</tr>
+<tr>
+<td>Cluster size does not recover</td>
+<td><a href="#glossary-quorum">Quorum</a> loss</td>
+<td>See <a href="#failover">Cluster failover</a> and <a href="#emergency-quorum-recovery">Emergency quorum recovery</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="migrate-mysql-galera-further-reading">Further reading<a class="headerlink" href="#migrate-mysql-galera-further-reading" title="Permanent link">&para;</a></h2>
+<div class="admonition admonition">
+<p class="admonition-title">See also</p>
+<ul>
+<li>
+<p><a href="https://www.percona.com/blog/migrate-mysql-galera-cluster-to-percona-xtradb-cluster/">How to Migrate from MySQL Galera Cluster to Percona XtraDB Cluster <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+</li>
+<li>
+<p><a href="#configure-nodes">Configure nodes for write-set replication</a></p>
+</li>
+<li>
+<p><a href="#upgrade-guide">Upgrade Percona XtraDB Cluster</a></p>
+</li>
+<li>
+<p><a href="#limitation">Percona XtraDB Cluster limitations</a></p>
+</li>
+</ul>
+</div></section><section class="print-page" id="upgrade-backup" heading-number="8.3"><h1 id="upgrade-backup-restore-80-backup-to-84-cluster">Restore 8.0 backup to 8.4 cluster<a class="headerlink" href="#upgrade-backup-restore-80-backup-to-84-cluster" title="Permanent link">&para;</a></h1>
 <p>Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.</p>
 <h2 id="upgrade-backup-restore-a-database-with-a-different-server-version">Restore a database with a different server version<a class="headerlink" href="#upgrade-backup-restore-a-database-with-a-different-server-version" title="Permanent link">&para;</a></h2>
 <p>Review <a href="#upgrade-guide">Upgrade Percona XtraDB cluster</a>.</p>
@@ -7962,7 +8208,7 @@ It provides visibility for the cluster and enables efficient troubleshooting.</p
 <p>Join the cluster using State Snapshot Transfer (SST).</p>
 </li>
 </ol>
-<p>This procedure can also be used to downgrade within the same LTS version.</p></section><section class="print-page" id="upgrade-packages" heading-number="8.3"><h1 id="upgrade-packages-upgrade-cluster-from-packages">Upgrade cluster from packages<a class="headerlink" href="#upgrade-packages-upgrade-cluster-from-packages" title="Permanent link">&para;</a></h1>
+<p>This procedure can also be used to downgrade within the same LTS version.</p></section><section class="print-page" id="upgrade-packages" heading-number="8.4"><h1 id="upgrade-packages-upgrade-cluster-from-packages">Upgrade cluster from packages<a class="headerlink" href="#upgrade-packages-upgrade-cluster-from-packages" title="Permanent link">&para;</a></h1>
 <p>Make a full backup (or dump if possible) of your database. Move the database configuration file, <code>my.cnf</code>, to another direction to save it. Stop the server with <code>/etc/init.d/mysql stop</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="upgrade-packages-__tabbed_1_1" name="upgrade-packages-__tabbed_1" type="radio" /><input id="upgrade-packages-__tabbed_1_2" name="upgrade-packages-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="upgrade-packages-__tabbed_1_1">Debian-derived distribution</label><label for="upgrade-packages-__tabbed_1_2">Red Hat-derived distributions</label></div>
 <div class="tabbed-content">
@@ -21241,6 +21487,8 @@ extension containing the table definition (for all storage engines).</p>
 <p>Asynchronous replication is a technique where data is first written to the primary node. After the primary acknowledges the write, the data is written to secondary nodes.</p>
 <h2 id="glossary-atomicity">Atomicity<a class="headerlink" href="#glossary-atomicity" title="Permanent link">&para;</a></h2>
 <p>This property guarantees that all updates of a transaction occur in the database or no updates occur. This guarantee also applies with a server exit. If a transaction fails, the entire operation rolls back.</p>
+<h2 id="glossary-bootstrap">bootstrap<a class="headerlink" href="#glossary-bootstrap" title="Permanent link">&para;</a></h2>
+<p>The process of starting the first node of a cluster so that node initializes the Primary Component. See <a href="#bootstrap">Bootstrap the first node</a>.</p>
 <h2 id="glossary-cluster-replication">Cluster replication<a class="headerlink" href="#glossary-cluster-replication" title="Permanent link">&para;</a></h2>
 <p>Normal replication path for cluster members. Can be encrypted (not by
 default) and unicast or multicast (unicast by default). Runs on tcp port 4567 by default.</p>
@@ -21319,6 +21567,8 @@ attempting to read or write from the database.</p>
 <p>Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.</p>
 <h2 id="glossary-streaming-replication">Streaming replication<a class="headerlink" href="#glossary-streaming-replication" title="Permanent link">&para;</a></h2>
 <p>A Galera 4 feature that divides large or long-running transactions into smaller fragments. Galera certifies and replicates each fragment while the transaction remains open. Enable streaming replication at the session level with <a href="#wsrep-system-index-wsrep_trx_fragment_unit"><code>wsrep_trx_fragment_unit</code></a> and <a href="#wsrep-system-index-wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a>. For details, see <a href="#streaming-replication">Streaming replication for large transactions</a>.</p>
+<h2 id="glossary-strict-mode">Strict Mode<a class="headerlink" href="#glossary-strict-mode" title="Permanent link">&para;</a></h2>
+<p>Percona XtraDB Cluster Strict Mode validates unsupported and tech preview features at startup and during runtime. See <a href="#strict-mode">Percona XtraDB Cluster strict mode</a>.</p>
 <h2 id="glossary-sst">SST<a class="headerlink" href="#glossary-sst" title="Permanent link">&para;</a></h2>
 <p>State Snapshot Transfer is the full copy of data from one node to another.  It&rsquo;s used when a new node joins the cluster, it has to transfer data from an existing node.
 Percona XtraDB Cluster: uses the <code>xtrabackup</code> program for this purpose. <code>xtrabackup</code> does not require <code>READ LOCK</code> for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).</p>
@@ -21332,6 +21582,8 @@ manually when upgrading your system from an older version.</p>
 <p>A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as <a href="#glossary-general-availability-ga">general availability(GA)</a> or removed if not useful. The item’s functionality can change from tech preview to GA.</p>
 <h2 id="glossary-write-set">Write-set<a class="headerlink" href="#glossary-write-set" title="Permanent link">&para;</a></h2>
 <p>Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for <a href="#glossary-certification">certification</a> and application. Write-set caching during long transactions is described in <a href="#gcache-record-set-cache-difference">Understand GCache and Record-Set cache</a>.</p>
+<h2 id="glossary-wsrep">wsrep<a class="headerlink" href="#glossary-wsrep" title="Permanent link">&para;</a></h2>
+<p>Write Set REPlication. The Galera API and the related status and system variables that control cluster replication. See <a href="#wsrep-system-index">Index of wsrep system variables</a> and <a href="#wsrep-status-index">Index of wsrep status variables</a>.</p>
 <h2 id="glossary-uuid">UUID<a class="headerlink" href="#glossary-uuid" title="Permanent link">&para;</a></h2>
 <p>Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses (&ldquo;locally administered&rdquo; bit in the node address (in the UUID structure) is  always equal to unity).</p></section><section class="print-page" id="copyright-and-licensing-information" heading-number="12.8"><h1 id="copyright-and-licensing-information-copyright-and-licensing-information">Copyright and licensing information<a class="headerlink" href="#copyright-and-licensing-information-copyright-and-licensing-information" title="Permanent link">&para;</a></h1>
 <h2 id="copyright-and-licensing-information-documentation-licensing">Documentation licensing<a class="headerlink" href="#copyright-and-licensing-information-documentation-licensing" title="Permanent link">&para;</a></h2>
@@ -21380,6 +21632,7 @@ manually when upgrading your system from an older version.</p>
 <li><a href="#install-index">Install Percona XtraDB Cluster</a></li>
 <li><a href="#load-balance-proxysql">Load balance with ProxySQL</a></li>
 <li><a href="#haproxy">Load balancing with HAProxy</a></li>
+<li><a href="#migrate-mysql-galera">Migrate from MySQL Galera Cluster to Percona XtraDB Cluster</a></li>
 <li><a href="#monitoring">Monitor the cluster</a></li>
 <li><a href="#nbo">Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)</a></li>
 <li><a href="#online-schema-upgrade">Online schema upgrade</a></li>
@@ -21490,9 +21743,11 @@ manually when upgrading your system from an older version.</p>
 .print-site-enumerate-headings #section-8 > h1:before { content: '8 ' }
 .print-site-enumerate-headings #upgrade-guide > h1:before { content: '8.1 ' }
 
-.print-site-enumerate-headings #upgrade-backup > h1:before { content: '8.2 ' }
+.print-site-enumerate-headings #migrate-mysql-galera > h1:before { content: '8.2 ' }
 
-.print-site-enumerate-headings #upgrade-packages > h1:before { content: '8.3 ' }
+.print-site-enumerate-headings #upgrade-backup > h1:before { content: '8.3 ' }
+
+.print-site-enumerate-headings #upgrade-packages > h1:before { content: '8.4 ' }
 
 .print-site-enumerate-headings #section-9 > h1:before { content: '9 ' }
 .print-site-enumerate-headings #security-index > h1:before { content: '9.1 ' }
