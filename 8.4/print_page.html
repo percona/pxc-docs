@@ -9816,6 +9816,40 @@ clone_ssl_cert = /path/to/client-cert.pem
 clone_ssl_key = /path/to/client-key.pem
 </code></pre></div>
 <p>Ensure the <code>&lt;path&gt;</code> used is not the data directory to avoid conflicts during the Clone SST process.</p>
+<h2 id="clone-sst-clone-sst-temporary-password">Clone SST temporary password<a class="headerlink" href="#clone-sst-clone-sst-temporary-password" title="Permanent link">&para;</a></h2>
+<p>When <code>wsrep_sst_method=clone</code>, the joiner creates a temporary password for the short-lived <code>clone_sst</code> account used during SST. The donor uses the same password to connect to the joiner. If <code>validate_password</code> is enabled, the temporary password must meet the policy on both the joiner and the donor. Configure password policy adjustments on the joiner. The password may contain only characters that are safe for the SST credential handshake (<code>user:password@host:port</code>). Characters such as <code>@</code>, <code>:</code>, quotes, and spaces are not allowed.</p>
+<h3 id="clone-sst-default-password">Default password<a class="headerlink" href="#clone-sst-default-password" title="Permanent link">&para;</a></h3>
+<p>The default password requires no extra configuration. The generated password has 36 characters. The generated password contains at least one uppercase letter, one lowercase letter, one digit, and one special character (<code>.</code>). The default password meets basic <code>validate_password</code> settings.</p>
+<h3 id="clone-sst-adjust-the-password-for-stricter-validate_password-rules">Adjust the password for stricter validate_password rules<a class="headerlink" href="#clone-sst-adjust-the-password-for-stricter-validate_password-rules" title="Permanent link">&para;</a></h3>
+<p>If the password policy requires a longer password or more mixed-case, digit, or special characters, add a suffix on the joiner. Add the suffix in <code>my.cnf</code> on the joiner:</p>
+<div class="highlight"><pre><span></span><code>[sst]
+sst-password-suffix=AAA..//2344
+</code></pre></div>
+<p>The joiner appends the suffix to the default generated password. Both <code>sst-password-suffix</code> and <code>sst_password_suffix</code> are accepted.</p>
+<p>Allowed characters in the suffix are:</p>
+<ul>
+<li>
+<p>Letters (<code>A-Z</code>, <code>a-z</code>)</p>
+</li>
+<li>
+<p>Digits (<code>0-9</code>)</p>
+</li>
+<li>
+<p>Special characters: <code>.</code> <code>_</code> <code>/</code> <code>-</code></p>
+</li>
+</ul>
+<p>Other characters cause SST to fail. The following characters are not allowed: <code>+</code>, <code>=</code>, spaces, quotes, <code>@</code>, <code>:</code>, and commas.</p>
+<p>For a policy like the following:</p>
+<div class="highlight"><pre><span></span><code>validate_password.length = 40
+validate_password.mixed_case_count = 7
+validate_password.number_count = 3
+validate_password.special_char_count = 2
+</code></pre></div>
+<p>Use the following suffix:</p>
+<div class="highlight"><pre><span></span><code>[sst]
+sst-password-suffix=AAA..//2344
+</code></pre></div>
+<p>Match the suffix to the site password policy. The final password must pass validation on both the donor and the joiner. Configure <code>sst-password-suffix</code> on the joiner only. The donor receives the final password from the joiner during SST.</p>
 <h2 id="clone-sst-variables">Variables<a class="headerlink" href="#clone-sst-variables" title="Permanent link">&para;</a></h2>
 <h3 id="clone-sst-sst-variables">SST variables<a class="headerlink" href="#clone-sst-sst-variables" title="Permanent link">&para;</a></h3>
 <p>State Snapshot Transfer (SST) in Galera Cluster relies on specific variables that control its configuration and behavior. You must set these variables appropriately to ensure seamless synchronization between nodes during the SST process. The following lists of the most commonly used variables and their purposes.</p>
