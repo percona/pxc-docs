@@ -108,6 +108,53 @@ clone_ssl_key = /path/to/client-key.pem
 
 Ensure the `<path>` used is not the data directory to avoid conflicts during the Clone SST process.
 
+## Clone SST temporary password
+
+When `wsrep_sst_method=clone`, the joiner creates a temporary password for the short-lived `clone_sst` account used during SST. The donor uses the same password to connect to the joiner. If `validate_password` is enabled, the temporary password must meet the policy on both the joiner and the donor. Configure password policy adjustments on the joiner. The password may contain only characters that are safe for the SST credential handshake (`user:password@host:port`). Characters such as `@`, `:`, quotes, and spaces are not allowed.
+
+### Default password
+
+The default password requires no extra configuration. The generated password has 36 characters. The generated password contains at least one uppercase letter, one lowercase letter, one digit, and one special character (`.`). The default password meets basic `validate_password` settings.
+
+### Adjust the password for stricter validate_password rules
+
+If the password policy requires a longer password or more mixed-case, digit, or special characters, add a suffix on the joiner. Add the suffix in `my.cnf` on the joiner:
+
+```text
+[sst]
+sst-password-suffix=AAA..//2344
+```
+
+The joiner appends the suffix to the default generated password. Both `sst-password-suffix` and `sst_password_suffix` are accepted.
+
+Allowed characters in the suffix are:
+
+- Letters (`A-Z`, `a-z`)
+
+- Digits (`0-9`)
+
+- Special characters: `.` `_` `/` `-`
+
+Other characters cause SST to fail. The following characters are not allowed: `+`, `=`, spaces, quotes, `@`, `:`, and commas.
+
+For a policy like the following:
+
+```text
+validate_password.length = 40
+validate_password.mixed_case_count = 7
+validate_password.number_count = 3
+validate_password.special_char_count = 2
+```
+
+Use the following suffix:
+
+```text
+[sst]
+sst-password-suffix=AAA..//2344
+```
+
+Match the suffix to the site password policy. The final password must pass validation on both the donor and the joiner. Configure `sst-password-suffix` on the joiner only. The donor receives the final password from the joiner during SST.
+
 ## Variables
 
 ### SST variables
