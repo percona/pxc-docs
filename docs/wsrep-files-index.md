@@ -1,36 +1,46 @@
-# Index of files created by PXC
+# Index of files created by Percona XtraDB Cluster
 
-* `GRA_\*.log`
+Percona XtraDB Cluster can create the following files:
 
-    These files contain binlog events in ROW format representing the failed
-    transaction. That means that the replica thread was not able to apply one of
-    the transactions. For each of those file, a corresponding warning or error
-    message is present in the mysql error log file. Those error can also be
-    false positives like a bad `DDL` statement (dropping  a table that doesn’t
-    exists for example) and therefore nothing to worry about. However it’s
-    always recommended to check these log to understand what’s is happening.
+### `GRA_*.log`
 
-    To be able to analyze these files binlog header needs to be added to the log
-    file. To create the `GRA_HEADER` file you need an instance running with `binlog_checksum` set to `NONE` and extract first 120 bytes from the binlog file:
+`GRA_*.log` files contain row-based binary log events for a transaction that failed to apply.
 
-    ```shell
-    head -c 123 mysqld-bin.000001 > GRA_HEADER
-    cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
-    cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
-    mysqlbinlog -vvv /var/lib/mysql/GRA_1_2-bin.log
+The replica thread does not apply that transaction.
+
+Each file has a matching warning or error in the MySQL error log.
+
+Some errors are harmless. One example is a Data Definition Language (DDL) statement that drops a table that does not exist.
+
+Check these logs to determine what failed.
+
+To decode a GRA log file, add a binary log header. Use an instance with `binlog_checksum` set to `NONE`. Extract the first 123 bytes from a binary log file.
+
+The following commands create `GRA_HEADER`, combine the files, and decode the result:
+
+```bash
+head -c 123 mysqld-bin.000001 > GRA_HEADER
+cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
+cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
+mysqlbinlog -vvv /var/lib/mysql/GRA_1_2-bin.log
+```
+
+??? example "mysqlbinlog output"
+
+    ```{.text .no-copy}
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
     /*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
     DELIMITER /*!*/;
-    at 4
+    # at 4
     #160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup
-    Warning: this binlog is either in use or was not closed properly.
+    # Warning: this binlog is either in use or was not closed properly.
     ROLLBACK/*!*/;
     BINLOG '
     nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA
     ALfQ8hw=
     '/*!*/;
-    at 123
+    # at 123
     #160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0
     use `test`/*!*/;
     SET TIMESTAMP=1470738949/*!*/;
@@ -46,106 +56,140 @@
     /*!*/;
     SET @@SESSION.GTID_NEXT= 'AUTOMATIC' /* added by mysqlbinlog */ /*!*/;
     DELIMITER ;
-    End of log file
+    # End of log file
     /*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
     /*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
     ```
 
-    This information can be used for checking the MySQL error log for the corresponding error message.
+Use the decoded statement and timestamp to find the matching error in the MySQL error log.
 
-    ??? example "Error message"
+??? example "Error message"
 
-        ```text
-        160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
-        160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
-        ```
-
-    In this example `DROP TABLE` statement was executed on a table that doesn’t exist.
-
-* `gcache.page`
-    
-    See [`gcache.page_size`](wsrep-provider-index.md#gcachepage_size)
-    
-    !!! admonition "See also"
-
-        [Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache) :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
-
-* `galera.cache`
-
-    This file is used as a main writeset store. It’s implemented as a permanent
-    ring-buffer file that is preallocated on disk when the node is initialized.
-    File size can be controlled with the variable [`gcache.size`](wsrep-provider-index.md#gcachesize). If this value is bigger, more writesets are cached and chances are better that the re-joining node will get [IST](glossary.md#ist) instead of [SST](glossary.md#sst). Filename can be changed with the [`gcache.name`](wsrep-provider-index.md#gcachename) variable.
-
-* `grastate.dat`
-
-    This file contains the Galera state information.
-
-    * `version` - grastate version
-
-    * `uuid` - a unique identifier for the state and the sequence of changes it undergoes.For more information on how UUID is generated see [UUID](glossary.md#uuid).
-
-    * `seqno` - Ordinal Sequence Number, a 64-bit signed integer used to denote the position of the change in the sequence. `seqno` is `0` when no writesets have been generated or applied on that node, i.e., not applied/generated across the lifetime of a `grastate` file. `-1` is a special value for the `seqno` that is kept in the `grastate.dat` while the server is running to allow Galera to distinguish between a clean and an unclean shutdown. Upon a clean shutdown, the correct `seqno` value is written to the file. So, when the server is brought back up, if the value is still `-1` , this means that the server did not shut down cleanly. If the value is greater than `0`, this means that the shutdown was clean. `-1` is then written again to the file in order to allow the server to correctly detect if the next shutdown was clean in the same manner.
-
-    * `cert_index` - cert index restore through grastate is not implemented yet
-
-    Examples of this file look like this:
-
-    In case server node has this state when not running it means that that node crashed during the transaction processing.
-
-    ```shell
-    GALERA saved state
-    version: 2.1
-    uuid:    1917033b-7081-11e2-0800-707f5d3b106b
-    seqno:   -1
-    cert_index:
+    ```{.text .no-copy}
+    160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
+    160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
     ```
 
-    In case server node has this state when not running it means that the node
-    was gracefully shut down.
+In this example, a `DROP TABLE` statement ran against a table that does not exist.
 
-    ```shell
-    GALERA saved state
-    version: 2.1
-    uuid:    1917033b-7081-11e2-0800-707f5d3b106b
-    seqno:   5192193423942
-    cert_index:
+### `gcache.page`
+
+See [`gcache.page_size`](wsrep-provider-index.md#gcachepage_size).
+
+!!! admonition "See also"
+
+    [Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache) :octicons-link-external-16:](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+
+### `galera.cache`
+
+`galera.cache` is the main store for write sets.
+
+The file is a permanent ring buffer. The node allocates the file on disk at initialization.
+
+The [`gcache.size`](wsrep-provider-index.md#gcachesize) variable sets the file size. A larger file caches more write sets. A joining node is more likely to receive [Incremental State Transfer (IST)](glossary.md#ist) instead of [State Snapshot Transfer (SST)](glossary.md#sst).
+
+The [`gcache.name`](wsrep-provider-index.md#gcachename) variable sets the file name.
+
+### `grastate.dat`
+
+`grastate.dat` stores Galera state information.
+
+The file has the following fields:
+
+* `version`: Format version of `grastate.dat`
+
+* `uuid`: Unique identifier for the state and the change sequence. See [UUID](glossary.md#uuid).
+
+* `seqno`: Sequence number of the last change. The value is a 64-bit signed integer.
+
+* `cert_index`: Unused. Certification index restore is not implemented.
+
+`seqno` uses the following values:
+
+* `0`: No write sets were generated or applied on that node for the life of the file
+
+* `-1`: The server is running, or the last shutdown was not clean
+
+* A value greater than `0`: The last shutdown was clean
+
+While the server runs, Galera writes `-1` to `grastate.dat`. A clean shutdown writes the correct `seqno` value.
+
+At the next start, `-1` means the previous shutdown was not clean. A value greater than `0` means the previous shutdown was clean. The server then writes `-1` again. The next shutdown uses the same detection.
+
+The following examples show `grastate.dat` in three situations.
+
+The node is not running. This state means the node crashed during a transaction:
+
+```{.text .no-copy}
+GALERA saved state
+version: 2.1
+uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+seqno:   -1
+cert_index:
+```
+
+The node is not running. This state means the node shut down cleanly:
+
+```{.text .no-copy}
+GALERA saved state
+version: 2.1
+uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+seqno:   5192193423942
+cert_index:
+```
+
+The node is not running. This state means the node crashed during a DDL statement:
+
+```{.text .no-copy}
+GALERA saved state
+version: 2.1
+uuid:    00000000-0000-0000-0000-000000000000
+seqno:   -1
+cert_index:
+```
+
+The same zero UUID and `seqno` of `-1` also appear after the cluster votes the node out for inconsistent data.
+
+Galera marks the state as corrupt. You can inspect the node while the node still runs.
+
+A corrupt `grastate.dat` file does not force a full SST at the next start. Restart recovery reads a usable position from InnoDB. The node can rejoin with IST. The local data stays inconsistent.
+
+To force SST after the cluster votes the node out for inconsistent data, use one of the following methods:
+
+* Enable [`repl.force_sst_after_inconsistency`](wsrep-provider-index.md#replforce_sst_after_inconsistency). The default is `no`. The default keeps the file for inspection.
+
+* Remove `grastate.dat` before you restart the node.
+
+If the option is `yes`, the node deletes the file after Galera marks the state as corrupt. Copy the file first if you still need the file.
+
+### `gvwstate.dat`
+
+The Primary Component is the subset of nodes that holds [quorum](glossary.md#quorum). Only that subset accepts writes.
+
+Primary Component recovery restores that subset after a full cluster outage. Galera uses `gvwstate.dat` for this process when [`pc.recovery`](wsrep-provider-index.md#pcrecovery) is `true` (the default). After every node from the last saved Primary Component can communicate again, the cluster restores the Primary Component. A manual bootstrap is not required.
+
+A planned full-cluster restart still requires an explicit bootstrap.
+
+Galera creates or updates `gvwstate.dat` when the Primary Component forms or changes. The file records the latest Primary Component for the node. A clean shutdown deletes the file.
+
+The first part stores the UUID of the node. The second part stores the view. The view is written between `#vwbeg` and `#vwend`.
+
+The view record has the following fields:
+
+* `view_id`: `[view_type] [view_uuid] [view_seq]`. `view_type` is always `3`. That value means a primary view. `view_uuid` and `view_seq` identify the view.
+
+* `bootstrap`: `0` or `1`. This value does not change Primary Component recovery.
+
+* `member`: UUID and segment of each node in the Primary Component.
+
+??? example "Example gvwstate.dat file"
+
+    ```{.text .no-copy}
+    my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
+    #vwbeg
+    view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
+    bootstrap: 0
+    member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
+    member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
+    #vwend
     ```
-
-    In case server node has this state when not running it means that the node crashed during the DDL.
-
-    ```shell
-    GALERA saved state
-    version: 2.1
-    uuid:    00000000-0000-0000-0000-000000000000
-    seqno:   -1
-    cert_index:
-    ```
-
-* `gvwstate.dat`
-
-   This file is used for Primary Component recovery feature. This file is
-   created once primary component is formed or changed, so you can get the
-   latest primary component this node was in. And this file is deleted when the
-   node is shutdown gracefully.
-
-   First part contains the node [UUID](glossary.md#uuid) information. Second part contains
-   the view information. View information is written between `#vwbeg` and
-   `#vwend`. View information consists of:
-    
-    * view_id: [view_type] [view_uuid] [view_seq]. - `view_type` is always `3` which means primary view. `view_uuid` and `view_seq` identifies a unique view, which could be perceived as identifier of this primary component.
-   
-    * bootstrap: [bootstarp_or_not]. - it could be `0` or `1`, but it does not affect primary component recovery process now.
-
-    * member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
-
-    ??? example "Example of the file"
-
-        ```text
-        my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
-        #vwbeg
-        view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
-        bootstrap: 0
-        member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
-        member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
-        #vwend
-        ```
