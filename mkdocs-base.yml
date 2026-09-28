@@ -52,8 +52,8 @@ theme:
     - search.suggest
     - navigation.top
     - navigation.tracking
-    - navigation.instant
-    - navigation.instant.progress
+    # - navigation.instant  # off: breaks Osano banner (removes its <style> on navigation)
+    # - navigation.instant.progress  # off: breaks Osano banner (removes its <style> on navigation)
     - navigation.indexes
     - content.tooltips
     - content.tabs.link
