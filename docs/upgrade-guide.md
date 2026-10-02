@@ -29,6 +29,11 @@ If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Clus
 
 Upgrading to Percona Server 8.4 follows the same process as minor 8.0 upgrades. Review the [Percona Server for MySQL 8.4 Upgrade Guide :octicons-link-external-16:](https://docs.percona.com/percona-server/{{vers}}/upgrade.html) for additional details.
 
+!!! note "Upgrade path to 9.7"
+
+    To upgrade from Percona XtraDB Cluster 8.4 to 9.7, use 9.7.2 or newer as the
+    target version. Upgrading from 8.4.11 to 9.7.1 is not supported.
+
 --8<--- "get-help-snip.md"
 
 ## Important changes in Percona XtraDB Cluster 8.4
