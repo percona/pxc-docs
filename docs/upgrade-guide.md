@@ -83,6 +83,11 @@ The following upgrade paths are available:
 
 * Clusters older than 8.4 must first upgrade to the latest 8.4 release
 
+!!! note "Upgrade path to 9.7"
+
+    A major upgrade to 9.7.1 is possible from Percona XtraDB Cluster 8.4.10 or lower.
+    From 8.4.11 and later, upgrade to 9.7.2 or higher. Upgrading from 8.4.11 to 9.7.1 is not supported.
+
 The upgrade steps vary based on cluster configuration and workload.
 
 ### In-place rolling upgrade
