@@ -8,6 +8,7 @@ Which problem do you have?
 |----------|--------|
 | Nodes are up but traffic is blocked — Cluster accepts connections but refuses every SQL query (`WSREP has not yet prepared node for application use`). Quorum or primary component lost. | [Emergency quorum recovery](emergency-quorum-recovery.md) |
 | Nodes refuse to join — Joiner won't sync, SST/Clone fails, or node never reaches `Synced`. | [SST/Clone failure recovery](sst-clone-failure-recovery.md) |
+| A node was voted out for data inconsistency — Restart used IST and left the inconsistent dataset in place. | [Rejoin after an inconsistency eviction](sst-clone-failure-recovery.md#rejoin-after-an-inconsistency-eviction) |
 | Environmental blockers — AppArmor, systemd killing the process mid-SST, or firewalls blocking SST/GCOMM. | [Environmental blockers](environmental-blockers.md) |
 
 Each topic is a separate page with step-by-step procedures. Start with the one that matches your situation; the pages cross-link where needed (for example, SST/Clone failure recovery points to Environmental blockers when the cause is AppArmor or systemd).
