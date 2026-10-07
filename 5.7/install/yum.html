@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4185,7 +4213,7 @@ configuration file.</p>
 </li>
 <li>
 <p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 </li>
 <li>
@@ -4195,7 +4223,7 @@ configuration file.</p>
 </li>
 <li>
 <p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'rootPass'</span><span class="p">;</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)

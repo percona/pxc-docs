@@ -415,6 +415,34 @@ it automatically joins the cluster and synchronizes with it.">
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4144,7 +4172,7 @@ This requires the following:</p>
 </code></pre></div>
 <p>After the server starts, it should receive SST automatically.</p>
 <p>To check the status of the second node, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc2</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node
 has been successfully added to the cluster.
@@ -4181,7 +4209,7 @@ and you can proceed to add the next node.</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
 </code></pre></div>
 <p>To check the status of the third node, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc3</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc3</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node
 has been successfully added to the cluster.

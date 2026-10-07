@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4405,7 +4433,7 @@ it will copy the whole dataset from another node
 </ul>
 <p>You can also check a node’s health with the <code>clustercheck</code> script.
 First set up the <code>clustercheck</code> user:</p>
-<div class="highlight"><pre><span></span><code>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span>PASSWORD<span class="w"> </span><span class="s1">&#39;*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'clustercheck'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span>PASSWORD<span class="w"> </span><span class="s1">'*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'</span><span class="p">;</span>
 </code></pre></div>
 <p>You can then check a node’s health by running the <code>clustercheck</code> script:</p>
 <div class="highlight"><pre><span></span><code>/usr/bin/clustercheck<span class="w"> </span>clustercheck<span class="w"> </span>password<span class="w"> </span><span class="m">0</span>
@@ -4463,7 +4491,7 @@ Percona XtraDB Cluster has no way to resolve a <a href="glossary.html#split-brai
 The minimal recommendation is to have 3 nodes.
 However, it is possible to allow a node to handle traffic
 with the following option:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.ignore_sb = yes&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="pc.ignore_sb = yes"
 </code></pre></div>
 <h2 id="why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup">Why a node stops accepting commands if the other one fails in a 2-node setup?<a class="headerlink" href="#why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup" title="Permanent link">&para;</a></h2>
 <p>This is expected behavior to prevent <a href="glossary.html#split-brain">split brain</a>.
@@ -4491,7 +4519,7 @@ with the same <code>UUID:seqno</code> value.</p>
 <li>
 <p>Port for group communication (default is 4567).
     It can be changed using the following option:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options =&quot;gmcast.listen_addr=tcp://0.0.0.0:4010; &quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options ="gmcast.listen_addr=tcp://0.0.0.0:4010; "
 </code></pre></div>
 </li>
 <li>
@@ -4503,7 +4531,7 @@ with the same <code>UUID:seqno</code> value.</p>
 <li>
 <p>Port for Incremental State Transfer (default is port for group communication + 1 or 4568).
     It can be changed using the following option:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options = &quot;ist.recv_addr=10.11.12.206:7777; &quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options = "ist.recv_addr=10.11.12.206:7777; "
 </code></pre></div>
 </li>
 </ol>

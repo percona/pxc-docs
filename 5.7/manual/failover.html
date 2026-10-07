@@ -417,6 +417,34 @@ and when a node leaves (gracefully) the size is decreased.">
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4187,7 +4215,7 @@ the failure of one node will cause the other to become non-primary
 and refuse operations.
 However, you can recover the node from non-primary state
 using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>This will tell the node (and all nodes still connected to its partition)
 that it can become a primary cluster.

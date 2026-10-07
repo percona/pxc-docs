@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4668,7 +4696,7 @@ in a running cluster:</p>
 <ol>
 <li>
 <p>Create a user for SST on one of the nodes:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;sstuser&#39;</span><span class="err">$</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;sst_password&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'sstuser'</span><span class="err">$</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">'sst_password'</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4678,12 +4706,12 @@ where you want to use <code>mysqldump</code> for SST.</p>
 </li>
 <li>
 <p>Grant usage privileges to this user and require SSL:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;sstuser&#39;</span><span class="w"> </span><span class="n">REQUIRE</span><span class="w"> </span><span class="n">SSL</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'sstuser'</span><span class="w"> </span><span class="n">REQUIRE</span><span class="w"> </span><span class="n">SSL</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>To make sure that the SST user replicated across the cluster, run the following query on another node:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">ssl_type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">&#39;sstuser&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">ssl_type</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="o">=</span><span class="s1">'sstuser'</span><span class="p">;</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
 <div class="highlight"><pre><span></span><code><span class="o">+</span><span class="c1">----------+------+----------+</span>
@@ -4759,7 +4787,7 @@ using the following <a href="../wsrep-provider-index.html#wsrep-provider-index">
 </li>
 </ul>
 <p>To set these options, use the <a href="../wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable in the configuration file:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4905,12 +4933,12 @@ and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
 <p>Set the <a href="../wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart the second node with the <a href="../wsrep-provider-index.html#socket.ssl_ca"><code>socket.ssl_ca</code></a>, <a href="../wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_cert</code></a>, and <a href="../wsrep-provider-index.html#socket.ssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"</span>
 </code></pre></div>
 </li>
 <li>

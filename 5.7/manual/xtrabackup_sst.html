@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4889,7 +4917,7 @@ if <code>encrypt</code> is set to <code>1</code>.</p>
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-sockopt=&quot;retry=2,interval=3&quot;
+sockopt="retry=2,interval=3"
 </code></pre></div>
 <p>The previous example causes socat to try to connect three times
 (initial attempt and two retries with a 3-second interval between attempts).</p>
@@ -4897,7 +4925,7 @@ sockopt=&quot;retry=2,interval=3&quot;
 <p class="admonition-title">Note</p>
 <p>For versions of Percona XtraDB Cluster before 5.7.17-29.20, the value must begin with a comma, for example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-sockopt=&quot;,cipher=AES128&quot;
+sockopt=",cipher=AES128"
 </code></pre></div>
 </div>
 <p>This option only applies when socat is used (<code>transferfmt=socat</code>).
@@ -5007,7 +5035,7 @@ that need to be retained in the <a href="../glossary.html#datadir">datadir</a> b
 so that the state of the other node can be restored cleanly.
 For example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-cpat=&#39;.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$&#39;
+cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5357,7 +5385,7 @@ is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
 under <code>[sst]</code> as follows:</p>
 <div class="highlight"><pre><span></span><code>[sst]
-inno-apply-opts=&quot;--use-memory=500M&quot;
+inno-apply-opts="--use-memory=500M"
 </code></pre></div>
 <p>If it is not specified,
 the <code>use-memory</code> option under <code>[xtrabackup]</code> will be used:</p>

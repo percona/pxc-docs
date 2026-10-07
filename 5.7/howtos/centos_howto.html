@@ -412,6 +412,34 @@ on CentOS 6.8 servers, using the packages from Percona repositories.">
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4264,7 +4292,7 @@ wsrep_sst_method=xtrabackup-v2
 wsrep_cluster_name=my_centos_cluster
 
 # Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cret&quot;
+wsrep_sst_auth="sstuser:s3cret"
 </code></pre></div>
 </li>
 <li>
@@ -4282,7 +4310,7 @@ the bootstrap service should be used instead:</p>
 </li>
 <li>
 <p>After the first node has been started, cluster status can be checked with the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span>
 </code></pre></div>
 <p>The following output shows that the cluster has been successfully bootstrapped:</p>
 <div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
@@ -4305,14 +4333,14 @@ the bootstrap service should be used instead:</p>
 <p class="admonition-title">Note</p>
 <p>It is not recommended to leave an empty password
 for the root account. Password can be changed as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="nv">@percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">password</span><span class="o">=</span><span class="k">PASSWORD</span><span class="p">(</span><span class="s2">&quot;Passw0rd&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="nv">@percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">password</span><span class="o">=</span><span class="k">PASSWORD</span><span class="p">(</span><span class="s2">"Passw0rd"</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">'root'</span><span class="p">;</span>
 <span class="n">mysql</span><span class="nv">@percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <p>To perform <a href="../manual/state_snapshot_transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
 set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/2.4/using_xtrabackup/privileges.html#privileges">privileges</a>:</p>
-<div class="highlight"><pre><span></span><code>mysql@percona1&gt; CREATE USER &#39;sstuser&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;s3cret&#39;;
-mysql@percona1&gt; GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO &#39;sstuser&#39;@&#39;localhost&#39;;
+<div class="highlight"><pre><span></span><code>mysql@percona1&gt; CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 's3cret';
+mysql@percona1&gt; GRANT PROCESS, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'localhost';
 mysql@percona1&gt; FLUSH PRIVILEGES;
 </code></pre></div>
 <div class="admonition note">
@@ -4357,7 +4385,7 @@ wsrep_cluster_name=my_centos_cluster
 wsrep_sst_method=xtrabackup-v2
 
 # Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cret&quot;
+wsrep_sst_auth="sstuser:s3cret"
 </code></pre></div>
 </li>
 <li>
@@ -4367,7 +4395,7 @@ wsrep_sst_auth=&quot;sstuser:s3cret&quot;
 </li>
 <li>
 <p>After the server has been started, it should receive <a href="../glossary.html#sst">SST</a> automatically. This means that the second node won’t have empty root password anymore. In order to connect to the cluster and check the status, the root password from the first node should be used. Cluster status can be checked on both nodes. The following is an example of status from the second node (<code>percona2</code>):</p>
-<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster:</p>
 <div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
@@ -4422,7 +4450,7 @@ wsrep_cluster_name=my_centos_cluster
 wsrep_sst_method=xtrabackup-v2
 
 # Authentication for SST method
-wsrep_sst_auth=&quot;sstuser:s3cret&quot;
+wsrep_sst_auth="sstuser:s3cret"
 </code></pre></div>
 </li>
 <li>
@@ -4432,7 +4460,7 @@ wsrep_sst_auth=&quot;sstuser:s3cret&quot;
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically. Cluster status can be checked on all three nodes. The following is an example of status from the third node (<code>percona3</code>):</p>
-<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster:</p>
 <div class="highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
@@ -4484,7 +4512,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">percona1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'percona1'</span><span class="p">);</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)

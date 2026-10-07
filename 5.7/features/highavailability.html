@@ -418,6 +418,34 @@ and you’ll be able to run queries on working nodes.">
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4051,7 +4079,7 @@ there are two options that the node may use when it joins the cluster again:</p>
   Obviously, IST can be done only if the amount of changes needed to transfer
   is less than N. If it exceeds N, then the joining node has to perform SST.</p>
 <p>You can monitor the current state of a node using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>
 </code></pre></div>
 <p>When a node is in <code>Synced (6)</code> state, it is part of the cluster
   and ready to handle traffic.</p>

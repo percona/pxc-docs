@@ -413,6 +413,34 @@ there is no need to take down the complete cluster during the upgrade.">
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4144,7 +4172,7 @@ mentioned in these documents when upgrading to Percona XtraDB Cluster 5.7.</p>
 </li>
 <li>
 <p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SET GLOBAL innodb_fast_shutdown=0;"</span>
 </code></pre></div>
 </li>
 <li>
@@ -4188,7 +4216,7 @@ $<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>
 <li>
 <p>Start the node outside the cluster (in standalone mode) by setting the <a href="../wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">&#39;none&#39;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">'none'</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4273,7 +4301,7 @@ synchronization.</p>
 </li>
 <li>
 <p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SET GLOBAL innodb_fast_shutdown=0;"</span>
 </code></pre></div>
 </li>
 <li>
@@ -4316,7 +4344,7 @@ you might use the following commands:</p>
 <p>Start the node outside the cluster (in standalone mode)
    by setting the <a href="../wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">&#39;none&#39;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">'none'</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -4403,7 +4431,7 @@ directory structure after <a href="../glossary.html#sst">SST</a> (after the norm
 </li>
 <li>
 <p>Restart the node in standalone mode by setting the <a href="../wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a> variable to <code>none</code>, for example:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">&#39;none&#39;</span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--skip-grant-tables<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--wsrep-provider<span class="o">=</span><span class="s1">'none'</span>
 </code></pre></div>
 </li>
 <li>

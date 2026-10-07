@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4596,8 +4624,8 @@ allows storing the master-key in vault-server.</p>
 <p>The <code>my.cnf</code> configuration file should contain
 the following options:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
-early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
-keyring_vault_config=&quot;&lt;PATH&gt;/keyring_vault_n1.conf&quot;
+early-plugin-load="keyring_vault=keyring_vault.so"
+keyring_vault_config="&lt;PATH&gt;/keyring_vault_n1.conf"
 </code></pre></div>
 <p>Also <code>keyring_vault_n1.conf</code> file contents should be :</p>
 <div class="highlight"><pre><span></span><code>vault_url = http://127.0.0.1:8200
@@ -4618,12 +4646,12 @@ there is no restriction for all nodes to use the same mount point.</p>
 <p>If the node is not able to reach/connect to the vault server, an error is notified
 during the server boot, and node refuses to start:</p>
 <div class="highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;CURL returned this error code: 7 with error message : Failed to connect
-to 127.0.0.1 port 8200: Connection refused&#39;
+'CURL returned this error code: 7 with error message : Failed to connect
+to 127.0.0.1 port 8200: Connection refused'
 </code></pre></div>
 <p>If some nodes of the cluster are unable to connect to vault-server, this
 relates only to these specific nodes: e.g., if node-1 can connect, and
@@ -4633,26 +4661,26 @@ vault-server, the object is not accessible.</p>
 <p>In case when vault-server is accessible but authentication credential is incorrect,
 the consequences are the same, and the corresponding error looks like the following:</p>
 <div class="highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;Could not retrieve list of keys from Vault. Vault has returned the
-following error(s): [&quot;permission denied&quot;]&#39;
+'Could not retrieve list of keys from Vault. Vault has returned the
+following error(s): ["permission denied"]'
 </code></pre></div>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server boot, but the node still refuses to start:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
-<div class="highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring plugin is loaded.
+<div class="highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring plugin is loaded.
 
 2018-05-29T04:01:33.774684Z 5 [ERROR] Plugin keyring_vault reported:
-&#39;Could not write key to Vault. Vault has returned the following error(s):
-[&quot;no handler for route
-&#39;secret1/NDhfSU5OT0RCS2V5LTkzNzVmZWQ0LTVjZTQtMTFlOC05YTc3LTM0MDI4NmI4ODhiZS0xMF8=&#39;&quot;]&#39;
+'Could not write key to Vault. Vault has returned the following error(s):
+["no handler for route
+'secret1/NDhfSU5OT0RCS2V5LTkzNzVmZWQ0LTVjZTQtMTFlOC05YTc3LTM0MDI4NmI4ODhiZS0xMF8='"]'
 2018-05-29T04:01:33.774786Z 5 [ERROR] Plugin keyring_vault reported:
-&#39;Could not flush keys to keyring&#39;
+'Could not flush keys to keyring'
 </code></pre></div>
 <h2 id="mixing-keyring-plugins">Mixing keyring plugins<a class="headerlink" href="#mixing-keyring-plugins" title="Permanent link">&para;</a></h2>
 <p>With Percona XtraBackup introducing transition-key logic, it is now possible to
@@ -4687,8 +4715,8 @@ configured to use Percona XtraDB Cluster 5.7.22, users can switch one node to us
 <p>Percona XtraDB Cluster supports tablespace encryption for the file-per-table tablespace.
 File-per-tablespace encryption is a table or tablespace-specific feature and
 is enabled through DDL:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">DATAFILE</span><span class="w"> </span><span class="s1">&#39;foo.ibd&#39;</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">DATAFILE</span><span class="w"> </span><span class="s1">'foo.ibd'</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>The PXC cluster replicates the DDL statements and creates the encrypted table or
 tablespace on all cluster nodes.</p>
@@ -4747,12 +4775,12 @@ Disabling pxc_strict_mode
 2018-05-30T03:44:11.803564Z 0 [Note] /dev/shm/pxc57/bin/mysqld
 (mysqld 5.7.21-21-29.26-debug) starting as process
 5710 ...
-2018-05-30T03:44:11.805917Z 0 [Warning] Can&#39;t create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
-2018-05-30T03:44:11.805932Z 0 [Warning] Can&#39;t create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
+2018-05-30T03:44:11.805917Z 0 [Warning] Can't create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
+2018-05-30T03:44:11.805932Z 0 [Warning] Can't create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
 2018-05-30T03:44:11.945989Z 0 [Note] Keyring migration successful.
 2018-05-30T03:44:11.946015Z 0 [Note] Binlog end
-2018-05-30T03:44:11.946047Z 0 [Note] Shutting down plugin &#39;keyring_vault&#39;
-2018-05-30T03:44:11.946166Z 0 [Note] Shutting down plugin &#39;keyring_file&#39;
+2018-05-30T03:44:11.946047Z 0 [Note] Shutting down plugin 'keyring_vault'
+2018-05-30T03:44:11.946166Z 0 [Note] Shutting down plugin 'keyring_file'
 2018-05-30T03:44:11.947334Z 0 [Note] /dev/shm/pxc57/bin/mysqld: Shutdown complete
 </code></pre></div>
 <p>The destination keystore receives additional migrated keys
@@ -4789,7 +4817,7 @@ the node.</p>
 --keyring-migration-host=localhost \
 --keyring-migration-user=root \
 --keyring-migration-port=16300 \
---keyring-migration-password=&#39;&#39; &amp;
+--keyring-migration-password='' &amp;
 
 2018-05-29T14:07:32.789673Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use
 --explicit_defaults_for_timestamp server option (see documentation for more details).
@@ -4798,12 +4826,12 @@ exporting data are disabled
 2018-05-29T14:07:32.789766Z 0 [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
 2018-05-29T14:07:32.789780Z 0 [Note] /dev/shm/pxc57/bin/mysqld (mysqld 5.7.21-21-29.26-debug) starting as process
 4936 ...
-2018-05-29T14:07:32.792036Z 0 [Warning] Can&#39;t create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
-2018-05-29T14:07:32.792052Z 0 [Warning] Can&#39;t create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
+2018-05-29T14:07:32.792036Z 0 [Warning] Can't create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
+2018-05-29T14:07:32.792052Z 0 [Warning] Can't create test file /dev/shm/pxc57/copy_mig/qaserver-06.lower-test
 2018-05-29T14:07:32.927612Z 0 [Note] Keyring migration successful.
 2018-05-29T14:07:32.927636Z 0 [Note] Binlog end
-2018-05-29T14:07:32.927671Z 0 [Note] Shutting down plugin &#39;keyring_vault&#39;
-2018-05-29T14:07:32.927793Z 0 [Note] Shutting down plugin &#39;keyring_file&#39;
+2018-05-29T14:07:32.927671Z 0 [Note] Shutting down plugin 'keyring_vault'
+2018-05-29T14:07:32.927793Z 0 [Note] Shutting down plugin 'keyring_file'
 2018-05-29T14:07:32.928864Z 0 [Note] /dev/shm/pxc57/bin/mysqld: Shutdown complete
 </code></pre></div>
 <p>On a successful migration, the destination keystore has the additional migrated keys

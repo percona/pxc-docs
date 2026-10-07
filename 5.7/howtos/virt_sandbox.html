@@ -411,6 +411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4154,19 +4182,19 @@ After a successful <a href="../glossary.html#sst">SST</a>, you should see the fo
      Local state: 00000000-0000-0000-0000-000000000000:-1
 120619 13:20:17 [Note] WSREP: New cluster view: global state: 77c9da88-b965-11e1-0800-ea53b7b12451:97, view# 18: Primary, number of nodes: 3, my index: 0, protocol version 2
 120619 13:20:17 [Warning] WSREP: Gap in state sequence. Need state transfer.
-120619 13:20:19 [Note] WSREP: Running: &#39;wsrep_sst_xtrabackup &#39;joiner&#39; &#39;10.195.206.117&#39; &#39;&#39; &#39;/var/lib/mysql/&#39; &#39;/etc/my.cnf&#39; &#39;20758&#39; 2&gt;sst.err&#39;
+120619 13:20:19 [Note] WSREP: Running: 'wsrep_sst_xtrabackup 'joiner' '10.195.206.117' '' '/var/lib/mysql/' '/etc/my.cnf' '20758' 2&gt;sst.err'
 120619 13:20:19 [Note] WSREP: Prepared |SST| request: xtrabackup|10.195.206.117:4444/xtrabackup_sst
 120619 13:20:19 [Note] WSREP: wsrep_notify_cmd is not defined, skipping notification.
 120619 13:20:19 [Note] WSREP: Assign initial position for certification: 97, protocol version: 2
 120619 13:20:19 [Warning] WSREP: Failed to prepare for incremental state transfer: Local state UUID (00000000-0000-0000-0000-000000000000) does not match group state UUID (77c9da88-b965-11e1-0800-ea53b7b12451): 1 (Operation not permitted)
      at galera/src/replicator_str.cpp:prepare_for_IST():439. IST will be unavailable.
-120619 13:20:19 [Note] WSREP: Node 0 (ip-10-244-33-92) requested state transfer from &#39;*any*&#39;. Selected 1 (ip-10-112-39-98)(SYNCED) as donor.
+120619 13:20:19 [Note] WSREP: Node 0 (ip-10-244-33-92) requested state transfer from '*any*'. Selected 1 (ip-10-112-39-98)(SYNCED) as donor.
 120619 13:20:19 [Note] WSREP: Shifting PRIMARY -&gt; JOINER (TO: 102)
 120619 13:20:19 [Note] WSREP: Requesting state transfer: success, donor: 1
 120619 13:20:59 [Note] WSREP: 1 (ip-10-112-39-98): State transfer to 0 (ip-10-244-33-92) complete.
 120619 13:20:59 [Note] WSREP: Member 1 (ip-10-112-39-98) synced with group.
 120619 13:21:17 [Note] WSREP: |SST| complete, seqno: 105
-120619 13:21:17 [Note] Plugin &#39;FEDERATED&#39; is disabled.
+120619 13:21:17 [Note] Plugin 'FEDERATED' is disabled.
 120619 13:21:17 InnoDB: The InnoDB memory heap is disabled
 120619 13:21:17 InnoDB: Mutexes and rw_locks use GCC atomic builtins
 120619 13:21:17 InnoDB: Compressed tables use zlib 1.2.3
@@ -4179,10 +4207,10 @@ After a successful <a href="../glossary.html#sst">SST</a>, you should see the fo
 120619 13:21:19 [Note] Recovering after a crash using mysql-bin
 120619 13:21:19 [Note] Starting crash recovery...
 120619 13:21:19 [Note] Crash recovery finished.
-120619 13:21:19 [Note] Server hostname (bind-address): &#39;(null)&#39;; port: 3306
-120619 13:21:19 [Note]   - &#39;(null)&#39; resolves to &#39;0.0.0.0&#39;;
-120619 13:21:19 [Note]   - &#39;(null)&#39; resolves to &#39;::&#39;;
-120619 13:21:19 [Note] Server socket created on IP: &#39;0.0.0.0&#39;.
+120619 13:21:19 [Note] Server hostname (bind-address): '(null)'; port: 3306
+120619 13:21:19 [Note]   - '(null)' resolves to '0.0.0.0';
+120619 13:21:19 [Note]   - '(null)' resolves to '::';
+120619 13:21:19 [Note] Server socket created on IP: '0.0.0.0'.
 120619 13:21:19 [Note] Event Scheduler: Loaded 0 events
 120619 13:21:19 [Note] WSREP: Signalling provider to continue.
 120619 13:21:19 [Note] WSREP: Received |SST|: 77c9da88-b965-11e1-0800-ea53b7b12451:105
@@ -4190,7 +4218,7 @@ After a successful <a href="../glossary.html#sst">SST</a>, you should see the fo
 120619 13:21:19 [Note] WSREP: 0 (ip-10-244-33-92): State transfer from 1 (ip-10-112-39-98) complete.
 120619 13:21:19 [Note] WSREP: Shifting JOINER -&gt; JOINED (TO: 105)
 120619 13:21:19 [Note] /usr/sbin/mysqld: ready for connections.
-Version: &#39;5.5.24-log&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona XtraDB Cluster (GPL), wsrep_23.6.r340
+Version: '5.5.24-log'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), wsrep_23.6.r340
 120619 13:21:19 [Note] WSREP: Member 0 (ip-10-244-33-92) synced with group.
 120619 13:21:19 [Note] WSREP: Shifting JOINED -&gt; SYNCED (TO: 105)
 120619 13:21:20 [Note] WSREP: Synchronized with group, ready for connections
@@ -4198,7 +4226,7 @@ Version: &#39;5.5.24-log&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port
 <p>For debugging information about the <a href="../glossary.html#sst">SST</a>,
 you can check the <code>sst.err</code> file and the error log.</p>
 <p>After <a href="../glossary.html#sst">SST</a> finishes, you can check the cluster size as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_size&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep_cluster_size'</span><span class="p">;</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
 <div class="highlight"><pre><span></span><code>+--------------------+-------+
@@ -4310,7 +4338,7 @@ If the node’s status is fine,
 it will send a response with HTTP code <code>200 OK</code>.
 Otherwise, it sends <code>503</code>.</p>
 <p>To create the <code>clustercheck</code> user, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">grant</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;clustercheckuser&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;clustercheckpassword!&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">grant</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">'clustercheckuser'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">'clustercheckpassword!'</span><span class="p">;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
@@ -4373,7 +4401,7 @@ This example shows how to do it with <code>sysbench</code> from the EPEL reposit
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">grant</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sbtest</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">&#39;sbtest&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">grant</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">sbtest</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="s1">'sbtest'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">'sbpass'</span><span class="p">;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>

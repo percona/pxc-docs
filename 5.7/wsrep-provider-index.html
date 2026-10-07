@@ -412,6 +412,34 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -5775,13 +5803,13 @@ changed in the MySQL configuration file, my.cnf, or by setting the variable valu
 <p>The following variables can be set and checked in the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be
 changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
 <p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;variable1=value1;[variable2=value2]&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="variable1=value1;[variable2=value2]"
 </code></pre></div>
 <p>For example to set the size of the Galera buffer storage to 512 MB, specify the following in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.size=512M&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="gcache.size=512M"
 </code></pre></div>
 <p>Dynamic variables can be changed from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command. For example, to change the value of the <a href="wsrep-provider-index.html#pcignore_sb"><code>pc.ignore_sb</code></a>, use the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;pc.ignore_sb=true&quot;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"pc.ignore_sb=true"</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
 <h3 id="base_dir"><code>base_dir</code><a class="headerlink" href="#base_dir" title="Permanent link">&para;</a></h3>
@@ -6926,7 +6954,7 @@ size of the disk. Pages are prefixed by gcache.page.</p>
 recover the gcache file, the node can provide IST to the remaining nodes. This ability can
 reduce the time needed to bring up the cluster.</p>
 <p>An example of setting the value to yes in the configuration file:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.recover=yes&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="gcache.recover=yes"
 </code></pre></div>
 <h3 id="gcachesize"><code>gcache.size</code><a class="headerlink" href="#gcachesize" title="Permanent link">&para;</a></h3>
 <table>
@@ -6972,7 +7000,7 @@ integer.</p>
 <p>Setting a priority value of 99 is not recommended. This value blocks system threads.</p>
 </div>
 <p>An example of the variable:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcomm.thread_prio=fifo:3&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="gcomm.thread_prio=fifo:3"
 </code></pre></div>
 <p>The description of the <code>policy</code> parameter follows:</p>
 <table>

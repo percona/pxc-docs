@@ -412,6 +412,34 @@ configure it with information about the cluster.">
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4209,9 +4237,9 @@ Provide SST user credentials with the <code>wsrep_sst_auth</code> variable.</p>
 <p><a href="wsrep-system-index.html#wsrep_sst_auth"><code>wsrep_sst_auth</code></a></p>
 <p>Specify authentication credentials for <a href="glossary.html#sst">SST</a> as <code>&lt;sstuser&gt;:&lt;sst_pass&gt;</code>.
 You must create this user when <a href="bootstrap.html#bootstrap">Bootstrapping the First Node</a> and provide necessary privileges for it:</p>
-<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER &#39;sstuser&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;passw0rd&#39;;
+<div class="highlight"><pre><span></span><code>mysql&gt; CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 'passw0rd';
 mysql&gt; GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO
-  &#39;sstuser&#39;@&#39;localhost&#39;;
+  'sstuser'@'localhost';
 mysql&gt; FLUSH PRIVILEGES;
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/using_xtrabackup/privileges.html">Privileges for Percona XtraBackup</a>.</p>

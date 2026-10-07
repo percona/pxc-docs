@@ -412,6 +412,34 @@ related to write-set replication.">
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -5471,7 +5499,7 @@ The IP address can contain a port number after a colon.
 Options are specified after <code>?</code> and separated by <code>&amp;</code>.
 You can specify multiple addresses separated by commas.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>wsrep_cluster_address=&quot;gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678&quot;
+<div class="highlight"><pre><span></span><code>wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
 </code></pre></div>
 <p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
 (that is, form a new cluster).
@@ -5517,7 +5545,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
     wsrep_cluster_name=simple-cluster
 </code></pre></div>
 <p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_name'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>

@@ -413,6 +413,34 @@ you want to be replicated to other nodes.">
   
   
     <li class="md-nav__item">
+      <a href="release-notes/5.7.44-31.65.13.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 5.7.44-31.65.13 (2026-10-07)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="release-notes/5.7.44-31.65.12.html" class="md-nav__link">
         
   
@@ -4093,7 +4121,7 @@ and it will use standard configuration again.</p>
 <p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
 </div>
 <p>To make sure that the cluster has been initialized, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="o">@</span><span class="n">pxc1</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the cluster size is 1 node,
 it is the primary component, the node is in <code>Synced</code> state,
@@ -4116,9 +4144,9 @@ it is fully connected and ready for write-set replication.</p>
 </code></pre></div>
 <p>Before <a href="add-node.html">adding other nodes</a> to your new cluster,
 create a user for SST and provide the necessary privileges for that user account. The credentials must match those specified when <a href="configure.html#configure">Configuring Nodes for Write-Set Replication</a>.</p>
-<div class="highlight"><pre><span></span><code>mysql@pxc1&gt; CREATE USER &#39;sstuser&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;passw0rd&#39;;
+<div class="highlight"><pre><span></span><code>mysql@pxc1&gt; CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 'passw0rd';
 mysql@pxc1&gt; GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO
-  &#39;sstuser&#39;@&#39;localhost&#39;;
+  'sstuser'@'localhost';
 mysql@pxc1&gt; FLUSH PRIVILEGES;
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/doc/percona-xtrabackup/2.4/using_xtrabackup/privileges.html">Privileges for Percona XtraBackup</a>.</p>
