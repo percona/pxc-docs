@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -30,6 +31,23 @@
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Set up Galera arbitrator - Percona XtraDB Cluster</title>
@@ -4542,11 +4560,11 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>garbd<span class="w"> </span>--group<span class="o">=</span>my_ubuntu_cluster<span class="w"> </span><span class="se">\</span>
---address<span class="o">=</span><span class="s2">&quot;gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;</span><span class="w"> </span><span class="se">\</span>
---option<span class="o">=</span><span class="s2">&quot;socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \</span>
+--address<span class="o">=</span><span class="s2">"gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"</span><span class="w"> </span><span class="se">\</span>
+--option<span class="o">=</span><span class="s2">"socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \</span>
 <span class="s2">socket.ssl_cert=/etc/ssl/mysql/server-cert.pem; \</span>
 <span class="s2">socket.ssl_ca=/etc/ssl/mysql/ca.pem; \</span>
-<span class="s2">socket.ssl_cipher=AES128-SHA256&quot;</span>
+<span class="s2">socket.ssl_cipher=AES128-SHA256"</span>
 </code></pre></div>
 <p>To avoid entering the options each time you start <code>garbd</code>, edit the options in the configuration file. To configure <em>Galera Arbitrator</em> on <em>Ubuntu/Debian</em>, edit the <code>/etc/default/garb</code> file. On RedHat or derivative distributions, the configuration can be found in <code>/etc/sysconfig/garb</code> file.</p>
 <p>The configuration file should look like this after the installation and before you have added your parameters:</p>
@@ -4556,18 +4574,18 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 # REMOVE THIS AFTER CONFIGURATION
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
-# GALERA_NODES=&quot;&quot;
+# GALERA_NODES=""
 
 # Galera cluster name, should be the same as on the rest of the nodes.
-# GALERA_GROUP=&quot;&quot;
+# GALERA_GROUP=""
 
 # Optional Galera internal options string (e.g. SSL settings)
 # see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;&quot;
+# GALERA_OPTIONS=""
 
 # Log file for garbd. Optional, by default logs to syslog
 # Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;&quot;
+# LOG_FILE=""
 </code></pre></div>
 <p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="configure-cluster-ubuntu.html#configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
@@ -4578,18 +4596,18 @@ CONFIGURATION</code> line before you can start the service.</p>
 <div class="no-copy highlight"><pre><span></span><code># This config file is to be sourced by garb service script.
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=&quot;192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;
+GALERA_NODES="192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"
 
 # Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
+GALERA_GROUP="my_ubuntu_cluster"
 
 # Optional Galera internal options string (e.g. SSL settings)
 # see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem&quot;
+# GALERA_OPTIONS="socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem"
 
 # Log file for garbd. Optional, by default logs to syslog
 # Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;/var/log/garbd.log&quot;
+# LOG_FILE="/var/log/garbd.log"
 </code></pre></div>
 <p>You can now start the <em>Galera Arbitrator</em> daemon (<code>garbd</code>) by running:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">On Debian or Ubuntu</label><label for="__tabbed_1_2">On Red Hat Enterprise Linux or CentOS</label></div>
@@ -4764,7 +4782,7 @@ GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -4783,7 +4801,20 @@ GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

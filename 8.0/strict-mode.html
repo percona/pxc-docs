@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -32,6 +33,23 @@ performs several validations during startup and runtime to ensure compliance.">
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Percona XtraDB Cluster strict mode - Percona XtraDB Cluster</title>
@@ -4804,7 +4822,7 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 <li>
 <p>Setting <code>sql_require_primary_key=OFF</code> is rejected.
   Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable &#39;sql_require_primary_key&#39; can&#39;t be set to the value of &#39;OFF&#39;
+<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
 </code></pre></div>
 <p>The error log records the reason:</p>
 <div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
@@ -4848,7 +4866,7 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 </table>
 <details class="example">
 <summary>Error message when creating or altering a table without a primary key</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable &#39;sql_require_primary_key&#39; is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -5020,7 +5038,7 @@ To preserve data consistency, the following statements must not run on tables th
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -5039,7 +5057,20 @@ To preserve data consistency, the following statements must not run on tables th
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

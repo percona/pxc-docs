@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -30,6 +31,23 @@
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Index of wsrep_provider options - Percona XtraDB Cluster</title>
@@ -4496,13 +4514,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="index-of-wsrep_provider-options">Index of wsrep_provider options<a class="headerlink" href="#index-of-wsrep_provider-options" title="Permanent link">&para;</a></h1>
 <p>The following variables can be set and checked in the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
 <p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"variable1=value1;[variable2=value2]"</span>
 </code></pre></div>
 <p>For example to set the size of the Galera buffer storage to 512 MB, specify the following in <code>my.cnf</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;gcache.size=512M&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"gcache.size=512M"</span>
 </code></pre></div>
 <p>Dynamic variables can be changed from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command. For example, to change the value of the <a href="wsrep-provider-index.html#pcignore_sb"><code>pc.ignore_sb</code></a>, use the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;pc.ignore_sb=true&quot;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"pc.ignore_sb=true"</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="index">Index<a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
 <h3 id="base_dir"><code>base_dir</code><a class="headerlink" href="#base_dir" title="Permanent link">&para;</a></h3>
@@ -5684,7 +5702,7 @@ size of the disk. Pages are prefixed by gcache.page.</p>
 </table>
 <p>This variable attempts to recover a node&rsquo;s <code>gcache</code> file to a usable state during startup. If the node successfully recovers the <code>gcache</code> file, it provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.</p>
 <p>To enable this variable, add the following to your configuration file:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.recover=yes&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="gcache.recover=yes"
 </code></pre></div>
 <h3 id="gcachesize"><code>gcache.size</code><a class="headerlink" href="#gcachesize" title="Permanent link">&para;</a></h3>
 <table>
@@ -6443,7 +6461,7 @@ State Transfer (<a href="glossary.html#ist">IST</a>).</p>
 </tbody>
 </table>
 <p><code>pc.bootstrap</code> is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=TRUE&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="pc.bootstrap=TRUE"
 </code></pre></div>
 <p>You can use <code>pc.bootstrap</code> in the following:</p>
 <table>
@@ -7125,7 +7143,7 @@ accept in the cluster. Used only for debugging.</p>
 </li>
 </ul>
 <p>The following is an example of the variable use:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.checksum=2&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="socket.checksum=2"
 </code></pre></div>
 <h3 id="socketssl"><code>socket.ssl</code><a class="headerlink" href="#socketssl" title="Permanent link">&para;</a></h3>
 <table>
@@ -7431,7 +7449,7 @@ to the server’s private key file (in PEM format).</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -7450,7 +7468,20 @@ to the server’s private key file (in PEM format).</p>
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

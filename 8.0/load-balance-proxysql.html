@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -32,6 +33,23 @@ of a crash to minimize downtime.">
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Load balance with ProxySQL - Percona XtraDB Cluster</title>
@@ -4617,7 +4635,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql@proxysql&gt;
 </code></pre></div>
@@ -4697,9 +4715,9 @@ and a every node can be a member of multiple hostgroups.</p>
 </div>
 <p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>),
 which receives both write and read traffic:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.71&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.72&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.73&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.71'</span>,3306<span class="o">)</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.72'</span>,3306<span class="o">)</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.73'</span>,3306<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>To see the nodes:</p>
 <div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>mysql_servers<span class="p">;</span>
@@ -4722,19 +4740,19 @@ mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<spa
 create a user with <code>USAGE</code> privilege on any node in the cluster
 and configure the user in ProxySQL.</p>
 <p>The following example adds a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3Kr$t'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example adds a monitoring user on Node 2 if you are using the  <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3Kr$t'</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the user account privileges:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
-<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
-<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
+<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_username'</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'ProxySQLPa55'</span>
+<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
 <p>To load this configuration at runtime, issue a <code>LOAD</code> command.
 To save these changes to disk
@@ -4787,7 +4805,7 @@ and ping the nodes you have added.</p>
 <p>ProxySQL must have users that can access backend nodes
 to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;sbuser&#39;</span>,<span class="s1">&#39;sbpass&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'sbuser'</span>,<span class="s1">'sbpass'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4819,19 +4837,19 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>To provide read/write access to the cluster for ProxySQL,
 add this user on one of the Percona XtraDB Cluster nodes:</p>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sbuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'sbuser'</span>@<span class="s1">'192.168.70.74'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'sbpass'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sbuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'sbuser'</span>@<span class="s1">'192.168.70.74'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4865,7 +4883,7 @@ add this user on one of the Percona XtraDB Cluster nodes:</p>
 <div class="highlight" data-prompt="root@proxysql:~#"><pre><span></span><code>root@proxysql:~#<span class="w"> </span>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">'sbuser'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'sbpass'</span><span class="w"> </span><span class="se">\</span>
 --oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
 prepare
 </code></pre></div>
@@ -4875,7 +4893,7 @@ prepare
 <div class="highlight" data-prompt="root@proxysql:~#"><pre><span></span><code>root@proxysql:~#<span class="w"> </span>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">'sbuser'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'sbpass'</span><span class="w"> </span><span class="se">\</span>
 --oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
 run
 </code></pre></div>
@@ -5165,7 +5183,7 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -5184,7 +5202,20 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

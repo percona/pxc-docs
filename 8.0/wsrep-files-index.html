@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -30,6 +31,23 @@
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Index of files created by PXC - Percona XtraDB Cluster</title>
@@ -4449,11 +4467,11 @@ DELIMITER<span class="w"> </span>/*!*/<span class="p">;</span>
 <span class="c1">#160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup</span>
 <span class="c1"># Warning: this binlog is either in use or was not closed properly.</span>
 ROLLBACK/*!*/<span class="p">;</span>
-BINLOG<span class="w"> </span><span class="s1">&#39;</span>
+BINLOG<span class="w"> </span><span class="s1">'</span>
 <span class="s1">nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
 <span class="s1">AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA</span>
 <span class="s1">ALfQ8hw=</span>
-<span class="s1">&#39;</span>/*!*/<span class="p">;</span>
+<span class="s1">'</span>/*!*/<span class="p">;</span>
 <span class="c1"># at 123</span>
 <span class="c1">#160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0</span>
 use<span class="w"> </span><span class="sb">`</span><span class="nb">test</span><span class="sb">`</span>/*!*/<span class="p">;</span>
@@ -4468,7 +4486,7 @@ SET<span class="w"> </span>@@session.lc_time_names<span class="o">=</span><span 
 SET<span class="w"> </span>@@session.collation_database<span class="o">=</span>DEFAULT/*!*/<span class="p">;</span>
 drop<span class="w"> </span>table<span class="w"> </span>t
 /*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">&#39;AUTOMATIC&#39;</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
+SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">'AUTOMATIC'</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
 DELIMITER<span class="w"> </span><span class="p">;</span>
 <span class="c1"># End of log file</span>
 /*!50003<span class="w"> </span>SET<span class="w"> </span><span class="nv">COMPLETION_TYPE</span><span class="o">=</span>@OLD_COMPLETION_TYPE*/<span class="p">;</span>
@@ -4477,7 +4495,7 @@ DELIMITER<span class="w"> </span><span class="p">;</span>
 <p>This information can be used for checking the MySQL error log for the corresponding error message.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error &#39;Unknown table &#39;test&#39;&#39; on query. Default database: &#39;test&#39;. Query: &#39;drop table test&#39;, Error_code: 1051
+<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
 160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
 </code></pre></div>
 </details>
@@ -4558,7 +4576,7 @@ cert_index:
 
 * member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
 
-??? example &quot;Example of the file&quot;
+??? example "Example of the file"
 
     ```{.text .no-copy}
     my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
@@ -4691,7 +4709,7 @@ cert_index:
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -4710,7 +4728,20 @@ cert_index:
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -31,6 +32,23 @@ on Red Hat or CentOS 7 servers, using the packages from Percona repositories.">
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Configure a cluster on Red Hat-based distributions - Percona XtraDB Cluster</title>
@@ -4708,7 +4726,7 @@ with initial <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep
 </li>
 <li>
 <p>After the first node has been started, cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>This output shows that the cluster has been successfully bootstrapped.</p>
 <details class="example">
@@ -4731,13 +4749,13 @@ with initial <a href="wsrep-system-index.html#wsrep_cluster_address"><code>wsrep
 </code></pre></div>
 </details>
 <p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 <p>Use this password to log in as root:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;r00tP@$$&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">'root'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'r00tP@$$'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4789,7 +4807,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on both nodes.
     The following is an example of status from the second node (<code>percona2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -4856,7 +4874,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on all three nodes.
     The following is an example of status from the third node (<code>percona3</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -4920,7 +4938,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -5069,7 +5087,7 @@ are synchronized and working as intended.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -5088,7 +5106,20 @@ are synchronized and working as intended.</p>
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

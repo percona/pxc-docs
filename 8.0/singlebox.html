@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -31,6 +32,23 @@ on a single physical box.">
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>How to set up a three-node cluster on a single box - Percona XtraDB Cluster</title>
@@ -4522,12 +4540,12 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:5030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:5030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:4020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:4030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:4030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node4000
 innodb_autoinc_lock_mode=2
@@ -4543,13 +4561,13 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:5020
 wsrep_node_incoming_address=192.168.2.21
 
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:5030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:5030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node5000
 innodb_autoinc_lock_mode=2
@@ -4565,12 +4583,12 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:5030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:5030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:6020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:6030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:6030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node6000
 innodb_autoinc_lock_mode=2
@@ -4619,7 +4637,7 @@ you should see the following output:</p>
 111215 19:22:26 [Note] WSREP: Synchronized with group, ready for connections
 </code></pre></div>
 <p>To check the cluster size, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;show global status like &#39;wsrep_cluster_size&#39;;&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"show global status like 'wsrep_cluster_size';"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -4634,7 +4652,7 @@ you should see the following output:</p>
 which will be automatically synchronized with other nodes.
 For example, to create a database on the second node,
 you can run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE DATABASE hello_peter&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE DATABASE hello_peter"</span>
 </code></pre></div>
 </li>
 </ol>
@@ -4643,7 +4661,7 @@ you can run the following command:</p>
 Instead, it redirects the error output to <code>syslog</code> if no error log file is specified.</p>
 <div class="highlight"><pre><span></span><code>Jun 19 12:34:56 hostname mysqld_safe: 2024-06-19T12:34:56.789012Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
 Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [Note] /usr/sbin/mysqld (mysqld 8.0.35) starting as process 12345 ...
-Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Failed to open the error log file (file &#39;/var/log/mysql/mysql-error.log&#39;). Error: 2 - No such file or directory
+Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Failed to open the error log file (file '/var/log/mysql/mysql-error.log'). Error: 2 - No such file or directory
 Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Could not use /var/log/mysql/mysql-error.log for logging (error 13 - Permission denied). Turning logging off for the duration of the session.
 </code></pre></div>
 <h3 id="check-and-fix-missing-error-logs">Check and fix missing error logs<a class="headerlink" href="#check-and-fix-missing-error-logs" title="Permanent link">&para;</a></h3>
@@ -4791,7 +4809,7 @@ Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Could not
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -4810,7 +4828,20 @@ Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Could not
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

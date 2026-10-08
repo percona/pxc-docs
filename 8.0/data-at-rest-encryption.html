@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -30,6 +31,23 @@
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Data at Rest Encryption - Percona XtraDB Cluster</title>
@@ -4699,8 +4717,8 @@ higher version JOINER can join from lower version DONOR, but not vice-versa.</p>
 <a href="https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html">upstream</a>.
 The <code>my.cnf</code> configuration file should contain the following options:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
-early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
-keyring_vault_config=&quot;&lt;PATH&gt;/keyring_vault_n1.conf&quot;
+early-plugin-load="keyring_vault=keyring_vault.so"
+keyring_vault_config="&lt;PATH&gt;/keyring_vault_n1.conf"
 </code></pre></div>
 <p>Also, <code>keyring_vault_n1.conf</code> file should contain the following:</p>
 <div class="highlight"><pre><span></span><code>vault_url = http://127.0.0.1:8200
@@ -4724,12 +4742,12 @@ notified during the server boot, and the node refuses to start:</p>
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;CURL returned this error code: 7 with error message : Failed to connect
-to 127.0.0.1 port 8200: Connection refused&#39;
+'CURL returned this error code: 7 with error message : Failed to connect
+to 127.0.0.1 port 8200: Connection refused'
 </code></pre></div>
 </details>
 <p>If some nodes of the cluster are unable to connect to vault-server, this
@@ -4742,25 +4760,25 @@ the consequences are the same, and the corresponding error looks like the follow
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;Could not retrieve list of keys from Vault. Vault has returned the
-following error(s): [&quot;permission denied&quot;]&#39;
+'Could not retrieve list of keys from Vault. Vault has returned the
+following error(s): ["permission denied"]'
 </code></pre></div>
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server boot, but the node still refuses to start:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring
+<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
 plugin is loaded.
 
-... [ERROR] Plugin keyring_vault reported: &#39;Could not write key to Vault. ...
-... [ERROR] Plugin keyring_vault reported: &#39;Could not flush keys to keyring&#39;
+... [ERROR] Plugin keyring_vault reported: 'Could not write key to Vault. ...
+... [ERROR] Plugin keyring_vault reported: 'Could not flush keys to keyring'
 </code></pre></div>
 </details>
 <h2 id="mix-keyring-plugin-types">Mix keyring plugin types<a class="headerlink" href="#mix-keyring-plugin-types" title="Permanent link">&para;</a></h2>
@@ -4842,7 +4860,7 @@ the node.</p>
 --keyring-migration-host=localhost \
 --keyring-migration-user=root \
 --keyring-migration-port=16300 \
---keyring-migration-password=&#39;&#39; &amp;
+--keyring-migration-password='' &amp;
 </code></pre></div>
 <p>On a successful migration, the destination keystore receives the additional
 migrated keys. Any pre-existing keys in the destination keystore are unchanged.
@@ -5020,7 +5038,7 @@ port=16400
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -5039,7 +5057,20 @@ port=16400
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -26,6 +27,23 @@
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>Percona XtraDB Cluster documentation - Percona XtraDB Cluster</title>
@@ -6372,7 +6390,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The Galera Communication System (GCS) protocol has been updated from version 4 to version 5 in recent releases. As a result, if there are plans to upgrade to version 8.4 at a later time, it is important to note that the upgrade will only be supported for versions 8.4.4 and above.</p>
 <p>This precaution is necessary due to potential Galera Communication System (GCS) protocol upgrades. If a joining node uses a lower GCS protocol than the existing cluster, the cluster prevents the node from joining.</p>
 <p>To check the GCS protocol version on your current setup, use the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_provider_options&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'wsrep_provider_options'</span><span class="p">;</span>
 </code></pre></div>
 <p>This command will display the options configured for the Galera provider, including the current protocol version. Ensure that both the source and target versions are compatible before proceeding with the upgrade.</p>
 <h2 id="release-notes-8.0.41-32-additional-resources">Additional resources<a class="headerlink" href="#release-notes-8.0.41-32-additional-resources" title="Permanent link">&para;</a></h2>
@@ -7039,8 +7057,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The <code>controlled_by_default</code> flag has been added to the <code>PROPERTIES</code> column of the <code>SETUP_INSTRUMENTS</code> table.</p>
 <p>Now, you can add and remove non-global memory instruments to the set of controlled-memory instruments. To do this, set the value of the <code>FLAGS</code> column of <code>SETUP_INSTRUMENTS</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">PERFORMANCE_SCHEMA</span><span class="p">.</span><span class="n">SETUP_INTRUMENTS</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">FLAGS</span><span class="o">=</span><span class="ss">&quot;controlled&quot;</span><span class="w"> </span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="o">=</span><span class="s1">&#39;memory/sql/NET::buff&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="n">PERFORMANCE_SCHEMA</span><span class="p">.</span><span class="n">SETUP_INTRUMENTS</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">FLAGS</span><span class="o">=</span><span class="ss">"controlled"</span><span class="w"> </span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="o">=</span><span class="s1">'memory/sql/NET::buff'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
@@ -8249,7 +8267,7 @@ node was unavailable. IST uses a caching mechanism on nodes.</p>
 </li>
 </ul>
 <p>You can monitor the current state of a node using the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_local_state_comment&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>STATUS<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the node is in <code>Synced (6)</code> state, that node is part of the cluster
 and can handle the traffic.</p></section><section class="print-page" id="strict-mode" heading-number="5.2"><h1 id="strict-mode-percona-xtradb-cluster-strict-mode">Percona XtraDB Cluster strict mode<a class="headerlink" href="#strict-mode-percona-xtradb-cluster-strict-mode" title="Permanent link">&para;</a></h1>
@@ -8561,7 +8579,7 @@ When <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code><
 <li>
 <p>Setting <code>sql_require_primary_key=OFF</code> is rejected.
   Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable &#39;sql_require_primary_key&#39; can&#39;t be set to the value of &#39;OFF&#39;
+<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
 </code></pre></div>
 <p>The error log records the reason:</p>
 <div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
@@ -8605,7 +8623,7 @@ When <a href="#wsrep-system-index-pxc_strict_mode"><code>pxc_strict_mode</code><
 </table>
 <details class="example">
 <summary>Error message when creating or altering a table without a primary key</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable &#39;sql_require_primary_key&#39; is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -9009,13 +9027,13 @@ $<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>
 <h2 id="yum-after-installation">After installation<a class="headerlink" href="#yum-after-installation" title="Permanent link">&para;</a></h2>
 <p>After the installation, start the <code>mysql</code> service and find the temporary password using the <code>grep</code> command. </p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
-$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 <p>Use the temporary password to log into the server:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Run an <code>ALTER USER</code> statement to change the temporary password, exit the client, and stop the service.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;rootPass&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">'root'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'rootPass'</span><span class="p">;</span>
 mysql&gt;<span class="w"> </span><span class="nb">exit</span>
 $<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
@@ -9361,7 +9379,7 @@ mysql&gt;
 </li>
 <li>
 <p>View the wsrep status variables:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9595,7 +9613,7 @@ and it will use standard configuration again.</p>
 <p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
 </div>
 <p>To make sure that the cluster has been initialized, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the cluster size is 1 node,
 it is the primary component, the node is in the <code>Synced</code> state,
@@ -9648,7 +9666,7 @@ running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>ws
 </code></pre></div>
 <p>After the server starts, it receives <a href="#glossary-state-snapshot-transfer-sst">SST</a> automatically.</p>
 <p>To check the status of the second node, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -9689,7 +9707,7 @@ proceed to add the next node.</p>
 <div class="highlight" data-prompt="[root@pxc3 ~]#"><pre><span></span><code><span class="o">[</span>root@pxc3<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start mysql</span>
 </code></pre></div>
 <p>To check the status of the third node, run the following:</p>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the
 cluster. Cluster size is now 3 nodes, it is the primary component, and it is
@@ -9755,7 +9773,7 @@ and adding some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc1>"><pre><span></span><code>mysql@pxc1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -10225,7 +10243,7 @@ with the upgrade using the procedure described in
 </li>
 <li>
 <p>Disable fast shutdown to guarantee all data files are fully prepared in case the upgrade process updates the file format:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SET GLOBAL innodb_fast_shutdown=0;&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SET GLOBAL innodb_fast_shutdown=0;"</span>
 </code></pre></div>
 </li>
 <li>
@@ -10675,7 +10693,7 @@ using the following <a href="#wsrep-provider-index">wsrep provider options</a>:<
 </li>
 </ul>
 <p>To set these options, use the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable in the configuration file:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -10842,12 +10860,12 @@ and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
 <p>Set the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart the second node with the <a href="#wsrep-provider-index-socketssl_ca"><code>socket.ssl_ca</code></a>, <a href="#wsrep-provider-index-socketssl_cert"><code>socket.ssl_cert</code></a>, and <a href="#wsrep-provider-index-socketssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"</span>
 </code></pre></div>
 </li>
 <li>
@@ -11052,7 +11070,7 @@ XtraBackup is run locally on the donor node.</p>
 <p>Detailed information on this method is provided in <a href="#xtrabackup-sst-percona-xtrabackup-sst-configuration">Percona XtraBackup SST Configuration</a> documentation.</p>
 <h2 id="state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory">SST for tables with tablespaces that are not in the data directory<a class="headerlink" href="#state-snapshot-transfer-sst-for-tables-with-tablespaces-that-are-not-in-the-data-directory" title="Permanent link">&para;</a></h2>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/alternative/directory&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">)</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">DIRECTORY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'/alternative/directory'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="state-snapshot-transfer-sst-using-percona-xtrabackup">SST using Percona XtraBackup<a class="headerlink" href="#state-snapshot-transfer-sst-using-percona-xtrabackup" title="Permanent link">&para;</a></h3>
 <p>XtraBackup will restore the table to the same location on the joiner node.  If
@@ -11246,7 +11264,7 @@ ssl-key=server-key.pem
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
 <div class="no-copy highlight"><pre><span></span><code>[sst]
-sockopt=&quot;retry=2,interval=3&quot;
+sockopt="retry=2,interval=3"
 </code></pre></div>
 <p>The previous example causes socat to try to connect three times
 (initial attempt and two retries with a 3-second interval between attempts).</p>
@@ -11359,7 +11377,7 @@ that need to be retained in the <a href="#glossary-datadir">datadir</a> before r
 so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
 <div class="no-copy highlight"><pre><span></span><code>[sst]
-cpat=&#39;.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$&#39;
+cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11664,7 +11682,7 @@ is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
 under <code>[sst]</code> as follows:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
-inno-apply-opts<span class="o">=</span><span class="s2">&quot;--use-memory=500M&quot;</span>
+inno-apply-opts<span class="o">=</span><span class="s2">"--use-memory=500M"</span>
 </code></pre></div>
 <p>If it is not specified,
 the <code>use-memory</code> option under <code>[xtrabackup]</code> will be used:</p>
@@ -12011,7 +12029,7 @@ the failure of one node will cause the other to become non-primary
 and refuse operations.
 However, you can recover the node from non-primary state
 using the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>This will tell the node (and all nodes still connected to its partition)
 that it can become a primary cluster.
@@ -12615,7 +12633,7 @@ threads) as a part of <code>PERFORMANCE_SCHEMA</code>.</p>
 <p>Mutexes, condition variables, threads, and files from Galera library also were
 not part of the <code>PERFORMANCE_SCHEMA</code>.</p>
 <p>You can see the complete list of available instruments by running:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>performance_schema.setup_instruments<span class="w"> </span>WHERE<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%galera%&#39;</span><span class="w"> </span>OR<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;%wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>performance_schema.setup_instruments<span class="w"> </span>WHERE<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'%galera%'</span><span class="w"> </span>OR<span class="w"> </span>name<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'%wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -12801,8 +12819,8 @@ higher version JOINER can join from lower version DONOR, but not vice-versa.</p>
 <a href="https://docs.percona.com/percona-server/8.0/using-keyring-plugin.html">upstream</a>.
 The <code>my.cnf</code> configuration file should contain the following options:</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
-early-plugin-load=&quot;keyring_vault=keyring_vault.so&quot;
-keyring_vault_config=&quot;&lt;PATH&gt;/keyring_vault_n1.conf&quot;
+early-plugin-load="keyring_vault=keyring_vault.so"
+keyring_vault_config="&lt;PATH&gt;/keyring_vault_n1.conf"
 </code></pre></div>
 <p>Also, <code>keyring_vault_n1.conf</code> file should contain the following:</p>
 <div class="highlight"><pre><span></span><code>vault_url = http://127.0.0.1:8200
@@ -12826,12 +12844,12 @@ notified during the server boot, and the node refuses to start:</p>
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:54:33.977145Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;CURL returned this error code: 7 with error message : Failed to connect
-to 127.0.0.1 port 8200: Connection refused&#39;
+'CURL returned this error code: 7 with error message : Failed to connect
+to 127.0.0.1 port 8200: Connection refused'
 </code></pre></div>
 </details>
 <p>If some nodes of the cluster are unable to connect to vault-server, this
@@ -12844,25 +12862,25 @@ the consequences are the same, and the corresponding error looks like the follow
 <details class="example">
 <summary>The warning message</summary>
 <div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Plugin keyring_vault reported:
-&#39;There is no vault_ca specified in keyring_vault&#39;s configuration file.
-Please make sure that Vault&#39;s CA certificate is trusted by the machine
-from which you intend to connect to Vault.&#39;
+'There is no vault_ca specified in keyring_vault's configuration file.
+Please make sure that Vault's CA certificate is trusted by the machine
+from which you intend to connect to Vault.'
 2018-05-29T03:58:54.577477Z 0 [ERROR] Plugin keyring_vault reported:
-&#39;Could not retrieve list of keys from Vault. Vault has returned the
-following error(s): [&quot;permission denied&quot;]&#39;
+'Could not retrieve list of keys from Vault. Vault has returned the
+following error(s): ["permission denied"]'
 </code></pre></div>
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no
 error during server boot, but the node still refuses to start:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>TABLE<span class="w"> </span>t1<span class="w"> </span><span class="o">(</span>c1<span class="w"> </span>INT,<span class="w"> </span>PRIMARY<span class="w"> </span>KEY<span class="w"> </span>pk<span class="o">(</span>c1<span class="o">))</span><span class="w"> </span><span class="nv">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can&#39;t find master key from keyring, please check keyring
+<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
 plugin is loaded.
 
-... [ERROR] Plugin keyring_vault reported: &#39;Could not write key to Vault. ...
-... [ERROR] Plugin keyring_vault reported: &#39;Could not flush keys to keyring&#39;
+... [ERROR] Plugin keyring_vault reported: 'Could not write key to Vault. ...
+... [ERROR] Plugin keyring_vault reported: 'Could not flush keys to keyring'
 </code></pre></div>
 </details>
 <h2 id="data-at-rest-encryption-mix-keyring-plugin-types">Mix keyring plugin types<a class="headerlink" href="#data-at-rest-encryption-mix-keyring-plugin-types" title="Permanent link">&para;</a></h2>
@@ -12944,7 +12962,7 @@ the node.</p>
 --keyring-migration-host=localhost \
 --keyring-migration-user=root \
 --keyring-migration-port=16300 \
---keyring-migration-password=&#39;&#39; &amp;
+--keyring-migration-password='' &amp;
 </code></pre></div>
 <p>On a successful migration, the destination keystore receives the additional
 migrated keys. Any pre-existing keys in the destination keystore are unchanged.
@@ -13096,7 +13114,7 @@ they still form the quorum.</p>
 <p>If node A and node B crashed, you need to enable the primary component on
 node C manually, before you can bring up node A and node B. The command to do
 this is:</p>
-<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>This approach only works if the other nodes are down before doing that!
 Otherwise, you end up with two clusters having different data.</p>
@@ -13185,7 +13203,7 @@ re-connect.</p>
 <p>If you want to restore the service even
 before the network link is restored, you can make one of the groups primary
 again using the same command as described in <a href="#crash-recovery-scenario-5-two-nodes-disappear-from-the-cluster">Scenario 5: Two nodes disappear from the cluster</a></p>
-<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">&#39;pc.bootstrap=true&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt=">"><pre><span></span><code>&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>After this, you are able to work on the manually restored part of the cluster,
 and the other half should be able to automatically re-join using <a href="#glossary-ist">IST</a> as soon as the network link is restored.</p>
@@ -13306,7 +13324,7 @@ with initial <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_clu
 </li>
 <li>
 <p>After the first node has been started, cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>This output shows that the cluster has been successfully bootstrapped.</p>
 <details class="example">
@@ -13329,13 +13347,13 @@ with initial <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_clu
 </code></pre></div>
 </details>
 <p>Copy the automatically generated temporary password for the superuser account:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;temporary password&#39;</span><span class="w"> </span>/var/log/mysqld.log
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 <p>Use this password to log in as root:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Change the password for the superuser account and log out. For example:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;r00tP@$$&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>ALTER<span class="w"> </span>USER<span class="w"> </span><span class="s1">'root'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'r00tP@$$'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -13387,7 +13405,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on both nodes.
     The following is an example of status from the second node (<code>percona2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -13454,7 +13472,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can be checked on all three nodes.
     The following is an example of status from the third node (<code>percona3</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -13518,7 +13536,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -13653,7 +13671,7 @@ wsrep_cluster_name=my_ubuntu_cluster
 <li>
 <p>After the first node has been started,
 cluster status can be checked with the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following outut shows the cluste status:</p>
 <details class="example">
@@ -13722,7 +13740,7 @@ wsrep_sst_method=xtrabackup-v2
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (<code>pxc2</code>):</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
@@ -13793,7 +13811,7 @@ Cluster status can be checked on all nodes.
 The following is an example of status from the third node (<code>pxc3</code>):</p>
 </li>
 </ol>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">&#39;wsrep%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster.</p>
 <details class="example">
@@ -13855,7 +13873,7 @@ and add some records to the table on the first node.</p>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">&#39;percona1&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@percona1>"><pre><span></span><code>mysql@percona1&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
@@ -13909,11 +13927,11 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>garbd<span class="w"> </span>--group<span class="o">=</span>my_ubuntu_cluster<span class="w"> </span><span class="se">\</span>
---address<span class="o">=</span><span class="s2">&quot;gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;</span><span class="w"> </span><span class="se">\</span>
---option<span class="o">=</span><span class="s2">&quot;socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \</span>
+--address<span class="o">=</span><span class="s2">"gcomm://192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"</span><span class="w"> </span><span class="se">\</span>
+--option<span class="o">=</span><span class="s2">"socket.ssl=YES; socket.ssl_key=/etc/ssl/mysql/server-key.pem; \</span>
 <span class="s2">socket.ssl_cert=/etc/ssl/mysql/server-cert.pem; \</span>
 <span class="s2">socket.ssl_ca=/etc/ssl/mysql/ca.pem; \</span>
-<span class="s2">socket.ssl_cipher=AES128-SHA256&quot;</span>
+<span class="s2">socket.ssl_cipher=AES128-SHA256"</span>
 </code></pre></div>
 <p>To avoid entering the options each time you start <code>garbd</code>, edit the options in the configuration file. To configure <em>Galera Arbitrator</em> on <em>Ubuntu/Debian</em>, edit the <code>/etc/default/garb</code> file. On RedHat or derivative distributions, the configuration can be found in <code>/etc/sysconfig/garb</code> file.</p>
 <p>The configuration file should look like this after the installation and before you have added your parameters:</p>
@@ -13923,18 +13941,18 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 # REMOVE THIS AFTER CONFIGURATION
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
-# GALERA_NODES=&quot;&quot;
+# GALERA_NODES=""
 
 # Galera cluster name, should be the same as on the rest of the nodes.
-# GALERA_GROUP=&quot;&quot;
+# GALERA_GROUP=""
 
 # Optional Galera internal options string (e.g. SSL settings)
 # see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;&quot;
+# GALERA_OPTIONS=""
 
 # Log file for garbd. Optional, by default logs to syslog
 # Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;&quot;
+# LOG_FILE=""
 </code></pre></div>
 <p>Add the parameter information about the cluster. For this document, we use the cluster information from <a href="#configure-cluster-ubuntu-configure-a-cluster-on-debian-or-ubuntu">Configuring Percona XtraDB Cluster on Ubuntu</a>.</p>
 <div class="admonition note">
@@ -13945,18 +13963,18 @@ CONFIGURATION</code> line before you can start the service.</p>
 <div class="no-copy highlight"><pre><span></span><code># This config file is to be sourced by garb service script.
 
 # A comma-separated list of node addresses (address[:port]) in the cluster
-GALERA_NODES=&quot;192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567&quot;
+GALERA_NODES="192.168.70.61:4567, 192.168.70.62:4567, 192.168.70.63:4567"
 
 # Galera cluster name, should be the same as on the rest of the nodes.
-GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
+GALERA_GROUP="my_ubuntu_cluster"
 
 # Optional Galera internal options string (e.g. SSL settings)
 # see http://galeracluster.com/documentation-webpages/galeraparameters.html
-# GALERA_OPTIONS=&quot;socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem&quot;
+# GALERA_OPTIONS="socket.ssl_cert=/etc/ssl/mysql/server-key.pem;socket./etc/ssl/mysql/server-key.pem"
 
 # Log file for garbd. Optional, by default logs to syslog
 # Deprecated for CentOS7, use journalctl to query the log for garbd
-# LOG_FILE=&quot;/var/log/garbd.log&quot;
+# LOG_FILE="/var/log/garbd.log"
 </code></pre></div>
 <p>You can now start the <em>Galera Arbitrator</em> daemon (<code>garbd</code>) by running:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="garbd-howto-__tabbed_1_1" name="garbd-howto-__tabbed_1" type="radio" /><input id="garbd-howto-__tabbed_1_2" name="garbd-howto-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="garbd-howto-__tabbed_1_1">On Debian or Ubuntu</label><label for="garbd-howto-__tabbed_1_2">On Red Hat Enterprise Linux or CentOS</label></div>
@@ -14045,11 +14063,11 @@ GALERA_GROUP=&quot;my_ubuntu_cluster&quot;
 </li>
 </ul>
 <p>Execute the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;haproxy_server_ip&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;strong_password&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'haproxy_user'</span>@<span class="s1">'haproxy_server_ip'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'strong_password'</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the minimal set of privileges necessary for HAProxy to perform its health checks and monitoring.</p>
 <p>Execute the following:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>GRANT<span class="w"> </span>SELECT<span class="w"> </span>ON<span class="w"> </span><span class="sb">`</span>mysql<span class="sb">`</span>.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;haproxy_server_ip&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>GRANT<span class="w"> </span>SELECT<span class="w"> </span>ON<span class="w"> </span><span class="sb">`</span>mysql<span class="sb">`</span>.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'haproxy_user'</span>@<span class="s1">'haproxy_server_ip'</span><span class="p">;</span>
 FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
 <h3 id="haproxy-important-considerations">Important Considerations<a class="headerlink" href="#haproxy-important-considerations" title="Permanent link">&para;</a></h3>
@@ -14096,7 +14114,7 @@ multiple times.</p>
 <code>caching_sha2_password</code>. HAProxy does not support this authentication
 plugin. Create a mysql user using the <code>mysql_native_password</code>
 authentication plugin.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;haproxy_user&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'haproxy_user'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3Kr$t'</span><span class="p">;</span>
 </code></pre></div>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
@@ -14338,7 +14356,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql@proxysql&gt;
 </code></pre></div>
@@ -14418,9 +14436,9 @@ and a every node can be a member of multiple hostgroups.</p>
 </div>
 <p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>),
 which receives both write and read traffic:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.71&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.72&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">&#39;192.168.70.73&#39;</span>,3306<span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.71'</span>,3306<span class="o">)</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.72'</span>,3306<span class="o">)</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_servers<span class="o">(</span>hostgroup_id,<span class="w"> </span>hostname,<span class="w"> </span>port<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">0</span>,<span class="s1">'192.168.70.73'</span>,3306<span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>To see the nodes:</p>
 <div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>mysql_servers<span class="p">;</span>
@@ -14443,19 +14461,19 @@ mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<spa
 create a user with <code>USAGE</code> privilege on any node in the cluster
 and configure the user in ProxySQL.</p>
 <p>The following example adds a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3Kr$t'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example adds a monitoring user on Node 2 if you are using the  <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3Kr$t&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3Kr$t'</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the user account privileges:</p>
-<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc2>"><pre><span></span><code>mysql@pxc2&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
-<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
-mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
-<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
+<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_username'</span><span class="p">;</span>
+mysql@proxysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'ProxySQLPa55'</span>
+<span class="w">              </span>WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
 <p>To load this configuration at runtime, issue a <code>LOAD</code> command.
 To save these changes to disk
@@ -14508,7 +14526,7 @@ and ping the nodes you have added.</p>
 <p>ProxySQL must have users that can access backend nodes
 to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;sbuser&#39;</span>,<span class="s1">&#39;sbpass&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@proxysql>"><pre><span></span><code>mysql@proxysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'sbuser'</span>,<span class="s1">'sbpass'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -14540,19 +14558,19 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>To provide read/write access to the cluster for ProxySQL,
 add this user on one of the Percona XtraDB Cluster nodes:</p>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;sbuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;sbpass&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'sbuser'</span>@<span class="s1">'192.168.70.74'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'sbpass'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;sbuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql@pxc3>"><pre><span></span><code>mysql@pxc3&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'sbuser'</span>@<span class="s1">'192.168.70.74'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -14586,7 +14604,7 @@ add this user on one of the Percona XtraDB Cluster nodes:</p>
 <div class="highlight" data-prompt="root@proxysql:~#"><pre><span></span><code>root@proxysql:~#<span class="w"> </span>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">'sbuser'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'sbpass'</span><span class="w"> </span><span class="se">\</span>
 --oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
 prepare
 </code></pre></div>
@@ -14596,7 +14614,7 @@ prepare
 <div class="highlight" data-prompt="root@proxysql:~#"><pre><span></span><code>root@proxysql:~#<span class="w"> </span>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
---mysql-user<span class="o">=</span><span class="s1">&#39;sbuser&#39;</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">&#39;sbpass&#39;</span><span class="w"> </span><span class="se">\</span>
+--mysql-user<span class="o">=</span><span class="s1">'sbuser'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'sbpass'</span><span class="w"> </span><span class="se">\</span>
 --oltp-table-size<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--mysql-host<span class="o">=</span><span class="m">127</span>.0.0.1<span class="w"> </span>--mysql-port<span class="o">=</span><span class="m">6033</span><span class="w"> </span><span class="se">\</span>
 run
 </code></pre></div>
@@ -14803,7 +14821,7 @@ When ProxySQL detects this, it starts routing traffic to the node again.</p>
 <p>In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The <a href="https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_lock_wait_timeout"><code>lock_wait_timeout</code></a> system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause <code>infinite</code> waits and should not be used with the <code>NBO</code> method.</p>
 <p>Attempting a State Snapshot Transfer (SST) fails during the NBO operation.</p>
 <p>To dynamically set the <code>NBO</code> mode in the client, run the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_OSU_method</span><span class="o">=</span><span class="s1">&#39;NBO&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_OSU_method</span><span class="o">=</span><span class="s1">'NBO'</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="nbo-supported-ddl-statements">Supported DDL statements<a class="headerlink" href="#nbo-supported-ddl-statements" title="Permanent link">&para;</a></h2>
 <p>The NBO method supports the following DDL statements:</p>
@@ -15043,12 +15061,12 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:5030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:5030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:4020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:4030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:4030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node4000
 innodb_autoinc_lock_mode=2
@@ -15064,13 +15082,13 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:6030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:6030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:5020
 wsrep_node_incoming_address=192.168.2.21
 
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:5030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:5030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node5000
 innodb_autoinc_lock_mode=2
@@ -15086,12 +15104,12 @@ basedir=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64
 user=mysql
 log_error=error.log
 binlog_format=ROW
-wsrep_cluster_address=&#39;gcomm://192.168.2.21:4030,192.168.2.21:5030&#39;
+wsrep_cluster_address='gcomm://192.168.2.21:4030,192.168.2.21:5030'
 wsrep_provider=/usr/local/Percona-XtraDB-Cluster-8.0.x86_64/lib/libgalera_smm.so
 wsrep_sst_receive_address=192.168.2.21:6020
 wsrep_node_incoming_address=192.168.2.21
 wsrep_cluster_name=trimethylxanthine
-wsrep_provider_options = &quot;gmcast.listen_addr=tcp://192.168.2.21:6030;&quot;
+wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:6030;"
 wsrep_sst_method=xtrabackup-v2
 wsrep_node_name=node6000
 innodb_autoinc_lock_mode=2
@@ -15140,7 +15158,7 @@ you should see the following output:</p>
 111215 19:22:26 [Note] WSREP: Synchronized with group, ready for connections
 </code></pre></div>
 <p>To check the cluster size, run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;show global status like &#39;wsrep_cluster_size&#39;;&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P6000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"show global status like 'wsrep_cluster_size';"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -15155,7 +15173,7 @@ you should see the following output:</p>
 which will be automatically synchronized with other nodes.
 For example, to create a database on the second node,
 you can run the following command:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;CREATE DATABASE hello_peter&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-h127.0.0.1<span class="w"> </span>-P5000<span class="w"> </span>-e<span class="w"> </span><span class="s2">"CREATE DATABASE hello_peter"</span>
 </code></pre></div>
 </li>
 </ol>
@@ -15164,7 +15182,7 @@ you can run the following command:</p>
 Instead, it redirects the error output to <code>syslog</code> if no error log file is specified.</p>
 <div class="highlight"><pre><span></span><code>Jun 19 12:34:56 hostname mysqld_safe: 2024-06-19T12:34:56.789012Z mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
 Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [Note] /usr/sbin/mysqld (mysqld 8.0.35) starting as process 12345 ...
-Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Failed to open the error log file (file &#39;/var/log/mysql/mysql-error.log&#39;). Error: 2 - No such file or directory
+Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Failed to open the error log file (file '/var/log/mysql/mysql-error.log'). Error: 2 - No such file or directory
 Jun 19 12:34:56 hostname mysqld: 2024-06-19T12:34:56.789012Z 0 [ERROR] Could not use /var/log/mysql/mysql-error.log for logging (error 13 - Permission denied). Turning logging off for the duration of the session.
 </code></pre></div>
 <h3 id="singlebox-check-and-fix-missing-error-logs">Check and fix missing error logs<a class="headerlink" href="#singlebox-check-and-fix-missing-error-logs" title="Permanent link">&para;</a></h3>
@@ -15298,7 +15316,7 @@ wsrep_node_name=node3
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>2014-01-30 11:52:35 23280 [Note] /usr/sbin/mysqld: ready for connections.
-Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
 </code></pre></div>
 </details>
 </li>
@@ -15314,7 +15332,7 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 ... [Note] WSREP: Shifting JOINED -&gt; SYNCED (TO: 2)
 ... [Note] WSREP: New cluster view: global state: 4827a206-876b-11e3-911c-3e6a77d54953:2, view# 7: Primary, number of nodes: 3, my index: 2, protocol version 2
 ... [Note] WSREP: SST complete, seqno: 2
-... [Note] Plugin &#39;FEDERATED&#39; is disabled.
+... [Note] Plugin 'FEDERATED' is disabled.
 ... [Note] InnoDB: The InnoDB memory heap is disabled
 ... [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
 ... [Note] InnoDB: Compressed tables use zlib 1.2.3
@@ -15328,13 +15346,13 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 ... [Note] InnoDB:  Percona XtraDB (http://www.percona.com) ... started; log sequence number 1626341
 ... [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
 ... [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
-... [Note] Server hostname (bind-address): &#39;*&#39;; port: 3306
+... [Note] Server hostname (bind-address): '*'; port: 3306
 ... [Note] IPv6 is available.
-... [Note]   - &#39;::&#39; resolves to &#39;::&#39;;
-... [Note] Server socket created on IP: &#39;::&#39;.
+... [Note]   - '::' resolves to '::';
+... [Note] Server socket created on IP: '::'.
 ... [Note] Event Scheduler: Loaded 0 events
 ... [Note] /usr/sbin/mysqld: ready for connections.
-Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
 ... [Note] WSREP: inited wsrep sidno 1
 ... [Note] WSREP: wsrep_notify_cmd is not defined, skipping notification.
 ... [Note] WSREP: REPL Protocols: 5 (3, 1)
@@ -15408,7 +15426,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql&gt;
 </code></pre></div>
@@ -15500,9 +15518,9 @@ before pushing to production (RUNTIME), or saving them to disk.</p>
 <h3 id="virtual-sandbox-adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a class="headerlink" href="#virtual-sandbox-adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
 <p>To configure the backend Percona XtraDB Cluster nodes in ProxySQL, insert corresponding
 records into the mysql_servers table.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.71&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.72&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;192.168.70.73&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.71'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.72'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.73'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
 </code></pre></div>
 <p>ProxySQL v2.0 supports PXC natlively. It uses the concept of <em>hostgroups</em>
 (see the value of hostgroup_id in the mysql_servers table) to group cluster
@@ -15559,8 +15577,8 @@ different groups.</p>
 <p>Make sure that the variable mysql-server_version refers to the correct
 version. For Percona XtraDB Cluster 8.0, set it to 8.0 accordingly:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>GLOBAL_VARIABLES
-SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;8.0&#39;</span>
-WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-server_version&#39;</span><span class="p">;</span>
+SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'8.0'</span>
+WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-server_version'</span><span class="p">;</span>
 
 mysql&gt;<span class="w"> </span>LOAD<span class="w"> </span>MYSQL<span class="w"> </span>SERVERS<span class="w"> </span>TO<span class="w"> </span>RUNTIME<span class="p">;</span>
 mysql&gt;<span class="w"> </span>SAVE<span class="w"> </span>MYSQL<span class="w"> </span>SERVERS<span class="w"> </span>TO<span class="w"> </span>DISK<span class="p">;</span>
@@ -15594,11 +15612,11 @@ VALUES<span class="w"> </span><span class="o">(</span><span class="m">10</span>,
 table:</p>
 <div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_query_rules<span class="w"> </span><span class="o">(</span>
 username,destination_hostgroup,active,match_digest,apply<span class="o">)</span>
-VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;appuser&#39;</span>,10,1,<span class="s1">&#39;^SELECT.*FOR UPDATE&#39;</span>,1<span class="o">)</span><span class="p">;</span>
+VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'appuser'</span>,10,1,<span class="s1">'^SELECT.*FOR UPDATE'</span>,1<span class="o">)</span><span class="p">;</span>
 
 mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_query_rules<span class="w"> </span><span class="o">(</span>
 username,destination_hostgroup,active,match_digest,apply<span class="o">)</span>
-VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;appuser&#39;</span>,11,1,<span class="s1">&#39;^SELECT &#39;</span>,1<span class="o">)</span><span class="p">;</span>
+VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'appuser'</span>,11,1,<span class="s1">'^SELECT '</span>,1<span class="o">)</span><span class="p">;</span>
 
 mysql&gt;<span class="w"> </span>LOAD<span class="w"> </span>MYSQL<span class="w"> </span>QUERY<span class="w"> </span>RULES<span class="w"> </span>TO<span class="w"> </span>RUNTIME<span class="p">;</span>
 mysql&gt;<span class="w"> </span>SAVE<span class="w"> </span>MYSQL<span class="w"> </span>QUERY<span class="w"> </span>RULES<span class="w"> </span>TO<span class="w"> </span>DISK<span class="p">;</span>
@@ -15655,22 +15673,22 @@ elected for write requests.</p>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
 <p>The following example shows how to add a monitoring user on Node 2 if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>BY<span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>BY<span class="w"> </span><span class="s1">'ProxySQLPa55'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example adds a monitoring user on Node 2 if you are using the  <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>BY<span class="w"> </span><span class="s1">&#39;ProxySQLPa55&#39;</span><span class="p">;</span>
+<span class="w">        </span>BY<span class="w"> </span><span class="s1">'ProxySQLPa55'</span><span class="p">;</span>
 </code></pre></div>
 <p>For either authentication method, run the following command to give the user account named &lsquo;proxysql&rsquo; permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;proxysql&#39;</span>@<span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>USAGE<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'proxysql'</span>@<span class="s1">'%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;proxysql&#39;</span>
-WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_username&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
+WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_username'</span><span class="p">;</span>
 
-mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">&#39;ProxySQLPa55&#39;</span>
-WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">&#39;mysql-monitor_password&#39;</span><span class="p">;</span>
+mysql&gt;<span class="w"> </span>UPDATE<span class="w"> </span>global_variables<span class="w"> </span>SET<span class="w"> </span><span class="nv">variable_value</span><span class="o">=</span><span class="s1">'ProxySQLPa55'</span>
+WHERE<span class="w"> </span><span class="nv">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="virtual-sandbox-saving-and-loading-the-configuration">Saving and loading the configuration<a class="headerlink" href="#virtual-sandbox-saving-and-loading-the-configuration" title="Permanent link">&para;</a></h3>
 <p>To load this configuration at runtime, issue the <code>LOAD</code> command.  To save these
@@ -15722,7 +15740,7 @@ you added.</p>
 <h3 id="virtual-sandbox-creating-proxysql-client-user">Creating ProxySQL Client User<a class="headerlink" href="#virtual-sandbox-creating-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">&#39;appuser&#39;</span>,<span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="o">)</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>INSERT<span class="w"> </span>INTO<span class="w"> </span>mysql_users<span class="w"> </span><span class="o">(</span>username,password<span class="o">)</span><span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="s1">'appuser'</span>,<span class="s1">'$3kRetp@$sW0rd'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The example of the output is the following:</p>
 <details class="example">
@@ -15759,22 +15777,22 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 
-Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 <p>To provide read/write access to the cluster for ProxySQL, add this user on one
 of the Percona XtraDB Cluster nodes:</p>
 </details>
 <p>The following example adds an <code>appuser</code> user account, if you are using the deprecated <code>mysql_native_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span>
-IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'appuser'</span>@<span class="s1">'192.168.70.74'</span>
+IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>mysql_native_password<span class="w"> </span>by<span class="w"> </span><span class="s1">'$3kRetp@$sW0rd'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example adds an <code>appuser</code> user account if you are using the  <code>caching_sha2_password</code> authentication method:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'appuser'</span>@<span class="s1">'192.168.70.74'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">        </span>IDENTIFIED<span class="w"> </span>WITH<span class="w"> </span>caching_sha2_password<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>BY<span class="w"> </span><span class="s1">&#39;$3kRetp@$sW0rd&#39;</span><span class="p">;</span>
+<span class="w">        </span>BY<span class="w"> </span><span class="s1">'$3kRetp@$sW0rd'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;appuser&#39;</span>@<span class="s1">&#39;192.168.70.74&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>ALL<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'appuser'</span>@<span class="s1">'192.168.70.74'</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="virtual-sandbox-testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a class="headerlink" href="#virtual-sandbox-testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
 <p>After you set up Percona XtraDB Cluster in your testing environment, you can test it using
@@ -16961,7 +16979,7 @@ The IP address can contain a port number after a colon.
 Options are specified after <code>?</code> and separated by <code>&amp;</code>.
 You can specify multiple addresses separated by commas.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>wsrep_cluster_address=&quot;gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678&quot;
+<div class="highlight"><pre><span></span><code>wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
 </code></pre></div>
 <p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
 (that is, form a new cluster).
@@ -17011,7 +17029,7 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
     wsrep_cluster_name=simple-cluster
 </code></pre></div>
 <p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">&#39;wsrep_cluster_name&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SHOW<span class="w"> </span>VARIABLES<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'wsrep_cluster_name'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -19007,7 +19025,7 @@ node1&gt; UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
 Query OK, 131072 rows affected (1 min 35.93 sec)
 Rows matched: 131072 Changed: 131072 Warnings: 0
 
-node2&gt; SET SESSION TRANSACTION_ISOLATION = &#39;READ-UNCOMMITTED&#39;;
+node2&gt; SET SESSION TRANSACTION_ISOLATION = 'READ-UNCOMMITTED';
 Query OK, 0 rows affected (0.00 sec)
 
 node2&gt; SELECT * FROM t1 LIMIT 5;
@@ -19088,13 +19106,13 @@ Query OK, 131072 rows affected (15.09 sec)
 </details></section><section class="print-page" id="wsrep-provider-index" heading-number="12.3"><h1 id="wsrep-provider-index-index-of-wsrep_provider-options">Index of wsrep_provider options<a class="headerlink" href="#wsrep-provider-index-index-of-wsrep_provider-options" title="Permanent link">&para;</a></h1>
 <p>The following variables can be set and checked in the <a href="#wsrep-system-index-wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. The value of the variable can be changed in the <em>MySQL</em> configuration file, <code>my.cnf</code>, or by setting the variable value in the <em>MySQL</em> client.</p>
 <p>To change the value in <code>my.cnf</code>, the following syntax should be used:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;variable1=value1;[variable2=value2]&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"variable1=value1;[variable2=value2]"</span>
 </code></pre></div>
 <p>For example to set the size of the Galera buffer storage to 512 MB, specify the following in <code>my.cnf</code>:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;gcache.size=512M&quot;</span>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"gcache.size=512M"</span>
 </code></pre></div>
 <p>Dynamic variables can be changed from the <em>MySQL</em> client using the <code>SET GLOBAL</code> command. For example, to change the value of the <a href="#wsrep-provider-index-pcignore_sb"><code>pc.ignore_sb</code></a>, use the following command:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">&quot;pc.ignore_sb=true&quot;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"pc.ignore_sb=true"</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="wsrep-provider-index-index">Index<a class="headerlink" href="#wsrep-provider-index-index" title="Permanent link">&para;</a></h2>
 <h3 id="wsrep-provider-index-base_dir"><code>base_dir</code><a class="headerlink" href="#wsrep-provider-index-base_dir" title="Permanent link">&para;</a></h3>
@@ -20276,7 +20294,7 @@ size of the disk. Pages are prefixed by gcache.page.</p>
 </table>
 <p>This variable attempts to recover a node&rsquo;s <code>gcache</code> file to a usable state during startup. If the node successfully recovers the <code>gcache</code> file, it provides Incremental State Transfer (IST) to the remaining nodes. This capability reduces the time required to bring up the cluster.</p>
 <p>To enable this variable, add the following to your configuration file:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;gcache.recover=yes&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="gcache.recover=yes"
 </code></pre></div>
 <h3 id="wsrep-provider-index-gcachesize"><code>gcache.size</code><a class="headerlink" href="#wsrep-provider-index-gcachesize" title="Permanent link">&para;</a></h3>
 <table>
@@ -21035,7 +21053,7 @@ State Transfer (<a href="#glossary-ist">IST</a>).</p>
 </tbody>
 </table>
 <p><code>pc.bootstrap</code> is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.bootstrap=TRUE&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="pc.bootstrap=TRUE"
 </code></pre></div>
 <p>You can use <code>pc.bootstrap</code> in the following:</p>
 <table>
@@ -21717,7 +21735,7 @@ accept in the cluster. Used only for debugging.</p>
 </li>
 </ul>
 <p>The following is an example of the variable use:</p>
-<div class="highlight"><pre><span></span><code>wsrep_provider_options=&quot;socket.checksum=2&quot;
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="socket.checksum=2"
 </code></pre></div>
 <h3 id="wsrep-provider-index-socketssl"><code>socket.ssl</code><a class="headerlink" href="#wsrep-provider-index-socketssl" title="Permanent link">&para;</a></h3>
 <table>
@@ -21926,11 +21944,11 @@ DELIMITER<span class="w"> </span>/*!*/<span class="p">;</span>
 <span class="c1">#160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup</span>
 <span class="c1"># Warning: this binlog is either in use or was not closed properly.</span>
 ROLLBACK/*!*/<span class="p">;</span>
-BINLOG<span class="w"> </span><span class="s1">&#39;</span>
+BINLOG<span class="w"> </span><span class="s1">'</span>
 <span class="s1">nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
 <span class="s1">AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA</span>
 <span class="s1">ALfQ8hw=</span>
-<span class="s1">&#39;</span>/*!*/<span class="p">;</span>
+<span class="s1">'</span>/*!*/<span class="p">;</span>
 <span class="c1"># at 123</span>
 <span class="c1">#160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0</span>
 use<span class="w"> </span><span class="sb">`</span><span class="nb">test</span><span class="sb">`</span>/*!*/<span class="p">;</span>
@@ -21945,7 +21963,7 @@ SET<span class="w"> </span>@@session.lc_time_names<span class="o">=</span><span 
 SET<span class="w"> </span>@@session.collation_database<span class="o">=</span>DEFAULT/*!*/<span class="p">;</span>
 drop<span class="w"> </span>table<span class="w"> </span>t
 /*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">&#39;AUTOMATIC&#39;</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
+SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">'AUTOMATIC'</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
 DELIMITER<span class="w"> </span><span class="p">;</span>
 <span class="c1"># End of log file</span>
 /*!50003<span class="w"> </span>SET<span class="w"> </span><span class="nv">COMPLETION_TYPE</span><span class="o">=</span>@OLD_COMPLETION_TYPE*/<span class="p">;</span>
@@ -21954,7 +21972,7 @@ DELIMITER<span class="w"> </span><span class="p">;</span>
 <p>This information can be used for checking the MySQL error log for the corresponding error message.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error &#39;Unknown table &#39;test&#39;&#39; on query. Default database: &#39;test&#39;. Query: &#39;drop table test&#39;, Error_code: 1051
+<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
 160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
 </code></pre></div>
 </details>
@@ -22035,7 +22053,7 @@ cert_index:
 
 * member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
 
-??? example &quot;Example of the file&quot;
+??? example "Example of the file"
 
     ```{.text .no-copy}
     my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
@@ -22109,15 +22127,15 @@ cert_index:
 <p>This telemetry helps us to gain insights into the initial setup to tailor future updates or support.</p>
 <h3 id="telemetry-installation-time-telemetry-file-example">Installation-time telemetry file example<a class="headerlink" href="#telemetry-installation-time-telemetry-file-example" title="Permanent link">&para;</a></h3>
 <p>An example of the data collected is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c416c3ee-48cd-471c-9733-37c2886f8231&quot;</span><span class="p">,</span>
-<span class="nt">&quot;product_family&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PXC&quot;</span><span class="p">,</span>
-<span class="nt">&quot;instanceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6aef422e-56a7-4530-af9d-94cc02198343&quot;</span><span class="p">,</span>
-<span class="nt">&quot;createTime&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-16T10:46:23Z&quot;</span><span class="p">,</span>
-<span class="nt">&quot;metrics&quot;</span><span class="p">:</span>
-<span class="p">[{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deployment&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PACKAGE&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.34-26&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oracle Linux Server 8.8&quot;</span><span class="p">},</span>
-<span class="p">{</span><span class="nt">&quot;key&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hardware_arch&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x86_64 x86_64&quot;</span><span class="p">}]}]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"c416c3ee-48cd-471c-9733-37c2886f8231"</span><span class="p">,</span>
+<span class="nt">"product_family"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT_FAMILY_PXC"</span><span class="p">,</span>
+<span class="nt">"instanceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6aef422e-56a7-4530-af9d-94cc02198343"</span><span class="p">,</span>
+<span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-10-16T10:46:23Z"</span><span class="p">,</span>
+<span class="nt">"metrics"</span><span class="p">:</span>
+<span class="p">[{</span><span class="nt">"key"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"deployment"</span><span class="p">,</span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PACKAGE"</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">"key"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"pillar_version"</span><span class="p">,</span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8.0.34-26"</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">"key"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"OS"</span><span class="p">,</span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Oracle Linux Server 8.8"</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">"key"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"hardware_arch"</span><span class="p">,</span><span class="nt">"value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64 x86_64"</span><span class="p">}]}]</span>
 </code></pre></div>
 <h2 id="telemetry-disable-telemetry">Disable telemetry<a class="headerlink" href="#telemetry-disable-telemetry" title="Permanent link">&para;</a></h2>
 <p>Starting with Percona XtraDB Cluster 8.0.34-26-1, telemetry is enabled by default. If you decide not to send usage data to Percona, you can set the <code>PERCONA_TELEMETRY_DISABLE=1</code> environment variable for either the root user or in the operating system prior to the installation process.</p>
@@ -22251,83 +22269,83 @@ cert_index:
 <p>The Metrics file uses the Javascript Object Notation (JSON) format. Percona reserves the right to extend the current set of JSON structure attributes in the future.  </p>
 <p>The following is an example of the Metrics file content:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;db_instance_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e83c568c-e140-11ee-8320-7e207666b18a&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;pillar_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.35-27&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;active_plugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;binlog&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;mysql_native_password&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;sha256_password&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;caching_sha2_password&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;sha2_cache_cleaner&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;daemon_keyring_proxy_plugin&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;PERFORMANCE_SCHEMA&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;CSV&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;MEMORY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;InnoDB&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_TRX&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMP_RESET&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMPMEM&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMPMEM_RESET&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMP_PER_INDEX&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CMP_PER_INDEX_RESET&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_BUFFER_PAGE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_BUFFER_PAGE_LRU&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_BUFFER_POOL_STATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_TEMP_TABLE_INFO&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_METRICS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_DEFAULT_STOPWORD&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_DELETED&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_BEING_DELETED&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_CONFIG&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_INDEX_CACHE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_FT_INDEX_TABLE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_TABLES&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_TABLESTATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_INDEXES&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_TABLESPACES&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_COLUMNS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_VIRTUAL&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_CACHED_INDEXES&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;INNODB_SESSION_TEMP_TABLESPACES&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;MyISAM&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;MRG_MYISAM&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;TempTable&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ARCHIVE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;BLACKHOLE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ngram&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;mysqlx_cache_cleaner&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;mysqlx&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;rpl_semi_sync_source&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_CFSTATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_DBSTATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_PERF_CONTEXT&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_PERF_CONTEXT_GLOBAL&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_CF_OPTIONS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_GLOBAL_INFO&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_COMPACTION_HISTORY&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_COMPACTION_STATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_ACTIVE_COMPACTION_STATS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_DDL&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_INDEX_FILE_MAP&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_LOCKS&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_TRX&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB_DEADLOCK&quot;</span>
+<span class="w">  </span><span class="nt">"db_instance_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e83c568c-e140-11ee-8320-7e207666b18a"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"pillar_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.0.35-27"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"active_plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">"binlog"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"mysql_native_password"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"sha256_password"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"caching_sha2_password"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"sha2_cache_cleaner"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"daemon_keyring_proxy_plugin"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"PERFORMANCE_SCHEMA"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"CSV"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"MEMORY"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"InnoDB"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_TRX"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMP_RESET"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMPMEM"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMPMEM_RESET"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMP_PER_INDEX"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CMP_PER_INDEX_RESET"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_BUFFER_PAGE"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_BUFFER_PAGE_LRU"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_BUFFER_POOL_STATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_TEMP_TABLE_INFO"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_METRICS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_DEFAULT_STOPWORD"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_DELETED"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_BEING_DELETED"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_CONFIG"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_INDEX_CACHE"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_FT_INDEX_TABLE"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_TABLES"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_TABLESTATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_INDEXES"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_TABLESPACES"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_COLUMNS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_VIRTUAL"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_CACHED_INDEXES"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"INNODB_SESSION_TEMP_TABLESPACES"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"MyISAM"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"MRG_MYISAM"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"TempTable"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ARCHIVE"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"BLACKHOLE"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ngram"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"mysqlx_cache_cleaner"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"mysqlx"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"rpl_semi_sync_source"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_CFSTATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_DBSTATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_PERF_CONTEXT"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_PERF_CONTEXT_GLOBAL"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_CF_OPTIONS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_GLOBAL_INFO"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_COMPACTION_HISTORY"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_COMPACTION_STATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_ACTIVE_COMPACTION_STATS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_DDL"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_INDEX_FILE_MAP"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_LOCKS"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_TRX"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB_DEADLOCK"</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;active_components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;file://component_percona_telemetry&quot;</span>
+<span class="w">  </span><span class="nt">"active_components"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">"file://component_percona_telemetry"</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6185&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;databases_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;databases_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;33149&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;se_engines_in_use&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="s2">&quot;InnoDB&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;ROCKSDB&quot;</span>
+<span class="w">  </span><span class="nt">"uptime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6185"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"databases_count"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"databases_size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33149"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"se_engines_in_use"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">"InnoDB"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"ROCKSDB"</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;replication_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;is_semisync_source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;is_replica&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">  </span><span class="nt">"replication_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"is_semisync_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"is_replica"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -22339,20 +22357,20 @@ cert_index:
 <h3 id="telemetry-telemetry-agent-payload-example">Telemetry agent payload example<a class="headerlink" href="#telemetry-telemetry-agent-payload-example" title="Permanent link">&para;</a></h3>
 <p>The following is an example of a telemetry agent payload:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;reports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"reports"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B5BDC47B-B717-4EF5-AEDF-41A17C9C18BB&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;createTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-09-01T10:56:49Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;instanceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B5BDC47B-B717-4EF5-AEDF-41A17C9C18BA&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;productFamily&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PRODUCT_FAMILY_PXC&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B5BDC47B-B717-4EF5-AEDF-41A17C9C18BB"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"createTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-09-01T10:56:49Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B5BDC47B-B717-4EF5-AEDF-41A17C9C18BA"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"productFamily"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT_FAMILY_PXC"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OS&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ubuntu&quot;</span>
+<span class="w">          </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OS"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ubuntu"</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pillar_version&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.33-25&quot;</span>
+<span class="w">          </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pillar_version"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.0.33-25"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
@@ -22502,7 +22520,7 @@ cert_index:
 <h3 id="telemetry-disable-db-component">Disable DB component<a class="headerlink" href="#telemetry-disable-db-component" title="Permanent link">&para;</a></h3>
 <p>The DB component continues to generate daily telemetry files and store them for a week, even after you stop the telemetry agent service. These files persist for seven days.</p>
 <p>Uninstall the component on the server without restarting the database server:</p>
-<div class="highlight" data-prompt="mysql"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s2">&quot;file://component_percona_telemetry&quot;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql"><pre><span></span><code>mysql&gt;<span class="w"> </span>UNINSTALL<span class="w"> </span>COMPONENT<span class="w"> </span><span class="s2">"file://component_percona_telemetry"</span><span class="p">;</span>
 </code></pre></div>
 <p>Restarting the database server after uninstalling the component can reactivate the telemetry component. This action happens because the server reloads settings during restart, including any instructions for telemetry.</p>
 <p>To prevent this reactivation, edit the my.cnf configuration file. Add this line:</p>
@@ -22572,15 +22590,15 @@ it will copy the whole dataset from another node
 </ul>
 <p>You can also check a node’s health with the <code>clustercheck</code> script.
 First set up the <code>clustercheck</code> user:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span>PASSWORD
-<span class="s1">&#39;*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'clustercheck'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span>PASSWORD
+<span class="s1">'*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;clustercheck&#39;</span>@<span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<div class="highlight" data-prompt="mysql>"><pre><span></span><code>mysql&gt;<span class="w"> </span>GRANT<span class="w"> </span>PROCESS<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'clustercheck'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <p>You can then check a node’s health by running the <code>clustercheck</code> script:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>/usr/bin/clustercheck<span class="w"> </span>clustercheck<span class="w"> </span>password<span class="w"> </span><span class="m">0</span>
@@ -22638,7 +22656,7 @@ Percona XtraDB Cluster has no way to resolve a <a href="#glossary-split-brain">s
 The minimal recommendation is to have 3 nodes.
 However, it is possibile to allow a node to handle traffic
 with the following option:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options=&quot;pc.ignore_sb = yes&quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options="pc.ignore_sb = yes"
 </code></pre></div>
 <h2 id="faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup">Why a node stops accepting commands if the other one fails in a 2-node setup?<a class="headerlink" href="#faq-why-a-node-stops-accepting-commands-if-the-other-one-fails-in-a-2-node-setup" title="Permanent link">&para;</a></h2>
 <p>This is expected behavior to prevent <a href="#glossary-split-brain">split brain</a>.
@@ -22661,7 +22679,7 @@ For more information, see previous question or <a href="https://mariadb.com/docs
 </li>
 <li>
 <p>Port for group communication (default is 4567). It can be changed using the following option:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options =&quot;gmcast.listen_addr=tcp://0.0.0.0:4010; &quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options ="gmcast.listen_addr=tcp://0.0.0.0:4010; "
 </code></pre></div>
 </li>
 <li>
@@ -22671,7 +22689,7 @@ For more information, see previous question or <a href="https://mariadb.com/docs
 </li>
 <li>
 <p>Port for Incremental State Transfer (default is port for group communication + 1 or 4568). It can be changed using the following option:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options = &quot;ist.recv_addr=10.11.12.206:7777; &quot;
+<div class="no-copy highlight"><pre><span></span><code>wsrep_provider_options = "ist.recv_addr=10.11.12.206:7777; "
 </code></pre></div>
 </li>
 </ol>
@@ -23354,7 +23372,7 @@ attempting to read or write from the database.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-xtradb-cluster/8.0", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-xtradb-cluster/8.0", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -23373,7 +23391,20 @@ attempting to read or write from the database.</p>
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>

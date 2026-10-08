@@ -6,6 +6,7 @@
 <html lang="en" class="no-js">
   <head>
     
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
@@ -31,6 +32,23 @@ with Red Hat Enterprise Linux 7 64-bit.">
       <link rel="icon" href="assets/mysql-fav.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'personalization_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    gtag('set', 'ads_data_redaction', true);
+  </script>
+  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+
     
       
         <title>How to set up a three-node cluster in EC2 environment - Percona XtraDB Cluster</title>
@@ -4533,7 +4551,7 @@ wsrep_node_name=node3
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>2014-01-30 11:52:35 23280 [Note] /usr/sbin/mysqld: ready for connections.
-Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
 </code></pre></div>
 </details>
 </li>
@@ -4549,7 +4567,7 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 ... [Note] WSREP: Shifting JOINED -&gt; SYNCED (TO: 2)
 ... [Note] WSREP: New cluster view: global state: 4827a206-876b-11e3-911c-3e6a77d54953:2, view# 7: Primary, number of nodes: 3, my index: 2, protocol version 2
 ... [Note] WSREP: SST complete, seqno: 2
-... [Note] Plugin &#39;FEDERATED&#39; is disabled.
+... [Note] Plugin 'FEDERATED' is disabled.
 ... [Note] InnoDB: The InnoDB memory heap is disabled
 ... [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
 ... [Note] InnoDB: Compressed tables use zlib 1.2.3
@@ -4563,13 +4581,13 @@ Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306 
 ... [Note] InnoDB:  Percona XtraDB (http://www.percona.com) ... started; log sequence number 1626341
 ... [Note] RSA private key file not found: /var/lib/mysql//private_key.pem. Some authentication plugins will not work.
 ... [Note] RSA public key file not found: /var/lib/mysql//public_key.pem. Some authentication plugins will not work.
-... [Note] Server hostname (bind-address): &#39;*&#39;; port: 3306
+... [Note] Server hostname (bind-address): '*'; port: 3306
 ... [Note] IPv6 is available.
-... [Note]   - &#39;::&#39; resolves to &#39;::&#39;;
-... [Note] Server socket created on IP: &#39;::&#39;.
+... [Note]   - '::' resolves to '::';
+... [Note] Server socket created on IP: '::'.
 ... [Note] Event Scheduler: Loaded 0 events
 ... [Note] /usr/sbin/mysqld: ready for connections.
-Version: &#39;...&#39;  socket: &#39;/var/lib/mysql/mysql.sock&#39;  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
+Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
 ... [Note] WSREP: inited wsrep sidno 1
 ... [Note] WSREP: wsrep_notify_cmd is not defined, skipping notification.
 ... [Note] WSREP: REPL Protocols: 5 (3, 1)
@@ -4709,7 +4727,7 @@ The new database will be propagated to all nodes.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "navigation.indexes", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
   
@@ -4728,7 +4746,20 @@ The new database will be propagated to all nodes.</p>
         <script src="js/kapa.js"></script>
       
     
-  <script src="https://cmp.osano.com/Azqe5vTyLOSbN3OuT/49ad85b5-0418-4794-ab81-7599dddd534c/osano.js"></script>
+  <script
+    id="kapa-widget-script"
+    async
+    data-osano="ESSENTIAL"
+    src="https://widget.kapa.ai/kapa-widget.bundle.js"
+    data-website-id="0e0d55cf-6370-4a6d-a987-96670a7fe935"
+    data-button-hide="true"
+    data-project-name="Percona"
+    data-modal-title="Percona AI Assistant"
+    font-size="0.875rem"
+    data-modal-disclaimer="The **Percona AI Assistant** helps you find simple, clear answers to your Percona questions using [official documentation](https://docs.percona.com/), resolved [forum posts](https://forums.percona.com/) and [blog posts](https://www.percona.com/blog/). Note, do not enter personal or confidential information. Before using Percona AI assistant, read the [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.0/legal-notice.html)."
+    data-modal-example-questions="How do I get started quickly with Percona XtraDB Cluster?, How do I install Percona XtraDB Cluster?, How do I use high availability?, How do I use State Snapshot Transfer (SST) Method using Clone plugin?"
+    data-project-logo="https://docs.percona.com/percona-xtradb-cluster/8.0/_static/percona-logomark-one-color-dark.png"
+  ></script>
   
   </body>
 </html>
