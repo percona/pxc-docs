@@ -1,9 +1,9 @@
 # variables for HTML output
 
-release: '9.7.1-1'
+release: '9.7.2-2'
 version: '9.7'
 vers: '9.7' # we are going to use it instead of version
 pkg: 'pxc-97-lts'
-release_date: '2026-09-10'
-title_date: '2026-09-10'
+release_date: '2026-10-23'
+title_date: '2026-10-23'
 
