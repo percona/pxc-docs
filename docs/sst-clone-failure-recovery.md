@@ -81,6 +81,12 @@ If you use Clone SST and the error log is empty or unhelpful, see [When the erro
 
 When Clone SST fails at the OS or network layer (firewall, port 4444, security policy, timeout), the MySQL error log on the joiner often has little useful information. Check: `performance_schema.clone_status` on the joiner (`SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;`), donor and joiner error logs, and system logs / firewall / connectivity on the SST port (default 4444). Verify [Environmental blockers](environmental-blockers.md) are not blocking Clone.
 
+## Rejoin after an inconsistency eviction
+
+When the cluster votes a node out for a data inconsistency, the node stays up so you can investigate. Galera rewrites `grastate.dat` with a zero UUID and `seqno` of `-1`. That file looks as if the next start should request a full SST, but it does not: `--wsrep-recover` restores a valid position from InnoDB, the cluster offers IST, and the inconsistent dataset is not replaced.
+
+To force a full SST on the next start, set [`repl.force_sst_after_inconsistency`](wsrep-provider-index.md#replforce_sst_after_inconsistency) to `yes` before the eviction, or remove `grastate.dat` manually after you finish inspecting it. The option defaults to `no` so the corrupt file remains available while the evicted node is kept up and after shutdown. When the option is `yes`, the node deletes `grastate.dat` as soon as it marks the state corrupt; copy the file first if you still need it. See [`grastate.dat`](wsrep-files-index.md#grastatedat).
+
 ## Recover actual position after a crash: mysqld --wsrep-recover
 
 After a crash, do not rely on `grastate.dat` for the node's last position—it is often wrong. Run `mysqld --wsrep-recover` (as the MySQL data directory owner, with MySQL stopped). This forces InnoDB to scan the redo logs and report the actual last committed transaction (`Recovered position: UUID:seqno`). Use that for IST-vs-SST decisions and, when the whole cluster is down, for choosing the bootstrap node; see [Crash recovery](crash-recovery.md).
