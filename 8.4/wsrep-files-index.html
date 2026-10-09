@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="GRA_\*.log">
+        <meta name="description" content="Percona XtraDB Cluster can create the following files:">
       
       
         <meta name="author" content="Percona LLC">
@@ -54,7 +54,7 @@
 
     
       
-        <title>Index of files created by PXC - Percona XtraDB Cluster</title>
+        <title>Index of files created by Percona XtraDB Cluster - Percona XtraDB Cluster</title>
       
     
     
@@ -125,7 +125,7 @@
                
                
                <meta property="og:type" content="website" />
-               <meta property="og:title" content="Percona XtraDB Cluster - Index of files created by PXC" />
+               <meta property="og:title" content="Percona XtraDB Cluster - Index of files created by Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
             </head>
@@ -151,7 +151,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#index-of-files-created-by-pxc" class="md-skip">
+        <a href="#index-of-files-created-by-percona-xtradb-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -248,7 +248,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Index of files created by PXC
+              Index of files created by Percona XtraDB Cluster
             
           </span>
         </div>
@@ -2957,7 +2957,7 @@
   <span class="md-ellipsis">
     
   
-    Index of files created by PXC
+    Index of files created by Percona XtraDB Cluster
   
 
     
@@ -3454,148 +3454,170 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="index-of-files-created-by-pxc">Index of files created by PXC<a class="headerlink" href="#index-of-files-created-by-pxc" title="Permanent link">&para;</a></h1>
-<ul>
-<li>
-<p><code>GRA_\*.log</code></p>
-<p>These files contain binlog events in ROW format representing the failed
-transaction. That means that the replica thread was not able to apply one of
-the transactions. For each of those file, a corresponding warning or error
-message is present in the mysql error log file. Those error can also be
-false positives like a bad <code>DDL</code> statement (dropping  a table that doesn’t
-exists for example) and therefore nothing to worry about. However it’s
-always recommended to check these log to understand what’s is happening.</p>
-<p>To be able to analyze these files binlog header needs to be added to the log
-file. To create the <code>GRA_HEADER</code> file you need an instance running with <code>binlog_checksum</code> set to <code>NONE</code> and extract first 120 bytes from the binlog file:</p>
+<h1 id="index-of-files-created-by-percona-xtradb-cluster">Index of files created by Percona XtraDB Cluster<a class="headerlink" href="#index-of-files-created-by-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<p>Percona XtraDB Cluster can create the following files:</p>
+<h3 id="gra_log"><code>GRA_*.log</code><a class="headerlink" href="#gra_log" title="Permanent link">&para;</a></h3>
+<p><code>GRA_*.log</code> files contain row-based binary log events for a transaction that failed to apply.</p>
+<p>The replica thread does not apply that transaction.</p>
+<p>Each file has a matching warning or error in the MySQL error log.</p>
+<p>Some errors are harmless. One example is a Data Definition Language (DDL) statement that drops a table that does not exist.</p>
+<p>Check these logs to determine what failed.</p>
+<p>To decode a GRA log file, add a binary log header. Use an instance with <code>binlog_checksum</code> set to <code>NONE</code>. Extract the first 123 bytes from a binary log file.</p>
+<p>The following commands create <code>GRA_HEADER</code>, combine the files, and decode the result:</p>
 <div class="highlight"><pre><span></span><code>head<span class="w"> </span>-c<span class="w"> </span><span class="m">123</span><span class="w"> </span>mysqld-bin.000001<span class="w"> </span>&gt;<span class="w"> </span>GRA_HEADER
 cat<span class="w"> </span>GRA_HEADER<span class="w"> </span>&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 cat<span class="w"> </span>/var/lib/mysql/GRA_1_2.log<span class="w"> </span>&gt;&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 mysqlbinlog<span class="w"> </span>-vvv<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
-/*!50530<span class="w"> </span>SET<span class="w"> </span>@@SESSION.PSEUDO_SLAVE_MODE<span class="o">=</span><span class="m">1</span>*/<span class="p">;</span>
-/*!50003<span class="w"> </span>SET<span class="w"> </span>@OLD_COMPLETION_TYPE<span class="o">=</span>@@COMPLETION_TYPE,COMPLETION_TYPE<span class="o">=</span><span class="m">0</span>*/<span class="p">;</span>
-DELIMITER<span class="w"> </span>/*!*/<span class="p">;</span>
-at<span class="w"> </span><span class="m">4</span>
-<span class="c1">#160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup</span>
-Warning:<span class="w"> </span>this<span class="w"> </span>binlog<span class="w"> </span>is<span class="w"> </span>either<span class="w"> </span><span class="k">in</span><span class="w"> </span>use<span class="w"> </span>or<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>closed<span class="w"> </span>properly.
-ROLLBACK/*!*/<span class="p">;</span>
-BINLOG<span class="w"> </span><span class="s1">'</span>
-<span class="s1">nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span>
-<span class="s1">AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA</span>
-<span class="s1">ALfQ8hw=</span>
-<span class="s1">'</span>/*!*/<span class="p">;</span>
-at<span class="w"> </span><span class="m">123</span>
-<span class="c1">#160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0</span>
-use<span class="w"> </span><span class="sb">`</span><span class="nb">test</span><span class="sb">`</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span><span class="nv">TIMESTAMP</span><span class="o">=</span><span class="m">1470738949</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.pseudo_thread_id<span class="o">=</span><span class="m">11</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.foreign_key_checks<span class="o">=</span><span class="m">1</span>,<span class="w"> </span>@@session.sql_auto_is_null<span class="o">=</span><span class="m">0</span>,<span class="w"> </span>@@session.unique_checks<span class="o">=</span><span class="m">1</span>,<span class="w"> </span>@@session.autocommit<span class="o">=</span><span class="m">1</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.sql_mode<span class="o">=</span><span class="m">1436549152</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.auto_increment_increment<span class="o">=</span><span class="m">1</span>,<span class="w"> </span>@@session.auto_increment_offset<span class="o">=</span><span class="m">1</span>/*!*/<span class="p">;</span>
-/*!<span class="se">\C</span><span class="w"> </span>utf8<span class="w"> </span>*//*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.character_set_client<span class="o">=</span><span class="m">33</span>,@@session.collation_connection<span class="o">=</span><span class="m">33</span>,@@session.collation_server<span class="o">=</span><span class="m">8</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.lc_time_names<span class="o">=</span><span class="m">0</span>/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@session.collation_database<span class="o">=</span>DEFAULT/*!*/<span class="p">;</span>
-drop<span class="w"> </span>table<span class="w"> </span>t
-/*!*/<span class="p">;</span>
-SET<span class="w"> </span>@@SESSION.GTID_NEXT<span class="o">=</span><span class="w"> </span><span class="s1">'AUTOMATIC'</span><span class="w"> </span>/*<span class="w"> </span>added<span class="w"> </span>by<span class="w"> </span>mysqlbinlog<span class="w"> </span>*/<span class="w"> </span>/*!*/<span class="p">;</span>
-DELIMITER<span class="w"> </span><span class="p">;</span>
-End<span class="w"> </span>of<span class="w"> </span>log<span class="w"> </span>file
-/*!50003<span class="w"> </span>SET<span class="w"> </span><span class="nv">COMPLETION_TYPE</span><span class="o">=</span>@OLD_COMPLETION_TYPE*/<span class="p">;</span>
-/*!50530<span class="w"> </span>SET<span class="w"> </span>@@SESSION.PSEUDO_SLAVE_MODE<span class="o">=</span><span class="m">0</span>*/<span class="p">;</span>
 </code></pre></div>
-<p>This information can be used for checking the MySQL error log for the corresponding error message.</p>
+<details class="example">
+<summary>mysqlbinlog output</summary>
+<div class="no-copy highlight"><pre><span></span><code>/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
+/*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
+DELIMITER /*!*/;
+# at 4
+#160809  16:04:05 server id 3  end_log_pos 123     Start: binlog v 4, server v 8.0-log created 160809 16:04:05 at startup
+# Warning: this binlog is either in use or was not closed properly.
+ROLLBACK/*!*/;
+BINLOG '
+nbGpVw8DAAAAdwAAAHsAAAABAAQANS43LjEyLTVyYzEtbG9nAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAACdsalXEzgNAAgAEgAEBAQEEgAAXwAEGggAAAAICAgCAAAACgoKKioAEjQA
+ALfQ8hw=
+'/*!*/;
+# at 123
+#160809  16:05:49 server id 2  end_log_pos 75     Query    thread_id=11    exec_time=0    error_code=0
+use `test`/*!*/;
+SET TIMESTAMP=1470738949/*!*/;
+SET @@session.pseudo_thread_id=11/*!*/;
+SET @@session.foreign_key_checks=1, @@session.sql_auto_is_null=0, @@session.unique_checks=1, @@session.autocommit=1/*!*/;
+SET @@session.sql_mode=1436549152/*!*/;
+SET @@session.auto_increment_increment=1, @@session.auto_increment_offset=1/*!*/;
+/*!\C utf8 *//*!*/;
+SET @@session.character_set_client=33,@@session.collation_connection=33,@@session.collation_server=8/*!*/;
+SET @@session.lc_time_names=0/*!*/;
+SET @@session.collation_database=DEFAULT/*!*/;
+drop table t
+/*!*/;
+SET @@SESSION.GTID_NEXT= 'AUTOMATIC' /* added by mysqlbinlog */ /*!*/;
+DELIMITER ;
+# End of log file
+/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;
+/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;
+</code></pre></div>
+</details>
+<p>Use the decoded statement and timestamp to find the matching error in the MySQL error log.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
+<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
 160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
 </code></pre></div>
 </details>
-<p>In this example <code>DROP TABLE</code> statement was executed on a table that doesn’t exist.</p>
-</li>
-<li>
-<p><code>gcache.page</code></p>
-<p>See <a href="wsrep-provider-index.html#gcachepage_size"><code>gcache.page_size</code></a></p>
+<p>In this example, a <code>DROP TABLE</code> statement ran against a table that does not exist.</p>
+<h3 id="gcachepage"><code>gcache.page</code><a class="headerlink" href="#gcachepage" title="Permanent link">&para;</a></h3>
+<p>See <a href="wsrep-provider-index.html#gcachepage_size"><code>gcache.page_size</code></a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
-</li>
-<li>
-<p><code>galera.cache</code></p>
-<p>This file is used as a main writeset store. It’s implemented as a permanent
-ring-buffer file that is preallocated on disk when the node is initialized.
-File size can be controlled with the variable <a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a>. If this value is bigger, more writesets are cached and chances are better that the re-joining node will get <a href="glossary.html#ist">IST</a> instead of <a href="glossary.html#sst">SST</a>. Filename can be changed with the <a href="wsrep-provider-index.html#gcachename"><code>gcache.name</code></a> variable.</p>
-</li>
-<li>
-<p><code>grastate.dat</code></p>
-<p>This file contains the Galera state information.</p>
+<h3 id="galeracache"><code>galera.cache</code><a class="headerlink" href="#galeracache" title="Permanent link">&para;</a></h3>
+<p><code>galera.cache</code> is the main store for write sets.</p>
+<p>The file is a permanent ring buffer. The node allocates the file on disk at initialization.</p>
+<p>The <a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a> variable sets the file size. A larger file caches more write sets. A joining node is more likely to receive <a href="glossary.html#ist">Incremental State Transfer (IST)</a> instead of <a href="glossary.html#sst">State Snapshot Transfer (SST)</a>.</p>
+<p>The <a href="wsrep-provider-index.html#gcachename"><code>gcache.name</code></a> variable sets the file name.</p>
+<h3 id="grastatedat"><code>grastate.dat</code><a class="headerlink" href="#grastatedat" title="Permanent link">&para;</a></h3>
+<p><code>grastate.dat</code> stores Galera state information.</p>
+<p>The file has the following fields:</p>
 <ul>
 <li>
-<p><code>version</code> - grastate version</p>
+<p><code>version</code>: Format version of <code>grastate.dat</code></p>
 </li>
 <li>
-<p><code>uuid</code> - a unique identifier for the state and the sequence of changes it undergoes.For more information on how UUID is generated see <a href="glossary.html#uuid">UUID</a>.</p>
+<p><code>uuid</code>: Unique identifier for the state and the change sequence. See <a href="glossary.html#uuid">UUID</a>.</p>
 </li>
 <li>
-<p><code>seqno</code> - Ordinal Sequence Number, a 64-bit signed integer used to denote the position of the change in the sequence. <code>seqno</code> is <code>0</code> when no writesets have been generated or applied on that node, i.e., not applied/generated across the lifetime of a <code>grastate</code> file. <code>-1</code> is a special value for the <code>seqno</code> that is kept in the <code>grastate.dat</code> while the server is running to allow Galera to distinguish between a clean and an unclean shutdown. Upon a clean shutdown, the correct <code>seqno</code> value is written to the file. So, when the server is brought back up, if the value is still <code>-1</code> , this means that the server did not shut down cleanly. If the value is greater than <code>0</code>, this means that the shutdown was clean. <code>-1</code> is then written again to the file in order to allow the server to correctly detect if the next shutdown was clean in the same manner.</p>
+<p><code>seqno</code>: Sequence number of the last change. The value is a 64-bit signed integer.</p>
 </li>
 <li>
-<p><code>cert_index</code> - cert index restore through grastate is not implemented yet</p>
+<p><code>cert_index</code>: Unused. Certification index restore is not implemented.</p>
 </li>
 </ul>
-<p>Examples of this file look like this:</p>
-<p>In case server node has this state when not running it means that that node crashed during the transaction processing.</p>
-<div class="highlight"><pre><span></span><code>GALERA<span class="w"> </span>saved<span class="w"> </span>state
-version:<span class="w"> </span><span class="m">2</span>.1
-uuid:<span class="w">    </span>1917033b-7081-11e2-0800-707f5d3b106b
-seqno:<span class="w">   </span>-1
-cert_index:
-</code></pre></div>
-<p>In case server node has this state when not running it means that the node
-was gracefully shut down.</p>
-<div class="highlight"><pre><span></span><code>GALERA<span class="w"> </span>saved<span class="w"> </span>state
-version:<span class="w"> </span><span class="m">2</span>.1
-uuid:<span class="w">    </span>1917033b-7081-11e2-0800-707f5d3b106b
-seqno:<span class="w">   </span><span class="m">5192193423942</span>
-cert_index:
-</code></pre></div>
-<p>In case server node has this state when not running it means that the node crashed during the DDL.</p>
-<div class="highlight"><pre><span></span><code>GALERA<span class="w"> </span>saved<span class="w"> </span>state
-version:<span class="w"> </span><span class="m">2</span>.1
-uuid:<span class="w">    </span><span class="m">00000000</span>-0000-0000-0000-000000000000
-seqno:<span class="w">   </span>-1
-cert_index:
-</code></pre></div>
+<p><code>seqno</code> uses the following values:</p>
+<ul>
+<li>
+<p><code>0</code>: No write sets were generated or applied on that node for the life of the file</p>
 </li>
 <li>
-<p><code>gvwstate.dat</code></p>
+<p><code>-1</code>: The server is running, or the last shutdown was not clean</p>
+</li>
+<li>
+<p>A value greater than <code>0</code>: The last shutdown was clean</p>
 </li>
 </ul>
-<p>This file is used for Primary Component recovery feature. This file is
-   created once primary component is formed or changed, so you can get the
-   latest primary component this node was in. And this file is deleted when the
-   node is shutdown gracefully.</p>
-<p>First part contains the node <a href="glossary.html#uuid">UUID</a> information. Second part contains
-   the view information. View information is written between <code>#vwbeg</code> and
-   <code>#vwend</code>. View information consists of:</p>
-<div class="highlight"><pre><span></span><code>* view_id: [view_type] [view_uuid] [view_seq]. - `view_type` is always `3` which means primary view. `view_uuid` and `view_seq` identifies a unique view, which could be perceived as identifier of this primary component.
-
-* bootstrap: [bootstarp_or_not]. - it could be `0` or `1`, but it does not affect primary component recovery process now.
-
-* member: [node’s uuid] [node’s segment]. - it represents all nodes in this primary component.
-
-??? example "Example of the file"
-
-    ```text
-    my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
-    #vwbeg
-    view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
-    bootstrap: 0
-    member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
-    member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
-    #vwend
-    ```
+<p>While the server runs, Galera writes <code>-1</code> to <code>grastate.dat</code>. A clean shutdown writes the correct <code>seqno</code> value.</p>
+<p>At the next start, <code>-1</code> means the previous shutdown was not clean. A value greater than <code>0</code> means the previous shutdown was clean. The server then writes <code>-1</code> again. The next shutdown uses the same detection.</p>
+<p>The following examples show <code>grastate.dat</code> in three situations.</p>
+<p>The node is not running. This state means the node crashed during a transaction:</p>
+<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+version: 2.1
+uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+seqno:   -1
+cert_index:
 </code></pre></div>
+<p>The node is not running. This state means the node shut down cleanly:</p>
+<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+version: 2.1
+uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+seqno:   5192193423942
+cert_index:
+</code></pre></div>
+<p>The node is not running. This state means the node crashed during a DDL statement:</p>
+<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+version: 2.1
+uuid:    00000000-0000-0000-0000-000000000000
+seqno:   -1
+cert_index:
+</code></pre></div>
+<p>The same zero UUID and <code>seqno</code> of <code>-1</code> also appear after the cluster votes the node out for inconsistent data.</p>
+<p>Galera marks the state as corrupt. You can inspect the node while the node still runs.</p>
+<p>A corrupt <code>grastate.dat</code> file does not force a full SST at the next start. Restart recovery reads a usable position from InnoDB. The node can rejoin with IST. The local data stays inconsistent.</p>
+<p>To force SST after the cluster votes the node out for inconsistent data, use one of the following methods:</p>
+<ul>
+<li>
+<p>Enable <a href="wsrep-provider-index.html#replforce_sst_after_inconsistency"><code>repl.force_sst_after_inconsistency</code></a>. The default is <code>no</code>. The default keeps the file for inspection.</p>
+</li>
+<li>
+<p>Remove <code>grastate.dat</code> before you restart the node.</p>
+</li>
+</ul>
+<p>If the option is <code>yes</code>, the node deletes the file after Galera marks the state as corrupt. Copy the file first if you still need the file.</p>
+<h3 id="gvwstatedat"><code>gvwstate.dat</code><a class="headerlink" href="#gvwstatedat" title="Permanent link">&para;</a></h3>
+<p>The Primary Component is the subset of nodes that holds <a href="glossary.html#quorum">quorum</a>. Only that subset accepts writes.</p>
+<p>Primary Component recovery restores that subset after a full cluster outage. Galera uses <code>gvwstate.dat</code> for this process when <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a> is <code>true</code> (the default). After every node from the last saved Primary Component can communicate again, the cluster restores the Primary Component. A manual bootstrap is not required.</p>
+<p>A planned full-cluster restart still requires an explicit bootstrap.</p>
+<p>Galera creates or updates <code>gvwstate.dat</code> when the Primary Component forms or changes. The file records the latest Primary Component for the node. A clean shutdown deletes the file.</p>
+<p>The first part stores the UUID of the node. The second part stores the view. The view is written between <code>#vwbeg</code> and <code>#vwend</code>.</p>
+<p>The view record has the following fields:</p>
+<ul>
+<li>
+<p><code>view_id</code>: <code>[view_type] [view_uuid] [view_seq]</code>. <code>view_type</code> is always <code>3</code>. That value means a primary view. <code>view_uuid</code> and <code>view_seq</code> identify the view.</p>
+</li>
+<li>
+<p><code>bootstrap</code>: <code>0</code> or <code>1</code>. This value does not change Primary Component recovery.</p>
+</li>
+<li>
+<p><code>member</code>: UUID and segment of each node in the Primary Component.</p>
+</li>
+</ul>
+<details class="example">
+<summary>Example gvwstate.dat file</summary>
+<div class="no-copy highlight"><pre><span></span><code>my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
+#vwbeg
+view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
+bootstrap: 0
+member: bc85bd53-31ac-11e4-9895-1f2ce13f2542 0
+member: c5d5d990-30ee-11e4-aab1-46d0ed84b408 0
+#vwend
+</code></pre></div>
+</details>
 
 
 
@@ -3618,7 +3640,7 @@ cert_index:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 9, 2026 11:20:05 UTC">September 9, 2026</span>
   </span>
 
     

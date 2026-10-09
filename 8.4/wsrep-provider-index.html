@@ -3008,7 +3008,7 @@
   <span class="md-ellipsis">
     
   
-    Index of files created by PXC
+    Index of files created by Percona XtraDB Cluster
   
 
     
@@ -6069,6 +6069,48 @@ preempted by threads of a higher priority.
 <p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code>wsrep_provider_options="repl.commit_order=3"
 </code></pre></div>
+<h3 id="replforce_sst_after_inconsistency"><code>repl.force_sst_after_inconsistency</code><a class="headerlink" href="#replforce_sst_after_inconsistency" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command Line:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Config File:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Scope:</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>Dynamic:</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Default Value:</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p>This option is available in Percona XtraDB Cluster 8.4.11 and later. It is Percona XtraDB Cluster–specific.</p>
+<p>When a node is voted out of the cluster because of a data inconsistency, Galera marks that node’s state as corrupt and rewrites <a href="wsrep-files-index.html#grastatedat"><code>grastate.dat</code></a> with a zero UUID and <code>seqno</code> of <code>-1</code>. That file does not, by itself, force a full <a href="glossary.html#sst">State Snapshot Transfer (SST)</a> on the next start. On restart, <code>mysqld_safe</code> treats <code>seqno = -1</code> as unusable, runs <code>mysqld --wsrep-recover</code>, and recovers a valid <code>uuid:seqno</code> from InnoDB. The cluster then offers <a href="glossary.html#ist">Incremental State Transfer (IST)</a> and replays write sets on top of the still-inconsistent local dataset. The inconsistency is never repaired.</p>
+<p>Set this option to <code>yes</code> so that a node that leaves because of an inconsistency also removes <code>grastate.dat</code>. The next start finds no usable position and can rejoin only through a full SST, which replaces the inconsistent dataset.</p>
+<p>The default is <code>no</code>, which keeps the previous behavior: <code>grastate.dat</code> remains in the data directory so you can inspect the corrupt file. To force SST without enabling this option, remove <code>grastate.dat</code> manually before you restart the node.</p>
+<p>When the option is <code>yes</code>, the node unlinks <code>grastate.dat</code> as soon as it marks the state corrupt (when it leaves the cluster, including after a failed IST apply). Copy the file first if you still need it for investigation. With the default (<code>no</code>), the corrupt file remains available while the evicted node is kept up and after shutdown.</p>
+<p>Example (config file): Add to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code>wsrep_provider_options="repl.force_sst_after_inconsistency=yes"
+</code></pre></div>
+<p>Example (runtime):</p>
+<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">wsrep_provider_options</span><span class="o">=</span><span class="ss">"repl.force_sst_after_inconsistency=yes"</span><span class="p">;</span>
+</code></pre></div>
 <h3 id="replkey_format"><code>repl.key_format</code><a class="headerlink" href="#replkey_format" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6457,7 +6499,7 @@ preempted by threads of a higher priority.
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 26, 2026 09:30:59 UTC">March 26, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 9, 2026 11:20:05 UTC">September 9, 2026</span>
   </span>
 
     

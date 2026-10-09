@@ -2942,7 +2942,7 @@
   <span class="md-ellipsis">
     
   
-    Index of files created by PXC
+    Index of files created by Percona XtraDB Cluster
   
 
     
@@ -3516,6 +3516,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
       
         <li class="md-nav__item">
+  <a href="#rejoin-after-an-inconsistency-eviction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rejoin after an inconsistency eviction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#recover-actual-position-after-a-crash-mysqld-wsrep-recover" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3682,6 +3693,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If you use Clone SST and the error log is empty or unhelpful, see <a href="#when-the-error-log-is-silent-clone-sst">When the error log is silent: Clone SST</a>.</p>
 <h2 id="when-the-error-log-is-silent-clone-sst">When the error log is silent: Clone SST<a class="headerlink" href="#when-the-error-log-is-silent-clone-sst" title="Permanent link">&para;</a></h2>
 <p>When Clone SST fails at the OS or network layer (firewall, port 4444, security policy, timeout), the MySQL error log on the joiner often has little useful information. Check: <code>performance_schema.clone_status</code> on the joiner (<code>SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;</code>), donor and joiner error logs, and system logs / firewall / connectivity on the SST port (default 4444). Verify <a href="environmental-blockers.html">Environmental blockers</a> are not blocking Clone.</p>
+<h2 id="rejoin-after-an-inconsistency-eviction">Rejoin after an inconsistency eviction<a class="headerlink" href="#rejoin-after-an-inconsistency-eviction" title="Permanent link">&para;</a></h2>
+<p>When the cluster votes a node out for a data inconsistency, the node stays up so you can investigate. Galera rewrites <code>grastate.dat</code> with a zero UUID and <code>seqno</code> of <code>-1</code>. That file looks as if the next start should request a full SST, but it does not: <code>--wsrep-recover</code> restores a valid position from InnoDB, the cluster offers IST, and the inconsistent dataset is not replaced.</p>
+<p>To force a full SST on the next start, set <a href="wsrep-provider-index.html#replforce_sst_after_inconsistency"><code>repl.force_sst_after_inconsistency</code></a> to <code>yes</code> before the eviction, or remove <code>grastate.dat</code> manually after you finish inspecting it. The option defaults to <code>no</code> so the corrupt file remains available while the evicted node is kept up and after shutdown. When the option is <code>yes</code>, the node deletes <code>grastate.dat</code> as soon as it marks the state corrupt; copy the file first if you still need it. See <a href="wsrep-files-index.html#grastatedat"><code>grastate.dat</code></a>.</p>
 <h2 id="recover-actual-position-after-a-crash-mysqld-wsrep-recover">Recover actual position after a crash: mysqld &ndash;wsrep-recover<a class="headerlink" href="#recover-actual-position-after-a-crash-mysqld-wsrep-recover" title="Permanent link">&para;</a></h2>
 <p>After a crash, do not rely on <code>grastate.dat</code> for the node&rsquo;s last position—it is often wrong. Run <code>mysqld --wsrep-recover</code> (as the MySQL data directory owner, with MySQL stopped). This forces InnoDB to scan the redo logs and report the actual last committed transaction (<code>Recovered position: UUID:seqno</code>). Use that for IST-vs-SST decisions and, when the whole cluster is down, for choosing the bootstrap node; see <a href="crash-recovery.html">Crash recovery</a>.</p>
 <h2 id="diagnose-whether-the-joiner-will-use-ist-or-sst">Diagnose whether the joiner will use IST or SST<a class="headerlink" href="#diagnose-whether-the-joiner-will-use-ist-or-sst" title="Permanent link">&para;</a></h2>
@@ -3720,7 +3734,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 16, 2026 10:21:01 UTC">March 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 9, 2026 11:20:05 UTC">September 9, 2026</span>
   </span>
 
     
