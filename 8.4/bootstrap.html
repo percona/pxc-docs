@@ -11,7 +11,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
         <meta name="description" content="After you configure all PXC nodes, initialize the cluster by
-bootstrapping the first node. The initial node must contain all the data that you want to be replicated to other nodes.">
+bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.">
       
       
         <meta name="author" content="Percona LLC">
@@ -1585,6 +1585,17 @@ bootstrapping the first node. The initial node must contain all the data that yo
       On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generate-and-copy-ssl-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate and copy SSL certificates
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
@@ -3484,6 +3495,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#generate-and-copy-ssl-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate and copy SSL certificates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3526,29 +3548,24 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1 id="bootstrap-the-first-node">Bootstrap the first node<a class="headerlink" href="#bootstrap-the-first-node" title="Permanent link">&para;</a></h1>
 <p>After you <a href="configure-nodes.html#configure-nodes-for-write-set-replication">configure all PXC nodes</a>, initialize the cluster by
-bootstrapping the first node. The initial node must contain all the data that you want to be replicated to other nodes.</p>
-<p>Bootstrapping implies starting the first node without any known cluster
-addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster assumes that this is the first node and initializes the cluster.</p>
+bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.</p>
+<p>Start the first node without any known cluster
+addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster treats the node as the first node and initializes the cluster.</p>
 <p>Instead of changing the configuration, start the first node, <code>[root@pxc1 ~]#</code>, using the following command:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
-<p>When you start the node using the previous command,
-it runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
-This tells the node to initialize the cluster
-with <code>wsrep_cluster_conf_id</code> variable set to <code>1</code>.
-After you <a href="add-node.html#add-nodes-to-cluster">add other nodes</a> to the cluster,
-you can then restart this node as normal,
-and it will use standard configuration again.</p>
+<p>When you start the node using this command,
+the node runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
+Bootstrap mode initializes the cluster and sets the <code>wsrep_cluster_conf_id</code> variable to <code>1</code>.</p>
+<p>After you <a href="add-node.html">add other nodes</a> to the cluster,
+you can then restart the first node as normal. Then the node uses the standard configuration again.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
+<p>Stop a node started with <code>mysql@bootstrap</code> by running <code>systemctl stop mysql@bootstrap</code>. The <code>systemctl stop mysql</code> command does not stop an instance started with <code>mysql@bootstrap</code>.</p>
 </div>
-<p>To make sure that the cluster, <code>mysql@pxc1&gt;</code>, has been initialized, run the following:</p>
+<p>To check the status of the first node, <code>mysql@pxc1&gt;</code>, run the following:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
-<p>The output shows that the cluster size is one node,
-it is the primary component, the node is in the <code>Synced</code> state,
-it is fully connected and ready for write-set replication.</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
@@ -3568,8 +3585,41 @@ it is fully connected and ready for write-set replication.</p>
 40 rows in set (0.01 sec)
 </code></pre></div>
 </details>
+<p>The output confirms that the first node initialized the cluster:</p>
+<ul>
+<li>
+<p>Cluster size: one node</p>
+</li>
+<li>
+<p>Cluster status: primary component</p>
+</li>
+<li>
+<p>Node state: Synced</p>
+</li>
+<li>
+<p>Connection status: fully connected and ready for write-set replication</p>
+</li>
+</ul>
+<h2 id="generate-and-copy-ssl-certificates">Generate and copy SSL certificates<a class="headerlink" href="#generate-and-copy-ssl-certificates" title="Permanent link">&para;</a></h2>
+<p>Generate the SSL certificates on this node before you add other nodes to the cluster. Use identical key and certificate files on every node. Store the certificates in <code>/etc/</code>, outside the data directory.</p>
+<ol>
+<li>
+<p>Generate the SSL certificates, <code>[root@pxc1 ~]#</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
+</code></pre></div>
+</li>
+<li>
+<p>Copy the certificates to the nodes you plan to add. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+</code></pre></div>
+</li>
+</ol>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>After initializing the cluster, you can <a href="add-node.html#add-nodes-to-cluster">add other nodes</a>.</p>
+<p>After initializing the cluster, you can <a href="add-node.html">add other nodes</a>.</p>
 
 
 
@@ -3592,7 +3642,7 @@ it is fully connected and ready for write-set replication.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 28, 2026 15:59:22 UTC">August 28, 2026</span>
   </span>
 
     

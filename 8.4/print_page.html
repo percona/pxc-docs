@@ -7494,29 +7494,24 @@ Setting the traditional (<code>0</code>) or consecutive (<code>1</code>) lock mo
 can cause replication to fail due to unresolved deadlocks.
 Set this variable to <code>innodb_autoinc_lock_mode=2</code>.</p></section><section class="print-page" id="bootstrap" heading-number="7.10"><h1 id="bootstrap-bootstrap-the-first-node">Bootstrap the first node<a class="headerlink" href="#bootstrap-bootstrap-the-first-node" title="Permanent link">&para;</a></h1>
 <p>After you <a href="#configure-nodes-configure-nodes-for-write-set-replication">configure all PXC nodes</a>, initialize the cluster by
-bootstrapping the first node. The initial node must contain all the data that you want to be replicated to other nodes.</p>
-<p>Bootstrapping implies starting the first node without any known cluster
-addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster assumes that this is the first node and initializes the cluster.</p>
+bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.</p>
+<p>Start the first node without any known cluster
+addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster treats the node as the first node and initializes the cluster.</p>
 <p>Instead of changing the configuration, start the first node, <code>[root@pxc1 ~]#</code>, using the following command:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
-<p>When you start the node using the previous command,
-it runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
-This tells the node to initialize the cluster
-with <code>wsrep_cluster_conf_id</code> variable set to <code>1</code>.
-After you <a href="#add-node-add-nodes-to-cluster">add other nodes</a> to the cluster,
-you can then restart this node as normal,
-and it will use standard configuration again.</p>
+<p>When you start the node using this command,
+the node runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
+Bootstrap mode initializes the cluster and sets the <code>wsrep_cluster_conf_id</code> variable to <code>1</code>.</p>
+<p>After you <a href="#add-node">add other nodes</a> to the cluster,
+you can then restart the first node as normal. Then the node uses the standard configuration again.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A service started with <code>mysql@bootstrap</code> must be stopped using the same command. For example, the <code>systemctl stop mysql</code> command does not stop an instance started with the <code>mysql@bootstrap</code> command.</p>
+<p>Stop a node started with <code>mysql@bootstrap</code> by running <code>systemctl stop mysql@bootstrap</code>. The <code>systemctl stop mysql</code> command does not stop an instance started with <code>mysql@bootstrap</code>.</p>
 </div>
-<p>To make sure that the cluster, <code>mysql@pxc1&gt;</code>, has been initialized, run the following:</p>
+<p>To check the status of the first node, <code>mysql@pxc1&gt;</code>, run the following:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
-<p>The output shows that the cluster size is one node,
-it is the primary component, the node is in the <code>Synced</code> state,
-it is fully connected and ready for write-set replication.</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
@@ -7536,8 +7531,41 @@ it is fully connected and ready for write-set replication.</p>
 40 rows in set (0.01 sec)
 </code></pre></div>
 </details>
+<p>The output confirms that the first node initialized the cluster:</p>
+<ul>
+<li>
+<p>Cluster size: one node</p>
+</li>
+<li>
+<p>Cluster status: primary component</p>
+</li>
+<li>
+<p>Node state: Synced</p>
+</li>
+<li>
+<p>Connection status: fully connected and ready for write-set replication</p>
+</li>
+</ul>
+<h2 id="bootstrap-generate-and-copy-ssl-certificates">Generate and copy SSL certificates<a class="headerlink" href="#bootstrap-generate-and-copy-ssl-certificates" title="Permanent link">&para;</a></h2>
+<p>Generate the SSL certificates on this node before you add other nodes to the cluster. Use identical key and certificate files on every node. Store the certificates in <code>/etc/</code>, outside the data directory.</p>
+<ol>
+<li>
+<p>Generate the SSL certificates, <code>[root@pxc1 ~]#</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
+</code></pre></div>
+</li>
+<li>
+<p>Copy the certificates to the nodes you plan to add. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
+<span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
+</code></pre></div>
+</li>
+</ol>
 <h2 id="bootstrap-next-steps">Next steps<a class="headerlink" href="#bootstrap-next-steps" title="Permanent link">&para;</a></h2>
-<p>After initializing the cluster, you can <a href="#add-node-add-nodes-to-cluster">add other nodes</a>.</p></section><section class="print-page" id="add-node" heading-number="7.11"><h1 id="add-node-add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-node-add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
+<p>After initializing the cluster, you can <a href="#add-node">add other nodes</a>.</p></section><section class="print-page" id="add-node" heading-number="7.11"><h1 id="add-node-add-nodes-to-cluster">Add nodes to cluster<a class="headerlink" href="#add-node-add-nodes-to-cluster" title="Permanent link">&para;</a></h1>
 <p>New nodes that are <a href="#configure-nodes-configure-nodes-for-write-set-replication">properly configured</a> are provisioned
 automatically.  When you start a node with the address of at least one other
 running node in the <a href="#wsrep-system-index-wsrep_cluster_address"><code>wsrep_cluster_address</code></a> variable, this node automatically joins and synchronizes with the cluster.</p>
