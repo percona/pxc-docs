@@ -3833,7 +3833,7 @@ keyring-file-data=/path/to/keyring/file
 different. Additionally, all nodes must use identical key and certificate
 files to maintain a secure and consistent encryption setup.</p>
 <h3 id="xtrabackup">xtrabackup<a class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h3>
-<p>The only available SST method is xtrabackup-v2, which relies on Percona XtraBackup to transfer data securely between nodes. The <code>wsrep_sst_method</code> parameter is always set to xtrabackup-v2 and cannot be changed.</p>
+<p><code>xtrabackup-v2</code> is the default SST method and relies on Percona XtraBackup to transfer data securely between nodes. Like other SST methods, <code>wsrep_sst_method</code> is set in <code>my.cnf</code> before startup and can&rsquo;t be changed at runtime. For an alternative SST method that uses MySQL&rsquo;s native clone plugin instead of XtraBackup, see <a href="clone-sst.html">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
 <p>Encryption for this method is controlled by the <code>encrypt</code> option:</p>
 <ul>
 <li>
@@ -3864,6 +3864,30 @@ If a <code>dhparams.pem</code> file of the required length is not found during S
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<h3 id="clone">clone<a class="headerlink" href="#clone" title="Permanent link">&para;</a></h3>
+<p>Clone SST uses MySQL&rsquo;s native clone plugin rather than XtraBackup, so it doesn&rsquo;t use the <code>[sst]</code> section <code>encrypt</code> option described in <a href="#xtrabackup">xtrabackup</a>. Instead, encryption relies on the standard MySQL SSL settings under <code>[mysqld]</code>/<code>[client]</code>, or on a set of variables specific to the Clone SST process.</p>
+<p>Configure encryption using the shared MySQL SSL settings:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[client]</span>
+<span class="na">ssl-ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/ca.pem</span>
+<span class="na">ssl-cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-cert.pem</span>
+<span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-key.pem</span>
+<span class="k">[mysqld]</span>
+<span class="na">ssl-ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/ca.pem</span>
+<span class="na">ssl-cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/server-cert.pem</span>
+<span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/server-key.pem</span>
+</code></pre></div>
+<p>Alternatively, configure SSL settings specifically for the Clone SST process on the Joiner:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">clone_ssl_ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/ca.pem</span>
+<span class="na">clone_ssl_cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-cert.pem</span>
+<span class="na">clone_ssl_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-key.pem</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Place these certificate files in a directory other than the data directory. The clone process modifies the data directory during SST, which can cause conflicts if certificates are stored there.</p>
+</div>
+<p>All nodes must use identical key and certificate files to ensure a consistent security setup.</p>
+<p>For full configuration details, see <a href="clone-sst.html">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
 <h3 id="encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
 <p>Replication traffic in Percona XtraDB Cluster consists of the following key components:</p>
 <table>
@@ -4188,7 +4212,7 @@ cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 31, 2026 09:40:41 UTC">August 31, 2026</span>
   </span>
 
     

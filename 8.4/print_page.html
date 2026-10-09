@@ -8702,7 +8702,7 @@ keyring-file-data=/path/to/keyring/file
 different. Additionally, all nodes must use identical key and certificate
 files to maintain a secure and consistent encryption setup.</p>
 <h3 id="encrypt-traffic-xtrabackup">xtrabackup<a class="headerlink" href="#encrypt-traffic-xtrabackup" title="Permanent link">&para;</a></h3>
-<p>The only available SST method is xtrabackup-v2, which relies on Percona XtraBackup to transfer data securely between nodes. The <code>wsrep_sst_method</code> parameter is always set to xtrabackup-v2 and cannot be changed.</p>
+<p><code>xtrabackup-v2</code> is the default SST method and relies on Percona XtraBackup to transfer data securely between nodes. Like other SST methods, <code>wsrep_sst_method</code> is set in <code>my.cnf</code> before startup and can&rsquo;t be changed at runtime. For an alternative SST method that uses MySQL&rsquo;s native clone plugin instead of XtraBackup, see <a href="#clone-sst">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
 <p>Encryption for this method is controlled by the <code>encrypt</code> option:</p>
 <ul>
 <li>
@@ -8733,6 +8733,30 @@ If a <code>dhparams.pem</code> file of the required length is not found during S
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<h3 id="encrypt-traffic-clone">clone<a class="headerlink" href="#encrypt-traffic-clone" title="Permanent link">&para;</a></h3>
+<p>Clone SST uses MySQL&rsquo;s native clone plugin rather than XtraBackup, so it doesn&rsquo;t use the <code>[sst]</code> section <code>encrypt</code> option described in <a href="#encrypt-traffic-xtrabackup">xtrabackup</a>. Instead, encryption relies on the standard MySQL SSL settings under <code>[mysqld]</code>/<code>[client]</code>, or on a set of variables specific to the Clone SST process.</p>
+<p>Configure encryption using the shared MySQL SSL settings:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[client]</span>
+<span class="na">ssl-ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/ca.pem</span>
+<span class="na">ssl-cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-cert.pem</span>
+<span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-key.pem</span>
+<span class="k">[mysqld]</span>
+<span class="na">ssl-ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/ca.pem</span>
+<span class="na">ssl-cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/server-cert.pem</span>
+<span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/server-key.pem</span>
+</code></pre></div>
+<p>Alternatively, configure SSL settings specifically for the Clone SST process on the Joiner:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">clone_ssl_ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/ca.pem</span>
+<span class="na">clone_ssl_cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-cert.pem</span>
+<span class="na">clone_ssl_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-key.pem</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Place these certificate files in a directory other than the data directory. The clone process modifies the data directory during SST, which can cause conflicts if certificates are stored there.</p>
+</div>
+<p>All nodes must use identical key and certificate files to ensure a consistent security setup.</p>
+<p>For full configuration details, see <a href="#clone-sst">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
 <h3 id="encrypt-traffic-encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-traffic-encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
 <p>Replication traffic in Percona XtraDB Cluster consists of the following key components:</p>
 <table>
@@ -9488,6 +9512,10 @@ ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default value of <code>4</code> depends on <a href="#wsrep-system-index-pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a>, which is <code>ON</code> by default and automatically sets <code>encrypt=4</code>. If <code>pxc-encrypt-cluster-traffic</code> is disabled, <code>encrypt</code> reverts to <code>0</code> unless you set the value explicitly.</p>
+</div>
 <p>For more information, see <a href="#encrypt-traffic-encrypt-pxc-traffic">Encrypting PXC Traffic</a>.</p>
 <h3 id="xtrabackup-sst-sockopt">sockopt<a class="headerlink" href="#xtrabackup-sst-sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
@@ -9576,10 +9604,9 @@ For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span c
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
 </div>
 <h3 id="xtrabackup-sst-cpat">cpat<a class="headerlink" href="#xtrabackup-sst-cpat" title="Permanent link">&para;</a></h3>
-<p><strong>Default</strong>: <code>'.\*\\.pem$\\|.\*init\\.ok$\\|.\*galera\\.cache$\\|.\*sst_in_progress$\\|.\*\\.sst$\\|.\*gvwstate\\.dat$\\|.\*grastate\\.dat$\\|.\*\\.err$\\|.\*\\.log$\\|.\*RPM_UPGRADE_MARKER$\\|.\*RPM_UPGRADE_HISTORY$'</code></p>
-<p>Used to define the files
-that need to be retained in the <a href="#glossary-datadir">datadir</a> before running SST,
-so that the state of the other node can be restored cleanly.</p>
+<div class="highlight"><pre><span></span><code>**Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
+</code></pre></div>
+<p>Used to define the files that need to be retained in the <a href="#glossary-datadir">datadir</a> before running SST, so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
@@ -9641,7 +9668,48 @@ compress
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
 </code></pre></div>
 <h3 id="xtrabackup-sst-inno-backup-opts">inno-backup-opts<a class="headerlink" href="#xtrabackup-sst-inno-backup-opts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Quoted String</td>
+</tr>
+</tbody>
+</table>
+<p>This option passes extra XtraBackup options to the backup stage.</p>
+<p>When the value omits <code>--parallel</code>, the SST script appends <code>--parallel=</code> with the <a href="#xtrabackup-sst-backup_threads"><code>backup_threads</code></a> value.</p>
 <h3 id="xtrabackup-sst-inno-apply-opts">inno-apply-opts<a class="headerlink" href="#xtrabackup-sst-inno-apply-opts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Quoted String</td>
+</tr>
+</tbody>
+</table>
+<p>This option passes extra XtraBackup options to the <code>--prepare</code> stage.</p>
+<p>When the value omits <code>--use-memory</code>, the SST script appends <code>--use-memory</code> with the buffer pool size.</p>
+<p>For details, see <a href="#xtrabackup-sst-memory-allocation">Memory allocation</a>.</p>
 <h3 id="xtrabackup-sst-inno-move-opts">inno-move-opts<a class="headerlink" href="#xtrabackup-sst-inno-move-opts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9661,12 +9729,23 @@ compress
 </tr>
 </tbody>
 </table>
-<p>This group of options is used to pass XtraBackup options
-for backup, apply, and move stages.
-The SST script doesn’t alter, tweak, or optimize these options.</p>
+<p>This option passes extra XtraBackup options to the move-to-datadir stage.</p>
+<p>The SST script uses the original value.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Although these options are related to XtraBackup SST, they cannot be specified in <code>my.cnf</code>, because they are for passing innobackupex options.</p>
+<p>The <code>[sst]</code> group accepts the following options as quoted strings:</p>
+<ul>
+<li>
+<p><code>inno-backup-opts</code></p>
+</li>
+<li>
+<p><code>inno-apply-opts</code></p>
+</li>
+<li>
+<p><code>inno-move-opts</code></p>
+</li>
+</ul>
+<p>Each option applies to one XtraBackup stage.</p>
 </div>
 <h3 id="xtrabackup-sst-sst-initial-timeout">sst-initial-timeout<a class="headerlink" href="#xtrabackup-sst-sst-initial-timeout" title="Permanent link">&para;</a></h3>
 <table>
@@ -9803,26 +9882,6 @@ Disabled by default.</p>
 <p>Under <code>[sst]</code> it enables debug logging for the SST script only</p>
 </li>
 </ul>
-<h3 id="xtrabackup-sst-encrypt_threads">encrypt_threads<a class="headerlink" href="#xtrabackup-sst-encrypt_threads" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Default:</td>
-<td><code>4</code></td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the number of threads that XtraBackup should use for encrypting data
-(when <code>encrypt=1</code>).
-The value is passed using the <code>--encrypt-threads</code> option in XtraBackup.</p>
-<p>This option affects only SST with XtraBackup
-and should be specified under the <code>[sst]</code> group.</p>
 <h3 id="xtrabackup-sst-backup_threads">backup_threads<a class="headerlink" href="#xtrabackup-sst-backup_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9984,7 +10043,7 @@ the size of the InnoDB memory buffer will be used:</p>
 <p>NetCat package installed</p>
 </li>
 <li>
-<p>The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes when you use Percona Xtrabackup SST</p>
+<p>The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes</p>
 </li>
 </ul>
 <h2 id="clone-sst-best-practices">Best practices<a class="headerlink" href="#clone-sst-best-practices" title="Permanent link">&para;</a></h2>
@@ -10100,7 +10159,7 @@ sst-password-suffix=AAA..//2344
 <tbody>
 <tr>
 <td><code>sst_idle_timeout</code></td>
-<td>Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. You must define this variable in the <code>[sst]</code> section of the <code>my.cnf</code> file.</td>
+<td>Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. Default: 120 seconds. You must define this variable in the <code>[sst]</code> section of the <code>my.cnf</code> file.</td>
 <td></td>
 </tr>
 <tr>

@@ -3786,6 +3786,10 @@ ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default value of <code>4</code> depends on <a href="wsrep-system-index.html#pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a>, which is <code>ON</code> by default and automatically sets <code>encrypt=4</code>. If <code>pxc-encrypt-cluster-traffic</code> is disabled, <code>encrypt</code> reverts to <code>0</code> unless you set the value explicitly.</p>
+</div>
 <p>For more information, see <a href="encrypt-traffic.html#encrypt-pxc-traffic">Encrypting PXC Traffic</a>.</p>
 <h3 id="sockopt">sockopt<a class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
@@ -3874,10 +3878,9 @@ For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span c
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
 </div>
 <h3 id="cpat">cpat<a class="headerlink" href="#cpat" title="Permanent link">&para;</a></h3>
-<p><strong>Default</strong>: <code>'.\*\\.pem$\\|.\*init\\.ok$\\|.\*galera\\.cache$\\|.\*sst_in_progress$\\|.\*\\.sst$\\|.\*gvwstate\\.dat$\\|.\*grastate\\.dat$\\|.\*\\.err$\\|.\*\\.log$\\|.\*RPM_UPGRADE_MARKER$\\|.\*RPM_UPGRADE_HISTORY$'</code></p>
-<p>Used to define the files
-that need to be retained in the <a href="glossary.html#datadir">datadir</a> before running SST,
-so that the state of the other node can be restored cleanly.</p>
+<div class="highlight"><pre><span></span><code>**Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
+</code></pre></div>
+<p>Used to define the files that need to be retained in the <a href="glossary.html#datadir">datadir</a> before running SST, so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
@@ -3939,7 +3942,48 @@ compress
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
 </code></pre></div>
 <h3 id="inno-backup-opts">inno-backup-opts<a class="headerlink" href="#inno-backup-opts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Quoted String</td>
+</tr>
+</tbody>
+</table>
+<p>This option passes extra XtraBackup options to the backup stage.</p>
+<p>When the value omits <code>--parallel</code>, the SST script appends <code>--parallel=</code> with the <a href="#backup_threads"><code>backup_threads</code></a> value.</p>
 <h3 id="inno-apply-opts">inno-apply-opts<a class="headerlink" href="#inno-apply-opts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default:</td>
+<td>Empty</td>
+</tr>
+<tr>
+<td>Type:</td>
+<td>Quoted String</td>
+</tr>
+</tbody>
+</table>
+<p>This option passes extra XtraBackup options to the <code>--prepare</code> stage.</p>
+<p>When the value omits <code>--use-memory</code>, the SST script appends <code>--use-memory</code> with the buffer pool size.</p>
+<p>For details, see <a href="#memory-allocation">Memory allocation</a>.</p>
 <h3 id="inno-move-opts">inno-move-opts<a class="headerlink" href="#inno-move-opts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -3959,12 +4003,23 @@ compress
 </tr>
 </tbody>
 </table>
-<p>This group of options is used to pass XtraBackup options
-for backup, apply, and move stages.
-The SST script doesn’t alter, tweak, or optimize these options.</p>
+<p>This option passes extra XtraBackup options to the move-to-datadir stage.</p>
+<p>The SST script uses the original value.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Although these options are related to XtraBackup SST, they cannot be specified in <code>my.cnf</code>, because they are for passing innobackupex options.</p>
+<p>The <code>[sst]</code> group accepts the following options as quoted strings:</p>
+<ul>
+<li>
+<p><code>inno-backup-opts</code></p>
+</li>
+<li>
+<p><code>inno-apply-opts</code></p>
+</li>
+<li>
+<p><code>inno-move-opts</code></p>
+</li>
+</ul>
+<p>Each option applies to one XtraBackup stage.</p>
 </div>
 <h3 id="sst-initial-timeout">sst-initial-timeout<a class="headerlink" href="#sst-initial-timeout" title="Permanent link">&para;</a></h3>
 <table>
@@ -4101,26 +4156,6 @@ Disabled by default.</p>
 <p>Under <code>[sst]</code> it enables debug logging for the SST script only</p>
 </li>
 </ul>
-<h3 id="encrypt_threads">encrypt_threads<a class="headerlink" href="#encrypt_threads" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Default:</td>
-<td><code>4</code></td>
-</tr>
-</tbody>
-</table>
-<p>Specifies the number of threads that XtraBackup should use for encrypting data
-(when <code>encrypt=1</code>).
-The value is passed using the <code>--encrypt-threads</code> option in XtraBackup.</p>
-<p>This option affects only SST with XtraBackup
-and should be specified under the <code>[sst]</code> group.</p>
 <h3 id="backup_threads">backup_threads<a class="headerlink" href="#backup_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4257,7 +4292,7 @@ the size of the InnoDB memory buffer will be used:</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 12, 2026 16:07:26 UTC">February 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 31, 2026 09:40:41 UTC">August 31, 2026</span>
   </span>
 
     
