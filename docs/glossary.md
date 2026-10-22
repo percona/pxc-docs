@@ -17,6 +17,10 @@ Asynchronous replication is a technique where data is first written to the prima
 
 This property guarantees that all updates of a transaction occur in the database or no updates occur. This guarantee also applies with a server exit. If a transaction fails, the entire operation rolls back.
 
+## bootstrap
+
+The process of starting the first node of a cluster so that node initializes the Primary Component. See [Bootstrap the first node](bootstrap.md).
+
 ## Cluster replication
 
 Normal replication path for cluster members. Can be encrypted (not by
@@ -149,6 +153,10 @@ A majority (> 50%) of nodes. In the event of a network partition, only the clus
 
 Split brain occurs when two parts of a computer cluster are disconnected, each part believing that the other is no longer running. This problem can lead to data inconsistency.
 
+## Strict Mode
+
+Percona XtraDB Cluster Strict Mode validates unsupported and tech preview features at startup and during runtime. See [Percona XtraDB Cluster strict mode](strict-mode.md).
+
 ## SST
 
 State Snapshot Transfer is the full copy of data from one node to another.  It's used when a new node joins the cluster, it has to transfer data from an existing node.
@@ -167,6 +175,14 @@ A [`Storage Engine`](#storage-engine) is a piece of software that implements the
 ## Tech preview 
 
 A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item’s functionality can change from tech preview to GA.
+
+## Write-set
+
+Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for certification and application. Write-set caching during long transactions is described in [Understand GCache and Record-Set cache](gcache-record-set-cache-difference.md).
+
+## wsrep
+
+Write Set REPlication. The Galera API and the related status and system variables that control cluster replication. See [Index of wsrep system variables](wsrep-system-index.md) and [Index of wsrep status variables](wsrep-status-index.md).
 
 ## UUID
 
