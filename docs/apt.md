@@ -77,7 +77,7 @@ The following steps install from the APT repository.
 6. Enable the `release` repository for *Percona XtraDB Cluster*:
 
     ```shell
-    sudo percona-release setup {{pkg}}
+    sudo percona-release enable-only {{pkg}} --scheme https
     ```
 
     
