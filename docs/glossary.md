@@ -17,6 +17,10 @@ Asynchronous replication is a technique where data is first written to the prima
 
 This property guarantees that all updates of a transaction occur in the database or no updates occur. This guarantee also applies with a server exit. If a transaction fails, the entire operation rolls back.
 
+## Certification
+
+Galera validates that a transaction does not conflict with committed changes on other nodes. See [Certification in Percona XtraDB Cluster](certification.md).
+
 ## Cluster replication
 
 Normal replication path for cluster members. Can be encrypted (not by
@@ -37,6 +41,10 @@ The node elected to provide a state transfer (SST or IST).
 ## Durability
 
 Once a transaction is committed, it will remain so and is resistant to a server exit.
+
+## Flow control
+
+Flow control pauses write-set replication when the receive queue on a node exceeds a configured threshold. Flow control slows the cluster so a slow node can match the cluster. Monitor flow control with the status variables in [Index of wsrep status variables](wsrep-status-index.md#flow-control-variables).
 
 ## Foreign Key
 
@@ -164,6 +172,16 @@ manually when upgrading your system from an older version.
 
 A [`Storage Engine`](#storage-engine) is a piece of software that implements the details of data storage and retrieval for a database system. This term is primarily used within the [`MySQL`](#mysql) ecosystem due to it being the first widely used relational database to have an abstraction layer around storage. It is analogous to a Virtual File System layer in an Operating System. A VFS layer allows an operating system to read and write multiple file systems (for example, FAT, NTFS, XFS, ext3) and a Storage Engine layer allows a database server to access tables stored in different engines (e.g. [`MyISAM`](#myisam), InnoDB).
 
+## Streaming replication
+
+Streaming replication is a Galera 4 feature. Streaming replication divides a large or long-running transaction into smaller fragments. Galera certifies and replicates each fragment while the transaction stays open. Enable session streaming replication with the following variables:
+
+* [`wsrep_trx_fragment_unit`](wsrep-system-index.md#wsrep_trx_fragment_unit)
+
+* [`wsrep_trx_fragment_size`](wsrep-system-index.md#wsrep_trx_fragment_size)
+
+See [Streaming replication for large transactions](streaming-replication.md).
+
 ## Tech preview 
 
 A tech preview item can be a feature, a variable, or a value within a variable. The term designates that the item is not yet ready for production use and is not included in support by SLA. A tech preview item is included in a release so that users can provide feedback. The item is either updated and released as [general availability(GA)](#general-availability-ga) or removed if not useful. The item’s functionality can change from tech preview to GA.
@@ -171,3 +189,7 @@ A tech preview item can be a feature, a variable, or a value within a variable. 
 ## UUID
 
 Universally Unique IDentifier which uniquely identifies the state and the sequence of changes node undergoes. 128-bit UUID is a classic DCE UUID Version 1 (based on current time and MAC address). Although in theory this UUID could be generated based on the real MAC-address, in the Galera it is always (without exception) based on the generated pseudo-random addresses ("locally administered" bit in the node address (in the UUID structure) is  always equal to unity).
+
+## Write-set
+
+A write-set is the binary log form of the rows a transaction modifies. Galera replicates a write-set so other nodes can [certify](#certification) and apply the rows. See [Understand GCache and Record-Set cache](gcache-record-set-cache-difference.md) for write-set cache behavior on a long transaction.
