@@ -698,6 +698,8 @@ The maximum allowed value is `1048576`.
 
 !!! admonition "See also"
 
+    [Streaming replication for large transactions](streaming-replication.md)
+
     [MySQL wsrep option: wsrep_max_ws_rows :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows)
 
 ### `wsrep_max_ws_size`
@@ -714,7 +716,13 @@ Anything bigger than the specified value will be rejected.
 
 You can set it to any value between `1024` and the default `2147483647`.
 
+Use [streaming replication](streaming-replication.md) for a transaction that exceeds this limit.
+
+Leave the global limit unchanged.
+
 !!! admonition "See also"
+
+    [Streaming replication for large transactions](streaming-replication.md)
 
     [MySQL wsrep option: wsrep_max_ws_size :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size)
 
@@ -1090,7 +1098,15 @@ microseconds. Unit of variable is in microseconds, so set accordingly.
 | Dynamic:       | No                 |
 | Default Value: | ``table`` |
 
-Defines storage for streaming replication fragments. The available values are `table`, the default value, and `none`, which disables the variable. 
+Defines storage for streaming replication fragments. Valid values are `table` and `none`. The default value is `table`.
+
+Galera writes each fragment to `mysql.wsrep_streaming_log` on every node when the value is `table`. The log supports crash recovery for an open streaming transaction.
+
+Galera skips the log table when the value is `none`. Fragment replication still uses memory in normal operation. The log does not support crash recovery for a partial streaming transaction.
+
+!!! admonition "See also"
+
+    [What does wsrep_SR_store control?](streaming-replication.md#what-does-wsrep_sr_store-control) 
 
 ### `wsrep_sst_allowed_methods`
 
@@ -1304,7 +1320,9 @@ and `REPLACE` statements.
 | Dynamic:       | Yes                 |
 | Default Value: | 0 |
 
-Defines the the streaming replication fragment size. This variable is measured in the value defined by ``wsrep_trx_fragment_unit``. The minimum value is 0 and the maximum value is 2147483647.
+Defines the streaming replication fragment size. The unit comes from ``wsrep_trx_fragment_unit``. The minimum value is `0`. The maximum value is `2147483647`. A value of `0` disables streaming replication.
+
+See [Streaming replication for large transactions](streaming-replication.md).
 
 You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
@@ -1383,7 +1401,9 @@ Query OK, 131072 rows affected (15.09 sec)
 | Dynamic:       | Yes                 |
 | Default Value: | "bytes" |
 
-Defines the type of measure for the ``wsrep_trx_fragment_size``. The possible values are: bytes, rows, statements. 
+Defines the unit for ``wsrep_trx_fragment_size``. Valid values are `bytes`, `rows`, and `statements`.
+
+See [Streaming replication for large transactions](streaming-replication.md). 
 
 You can update the variable with a [set_var hint :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/optimizer-hints.html#optimizer-hints-set-var).
 
