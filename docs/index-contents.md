@@ -33,6 +33,7 @@
   - [Install Percona XtraDB Cluster](install-index.md)
   - [Load balance with ProxySQL](load-balance-proxysql.md)
   - [Load balancing with HAProxy](haproxy.md)
+  - [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](migrate-mysql-galera.md)
   - [Monitor the cluster](monitoring.md)
   - [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](nbo.md)
   - [Online schema upgrade](online-schema-upgrade.md)
