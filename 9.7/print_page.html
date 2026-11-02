@@ -485,6 +485,8 @@
       
         
       
+        
+      
     
     
     
@@ -540,6 +542,34 @@
     
   
     Release notes index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/9.7.2-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 9.7.2-2 (2026-11-02)
   
 
     
@@ -3368,6 +3398,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
         
           <li class="md-nav__item">
+  <a href="#release-notes-9.7.2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Percona XtraDB Cluster 9.7.2-2 (2026-11-02)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#release-notes-9.7.1-1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4276,7 +4317,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1>Documentation</h1>
  
-<h2>9.7.1-1 (September 10, 2026)</h2>
+<h2>9.7.2-2 (November 2, 2026)</h2>
 <!--<h3>Percona Technical Documentation Team</h3>-->
         </section>
         
@@ -4289,7 +4330,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         </section>
         <section class="print-page" id="index" heading-number="1"><h1 id="index-percona-xtradb-cluster-97-documentation">Percona XtraDB Cluster 9.7 Documentation<a class="headerlink" href="#index-percona-xtradb-cluster-97-documentation" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
-<p>This documentation is for the latest release: <a href="#release-notes-9.7.1-1">Percona XtraDB Cluster 9.7.1-1</a> release notes.</p>
+<p>This documentation is for the latest release: <a href="#release-notes-9.7.2-2">Percona XtraDB Cluster 9.7.2-2</a> release notes.</p>
 </div>
 <p><a href="https://www.percona.com/software/mysql-database/percona-xtradb-cluster">Percona XtraDB Cluster <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.</p>
 <h3 id="index-features-of-percona-xtradb-cluster">Features of Percona XtraDB Cluster<a class="headerlink" href="#index-features-of-percona-xtradb-cluster" title="Permanent link">&para;</a></h3>
@@ -4430,8 +4471,86 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                         </h1>
                     <section class="print-page" id="release-notes-release-notes-index" heading-number="3.1"><h1 id="release-notes-release-notes-index-percona-xtradb-cluster-97-release-notes-index">Percona XtraDB Cluster 9.7 release notes index<a class="headerlink" href="#release-notes-release-notes-index-percona-xtradb-cluster-97-release-notes-index" title="Permanent link">&para;</a></h1>
 <ul>
+<li><a href="#release-notes-9.7.2-2">Percona XtraDB Cluster 9.7.2-2 (2026-11-02)</a></li>
 <li><a href="#release-notes-9.7.1-1">Percona XtraDB Cluster 9.7.1-1 (2026-09-10)</a></li>
-</ul></section><section class="print-page" id="release-notes-9.7.1-1" heading-number="3.2"><h1 id="release-notes-9.7.1-1-percona-xtradb-cluster-971-1-2026-09-10">Percona XtraDB Cluster 9.7.1-1 (2026-09-10)<a class="headerlink" href="#release-notes-9.7.1-1-percona-xtradb-cluster-971-1-2026-09-10" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="release-notes-9.7.2-2" heading-number="3.2"><h1 id="release-notes-9.7.2-2-percona-xtradb-cluster-972-2-2026-11-02">Percona XtraDB Cluster 9.7.2-2 (2026-11-02)<a class="headerlink" href="#release-notes-9.7.2-2-percona-xtradb-cluster-972-2-2026-11-02" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">A note on MySQL 9.7.3</p>
+<p>After a thorough review of the updates included in MySQL 9.7.3, Percona has decided not to release a corresponding Percona Server for MySQL 9.7.3. MySQL 9.7.3 is a Critical Security Patch Update (CSPU) — a targeted security release that Oracle can issue between quarterly Critical Patch Updates (CPUs) when needed. The fixes included in this CSPU do not affect Percona Server for MySQL.</p>
+</div>
+<p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
+<p>Percona XtraDB Cluster 9.7.2-2 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-2.html">Percona Server for MySQL 9.7.2-2 (2026-09-28) release notes</a>.</p>
+<h2 id="release-notes-9.7.2-2-release-highlights">Release highlights<a class="headerlink" href="#release-notes-9.7.2-2-release-highlights" title="Permanent link">&para;</a></h2>
+<h3 id="release-notes-9.7.2-2-percona-server-for-mysql-972-2">Percona Server for MySQL 9.7.2-2<a class="headerlink" href="#release-notes-9.7.2-2-percona-server-for-mysql-972-2" title="Permanent link">&para;</a></h3>
+<p>Percona Server for MySQL 9.7.2-2 introduces the following new features and improvements, along with security updates and bug fixes detailed in later sections:</p>
+<h4 id="release-notes-9.7.2-2-new-features">New features<a class="headerlink" href="#release-notes-9.7.2-2-new-features" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>Adds OpenID Connect (OIDC) authentication through external identity providers. See <a href="https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html">Connect OIDC</a>.</p>
+</li>
+<li>
+<p>Adds SQL functions that calculate the distance between vector values. See <a href="https://docs.percona.com/percona-server/9.7/distance-function.html"><code>DISTANCE()</code></a>.</p>
+</li>
+</ul>
+<h3 id="release-notes-9.7.2-2-mysql-972">MySQL 9.7.2<a class="headerlink" href="#release-notes-9.7.2-2-mysql-972" title="Permanent link">&para;</a></h3>
+<p>Improvements and bug fixes provided by Oracle for MySQL 9.7.2 and included in Percona Server for MySQL are the following:</p>
+<ul>
+<li>
+<p>Under certain circumstances, when adding an AUTO_INCREMENT column to an existing table, some records in that table could be skipped, resulting in inaccurate values in the AUTO_INCREMENT column. (Bug #115136, Bug #37105825)</p>
+</li>
+<li>
+<p>During a buffer-pool resize, Adaptive Hash Index could be disabled in <code>mysqld-auto.cnf</code> even though <code>innodb_adaptive_hash_index=ON</code>. (Bug #39157211)</p>
+</li>
+<li>
+<p>Fixed a debug assertion in <code>row_upd_rec_in_place()</code> for non-versioned <code>ROW_FORMAT=REDUNDANT</code> rows. (Bug #39165747)</p>
+</li>
+<li>
+<p>Fixed an issue relating to table maintenance and clean-up. (Bug #39091376)</p>
+</li>
+<li>
+<p>Fixed an issue relating to unique indexes. (Bug #38501299)</p>
+</li>
+</ul>
+<p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-2.html">MySQL 9.7.2 release notes</a>.</p>
+<h2 id="release-notes-9.7.2-2-improvement">Improvement<a class="headerlink" href="#release-notes-9.7.2-2-improvement" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5106">PXC-5106</a>: Sets <code>sql_require_primary_key=1</code> when using <code>pxc_strict_mode=ENFORCING</code> or <code>MASTER</code>.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5208">PXC-5208</a>: Adds the <code>repl.force_sst_after_inconsistency</code> option. When enabled, a node voted out of the cluster because of a data inconsistency removes <code>grastate.dat</code>, so the next start uses a full State Snapshot Transfer (SST) instead of Incremental State Transfer (IST).</p>
+</li>
+</ul>
+<h2 id="release-notes-9.7.2-2-bug-fixes">Bug fixes<a class="headerlink" href="#release-notes-9.7.2-2-bug-fixes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5252">PXC-5252</a>: Fixed an issue where clone State Snapshot Transfer (SST) failed when the <code>validate_password</code> component was enabled with a strict policy, because the generated password for <code>mysql.pxc.sst.user</code> did not meet the configured requirements.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5291">PXC-5291</a>: Fixed an issue where a user with only the <code>SET_ANY_DEFINER</code> privilege could create a trigger when <code>log_bin_trust_function_creators=0</code>.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5296">PXC-5296</a>: Fixed an issue where a server upgrade failed when <code>pxc_strict_mode</code> was <code>ENFORCING</code> or <code>MASTER</code>, because the upgrade could not set <code>sql_require_primary_key=OFF</code> to rebuild system tables that have no primary key.</p>
+</li>
+<li>
+<p><a href="https://perconadev.atlassian.net/browse/PXC-5305">PXC-5305</a>: Fixed an issue where a query could return incorrect results when an internal temporary table was converted from MEMORY to an on-disk InnoDB table during execution.</p>
+</li>
+</ul>
+<h2 id="release-notes-9.7.2-2-useful-links">Useful links<a class="headerlink" href="#release-notes-9.7.2-2-useful-links" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>The <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html">Percona XtraDB Cluster installation instructions</a></p>
+</li>
+<li>
+<p>The <a href="https://www.percona.com/downloads/">Percona XtraDB Cluster downloads</a></p>
+</li>
+<li>
+<p>The <a href="https://github.com/percona/percona-xtradb-cluster">Percona XtraDB Cluster GitHub location</a></p>
+</li>
+<li>
+<p>To contribute to the documentation, review the <a href="https://github.com/percona/pxc-docs/blob/9.7/contributing.md">Documentation Contribution Guide</a></p>
+</li>
+</ul></section><section class="print-page" id="release-notes-9.7.1-1" heading-number="3.3"><h1 id="release-notes-9.7.1-1-percona-xtradb-cluster-971-1-2026-09-10">Percona XtraDB Cluster 9.7.1-1 (2026-09-10)<a class="headerlink" href="#release-notes-9.7.1-1-percona-xtradb-cluster-971-1-2026-09-10" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p>Percona XtraDB Cluster 9.7.0-1 was not released; 9.7.1-1 is the first build in this series. This release includes enhancements and bug fixes from MySQL 9.7.0 and MySQL 9.7.1.</p>
 </div>
@@ -4827,7 +4946,7 @@ The lock change addresses a deadlock that could cause a cluster node to hang in 
 </tbody>
 </table>
 <p>Percona uses semantic version numbering, which follows the pattern of base version and build version. Percona assigns unique, non-negative integers in increasing order for each version release. The version number combines the base Percona Server for MySQL version number, the minor build version, and the custom build version, if needed.</p>
-<p>The version numbers for Percona XtraDB Cluster 9.7.1-1 define the following information:</p>
+<p>The version numbers for Percona XtraDB Cluster 9.7.2-2 define the following information:</p>
 <ul>
 <li>
 <p>Base version - the leftmost numbers indicate <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/">MySQL 9.7 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> version used as a base. </p>
@@ -5945,7 +6064,7 @@ git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w
 </li>
 </ul>
 <p>The snippets target <code>Linux-x86_64</code>. On ARM64, rewrite filenames for your chip (<code>aarch64</code>, <code>arm64</code>, …); never reuse paths that disagree with your download.</p>
-<p>Stage everything under <code>pxc-build/pxc_extra</code>, then rename to match the <code>mv</code> targets in the snippet. Map <code>glibc2.xx</code>, <code>9.7.x</code>, and <code>8.4.x</code> to the strings in your real filenames (for example <code>9.7.1-1</code> and <code>8.4.2-2</code>). Aim each <code>tar</code> and <code>mv</code> at the top-level folder that unpack creates.</p>
+<p>Stage everything under <code>pxc-build/pxc_extra</code>, then rename to match the <code>mv</code> targets in the snippet. Map <code>glibc2.xx</code>, <code>9.7.x</code>, and <code>8.4.x</code> to the strings in your real filenames (for example <code>9.7.2-2</code> and <code>8.4.2-2</code>). Aim each <code>tar</code> and <code>mv</code> at the top-level folder that unpack creates.</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./pxc-build/pxc_extra
 
 tar<span class="w"> </span>-xvf<span class="w"> </span>percona-xtrabackup-9.7-Linux-x86_64.glibc2.xx.tar.gz<span class="w"> </span>-C<span class="w"> </span>./pxc-build
@@ -7556,27 +7675,27 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 <p><code>libperconaserverclient21</code></p>
 </li>
 </ul>
-<p>The following example downloads Percona Server for MySQL 9.7.1-1 packages for Debian 11.0:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.1-1/binary/debian/bullseye/x86_64/Percona-Server-9.7.1-1-rd76e81f4-bullseye-x86_64-bundle.tar
+<p>The following example downloads Percona Server for MySQL 9.7.2-2 packages for Debian 11.0:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/debian/bullseye/x86_64/Percona-Server-9.7.2-2-rd76e81f4-bullseye-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
-<p>Unpack the bundle to get the packages: <code>tar xvf Percona-Server-9.7.1-1-rd76e81f4-bullseye-x86_64-bundle.tar</code>.</p>
+<p>Unpack the bundle to get the packages: <code>tar xvf Percona-Server-9.7.2-2-rd76e81f4-bullseye-x86_64-bundle.tar</code>.</p>
 <p>After you unpack the bundle, you should see the following packages:</p>
 <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.deb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>llibperconaserverclient21-dev_9.7.1-1.bullseye_amd64.deb
-percona-server-dbg_9.7.1-1.bullseye_amd64.deb
-libperconaserverclient21_9.7.1-1.bullseye_amd64.deb
-percona-server-rocksdb_9.7.1-1.bullseye_amd64.deb
-percona-mysql-router_9.7.1-1.bullseye_amd64.deb
-percona-server-server_9.7.1-1.bullseye_amd64.deb
-percona-server-client_9.7.1-1.bullseye_amd64.deb
-percona-server-source_9.7.1-1.bullseye_amd64.deb
-percona-server-common_9.7.1-1.bullseye_amd64.deb
-percona-server-test_9.7.1-1.bullseye_amd64.deb
+<div class="no-copy highlight"><pre><span></span><code>llibperconaserverclient21-dev_9.7.2-2.bullseye_amd64.deb
+percona-server-dbg_9.7.2-2.bullseye_amd64.deb
+libperconaserverclient21_9.7.2-2.bullseye_amd64.deb
+percona-server-rocksdb_9.7.2-2.bullseye_amd64.deb
+percona-mysql-router_9.7.2-2.bullseye_amd64.deb
+percona-server-server_9.7.2-2.bullseye_amd64.deb
+percona-server-client_9.7.2-2.bullseye_amd64.deb
+percona-server-source_9.7.2-2.bullseye_amd64.deb
+percona-server-common_9.7.2-2.bullseye_amd64.deb
+percona-server-test_9.7.2-2.bullseye_amd64.deb
 </code></pre></div>
 </details>
 </li>
@@ -7586,14 +7705,14 @@ percona-server-test_9.7.1-1.bullseye_amd64.deb
 </code></pre></div>
 <p>This command installs the packages from the bundle. Another option is to
 download or specify only the packages you need for running Percona Server for MySQL
-installation (<code>libperconaserverclient21-dev_9.7.1-1.bullseye_amd64.deb</code>,
-<code>percona-server-client-9.7.1-1.bullseye_amd64.deb</code>,
-<code>percona-server-common-9.7.1-1.bullseye_amd64.deb</code>, and
-<code>percona-server-server-9.7.1-1.bullseye_amd64.deb</code>.</p>
+installation (<code>libperconaserverclient21-dev_9.7.2-2.bullseye_amd64.deb</code>,
+<code>percona-server-client-9.7.2-2.bullseye_amd64.deb</code>,
+<code>percona-server-common-9.7.2-2.bullseye_amd64.deb</code>, and
+<code>percona-server-server-9.7.2-2.bullseye_amd64.deb</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When installing packages manually, you must resolve all the dependencies and install missing packages yourself. At least
-the following packages should be installed before installing Percona Server for MySQL 9.7.1-1:
+the following packages should be installed before installing Percona Server for MySQL 9.7.2-2:
 * <code>libmecab2</code>,
 * <code>libjemalloc1</code>,
 * <code>zlib1g-dev</code>,
@@ -7602,10 +7721,10 @@ the following packages should be installed before installing Percona Server for 
 </li>
 <li>
 <p>Running the upgrade:</p>
-<p>The mysqld binary automatically runs the upgrade process. To find more information, see <a href="https://dev.mysql.com/doc/refman/9.7.1-1/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process Upgrades <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
+<p>The mysqld binary automatically runs the upgrade process. To find more information, see <a href="https://dev.mysql.com/doc/refman/9.7.2-2/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process Upgrades <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p>Restart the service with <code>service mysql restart</code>. After the service has been successfully restarted use the new Percona Server for MySQL 9.7.1-1.</p>
+<p>Restart the service with <code>service mysql restart</code>. After the service has been successfully restarted use the new Percona Server for MySQL 9.7.2-2.</p>
 </li>
 </ol>
 </div>
@@ -7617,10 +7736,10 @@ the following packages should be installed before installing Percona Server for 
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>percona-server-shared-9.7.1-1.el9.x86_64
-percona-server-shared-compat-9.7.1-1.el9.x86_64
-percona-server-client-9.7.1-1.el9.x86_64
-percona-server-server-9.7.1-1.el9.x86_64
+<div class="no-copy highlight"><pre><span></span><code>percona-server-shared-9.7.2-2.el9.x86_64
+percona-server-shared-compat-9.7.2-2.el9.x86_64
+percona-server-client-9.7.2-2.el9.x86_64
+percona-server-server-9.7.2-2.el9.x86_64
 </code></pre></div>
 </details>
 <p>You may have the <code>shared-compat</code> package, which is required for compatibility.</p>
@@ -7633,25 +7752,25 @@ percona-server-server-9.7.1-1.el9.x86_64
 </code></pre></div>
 </li>
 <li>
-<p>Download the packages of the desired series for your architecture from the <a href="https://www.percona.com/downloads">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 9.7.1-1 packages for CentOS 9:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.1-1/binary/redhat/9/aarch64/Percona-Server-9.7.1-1-rd76e81f4-el9-aarch64-bundle.tar
+<p>Download the packages of the desired series for your architecture from the <a href="https://www.percona.com/downloads">Percona Software Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 9.7.2-2 packages for CentOS 9:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/redhat/9/aarch64/Percona-Server-9.7.2-2-rd76e81f4-el9-aarch64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.1-1-rd76e81f4-el9-aarch64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-rd76e81f4-el9-aarch64-bundle.tar
 </code></pre></div>
 <p>After you unpack the bundle, you should see the following packages: <code>ls \*.rpm</code></p>
 </li>
 <li>
 <p>Install Percona Server for MySQL:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>percona-server-server-9.7.1-1.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
-percona-server-client-9.7.1-1.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
-percona-server-shared-9.7.1-1.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
-percona-server-shared-compat-9.7.1-1.el9.x86_64.rpm
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>percona-server-server-9.7.2-2.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+percona-server-client-9.7.2-2.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+percona-server-shared-9.7.2-2.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+percona-server-shared-compat-9.7.2-2.el9.x86_64.rpm
 </code></pre></div>
 <p>This command installs only packages required to run the Percona Server for MySQL
-9.7.1-1.</p>
+9.7.2-2.</p>
 </li>
 <li>
 <p>You can install all the packages (for debugging, testing, etc.) with <code>sudo rpm -ivh \*.rpm</code>.</p>
@@ -7676,7 +7795,7 @@ skip-grant-tables
 <p>The mysqld binary automatically runs the upgrade process. To find more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process Upgrades <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </li>
 <li>
-<p>Restart the server with <code>service mysql restart</code>. After the service has been successfully restarted you can use the new Percona Server for MySQL 9.7.1-1.</p>
+<p>Restart the server with <code>service mysql restart</code>. After the service has been successfully restarted you can use the new Percona Server for MySQL 9.7.2-2.</p>
 </li>
 </ol>
 </div>
@@ -20061,7 +20180,9 @@ manually when upgrading your system from an older version.</p>
 .print-site-enumerate-headings #section-3 > h1:before { content: '3 ' }
 .print-site-enumerate-headings #release-notes-release-notes-index > h1:before { content: '3.1 ' }
 
-.print-site-enumerate-headings #release-notes-9.7.1-1 > h1:before { content: '3.2 ' }
+.print-site-enumerate-headings #release-notes-9.7.2-2 > h1:before { content: '3.2 ' }
+
+.print-site-enumerate-headings #release-notes-9.7.1-1 > h1:before { content: '3.3 ' }
 
 .print-site-enumerate-headings #section-4 > h1:before { content: '4 ' }
 .print-site-enumerate-headings #intro > h1:before { content: '4.1 ' }
