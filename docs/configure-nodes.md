@@ -9,25 +9,19 @@ In this section, we will demonstrate how to configure a three node cluster:
 | Node 2 | pxc2 | 192.168.70.62 |
 | Node 3 | pxc3 | 192.168.70.63 |
 
+Allow traffic between the nodes on ports 3306, 4444, 4567, and 4568.
+
+See [Firewall configuration](secure-network.md#firewall-configuration).
+
 1. Stop the Percona XtraDB Cluster server. After the installation completes the server is not started. You need this step if you have started the server manually.
 
     ```shell
     sudo service mysql stop
     ```
 
-2. Generate the SSL certificates on the first node. Ensure that all nodes use 
-   identical key and certificate files to maintain a consistent security setup. 
-   Store the certificates in `/etc/`, not in the data directory. After generating 
-   the certificates, copy them to all other nodes.
+2. Install the same SSL certificates on every node. Store the files in `/etc/mysql/certs/`.
 
-    ```shell
-    sudo openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
-    -x509 -days 365 -out /etc/server-cert.pem
-    scp /etc/server-key.pem pxc2:/etc/
-    scp /etc/server-cert.pem pxc2:/etc/
-    scp /etc/server-key.pem pxc3:/etc/
-    scp /etc/server-cert.pem pxc3:/etc/
-    ```
+    Follow [Generate SSL certificates for the cluster](generate-certificates.md#generate-ssl-certificates-for-the-cluster).
 
 3. Edit the configuration file of the first node to provide the cluster settings.
 
@@ -58,42 +52,43 @@ In this section, we will demonstrate how to configure a three node cluster:
 
 5. Set up *node 2* and *node 3* in the same way: Stop the server and update the configuration file applicable to your system. All settings are the same except for [`wsrep_node_name`](wsrep-system-index.md#wsrep_node_name) and [`wsrep_node_address`](wsrep-system-index.md#wsrep_node_address).
 
-    For node 2
+    For node 2:
 
-        
-        ```text
-        wsrep_node_name=pxc2
-        wsrep_node_address=192.168.70.62
-        ```
+    ```text
+    wsrep_node_name=pxc2
+    wsrep_node_address=192.168.70.62
+    ```
 
-    For node 3
+    For node 3:
 
-        ```text
-        wsrep_node_name=pxc3
-        wsrep_node_address=192.168.70.63
-        ```
+    ```text
+    wsrep_node_name=pxc3
+    wsrep_node_address=192.168.70.63
+    ```
 
-6. Set up the traffic encryption settings. Each node of the cluster must use the same SSL certificates stored in `/etc/`.
+6. Configure traffic encryption on every node. Use the same paths on every node.
+
+    These settings match [SSL manual configuration](encrypt-traffic.md#ssl-manual-configuration).
 
     ```text
     [mysqld]
-    wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
+    ssl-ca=/etc/mysql/certs/ca.pem
+    ssl-cert=/etc/mysql/certs/server-cert.pem
+    ssl-key=/etc/mysql/certs/server-key.pem
+    wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
+
     [sst]
     encrypt=4
-    ssl-key=server-key.pem
-    ssl-ca=ca.pem
-    ssl-cert=server-cert.pem
+    ssl-ca=/etc/mysql/certs/ca.pem
+    ssl-cert=/etc/mysql/certs/server-cert.pem
+    ssl-key=/etc/mysql/certs/server-key.pem
     ```
 
 !!! important
 
-    In Percona XtraDB Cluster {{vers}}, the [Encrypting Replication Traffic](encrypt-traffic.md#encrypt-replication-traffic) is
-    enabled by default by the `pxc-encrypt-cluster-traffic` variable.
+    Percona XtraDB Cluster {{vers}} enables [replication traffic encryption](encrypt-traffic.md#encrypt-replication-traffic) with [`pxc_encrypt_cluster_traffic`](wsrep-system-index.md#pxc_encrypt_cluster_traffic).
 
-    The replication traffic encryption cannot be enabled on a running cluster. If
-    it was disabled before the cluster was bootstrapped, the cluster must to
-    stopped. Then set up the encryption, and bootstrap (see [`Bootstrapping the First Node`](bootstrap.md#bootstrap-the-first-node))
-    again.
+    You cannot enable replication traffic encryption on a running cluster. Stop the cluster if `pxc_encrypt_cluster_traffic` is disabled before bootstrap. Configure encryption, then bootstrap the first node again. See [Bootstrap the first node](bootstrap.md#bootstrap-the-first-node).
 
     !!! admonition "See also"
 
@@ -124,24 +119,31 @@ binlog_expire_logs_seconds=604800
 # Path to Galera library
 wsrep_provider=/usr/lib64/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of nodes
-#If no IP is found, this implies that a new cluster needs to be created,
-#in order to do that you need to bootstrap this node
-wsrep_cluster_address=gcomm://
+wsrep_cluster_address=gcomm://192.168.70.61,192.168.70.62,192.168.70.63
 # Slave thread to use
 wsrep_applier_threads=8
 wsrep_log_conflicts
 # This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
 innodb_autoinc_lock_mode=2
 # Node IP address
-#wsrep_node_address=192.168.70.63
+wsrep_node_address=192.168.70.61
 # Cluster name
 wsrep_cluster_name=pxc-cluster
 #If wsrep_node_name is not specified,  then system hostname will be used
 wsrep_node_name=pxc-cluster-node-1
 #pxc_strict_mode allowed values: DISABLED,PERMISSIVE,ENFORCING,MASTER
 pxc_strict_mode=ENFORCING
+ssl-ca=/etc/mysql/certs/ca.pem
+ssl-cert=/etc/mysql/certs/server-cert.pem
+ssl-key=/etc/mysql/certs/server-key.pem
+wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
 # SST method
 wsrep_sst_method=xtrabackup-v2
+[sst]
+encrypt=4
+ssl-ca=/etc/mysql/certs/ca.pem
+ssl-cert=/etc/mysql/certs/server-cert.pem
+ssl-key=/etc/mysql/certs/server-key.pem
 ```
 
 ## Next Steps: Bootstrap the first node
@@ -191,7 +193,7 @@ Specify the IP address of this particular node.
 [`wsrep_sst_method`](wsrep-system-index.md#wsrep_sst_method)
 
 By default, Percona XtraDB Cluster uses Percona [XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst). `xtrabackup-v2` is the only supported option for this variable.
-This method requires a user for SST to be set up on the initial node.
+Percona XtraDB Cluster creates [`mysql.pxc.internal.session`](glossary.md#mysqlpxcinternalsession) for SST. During SST, that account creates `mysql.pxc.sst.user` on the donor and assigns [`mysql.pxc.sst.role`](glossary.md#mysqlpxcsstrole).
 
 [`pxc_strict_mode`](wsrep-system-index.md#pxc_strict_mode)
 

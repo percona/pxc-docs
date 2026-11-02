@@ -17,6 +17,7 @@
   - [Encrypt PXC traffic](encrypt-traffic.md)
   - [Frequently asked questions](faq.md)
   - [GCache encryption and Write-Set cache encryption](gcache-write-set-cache-encryption.md)
+  - [Generate SSL certificates for the cluster](generate-certificates.md)
   - [Get help from Percona](get-help.md)
   - [Get started with Percona XtraDB Cluster](get-started-cluster.md)
   - [Glossary](glossary.md)
