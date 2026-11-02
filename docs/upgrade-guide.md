@@ -5,6 +5,8 @@
 
 This guide describes how to upgrade Percona XtraDB Cluster (PXC) to version 9.7 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 9.7 require version 8.4 or later. Upgrade to the latest 8.4 release before upgrading to 9.7.
 
+If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Cluster, use [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](migrate-mysql-galera.md) first. Complete that migration, then return here for any major-version upgrade.
+
 !!! warning
 
     A node with a higher protocol version cannot join a cluster running an older Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption and incompatibilities.
