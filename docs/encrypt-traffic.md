@@ -24,7 +24,7 @@ The following table lists the certificate and key files that PXC uses. All examp
 | --- | --- |
 | `ca.pem` | Certificate Authority (CA) certificate. Verifies signatures on other certificates. |
 | `server-key.pem` and `server-cert.pem` | Server key and certificate. Secure database server activity and encrypt write-set replication traffic. |
-| `client-key.pem` and `client-cert.pem` | Client key and certificate. Required only if the node also acts as a MySQL client, for example during SST with `mysqldump`. |
+| `client-key.pem` and `client-cert.pem` | Optional. Used only when this node connects to another MySQL server as a client that must present a client certificate, for example as a replica with `SOURCE_SSL_CERT` and `SOURCE_SSL_KEY`, to a source that enforces `REQUIRE X509`. Also used for clone SST connections, if configured. Not used by xtrabackup-v2 SST. |
 
 During initialization, MySQL generates a default set of key and certificate files in the data directory, for example `/var/lib/mysql`. These default files work for evaluation.
 
@@ -91,7 +91,7 @@ This variable has two properties:
 
 When enabled, `pxc_encrypt_cluster_traffic` applies the `encrypt`, `ssl-key`, `ssl-cert`, and `ssl-ca` settings automatically, using the files listed in [File and path reference](#file-and-path-reference).
 
-To set this explicitly:
+The following configuration shows what `pxc_encrypt_cluster_traffic=ON` means:
 
 ```ini
 [mysqld]
@@ -151,8 +151,6 @@ Manual encryption settings are static. A change requires a full cluster restart.
 
 SST copies a full, consistent dataset from an existing node, the donor, to a new node, the joiner.
 
-PXC 8.4 supports two SST methods: `xtrabackup-v2` and `clone`. Set `wsrep_sst_method` in the configuration file before you start the node; PXC does not allow this variable to change while the node is running.
-
 This page covers encryption for the xtrabackup-v2 method. For the clone method, see [State Snapshot Transfer (SST) Method using Clone plugin](clone-sst.md).
 
 The `encrypt` option controls SST encryption:
@@ -201,7 +199,7 @@ For the full setup procedure, see the following pages in the Percona Server for 
 
 * [Get started with component keyring](https://docs.percona.com/percona-server/8.4/quickstart-component-keyring.html)
 
-Every node must use identical keyring configuration. A mismatch prevents the cluster from operating correctly.
+Percona recommends the same keyring setup on every node. Nodes can use different keyring components, for example `component_keyring_file` on one node and `component_keyring_vault` on another.
 
 !!! note "PXC does not replicate the keyring file"
 
