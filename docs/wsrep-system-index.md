@@ -1298,10 +1298,22 @@ then the joining node will consider *only* `node1` and `node2`.
 | Command Line:  | ``--wsrep-sst-method`` |
 | Config File:   | Yes                |
 | Scope:         | Global            |
-| Dynamic:       | Yes                 |
+| Dynamic:       | No                  |
 | Default Value: | xtrabackup-v2 |
 
 Defines the method or script for [State Snapshot Transfer](state-snapshot-transfer.md#state-snapshot-transfer) (SST).
+
+`wsrep_sst_method` is a read-only variable. Set `wsrep_sst_method` in the configuration file before the server starts. Running the following command returns an error:
+
+```sql
+set global wsrep_sst_method='clone';
+```
+
+??? example "Expected result"
+
+    ```{.text .no-copy}
+    ERROR 1238 (HY000): Variable 'wsrep_sst_method' is a read only variable
+    ```
 
 Available values are:
 
