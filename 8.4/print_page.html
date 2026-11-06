@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
     
 
   <!-- Google Consent Mode v2 defaults (must run before gtag and Osano) -->
@@ -54,10 +54,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -6375,12 +6375,12 @@ substitution is needed in statements, we use <code>&lt;version-number&gt;</code>
 </thead>
 <tbody>
 <tr>
-<td>Percona-XtraDB-Cluster_<version-number>-Linux.x86_64.glibc2.17.tar.gz</td>
+<td>Percona-XtraDB-Cluster_&lt;version-number&gt;-Linux.x86_64.glibc2.17.tar.gz</td>
 <td>Full</td>
 <td>Contains binary files, libraries, test files, and debug symbols</td>
 </tr>
 <tr>
-<td>Percona-XtraDB-Cluster_<version-number>-Linux.x86_64.glibc2.17.minimal.tar.gz</td>
+<td>Percona-XtraDB-Cluster_&lt;version-number&gt;-Linux.x86_64.glibc2.17.minimal.tar.gz</td>
 <td>Minimal</td>
 <td>Contains binary files and libraries but does not include test files, or debug symbols</td>
 </tr>
@@ -6388,15 +6388,16 @@ substitution is needed in statements, we use <code>&lt;version-number&gt;</code>
 </table>
 <p>Check your system to make sure the packages that the PXC
 version requires are installed.</p>
-<h3 id="tarball-for-debian-or-ubuntu">For Debian or Ubuntu:<a class="headerlink" href="#tarball-for-debian-or-ubuntu" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-socat<span class="w"> </span>libdbd-mysql-perl<span class="w"> </span><span class="se">\</span>
-libaio1<span class="w"> </span>libc6<span class="w"> </span>libcurl3<span class="w"> </span>libev4<span class="w"> </span>libgcc1<span class="w"> </span>libgcrypt20<span class="w"> </span><span class="se">\</span>
-libgpg-error0<span class="w"> </span>libssl1.1<span class="w"> </span>libstdc++6<span class="w"> </span>zlib1g<span class="w"> </span>libatomic1
-</code></pre></div>
-<h3 id="tarball-for-red-hat-enterprise-linux">For Red Hat Enterprise Linux:<a class="headerlink" href="#tarball-for-red-hat-enterprise-linux" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>socat<span class="w">  </span><span class="se">\</span>
-procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>procps-ng<span class="w"> </span>coreutils<span class="w"> </span>shadow-utils<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Debian 12, Ubuntu 22.04</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>socat<span class="w"> </span>libdbd-mysql-perl<span class="w"> </span>libaio1<span class="w"> </span>libc6<span class="w"> </span>libcurl4<span class="w"> </span>libev4<span class="w"> </span><span class="se">\</span>
+libgcc-s1<span class="w"> </span>libgcrypt20<span class="w"> </span>libgpg-error0<span class="w"> </span>libssl3<span class="w"> </span>libstdc++6<span class="w"> </span>zlib1g<span class="w"> </span>libatomic1
+
+<span class="c1"># Debian 13, Ubuntu 24.04, Ubuntu 26.04</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>socat<span class="w"> </span>libdbd-mysql-perl<span class="w"> </span>libaio1t64<span class="w"> </span>libc6<span class="w"> </span>libcurl4t64<span class="w"> </span>libev4t64<span class="w"> </span><span class="se">\</span>
+libgcc-s1<span class="w"> </span>libgcrypt20<span class="w"> </span>libgpg-error0<span class="w"> </span>libssl3t64<span class="w"> </span>libstdc++6<span class="w"> </span>zlib1g<span class="w"> </span>libatomic1
+
+<span class="c1"># Red Hat Enterprise Linux 8, 9, 10</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>socat<span class="w"> </span>procps-ng<span class="w"> </span>chkconfig<span class="w"> </span>coreutils<span class="w"> </span>shadow-utils
 </code></pre></div></section><section class="print-page" id="compile" heading-number="7.6"><h1 id="compile-compile-and-install-from-source-code">Compile and install from source code<a class="headerlink" href="#compile-compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
 <p>For routine deployments, install from <a href="#tarball">official packages or a binary tarball</a>. Compile here only when you package PXC yourself, maintain local patches, or develop the server.</p>
 <p>Clone <a href="https://github.com/percona/percona-xtradb-cluster">GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and add every package from the table.</p>
@@ -15972,7 +15973,7 @@ It won&rsquo;t kill the threads immediately, but it will stop them after they ar
 <p>If any replication consistency problems are encountered,
 it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
-<p>You may want to increase it as suggested in [<code>odership documentation for flow control :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster): when the node is in</code>JOINED<code>state, increasing the number of replica threads can speed up the catchup to</code>SYNCED``.</p>
+<p>You may want to increase it as suggested in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster">`Codership documentation for flow control <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
 <p>You can also estimate the optimal value for this from <a href="#wsrep-status-index-wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster">in the MariaDB Galera Cluster documentation</a>.</p>
 <p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads"><code>Setting Parallel Slave Threads</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition admonition">
@@ -22071,11 +22072,11 @@ manually when upgrading your system from an older version.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-xtradb-cluster/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "/percona-xtradb-cluster/8.4", "features": ["search.highlight", "search.share", "search.suggest", "navigation.top", "navigation.tracking", "navigation.instant.progress", "content.tooltips", "content.tabs.link", "content.action.view", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
    
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
