@@ -29,7 +29,7 @@
       
       
       <link rel="icon" href="assets/mysql-fav.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -479,6 +479,8 @@
       
         
       
+        
+      
     
     
     
@@ -534,6 +536,34 @@
     
   
     Release notes index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="release-notes/9.7.2-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Percona XtraDB Cluster 9.7.2-3 (2026-11-12)
   
 
     
@@ -3662,7 +3692,7 @@ It won&rsquo;t kill the threads immediately, but it will stop them after they ar
 <p>If any replication consistency problems are encountered,
 it&rsquo;s recommended to set this back to <code>1</code> to see if that resolves the issue.
 The default value can be increased for better throughput.</p>
-<p>You may want to increase it as suggested in [<code>odership documentation for flow control :octicons-link-external-16:](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster): when the node is in</code>JOINED<code>state, increasing the number of replica threads can speed up the catchup to</code>SYNCED``.</p>
+<p>You may want to increase it as suggested in <a href="https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster">`Codership documentation for flow control <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>: when the node is in <code>JOINED</code> state, increasing the number of replica threads can speed up the catchup to <code>SYNCED</code>.</p>
 <p>You can also estimate the optimal value for this from <a href="wsrep-status-index.html#wsrep_cert_deps_distance"><code>wsrep_cert_deps_distance</code></a> as suggested <a href="https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster">in the MariaDB Galera Cluster documentation</a>.</p>
 <p>For more configuration tips, see <a href="https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads"><code>Setting Parallel Slave Threads</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <div class="admonition admonition">
@@ -5946,7 +5976,7 @@ Query OK, 131072 rows affected (15.09 sec)
     
     
  
-      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="js/print-site.js"></script>
       
