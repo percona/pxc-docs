@@ -204,6 +204,7 @@ nav:
       - compile.md
       - docker.md
       - docker-compose.md
+      - generate-certificates.md
       - configure-nodes.md
       - bootstrap.md
       - add-node.md

@@ -3,6 +3,10 @@
 After you [configure all PXC nodes](configure-nodes.md#configure-nodes-for-write-set-replication), initialize the cluster by
 bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.
 
+Create the SSL certificates before you bootstrap the first node.
+
+Use the certificate procedure in [Generate SSL certificates for the cluster](generate-certificates.md#generate-ssl-certificates-for-the-cluster).
+
 Start the first node without any known cluster
 addresses: if the `wsrep_cluster_address` variable is empty, Percona XtraDB Cluster treats the node as the first node and initializes the cluster.
 
@@ -58,26 +62,6 @@ The output confirms that the first node initialized the cluster:
 * Node state: Synced
 
 * Connection status: fully connected and ready for write-set replication
-
-## Generate and copy SSL certificates
- 
-Generate the SSL certificates on this node before you add other nodes to the cluster. Use identical key and certificate files on every node. Store the certificates in `/etc/`, outside the data directory.
- 
-1. Generate the SSL certificates, `[root@pxc1 ~]#`:
-
-    ```shell
-      openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
-      -x509 -days 365 -out /etc/server-cert.pem
-    ```
- 
-2. Copy the certificates to the nodes you plan to add. For example:
-
-    ```shell
-      scp /etc/server-key.pem pxc2:/etc/
-      scp /etc/server-cert.pem pxc2:/etc/
-      scp /etc/server-key.pem pxc3:/etc/
-      scp /etc/server-cert.pem pxc3:/etc/
-    ```
 
 ## Next steps
 
