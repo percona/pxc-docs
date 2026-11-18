@@ -12,10 +12,10 @@ Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-h
 
 The version number in the tarball name must be substituted with the appropriate version number for your system. To indicate that such a substitution is needed in statements, we use `<version-number>`.
 
-| Name                                                           | Type    | Description                                                                           |
-| -------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------- |
-| Percona-XtraDB-Cluster\_-Linux.x86_64.glibc2.17.tar.gz         | Full    | Contains binary files, libraries, test files, and debug symbols                       |
-| Percona-XtraDB-Cluster\_-Linux.x86_64.glibc2.17.minimal.tar.gz | Minimal | Contains binary files and libraries but does not include test files, or debug symbols |
+| Name                                                                            | Type    | Description                                                                           |
+| ------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------- |
+| `Percona-XtraDB-Cluster_<version-number>-Linux.x86_64.glibc2.17.tar.gz`         | Full    | Contains binary files, libraries, test files, and debug symbols                       |
+| `Percona-XtraDB-Cluster_<version-number>-Linux.x86_64.glibc2.17.minimal.tar.gz` | Minimal | Contains binary files and libraries but does not include test files, or debug symbols |
 
 Check your system to make sure the packages that the PXC version requires are installed.
 
