@@ -139,7 +139,7 @@ Strict Mode runs validations at startup and during runtime.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3480,7 +3480,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-xtradb-cluster-strict-mode">Percona XtraDB Cluster strict mode<a class="headerlink" href="#percona-xtradb-cluster-strict-mode" title="Permanent link">&para;</a></h1>
+<h1 id="percona-xtradb-cluster-strict-mode">Percona XtraDB Cluster strict mode<a data-markdown-ignore class="headerlink" href="#percona-xtradb-cluster-strict-mode" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) Strict Mode blocks tech preview and unsupported features in PXC.
 Strict Mode runs validations at startup and during runtime.</p>
 <p>When a validation fails, the server takes one of the following actions:</p>
@@ -3529,7 +3529,7 @@ Alternatively, pass <code>--pxc-strict-mode</code> to <code>mysqld</code> at sta
 <p>All nodes in the cluster must run with the same configuration to maintain data consistency.
 The configuration includes <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a>.</p>
 </div>
-<h2 id="validations">Validations<a class="headerlink" href="#validations" title="Permanent link">&para;</a></h2>
+<h2 id="validations">Validations<a data-markdown-ignore class="headerlink" href="#validations" title="Permanent link">&para;</a></h2>
 <p>PXC Strict Mode validations enforce a stable configuration for common cluster deployments.
 The validations block tech preview features and operations that Percona XtraDB Cluster does not support.</p>
 <div class="admonition warning">
@@ -3539,7 +3539,7 @@ The destination nodes do not revalidate the operation, even when their <a href="
 Set <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> to <code>ENFORCING</code> on every writer node to prevent unsupported operations from replicating.</p>
 </div>
 <p>This section describes the purpose and consequences of each validation.</p>
-<h3 id="group-replication">Group replication<a class="headerlink" href="#group-replication" title="Permanent link">&para;</a></h3>
+<h3 id="group-replication">Group replication<a data-markdown-ignore class="headerlink" href="#group-replication" title="Permanent link">&para;</a></h3>
 <!-- TODO:
 
 Provide steps for migrating from group replication
@@ -3568,7 +3568,7 @@ With <code>pxc_strict_mode</code> set to <code>PERMISSIVE</code>, the server log
 make sure that group replication is turned off once all data is migrated to PXC.
 </code></pre></div>
 </details>
-<h3 id="storage-engine">Storage engine<a class="headerlink" href="#storage-engine" title="Permanent link">&para;</a></h3>
+<h3 id="storage-engine">Storage engine<a data-markdown-ignore class="headerlink" href="#storage-engine" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster supports replication only for tables that use a transactional storage engine such as XtraDB or InnoDB.
 The following statements compromise data consistency on tables that use a non-transactional storage engine such as MyISAM, MEMORY, or CSV:</p>
 <ul>
@@ -3613,7 +3613,7 @@ The following statements compromise data consistency on tables that use a non-tr
 <p class="admonition-title">Note</p>
 <p>Convert unsupported tables to a supported storage engine.</p>
 </div>
-<h3 id="myisam-replication">MyISAM replication<a class="headerlink" href="#myisam-replication" title="Permanent link">&para;</a></h3>
+<h3 id="myisam-replication">MyISAM replication<a data-markdown-ignore class="headerlink" href="#myisam-replication" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster replicates tables that use the MyISAM storage engine.
 MyISAM is non-transactional, so the storage engine receives only partial support in Percona XtraDB Cluster.
 Use MyISAM in a cluster at your own risk.</p>
@@ -3653,7 +3653,7 @@ Leave MyISAM replication disabled to maintain data consistency.</p>
 This validation only checks whether replication is allowed.
 The Storage engine validation restricts undesirable operations on MyISAM tables.</p>
 </div>
-<h3 id="primary-key-requirement">Primary key requirement<a class="headerlink" href="#primary-key-requirement" title="Permanent link">&para;</a></h3>
+<h3 id="primary-key-requirement">Primary key requirement<a data-markdown-ignore class="headerlink" href="#primary-key-requirement" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster requires every replicated table to have an explicit primary key.
 A missing primary key prevents write-set replication from guaranteeing identical row order across nodes.
 The <code>DELETE</code> statement also fails on tables without a primary key.
@@ -3721,7 +3721,7 @@ Events that originated on a non-strict source continue to apply on a strict-mode
 The events apply even when the source had <code>sql_require_primary_key</code> set to <code>OFF</code>.
 Use <a href="wsrep-system-index.html#wsrep_certify_nonpk"><code>wsrep_certify_nonPK</code></a> only as a fallback for existing tables without a primary key.</p>
 </div>
-<h3 id="log-output">Log output<a class="headerlink" href="#log-output" title="Permanent link">&para;</a></h3>
+<h3 id="log-output">Log output<a data-markdown-ignore class="headerlink" href="#log-output" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster does not support log output to tables in the <code>mysql</code> system database.
 The server writes log entries to file by default.
 This validation checks the value of the <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_log_output"><code>log_output</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> variable.</p>
@@ -3752,7 +3752,7 @@ This validation checks the value of the <a href="https://dev.mysql.com/doc/refma
 </tr>
 </tbody>
 </table>
-<h3 id="explicit-table-locking">Explicit table locking<a class="headerlink" href="#explicit-table-locking" title="Permanent link">&para;</a></h3>
+<h3 id="explicit-table-locking">Explicit table locking<a data-markdown-ignore class="headerlink" href="#explicit-table-locking" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster supports explicit table locking only at the tech preview level.
 This validation covers the following operations that trigger explicit table locking:</p>
 <ul>
@@ -3796,7 +3796,7 @@ This validation covers the following operations that trigger explicit table lock
 </tr>
 </tbody>
 </table>
-<h3 id="auto-increment-lock-mode">Auto-increment lock mode<a class="headerlink" href="#auto-increment-lock-mode" title="Permanent link">&para;</a></h3>
+<h3 id="auto-increment-lock-mode">Auto-increment lock mode<a data-markdown-ignore class="headerlink" href="#auto-increment-lock-mode" title="Permanent link">&para;</a></h3>
 <p>The auto-increment lock mode must be <code>interleaved</code> so each node generates a unique but non-sequential identifier.</p>
 <p>This validation checks the value of the <a href="https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> variable.
 The default value is <code>1</code> for consecutive lock mode.
@@ -3828,7 +3828,7 @@ Set the value to <code>2</code> for interleaved lock mode.</p>
 <p class="admonition-title">Note</p>
 <p>The <code>innodb_autoinc_lock_mode</code> variable cannot change at runtime, so the validation runs only at startup.</p>
 </div>
-<h3 id="combine-schema-and-data-changes-in-a-single-statement">Combine schema and data changes in a single statement<a class="headerlink" href="#combine-schema-and-data-changes-in-a-single-statement" title="Permanent link">&para;</a></h3>
+<h3 id="combine-schema-and-data-changes-in-a-single-statement">Combine schema and data changes in a single statement<a data-markdown-ignore class="headerlink" href="#combine-schema-and-data-changes-in-a-single-statement" title="Permanent link">&para;</a></h3>
 <p><code>CREATE TABLE ... AS SELECT</code> (CTAS) statements combine schema and data changes in a single operation.
 With strict mode set to <code>ENFORCING</code>, Percona XtraDB Cluster rejects CTAS statements.
 Every replication node must contain the tables referenced in the <code>SELECT</code> clause.</p>
@@ -3880,7 +3880,7 @@ A CTAS statement on <code>node-1</code> uses the temporary table.
 The same CTAS statement on <code>node-2</code> uses the non-temporary table.
 The mismatch produces data-level inconsistency.</p>
 </div>
-<h3 id="discard-and-import-tablespaces">Discard and import tablespaces<a class="headerlink" href="#discard-and-import-tablespaces" title="Permanent link">&para;</a></h3>
+<h3 id="discard-and-import-tablespaces">Discard and import tablespaces<a data-markdown-ignore class="headerlink" href="#discard-and-import-tablespaces" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster does not replicate <code>DISCARD TABLESPACE</code> or <code>IMPORT TABLESPACE</code> through Total Order Isolation (TOI).
 Running either statement on a single node produces data inconsistency across the cluster.</p>
 <p>The following table summarizes startup and runtime behavior by mode:</p>
@@ -3910,7 +3910,7 @@ Running either statement on a single node produces data inconsistency across the
 </tr>
 </tbody>
 </table>
-<h3 id="major-version-check">Major version check<a class="headerlink" href="#major-version-check" title="Permanent link">&para;</a></h3>
+<h3 id="major-version-check">Major version check<a data-markdown-ignore class="headerlink" href="#major-version-check" title="Permanent link">&para;</a></h3>
 <p>This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.</p>
 <details class="example">
 <summary>Expected output</summary>

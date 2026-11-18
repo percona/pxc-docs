@@ -1,0 +1,1238 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt).
+
+# Index of wsrep system variables
+
+Percona XtraDB Cluster introduces a number of MySQL system variables related to write-set replication.
+
+### `pxc_encrypt_cluster_traffic`
+
+| Option         | Description                     |
+| -------------- | ------------------------------- |
+| Command Line:  | `--pxc-encrypt-cluster-traffic` |
+| Config File:   | Yes                             |
+| Scope:         | Global                          |
+| Dynamic:       | No                              |
+| Default Value: | `ON`                            |
+
+Enables automatic configuration of SSL encryption. When disabled, you need to configure SSL manually to encrypt Percona XtraDB Cluster traffic.
+
+Possible values:
+
+- `ON`, `1`, `true`: Enabled (default)
+- `OFF`, `0`, `false`: Disabled
+
+For more information, see [SSL Automatic Configuration](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.html#ssl-automatic-configuration).
+
+### `pxc_maint_mode`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | `--pxc-maint-mode` |
+| Config File:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | Yes                |
+| Default Value: | `DISABLED`         |
+
+Specifies the maintenance mode for taking a node down without adjusting settings in ProxySQL.
+
+The following values are available:
+
+- `DISABLED`: This is the default state that tells ProxySQL to route traffic to the node as usual.
+- `SHUTDOWN`: This state is set automatically when you initiate node shutdown.
+- `MAINTENANCE`: You can manually change to this state if you need to perform maintenance on a node without shutting it down.
+
+For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.html#assisted-maintenance-mode).
+
+### `pxc_maint_transition_period`
+
+| Option         | Description                     |
+| -------------- | ------------------------------- |
+| Command Line:  | `--pxc-maint-transition-period` |
+| Config File:   | Yes                             |
+| Scope:         | Global                          |
+| Dynamic:       | Yes                             |
+| Default Value: | `10` (ten seconds)              |
+
+Defines the transition period when you change [`pxc_maint_mode`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_maint_mode) to `SHUTDOWN` or `MAINTENANCE`. By default, the period is set to 10 seconds, which should be enough for most transactions to finish. You can increase the value to accommodate longer-running transactions.
+
+For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.html#assisted-maintenance-mode).
+
+### `pxc_strict_mode`
+
+| Option         | Description               |
+| -------------- | ------------------------- |
+| Command Line:  | `--pxc-strict-mode`       |
+| Config File:   | Yes                       |
+| Scope:         | Global                    |
+| Dynamic:       | Yes                       |
+| Default Value: | `ENFORCING` or `DISABLED` |
+
+Controls [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#percona-xtradb-cluster-strict-mode). Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.
+
+When a validation fails, the server takes one of the following actions:
+
+- Throw an error and halt startup or deny the operation.
+- Log a warning and continue running.
+
+The action depends on the selected mode. The following modes are available:
+
+- `DISABLED`: skip strict mode validations and run normally.
+- `PERMISSIVE`: log a warning when a validation fails, then continue running.
+- `ENFORCING`: throw an error on validation failure. Halt the server at startup. Deny the operation at runtime.
+- `MASTER`: behave as `ENFORCING` but skip the [explicit table locking](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#explicit-table-locking) validation. Use this mode with clusters in which write operations are isolated to a single node.
+
+By default, [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_strict_mode) is set to `ENFORCING`. The variable defaults to `DISABLED` when the node acts as a standalone server or during bootstrapping.
+
+Note
+
+When changing `pxc_strict_mode` from `DISABLED` or `PERMISSIVE` to `ENFORCING` or `MASTER`, apply the following configuration:
+
+- `log_output=FILE`, `NONE`, or `FILE,NONE`
+- `wsrep_replicate_myisam=OFF`
+
+The `SERIALIZABLE` isolation level is not allowed in `ENFORCING` mode.
+
+Switching to `ENFORCING` or `MASTER` also sets [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON` when the previous value was `OFF`. Setting `sql_require_primary_key=OFF` is rejected while strict mode remains `ENFORCING` or `MASTER`. Existing sessions retain their session value until each session reconnects or updates the value explicitly. For details, see [Primary key requirement](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#primary-key-requirement).
+
+For more information, see [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#percona-xtradb-cluster-strict-mode).
+
+### `wsrep_applier_FK_checks`
+
+| Option         | Description                 |
+| -------------- | --------------------------- |
+| Command Line:  | `--wsrep-applier-FK-checks` |
+| Config File:   | Yes                         |
+| Scope:         | Global                      |
+| Dynamic:       | Yes                         |
+| Default Value: | `ON`                        |
+
+Defines whether foreign key checking is done for applier threads. This is enabled by default.
+
+See also
+
+[`MySQL wsrep option: wsrep_applier_FK_checks`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_fk_checks)
+
+### `wsrep_applier_threads`
+
+| Option         | Description               |
+| -------------- | ------------------------- |
+| Command Line:  | `--wsrep-applier-threads` |
+| Config File:   | Yes                       |
+| Scope:         | Global                    |
+| Dynamic:       | Yes                       |
+| Default Value: | `1`                       |
+
+Specifies the number of threads that can apply replication transactions in parallel. Galera supports true parallel replication that applies transactions in parallel only when it is safe to do so. This variable is dynamic. You can increase/decrease it at any time.
+
+Note
+
+When you decrease the number of threads, It won’t kill the threads immediately, but it will stop them after they are done applying the current transaction (the effect with an increase is immediate, though).
+
+If any replication consistency problems are encountered, it’s recommended to set this back to `1` to see if that resolves the issue. The default value can be increased for better throughput.
+
+You may want to increase it as suggested in \[\`Codership documentation for flow control\](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster) : when the node is in \`JOINED\` state, increasing the number of replica threads can speed up the catchup to \`SYNCED\`.
+
+You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster).
+
+For more configuration tips, see [`Setting Parallel Slave Threads`](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads) .
+
+See also
+
+[`MySQL wsrep option: wsrep_applier_threads`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_threads)
+
+### `wsrep_applier_UK_checks`
+
+| Option         | Description                 |
+| -------------- | --------------------------- |
+| Command Line:  | `--wsrep-applier-UK-checks` |
+| Config File:   | Yes                         |
+| Scope:         | Global                      |
+| Dynamic:       | Yes                         |
+| Default Value: | `OFF`                       |
+
+Defines whether unique key checking is done for applier threads. This is disabled by default.
+
+See also
+
+[`MySQL wsrep option: wsrep_applier_UK_checks`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_slave_uk_checks)
+
+### `wsrep_auto_increment_control`
+
+| Option         | Description                      |
+| -------------- | -------------------------------- |
+| Command Line:  | `--wsrep-auto-increment-control` |
+| Config File:   | Yes                              |
+| Scope:         | Global                           |
+| Dynamic:       | Yes                              |
+| Default Value: | `ON`                             |
+
+Enables automatic adjustment of auto-increment system variables depending on the size of the cluster:
+
+- `auto_increment_increment` controls the interval between successive `AUTO_INCREMENT` column values
+- `auto_increment_offset` determines the starting point for the `AUTO_INCREMENT` column value
+
+This helps prevent auto-increment replication conflicts across the cluster by giving each node its own range of auto-increment values. It is enabled by default.
+
+Automatic adjustment may not be desirable depending on the application’s use and assumptions of auto-increments. It can be disabled in source-replica clusters.
+
+See also
+
+[`MySQL wsrep option: wsrep_auto_increment_control`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_auto_increment_control)
+
+### `wsrep_certification_rules`
+
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command Line:  | `--wsrep-certification-rules` |
+| Config File:   | Yes                           |
+| Scope:         | Global                        |
+| Dynamic:       | Yes                           |
+| Values:        | STRICT, OPTIMIZED             |
+| Default Value: | STRICT                        |
+
+This variable controls how certification is done in the cluster; it particularly affects how foreign keys are handled.
+
+STRICT Two INSERTs that happen at about the same time on two different nodes in a child table, that inserts different (non-conflicting rows), but both rows point to the same row in the parent table may result in the certification failure.
+
+OPTIMIZED Two INSERTs that happen at about the same time on two different nodes in a child table, that inserts different (non-conflicting rows), but both rows point to the same row in the parent table will not result in the certification failure.
+
+See also
+
+[Galera Cluster Documentation: MySQL wsrep options](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certification_rules)
+
+### `wsrep_certify_nonPK`
+
+| Option         | Description             |
+| -------------- | ----------------------- |
+| Command Line:  | `--wsrep-certify-nonpk` |
+| Config File:   | Yes                     |
+| Scope:         | Global                  |
+| Dynamic:       | No                      |
+| Default Value: | `ON`                    |
+
+Enables automatic generation of primary keys for rows that don’t have them. Write set replication requires primary keys on all tables to allow for the parallel application of transactions. This variable is enabled by default. As a rule, make sure that all tables have primary keys.
+
+See also
+
+[MySQL wsrep option: wsrep_certify_nonPK](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_certify_nonpk)
+
+### `wsrep_cluster_address`
+
+| Option        | Description               |
+| ------------- | ------------------------- |
+| Command Line: | `--wsrep-cluster-address` |
+| Config File:  | Yes                       |
+| Scope:        | Global                    |
+| Dynamic:      | Yes                       |
+
+Defines the back-end schema, IP addresses, ports, and options that the node uses when connecting to the cluster. This variable needs to specify at least one other node’s address, which is alive and a member of the cluster. In practice, it is best (but not necessary) to provide a complete list of all possible cluster nodes. The value should be of the following format:
+
+```
+<schema>://<address>[?<option1>=<value1>[&<option2>=<value2>]],...
+```
+
+The only back-end schema currently supported is `gcomm`. The IP address can contain a port number after a colon. Options are specified after `?` and separated by `&`. You can specify multiple addresses separated by commas.
+
+For example:
+
+```
+wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
+```
+
+If an empty `gcomm://` is provided, the node will bootstrap itself (that is, form a new cluster). It is not recommended to have an empty cluster address in the production config after the cluster has been bootstrapped initially. If you want to bootstrap a new cluster with a node, you should pass the `--wsrep-new-cluster` option when starting.
+
+See also
+
+[MySQL wsrep option: wsrep_cluster_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_address)
+
+### `wsrep_cluster_name`
+
+| Option         | Description            |
+| -------------- | ---------------------- |
+| Command Line:  | `--wsrep-cluster-name` |
+| Config File:   | Yes                    |
+| Scope:         | Global                 |
+| Dynamic:       | No                     |
+| Default Value: | `my_wsrep_cluster`     |
+
+Specifies the cluster’s name, which must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects.
+
+Edit the value in the `my.cnf` in the [galera] section.
+
+```
+[galera]
+    wsrep_cluster_name=simple-cluster
+```
+
+Execute `SHOW VARIABLES` with the LIKE operator to view the variable:
+
+```
+SHOW VARIABLES LIKE 'wsrep_cluster_name';
+```
+
+Expected output
+
+```
++--------------------+----------------+
+| Variable_name      | Value          |
++--------------------+----------------+
+| wsrep_cluster_name | simple-cluster |
++--------------------+----------------+
+```
+
+Note
+
+It should not exceed 32 characters. A node cannot join the cluster if the cluster names do not match. You must re-bootstrap the cluster after a name change.
+
+See also
+
+[MySQL wsrep option: wsrep_cluster_name](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_cluster_name)
+
+### `wsrep_data_home_dir`
+
+| Option         | Description                                                   |
+| -------------- | ------------------------------------------------------------- |
+| Command Line:  | No                                                            |
+| Config File:   | Yes                                                           |
+| Scope:         | Global                                                        |
+| Dynamic:       | No                                                            |
+| Default Value: | `/var/lib/mysql` (or whatever path is specified by `datadir`) |
+
+Specifies the path to the directory where the wsrep provider stores its files (such as `grastate.dat`).
+
+See also
+
+[MySQL wsrep option: wsrep_data_home_dir](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_data_home_dir)
+
+### `wsrep_dbug_option`
+
+| Option        | Description           |
+| ------------- | --------------------- |
+| Command Line: | `--wsrep-dbug-option` |
+| Config File:  | Yes                   |
+| Scope:        | Global                |
+| Dynamic:      | Yes                   |
+
+Defines `DBUG` options to pass to the wsrep provider.
+
+See also
+
+[MySQL wsrep option: wsrep_dbug_option](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dbug_option)
+
+### `wsrep_debug`
+
+| Option         | Description     |
+| -------------- | --------------- |
+| Command Line:  | `--wsrep-debug` |
+| Config File:   | Yes             |
+| Scope:         | Global          |
+| Dynamic:       | Yes             |
+| Default Value: | `NONE`          |
+
+Enables debug level logging for the database server and [`wsrep-lib`](https://github.com/codership/wsrep-lib) - an integration library for WSREP API with additional convenience for transaction processing. By default, `--wsrep-debug` variable is disabled.
+
+This variable can be used when trying to diagnose problems or when submitting a bug.
+
+You can set `wsrep_debug` in the following `my.cnf` groups:
+
+- Under `[mysqld]`, it enables debug logging for `mysqld` and the SST script.
+- Under `[sst]`, it enables debug logging for the SST script only.
+
+This variable may be set to one of the following values:
+
+NONE
+
+No debug-level messages.
+
+SERVER
+
+`wsrep-lib` general debug-level messages and detailed debug-level messages from the *server_state* part are printed out. Galera debug-level logs are printed out.
+
+TRANSACTION
+
+Same as SERVER + wsrep-lib *transaction* part
+
+STREAMING
+
+Same as TRANSACTION + wsrep-lib *streaming* part
+
+CLIENT
+
+Same as STREAMING + wsrep-lib *client_service* part
+
+Note
+
+Do not enable debugging in production environments, because it logs authentication info (that is, passwords).
+
+See also
+
+[MySQL wsrep option: wsrep_debug](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_debug)
+
+### `wsrep_desync`
+
+| Option         | Description |
+| -------------- | ----------- |
+| Command Line:  | No          |
+| Config File:   | Yes         |
+| Scope:         | Global      |
+| Dynamic:       | Yes         |
+| Default Value: | `OFF`       |
+
+Defines whether the node should participate in Flow Control. By default, this variable is disabled, meaning that if the receive queue becomes too big, the node engages in Flow Control: it works through the receive queue until it reaches a more manageable size. For more information, see [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_recv_queue) and [`wsrep_flow_control_interval`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_flow_control_interval).
+
+Enabling this variable will disable Flow Control for the node. It will continue to receive write-sets that it is not able to apply, the receive queue will keep growing, and the node will keep falling behind the cluster indefinitely.
+
+Toggling this back to `OFF` will require an IST or an SST, depending on how long it was desynchronized. This is similar to cluster desynchronization, which occurs during RSU TOI. Because of this, it’s not a good idea to enable `wsrep_desync` for a long period of time or for several nodes at once.
+
+Note
+
+You can also desync a node using the `/\*! WSREP_DESYNC \*/` query comment.
+
+See also
+
+[MySQL wsrep option: wsrep_desync](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_desync)
+
+### `wsrep_dirty_reads`
+
+| Option         | Description           |
+| -------------- | --------------------- |
+| Command Line:  | `--wsrep-dirty-reads` |
+| Config File:   | Yes                   |
+| Scope:         | Session, Global       |
+| Dynamic:       | Yes                   |
+| Default Value: | `OFF`                 |
+
+Defines whether the node accepts read queries when in a non-operational state, that is, when it loses connection to the Primary Component. By default, this variable is disabled, and the node rejects all queries because it cannot tell if the data is correct.
+
+If you enable this variable, the node will permit read queries (`USE`, `SELECT`, `LOCK TABLE`, and `UNLOCK TABLES`), any command that modifies or updates the database on a non-operational node is rejected (including DDL and DML statements, such as `INSERT`, `DELETE`, and `UPDATE`).
+
+To avoid deadlock errors, set the [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sync_wait) variable to `0` if you enable `wsrep_dirty_reads`.
+
+You can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/9.7/en/optimizer-hints.html#optimizer-hints-set-var) .
+
+```
+SELECT @@wsrep_dirty_reads;
+```
+
+Expected output
+
+```
++-----------------------+
+| @@wsrep_dirty_reads   |
++-----------------------+
+| OFF                   |
++-----------------------+
+```
+
+```
+SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
+```
+
+Expected output
+
+```
++-----------------------+
+| @@wsrep_dirty_reads   |
++-----------------------+
+| ON                    |
++-----------------------+
+```
+
+See also
+
+[MySQL wsrep option: wsrep_dirty_reads](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_dirty_reads)
+
+### `wsrep_drupal_282555_workaround`
+
+| Option         | Description                        |
+| -------------- | ---------------------------------- |
+| Command Line:  | `--wsrep-drupal-282555-workaround` |
+| Config File:   | Yes                                |
+| Scope:         | Global                             |
+| Dynamic:       | Yes                                |
+| Default Value: | `OFF`                              |
+
+Enables a workaround for the MySQL InnoDB bug that affects Drupal ([Drupal bug #282555](https://drupal.org/node/282555) and [MySQL bug #41984](https://bugs.mysql.com/bug.php?id=41984) ). In some cases, duplicate key errors would occur when inserting the `DEFAULT` value into an `AUTO_INCREMENT` column.
+
+See also
+
+[MySQL wsrep option: wsrep_drupal_282555_workaround](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_drupal_282555_workaround)
+
+### `wsrep_forced_binlog_format`
+
+| Option         | Description                    |
+| -------------- | ------------------------------ |
+| Command Line:  | `--wsrep-forced-binlog-format` |
+| Config File:   | Yes                            |
+| Scope:         | Global                         |
+| Dynamic:       | Yes                            |
+| Default Value: | `NONE`                         |
+
+Defines a binary log format that will always be effective, regardless of the client session [`binlog_format`](https://dev.mysql.com/doc/refman/9.7/en/binary-log-setting.html) variable value.
+
+Possible values for this variable are:
+
+- `ROW`: Force row-based logging format
+- `STATEMENT`: Force statement-based logging format
+- `MIXED`: Force mixed logging format
+- `NONE`: Do not force the binary log format and use whatever is set by the `binlog_format` variable (default)
+
+See also
+
+[MySQL wsrep option: wsrep_forced_binlog_format](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_forced_binlog_format)
+
+### `wsrep_ignore_apply_errors`
+
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command Line:  | `--wsrep-ignore-apply-errors` |
+| Config File:   | Yes                           |
+| Scope:         | Global                        |
+| Dynamic:       | Yes                           |
+| Default Value: | 0                             |
+
+Defines the rules of wsrep applier behavior on errors. You can change the settings by editing the `my.cnf` file under `[mysqld]` or at runtime.
+
+The variable has the following options:
+
+| Value                                  | Description                                                                                                                                                               |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| WSREP_IGNORE_ERRORS_NONE               | All replication errors are treated as errors and will shutdown the node (default behavior)                                                                                |
+| WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL | DROP DATABASE, DROP TABLE, DROP INDEX, ALTER TABLE are converted to a warning if they result in ER_DB_DROP_EXISTS, ER_BAD_TABLE_ERROR OR ER_CANT_DROP_FIELD_OR_KEY errors |
+| WSREP_IGNORE_ERRORS_ON_RECONCILING_DML | DELETE events are treated as warnings if they failed because the deleted row was not found (ER_KEY_NOT_FOUND)                                                             |
+| WSREP_IGNORE_ERRORS_ON_DDL             | All DDL errors will be treated as a warning                                                                                                                               |
+| WSREP_IGNORE_ERRORS_MAX                | Infers WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML and WSREP_IGNORE_ERRORS_ON_DDL                                                      |
+
+Setting the variable between `0` and `7` has the following behavior:
+
+| Setting | Behavior                                                                                                   |
+| ------- | ---------------------------------------------------------------------------------------------------------- |
+| 0       | WSREP_IGNORE_ERRORS_NONE                                                                                   |
+| 1       | WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL                                                                     |
+| 2       | WSREP_IGNORE_ERRORS_ON_RECONCILING_DML                                                                     |
+| 3       | WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML                             |
+| 4       | WSREP_IGNORE_ERRORS_ON_DDL                                                                                 |
+| 5       | WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL                                         |
+| 6       | WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML                                         |
+| 7       | WSREP_IGNORE_ERRORS_ON_DDL, WSREP_IGNORE_ERRORS_ON_RECONCILING_DML, WSREP_IGNORE_ERRORS_ON_RECONCILING_DDL |
+
+### `wsrep_min_log_verbosity`
+
+| Option         | Description                 |
+| -------------- | --------------------------- |
+| Command Line:  | `--wsrep-min-log-verbosity` |
+| Config File:   | Yes                         |
+| Scope:         | Global                      |
+| Dynamic:       | Yes                         |
+| Default Value: | 3                           |
+
+This variable defines the *minimum* logging verbosity of wsrep/Galera and acts in conjunction with the `log_error_verbosity` variable. The `wsrep_min_log_verbosity` has the same values as `log_error_verbosity`.
+
+The actual log verbosity of wsrep/Galera can be greater than the value of `wsrep_min_log_verbosity` if `log_error_verbosity` is greater than `wsrep_min_log_verbosity`.
+
+A few examples:
+
+| log_error_verbosity | wsrep_min_log_verbosity | MySQL Logs Verbosity        | wsrep Logs Verbosity        |
+| ------------------- | ----------------------- | --------------------------- | --------------------------- |
+| 2                   | 3                       | system error, warning       | system error, warning, info |
+| 1                   | 3                       | system error                | system error, warning, info |
+| 1                   | 2                       | system error                | system error, warning       |
+| 3                   | 1                       | system error, warning, info | system error, warning, info |
+
+Note the case where `log_error_verbosity=3` and `wsrep_min_log_verbosity=1`. The actual log verbosity of wsrep/Galera is *3* (system error, warning, info) because `log_error_verbosity` is greater.
+
+See also
+
+[MySQL Documentation: log_error_verbosity](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_log_error_verbosity)
+
+### `wsrep_load_data_splitting`
+
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command Line:  | `--wsrep-load-data-splitting` |
+| Config File:   | Yes                           |
+| Scope:         | Global                        |
+| Dynamic:       | Yes                           |
+| Default Value: | `ON`                          |
+
+Defines whether the node should split large `LOAD DATA` transactions. This variable is enabled by default, meaning that `LOAD DATA` commands are split into transactions of 10,000 rows or fewer.
+
+If you disable this variable, then huge data loads may prevent the node from completely rolling the operation back in the event of a conflict, and whatever gets committed stays committed.
+
+Note
+
+It doesn’t work as expected with `autocommit=0` when enabled.
+
+See also
+
+[MySQL wsrep option: wsrep_load_data_splitting](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_load_data_splitting)
+
+### `wsrep_log_conflicts`
+
+| Option         | Description             |
+| -------------- | ----------------------- |
+| Command Line:  | `--wsrep-log-conflicts` |
+| Config File:   | Yes                     |
+| Scope:         | Global                  |
+| Dynamic:       | No                      |
+| Default Value: | `OFF`                   |
+
+Defines whether the node should log additional information about conflicts. By default, this variable is disabled and Percona XtraDB Cluster uses standard logging features in MySQL.
+
+If you enable this variable, it will also log the table and the schema where the conflict occurred, as well as the actual values for keys that produced the conflict.
+
+See also
+
+[MySQL wsrep option: wsrep_log_conflicts](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_log_conflicts)
+
+### `wsrep_max_ws_rows`
+
+| Option         | Description           |
+| -------------- | --------------------- |
+| Command Line:  | `--wsrep-max-ws-rows` |
+| Config File:   | Yes                   |
+| Scope:         | Global                |
+| Dynamic:       | Yes                   |
+| Default Value: | `0` (no limit)        |
+
+Defines the maximum number of rows each write-set can contain.
+
+By default, there is no limit for the maximum number of rows in a write-set. The maximum allowed value is `1048576`.
+
+See also
+
+[MySQL wsrep option: wsrep_max_ws_rows](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows)
+
+### `wsrep_max_ws_size`
+
+| Option         | Description           |
+| -------------- | --------------------- |
+| Command Line:  | `--wsrep_max_ws_size` |
+| Config File:   | Yes                   |
+| Scope:         | Global                |
+| Dynamic:       | Yes                   |
+| Default Value: | `2147483647` (2 GB)   |
+
+Defines the maximum write-set size (in bytes). Anything bigger than the specified value will be rejected.
+
+You can set it to any value between `1024` and the default `2147483647`.
+
+See also
+
+[MySQL wsrep option: wsrep_max_ws_size](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size)
+
+### `wsrep_mode`
+
+| Option         | Description    |
+| -------------- | -------------- |
+| Command Line:  | `--wsrep-mode` |
+| Config File:   | Yes            |
+| Scope:         | Global         |
+| Dynamic:       | Yes            |
+| Default Value: |                |
+
+Defines the node behavior according to a specified value. The value is empty or disabled by default.
+
+The available values are:
+
+- `Empty` - does not change the node behavior.
+- `IGNORE_NATIVE_REPLICATION_FILTER_RULES` - changes the `wsrep` behavior to ignore native replication filter rules.
+
+See also
+
+[MySQL wsrep option: wsrep_mode](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_mode)
+
+### `wsrep_node_address`
+
+| Option         | Description                                                          |
+| -------------- | -------------------------------------------------------------------- |
+| Command Line:  | `--wsrep-node-address`                                               |
+| Config File:   | Yes                                                                  |
+| Scope:         | Global                                                               |
+| Dynamic:       | No                                                                   |
+| Default Value: | IP of the first network interface (`eth0`) and default port (`4567`) |
+
+Specifies the network address of the node. By default, this variable is set to the IP address of the first network interface (usually `eth0` or `enp2s0`) and the default port (`4567`).
+
+While the default value should be correct in most cases, there are situations when you need to specify it manually. For example:
+
+- Servers with multiple network interfaces
+- Servers that run multiple nodes
+- Network Address Translation (NAT)
+- Clusters with nodes in more than one region
+- Container deployments, such as Docker
+- Cloud deployments, such as Amazon EC2 (use the global DNS name instead of the local IP address)
+
+The value should be specified in the following format:
+
+```
+<ip_address>[:port]
+```
+
+Note
+
+The value of this variable is also used as the default value for the [`wsrep_sst_receive_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sst_receive_address) variable and the [`ist.recv_addr`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#istrecv_addr) option.
+
+See also
+
+[MySQL wsrep option: wsrep_node_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_address)
+
+### `wsrep_node_incoming_address`
+
+| Option         | Description                     |
+| -------------- | ------------------------------- |
+| Command Line:  | `--wsrep-node-incoming-address` |
+| Config File:   | Yes                             |
+| Scope:         | Global                          |
+| Dynamic:       | No                              |
+| Default Value: | `AUTO`                          |
+
+Specifies the network address from which the node expects client connections. By default, it uses the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_node_address) and port number 3306.
+
+This information is used for the [`wsrep_incoming_addresses`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_incoming_addresses) variable which shows all active cluster nodes.
+
+See also
+
+[MySQL wsrep option: wsrep_node_incoming_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_node_incoming_address)
+
+### `wsrep_node_name`
+
+| Option         | Description          |
+| -------------- | -------------------- |
+| Command Line:  | `--wsrep-node-name`  |
+| Config File:   | Yes                  |
+| Scope:         | Global               |
+| Dynamic:       | Yes                  |
+| Default Value: | The node’s host name |
+
+Defines a unique name for the node. Defaults to the host name.
+
+In many situations, you may use the value of this variable as a means to identify the given node in the cluster, as an alternative to using the node address (the value of the [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_node_address)).
+
+Note
+
+The variable [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sst_donor) is an example where you may only use the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_node_name) and the node address is not permitted.
+
+### `wsrep_notify_cmd`
+
+| Option        | Description          |
+| ------------- | -------------------- |
+| Command Line: | `--wsrep-notify-cmd` |
+| Config File:  | Yes                  |
+| Scope:        | Global               |
+| Dynamic:      | No                   |
+
+Specifies the [notification command](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd) that the node should execute whenever cluster membership or local node status changes. This can be used for alerting or to reconfigure load balancers.
+
+Note
+
+The node will block and wait until the command or script completes and returns before it can proceed. If the script performs any potentially blocking or long-running operations, such as network communication, you should consider initiating such operations in the background and have the script return immediately.
+
+See also
+
+[MySQL wsrep option: wsrep_notify_cmd](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_notify_cmd)
+
+### `wsrep_on`
+
+| Option         | Description |
+| -------------- | ----------- |
+| Command Line:  | No          |
+| Config File:   | No          |
+| Scope:         | Session     |
+| Dynamic:       | Yes         |
+| Default Value: | `ON`        |
+
+Defines if the current session transaction changes for a node are replicated to the cluster.
+
+If set to `OFF` for a session, no transaction changes are replicated in that session. The setting does not cause the node to leave the cluster, and the node communicates with other nodes.
+
+See also
+
+[MySQL wsrep option: wsrep_on](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_on)
+
+### `wsrep_OSU_method`
+
+| Option         | Description          |
+| -------------- | -------------------- |
+| Command Line:  | `--wsrep-OSU-method` |
+| Config File:   | Yes                  |
+| Scope:         | Global, Session      |
+| Dynamic:       | Yes                  |
+| Default Value: | `TOI`                |
+
+Defines the method for Online Schema Upgrade that the node uses to replicate DDL statements.
+
+For information on the available methods, see [Online Schema upgrade](https://docs.percona.com/percona-xtradb-cluster/9.7/online-schema-upgrade.html) and for information on Non-blocking operations, see [NBO](https://docs.percona.com/percona-xtradb-cluster/9.7/nbo.html).
+
+See also
+
+[MySQL wsrep option: wsrep_OSU_method](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_osu_method)
+
+### `wsrep_provider`
+
+| Option        | Description        |
+| ------------- | ------------------ |
+| Command Line: | `--wsrep-provider` |
+| Config File:  | Yes                |
+| Scope:        | Global             |
+| Dynamic:      | No                 |
+
+Specifies the path to the Galera library. This is usually `/usr/lib64/libgalera_smm.so` on *CentOS*/*RHEL* and `/usr/lib/libgalera_smm.so` on *Debian*/*Ubuntu*.
+
+If you do not specify a path or the value is not valid, the node behaves as a standalone instance of MySQL.
+
+See also
+
+[MySQL wsrep option: wsrep_provider](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider)
+
+### `wsrep_provider_options`
+
+| Option        | Description                |
+| ------------- | -------------------------- |
+| Command Line: | `--wsrep-provider-options` |
+| Config File:  | Yes                        |
+| Scope:        | Global                     |
+| Dynamic:      | No                         |
+
+Specifies optional settings for the replication provider documented in [Index of `wsrep_provider` options](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html). These options affect how various situations are handled during replication.
+
+See also
+
+[MySQL wsrep option: wsrep_provider_options](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_provider_options)
+
+### `wsrep_recover`
+
+| Option         | Description       |
+| -------------- | ----------------- |
+| Command Line:  | `--wsrep-recover` |
+| Config File:   | Yes               |
+| Scope:         | Global            |
+| Dynamic:       | No                |
+| Default Value: | `OFF`             |
+| Location:      | mysqld_safe\`     |
+
+Recovers database state after a server exit by parsing GTID from the log. If the GTID is found, it will be assigned as the initial position for the server.
+
+### `wsrep_reject_queries`
+
+| Option         | Description |
+| -------------- | ----------- |
+| Command Line:  | No          |
+| Config File:   | Yes         |
+| Scope:         | Global      |
+| Dynamic:       | Yes         |
+| Default Value: | `NONE`      |
+
+Defines whether the node should reject queries from clients. Rejecting queries can be useful during upgrades, when you want to keep the node up and apply write-sets without accepting queries.
+
+When a query is rejected, the following error is returned:
+
+```
+Error 1047: Unknown command
+```
+
+The following values are available:
+
+- `NONE`: Accept all queries from clients (default)
+- `ALL`: Reject all new queries from clients, but maintain existing client connections
+- `ALL_KILL`: Reject all new queries from clients and kill existing client connections
+
+Note
+
+This variable doesn’t affect Galera replication in any way; only the applications that connect to the database are affected. If you want to desync a node, use [`wsrep_desync`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_desync).
+
+See also
+
+[MySQL wsrep option: wsrep_reject_queries](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_reject_queries)
+
+### `wsrep_replicate_myisam`
+
+| Option         | Description                |
+| -------------- | -------------------------- |
+| Command Line:  | `--wsrep-replicate-myisam` |
+| Config File:   | Yes                        |
+| Scope:         | Session, Global            |
+| Dynamic:       | No                         |
+| Default Value: | `OFF`                      |
+
+Defines whether DML statements for MyISAM tables should be replicated. It is disabled by default because MyISAM replication is still experimental.
+
+On the global level, `wsrep_replicate_myisam` can be set only during startup. On the session level, you can change it during runtime as well.
+
+For older nodes in the cluster, `wsrep_replicate_myisam` should work since the TOI decision (for MyISAM DDL) is done on the origin node. Mixing of non-MyISAM and MyISAM tables in the same DDL statement is not recommended when `wsrep_replicate_myisam` is disabled, since if any table in the list is MyISAM, the whole DDL statement is not put under TOI.
+
+Note
+
+You should keep in mind the following when using MyISAM replication:
+
+- DDL (CREATE/DROP/TRUNCATE) statements on MyISAM will be replicated irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_replicate_myisam) value
+- DML (INSERT/UPDATE/DELETE) statements on MyISAM will be replicated only if[`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_replicate_myisam) is enabled
+- SST will get full transfer irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_replicate_myisam)value (it will get MyISAM tables from donor)
+- Difference in configuration of `pxc-cluster` node on [enforce_storage_engine](https://www.percona.com/doc/percona-server/9.7/enforce-engine.html) front may result in picking up different engine for the same table on different nodes
+- `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to ON.
+
+### `wsrep_restart_replica`
+
+| Option         | Description               |
+| -------------- | ------------------------- |
+| Command Line:  | `--wsrep-restart-replica` |
+| Config File:   | Yes                       |
+| Scope:         | Global                    |
+| Dynamic:       | Yes                       |
+| Default Value: | `OFF`                     |
+
+Defines whether the replication replica should be restarted when the node joins the cluster. Enabling this can be useful because the asynchronous replication replica thread is stopped when the node tries to apply the next replication event while the node is in a non-primary state.
+
+See also
+
+[MySQL wsrep option: wsrep_restart_slave](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables?ask=#wsrep_restart_slave)
+
+### `wsrep_retry_autocommit`
+
+| Option         | Description                |
+| -------------- | -------------------------- |
+| Command Line:  | `--wsrep-retry-autocommit` |
+| Config File:   | Yes                        |
+| Scope:         | Session                    |
+| Dynamic:       | Yes                        |
+| Default Value: | `1`                        |
+
+Specifies the number of times autocommit transactions will be retried in the cluster, if it encounters certification errors. In case there is a conflict, it should be safe for the cluster node to simply retry the statement without returning an error to the client, hoping that it will pass next time.
+
+This can be useful to help an application using autocommit to avoid deadlock errors that can be triggered by replication conflicts.
+
+If this variable is set to `0`, autocommit transactions won’t be retried.
+
+See also
+
+[MySQL wsrep option: wsrep_retry_autocommit](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_retry_autocommit)
+
+### `wsrep_RSU_commit_timeout`
+
+| Option         | Description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| Command Line:  | `--wsrep-RSU-commit-timeout`                                |
+| Config File:   | Yes                                                         |
+| Scope:         | Global                                                      |
+| Dynamic:       | Yes                                                         |
+| Default Value: | `5000`                                                      |
+| Range:         | From `5000` (5 milliseconds) to `31536000000000` (365 days) |
+
+Specifies the timeout in microseconds to allow the active connection to complete COMMIT action before starting RSU.
+
+While running RSU, it is expected that the user has isolated the node and there is no active traffic executing on the node. RSU has a check to ensure this, and waits for any active connection in `COMMIT` state before starting RSU.
+
+By default, this check has a timeout of 5 milliseconds, but in some cases COMMIT is taking longer. This variable sets the timeout, and has allowed values from the range of (5 milliseconds, 365 days). The value is to be set in microseconds. Unit of variable is in microseconds, so set accordingly.
+
+Note
+
+RSU operation will not auto-stop the node from receiving active traffic. So there could be a continuous flow of active traffic while RSU continues to wait, and that can result in RSU starvation. User is expected to block active RSU traffic while performing the operation.
+
+### `wsrep_SR_store`
+
+| Option         | Description        |
+| -------------- | ------------------ |
+| Command Line:  | `--wsrep-sr-store` |
+| Config File:   | Yes                |
+| Scope:         | Global             |
+| Dynamic:       | No                 |
+| Default Value: | `table`            |
+
+Defines storage for streaming replication fragments. The available values are `table`, the default value, and `none`, which disables the variable.
+
+### `wsrep_sst_allowed_methods`
+
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command Line:  | `--wsrep_sst_allowed_methods` |
+| Config File:   | Yes                           |
+| Scope:         | Global                        |
+| Dynamic:       | No                            |
+| Default Value: | `xtrabackup-v2, clone`        |
+
+This variable limits SST methods accepted by the server for [wsrep_sst_method](#wsrep_sst_method) variable. The default value is `xtrabackup-v2` or `clone`.
+
+### `wsrep_sst_donor`
+
+| Option        | Description |
+| ------------- | ----------- |
+| Command Line: | Yes         |
+| Config File:  | Yes         |
+| Scope:        | Global      |
+| Dynamic:      | Yes         |
+
+Specifies a list of nodes (using their `wsrep_node_name` values) that the current node should prefer as donors for [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst) and [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist).
+
+Warning
+
+Using IP addresses of nodes instead of node names (the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_node_name)) as values of [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sst_donor) results in an error.
+
+```
+ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
+to host). Most likely it is due to inability to communicate with the
+cluster primary component. Restart required.
+```
+
+If the value is empty, the first node in SYNCED state in the index becomes the donor and will not be able to serve requests during the state transfer.
+
+To consider other nodes if the listed nodes are not available, add a comma at the end of the list, for example:
+
+```
+wsrep_sst_donor=node1,node2,
+```
+
+If you remove the trailing comma from the previous example, then the joining node will consider *only* `node1` and `node2`.
+
+Note
+
+By default, the joiner node does not wait for more than 100 seconds to receive the first packet from a donor. This is implemented via the [`sst-initial-timeout`](https://docs.percona.com/percona-xtradb-cluster/9.7/xtrabackup-sst.html#sst-initial-timeout) option. If you set the list of preferred donors without the trailing comma or believe that all nodes in the cluster can often be unavailable for SST (this is common for small clusters), then you may want to increase the initial timeout (or disable it completely if you don’t mind the joiner node waiting for the state transfer indefinitely).
+
+See also
+
+[MySQL wsrep option: wsrep_sst_donor](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_donor)
+
+### `wsrep_sst_method`
+
+| Option         | Description          |
+| -------------- | -------------------- |
+| Command Line:  | `--wsrep-sst-method` |
+| Config File:   | Yes                  |
+| Scope:         | Global               |
+| Dynamic:       | Yes                  |
+| Default Value: | xtrabackup-v2        |
+
+Defines the method or script for [State Snapshot Transfer](https://docs.percona.com/percona-xtradb-cluster/9.7/state-snapshot-transfer.html#state-snapshot-transfer) (SST).
+
+Available values are:
+
+- `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default. Privileges and permissions for running Percona XtraBackup can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/9.7/privileges.html) . For more information, see [Percona XtraBackup SST Configuration](https://docs.percona.com/percona-xtradb-cluster/9.7/xtrabackup-sst.html#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+- `clone`: Uses the [clone method for SST](https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.html).
+- `ist_only`: This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node’s start. This action leaves the data directory unchanged. This value prevents starting a node that does not have a `grastate.dat` file after a manual backup restoration. This missing file could initiate a full-state transfer (SST), which can be more time- and resource-intensive.
+
+See also
+
+[MySQL wsrep option: wsrep_sst_method](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_method)
+
+### `wsrep_sst_receive_address`
+
+| Option         | Description                   |
+| -------------- | ----------------------------- |
+| Command Line:  | `--wsrep-sst-receive-address` |
+| Config File:   | Yes                           |
+| Scope:         | Global                        |
+| Dynamic:       | Yes                           |
+| Default Value: | `AUTO`                        |
+
+Specifies the network address where the donor node should send state transfers. By default, this variable is set to `AUTO`, meaning that the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_node_address) is used.
+
+See also
+
+[MySQL wsrep option: wsrep_sst_receive_address](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_sst_receive_address)
+
+### `wsrep_start_position`
+
+| Option         | Description                                 |
+| -------------- | ------------------------------------------- |
+| Command Line:  | `--wsrep-start-position`                    |
+| Config File:   | Yes                                         |
+| Scope:         | Global                                      |
+| Dynamic:       | Yes                                         |
+| Default Value: | `00000000-0000-0000-0000-00000000000000:-1` |
+
+Specifies the node’s start position as `UUID:seqno`. By setting all the nodes to have the same value for this variable, the cluster can be set up without the state transfer.
+
+See also
+
+[MySQL wsrep option: wsrep_start_position](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_start_position)
+
+### `wsrep_sync_wait`
+
+| Option         | Description         |
+| -------------- | ------------------- |
+| Command Line:  | `--wsrep-sync-wait` |
+| Config File:   | Yes                 |
+| Scope:         | Session, Global     |
+| Dynamic:       | Yes                 |
+| Default Value: | `0`                 |
+
+Controls cluster-wide causality checks on certain statements. Checks ensure that the statement is executed on a node that is fully synced with the cluster.
+
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/9.7/en/optimizer-hints.html#optimizer-hints-set-var) .
+
+```
+SELECT @@wsrep_sync_wait;
+```
+
+Expected output
+
+```
++---------------------+
+| @@wsrep_sync_wait   |
++---------------------+
+| 3                   |
++---------------------+
+```
+
+```
+SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
+```
+
+Expected output
+
+```
++---------------------+
+| @@wsrep_sync_wait   |
++---------------------+
+| 7                   |
++---------------------+
+```
+
+Note
+
+Causality checks of any type can result in increased latency.
+
+The type of statements to undergo checks is determined by bitmask:
+
+- `0`: Do not run causality checks for any statements. This is the default.
+- `1`: Perform checks for `READ` statements (including `SELECT`, `SHOW`, and `BEGIN` or `START TRANSACTION`).
+- `2`: Perform checks for `UPDATE` and `DELETE` statements.
+- `3`: Perform checks for `READ`, `UPDATE`, and `DELETE` statements.
+- `4`: Perform checks for `INSERT` and `REPLACE` statements.
+- `5`: Perform checks for `READ`, `INSERT`, and `REPLACE` statements.
+- `6`: Perform checks for `UPDATE`, `DELETE`, `INSERT`, and `REPLACE` statements.
+- `7`: Perform checks for `READ`, `UPDATE`, `DELETE`, `INSERT`, and `REPLACE` statements.
+
+Note
+
+Setting [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sync_wait) to `1` is the equivalent of setting the deprecated [`wsrep_causal_reads`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_causal_reads) to `ON`.
+
+See also
+
+[MySQL wsrep option: wsrep_sync_wait] (https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep-sync-wait)
+
+### `wsrep_trx_fragment_size`
+
+| Option         | Description                 |
+| -------------- | --------------------------- |
+| Command Line:  | `--wsrep-trx-fragment-size` |
+| Config File:   | Yes                         |
+| Scope:         | Global, Session             |
+| Dynamic:       | Yes                         |
+| Default Value: | 0                           |
+
+Defines the the streaming replication fragment size. This variable is measured in the value defined by `wsrep_trx_fragment_unit`. The minimum value is 0 and the maximum value is 2147483647.
+
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/9.7/en/optimizer-hints.html#optimizer-hints-set-var) .
+
+```
+SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
+```
+
+Expected output
+
+```
++------------------------------+
+| @@wsrep_trx_fragment_unit    |
++------------------------------+
+| statements                   |
++------------------------------+
+
++------------------------------+
+| @@wsrep_trx_fragment_size    |
++------------------------------+
+| 3                            |
++------------------------------+
+```
+
+```
+SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
+```
+
+Expected output
+
+```
++------------------------------+
+| @@wsrep_trx_fragment_size    |
++------------------------------+
+| 5                            |
++------------------------------+
+```
+
+You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.
+
+```
+BEGIN;
+Query OK, 0 rows affected (0.00 sec)
+INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
+Query OK, 65536 rows affected (15.15 sec)
+Records: 65536 Duplicates: 0 Warnings: 0
+UPDATE /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ t1 SET i=2;
+Query OK, 131072 rows affected (1 min 35.93 sec)
+Rows matched: 131072 Changed: 131072 Warnings: 0
+SET SESSION TRANSACTION_ISOLATION = 'READ-UNCOMMITTED';
+Query OK, 0 rows affected (0.00 sec)
+SELECT * FROM t1 LIMIT 5;
++---+
+| i |
++---+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+| 2 |
++---+
+DELETE  /*+SET_VAR(wsrep_trx_fragment_size = 10000)*/ FROM t1;
+Query OK, 131072 rows affected (15.09 sec)
+```
+
+### `wsrep_trx_fragment_unit`
+
+| Option         | Description                 |
+| -------------- | --------------------------- |
+| Command Line:  | `--wsrep-trx-fragment-unit` |
+| Config File:   | Yes                         |
+| Scope:         | Global, Session             |
+| Dynamic:       | Yes                         |
+| Default Value: | “bytes”                     |
+
+Defines the type of measure for the `wsrep_trx_fragment_size`. The possible values are: bytes, rows, statements.
+
+You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/9.7/en/optimizer-hints.html#optimizer-hints-set-var) .
+
+```
+SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
+```
+
+Expected output
+
+```
++------------------------------+
+| @@wsrep_trx_fragment_unit    |
++------------------------------+
+| statements                   |
++------------------------------+
+
++------------------------------+
+| @@wsrep_trx_fragment_size    |
++------------------------------+
+| 3                            |
++------------------------------+
+```
+
+```
+SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
+```
+
+Expected output
+
+```
++------------------------------+
+| @@wsrep_trx_fragment_unit    |
++------------------------------+
+| rows                         |
++------------------------------+
+```

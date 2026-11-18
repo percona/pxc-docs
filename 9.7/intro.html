@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3479,7 +3479,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="about-percona-xtradb-cluster">About Percona XtraDB Cluster<a class="headerlink" href="#about-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="about-percona-xtradb-cluster">About Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#about-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB <a href="https://www.percona.com/software/mysql-database/percona-xtradb-cluster">Cluster</a> is a fully open-source high-availability solution for MySQL.  It integrates Percona Server for <a href="https://www.mysql.com/">MySQL</a> and Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup</a> with the <a href="https://mariadb.com/docs/galera-cluster">MariaDB Galera <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> library to enable synchronous multi-source replication.</p>
 <p>A <em>cluster</em> consists of <em>nodes</em>, where each node contains the same set of data
 synchronized across nodes.  The recommended configuration is to have at least three
@@ -3489,7 +3489,7 @@ Server instance to a node and run the cluster using this node as a base.  You
 can also detach any node from the cluster and use it as a regular MySQL Server
 instance.</p>
 <p><img alt="image" src="_static/cluster-diagram1.png" /></p>
-<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
+<h3 id="benefits">Benefits<a data-markdown-ignore class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>When you execute a query, it is executed locally on the node. All data is available locally, no need for remote access.</p>
@@ -3501,7 +3501,7 @@ instance.</p>
 <p>Good solution for scaling a read workload. You can put read queries to any of the nodes.</p>
 </li>
 </ul>
-<h3 id="drawbacks">Drawbacks<a class="headerlink" href="#drawbacks" title="Permanent link">&para;</a></h3>
+<h3 id="drawbacks">Drawbacks<a data-markdown-ignore class="headerlink" href="#drawbacks" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Overhead of provisioning new node. When you add a new node, it has to copy the full data set from one of existing nodes. If it is <em>100 GB</em>, it copies <em>100 GB</em>.</p>
@@ -3513,7 +3513,7 @@ instance.</p>
 <p>You have several duplicates of data: for three nodes you have three duplicates.</p>
 </li>
 </ul>
-<h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
+<h2 id="components">Components<a data-markdown-ignore class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <p><a href="https://www.percona.com/software/mysql-database/percona-xtradb-cluster">Percona XtraDB Cluster <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is based on Percona Server for <a href="https://www.mysql.com/">MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> running with the <a href="https://www.percona.com/software/mysql-database/percona-server/xtradb">XtraDB</a> storage engine.
 It uses the <a href="https://mariadb.com/docs/galera-cluster">MariaDB Galera <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> library.
 The default and recommended data transfer method is via Percona <a href="https://www.percona.com/software/mysql-database/percona-xtrabackup">XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> .</p>

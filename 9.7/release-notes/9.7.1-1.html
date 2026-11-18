@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3589,14 +3589,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-xtradb-cluster-971-1-2026-09-10">Percona XtraDB Cluster 9.7.1-1 (2026-09-10)<a class="headerlink" href="#percona-xtradb-cluster-971-1-2026-09-10" title="Permanent link">&para;</a></h1>
+<h1 id="percona-xtradb-cluster-971-1-2026-09-10">Percona XtraDB Cluster 9.7.1-1 (2026-09-10)<a data-markdown-ignore class="headerlink" href="#percona-xtradb-cluster-971-1-2026-09-10" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p>Percona XtraDB Cluster 9.7.0-1 was not released; 9.7.1-1 is the first build in this series. This release includes enhancements and bug fixes from MySQL 9.7.0 and MySQL 9.7.1.</p>
 </div>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <p>Percona XtraDB Cluster 9.7.1-1 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/9.7/release-notes/9.7.1-1.html">Percona Server for MySQL 9.7.1-1 (2026-08-05) release notes</a>.</p>
-<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
-<h3 id="percona-server-for-mysql-971-1">Percona Server for MySQL 9.7.1-1<a class="headerlink" href="#percona-server-for-mysql-971-1" title="Permanent link">&para;</a></h3>
+<h2 id="release-highlights">Release highlights<a data-markdown-ignore class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<h3 id="percona-server-for-mysql-971-1">Percona Server for MySQL 9.7.1-1<a data-markdown-ignore class="headerlink" href="#percona-server-for-mysql-971-1" title="Permanent link">&para;</a></h3>
 <p>Percona Server for MySQL 9.7.1-1, introduces the following new features and improvements, along with security updates and bug fixes detailed in later sections:</p>
 <ul>
 <li>
@@ -3624,7 +3624,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Optimizes performance for <code>mem_root_deque</code>.</p>
 </li>
 </ul>
-<h3 id="mysql-971">MySQL 9.7.1<a class="headerlink" href="#mysql-971" title="Permanent link">&para;</a></h3>
+<h3 id="mysql-971">MySQL 9.7.1<a data-markdown-ignore class="headerlink" href="#mysql-971" title="Permanent link">&para;</a></h3>
 <p>Improvements and bug fixes provided by Oracle for MySQL 9.7.0 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
@@ -3635,7 +3635,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-0.html">MySQL 9.7.0 Release Notes</a>.</p>
-<h2 id="security-updates">Security updates<a class="headerlink" href="#security-updates" title="Permanent link">&para;</a></h2>
+<h2 id="security-updates">Security updates<a data-markdown-ignore class="headerlink" href="#security-updates" title="Permanent link">&para;</a></h2>
 <p>This release addresses the following Common Vulnerabilities and Exposures (CVE):</p>
 <ul>
 <li>
@@ -3669,11 +3669,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://www.cve.org/CVERecord?id=CVE-2026-49261">CVE-2026-49261</a>: A vulnerability in <code>wsrep_notify_cmd</code> could allow a remote attacker to execute arbitrary shell commands by embedding commands in the name of a joining node when <code>wsrep_notify_cmd</code> is enabled due to improper input sanitization (CVSS 3.1 Base Score 10.0). The fix was backported from MariaDB. Thanks to the MariaDB project for identifying and fixing this issue.</p>
 </li>
 </ul>
-<h2 id="improvement">Improvement<a class="headerlink" href="#improvement" title="Permanent link">&para;</a></h2>
+<h2 id="improvement">Improvement<a data-markdown-ignore class="headerlink" href="#improvement" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://perconadev.atlassian.net/browse/PXC-5195">PXC-5195</a>: Removes obsolete configuration variables (<code>wsrep-slave-FK-checks</code>, <code>wsrep-slave-UK-checks</code>, <code>wsrep-causal-reads</code>) from Percona XtraDB Cluster 9.7.1-1.</li>
 </ul>
-<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
+<h2 id="bug-fixes">Bug fixes<a data-markdown-ignore class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PXC-4683">PXC-4683</a>: Fixed an issue where a node could leave the cluster after an error in a stored procedure.</p>
@@ -3718,7 +3718,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PXC-5244">PXC-5244</a>: Changes the default XtraBackup locking mode to <code>lock-ddl=ON</code> during State Snapshot Transfer (SST).</p>
 </li>
 </ul>
-<h2 id="builds-and-packaging">Builds and packaging<a class="headerlink" href="#builds-and-packaging" title="Permanent link">&para;</a></h2>
+<h2 id="builds-and-packaging">Builds and packaging<a data-markdown-ignore class="headerlink" href="#builds-and-packaging" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Percona XtraDB Cluster uses Profile-Guided Optimization (PGO) builds to improve runtime performance. PGO uses profiling data from representative workloads to guide compiler optimizations, which can improve throughput and reduce latency. Percona XtraDB Cluster packages are built with PGO enabled.</p>
@@ -3749,7 +3749,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 </li>
 </ul>
-<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<h2 id="useful-links">Useful links<a data-markdown-ignore class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>The <a href="https://www.percona.com/doc/percona-xtradb-cluster/9.7/install/index.html">Percona XtraDB Cluster installation instructions</a></p>

@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3611,7 +3611,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster">Migrate from MySQL Galera Cluster to Percona XtraDB Cluster<a class="headerlink" href="#migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster">Migrate from MySQL Galera Cluster to Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#migrate-from-mysql-galera-cluster-to-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) uses the same <a href="glossary.html#write-set">write-set</a> replication model as MySQL Galera Cluster, so a migration replaces the binaries and keeps the <a href="glossary.html#datadir">datadir</a>. The schemas, data, user accounts, and privileges carry over.</p>
 <p>Starting in PXC 9.7.2, a PXC node can join a running MySQL Galera Cluster. You can convert nodes one at a time, in place, so the cluster stays available throughout and no extra hardware is required.</p>
 <p>You can use either of the following methods:</p>
@@ -3640,7 +3640,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Back up your data before you start</p>
 <p>Create and verify a physical backup with <a href="https://docs.percona.com/percona-xtrabackup/">Percona XtraBackup <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> before you change any node. A backup is the only reliable way back if a step fails.</p>
 </div>
-<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<h2 id="before-you-start">Before you start<a data-markdown-ignore class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>An N-node MySQL Galera Cluster where every node is <code>Synced</code> and the cluster is <code>Primary</code>.</p>
@@ -3668,9 +3668,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Traffic encryption</p>
 <p>PXC enables <a href="encrypt-traffic.html#encrypt-pxc-traffic"><code>pxc_encrypt_cluster_traffic</code></a> by default. If your Galera Cluster does not encrypt replication traffic, set <code>pxc_encrypt_cluster_traffic=OFF</code> on the PXC nodes. Otherwise, distribute identical certificates to every node. See <a href="encrypt-traffic.html">Encrypt PXC traffic</a>.</p>
 </div>
-<h2 id="migrate-with-pxc-972-or-later">Migrate with PXC 9.7.2 or later<a class="headerlink" href="#migrate-with-pxc-972-or-later" title="Permanent link">&para;</a></h2>
+<h2 id="migrate-with-pxc-972-or-later">Migrate with PXC 9.7.2 or later<a data-markdown-ignore class="headerlink" href="#migrate-with-pxc-972-or-later" title="Permanent link">&para;</a></h2>
 <p>Introduced in Percona XtraDB Cluster 9.7.2, you can join a running Galera Cluster. Choose either scenario. Both keep the cluster available throughout.</p>
-<h3 id="scenario-1-convert-each-node-in-place">Scenario 1: Convert each node in place<a class="headerlink" href="#scenario-1-convert-each-node-in-place" title="Permanent link">&para;</a></h3>
+<h3 id="scenario-1-convert-each-node-in-place">Scenario 1: Convert each node in place<a data-markdown-ignore class="headerlink" href="#scenario-1-convert-each-node-in-place" title="Permanent link">&para;</a></h3>
 <p class="power-number">The node keeps its datadir, so it rejoins with <a href="glossary.html#ist">IST</a> instead of a full data copy. This scenario needs no extra hardware.</p>
 <ol>
 <li>
@@ -3683,7 +3683,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Wait for the node to reach <code>Synced</code>, then repeat steps 1 and 2 on the next node.</p>
 </li>
 </ol>
-<h3 id="scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes">Scenario 2: Add PXC nodes and retire Galera Cluster nodes<a class="headerlink" href="#scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes" title="Permanent link">&para;</a></h3>
+<h3 id="scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes">Scenario 2: Add PXC nodes and retire Galera Cluster nodes<a data-markdown-ignore class="headerlink" href="#scenario-2-add-pxc-nodes-and-retire-galera-cluster-nodes" title="Permanent link">&para;</a></h3>
 <p class="power-number">Use this scenario when you also move to new hosts. Each new node joins with <a href="glossary.html#sst">SST</a>, so plan for the transfer time and the load on the <a href="glossary.html#donor-node">donor</a>.</p>
 <ol>
 <li>
@@ -3699,7 +3699,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Repeat steps 1 through 3 until every Galera Cluster node is replaced.</p>
 </li>
 </ol>
-<h2 id="migrate-with-pxc-971">Migrate with PXC 9.7.1<a class="headerlink" href="#migrate-with-pxc-971" title="Permanent link">&para;</a></h2>
+<h2 id="migrate-with-pxc-971">Migrate with PXC 9.7.1<a data-markdown-ignore class="headerlink" href="#migrate-with-pxc-971" title="Permanent link">&para;</a></h2>
 <p class="power-number">PXC 9.7.1 cannot form a cluster with Galera Cluster nodes, so you bootstrap a new cluster from an existing datadir during a maintenance window.</p>
 <ol>
 <li>
@@ -3726,7 +3726,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </code></pre></div>
 </li>
 </ol>
-<h2 id="verify-the-migration">Verify the migration<a class="headerlink" href="#verify-the-migration" title="Permanent link">&para;</a></h2>
+<h2 id="verify-the-migration">Verify the migration<a data-markdown-ignore class="headerlink" href="#verify-the-migration" title="Permanent link">&para;</a></h2>
 <p>Run these checks on every node:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
@@ -3735,7 +3735,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </code></pre></div>
 <p><code>VERSION()</code> must identify Percona XtraDB Cluster, <code>wsrep_cluster_status</code> must be <code>Primary</code>, <code>wsrep_local_state_comment</code> must be <code>Synced</code>, and <code>wsrep_cluster_size</code> must equal your node count.</p>
 <p>Then <a href="verify-replication.html">verify replication</a> with a write on one node and a read on the others.</p>
-<h2 id="after-you-migrate">After you migrate<a class="headerlink" href="#after-you-migrate" title="Permanent link">&para;</a></h2>
+<h2 id="after-you-migrate">After you migrate<a data-markdown-ignore class="headerlink" href="#after-you-migrate" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="glossary.html#strict-mode">PXC Strict Mode</a> defaults to <code>ENFORCING</code> and blocks unsupported operations. If your workload needs it, start with <code>PERMISSIVE</code>, validate the application, then move to <code>ENFORCING</code>. See <a href="strict-mode.html">Percona XtraDB Cluster strict mode</a>.</p>
@@ -3751,7 +3751,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </li>
 </ul>
 <p>To change major versions, complete the migration first, then use <a href="upgrade-guide.html">Upgrade Percona XtraDB Cluster</a>.</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshooting">Troubleshooting<a data-markdown-ignore class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -3798,7 +3798,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
 </tr>
 </tbody>
 </table>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <ul>

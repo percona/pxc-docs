@@ -1,0 +1,137 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt).
+
+# Install on Red Hat Enterprise Linux
+
+A list of the supported platforms by products and versions is available in [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) .
+
+We gather [Telemetry data](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.html) in the Percona packages and Docker images.
+
+Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html) for ways that we can work with you.
+
+You can install Percona XtraDB Cluster with the following methods:
+
+- Use the official repository using YUM
+- Download and manually install the Percona XtraDB Cluster packages from [Percona Software Downloads](https://www.percona.com/downloads/) .
+- Use the Percona Software repositories
+
+This documentation describes using the Percona Software repositories.
+
+## Prerequisites
+
+Installing Percona XtraDB Cluster requires that you either be logged in as a user with root privileges or be able to run commands with sudo.
+
+Percona XtraDB Cluster requires specific ports for communication. Make sure that the following ports are available:
+
+- 3306
+- 4444
+- 4567
+- 4568
+
+For information on SELinux, see [Enabling SELinux](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.html#enable-selinux).
+
+## Install from Percona Software Repository
+
+For more information on the Percona Software repositories and configuring Percona Repositories with `percona-release`, see the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html) .
+
+Installing `percona-xtradb-cluster` pulls in the following packages:
+
+- `percona-telemetry-agent`
+- `percona-xtradb-cluster-client`
+- `percona-xtradb-cluster-client-plugins`
+- `percona-xtradb-cluster-debuginfo`
+- `percona-xtradb-cluster-debugsource`
+- `percona-xtradb-cluster-devel`
+- `percona-xtradb-cluster-full`
+- `percona-xtradb-cluster-garbd`
+- `percona-xtradb-cluster-icu-data-files`
+- `percona-xtradb-cluster-server`
+- `percona-xtradb-cluster-shared`
+- `percona-xtradb-cluster-test`
+
+## Install on Red Hat 8
+
+RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module:
+
+```
+sudo yum module disable mysql
+```
+
+```
+sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+sudo percona-release setup pxc-97-lts
+sudo yum install percona-xtradb-cluster
+```
+
+## After installation
+
+After the installation, start the `mysql` service and use the `grep` command to find the temporary password.
+
+```
+sudo service mysql start
+sudo grep 'temporary password' /var/log/mysqld.log
+```
+
+Use the temporary password to log into the server:
+
+```
+mysql -u root -p
+```
+
+Run an `ALTER USER` statement to change the temporary password, exit the client, and stop the service.
+
+```
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPass';
+exit
+sudo service mysql stop
+```
+
+## Install on Red Hat 9 or later
+
+RHEL 9 and subsequent versions use the `dnf` package manager and its module system. The default `mysql` module must be disabled to prevent conflicts with Percona’s packages.
+
+```
+sudo dnf module disable mysql
+```
+
+Next, install the Percona repository and the cluster.
+
+```
+sudo dnf install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+sudo percona-release setup pxc-97-lts
+sudo dnf install percona-xtradb-cluster
+```
+
+### After installation
+
+After installation, start the `mysqld` service and locate the temporary password.
+
+```
+sudo systemctl start mysqld
+sudo grep 'temporary password' /var/log/mysqld.log
+```
+
+Use the temporary password to log in, and then run an `ALTER USER` statement to change it.
+
+```
+mysql -u root -p
+```
+
+Enter the temporary password.
+
+```
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPass';
+```
+
+For security, exit the client and stop the service.
+
+```
+exit
+```
+
+```
+sudo systemctl stop mysqld
+```
+
+## Next steps
+
+Configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.html#configure-nodes-for-write-set-replication).

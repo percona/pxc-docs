@@ -139,7 +139,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3590,7 +3590,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="configure-a-cluster-on-debian-or-ubuntu">Configure a cluster on Debian or Ubuntu<a class="headerlink" href="#configure-a-cluster-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
+<h1 id="configure-a-cluster-on-debian-or-ubuntu">Configure a cluster on Debian or Ubuntu<a data-markdown-ignore class="headerlink" href="#configure-a-cluster-on-debian-or-ubuntu" title="Permanent link">&para;</a></h1>
 <p>This tutorial describes how to install and configure three Percona XtraDB Cluster nodes
 on Ubuntu 14 LTS servers, using the packages from Percona repositories.</p>
 <ul>
@@ -3628,7 +3628,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.</p>
 </ul>
 </li>
 </ul>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>The procedure described in this tutorial requires he following:</p>
 <ul>
 <li>
@@ -3642,7 +3642,7 @@ to ports 3306, 4444, 4567 and 4568.</p>
 <p>AppArmor profile for MySQL is <a href="https://www.mysqlperformanceblog.com/2012/12/20/percona-xtradb-cluster-selinux-is-not-always-the-culprit/">disabled <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </li>
 </ul>
-<h2 id="step-1-install-pxc">Step 1. Install PXC<a class="headerlink" href="#step-1-install-pxc" title="Permanent link">&para;</a></h2>
+<h2 id="step-1-install-pxc">Step 1. Install PXC<a data-markdown-ignore class="headerlink" href="#step-1-install-pxc" title="Permanent link">&para;</a></h2>
 <p>Install Percona XtraDB Cluster on all three nodes as described in <a href="apt.html#install-from-repository">Installing Percona XtraDB Cluster on Debian or Ubuntu</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3652,7 +3652,7 @@ After the packages have been installed,
 <code>mysqld</code> will start automatically.
 Stop <code>mysqld</code> on all three nodes using <code>sudo systemctl stop mysql</code>.</p>
 </div>
-<h2 id="step-2-configure-the-first-node">Step 2. Configure the first node<a class="headerlink" href="#step-2-configure-the-first-node" title="Permanent link">&para;</a></h2>
+<h2 id="step-2-configure-the-first-node">Step 2. Configure the first node<a data-markdown-ignore class="headerlink" href="#step-2-configure-the-first-node" title="Permanent link">&para;</a></h2>
 <p>Individual nodes should be configured to be able to bootstrap the cluster.
 For more information about bootstrapping the cluster, see <a href="bootstrap.html#bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
 <ol>
@@ -3722,7 +3722,7 @@ FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 <p class="admonition-title">Note</p>
 <p>MySQL root account can also be used for performing SST, but it is more secure to use a different (non-root) user for this.</p>
 </div>
-<h2 id="step-3-configure-the-second-node">Step 3. Configure the second node<a class="headerlink" href="#step-3-configure-the-second-node" title="Permanent link">&para;</a></h2>
+<h2 id="step-3-configure-the-second-node">Step 3. Configure the second node<a data-markdown-ignore class="headerlink" href="#step-3-configure-the-second-node" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Make sure that the configuration file <code>/etc/mysql/my.cnf</code>
@@ -3779,7 +3779,7 @@ wsrep_sst_method=xtrabackup-v2
 </details>
 </li>
 </ol>
-<h2 id="step-4-configure-the-third-node">Step 4. Configure the third node<a class="headerlink" href="#step-4-configure-the-third-node" title="Permanent link">&para;</a></h2>
+<h2 id="step-4-configure-the-third-node">Step 4. Configure the third node<a data-markdown-ignore class="headerlink" href="#step-4-configure-the-third-node" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Make sure that the MySQL configuration file <code>/etc/mysql/my.cnf</code>
@@ -3834,7 +3834,7 @@ wsrep_sst_method=xtrabackup-v2
 40 rows in set (0.01 sec)
 </code></pre></div>
 </details>
-<h2 id="test-replication">Test replication<a class="headerlink" href="#test-replication" title="Permanent link">&para;</a></h2>
+<h2 id="test-replication">Test replication<a data-markdown-ignore class="headerlink" href="#test-replication" title="Permanent link">&para;</a></h2>
 <p>To test replication, lets create a new database on the second node,
 create a table for that database on the third node,
 and add some records to the table on the first node.</p>

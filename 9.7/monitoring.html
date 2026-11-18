@@ -141,7 +141,7 @@ you have to monitor each node independently.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3570,7 +3570,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="monitor-the-cluster">Monitor the cluster<a class="headerlink" href="#monitor-the-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="monitor-the-cluster">Monitor the cluster<a data-markdown-ignore class="headerlink" href="#monitor-the-cluster" title="Permanent link">&para;</a></h1>
 <p>Each node can have a different view of the cluster.
 There is no centralized node to monitor.
 To track down the source of issues,
@@ -3582,10 +3582,10 @@ and writes received by all other nodes.</p>
 where flow messages are coming from,
 which node sends excessively large transactions,
 and so on.</p>
-<h2 id="manual-monitoring">Manual monitoring<a class="headerlink" href="#manual-monitoring" title="Permanent link">&para;</a></h2>
+<h2 id="manual-monitoring">Manual monitoring<a data-markdown-ignore class="headerlink" href="#manual-monitoring" title="Permanent link">&para;</a></h2>
 <p>Manual cluster monitoring can be performed using
 <a href="https://github.com/jayjanssen/myq-tools/">myq-tools <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="alerting">Alerting<a class="headerlink" href="#alerting" title="Permanent link">&para;</a></h2>
+<h2 id="alerting">Alerting<a data-markdown-ignore class="headerlink" href="#alerting" title="Permanent link">&para;</a></h2>
 <p>Besides standard MySQL alerting,
 you should use at least the following triggers specific to Percona XtraDB Cluster:</p>
 <ul>
@@ -3609,7 +3609,7 @@ you should use at least the following triggers specific to Percona XtraDB Cluste
 <p>Large replication queues can be identified using the <a href="wsrep-status-index.html#wsrep_local_recv_queue"><code>wsrep_local_recv_queue</code></a>.</p>
 </li>
 </ul>
-<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h2 id="metrics">Metrics<a data-markdown-ignore class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
 <p>Cluster metrics collection for long-term graphing should be done
 at least for the following:</p>
 <ul>
@@ -3632,7 +3632,7 @@ at least for the following:</p>
 <li>Replication conflicts:</li>
 </ul>
 <p><a href="wsrep-status-index.html#wsrep_local_cert_failures"><code>wsrep_local_cert_failures</code></a> and <a href="wsrep-status-index.html#wsrep_local_bf_aborts"><code>wsrep_local_bf_aborts</code></a></p>
-<h2 id="use-percona-monitoring-and-management">Use Percona Monitoring and Management<a class="headerlink" href="#use-percona-monitoring-and-management" title="Permanent link">&para;</a></h2>
+<h2 id="use-percona-monitoring-and-management">Use Percona Monitoring and Management<a data-markdown-ignore class="headerlink" href="#use-percona-monitoring-and-management" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.percona.com/percona-monitoring-and-management/3/">Percona Monitoring and Management <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> includes two dashboards to monitor PXC:</p>
 <ol>
 <li>
@@ -3647,7 +3647,7 @@ at least for the following:</p>
 </li>
 </ol>
 <p>Please refer to the <a href="https://docs.percona.com/percona-monitoring-and-management/3/">official documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for details on Percona Monitoring and Management installation and setup.</p>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<h2 id="other-reading">Other reading<a data-markdown-ignore class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.mysqlperformanceblog.com/2012/11/26/realtime-stats-to-pay-attention-to-in-percona-xtradb-cluster-and-galera/">Realtime stats to pay attention to in PXC and Galera <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
 </ul>

@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3410,7 +3410,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="online-schema-upgrade">Online schema upgrade<a class="headerlink" href="#online-schema-upgrade" title="Permanent link">&para;</a></h1>
+<h1 id="online-schema-upgrade">Online schema upgrade<a data-markdown-ignore class="headerlink" href="#online-schema-upgrade" title="Permanent link">&para;</a></h1>
 <p>Database schemas must change as applications change. For a cluster, the schema upgrade must occur while the system is online. A synchronous cluster requires all active nodes have the same data. Schema updates are performed using Data Definition Language (DDL) statements, such as <code>ALTER TABLE &lt;table_name&gt; DROP COLUMN &lt;column_name&gt;</code>.</p>
 <p>The DDL statements are non-transactional, so these statements use up-front locking to avoid the chance of deadlocks and cannot be rolled back. We recommend that you test your schema changes, especially if you must run an <code>ALTER</code> statement on large tables. Verify the backups before updating the schemas in the production environment. A failure in a schema change can cause your cluster to drop nodes and lose data.</p>
 <p><em>Percona XtraDB Cluster</em> supports the following methods for making online schema changes:</p>

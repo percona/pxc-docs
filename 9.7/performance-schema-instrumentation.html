@@ -140,7 +140,7 @@ threads) as a part of PERFORMANCE_SCHEMA.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3503,7 +3503,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="perfomance-schema-instrumentation">Perfomance Schema instrumentation<a class="headerlink" href="#perfomance-schema-instrumentation" title="Permanent link">&para;</a></h1>
+<h1 id="perfomance-schema-instrumentation">Perfomance Schema instrumentation<a data-markdown-ignore class="headerlink" href="#perfomance-schema-instrumentation" title="Permanent link">&para;</a></h1>
 <p>To improve monitoring <em>Percona XtraDB Cluster</em> has implemented an
 infrastructure to expose Galera instruments (mutexes, cond-variables, files,
 threads) as a part of <code>PERFORMANCE_SCHEMA</code>.</p>
@@ -3559,7 +3559,7 @@ especially for SST/IST purpose. They are also tracked but come into
 <code>PERFORMANCE_SCHEMA</code> tables only if/when they are created.</p>
 <p><code>Stage Info</code> from Galera specific function which server updates to track
 state of running thread is also visible in <code>PERFORMANCE_SCHEMA</code>.</p>
-<h2 id="what-is-not-exposed">What is not exposed ?<a class="headerlink" href="#what-is-not-exposed" title="Permanent link">&para;</a></h2>
+<h2 id="what-is-not-exposed">What is not exposed ?<a data-markdown-ignore class="headerlink" href="#what-is-not-exposed" title="Permanent link">&para;</a></h2>
 <p>Galera uses customer data-structure in some cases (like STL structures).
 Mutexes used for protecting these structures which are not part of mainline
 Galera logic or doesn’t fall in big-picture are not tracked. Same goes with
@@ -3569,7 +3569,7 @@ creation. This process vector is 65K in size and there are two such vectors per
 monitor. That is 128K * 3 = 384K condition variables. These are not tracked to
 avoid hogging <code>PERFORMANCE_SCHEMA</code> limits and sidelining of the main crucial
 information.</p>
-<h2 id="use-pxc_cluster_view">Use <code>pxc_cluster_view</code><a class="headerlink" href="#use-pxc_cluster_view" title="Permanent link">&para;</a></h2>
+<h2 id="use-pxc_cluster_view">Use <code>pxc_cluster_view</code><a data-markdown-ignore class="headerlink" href="#use-pxc_cluster_view" title="Permanent link">&para;</a></h2>
 <p>The <code>pxc_cluster_view</code> - provides a unified view of the cluster. The table is in the Performance_Schema database.</p>
 <div class="highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">pxc_cluster_view</span><span class="p">;</span>
 </code></pre></div>

@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3723,12 +3723,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="state-snapshot-transfer-sst-method-using-clone-plugin">State Snapshot Transfer (SST) Method using Clone plugin<a class="headerlink" href="#state-snapshot-transfer-sst-method-using-clone-plugin" title="Permanent link">&para;</a></h1>
-<h2 id="sst-method-clone">SST Method: Clone<a class="headerlink" href="#sst-method-clone" title="Permanent link">&para;</a></h2>
+<h1 id="state-snapshot-transfer-sst-method-using-clone-plugin">State Snapshot Transfer (SST) Method using Clone plugin<a data-markdown-ignore class="headerlink" href="#state-snapshot-transfer-sst-method-using-clone-plugin" title="Permanent link">&para;</a></h1>
+<h2 id="sst-method-clone">SST Method: Clone<a data-markdown-ignore class="headerlink" href="#sst-method-clone" title="Permanent link">&para;</a></h2>
 <p>Clone SST is a modern and efficient method that leverages MySQL&rsquo;s native cloning capabilities to transfer data from a Donor node to a Joiner node. It is faster and more resource-efficient than traditional methods like xtrabackup or rsync.</p>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a data-markdown-ignore class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p>Clone limitations are described in <a href="https://docs.percona.com/percona-server/9.7/clone-plugin.html">Clone plugin limitations <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
-<h2 id="key-features">Key features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h2 id="key-features">Key features<a data-markdown-ignore class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -3755,7 +3755,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>The requirements for enabling SST transfers with the Clone plugin are as follows:</p>
 <ul>
 <li>
@@ -3771,7 +3771,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The State Snapshot Transfer (SST) process uses port 4444 by default for data transfer between nodes when you use Percona Xtrabackup SST</p>
 </li>
 </ul>
-<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h2 id="best-practices">Best practices<a data-markdown-ignore class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <p>The following best practices are for using SST with the Clone plugin:</p>
 <table>
 <thead>
@@ -3795,28 +3795,28 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="process-outline">Process outline<a class="headerlink" href="#process-outline" title="Permanent link">&para;</a></h2>
+<h2 id="process-outline">Process outline<a data-markdown-ignore class="headerlink" href="#process-outline" title="Permanent link">&para;</a></h2>
 <p>A high-level outline of the process:</p>
 <div style="text-align: center;">
   <img src="./_static/clone-sst-process.png" alt="Clone SST process" width="200" />
 </div>
 
-<h2 id="enable-the-clone-sst-method">Enable the Clone SST Method<a class="headerlink" href="#enable-the-clone-sst-method" title="Permanent link">&para;</a></h2>
+<h2 id="enable-the-clone-sst-method">Enable the Clone SST Method<a data-markdown-ignore class="headerlink" href="#enable-the-clone-sst-method" title="Permanent link">&para;</a></h2>
 <p>The Clone State Snapshot Transfer (SST) method in Percona XtraDB Cluster allows for efficient data synchronization between nodes. Proper configuration of this method ensures smooth and reliable cluster operations. This section explains how to enable the Clone SST method, including necessary variable settings and SSL configuration for secure data transfer.</p>
-<h3 id="donor-and-joiner">Donor and Joiner<a class="headerlink" href="#donor-and-joiner" title="Permanent link">&para;</a></h3>
+<h3 id="donor-and-joiner">Donor and Joiner<a data-markdown-ignore class="headerlink" href="#donor-and-joiner" title="Permanent link">&para;</a></h3>
 <p>To enable the <code>clone</code> SST method, ensure the <a href="wsrep-system-index.html#wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code></a> variable in the configuration file (<code>my.cnf</code>) includes the <code>clone</code> method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
 wsrep_sst_allowed_methods = xtrabackup-v2,clone
 </code></pre></div>
-<h3 id="joiner">Joiner<a class="headerlink" href="#joiner" title="Permanent link">&para;</a></h3>
+<h3 id="joiner">Joiner<a data-markdown-ignore class="headerlink" href="#joiner" title="Permanent link">&para;</a></h3>
 <p>On the Joiner server, set the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable to <code>clone</code> in the configuration file (<code>my.cnf</code>). This setting is the only accepted value for the Clone SST process.</p>
 <div class="highlight"><pre><span></span><code>[mysqld]
 wsrep_sst_method = clone
 </code></pre></div>
-<h3 id="additional-information">Additional Information<a class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h3>
+<h3 id="additional-information">Additional Information<a data-markdown-ignore class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h3>
 <p>The <code>wsrep_sst_allowed_methods</code> and <code>wsrep_sst_method</code> variables are read-only and cannot be modified at runtime. You must set them in the configuration file before starting the server. Attempting to change these variables while the server is running will result in errors and may cause inconsistencies during node synchronization operations.</p>
 <p>For Percona XtraDB Cluster, any variables related to the SST mechanism, such as <code>wsrep_sst_allowed_methods</code> and <code>wsrep_sst_method</code>, must be defined before the  server startup to ensure proper synchronization.</p>
-<h2 id="enable-ssl-for-clone-sst">Enable SSL for Clone SST<a class="headerlink" href="#enable-ssl-for-clone-sst" title="Permanent link">&para;</a></h2>
+<h2 id="enable-ssl-for-clone-sst">Enable SSL for Clone SST<a data-markdown-ignore class="headerlink" href="#enable-ssl-for-clone-sst" title="Permanent link">&para;</a></h2>
 <p>To enable SSL for the Clone SST process, place the SSL certificates in a directory other than the data directory, as the clone process modifies this directory.</p>
 <p>We recommend explicitly setting the SSL certificates in the <code>my.cnf</code> file as follows:</p>
 <div class="highlight"><pre><span></span><code>[client]
@@ -3835,8 +3835,8 @@ clone_ssl_cert = /path/to/client-cert.pem
 clone_ssl_key = /path/to/client-key.pem
 </code></pre></div>
 <p>Ensure the <code>&lt;path&gt;</code> used is not the data directory to avoid conflicts during the Clone SST process.</p>
-<h2 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
-<h3 id="sst-variables">SST variables<a class="headerlink" href="#sst-variables" title="Permanent link">&para;</a></h3>
+<h2 id="variables">Variables<a data-markdown-ignore class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
+<h3 id="sst-variables">SST variables<a data-markdown-ignore class="headerlink" href="#sst-variables" title="Permanent link">&para;</a></h3>
 <p>State Snapshot Transfer (SST) in Galera Cluster relies on specific variables that control its configuration and behavior. You must set these variables appropriately to ensure seamless synchronization between nodes during the SST process. The following lists of the most commonly used variables and their purposes.</p>
 <table>
 <thead>
@@ -3869,7 +3869,7 @@ clone_ssl_key = /path/to/client-key.pem
 </tr>
 </tbody>
 </table>
-<h3 id="timeout-variables">Timeout variables<a class="headerlink" href="#timeout-variables" title="Permanent link">&para;</a></h3>
+<h3 id="timeout-variables">Timeout variables<a data-markdown-ignore class="headerlink" href="#timeout-variables" title="Permanent link">&para;</a></h3>
 <p>During the Clone SST process, there are three key moments when the Joiner or Donor must wait for the other to complete a specific action. These moments are governed by the following configurable timeout variables:</p>
 <table>
 <thead>
@@ -3899,13 +3899,13 @@ joiner_timeout_wait_donor_message=60
 donor_timeout_wait_Joiner=200
 joiner_timeout_clone_instance=90
 </code></pre></div>
-<h2 id="debug-the-process">Debug the process<a class="headerlink" href="#debug-the-process" title="Permanent link">&para;</a></h2>
+<h2 id="debug-the-process">Debug the process<a data-markdown-ignore class="headerlink" href="#debug-the-process" title="Permanent link">&para;</a></h2>
 <p>In the same context, if you must debug the process and need more information, you can enable the debug output in my.cnf:</p>
 <div class="highlight"><pre><span></span><code>[sst]
 wsrep-debug=true
 </code></pre></div>
 <p>The default port used by the SST process is 4444.</p>
-<h2 id="monitor-the-process">Monitor the process<a class="headerlink" href="#monitor-the-process" title="Permanent link">&para;</a></h2>
+<h2 id="monitor-the-process">Monitor the process<a data-markdown-ignore class="headerlink" href="#monitor-the-process" title="Permanent link">&para;</a></h2>
 <p>The Joiner log reports the clone process as a <code>% of the data transfer completed</code>.
 The query used is:</p>
 <div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">'completed%'</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'FILE_COPY'</span><span class="p">;</span>
@@ -3913,7 +3913,7 @@ The query used is:</p>
 <p>For more information on the progress, you can also use the query:</p>
 <div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
 </code></pre></div>
-<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>

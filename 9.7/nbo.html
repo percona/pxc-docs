@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3501,7 +3501,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu">Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)<a class="headerlink" href="#non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu" title="Permanent link">&para;</a></h1>
+<h1 id="non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu">Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)<a data-markdown-ignore class="headerlink" href="#non-blocking-operations-nbo-method-for-online-scheme-upgrades-osu" title="Permanent link">&para;</a></h1>
 <p>An <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> can be a daily issue in an environment with accelerated development and deployment. The task becomes more difficult as the data grows. An <code>ALTER TABLE</code> statement is a multi-step operation and must run until it is complete. Aborting the statement may be more expensive than letting it complete.</p>
 <p>The Non-Blocking Operations (NBO) method is similar to the <code>TOI</code> method (see <a href="online-schema-upgrade.html#online-schema-upgrade">Online Schema Upgrade</a> for more information on the available types of online schema upgrades). Every replica processes the DDL statement at the same point in the cluster transaction stream, and other transactions cannot commit during the operation. The <code>NBO</code> method provides a more efficient locking strategy and avoids the <code>TOI</code> issue of long-running DDL statements blocking cluster updates.</p>
 <p>In the NBO method, the supported DDL statement acquires a metadata lock on the table or schema at a late stage of the operation. The <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_lock_wait_timeout"><code>lock_wait_timeout</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> system variable defines the timeout, measured in seconds, to acquire metadata locks. The default value, 3153600, could cause <code>infinite</code> waits and should not be used with the <code>NBO</code> method.</p>
@@ -3509,7 +3509,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>To dynamically set the <code>NBO</code> mode in the client, run the following statement:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_OSU_method</span><span class="o">=</span><span class="s1">'NBO'</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="supported-ddl-statements">Supported DDL statements<a class="headerlink" href="#supported-ddl-statements" title="Permanent link">&para;</a></h2>
+<h2 id="supported-ddl-statements">Supported DDL statements<a data-markdown-ignore class="headerlink" href="#supported-ddl-statements" title="Permanent link">&para;</a></h2>
 <p>The NBO method supports the following DDL statements:</p>
 <ul>
 <li>
@@ -3525,7 +3525,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>DROP INDEX</code></p>
 </li>
 </ul>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a data-markdown-ignore class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p>The <code>NBO</code> method does not support the following:</p>
 <ul>
 <li>

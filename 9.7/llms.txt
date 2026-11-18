@@ -1,0 +1,111 @@
+# Percona XtraDB Cluster
+
+> Documentation
+
+Each page below is also available as markdown. For the documentation of all Percona products, see https://docs.percona.com/llms.txt.
+
+## Overview
+
+- [Home](https://docs.percona.com/percona-xtradb-cluster/9.7/index.md)
+- [Get help from Percona](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.md)
+- [Topic Index](https://docs.percona.com/percona-xtradb-cluster/9.7/index-contents.md)
+
+## Release notes
+
+- [Release notes index](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/release-notes-index.md)
+- [Percona XtraDB Cluster 9.7.2-3 (2026-11-12)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-3.md)
+- [Percona XtraDB Cluster 9.7.2-2 (2026-11-02)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-2.md)
+- [Percona XtraDB Cluster 9.7.1-1 (2026-09-10)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.1-1.md)
+
+## Introduction
+
+- [About Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/intro.md)
+- [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/9.7/limitation.md)
+- [Understand version numbers](https://docs.percona.com/percona-xtradb-cluster/9.7/xtradb-cluster-version-numbers.md)
+
+## Features
+
+- [High availability](https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.md)
+- [Percona XtraDB Cluster strict mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md)
+- [Online schema upgrade](https://docs.percona.com/percona-xtradb-cluster/9.7/online-schema-upgrade.md)
+- [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](https://docs.percona.com/percona-xtradb-cluster/9.7/nbo.md)
+
+## Quickstart guide
+
+- [Quickstart Guide for Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/quickstart-overview.md)
+- [Get started with Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/get-started-cluster.md)
+
+## Get started
+
+- [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.md)
+- [Percona Software Download instructions](https://docs.percona.com/percona-xtradb-cluster/9.7/download-instructions.md)
+- [Install on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md)
+- [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.md)
+- [Install from Binary Tarball](https://docs.percona.com/percona-xtradb-cluster/9.7/tarball.md)
+- [Compile and install from source code](https://docs.percona.com/percona-xtradb-cluster/9.7/compile.md)
+- [Run in a Docker container](https://docs.percona.com/percona-xtradb-cluster/9.7/docker.md)
+- [Run with Docker Compose](https://docs.percona.com/percona-xtradb-cluster/9.7/docker-compose.md)
+- [Configure nodes for write-set replication](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.md)
+- [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.md)
+- [Add nodes to cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md)
+- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.md)
+
+## Upgrade
+
+- [Upgrade Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-guide.md)
+- [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/migrate-mysql-galera.md)
+- [Restore 8.4 backup to 9.7 cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-backup.md)
+- [Upgrade cluster from packages](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-packages.md)
+
+## PXC security
+
+- [Security basics](https://docs.percona.com/percona-xtradb-cluster/9.7/security-index.md)
+- [Secure the network](https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.md)
+- [Encrypt PXC traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.md)
+- [Enable AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.md)
+- [Enable SELinux](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.md)
+
+## User's manual
+
+- [State snapshot transfer](https://docs.percona.com/percona-xtradb-cluster/9.7/state-snapshot-transfer.md)
+- [Percona XtraBackup SST configuration](https://docs.percona.com/percona-xtradb-cluster/9.7/xtrabackup-sst.md)
+- [State Snapshot Transfer (SST) Method using Clone plugin](https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.md)
+- [Restart the cluster nodes](https://docs.percona.com/percona-xtradb-cluster/9.7/restarting-nodes.md)
+- [Cluster failover](https://docs.percona.com/percona-xtradb-cluster/9.7/failover.md)
+- [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/monitoring.md)
+- [Certification in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/certification.md)
+- [Percona XtraDB Cluster threading model](https://docs.percona.com/percona-xtradb-cluster/9.7/threading-model.md)
+- [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-record-set-cache-difference.md)
+- [GCache encryption and Write-Set cache encryption](https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-write-set-cache-encryption.md)
+- [Perfomance Schema instrumentation](https://docs.percona.com/percona-xtradb-cluster/9.7/performance-schema-instrumentation.md)
+- [Data at Rest Encryption](https://docs.percona.com/percona-xtradb-cluster/9.7/data-at-rest-encryption.md)
+
+## How-tos
+
+- [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/9.7/crash-recovery.md)
+- [Configure a cluster on Red Hat-based distributions](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-rhel.md)
+- [Configure a cluster on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-ubuntu.md)
+- [Set up Galera arbitrator](https://docs.percona.com/percona-xtradb-cluster/9.7/garbd-howto.md)
+- [How to set up a three-node cluster on a single box](https://docs.percona.com/percona-xtradb-cluster/9.7/singlebox.md)
+- [How to set up a three-node cluster in EC2 environment](https://docs.percona.com/percona-xtradb-cluster/9.7/set-up-3nodes-ec2.md)
+- [Load balancing with HAProxy](https://docs.percona.com/percona-xtradb-cluster/9.7/haproxy.md)
+- [Load balance with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.md)
+- [ProxySQL admin utilities](https://docs.percona.com/percona-xtradb-cluster/9.7/proxysql-v2.md)
+- [Set up a testing environment with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/9.7/virtual-sandbox.md)
+
+## Reference
+
+- [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md)
+- [Index of wsrep system variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md)
+- [Index of wsrep_provider options](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md)
+- [Index of files created by PXC](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-files-index.md)
+- [Telemetry on Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.md)
+- [Frequently asked questions](https://docs.percona.com/percona-xtradb-cluster/9.7/faq.md)
+- [Glossary](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md)
+- [Copyright and licensing information](https://docs.percona.com/percona-xtradb-cluster/9.7/copyright-and-licensing-information.md)
+- [Trademark policy](https://docs.percona.com/percona-xtradb-cluster/9.7/trademark-policy.md)
+
+## Optional
+
+- [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/9.7/legal-notice.md)
+

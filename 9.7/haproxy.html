@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3523,12 +3523,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="load-balancing-with-haproxy">Load balancing with HAProxy<a class="headerlink" href="#load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
+<h1 id="load-balancing-with-haproxy">Load balancing with HAProxy<a data-markdown-ignore class="headerlink" href="#load-balancing-with-haproxy" title="Permanent link">&para;</a></h1>
 <p>This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.</p>
 <p>Start by installing HAProxy on a <a href="glossary.html#node">node</a> intended for load balancing.
 Operating systems that support Percona XtraDB Cluster provide the <code>haproxy</code> package,
 and package managers install the package.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Install HAProxy from the default APT repositories:</p>
@@ -3660,7 +3660,7 @@ for environments that still use <code>xinetd</code>.</p>
 <p>For the legacy <code>xinetd</code> workflow, add the following service entry on each node:</p>
 <div class="highlight"><pre><span></span><code>mysqlchk        9200/tcp                # mysqlchk
 </code></pre></div>
-<h2 id="configure-haproxy-with-clustercheck-health-checks-recommended">Configure HAProxy with clustercheck health checks (recommended)<a class="headerlink" href="#configure-haproxy-with-clustercheck-health-checks-recommended" title="Permanent link">&para;</a></h2>
+<h2 id="configure-haproxy-with-clustercheck-health-checks-recommended">Configure HAProxy with clustercheck health checks (recommended)<a data-markdown-ignore class="headerlink" href="#configure-haproxy-with-clustercheck-health-checks-recommended" title="Permanent link">&para;</a></h2>
 <details class="example">
 <summary>Example of the HAProxy configuration file</summary>
 <div class="highlight"><pre><span></span><code>global
@@ -3696,7 +3696,7 @@ listen mysql-cluster 0.0.0.0:&lt;PXC_SERVICE_PORT&gt;
 node health through the <code>clustercheck</code> endpoint on port <code>&lt;HEALTHCHECK_PORT&gt;</code>. The
 <code>clustercheck</code> health check path does not require HAProxy to authenticate to
 MySQL with a user authentication plugin.</p>
-<h2 id="verify-haproxy-configuration">Verify HAProxy configuration<a class="headerlink" href="#verify-haproxy-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="verify-haproxy-configuration">Verify HAProxy configuration<a data-markdown-ignore class="headerlink" href="#verify-haproxy-configuration" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Validate the HAProxy configuration syntax:</li>
 </ol>
@@ -3753,7 +3753,7 @@ Content-Type: text/plain
 +------------+
 </code></pre></div>
 </details>
-<h2 id="legacy-haproxy-health-check-example-tcp-only">Legacy HAProxy health check example (TCP-only)<a class="headerlink" href="#legacy-haproxy-health-check-example-tcp-only" title="Permanent link">&para;</a></h2>
+<h2 id="legacy-haproxy-health-check-example-tcp-only">Legacy HAProxy health check example (TCP-only)<a data-markdown-ignore class="headerlink" href="#legacy-haproxy-health-check-example-tcp-only" title="Permanent link">&para;</a></h2>
 <p>The following example uses a basic TCP/MySQL check. The following example does
 not verify node state and can route traffic to nodes that are not ready for
 application traffic.</p>

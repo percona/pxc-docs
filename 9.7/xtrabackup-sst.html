@@ -139,7 +139,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3570,7 +3570,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-xtrabackup-sst-configuration">Percona XtraBackup SST configuration<a class="headerlink" href="#percona-xtrabackup-sst-configuration" title="Permanent link">&para;</a></h1>
+<h1 id="percona-xtrabackup-sst-configuration">Percona XtraBackup SST configuration<a data-markdown-ignore class="headerlink" href="#percona-xtrabackup-sst-configuration" title="Permanent link">&para;</a></h1>
 <details class="example">
 <summary>Key takeaways</summary>
 <ul>
@@ -3598,7 +3598,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>In case of IST, it proceeds as before.</p>
 </li>
 </ol>
-<h2 id="sst-options">SST options<a class="headerlink" href="#sst-options" title="Permanent link">&para;</a></h2>
+<h2 id="sst-options">SST options<a data-markdown-ignore class="headerlink" href="#sst-options" title="Permanent link">&para;</a></h2>
 <p>The following options specific to SST can be used in <code>my.cnf</code>
 under <code>[sst]</code>.</p>
 <div class="admonition note">
@@ -3618,7 +3618,7 @@ under <code>[sst]</code>.</p>
 </li>
 </ul>
 </div>
-<h3 id="streamfmt">streamfmt<a class="headerlink" href="#streamfmt" title="Permanent link">&para;</a></h3>
+<h3 id="streamfmt">streamfmt<a data-markdown-ignore class="headerlink" href="#streamfmt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3643,7 +3643,7 @@ under <code>[sst]</code>.</p>
 </table>
 <p>Used to specify the Percona XtraBackup streaming format. The only option is the <code>xbstream</code> format. SST fails and generates an error when another format, such as <code>tar</code>, is used.</p>
 <p>For more information about the <code>xbstream</code> format, see <a href="https://docs.percona.com/percona-xtrabackup/9.7/xbstream-binary-overview.html">The xbstream Binary <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h3 id="transferfmt">transferfmt<a class="headerlink" href="#transferfmt" title="Permanent link">&para;</a></h3>
+<h3 id="transferfmt">transferfmt<a data-markdown-ignore class="headerlink" href="#transferfmt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3675,11 +3675,11 @@ For more information, see <a href="https://www.redhat.com/sysadmin/getting-start
 <p class="admonition-title">Note</p>
 <p>Using <code>transferfmt=nc</code> does not support the SSL-based encryption mode (value <code>4</code> for the <code>encrypt</code> option).</p>
 </div>
-<h3 id="ssl-ca">ssl-ca<a class="headerlink" href="#ssl-ca" title="Permanent link">&para;</a></h3>
+<h3 id="ssl-ca">ssl-ca<a data-markdown-ignore class="headerlink" href="#ssl-ca" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong>: ssl-ca=/etc/ssl/certs/mycert.crt</p>
 <p>Specifies the absolute path to the certificate authority (CA) file
 for <code>socat</code> encryption based on OpenSSL.</p>
-<h3 id="ssl-cert">ssl-cert<a class="headerlink" href="#ssl-cert" title="Permanent link">&para;</a></h3>
+<h3 id="ssl-cert">ssl-cert<a data-markdown-ignore class="headerlink" href="#ssl-cert" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong>: ssl-cert=/etc/ssl/certs/mycert.pem</p>
 <p>Specifies the full path to the certificate file in the PEM format
 for <code>socat</code> encryption based on OpenSSL.</p>
@@ -3699,11 +3699,11 @@ For testing you can also download certificates from
 <p class="admonition-title">Note</p>
 <p>Irrespective of what is shown in the example, you can use the same .crt and .pem files on all nodes and it will work, since there is no server-client paradigm here, but rather a cluster with homogeneous nodes.</p>
 </div>
-<h3 id="ssl-key">ssl-key<a class="headerlink" href="#ssl-key" title="Permanent link">&para;</a></h3>
+<h3 id="ssl-key">ssl-key<a data-markdown-ignore class="headerlink" href="#ssl-key" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong>: ssl-key=/etc/ssl/keys/key.pem</p>
 <p>Used to specify the full path to the private key in PEM format
 for socat encryption based on OpenSSL.</p>
-<h3 id="encrypt">encrypt<a class="headerlink" href="#encrypt" title="Permanent link">&para;</a></h3>
+<h3 id="encrypt">encrypt<a data-markdown-ignore class="headerlink" href="#encrypt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3743,7 +3743,7 @@ ssl-cert=server-cert.pem
 ssl-key=server-key.pem
 </code></pre></div>
 <p>For more information, see <a href="encrypt-traffic.html#encrypt-pxc-traffic">Encrypting PXC Traffic</a>.</p>
-<h3 id="sockopt">sockopt<a class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
+<h3 id="sockopt">sockopt<a data-markdown-ignore class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
 <div class="highlight"><pre><span></span><code>[sst]
@@ -3759,10 +3759,10 @@ For more information about socket options, see
 <p>You can also enable SSL based compression with <code>sockopt</code>.
 This can be used instead of the Percona XtraBackup <code>compress</code> option.</p>
 </div>
-<h3 id="ncsockopt">ncsockopt<a class="headerlink" href="#ncsockopt" title="Permanent link">&para;</a></h3>
+<h3 id="ncsockopt">ncsockopt<a data-markdown-ignore class="headerlink" href="#ncsockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify socket options for the <code>netcat</code> transfer format
 (<code>transferfmt=nc</code>).</p>
-<h3 id="progress">progress<a class="headerlink" href="#progress" title="Permanent link">&para;</a></h3>
+<h3 id="progress">progress<a data-markdown-ignore class="headerlink" href="#progress" title="Permanent link">&para;</a></h3>
 <p><strong>Values</strong>: 1, path/to/file</p>
 <p>Used to specify where to write SST progress.
 If set to <code>1</code>, it writes to MySQL <code>stderr</code>.
@@ -3773,7 +3773,7 @@ otherwise <code>wsrep_sst_xtrabackup</code> will block indefinitely.</p>
 <p class="admonition-title">Note</p>
 <p>Value of 0 is not valid.</p>
 </div>
-<h3 id="rebuild">rebuild<a class="headerlink" href="#rebuild" title="Permanent link">&para;</a></h3>
+<h3 id="rebuild">rebuild<a data-markdown-ignore class="headerlink" href="#rebuild" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3799,7 +3799,7 @@ Rebuild of indexes may be used as an optimization.</p>
 <p class="admonition-title">Note</p>
 <p><a href="https://bugs.launchpad.net/percona-xtradb-cluster/+bug/1192834">#1192834 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> affects this option.</p>
 </div>
-<h3 id="time">time<a class="headerlink" href="#time" title="Permanent link">&para;</a></h3>
+<h3 id="time">time<a data-markdown-ignore class="headerlink" href="#time" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3819,7 +3819,7 @@ Rebuild of indexes may be used as an optimization.</p>
 </tbody>
 </table>
 <p>Enabling this option instruments key stages of backup and restore in SST.</p>
-<h3 id="rlimit">rlimit<a class="headerlink" href="#rlimit" title="Permanent link">&para;</a></h3>
+<h3 id="rlimit">rlimit<a data-markdown-ignore class="headerlink" href="#rlimit" title="Permanent link">&para;</a></h3>
 <p><strong>Example</strong>: rlimit=128k</p>
 <p>Used to set a a ratelimit in bytes.
 Add a suffix (k, m, g, t) to specify units.
@@ -3829,7 +3829,7 @@ For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span c
 <p class="admonition-title">Note</p>
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
 </div>
-<h3 id="cpat">cpat<a class="headerlink" href="#cpat" title="Permanent link">&para;</a></h3>
+<h3 id="cpat">cpat<a data-markdown-ignore class="headerlink" href="#cpat" title="Permanent link">&para;</a></h3>
 <p><strong>Default</strong>: <code>'.\*\\.pem$\\|.\*init\\.ok$\\|.\*galera\\.cache$\\|.\*sst_in_progress$\\|.\*\\.sst$\\|.\*gvwstate\\.dat$\\|.\*grastate\\.dat$\\|.\*\\.err$\\|.\*\\.log$\\|.\*RPM_UPGRADE_MARKER$\\|.\*RPM_UPGRADE_HISTORY$'</code></p>
 <p>Used to define the files
 that need to be retained in the <a href="glossary.html#datadir">datadir</a> before running SST,
@@ -3842,7 +3842,7 @@ cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$
 <p class="admonition-title">Note</p>
 <p>This option can only be used when <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> is set to <code>xtrabackup-v2</code> (which is the default value).</p>
 </div>
-<h3 id="compressor">compressor<a class="headerlink" href="#compressor" title="Permanent link">&para;</a></h3>
+<h3 id="compressor">compressor<a data-markdown-ignore class="headerlink" href="#compressor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3861,7 +3861,7 @@ cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$
 </tr>
 </tbody>
 </table>
-<h3 id="decompressor">decompressor<a class="headerlink" href="#decompressor" title="Permanent link">&para;</a></h3>
+<h3 id="decompressor">decompressor<a data-markdown-ignore class="headerlink" href="#decompressor" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3894,9 +3894,9 @@ set <code>compress</code> under <code>[xtrabackup]</code>. You can define both t
 compress
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
 </code></pre></div>
-<h3 id="inno-backup-opts">inno-backup-opts<a class="headerlink" href="#inno-backup-opts" title="Permanent link">&para;</a></h3>
-<h3 id="inno-apply-opts">inno-apply-opts<a class="headerlink" href="#inno-apply-opts" title="Permanent link">&para;</a></h3>
-<h3 id="inno-move-opts">inno-move-opts<a class="headerlink" href="#inno-move-opts" title="Permanent link">&para;</a></h3>
+<h3 id="inno-backup-opts">inno-backup-opts<a data-markdown-ignore class="headerlink" href="#inno-backup-opts" title="Permanent link">&para;</a></h3>
+<h3 id="inno-apply-opts">inno-apply-opts<a data-markdown-ignore class="headerlink" href="#inno-apply-opts" title="Permanent link">&para;</a></h3>
+<h3 id="inno-move-opts">inno-move-opts<a data-markdown-ignore class="headerlink" href="#inno-move-opts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3922,7 +3922,7 @@ The SST script doesn’t alter, tweak, or optimize these options.</p>
 <p class="admonition-title">Note</p>
 <p>Although these options are related to XtraBackup SST, they cannot be specified in <code>my.cnf</code>, because they are for passing innobackupex options.</p>
 </div>
-<h3 id="sst-initial-timeout">sst-initial-timeout<a class="headerlink" href="#sst-initial-timeout" title="Permanent link">&para;</a></h3>
+<h3 id="sst-initial-timeout">sst-initial-timeout<a data-markdown-ignore class="headerlink" href="#sst-initial-timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3954,7 +3954,7 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 <p class="admonition-title">Note</p>
 <p>If you are using <a href="wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a>, and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), <strong>and</strong> there is a possibility of <strong>all</strong> nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).</p>
 </div>
-<h3 id="sst-idle-timeout">sst-idle-timeout<a class="headerlink" href="#sst-idle-timeout" title="Permanent link">&para;</a></h3>
+<h3 id="sst-idle-timeout">sst-idle-timeout<a data-markdown-ignore class="headerlink" href="#sst-idle-timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3978,7 +3978,7 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 <div class="highlight"><pre><span></span><code>[sst]
 sst-idle-timeout=0
 </code></pre></div>
-<h3 id="post-processing-timeout">post-processing-timeout<a class="headerlink" href="#post-processing-timeout" title="Permanent link">&para;</a></h3>
+<h3 id="post-processing-timeout">post-processing-timeout<a data-markdown-ignore class="headerlink" href="#post-processing-timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4003,7 +4003,7 @@ sst-idle-timeout=0
 <div class="highlight"><pre><span></span><code>[sst]
 post-processing-timeout=600
 </code></pre></div>
-<h3 id="tmpdir">tmpdir<a class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
+<h3 id="tmpdir">tmpdir<a data-markdown-ignore class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4057,7 +4057,7 @@ Disabled by default.</p>
 <p>Under <code>[sst]</code> it enables debug logging for the SST script only</p>
 </li>
 </ul>
-<h3 id="encrypt_threads">encrypt_threads<a class="headerlink" href="#encrypt_threads" title="Permanent link">&para;</a></h3>
+<h3 id="encrypt_threads">encrypt_threads<a data-markdown-ignore class="headerlink" href="#encrypt_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4077,7 +4077,7 @@ Disabled by default.</p>
 The value is passed using the <code>--encrypt-threads</code> option in XtraBackup.</p>
 <p>This option affects only SST with XtraBackup
 and should be specified under the <code>[sst]</code> group.</p>
-<h3 id="backup_threads">backup_threads<a class="headerlink" href="#backup_threads" title="Permanent link">&para;</a></h3>
+<h3 id="backup_threads">backup_threads<a data-markdown-ignore class="headerlink" href="#backup_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4096,7 +4096,7 @@ and should be specified under the <code>[sst]</code> group.</p>
 See the <code>--parallel</code> option in XtraBackup.</p>
 <p>This option affects only SST with XtraBackup
 and should be specified under the <code>[sst]</code> group.</p>
-<h2 id="xtrabackup-sst-dependencies">XtraBackup SST dependencies<a class="headerlink" href="#xtrabackup-sst-dependencies" title="Permanent link">&para;</a></h2>
+<h2 id="xtrabackup-sst-dependencies">XtraBackup SST dependencies<a data-markdown-ignore class="headerlink" href="#xtrabackup-sst-dependencies" title="Permanent link">&para;</a></h2>
 <p>Each suppored version of Percona XtraDB Cluster is tested against a specific version of Percona XtraBackup:</p>
 <ul>
 <li>
@@ -4140,7 +4140,7 @@ introduced by <code>wsrep_sst_xtrabackup-v2</code>
 <p><code>which</code> is required.</p>
 </li>
 </ul>
-<h2 id="xtrabackup-based-encryption">XtraBackup-based encryption<a class="headerlink" href="#xtrabackup-based-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="xtrabackup-based-encryption">XtraBackup-based encryption<a data-markdown-ignore class="headerlink" href="#xtrabackup-based-encryption" title="Permanent link">&para;</a></h2>
 <p>Settings related to XtraBackup-based Encryption are no longer allowed in PXC 9.7
 when used for <a href="glossary.html#sst">SST</a>. If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.</p>
 <p>The XtraBackup-based Encryption is enabled when you specify any of the following options
@@ -4156,7 +4156,7 @@ under <code>[xtrabackup]</code> in <code>my.cnf</code>:</p>
 <p><code>encrypt-key-file</code></p>
 </li>
 </ul>
-<h2 id="memory-allocation">Memory allocation<a class="headerlink" href="#memory-allocation" title="Permanent link">&para;</a></h2>
+<h2 id="memory-allocation">Memory allocation<a data-markdown-ignore class="headerlink" href="#memory-allocation" title="Permanent link">&para;</a></h2>
 <p>The amount of memory for XtraBackup
 is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
@@ -4174,7 +4174,7 @@ the size of the InnoDB memory buffer will be used:</p>
 <div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">innodb_buffer_pool_size</span><span class="o">=</span>24M
 </code></pre></div>
-<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>

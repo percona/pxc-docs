@@ -1,0 +1,35 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt).
+
+# Restore 8.4 backup to 9.7 cluster
+
+Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.
+
+## Restore a database with a different server version
+
+Review [Upgrade Percona XtraDB cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-guide.html).
+
+Upgrade the nodes one at a time. The primary node should be the last node to be upgraded. The following steps are required on each node.
+
+## Upgrade first node
+
+1. Install the new database server version on the target server.
+1. Start the new database server version on the restored data directory.
+1. Perform any other upgrade steps as necessary.
+
+To ensure the upgrade was successful, verify the data by performing the following checks:
+
+| Areas to check            | Details                                                                                           |
+| ------------------------- | ------------------------------------------------------------------------------------------------- |
+| Data integrity            | Compare the data before and after the upgrade to ensure no data loss or corruption occurred.      |
+| Application functionality | Test the application to confirm it interacts correctly with the upgraded database.                |
+| Performance metrics       | Monitor performance metrics to ensure the upgrade did not negatively impact database performance. |
+| Logs and errors           | Review logs for any errors or warnings that might indicate issues during the upgrade process.     |
+
+## Upgrade other nodes
+
+To create the 2nd and subsequent nodes, follow these steps:
+
+1. Install Percona XtraDB Cluster (PXC) 9.7.
+1. Join the cluster using State Snapshot Transfer (SST).
+
+This procedure can also be used to downgrade within the same LTS version.

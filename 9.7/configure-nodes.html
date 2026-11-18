@@ -139,7 +139,7 @@ In this section, we will demonstrate how to configure a three node cluster:">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3524,7 +3524,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="configure-nodes-for-write-set-replication">Configure nodes for write-set replication<a class="headerlink" href="#configure-nodes-for-write-set-replication" title="Permanent link">&para;</a></h1>
+<h1 id="configure-nodes-for-write-set-replication">Configure nodes for write-set replication<a data-markdown-ignore class="headerlink" href="#configure-nodes-for-write-set-replication" title="Permanent link">&para;</a></h1>
 <p>After installing Percona XtraDB Cluster on each node, you need to configure the cluster.
 In this section, we will demonstrate how to configure a three node cluster:</p>
 <table>
@@ -3636,7 +3636,7 @@ again.</p>
  * <a href="encrypt-traffic.html#ssl-automatic-configuration"><code>SSL automatic configuration</code></a></p>
 </div>
 </div>
-<h2 id="template-of-the-configuration-file">Template of the configuration file<a class="headerlink" href="#template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
+<h2 id="template-of-the-configuration-file">Template of the configuration file<a data-markdown-ignore class="headerlink" href="#template-of-the-configuration-file" title="Permanent link">&para;</a></h2>
 <p>Here is an example of a full configuration file installed on Red Hat Enterprise Linux to
 <code>/etc/my.cnf</code>.</p>
 <div class="highlight"><pre><span></span><code># Template my.cnf for PXC
@@ -3674,10 +3674,10 @@ pxc_strict_mode=ENFORCING
 # SST method
 wsrep_sst_method=xtrabackup-v2
 </code></pre></div>
-<h2 id="next-steps-bootstrap-the-first-node">Next Steps: Bootstrap the first node<a class="headerlink" href="#next-steps-bootstrap-the-first-node" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps-bootstrap-the-first-node">Next Steps: Bootstrap the first node<a data-markdown-ignore class="headerlink" href="#next-steps-bootstrap-the-first-node" title="Permanent link">&para;</a></h2>
 <p>After you configure all your nodes, initialize Percona XtraDB Cluster by bootstrapping the first
 node according to the procedure described in <a href="bootstrap.html#bootstrap-the-first-node">Bootstrapping the First Node</a>.</p>
-<h2 id="essential-configuration-variables">Essential configuration variables<a class="headerlink" href="#essential-configuration-variables" title="Permanent link">&para;</a></h2>
+<h2 id="essential-configuration-variables">Essential configuration variables<a data-markdown-ignore class="headerlink" href="#essential-configuration-variables" title="Permanent link">&para;</a></h2>
 <p><a href="wsrep-system-index.html#wsrep_provider"><code>wsrep_provider</code></a></p>
 <p>Specify the path to the Galera library. The location depends on the distribution:</p>
 <ul>

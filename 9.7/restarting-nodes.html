@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3410,7 +3410,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="restart-the-cluster-nodes">Restart the cluster nodes<a class="headerlink" href="#restart-the-cluster-nodes" title="Permanent link">&para;</a></h1>
+<h1 id="restart-the-cluster-nodes">Restart the cluster nodes<a data-markdown-ignore class="headerlink" href="#restart-the-cluster-nodes" title="Permanent link">&para;</a></h1>
 <p>To restart a cluster node, shut down MySQL and restart the service. The node leaves the cluster, reducing the total vote count for quorum. </p>
 <p>The quorum refers to the minimum number of votes required for the cluster to operate effectively and make decisions. Each node in the cluster typically represents one vote. When a node leaves the cluster, the total number of votes decreases, affecting the cluster&rsquo;s ability to achieve quorum. If the cluster does not maintain quorum, it may become unable to process transactions or make changes, potentially leading to a split-brain scenario where different parts of the cluster operate independently.</p>
 <p>Upon rejoining, the node synchronizes using IST (Incremental State Transfer). IST allows the node to catch up with the current state of the cluster by transferring only the changes that occurred while the node was offline. If the necessary changes for IST do not exist in the <code>gcache</code> file on any other node within the cluster, the process will perform SST (State Snapshot Transfer) instead. SST involves transferring a complete database snapshot to the node, which can be more time-consuming but ensures that the node receives all data. This approach makes restarting cluster nodes for rolling configuration changes, or software upgrades straightforward from the cluster’s perspective. </p>

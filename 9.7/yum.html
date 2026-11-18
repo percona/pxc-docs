@@ -139,7 +139,7 @@ is available in Percona Software and Platform Lifecycle .">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3590,7 +3590,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="install-on-red-hat-enterprise-linux">Install on Red Hat Enterprise Linux<a class="headerlink" href="#install-on-red-hat-enterprise-linux" title="Permanent link">&para;</a></h1>
+<h1 id="install-on-red-hat-enterprise-linux">Install on Red Hat Enterprise Linux<a data-markdown-ignore class="headerlink" href="#install-on-red-hat-enterprise-linux" title="Permanent link">&para;</a></h1>
 <p>A list of the supported platforms by products and versions
 is available in <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
@@ -3608,7 +3608,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 </li>
 </ul>
 <p>This documentation describes using the Percona Software repositories.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Installing Percona XtraDB Cluster requires that you either be logged in as a user with root privileges or be able to run commands with sudo.</p>
 <p>Percona XtraDB Cluster requires specific ports for communication. Make sure that the following ports are available:</p>
 <ul>
@@ -3626,7 +3626,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 </li>
 </ul>
 <p>For information on SELinux, see <a href="selinux.html#enable-selinux">Enabling SELinux</a>.</p>
-<h2 id="install-from-percona-software-repository">Install from Percona Software Repository<a class="headerlink" href="#install-from-percona-software-repository" title="Permanent link">&para;</a></h2>
+<h2 id="install-from-percona-software-repository">Install from Percona Software Repository<a data-markdown-ignore class="headerlink" href="#install-from-percona-software-repository" title="Permanent link">&para;</a></h2>
 <p>For more information on the Percona Software repositories and configuring Percona Repositories with <code>percona-release</code>, see the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Installing <code>percona-xtradb-cluster</code> pulls in the following packages:</p>
 <ul>
@@ -3667,7 +3667,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 <p><code>percona-xtradb-cluster-test</code></p>
 </li>
 </ul>
-<h2 id="install-on-red-hat-8">Install on Red Hat 8<a class="headerlink" href="#install-on-red-hat-8" title="Permanent link">&para;</a></h2>
+<h2 id="install-on-red-hat-8">Install on Red Hat 8<a data-markdown-ignore class="headerlink" href="#install-on-red-hat-8" title="Permanent link">&para;</a></h2>
 <p>RHEL 8 and other EL8 systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible. The following command disables the module: </p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
@@ -3675,7 +3675,7 @@ is available in <a href="https://www.percona.com/services/policies/percona-softw
 sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-97-lts
 sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
-<h2 id="after-installation">After installation<a class="headerlink" href="#after-installation" title="Permanent link">&para;</a></h2>
+<h2 id="after-installation">After installation<a data-markdown-ignore class="headerlink" href="#after-installation" title="Permanent link">&para;</a></h2>
 <p>After the installation, start the <code>mysql</code> service and use the <code>grep</code> command to find the temporary password. </p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
@@ -3688,7 +3688,7 @@ sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'tempor
 <span class="n">exit</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="n">stop</span>
 </code></pre></div>
-<h2 id="install-on-red-hat-9-or-later">Install on Red Hat 9 or later<a class="headerlink" href="#install-on-red-hat-9-or-later" title="Permanent link">&para;</a></h2>
+<h2 id="install-on-red-hat-9-or-later">Install on Red Hat 9 or later<a data-markdown-ignore class="headerlink" href="#install-on-red-hat-9-or-later" title="Permanent link">&para;</a></h2>
 <p>RHEL 9 and subsequent versions use the <code>dnf</code> package manager and its module system. The default <code>mysql</code> module must be disabled to prevent conflicts with Percona&rsquo;s packages.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
@@ -3697,7 +3697,7 @@ sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'tempor
 sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>pxc-97-lts
 sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
-<h3 id="after-installation_1">After installation<a class="headerlink" href="#after-installation_1" title="Permanent link">&para;</a></h3>
+<h3 id="after-installation_1">After installation<a data-markdown-ignore class="headerlink" href="#after-installation_1" title="Permanent link">&para;</a></h3>
 <p>After installation, start the <code>mysqld</code> service and locate the temporary password.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
 sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
@@ -3713,7 +3713,7 @@ sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'tempor
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a data-markdown-ignore class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>Configure the node according to the procedure described in <a href="configure-nodes.html#configure-nodes-for-write-set-replication">Configuring Nodes for Write-Set Replication</a>.</p>
 
 
