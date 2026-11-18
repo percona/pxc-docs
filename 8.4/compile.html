@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3595,7 +3595,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="compile-and-install-from-source-code">Compile and install from source code<a class="headerlink" href="#compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
+<h1 id="compile-and-install-from-source-code">Compile and install from source code<a data-markdown-ignore class="headerlink" href="#compile-and-install-from-source-code" title="Permanent link">&para;</a></h1>
 <p>For routine deployments, install from <a href="tarball.html">official packages or a binary tarball</a>. Compile here only when you package PXC yourself, maintain local patches, or develop the server.</p>
 <p>Clone <a href="https://github.com/percona/percona-xtradb-cluster">GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> and add every package from the table.</p>
 <table>
@@ -3689,9 +3689,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2>
+<h2 id="install-dependencies">Install dependencies<a data-markdown-ignore class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h2>
 <p>Install anything still missing with one of these commands:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">on Debian or Ubuntu</label><label for="__tabbed_1_2">on Red Hat Enterprise Linux</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">on Debian or Ubuntu</label><label for="__tabbed_1_2">on Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>scons<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>openssl<span class="w"> </span>check<span class="w"> </span>cmake<span class="w"> </span>bison<span class="w"> </span><span class="se">\</span>
@@ -3707,12 +3707,12 @@ socat<span class="w"> </span>libcurl-devel
 </div>
 </div>
 </div>
-<h3 id="glibc-version">glibc version<a class="headerlink" href="#glibc-version" title="Permanent link">&para;</a></h3>
+<h3 id="glibc-version">glibc version<a data-markdown-ignore class="headerlink" href="#glibc-version" title="Permanent link">&para;</a></h3>
 <p>XtraBackup archives stamp glibc into the filename; treat <code>glibc2.xx</code> as a placeholder and substitute your real suffix (for example <code>glibc2.28</code>). Pick tarballs whose glibc matches what you compile and run. Check the host with:</p>
 <div class="highlight"><pre><span></span><code>ldd<span class="w"> </span>--version
 </code></pre></div>
 <p>If the compile host and the runtime host differ, match CPU architecture and glibc, or build on a machine that resembles production.</p>
-<h2 id="compile">Compile<a class="headerlink" href="#compile" title="Permanent link">&para;</a></h2>
+<h2 id="compile">Compile<a data-markdown-ignore class="headerlink" href="#compile" title="Permanent link">&para;</a></h2>
 <p class="power-number">Compile Percona XtraDB Cluster from source:</p>
 <ol>
 <li>
@@ -3762,7 +3762,7 @@ mv<span class="w"> </span>./pxc-build/percona-xtrabackup-8.4.x-Linux-x86_64.glib
 <p class="admonition-title">Note</p>
 <p>Published version strings, glibc tags, and archive names vary by release.</p>
 </div>
-<h2 id="install-and-next-steps">Install and next steps<a class="headerlink" href="#install-and-next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="install-and-next-steps">Install and next steps<a data-markdown-ignore class="headerlink" href="#install-and-next-steps" title="Permanent link">&para;</a></h2>
 <p>Deploy the tarball like any <a href="tarball.html#install-from-binary-tarball">binary tarball</a>: one directory tree holds binaries, libraries, and helpers—see the version and archive table on that page.</p>
 <ol>
 <li>

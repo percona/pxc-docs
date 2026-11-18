@@ -145,7 +145,7 @@ as if it is synchronous (virtually synchronous).">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3620,7 +3620,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="certification-in-percona-xtradb-cluster">Certification in Percona XtraDB Cluster<a class="headerlink" href="#certification-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="certification-in-percona-xtradb-cluster">Certification in Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#certification-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster replicates actions executed on one node
 to all other nodes in the cluster,
 and makes it fast enough to appear
@@ -3708,7 +3708,7 @@ which is then processed through different action handlers.</p>
   that all nodes read the packet from a channel in the same order,
   and that way even though each packet doesn’t carry <code>id</code> information,
   it is inherently established using the locally maintained <code>id</code> value.</p>
-<h2 id="common-situation">Common situation<a class="headerlink" href="#common-situation" title="Permanent link">&para;</a></h2>
+<h2 id="common-situation">Common situation<a data-markdown-ignore class="headerlink" href="#common-situation" title="Permanent link">&para;</a></h2>
 <p>The following example shows what happens in a common situation.
 <code>act_id</code> is incremented and assigned only for totally ordered actions,
 and only in primary state (skip messages while in state exchange).</p>
@@ -3718,7 +3718,7 @@ and only in primary state (skip messages while in state exchange).</p>
 <p class="admonition-title">Note</p>
 <p>This is an amazing way to solve the problem of the id coordination in multi-source systems. Otherwise a node will have to first get an id from central system or through a separate agreed protocol, and then use it for the packet, thereby doubling the round-trip time.</p>
 </div>
-<h2 id="conflicts">Conflicts<a class="headerlink" href="#conflicts" title="Permanent link">&para;</a></h2>
+<h2 id="conflicts">Conflicts<a data-markdown-ignore class="headerlink" href="#conflicts" title="Permanent link">&para;</a></h2>
 <p>The following happens if two nodes get ready with their packet at same time:</p>
 <ol>
 <li>
@@ -3772,7 +3772,7 @@ Let’s say Node 2 is first to write the packet, and then Node 1 makes changes i
 </div>
 </li>
 </ol>
-<h2 id="resolve-certification-conflicts">Resolve certification conflicts<a class="headerlink" href="#resolve-certification-conflicts" title="Permanent link">&para;</a></h2>
+<h2 id="resolve-certification-conflicts">Resolve certification conflicts<a data-markdown-ignore class="headerlink" href="#resolve-certification-conflicts" title="Permanent link">&para;</a></h2>
 <p>The certification protocol can be described using the previous example.
 The central certification vector (CCV) is updated
 to reflect reference transaction.</p>
@@ -3809,7 +3809,7 @@ Node 1 will try to apply it but will fail with <code>duplicate-key-error</code>,
 because 5 already exist.</p>
 <p>XtraDB will flag this as an error,
 which would eventually cause Node 1 to shutdown.</p>
-<h2 id="increment-gtid">Increment GTID<a class="headerlink" href="#increment-gtid" title="Permanent link">&para;</a></h2>
+<h2 id="increment-gtid">Increment GTID<a data-markdown-ignore class="headerlink" href="#increment-gtid" title="Permanent link">&para;</a></h2>
 <p>GTID is incremented only when the transaction passes certification,
 and is ready for commit.
 That way errant packets don’t cause GTID to increment.</p>

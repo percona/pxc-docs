@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3683,7 +3683,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="encrypt-pxc-traffic">Encrypt PXC traffic<a class="headerlink" href="#encrypt-pxc-traffic" title="Permanent link">&para;</a></h1>
+<h1 id="encrypt-pxc-traffic">Encrypt PXC traffic<a data-markdown-ignore class="headerlink" href="#encrypt-pxc-traffic" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster processes two distinct types of traffic and applies encryption to ensure secure data exchanges across all connections.</p>
 <ul>
 <li>
@@ -3694,13 +3694,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Percona XtraDB Cluster encrypts all types of traffic to prevent unauthorized access and ensure data confidentiality. The system allows administrators to configure replication traffic encryption using either automated processes or manual setup, depending on security requirements and organizational policies. Implementing encryption enhances data protection, mitigates security risks, and maintains compliance with industry standards.</p>
-<h2 id="encrypt-client-server-communication">Encrypt client-server communication<a class="headerlink" href="#encrypt-client-server-communication" title="Permanent link">&para;</a></h2>
-<h2 id="ssl-encryption-framework-in-percona-xtradb-cluster">SSL Encryption Framework in Percona XtraDB Cluster<a class="headerlink" href="#ssl-encryption-framework-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h2>
+<h2 id="encrypt-client-server-communication">Encrypt client-server communication<a data-markdown-ignore class="headerlink" href="#encrypt-client-server-communication" title="Permanent link">&para;</a></h2>
+<h2 id="ssl-encryption-framework-in-percona-xtradb-cluster">SSL Encryption Framework in Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#ssl-encryption-framework-in-percona-xtradb-cluster" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster uses MySQL’s native encryption framework to secure communication between client applications and cluster nodes. This ensures encrypted data exchange, prevents unauthorized access, and maintains end-to-end confidentiality.</p>
-<h3 id="default-certificate-generation">Default Certificate Generation<a class="headerlink" href="#default-certificate-generation" title="Permanent link">&para;</a></h3>
+<h3 id="default-certificate-generation">Default Certificate Generation<a data-markdown-ignore class="headerlink" href="#default-certificate-generation" title="Permanent link">&para;</a></h3>
 <p>Upon initialization, MySQL automatically generates default key and certificate files in the data directory (e.g. <code>/var/lib/mysql</code>). While these files simplify SSL setup, production environments should use custom certificates that meet internal security policies.<br />
 See: <a href="#generate-keys-and-certificates-manually">Generating Keys and Certificates Manually</a></p>
-<h3 id="ensuring-consistency-across-nodes">Ensuring Consistency Across Nodes<a class="headerlink" href="#ensuring-consistency-across-nodes" title="Permanent link">&para;</a></h3>
+<h3 id="ensuring-consistency-across-nodes">Ensuring Consistency Across Nodes<a data-markdown-ignore class="headerlink" href="#ensuring-consistency-across-nodes" title="Permanent link">&para;</a></h3>
 <p>All cluster nodes must use identical key and certificate files, which should 
 be stored in <code>/etc/</code> and configured in each node’s <code>my.cnf</code>. If the 
 certificates differ between nodes, encrypted communication will fail, 
@@ -3720,7 +3720,7 @@ preventing nodes from joining the cluster.</p>
 </ul>
 <p>A common practice is to generate the certificates on the first node and 
 then copy them to all other nodes.</p>
-<h3 id="recommended-certificate-storage">Recommended Certificate Storage<a class="headerlink" href="#recommended-certificate-storage" title="Permanent link">&para;</a></h3>
+<h3 id="recommended-certificate-storage">Recommended Certificate Storage<a data-markdown-ignore class="headerlink" href="#recommended-certificate-storage" title="Permanent link">&para;</a></h3>
 <p>Instead of storing certificates in the data directory, relocate them to a dedicated directory:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/mysql/certs
 mv<span class="w"> </span>/var/lib/mysql/*.pem<span class="w"> </span>/etc/mysql/certs/
@@ -3735,12 +3735,12 @@ ssl-ca=/etc/mysql/certs/ca.pem
 <p>To ensure all nodes have identical certificates, it is recommended to generate key and certificate files on the first node. After generating the certificates, copy them to all other nodes to maintain consistency. This practice helps meet specific security policies and industry standards.</p>
 <p>For detailed instructions on key creation, certificate signing, and configuration, refer to the section on
 <a href="#generate-keys-and-certificates-manually">Generate keys and certificates manually</a>. This guide provides the necessary steps to set up encryption according to your security requirements.</p>
-<h2 id="encrypt-replication-traffic">Encrypt replication traffic<a class="headerlink" href="#encrypt-replication-traffic" title="Permanent link">&para;</a></h2>
+<h2 id="encrypt-replication-traffic">Encrypt replication traffic<a data-markdown-ignore class="headerlink" href="#encrypt-replication-traffic" title="Permanent link">&para;</a></h2>
 <p>Replication traffic refers to the inter-node traffic, which includes
 <a href="glossary.html#sst">the SST traffic</a>, <a href="glossary.html#ist">IST traffic</a>, and replication traffic.</p>
 <p>To ensure secure communication across the cluster, all nodes must use identical key and certificate files. Percona XtraDB Cluster provides a single configuration option to secure all replication traffic, known as SSL automatic configuration. This option ensures encrypted communication across the cluster.</p>
 <p>Administrators can enhance security by configuring each channel separately using independent parameters, but it is crucial to maintain consistency in the certificates used across all nodes to prevent communication failures.</p>
-<h2 id="use-consistent-ssl-certificates-across-all-cluster-nodes">Use consistent SSL certificates across all cluster nodes<a class="headerlink" href="#use-consistent-ssl-certificates-across-all-cluster-nodes" title="Permanent link">&para;</a></h2>
+<h2 id="use-consistent-ssl-certificates-across-all-cluster-nodes">Use consistent SSL certificates across all cluster nodes<a data-markdown-ignore class="headerlink" href="#use-consistent-ssl-certificates-across-all-cluster-nodes" title="Permanent link">&para;</a></h2>
 <p>Automatic SSL encryption relies on key and certificate files to secure 
 communication. MySQL generates default key and certificate files during 
 initialization and stores them in the data directory.</p>
@@ -3749,7 +3749,7 @@ and consistent encryption setup. Using different certificates on individual
 nodes can create connectivity problems and weaken security. Configure each 
 node with identical SSL credentials to ensure reliable and encrypted 
 communication across the cluster.</p>
-<h3 id="configure-ssl-encryption">Configure SSL encryption<a class="headerlink" href="#configure-ssl-encryption" title="Permanent link">&para;</a></h3>
+<h3 id="configure-ssl-encryption">Configure SSL encryption<a data-markdown-ignore class="headerlink" href="#configure-ssl-encryption" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster provides the <a href="wsrep-system-index.html#pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> variable 
 to automate SSL encryption for replication traffic, including State Snapshot 
 Transfer (SST), Incremental State Transfer (IST), and other replication 
@@ -3772,7 +3772,7 @@ ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 </code></pre></div>
 <p>For <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a>, only the mentioned options are affected (<code>socket.ssl_key</code>, <code>socket,ssl_cert</code>, and <code>socket.ssl_ca</code>), the rest is not modified.</p>
-<h3 id="authentication-and-security-transport-in-replication">Authentication and security transport in replication<a class="headerlink" href="#authentication-and-security-transport-in-replication" title="Permanent link">&para;</a></h3>
+<h3 id="authentication-and-security-transport-in-replication">Authentication and security transport in replication<a data-markdown-ignore class="headerlink" href="#authentication-and-security-transport-in-replication" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster enforces secure transport for both client and replication traffic. When using MySQL 8.4, administrators may encounter the following error during replication setup:</p>
 <p><code>Authentication requires secure connection</code></p>
 <p>This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL 8.4, such as accounts created with <code>REQUIRE SSL</code> or the server setting <code>require_secure_transport=ON</code>.</p>
@@ -3782,7 +3782,7 @@ CHANGE<span class="w"> </span>REPLICATION<span class="w"> </span>SOURCE<span cla
 START<span class="w"> </span>REPLICA<span class="p">;</span>
 </code></pre></div>
 <p>This change ensures that the replication channel uses encrypted transport, satisfying the authentication requirements of the source server.</p>
-<h4 id="disable-pxc-encrypt-cluster-traffic-and-assess-security-risks">Disable pxc-encrypt-cluster-traffic and assess security risks<a class="headerlink" href="#disable-pxc-encrypt-cluster-traffic-and-assess-security-risks" title="Permanent link">&para;</a></h4>
+<h4 id="disable-pxc-encrypt-cluster-traffic-and-assess-security-risks">Disable pxc-encrypt-cluster-traffic and assess security risks<a data-markdown-ignore class="headerlink" href="#disable-pxc-encrypt-cluster-traffic-and-assess-security-risks" title="Permanent link">&para;</a></h4>
 <p>The default setting for <a href="wsrep-system-index.html#pxc_encrypt_cluster_traffic"><code>PCX</code></a> significantly enhances your system&rsquo;s security by encrypting the traffic between nodes in a Percona XtraDB Cluster (PXC).</p>
 <p>When the option for <a href="wsrep-system-index.html#pxc_encrypt_cluster_traffic"><code>pxc-encrypt-cluster-traffic</code></a> remains disabled, individuals with access to the network can connect to any PXC node, either as a client or as another node attempting to join the cluster. This unrestricted access allows these individuals to query sensitive data or obtain a complete copy of the data stored within the cluster.</p>
 <p>To maintain a secure cluster, it is crucial to enable 
@@ -3794,7 +3794,7 @@ locate the <code>[mysqld]</code> section of the configuration file for each node
 modify the setting to <code>pxc-encrypt-cluster-traffic=OFF</code>. After making this 
 change, restart the cluster to apply the new configuration. This process 
 ensures that the cluster operates under the updated security settings.</p>
-<h2 id="ssl-automatic-configuration">SSL automatic configuration<a class="headerlink" href="#ssl-automatic-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="ssl-automatic-configuration">SSL automatic configuration<a data-markdown-ignore class="headerlink" href="#ssl-automatic-configuration" title="Permanent link">&para;</a></h2>
 <p>Automatic SSL encryption setup requires key and certificate files to secure 
 communication. MySQL generates default key and certificate files and stores 
 them in the data directory. These files support automatic SSL configuration, 
@@ -3812,7 +3812,7 @@ check the <code>[sst]</code> section for key and certificate files.</p>
 configured. If any file is missing, the system generates a fatal error. 
 Ensuring all necessary files are present prevents encryption failures and 
 maintains secure communication within the cluster.</p>
-<h2 id="ssl-manual-configuration">SSL manual configuration<a class="headerlink" href="#ssl-manual-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="ssl-manual-configuration">SSL manual configuration<a data-markdown-ignore class="headerlink" href="#ssl-manual-configuration" title="Permanent link">&para;</a></h2>
 <p>A user who needs encryption for a specific channel or wants to use 
 different certificates can configure encryption manually. This approach 
 provides greater flexibility, allowing users to customize security settings 
@@ -3849,7 +3849,7 @@ a running cluster requires restarting the entire cluster.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="encrypt-sst-traffic">Encrypt SST traffic<a class="headerlink" href="#encrypt-sst-traffic" title="Permanent link">&para;</a></h3>
+<h3 id="encrypt-sst-traffic">Encrypt SST traffic<a data-markdown-ignore class="headerlink" href="#encrypt-sst-traffic" title="Permanent link">&para;</a></h3>
 <p>When a new node (JOINER) joins the cluster, a full copy of the existing data is required to synchronize with the cluster. This process, known as State Snapshot Transfer (SST), ensures the new node receives a complete and accurate dataset from an existing node (DONOR). SST is a critical operation in Percona XtraDB Cluster because nodes start with a consistent state, avoiding data mismatches or inconsistencies.</p>
 <p>To enable encryption during SST, administrators must configure the necessary settings in the cluster configuration file. When using the keyring_file plugin, encryption becomes mandatory. The system must transfer the keyring along with encrypted data files to ensure decryption. Without this step, the recipient node cannot access the transferred data.</p>
 <p>For more information, see <a href="state-snapshot-transfer.html#state-snapshot-transfer">State snapshot transfer</a>.</p>
@@ -3860,7 +3860,7 @@ keyring-file-data=/path/to/keyring/file
 <p>The cluster will not work if keyring configuration across nodes is
 different. Additionally, all nodes must use identical key and certificate
 files to maintain a secure and consistent encryption setup.</p>
-<h3 id="xtrabackup">xtrabackup<a class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h3>
+<h3 id="xtrabackup">xtrabackup<a data-markdown-ignore class="headerlink" href="#xtrabackup" title="Permanent link">&para;</a></h3>
 <p><code>xtrabackup-v2</code> is the default SST method and relies on Percona XtraBackup to transfer data securely between nodes. Like other SST methods, <code>wsrep_sst_method</code> is set in <code>my.cnf</code> before startup and can&rsquo;t be changed at runtime. For an alternative SST method that uses MySQL&rsquo;s native clone plugin instead of XtraBackup, see <a href="clone-sst.html">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
 <p>Encryption for this method is controlled by the <code>encrypt</code> option:</p>
 <ul>
@@ -3892,7 +3892,7 @@ If a <code>dhparams.pem</code> file of the required length is not found during S
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h3 id="clone">clone<a class="headerlink" href="#clone" title="Permanent link">&para;</a></h3>
+<h3 id="clone">clone<a data-markdown-ignore class="headerlink" href="#clone" title="Permanent link">&para;</a></h3>
 <p>Clone SST uses MySQL&rsquo;s native clone plugin rather than XtraBackup, so it doesn&rsquo;t use the <code>[sst]</code> section <code>encrypt</code> option described in <a href="#xtrabackup">xtrabackup</a>. Instead, encryption relies on the standard MySQL SSL settings under <code>[mysqld]</code>/<code>[client]</code>, or on a set of variables specific to the Clone SST process.</p>
 <p>Configure encryption using the shared MySQL SSL settings:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[client]</span>
@@ -3916,7 +3916,7 @@ If a <code>dhparams.pem</code> file of the required length is not found during S
 </div>
 <p>All nodes must use identical key and certificate files to ensure a consistent security setup.</p>
 <p>For full configuration details, see <a href="clone-sst.html">State Snapshot Transfer (SST) Method using Clone plugin</a>.</p>
-<h3 id="encrypt-replicationist-traffic">Encrypt replication/IST traffic<a class="headerlink" href="#encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
+<h3 id="encrypt-replicationist-traffic">Encrypt replication/IST traffic<a data-markdown-ignore class="headerlink" href="#encrypt-replicationist-traffic" title="Permanent link">&para;</a></h3>
 <p>Replication traffic in Percona XtraDB Cluster consists of the following key components:</p>
 <table>
 <thead>
@@ -3960,7 +3960,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </code></pre></div>
 <p>All nodes must share the same key and certificate files to maintain a secure and consistent encryption setup. Ideally, use the same files configured for <a href="#encrypt-client-server-communication">Encrypt client-server</a> communication to simplify management and ensure compatibility across the cluster.</p>
 <p>Check <a href="#upgrade-certificates">upgrade-certificate</a> section on how to upgrade existing certificates.</p>
-<h2 id="generate-keys-and-certificates-manually">Generate keys and certificates manually<a class="headerlink" href="#generate-keys-and-certificates-manually" title="Permanent link">&para;</a></h2>
+<h2 id="generate-keys-and-certificates-manually">Generate keys and certificates manually<a data-markdown-ignore class="headerlink" href="#generate-keys-and-certificates-manually" title="Permanent link">&para;</a></h2>
 <p>The server automatically generates default key and certificate files and stores them in the data directory during initialization. Administrators can create new sets of key and certificate files to replace the default ones, tailoring security settings to specific encryption requirements.</p>
 <table>
 <thead>
@@ -3986,7 +3986,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </table>
 <p>Generate the required key and certificate files using OpenSSL to ensure secure encryption.</p>
 <p>The <code>Common Name</code> value assigned to the server and client keys and certificates must be unique and different from the value used for the Certificate Authority (CA) certificate. This distinction helps maintain proper authentication and prevents conflicts in identity verification.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generate CA key and certificate</label><label for="__tabbed_1_2">Generate server key and certificate</label><label for="__tabbed_1_3">Generate client key and certificate</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Generate CA key and certificate</label><label for="__tabbed_1_2">Generate server key and certificate</label><label for="__tabbed_1_3">Generate client key and certificate</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The Certificate Authority is used to verify the signature on certificates. These commands generate a Certificate Authority (CA) key and certificate:</p>
@@ -4131,7 +4131,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </div>
 </div>
 </div>
-<h3 id="verify-certificates">Verify certificates<a class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
+<h3 id="verify-certificates">Verify certificates<a data-markdown-ignore class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
 <p>To check whether the server and client certificates are properly signed by the Certificate Authority (CA) certificate, run the following command:</p>
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
 </code></pre></div>
@@ -4140,7 +4140,7 @@ otherwise, error details indicate issues with the certificate chain.</p>
 <div class="no-copy highlight"><pre><span></span><code>server-cert.pem: OK
 client-cert.pem: OK
 </code></pre></div>
-<h3 id="failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a class="headerlink" href="#failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
+<h3 id="failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a data-markdown-ignore class="headerlink" href="#failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
 <p>An SSL configuration may fail if the certificate and CA files share the same attributes. To verify whether this is causing the issue, run the following openssl command and check that the CN field differs between the <code>Subject</code> and <code>Issuer</code> lines.</p>
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
 </code></pre></div>
@@ -4164,7 +4164,7 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 issuer= /CN=www.percona.com/O=Database Performance./C=US
 </code></pre></div>
 </details>
-<h3 id="deploy-keys-and-certificates">Deploy keys and certificates<a class="headerlink" href="#deploy-keys-and-certificates" title="Permanent link">&para;</a></h3>
+<h3 id="deploy-keys-and-certificates">Deploy keys and certificates<a data-markdown-ignore class="headerlink" href="#deploy-keys-and-certificates" title="Permanent link">&para;</a></h3>
 <p>Use <code>scp</code> or <code>sftp</code> to send key and certificate files to each node securely. <br />
 Store files in <code>/etc/mysql/certs/</code> or another accessible location.  <br />
 Set permissions to limit access, ensuring only <code>mysqld</code> has read rights.   </p>
@@ -4192,7 +4192,7 @@ Set permissions to limit access, ensuring only <code>mysqld</code> has read righ
 </tbody>
 </table>
 <p>Refer to the <a href="#upgrade-certificates">Upgrade certificates</a> section for details on upgrading certificates when needed.</p>
-<h3 id="upgrade-certificates">Upgrade certificates<a class="headerlink" href="#upgrade-certificates" title="Permanent link">&para;</a></h3>
+<h3 id="upgrade-certificates">Upgrade certificates<a data-markdown-ignore class="headerlink" href="#upgrade-certificates" title="Permanent link">&para;</a></h3>
 <p>The following procedure outlines the steps to upgrade certificates used for securing replication traffic when operating with two nodes in the cluster.</p>
 <ol>
 <li>

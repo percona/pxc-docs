@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3573,7 +3573,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="load-balance-with-proxysql">Load balance with ProxySQL<a class="headerlink" href="#load-balance-with-proxysql" title="Permanent link">&para;</a></h1>
+<h1 id="load-balance-with-proxysql">Load balance with ProxySQL<a data-markdown-ignore class="headerlink" href="#load-balance-with-proxysql" title="Permanent link">&para;</a></h1>
 <p><a href="http://www.proxysql.com/">ProxySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is a high-performance SQL proxy. ProxySQL runs as a daemon watched by a monitoring process. The process monitors the daemon and restarts it in case of a crash to minimize downtime.</p>
 <p>The daemon accepts incoming traffic from MySQL clients and forwards it to backend MySQL servers.</p>
 <p>The proxy is designed to run continuously without needing to be restarted. Most configuration can be done at runtime using queries similar to SQL statements in the ProxySQL admin interface. These include runtime parameters, server grouping, and traffic-related settings.</p>
@@ -3586,7 +3586,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Important</p>
 <p>In version 8.4, Percona XtraDB Cluster does not support ProxySQL v1.</p>
 </div>
-<h2 id="manual-configuration">Manual configuration<a class="headerlink" href="#manual-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="manual-configuration">Manual configuration<a data-markdown-ignore class="headerlink" href="#manual-configuration" title="Permanent link">&para;</a></h2>
 <p>This section describes how to configure ProxySQL with three Percona XtraDB Cluster nodes.</p>
 <table>
 <thead>
@@ -3631,7 +3631,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>ProxySQL has multiple versions across the version 2 and version 3 series.</p>
 </div>
 <p>Run the following commands as root.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Debian or Ubuntu</label><label for="__tabbed_1_2">Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Install the ProxySQL client tools and server package:</p>
@@ -3655,7 +3655,7 @@ package name available from your configured repository.</p>
 <p class="admonition-title">Warning</p>
 <p>Do not use default credentials in production!</p>
 </div>
-<h3 id="recommended-security-posture">Recommended security posture<a class="headerlink" href="#recommended-security-posture" title="Permanent link">&para;</a></h3>
+<h3 id="recommended-security-posture">Recommended security posture<a data-markdown-ignore class="headerlink" href="#recommended-security-posture" title="Permanent link">&para;</a></h3>
 <p>Apply the following hardening practices before production rollout:</p>
 <ul>
 <li>
@@ -3741,7 +3741,7 @@ mysql@proxysql&gt;
 </ul>
 <p>When you change a parameter, you change it in MEMORY area. This ability is by design and lets you test the changes before pushing the change to production (RUNTIME), or save the change to disk.</p>
 </div>
-<h3 id="add-cluster-nodes-to-proxysql">Add cluster nodes to ProxySQL<a class="headerlink" href="#add-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
+<h3 id="add-cluster-nodes-to-proxysql">Add cluster nodes to ProxySQL<a data-markdown-ignore class="headerlink" href="#add-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
 <p>To configure the backend Percona XtraDB Cluster nodes in ProxySQL, insert corresponding records into the <code>mysql_servers</code> table.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3768,7 +3768,7 @@ mysql@proxysql&gt;
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="create-proxysql-monitoring-user">Create ProxySQL monitoring user<a class="headerlink" href="#create-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
+<h3 id="create-proxysql-monitoring-user">Create ProxySQL monitoring user<a data-markdown-ignore class="headerlink" href="#create-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code> privilege on any node in the cluster and configure the user in ProxySQL.</p>
 <p>For production deployments, avoid broad host patterns where possible. Use a host
 scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead of <code>%</code>.</p>
@@ -3823,7 +3823,7 @@ scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead o
 <p>To enable monitoring of these nodes, load them at runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="create-proxysql-client-user">Create ProxySQL client user<a class="headerlink" href="#create-proxysql-client-user" title="Permanent link">&para;</a></h3>
+<h3 id="create-proxysql-client-user">Create ProxySQL client user<a data-markdown-ignore class="headerlink" href="#create-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'&lt;APP_USER&gt;'</span><span class="p">,</span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="p">);</span>
@@ -3884,9 +3884,9 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="test-cluster-with-sysbench">Test cluster with sysbench<a class="headerlink" href="#test-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
+<h3 id="test-cluster-with-sysbench">Test cluster with sysbench<a data-markdown-ignore class="headerlink" href="#test-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
 <p>You can install <code>sysbench</code> from Percona software repositories:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Debian or Ubuntu</label><label for="__tabbed_2_2">Red Hat Enterprise Linux</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_2_1">Debian or Ubuntu</label><label for="__tabbed_2_2">Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Install <code>sysbench</code> with APT:</p>
@@ -3981,7 +3981,7 @@ run
 45 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="automatic-failover">Automatic failover<a class="headerlink" href="#automatic-failover" title="Permanent link">&para;</a></h3>
+<h3 id="automatic-failover">Automatic failover<a data-markdown-ignore class="headerlink" href="#automatic-failover" title="Permanent link">&para;</a></h3>
 <p>ProxySQL will automatically detect if a node is not available or not synced with the cluster.</p>
 <p>You can check the status of all available nodes by running:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
@@ -4035,7 +4035,7 @@ run
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="assisted-maintenance-mode">Assisted maintenance mode<a class="headerlink" href="#assisted-maintenance-mode" title="Permanent link">&para;</a></h2>
+<h2 id="assisted-maintenance-mode">Assisted maintenance mode<a data-markdown-ignore class="headerlink" href="#assisted-maintenance-mode" title="Permanent link">&para;</a></h2>
 <p>Usually, to take a node down for maintenance, you need to identify that node, update its status in ProxySQL to <code>OFFLINE_SOFT</code>, wait for ProxySQL to divert traffic from this node, and then initiate the shutdown or perform maintenance tasks. Percona XtraDB Cluster includes a special maintenance mode for nodes that enables you to take a node down without adjusting ProxySQL manually.</p>
 <p>Initiating <code>pxc_maint_mode=MAINTENANCE</code> does not disconnect existing connections. You must terminate these connections by either running your application code or forcing a re-connection. With a re-connection, the new connections are re-routed around the PXC node in <code>MAINTENANCE</code> mode.</p>
 <p>Assisted maintenance mode is controlled via the <code>pxc_maint_mode</code> variable, which is monitored by ProxySQL and can be set to one of the following values:</p>

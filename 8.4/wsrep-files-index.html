@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3482,9 +3482,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="index-of-files-created-by-percona-xtradb-cluster">Index of files created by Percona XtraDB Cluster<a class="headerlink" href="#index-of-files-created-by-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="index-of-files-created-by-percona-xtradb-cluster">Index of files created by Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#index-of-files-created-by-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster can create the following files:</p>
-<h3 id="gra_log"><code>GRA_*.log</code><a class="headerlink" href="#gra_log" title="Permanent link">&para;</a></h3>
+<h3 id="gra_log"><code>GRA_*.log</code><a data-markdown-ignore class="headerlink" href="#gra_log" title="Permanent link">&para;</a></h3>
 <p><code>GRA_*.log</code> files contain row-based binary log events for a transaction that failed to apply.</p>
 <p>The replica thread does not apply that transaction.</p>
 <p>Each file has a matching warning or error in the MySQL error log.</p>
@@ -3540,18 +3540,18 @@ DELIMITER ;
 </code></pre></div>
 </details>
 <p>In this example, a <code>DROP TABLE</code> statement ran against a table that does not exist.</p>
-<h3 id="gcachepage"><code>gcache.page</code><a class="headerlink" href="#gcachepage" title="Permanent link">&para;</a></h3>
+<h3 id="gcachepage"><code>gcache.page</code><a data-markdown-ignore class="headerlink" href="#gcachepage" title="Permanent link">&para;</a></h3>
 <p>See <a href="wsrep-provider-index.html#gcachepage_size"><code>gcache.page_size</code></a>.</p>
 <div class="admonition admonition">
 <p class="admonition-title">See also</p>
 <p><a href="https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/">Percona Database Performance Blog: All You Need to Know About GCache (Galera-Cache) <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
-<h3 id="galeracache"><code>galera.cache</code><a class="headerlink" href="#galeracache" title="Permanent link">&para;</a></h3>
+<h3 id="galeracache"><code>galera.cache</code><a data-markdown-ignore class="headerlink" href="#galeracache" title="Permanent link">&para;</a></h3>
 <p><code>galera.cache</code> is the main store for write sets.</p>
 <p>The file is a permanent ring buffer. The node allocates the file on disk at initialization.</p>
 <p>The <a href="wsrep-provider-index.html#gcachesize"><code>gcache.size</code></a> variable sets the file size. A larger file caches more write sets. A joining node is more likely to receive <a href="glossary.html#ist">Incremental State Transfer (IST)</a> instead of <a href="glossary.html#sst">State Snapshot Transfer (SST)</a>.</p>
 <p>The <a href="wsrep-provider-index.html#gcachename"><code>gcache.name</code></a> variable sets the file name.</p>
-<h3 id="grastatedat"><code>grastate.dat</code><a class="headerlink" href="#grastatedat" title="Permanent link">&para;</a></h3>
+<h3 id="grastatedat"><code>grastate.dat</code><a data-markdown-ignore class="headerlink" href="#grastatedat" title="Permanent link">&para;</a></h3>
 <p><code>grastate.dat</code> stores Galera state information.</p>
 <p>The file has the following fields:</p>
 <ul>
@@ -3617,7 +3617,7 @@ cert_index:
 </li>
 </ul>
 <p>If the option is <code>yes</code>, the node deletes the file after Galera marks the state as corrupt. Copy the file first if you still need the file.</p>
-<h3 id="gvwstatedat"><code>gvwstate.dat</code><a class="headerlink" href="#gvwstatedat" title="Permanent link">&para;</a></h3>
+<h3 id="gvwstatedat"><code>gvwstate.dat</code><a data-markdown-ignore class="headerlink" href="#gvwstatedat" title="Permanent link">&para;</a></h3>
 <p>The Primary Component is the subset of nodes that holds <a href="glossary.html#quorum">quorum</a>. Only that subset accepts writes.</p>
 <p>Primary Component recovery restores that subset after a full cluster outage. Galera uses <code>gvwstate.dat</code> for this process when <a href="wsrep-provider-index.html#pcrecovery"><code>pc.recovery</code></a> is <code>true</code> (the default). After every node from the last saved Primary Component can communicate again, the cluster restores the Primary Component. A manual bootstrap is not required.</p>
 <p>A planned full-cluster restart still requires an explicit bootstrap.</p>

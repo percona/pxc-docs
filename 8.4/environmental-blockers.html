@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3507,9 +3507,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="environmental-blockers-apparmor-systemd-firewalls">Environmental blockers (AppArmor, systemd, firewalls)<a class="headerlink" href="#environmental-blockers-apparmor-systemd-firewalls" title="Permanent link">&para;</a></h1>
+<h1 id="environmental-blockers-apparmor-systemd-firewalls">Environmental blockers (AppArmor, systemd, firewalls)<a data-markdown-ignore class="headerlink" href="#environmental-blockers-apparmor-systemd-firewalls" title="Permanent link">&para;</a></h1>
 <p>These often prevent nodes from joining and do not show up in the MySQL error log. If a node refuses to join, work through this section. See <a href="restarting-nodes.html">Restart the cluster nodes</a> for the full recovery index.</p>
-<h2 id="security-context-apparmor-selinux-the-sst-jail">Security context (AppArmor, SELinux): the &ldquo;SST jail&rdquo;<a class="headerlink" href="#security-context-apparmor-selinux-the-sst-jail" title="Permanent link">&para;</a></h2>
+<h2 id="security-context-apparmor-selinux-the-sst-jail">Security context (AppArmor, SELinux): the &ldquo;SST jail&rdquo;<a data-markdown-ignore class="headerlink" href="#security-context-apparmor-selinux-the-sst-jail" title="Permanent link">&para;</a></h2>
 <p>On Ubuntu, the default AppArmor profile does not know about XtraBackup or socat and can block the donor from sending data and the joiner from running the SST method. The failure is often silent. Without fixing this, no amount of PID file removal or grastate.dat editing will make the node join.</p>
 <p>Option A — Temporary bridge (confirm AppArmor is the cause): Put both profiles in complain mode and restart MySQL on the joiner. If the node joins, add proper rules and put the profiles back in enforce mode. Run as root or with <code>sudo</code>:</p>
 <div class="highlight"><pre><span></span><code>aa-complain<span class="w"> </span>/usr/sbin/mysqld
@@ -3528,7 +3528,7 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 aa-enforce<span class="w"> </span>/usr/bin/wsrep_sst_xtrabackup-v2
 </code></pre></div>
 <p>SELinux (RHEL / Rocky / Alma): Ensure the SST script and ports are allowed; see <a href="selinux.html">SELinux</a>.</p>
-<h2 id="systemd-timeout-the-silent-killer">Systemd timeout: the &ldquo;silent killer&rdquo;<a class="headerlink" href="#systemd-timeout-the-silent-killer" title="Permanent link">&para;</a></h2>
+<h2 id="systemd-timeout-the-silent-killer">Systemd timeout: the &ldquo;silent killer&rdquo;<a data-markdown-ignore class="headerlink" href="#systemd-timeout-the-silent-killer" title="Permanent link">&para;</a></h2>
 <p>On Ubuntu 22.04, systemd manages MySQL. If an SST takes longer than the start timeout (often 90 seconds), systemd kills the process. The user thinks the node &ldquo;refuses to join,&rdquo; but it was killed by the OS mid-SST. Check <code>journalctl -u mysql</code> for timeout or unit failure.</p>
 <p>The fix: Create a drop-in so the mysql unit has no start timeout. Run as root or with <code>sudo</code>:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>edit<span class="w"> </span>mysql.service
@@ -3542,7 +3542,7 @@ aa-enforce<span class="w"> </span>/usr/bin/wsrep_sst_xtrabackup-v2
 systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p><code>TimeoutStartSec=0</code> disables the start timeout so systemd waits indefinitely for SST and recovery. If the node was already killed mid-SST, you may need to clear or restore the data directory and retry after increasing the timeout.</p>
-<h2 id="firewalls-and-network">Firewalls and network<a class="headerlink" href="#firewalls-and-network" title="Permanent link">&para;</a></h2>
+<h2 id="firewalls-and-network">Firewalls and network<a data-markdown-ignore class="headerlink" href="#firewalls-and-network" title="Permanent link">&para;</a></h2>
 <p>Ensure the SST port (default 4444 for Clone, or the port used by your SST method) and the cluster communication ports are open between joiner and donor. Blocked ports cause silent join failures. See <a href="secure-network.html">Secure the network</a> for cluster and client connectivity.</p>
 <p>For more support options, see <a href="get-help.html">Get help from Percona</a>.</p>
 

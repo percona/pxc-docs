@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3617,19 +3617,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-xtradb-cluster-8411-11-2026-10-05">Percona XtraDB Cluster 8.4.11-11 (2026-10-05)<a class="headerlink" href="#percona-xtradb-cluster-8411-11-2026-10-05" title="Permanent link">&para;</a></h1>
+<h1 id="percona-xtradb-cluster-8411-11-2026-10-05">Percona XtraDB Cluster 8.4.11-11 (2026-10-05)<a data-markdown-ignore class="headerlink" href="#percona-xtradb-cluster-8411-11-2026-10-05" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster (PXC) supports critical business applications in both cloud and on-premises environments, including public, private, and hybrid setups. Our free, open source, enterprise-grade solution includes the high availability and security features your business requires to meet your customer expectations and business goals.</p>
 <p>Percona XtraDB Cluster 8.4.11-11 is based on Percona Server for MySQL and includes all improvements and bug fixes available in the <a href="https://docs.percona.com/percona-server/8.4/release-notes/8.4.11-11.html">Percona Server for MySQL 8.4.11-11 (2026-08-20) release notes</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">A note on MySQL 8.4.12</p>
 <p>After a thorough review of the updates included in MySQL 8.4.12, Percona has decided not to release a corresponding Percona Server for MySQL 8.4.12. MySQL 8.4.12 is a Critical Security Patch Update (CSPU) — a targeted security release that Oracle can issue between quarterly Critical Patch Updates (CPUs) when needed. The fixes included in this CSPU do not affect Percona Server for MySQL.</p>
 </div>
-<h2 id="release-highlights">Release highlights<a class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
+<h2 id="release-highlights">Release highlights<a data-markdown-ignore class="headerlink" href="#release-highlights" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Upgrade to 9.7</p>
 <p>To upgrade from Percona XtraDB Cluster 8.4 to 9.7, use 9.7.2 or newer as the target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </div>
-<h3 id="percona-server-for-mysql-8411-11">Percona Server for MySQL 8.4.11-11<a class="headerlink" href="#percona-server-for-mysql-8411-11" title="Permanent link">&para;</a></h3>
+<h3 id="percona-server-for-mysql-8411-11">Percona Server for MySQL 8.4.11-11<a data-markdown-ignore class="headerlink" href="#percona-server-for-mysql-8411-11" title="Permanent link">&para;</a></h3>
 <p>Percona Server for MySQL 8.4.11-11 introduces the following new features and improvements:</p>
 <ul>
 <li>
@@ -3648,7 +3648,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Adds timestamps to the Group Communication System (GCS) debug trace file. The timestamps make large trace files easier to analyze and help correlate Group Replication communication events with other server activity.</p>
 </li>
 </ul>
-<h3 id="mysql-8411">MySQL 8.4.11<a class="headerlink" href="#mysql-8411" title="Permanent link">&para;</a></h3>
+<h3 id="mysql-8411">MySQL 8.4.11<a data-markdown-ignore class="headerlink" href="#mysql-8411" title="Permanent link">&para;</a></h3>
 <p>Improvements and bug fixes introduced by Oracle for MySQL 8.4.11 and included in Percona Server for MySQL are the following:</p>
 <ul>
 <li>
@@ -3668,7 +3668,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Find the complete list of bug fixes and changes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-11.html">MySQL 8.4.11 release notes <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">&para;</a></h2>
+<h2 id="improvements">Improvements<a data-markdown-ignore class="headerlink" href="#improvements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>PXC-5106: When <code>pxc_strict_mode</code> is set to <code>ENFORCING</code> or <code>MASTER</code>, Percona XtraDB Cluster now also enables <code>sql_require_primary_key</code> globally, so tables without a primary key can no longer be created or altered. Previously, you could create such a table but could not run DML statements on it. While <code>pxc_strict_mode</code> is <code>ENFORCING</code> or <code>MASTER</code>, setting <code>sql_require_primary_key</code> to <code>OFF</code> returns an error. The server applies the setting at startup and whenever <code>pxc_strict_mode</code> changes to one of these modes. Existing connections keep their current session value, and new connections use the updated global value.</p>
@@ -3677,7 +3677,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PXC-5208">PXC-5208</a>: Adds the <code>repl.force_sst_after_inconsistency</code> Galera provider option. When this option is enabled, a node removes the grastate.dat file on shutdown in two cases: when it is voted out of the cluster because of a data inconsistency, or when it fails to apply a write-set during Incremental State Transfer (IST) as a joiner. On the next start, the node performs a full State Snapshot Transfer (SST) instead of IST, which ensures a consistent dataset. The option is disabled by default and can be changed at runtime with <code>wsrep_provider_options</code>.</p>
 </li>
 </ul>
-<h2 id="bug-fixes">Bug fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
+<h2 id="bug-fixes">Bug fixes<a data-markdown-ignore class="headerlink" href="#bug-fixes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PXC-5252">PXC-5252</a>: Fixed an issue where State Snapshot Transfer (SST) with the Clone plugin failed when the <code>validate_password</code> component enforced a strict password policy. The temporary SST user on the donor is no longer subject to password validation. For the Clone SST method, you can now set the <code>sst-password-suffix</code> option in the <code>[sst]</code> section to append characters that satisfy your password policy to the generated password.</p>
@@ -3692,7 +3692,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="https://perconadev.atlassian.net/browse/PXC-5305">PXC-5305</a>: Fixed an issue where a query could silently return incorrect results when an internal temporary table was converted from memory to an on-disk InnoDB table during execution. (MySQL Bug #116741)</p>
 </li>
 </ul>
-<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<h2 id="useful-links">Useful links<a data-markdown-ignore class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>The <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/install-index.html">Percona XtraDB Cluster installation instructions</a></p>

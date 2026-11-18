@@ -144,7 +144,7 @@ This could potentially let them query your data or get a complete copy of it.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3553,14 +3553,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="secure-the-network">Secure the network<a class="headerlink" href="#secure-the-network" title="Permanent link">&para;</a></h1>
+<h1 id="secure-the-network">Secure the network<a data-markdown-ignore class="headerlink" href="#secure-the-network" title="Permanent link">&para;</a></h1>
 <p>By default, anyone with access to your network can connect to any Percona XtraDB Cluster node
 either as a client or as another node joining the cluster.
 This could potentially let them query your data or get a complete copy of it.</p>
 <p>In general, it is a good idea to disable all remote connections to Percona XtraDB Cluster nodes.
 If you require clients or nodes from outside of your network to connect,
 you can set up a VPN (virtual private network) for this purpose.</p>
-<h2 id="firewall-configuration">Firewall configuration<a class="headerlink" href="#firewall-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="firewall-configuration">Firewall configuration<a data-markdown-ignore class="headerlink" href="#firewall-configuration" title="Permanent link">&para;</a></h2>
 <p>A firewall can let you filter Percona XtraDB Cluster traffic
 based on the clients and nodes that you trust.</p>
 <p>By default, Percona XtraDB Cluster nodes use the following ports:</p>
@@ -3582,7 +3582,7 @@ based on the clients and nodes that you trust.</p>
 are accessed only from trusted IP addresses.
 You can implement packet filtering using <code>iptables</code>, <code>firewalld</code>, <code>pf</code>,
 or any other firewall of your choice.</p>
-<h3 id="use-iptables">Use iptables<a class="headerlink" href="#use-iptables" title="Permanent link">&para;</a></h3>
+<h3 id="use-iptables">Use iptables<a data-markdown-ignore class="headerlink" href="#use-iptables" title="Permanent link">&para;</a></h3>
 <p>To restrict access to Percona XtraDB Cluster ports using <code>iptables</code>,
 you need to append new rules to the <code>INPUT</code> chain on the filter table.
 In the following example, the trusted range of IP addresses is 192.168.0.1/24.

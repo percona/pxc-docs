@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3793,7 +3793,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="run-with-docker-compose">Run with Docker Compose<a class="headerlink" href="#run-with-docker-compose" title="Permanent link">&para;</a></h1>
+<h1 id="run-with-docker-compose">Run with Docker Compose<a data-markdown-ignore class="headerlink" href="#run-with-docker-compose" title="Permanent link">&para;</a></h1>
 <p>For more information about using Docker, see the <a href="https://docs.docker.com/">Docker Docs <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. Use the latest version of Docker. Versions provided through <code>apt</code> and <code>yum</code> may be outdated and cause errors.</p>
 <p>Percona collects <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
@@ -3804,7 +3804,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Single-host deployment limits availability</p>
 <p>This guide runs all three nodes on a single host, which is not highly available. If the host reboots or the disk fails, the entire cluster fails and data can be lost. For production, run each of the three nodes on different physical machines or distinct failure domains. Use scheduling such as Docker Swarm or Kubernetes with anti-affinity to prevent a single failure from taking out the cluster. For production guidance, see <a href="high-availability.html">High availability</a>.</p>
 </div>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>The deployment requires the following:</p>
 <ul>
 <li>
@@ -3817,7 +3817,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Familiarity with Docker volumes and networks</p>
 </li>
 </ul>
-<h2 id="directory-structure">Directory structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
+<h2 id="directory-structure">Directory structure<a data-markdown-ignore class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
 <p>Create a directory structure to organize configuration, certificate files, and the Docker Compose definition.</p>
 <p>Run the following commands to create the directory structure:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
@@ -3831,7 +3831,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 └── init/
 </code></pre></div>
 <p>The directory structure separates configuration files, Transport Layer Security (TLS) and SSL certificates, and initialization scripts.</p>
-<h2 id="configuration-files">Configuration files<a class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h2>
+<h2 id="configuration-files">Configuration files<a data-markdown-ignore class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Create <code>conf.d/custom.cnf</code> with minimal SSL settings:</p>
@@ -3845,7 +3845,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Configure password storage with Docker Secrets or <code>.env</code>.</p>
 <p>A <code>.env</code> file is convenient but exposes secret values through <code>docker inspect</code> and process listings. Prefer Docker Secrets (or Podman secrets), which mount passwords as files instead of environment variables.</p>
 <p>Choose one of the following options:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Option A: Docker Secrets (recommended)</label><label for="__tabbed_1_2">Option B: .env (quick local test only)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Option A: Docker Secrets (recommended)</label><label for="__tabbed_1_2">Option B: .env (quick local test only)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Create two secret files in the project root. Each file must contain only the password with no trailing newline. Generate strong passwords and write them in one step:</p>
@@ -3875,7 +3875,7 @@ XTRABACKUP_PASSWORD=&lt;password&gt;
 </div>
 </li>
 </ol>
-<h2 id="ssl-certificate-generation">SSL certificate generation<a class="headerlink" href="#ssl-certificate-generation" title="Permanent link">&para;</a></h2>
+<h2 id="ssl-certificate-generation">SSL certificate generation<a data-markdown-ignore class="headerlink" href="#ssl-certificate-generation" title="Permanent link">&para;</a></h2>
 <p>For broader guidance on protecting cluster traffic, see <a href="encrypt-traffic.html">Encrypt traffic</a>.</p>
 <ol>
 <li>
@@ -3932,9 +3932,9 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <p>Ensure each host&rsquo;s Compose file mounts that host&rsquo;s certificate directory. See <a href="#multi-host-deployment">Multi-host deployment</a> for firewall, name resolution, and time synchronization.</p>
 </li>
 </ol>
-<h2 id="multi-host-deployment">Multi-host deployment<a class="headerlink" href="#multi-host-deployment" title="Permanent link">&para;</a></h2>
+<h2 id="multi-host-deployment">Multi-host deployment<a data-markdown-ignore class="headerlink" href="#multi-host-deployment" title="Permanent link">&para;</a></h2>
 <p>When you run each node on a separate machine, configure the following on every host in addition to copying certificates.</p>
-<h3 id="firewall">Firewall<a class="headerlink" href="#firewall" title="Permanent link">&para;</a></h3>
+<h3 id="firewall">Firewall<a data-markdown-ignore class="headerlink" href="#firewall" title="Permanent link">&para;</a></h3>
 <p>Allow cluster and client traffic between hosts. Open the following ports on each host for the other hosts&rsquo; Internet Protocol (IP) addresses or subnet:</p>
 <ul>
 <li>
@@ -3950,7 +3950,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <p>4568 (Galera incremental state transfer)</p>
 </li>
 </ul>
-<h3 id="name-resolution-and-cluster_join">Name resolution and CLUSTER_JOIN<a class="headerlink" href="#name-resolution-and-cluster_join" title="Permanent link">&para;</a></h3>
+<h3 id="name-resolution-and-cluster_join">Name resolution and CLUSTER_JOIN<a data-markdown-ignore class="headerlink" href="#name-resolution-and-cluster_join" title="Permanent link">&para;</a></h3>
 <p>Containers on one host must reach containers on other hosts by hostname or IP address. The example Compose file uses <code>CLUSTER_JOIN=pxc1</code>, which works only when all containers run on the same host. The name <code>pxc1</code> resolves only inside the host network where that container runs.</p>
 <p>For a multi-host deployment, set <code>CLUSTER_JOIN</code> to the IP address or Fully Qualified Domain Name (FQDN). Use the address of the host that runs the bootstrap node. On the hosts that run pxc2 and pxc3, set one of the following:</p>
 <ul>
@@ -3962,9 +3962,9 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 </li>
 </ul>
 <p>Replace the placeholder with the actual IP address or FQDN of the machine where pxc1 runs. Add Domain Name System (DNS) records or <code>/etc/hosts</code> entries on each host. The value in <code>CLUSTER_JOIN</code> must resolve to the correct machine.</p>
-<h3 id="time-synchronization">Time synchronization<a class="headerlink" href="#time-synchronization" title="Permanent link">&para;</a></h3>
+<h3 id="time-synchronization">Time synchronization<a data-markdown-ignore class="headerlink" href="#time-synchronization" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster and Galera require consistent time across nodes. Synchronize the clock on every host with a Network Time Protocol (NTP) implementation such as <code>chrony</code> or <code>systemd-timesyncd</code>. Clock skew between hosts can cause replication issues and cluster instability. Enable and run NTP before starting the cluster.</p>
-<h2 id="docker-compose-setup">Docker Compose setup<a class="headerlink" href="#docker-compose-setup" title="Permanent link">&para;</a></h2>
+<h2 id="docker-compose-setup">Docker Compose setup<a data-markdown-ignore class="headerlink" href="#docker-compose-setup" title="Permanent link">&para;</a></h2>
 <p>Create <code>docker-compose.yml</code> in the project root. The following example uses Docker Secrets (Option A in <a href="#configuration-files">Configuration files</a>). If you chose the <code>.env</code> option (Option B), make these changes:</p>
 <ul>
 <li>
@@ -4133,7 +4133,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 </code></pre></div>
 <p>Volume persistence: The example uses bind mounts (<code>./data-pxc1</code>, <code>./data-pxc2</code>, <code>./data-pxc3</code>). Data lives on the host and survives <code>docker compose down</code>. For production, consider named volumes. Named volumes let the runtime manage storage instead of tying data to a single host path. Without bind mounts or named volumes, database data is ephemeral and is lost when containers are removed.</p>
 <p>SELinux and rootless: The example uses <code>:Z</code> (or <code>:z</code>) on all volume mounts. The runtime relabels them for the container. SELinux relabeling is required when SELinux is enabled. RHEL, CentOS Stream, Rocky, AlmaLinux, and Fedora enable SELinux by default. Rootless runtimes (Podman or Docker rootless) also commonly need relabeling. Without relabeling, the container cannot read <code>certs/</code>, <code>conf.d/</code>, or the data directories and fails at startup. On systems without SELinux, remove <code>,Z</code> from the volume suffixes. For more on SELinux configuration, see <a href="selinux.html">SELinux</a>.</p>
-<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
+<h2 id="deployment">Deployment<a data-markdown-ignore class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
 <p>The Compose file sets <code>depends_on: pxc1: condition: service_healthy</code> for pxc2 and pxc3. The join nodes start only after pxc1 passes its healthcheck. This dependency prevents a race where the join nodes start before the bootstrap node is ready. Choose one of the following approaches:</p>
 <ul>
 <li>
@@ -4166,7 +4166,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <p>With Podman, use <code>podman compose up -d pxc2 pxc3</code> or <code>podman-compose up -d pxc2 pxc3</code>.</p>
 </li>
 </ul>
-<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
+<h2 id="validation">Validation<a data-markdown-ignore class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
 <p>Check the status of each node from the host. Pass the root password according to your secret store:</p>
 <ul>
 <li>
@@ -4195,12 +4195,12 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </li>
 </ol>
 <p>All three nodes are joined and synchronized when the listed health indicators show the expected values. To validate replication end-to-end, see <a href="verify-replication.html">Verify replication</a>.</p>
-<h2 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
+<h2 id="backup">Backup<a data-markdown-ignore class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
 <p>Back up data before major changes or shutdown. The following example dumps all databases from pxc1 to a file on the host. Use the root password from your secret file or <code>.env</code>:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqldump<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>--all-databases<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
 </code></pre></div>
 <p>Expected result: The file <code>backup.sql</code> is created in the current directory with SQL statements for all databases. If you use <code>.env</code>, substitute <code>-p${MYSQL_ROOT_PASSWORD}</code>. With Podman, use <code>podman exec</code> instead of <code>docker exec</code>.</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshooting">Troubleshooting<a data-markdown-ignore class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>View container logs for debugging:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc1
 docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc2
@@ -4210,7 +4210,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Expected result: Log lines from MySQL and PXC until you press Ctrl+C.</p>
 <p>With Podman, use <code>podman compose logs -f pxc1</code>.</p>
 <p>The following sections cover common issues.</p>
-<h3 id="containers-exit-or-fail-to-start">Containers exit or fail to start<a class="headerlink" href="#containers-exit-or-fail-to-start" title="Permanent link">&para;</a></h3>
+<h3 id="containers-exit-or-fail-to-start">Containers exit or fail to start<a data-markdown-ignore class="headerlink" href="#containers-exit-or-fail-to-start" title="Permanent link">&para;</a></h3>
 <p>This issue typically appears at startup before the cluster forms:</p>
 <ul>
 <li>
@@ -4223,7 +4223,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Solution: Ensure the bootstrap node (pxc1) is healthy before starting pxc2 and pxc3.</p>
 </li>
 </ul>
-<h3 id="cluster-size-stays-at-1">Cluster size stays at 1<a class="headerlink" href="#cluster-size-stays-at-1" title="Permanent link">&para;</a></h3>
+<h3 id="cluster-size-stays-at-1">Cluster size stays at 1<a data-markdown-ignore class="headerlink" href="#cluster-size-stays-at-1" title="Permanent link">&para;</a></h3>
 <p>The bootstrap node started, but the join nodes failed to register:</p>
 <ul>
 <li>
@@ -4236,7 +4236,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Solution: Start pxc1 first. Wait for the healthcheck to pass. Restart pxc2 and pxc3 after pxc1 is up.</p>
 </li>
 </ul>
-<h3 id="permission-denied-on-certs-or-config">Permission denied on certs or config<a class="headerlink" href="#permission-denied-on-certs-or-config" title="Permanent link">&para;</a></h3>
+<h3 id="permission-denied-on-certs-or-config">Permission denied on certs or config<a data-markdown-ignore class="headerlink" href="#permission-denied-on-certs-or-config" title="Permanent link">&para;</a></h3>
 <p>The container cannot read mounted host paths:</p>
 <ul>
 <li>
@@ -4249,7 +4249,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Solution: Add <code>:Z</code> or <code>:z</code> to all volume mounts. See the SELinux note in <a href="#docker-compose-setup">Docker Compose setup</a> and <a href="#appendix-podman-alternative">Appendix: Podman alternative</a>.</p>
 </li>
 </ul>
-<h3 id="nodes-cannot-reach-each-other">Nodes cannot reach each other<a class="headerlink" href="#nodes-cannot-reach-each-other" title="Permanent link">&para;</a></h3>
+<h3 id="nodes-cannot-reach-each-other">Nodes cannot reach each other<a data-markdown-ignore class="headerlink" href="#nodes-cannot-reach-each-other" title="Permanent link">&para;</a></h3>
 <p>Network configuration blocks communication between cluster members:</p>
 <ul>
 <li>
@@ -4262,7 +4262,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Solution: On a single host, verify all containers are on the same network with <code>docker network inspect pxc-cluster_pxcnet</code>. On multiple hosts, see <a href="#multi-host-deployment">Multi-host deployment</a> for firewall rules, name resolution, and NTP.</p>
 </li>
 </ul>
-<h2 id="cleanup-and-shutdown">Cleanup and shutdown<a class="headerlink" href="#cleanup-and-shutdown" title="Permanent link">&para;</a></h2>
+<h2 id="cleanup-and-shutdown">Cleanup and shutdown<a data-markdown-ignore class="headerlink" href="#cleanup-and-shutdown" title="Permanent link">&para;</a></h2>
 <p>To stop the cluster and remove containers (data in <code>data-pxc1/</code>, <code>data-pxc2/</code>, <code>data-pxc3/</code> is preserved):</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
 </code></pre></div>
@@ -4278,7 +4278,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 </code></pre></div>
 <p>This operation deletes all database data permanently.</p>
 </div>
-<h2 id="appendix-podman-alternative">Appendix: Podman alternative<a class="headerlink" href="#appendix-podman-alternative" title="Permanent link">&para;</a></h2>
+<h2 id="appendix-podman-alternative">Appendix: Podman alternative<a data-markdown-ignore class="headerlink" href="#appendix-podman-alternative" title="Permanent link">&para;</a></h2>
 <p><a href="https://podman.io/">Podman</a> runs the same container images as Docker and accepts the Compose file in this guide. Podman differs from Docker in the following defaults that affect this deployment:</p>
 <ul>
 <li>
@@ -4321,14 +4321,14 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>Compose file: The <code>docker-compose.yml</code> works as-is with Podman; the <code>bridge</code> network and volume mounts are supported. For rootless Podman, see the volume mount options in <a href="#handle-rootless-permissions-for-podman">Handle rootless permissions for Podman</a>.</p>
 </li>
 </ul>
-<h3 id="handle-rootless-permissions-for-podman">Handle rootless permissions for Podman<a class="headerlink" href="#handle-rootless-permissions-for-podman" title="Permanent link">&para;</a></h3>
+<h3 id="handle-rootless-permissions-for-podman">Handle rootless permissions for Podman<a data-markdown-ignore class="headerlink" href="#handle-rootless-permissions-for-podman" title="Permanent link">&para;</a></h3>
 <p>In Docker, the daemon runs as root and can override file permissions. In Podman running as a normal user, the MySQL process inside the container runs as User Identifier (UID) 1001 or 999. That UID may lack permission to read host files. Ensure host files are readable by the container. On systems with SELinux, use the <code>:Z</code> or <code>:z</code> mount option to relabel the volume for the container. Use <code>:Z</code> for private relabeling and <code>:z</code> for shared relabeling. Use the following in your <code>docker-compose.yml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
 </code></pre></div>
 <p>Apply the same volume options to every service (pxc1, pxc2, pxc3). Without <code>:Z</code> or <code>:z</code>, the container may fail to read certs or config when running rootless on SELinux.</p>
-<h3 id="compare-podman-compose-and-docker-compose">Compare <code>podman-compose</code> and <code>docker-compose</code><a class="headerlink" href="#compare-podman-compose-and-docker-compose" title="Permanent link">&para;</a></h3>
+<h3 id="compare-podman-compose-and-docker-compose">Compare <code>podman-compose</code> and <code>docker-compose</code><a data-markdown-ignore class="headerlink" href="#compare-podman-compose-and-docker-compose" title="Permanent link">&para;</a></h3>
 <p>The two tools differ in stability and behavior:</p>
 <ul>
 <li>
@@ -4338,7 +4338,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 <p>If you use <code>docker-compose</code> with the Podman socket: This combination is often more stable for PXC. Set <code>DOCKER_HOST</code> to reference the Podman socket (for example, <code>unix:///run/user/$(id -u)/podman/podman.sock</code>) so <code>docker compose</code> connects to Podman.</p>
 </li>
 </ul>
-<h3 id="resolve-podman-network-issues">Resolve Podman network issues<a class="headerlink" href="#resolve-podman-network-issues" title="Permanent link">&para;</a></h3>
+<h3 id="resolve-podman-network-issues">Resolve Podman network issues<a data-markdown-ignore class="headerlink" href="#resolve-podman-network-issues" title="Permanent link">&para;</a></h3>
 <p>PXC uses specific ports for cluster communication (4567, 4568, 4444). Podman uses different networking (netavark or CNI). If nodes cannot find each other, try the following:</p>
 <ul>
 <li>

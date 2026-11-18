@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3639,8 +3639,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="data-at-rest-encryption">Data at Rest Encryption<a class="headerlink" href="#data-at-rest-encryption" title="Permanent link">&para;</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h1 id="data-at-rest-encryption">Data at Rest Encryption<a data-markdown-ignore class="headerlink" href="#data-at-rest-encryption" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a data-markdown-ignore class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>Data at rest encryption refers to encrypting data stored on a disk on a server. If an unauthorized user accesses the data files from the file system, encryption ensures the user cannot read the file contents. Percona Server allows you to enable, disable, and apply encryptions to the following objects:</p>
 <ul>
 <li>
@@ -3673,8 +3673,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The transit data is defined as data that is transmitted to another node or client. Encrypted transit data uses an SSL connection.</p>
 <p>Percona XtraDB Cluster 8.4 supports all data at rest generally-available encryption features available from Percona Server for MySQL 8.4.</p>
-<h2 id="use-the-component_keyring_file">Use the component_keyring_file<a class="headerlink" href="#use-the-component_keyring_file" title="Permanent link">&para;</a></h2>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<h2 id="use-the-component_keyring_file">Use the component_keyring_file<a data-markdown-ignore class="headerlink" href="#use-the-component_keyring_file" title="Permanent link">&para;</a></h2>
+<h3 id="configuration">Configuration<a data-markdown-ignore class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster inherits the Percona Server for MySQL behavior to configure the <code>component_keyring_file</code>. The following example illustrates using the component. Review <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Use the keyring vault component <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for the latest information on keyring components.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3708,7 +3708,7 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <p>PXC recommends the same configuration on all cluster nodes, and all nodes should have the keyring configured. A mismatch in the keyring configuration does not allow the JOINER node to join the cluster.</p>
 </div>
 <p>If the user has a bootstrapped node with keyring enabled, then upcoming cluster nodes inherit the keyring (the encrypted key) from the DONOR node.</p>
-<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
+<h4 id="usage">Usage<a data-markdown-ignore class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
 <p>XtraBackup re-encrypts the data using a transition-key and the JOINER node re-encrypts the data using a newly generated master-key.</p>
 <p>Keyring (or, more generally, the Percona XtraDB Cluster SST process) is backward compatible, as in higher-version JOINER can join from lower-version DONOR, but the reverse is not supported.</p>
 <p>Percona XtraDB Cluster does not allow the combination of nodes with encryption and nodes without encryption to maintain data consistency. For example, the user creates node-1 with encryption (keyring) enabled and node-2 with encryption (keyring) disabled. If the user attempts to create a table with encryption on node-1, the creation fails on node-2, causing data inconsistency. A node fails to start if the node fails to load the keyring component.</p>
@@ -3719,12 +3719,12 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <p>If a node does not have an encrypted tablespace, the keyring file exists but is empty. Creating an encrypted table on the node populates the keyring file with the necessary encryption keys.</p>
 <p>In an operation that is local to the node, you can rotate the key as needed. The <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code> statement is not replicated on cluster.</p>
 <p>The JOINER node generates its keyring.</p>
-<h3 id="compatibility">Compatibility<a class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h3>
+<h3 id="compatibility">Compatibility<a data-markdown-ignore class="headerlink" href="#compatibility" title="Permanent link">&para;</a></h3>
 <p>The Percona XtraDB Cluster SST process with keyring support is backward compatible. A higher-version JOINER can join from a lower-version DONOR, but the reverse is not supported.</p>
-<h2 id="configure-pxc-to-use-component_keyring_vault-component">Configure PXC to use component_keyring_vault component<a class="headerlink" href="#configure-pxc-to-use-component_keyring_vault-component" title="Permanent link">&para;</a></h2>
-<h3 id="component_keyring_vault">component_keyring_vault<a class="headerlink" href="#component_keyring_vault" title="Permanent link">&para;</a></h3>
+<h2 id="configure-pxc-to-use-component_keyring_vault-component">Configure PXC to use component_keyring_vault component<a data-markdown-ignore class="headerlink" href="#configure-pxc-to-use-component_keyring_vault-component" title="Permanent link">&para;</a></h2>
+<h3 id="component_keyring_vault">component_keyring_vault<a data-markdown-ignore class="headerlink" href="#component_keyring_vault" title="Permanent link">&para;</a></h3>
 <p>The <code>component_keyring_vault</code> stores the master encryption key in a HashiCorp Vault server instead of a local file like <code>component_keyring_file</code>.</p>
-<h3 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
+<h3 id="configuration_1">Configuration<a data-markdown-ignore class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
 <p>Configuration options are the same as <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
 <div class="no-copy highlight"><pre><span></span><code>{
@@ -3792,15 +3792,15 @@ component is loaded.
 ... [ERROR] Component component_keyring_vault reported: 'Could not flush keys to keyring'
 </code></pre></div>
 </details>
-<h2 id="mix-keyring-component-types">Mix keyring component types<a class="headerlink" href="#mix-keyring-component-types" title="Permanent link">&para;</a></h2>
+<h2 id="mix-keyring-component-types">Mix keyring component types<a data-markdown-ignore class="headerlink" href="#mix-keyring-component-types" title="Permanent link">&para;</a></h2>
 <p>With XtraBackup introducing transition-key logic, you can now mix and match keyring components. For example, node-1 can be configured to use the <code>component_keyring_file</code> component while node-2 uses <code>component_keyring_vault</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Percona strongly recommends the same keyring component configuration for all cluster nodes. Mixing keyring component types is only recommended during controlled transitions from one keyring type to another. Inconsistent configurations can cause data corruption and cluster failures.</p>
 </div>
-<h2 id="migrate-keys-between-keyring-keystores">Migrate keys between keyring keystores<a class="headerlink" href="#migrate-keys-between-keyring-keystores" title="Permanent link">&para;</a></h2>
+<h2 id="migrate-keys-between-keyring-keystores">Migrate keys between keyring keystores<a data-markdown-ignore class="headerlink" href="#migrate-keys-between-keyring-keystores" title="Permanent link">&para;</a></h2>
 <p>Percona XtraDB Cluster supports key migration between keystores. The migration can be performed offline or online using a migration server with specific configuration options.</p>
-<h3 id="offline-migration">Offline migration<a class="headerlink" href="#offline-migration" title="Permanent link">&para;</a></h3>
+<h3 id="offline-migration">Offline migration<a data-markdown-ignore class="headerlink" href="#offline-migration" title="Permanent link">&para;</a></h3>
 <p>In offline migration, the node to migrate is shut down, and the migration server takes care of migrating keys for the said server to a new keystore.</p>
 <p>For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the <code>component_keyring_file</code>. To migrate the n2 node to use <code>component_keyring_vault</code>, use the following procedure:</p>
 <ol>
@@ -3835,7 +3835,7 @@ component is loaded.
 </details>
 <p>On a successful migration, the destination keystore receives additional migrated keys (pre-existing keys in the destination keystore are not touched or removed). The source keystore retains the keys as the migration performs a copy operation and not a move operation.</p>
 <p>If the migration fails, the destination keystore is unchanged.</p>
-<h3 id="online-migration">Online migration<a class="headerlink" href="#online-migration" title="Permanent link">&para;</a></h3>
+<h3 id="online-migration">Online migration<a data-markdown-ignore class="headerlink" href="#online-migration" title="Permanent link">&para;</a></h3>
 <p>In online migration, the node to migrate is kept running, and the migration server takes care of migrating keys for the said server to a new keystore by connecting to the node.</p>
 <p>For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. The nodes use the <code>component_keyring_file</code>. Migrate the n3 node to use <code>component_keyring_vault</code> using the following procedure:</p>
 <ol>
@@ -3861,7 +3861,7 @@ component is loaded.
 </code></pre></div>
 <p>On a successful migration, the destination keystore receives the additional migrated keys. Any pre-existing keys in the destination keystore are unchanged. The source keystore retains the keys as the migration performs a copy operation and not a move operation.</p>
 <p>If the migration fails, the destination keystore is not changed.</p>
-<h3 id="migration-server-options">Migration server options<a class="headerlink" href="#migration-server-options" title="Permanent link">&para;</a></h3>
+<h3 id="migration-server-options">Migration server options<a data-markdown-ignore class="headerlink" href="#migration-server-options" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><code>--keyring-migration-source</code>: The source keyring component that manages the keys to be migrated.</p>

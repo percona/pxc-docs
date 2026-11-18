@@ -144,7 +144,7 @@ tool.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3575,7 +3575,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="set-up-a-testing-environment-with-proxysql">Set up a testing environment with ProxySQL<a class="headerlink" href="#set-up-a-testing-environment-with-proxysql" title="Permanent link">&para;</a></h1>
+<h1 id="set-up-a-testing-environment-with-proxysql">Set up a testing environment with ProxySQL<a data-markdown-ignore class="headerlink" href="#set-up-a-testing-environment-with-proxysql" title="Permanent link">&para;</a></h1>
 <p>This section describes how to set up Percona XtraDB Cluster in a virtualized testing environment
 based on ProxySQL. To test the cluster, we will use the sysbench benchmark
 tool.</p>
@@ -3721,7 +3721,7 @@ For more information about admin databases and tables, see [Admin Tables :octico
 </code></pre></div>
 </li>
 </ol>
-<h3 id="adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a class="headerlink" href="#adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
+<h3 id="adding-cluster-nodes-to-proxysql">Adding cluster nodes to ProxySQL<a data-markdown-ignore class="headerlink" href="#adding-cluster-nodes-to-proxysql" title="Permanent link">&para;</a></h3>
 <p>To configure the backend Percona XtraDB Cluster nodes in ProxySQL, insert corresponding
 records into the mysql_servers table.</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="w"> </span><span class="p">(</span><span class="n">hostname</span><span class="p">,</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'192.168.70.71'</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">3306</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
@@ -3843,7 +3843,7 @@ table:</p>
 <p><a href="https://proxysql.com/blog/configure-read-write-split/">ProxySQL Blog: MySQL read/write split with ProxySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>
 <a href="https://github.com/sysown/proxysql/wiki/Main-(runtime)#mysql_query_rules">ProxySQL Documentation: <code>mysql_query_rules</code> table <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
-<h3 id="proxysql-failover-behavior">ProxySQL failover behavior<a class="headerlink" href="#proxysql-failover-behavior" title="Permanent link">&para;</a></h3>
+<h3 id="proxysql-failover-behavior">ProxySQL failover behavior<a data-markdown-ignore class="headerlink" href="#proxysql-failover-behavior" title="Permanent link">&para;</a></h3>
 <p>Notice that all servers were inserted into the mysql_servers table with the
 READER hostgroup set to 10 (see the value of the hostgroup_id column):</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span>
@@ -3869,7 +3869,7 @@ node is put back online), the node with the highest weight is automatically
 elected for write requests.</p>
 <!-- seealso: :ref:`proxysql.automatic-failover` -->
 
-<h3 id="creating-a-proxysql-monitoring-user">Creating a ProxySQL monitoring user<a class="headerlink" href="#creating-a-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
+<h3 id="creating-a-proxysql-monitoring-user">Creating a ProxySQL monitoring user<a data-markdown-ignore class="headerlink" href="#creating-a-proxysql-monitoring-user" title="Permanent link">&para;</a></h3>
 <p>To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user with <code>USAGE</code>
 privilege on any node in the cluster and configure the user in ProxySQL.</p>
 <p>The following example adds a monitoring user on Node 2 if you are using the <code>caching_sha2_password</code> authentication method:</p>
@@ -3886,7 +3886,7 @@ privilege on any node in the cluster and configure the user in ProxySQL.</p>
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'ProxySQLPa55'</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="saving-and-loading-the-configuration">Saving and loading the configuration<a class="headerlink" href="#saving-and-loading-the-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="saving-and-loading-the-configuration">Saving and loading the configuration<a data-markdown-ignore class="headerlink" href="#saving-and-loading-the-configuration" title="Permanent link">&para;</a></h3>
 <p>To load this configuration at runtime, issue the <code>LOAD</code> command. To save these
 changes to disk (ensuring that they persist after ProxySQL shuts down), issue
 the <code>SAVE</code> command.</p>
@@ -3933,7 +3933,7 @@ you added.</p>
 <p>To enable monitoring of these nodes, load them at runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="creating-proxysql-client-user">Creating ProxySQL Client User<a class="headerlink" href="#creating-proxysql-client-user" title="Permanent link">&para;</a></h3>
+<h3 id="creating-proxysql-client-user">Creating ProxySQL Client User<a data-markdown-ignore class="headerlink" href="#creating-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'appuser'</span><span class="p">,</span><span class="s1">'$3kRetp@$sW0rd'</span><span class="p">);</span>
@@ -3976,7 +3976,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 <p>The following example command grants the <code>appuser</code> account all privileges on all databases and tables.</p>
 <div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'appuser'</span><span class="o">@</span><span class="s1">'192.168.70.74'</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="verification-checklist">Verification checklist<a class="headerlink" href="#verification-checklist" title="Permanent link">&para;</a></h2>
+<h2 id="verification-checklist">Verification checklist<a data-markdown-ignore class="headerlink" href="#verification-checklist" title="Permanent link">&para;</a></h2>
 <p>Run the following checks after setup to confirm that the virtual sandbox is working.</p>
 <ol>
 <li>Verify ProxySQL admin login:</li>
@@ -4011,7 +4011,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </ol>
 <p>Expected result: stopped node changes from <code>ONLINE</code> to an offline state
 such as <code>OFFLINE_SOFT</code>, while remaining nodes continue serving traffic.</p>
-<h2 id="testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a class="headerlink" href="#testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
+<h2 id="testing-the-cluster-with-the-sysbench-benchmark-tool">Testing the cluster with the sysbench benchmark tool<a data-markdown-ignore class="headerlink" href="#testing-the-cluster-with-the-sysbench-benchmark-tool" title="Permanent link">&para;</a></h2>
 <p>After you set up Percona XtraDB Cluster in your testing environment, you can test it using
 the <code>sysbench</code> benchmarking tool.</p>
 <ol>

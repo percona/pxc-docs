@@ -147,7 +147,7 @@ This manual describes what their main differences are.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3578,14 +3578,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="understand-gcache-and-record-set-cache">Understand GCache and Record-Set cache<a class="headerlink" href="#understand-gcache-and-record-set-cache" title="Permanent link">&para;</a></h1>
+<h1 id="understand-gcache-and-record-set-cache">Understand GCache and Record-Set cache<a data-markdown-ignore class="headerlink" href="#understand-gcache-and-record-set-cache" title="Permanent link">&para;</a></h1>
 <p>In Percona XtraDB Cluster, there is a concept of GCache and Record-Set cache
 (which can also be called transaction write-set cache).
 The use of these two caches is often confusing
 if you are running long transactions,
 because both of them result in the creation of disk-level files.
 This manual describes what their main differences are.</p>
-<h2 id="record-set-cache">Record-Set cache<a class="headerlink" href="#record-set-cache" title="Permanent link">&para;</a></h2>
+<h2 id="record-set-cache">Record-Set cache<a data-markdown-ignore class="headerlink" href="#record-set-cache" title="Permanent link">&para;</a></h2>
 <p>When you run a long-running transaction on any particular node,
 it will try to append a key for each row that it tries to modify
 (the key is a unique identifier for the row <code>{db,table,pk.columns}</code>).
@@ -3619,7 +3619,7 @@ plus <code>HEADER</code>, and will publish it for certification to cluster.</p>
 and will receive its own write-set through the cluster publish mechanism.
 This time, the native node will try to cache write-set into its GCache.
 How much data GCache retains is controlled by the GCache configuration.</p>
-<h2 id="gcache">GCache<a class="headerlink" href="#gcache" title="Permanent link">&para;</a></h2>
+<h2 id="gcache">GCache<a data-markdown-ignore class="headerlink" href="#gcache" title="Permanent link">&para;</a></h2>
 <p>GCache holds the write-set published on the cluster for replication.
 The lifetime of write-set in GCache is not transaction-linked.</p>
 <p>When a <code>JOINER</code> node needs an IST,

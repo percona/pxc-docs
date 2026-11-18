@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3683,20 +3683,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="cluster-failover">Cluster failover<a class="headerlink" href="#cluster-failover" title="Permanent link">&para;</a></h1>
-<h2 id="cluster-membership-and-size">Cluster membership and size<a class="headerlink" href="#cluster-membership-and-size" title="Permanent link">&para;</a></h2>
+<h1 id="cluster-failover">Cluster failover<a data-markdown-ignore class="headerlink" href="#cluster-failover" title="Permanent link">&para;</a></h1>
+<h2 id="cluster-membership-and-size">Cluster membership and size<a data-markdown-ignore class="headerlink" href="#cluster-membership-and-size" title="Permanent link">&para;</a></h2>
 <p>Cluster membership depends on which nodes connect to the rest of the cluster; 
 no configuration setting explicitly defines the list of all possible cluster 
 nodes. Therefore, each time a node joins the cluster, the total size of the 
 cluster increases, and when a node leaves gracefully, the size decreases.</p>
-<h2 id="influence-of-cluster-size-on-quorum">Influence of cluster size on quorum<a class="headerlink" href="#influence-of-cluster-size-on-quorum" title="Permanent link">&para;</a></h2>
+<h2 id="influence-of-cluster-size-on-quorum">Influence of cluster size on quorum<a data-markdown-ignore class="headerlink" href="#influence-of-cluster-size-on-quorum" title="Permanent link">&para;</a></h2>
 <p>The cluster size directly influences the votes required to achieve a quorum. 
 Quorum refers to the minimum number of votes needed for a cluster to function 
 effectively and make decisions. Each node in the cluster typically represents 
 one vote. Achieving quorum ensures the cluster can operate safely and avoid 
 split-brain scenarios, where different parts operate independently without a 
 clear leader.</p>
-<h2 id="quorum-voting-process">Quorum voting process<a class="headerlink" href="#quorum-voting-process" title="Permanent link">&para;</a></h2>
+<h2 id="quorum-voting-process">Quorum voting process<a data-markdown-ignore class="headerlink" href="#quorum-voting-process" title="Permanent link">&para;</a></h2>
 <p>A quorum vote occurs when the system suspects that one or more nodes are 
 disconnected due to a lack of response. This situation triggers a no-response 
 timeout defined by the <code>evs.suspect_timeout</code> setting in the 
@@ -3710,7 +3710,7 @@ event of a network partition, some nodes may remain alive and active on each
 side of the disconnect. In this case, only the partition that achieves quorum 
 continues to function, while any partitions without quorum transition to a 
 non-primary state.</p>
-<h2 id="challenges-of-automatic-failover">Challenges of automatic failover<a class="headerlink" href="#challenges-of-automatic-failover" title="Permanent link">&para;</a></h2>
+<h2 id="challenges-of-automatic-failover">Challenges of automatic failover<a data-markdown-ignore class="headerlink" href="#challenges-of-automatic-failover" title="Permanent link">&para;</a></h2>
 <p>As a consequence, safe automatic failover is not possible in a two-node 
 cluster. If one node fails, the remaining node becomes non-primary, which 
 prevents the cluster from functioning effectively. </p>
@@ -3723,7 +3723,7 @@ transition to a non-primary state, leading to potential data inconsistencies
 and operational issues. This situation highlights the importance of designing 
 clusters with an odd number of nodes to ensure reliable automatic failover 
 and maintain quorum during failures.</p>
-<h2 id="best-practices-for-automatic-failover-in-cluster-environments">Best practices for automatic failover in cluster environments<a class="headerlink" href="#best-practices-for-automatic-failover-in-cluster-environments" title="Permanent link">&para;</a></h2>
+<h2 id="best-practices-for-automatic-failover-in-cluster-environments">Best practices for automatic failover in cluster environments<a data-markdown-ignore class="headerlink" href="#best-practices-for-automatic-failover-in-cluster-environments" title="Permanent link">&para;</a></h2>
 <p>For automatic failover, the rule of threes is recommended. This rule applies 
 at various levels of your infrastructure, depending on how far the cluster is 
 spread out to avoid single points of failure. </p>
@@ -3744,7 +3744,7 @@ spread out to avoid single points of failure. </p>
 </ul>
 <p>These guidelines help prevent split-brain situations and ensure that 
 automatic failover functions correctly.</p>
-<h2 id="use-an-arbitrator-for-split-brain-protection">Use an arbitrator for split-brain protection<a class="headerlink" href="#use-an-arbitrator-for-split-brain-protection" title="Permanent link">&para;</a></h2>
+<h2 id="use-an-arbitrator-for-split-brain-protection">Use an arbitrator for split-brain protection<a data-markdown-ignore class="headerlink" href="#use-an-arbitrator-for-split-brain-protection" title="Permanent link">&para;</a></h2>
 <p>If adding a third node, switch, network, or data center proves too expensive, 
 you should consider using an arbitrator. An arbitrator acts as a voting member 
 of the cluster that helps maintain quorum without storing any data. It can 
@@ -3754,7 +3754,7 @@ the standard <code>mysqld</code> daemon, the arbitrator operates its lightweight
 daemon designed explicitly for this purpose.</p>
 <p>Adding an arbitrator in a third location provides split-brain protection for a cluster that spans only two nodes or locations. This setup enhances the cluster&rsquo;s ability to maintain quorum and ensures 
 more reliable operation during failures.</p>
-<h2 id="managing-automatic-failover-and-recovery-in-cluster-environments">Managing automatic failover and recovery in cluster environments<a class="headerlink" href="#managing-automatic-failover-and-recovery-in-cluster-environments" title="Permanent link">&para;</a></h2>
+<h2 id="managing-automatic-failover-and-recovery-in-cluster-environments">Managing automatic failover and recovery in cluster environments<a data-markdown-ignore class="headerlink" href="#managing-automatic-failover-and-recovery-in-cluster-environments" title="Permanent link">&para;</a></h2>
 <p>The rule of threes applies exclusively to automatic failover. In a two-node 
 cluster or during an outage that leaves a minority of nodes active, the 
 failure of one node results in the other becoming non-primary and refusing 

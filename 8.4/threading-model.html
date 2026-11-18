@@ -144,7 +144,7 @@ There are three main groups of threads:">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3597,11 +3597,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-xtradb-cluster-threading-model">Percona XtraDB Cluster threading model<a class="headerlink" href="#percona-xtradb-cluster-threading-model" title="Permanent link">&para;</a></h1>
+<h1 id="percona-xtradb-cluster-threading-model">Percona XtraDB Cluster threading model<a data-markdown-ignore class="headerlink" href="#percona-xtradb-cluster-threading-model" title="Permanent link">&para;</a></h1>
 <p>Percona XtraDB Cluster creates a set of threads to service its operations,
 which are not related to existing MySQL threads.
 There are three main groups of threads:</p>
-<h2 id="applier-threads">Applier threads<a class="headerlink" href="#applier-threads" title="Permanent link">&para;</a></h2>
+<h2 id="applier-threads">Applier threads<a data-markdown-ignore class="headerlink" href="#applier-threads" title="Permanent link">&para;</a></h2>
 <p>Applier threads apply write-sets that the node receives from other nodes.
 Write messages are directed through <code>gcv_recv_thread</code>.</p>
 <p>The number of applier threads is controlled
@@ -3620,7 +3620,7 @@ So all transactions with apply order sequence number (<code>seqno</code>)
 of less than this transaction’s sequence number,
 are applied before applying this transaction.
 The same is done for commit as well (<code>last_left &gt;= trx_.depends_seqno()</code>).</p>
-<h2 id="rollback-thread">Rollback thread<a class="headerlink" href="#rollback-thread" title="Permanent link">&para;</a></h2>
+<h2 id="rollback-thread">Rollback thread<a data-markdown-ignore class="headerlink" href="#rollback-thread" title="Permanent link">&para;</a></h2>
 <p>There is only one rollback thread to perform rollbacks in case of conflicts.</p>
 <ul>
 <li>
@@ -3647,8 +3647,8 @@ or an execution stage when the conflict arises.
 Local transactions in the execution stage are forcibly killed
 so that the waiting applier transaction is allowed to proceed.
 Local transactions in the commit stage fail with a certification error.</p>
-<h2 id="other-threads">Other threads<a class="headerlink" href="#other-threads" title="Permanent link">&para;</a></h2>
-<h3 id="service-thread">Service thread<a class="headerlink" href="#service-thread" title="Permanent link">&para;</a></h3>
+<h2 id="other-threads">Other threads<a data-markdown-ignore class="headerlink" href="#other-threads" title="Permanent link">&para;</a></h2>
+<h3 id="service-thread">Service thread<a data-markdown-ignore class="headerlink" href="#service-thread" title="Permanent link">&para;</a></h3>
 <p>This thread is created during boot-up and used to perform auxiliary services.
 It has two main functions:</p>
 <ul>
@@ -3661,7 +3661,7 @@ It has two main functions:</p>
   On receiving the message, the information is updated in this local metadata.</p>
 </li>
 </ul>
-<h3 id="receiving-thread">Receiving thread<a class="headerlink" href="#receiving-thread" title="Permanent link">&para;</a></h3>
+<h3 id="receiving-thread">Receiving thread<a data-markdown-ignore class="headerlink" href="#receiving-thread" title="Permanent link">&para;</a></h3>
 <p>The <code>gcs_recv_thread</code> thread is the first one to see all the messages
 received in a group.</p>
 <p>It will try to assign actions against each message it receives.
@@ -3671,11 +3671,11 @@ Messages can include different operations like state change,
 configuration update, flow-control, and so on.</p>
 <p>One important action is processing a write-set,
 which actually is applying transactions to database objects.</p>
-<h3 id="gcomm-connection-thread">Gcomm connection thread<a class="headerlink" href="#gcomm-connection-thread" title="Permanent link">&para;</a></h3>
+<h3 id="gcomm-connection-thread">Gcomm connection thread<a data-markdown-ignore class="headerlink" href="#gcomm-connection-thread" title="Permanent link">&para;</a></h3>
 <p>The gcomm connection thread <code>GCommConn::run_fn</code>
 is used to co-ordinate the low-level group communication activity.
 Think of it as a black box meant for communication.</p>
-<h3 id="action-based-threads">Action-based threads<a class="headerlink" href="#action-based-threads" title="Permanent link">&para;</a></h3>
+<h3 id="action-based-threads">Action-based threads<a data-markdown-ignore class="headerlink" href="#action-based-threads" title="Permanent link">&para;</a></h3>
 <p>Besides the above, some threads are created on a needed basis.
 SST creates threads for donor and joiner
 (which eventually forks out a child process to host the needed SST script),

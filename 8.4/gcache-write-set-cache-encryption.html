@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3595,9 +3595,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="gcache-encryption-and-write-set-cache-encryption">GCache encryption and Write-Set cache encryption<a class="headerlink" href="#gcache-encryption-and-write-set-cache-encryption" title="Permanent link">&para;</a></h1>
+<h1 id="gcache-encryption-and-write-set-cache-encryption">GCache encryption and Write-Set cache encryption<a data-markdown-ignore class="headerlink" href="#gcache-encryption-and-write-set-cache-encryption" title="Permanent link">&para;</a></h1>
 <p>These features are <a href="glossary.html#tech-preview">tech preview</a>. Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.</p>
-<h2 id="gcache-and-write-set-cache-encryption">GCache and Write-Set cache encryption<a class="headerlink" href="#gcache-and-write-set-cache-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="gcache-and-write-set-cache-encryption">GCache and Write-Set cache encryption<a data-markdown-ignore class="headerlink" href="#gcache-and-write-set-cache-encryption" title="Permanent link">&para;</a></h2>
 <p>Enabling this feature encrypts the Galera GCache and Write-Set cache files with a File Key.  </p>
 <p>GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stores the Master Key which is used to encrypt the File Key used by the RingBuffer file. The encrypted File Key is stored in the RingBuffer&rsquo;s preamble. The RingBuffer file of GCache is non-volatile, which means this file survives a restart. The File Key is not stored for GCache off-pages and Write-Set cache files.</p>
 <div class="admonition admonition">
@@ -3618,7 +3618,7 @@ enc_fk_id: S4hRiibUje4v5GSQ7a+uuS6NBBX9+230nsPHeAXH43k=
 enc_crc: 279433530
 </code></pre></div>
 </details>
-<h3 id="key-descriptions">Key descriptions<a class="headerlink" href="#key-descriptions" title="Permanent link">&para;</a></h3>
+<h3 id="key-descriptions">Key descriptions<a data-markdown-ignore class="headerlink" href="#key-descriptions" title="Permanent link">&para;</a></h3>
 <p>The following table describes the encryption keys defined in the preamble. All other keys in the preamble are not related to encryption.</p>
 <table>
 <thead>
@@ -3658,7 +3658,7 @@ enc_crc: 279433530
 </tr>
 </tbody>
 </table>
-<h3 id="controlling-encryption">Controlling encryption<a class="headerlink" href="#controlling-encryption" title="Permanent link">&para;</a></h3>
+<h3 id="controlling-encryption">Controlling encryption<a data-markdown-ignore class="headerlink" href="#controlling-encryption" title="Permanent link">&para;</a></h3>
 <p>Encryption is controlled using the wsrep_provider_options. </p>
 <table>
 <thead>
@@ -3701,32 +3701,32 @@ enc_crc: 279433530
 </tr>
 </tbody>
 </table>
-<h2 id="rotate-the-gcache-master-key">Rotate the GCache Master Key<a class="headerlink" href="#rotate-the-gcache-master-key" title="Permanent link">&para;</a></h2>
+<h2 id="rotate-the-gcache-master-key">Rotate the GCache Master Key<a data-markdown-ignore class="headerlink" href="#rotate-the-gcache-master-key" title="Permanent link">&para;</a></h2>
 <p>GCache and Write-Set cache encryption uses either a keyring plugin or a keyring component. This plugin or component must be loaded.</p>
 <p>Store the keyring file outside the data directory when using a keyring plugin or a keyring component.</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">GCACHE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="variable-descriptions">Variable descriptions<a class="headerlink" href="#variable-descriptions" title="Permanent link">&para;</a></h2>
-<h3 id="gcache-encryption">GCache encryption<a class="headerlink" href="#gcache-encryption" title="Permanent link">&para;</a></h3>
+<h2 id="variable-descriptions">Variable descriptions<a data-markdown-ignore class="headerlink" href="#variable-descriptions" title="Permanent link">&para;</a></h2>
+<h3 id="gcache-encryption">GCache encryption<a data-markdown-ignore class="headerlink" href="#gcache-encryption" title="Permanent link">&para;</a></h3>
 <p>The following sections describe the variables related to GCache encryption.
 All variables are read-only.</p>
-<h4 id="gcacheencryption">gcache.encryption<a class="headerlink" href="#gcacheencryption" title="Permanent link">&para;</a></h4>
+<h4 id="gcacheencryption">gcache.encryption<a data-markdown-ignore class="headerlink" href="#gcacheencryption" title="Permanent link">&para;</a></h4>
 <p>Enable or disable GCache cache encryption.</p>
-<h4 id="gcacheencryption_cache_page_size">gcache.encryption_cache_page_size<a class="headerlink" href="#gcacheencryption_cache_page_size" title="Permanent link">&para;</a></h4>
+<h4 id="gcacheencryption_cache_page_size">gcache.encryption_cache_page_size<a data-markdown-ignore class="headerlink" href="#gcacheencryption_cache_page_size" title="Permanent link">&para;</a></h4>
 <p>The size of the GCache encryption page. The value must be multiple of the CPU page size (typically 4kB). If the value is not, the server reports an error and stops.</p>
-<h4 id="gcacheencryption_cache_size">gcache.encryption_cache_size<a class="headerlink" href="#gcacheencryption_cache_size" title="Permanent link">&para;</a></h4>
+<h4 id="gcacheencryption_cache_size">gcache.encryption_cache_size<a data-markdown-ignore class="headerlink" href="#gcacheencryption_cache_size" title="Permanent link">&para;</a></h4>
 <p>Every encrypted file has an encryption.cache, which consists of pages. Use <code>gcache.encryption_cache_size</code> to configure the encryption.cache size. </p>
 <p>Configure the page size in the cache with <a href="#gcacheencryption_cache_page_size"><code>gcache.encryption_cache_page_size</code></a>. </p>
 <p>The maximum size for the encryption.cache is 512 pages. This value is a hint. If the value is larger than the maximum, the value is rounded down to 512 x gcache.encryption_cache_page_size.</p>
 <p>The minimum size for the encryption.cache is 2 pages. If the value is smaller, the value is rounded up.</p>
-<h3 id="write-set-cache-encryption">Write-Set cache encryption<a class="headerlink" href="#write-set-cache-encryption" title="Permanent link">&para;</a></h3>
+<h3 id="write-set-cache-encryption">Write-Set cache encryption<a data-markdown-ignore class="headerlink" href="#write-set-cache-encryption" title="Permanent link">&para;</a></h3>
 <p>The following sections describe the variables related to Write-Set cache encryption.
 All variables are read-only.</p>
-<h4 id="allocatordisk_pages_encryption">allocator.disk_pages_encryption<a class="headerlink" href="#allocatordisk_pages_encryption" title="Permanent link">&para;</a></h4>
+<h4 id="allocatordisk_pages_encryption">allocator.disk_pages_encryption<a data-markdown-ignore class="headerlink" href="#allocatordisk_pages_encryption" title="Permanent link">&para;</a></h4>
 <p>Enable or disable the Write-Set cache encryption.</p>
-<h4 id="allocatorencryption_cache_page_size">allocator.encryption_cache_page_size<a class="headerlink" href="#allocatorencryption_cache_page_size" title="Permanent link">&para;</a></h4>
+<h4 id="allocatorencryption_cache_page_size">allocator.encryption_cache_page_size<a data-markdown-ignore class="headerlink" href="#allocatorencryption_cache_page_size" title="Permanent link">&para;</a></h4>
 <p>The size of the encryption cache for Write-Set pages. The value must be multiple of the CPU page size (typically 4kB).  If the value is not, the server reports an error and stops.</p>
-<h4 id="allocatorencryption_cache_size">allocator.encryption_cache_size<a class="headerlink" href="#allocatorencryption_cache_size" title="Permanent link">&para;</a></h4>
+<h4 id="allocatorencryption_cache_size">allocator.encryption_cache_size<a data-markdown-ignore class="headerlink" href="#allocatorencryption_cache_size" title="Permanent link">&para;</a></h4>
 <p>Every Write-Set encrypted file has an encryption.cache, which consists of pages. Use <code>allocator.encryption_cache_size</code> to configure the size of the <code>encryption.cache</code>. </p>
 <p>Configure the page size in the cache with <a href="#allocatorencryption_cache_page_size"><code>allocator.encryption_cache_page_size</code></a>. </p>
 <p>The maximum size for the encryption.cache is 512 pages. This value is a hint. If the value is larger than the maximum, the value is rounded down to 512 x gcache.encryption_cache_page_size.</p>

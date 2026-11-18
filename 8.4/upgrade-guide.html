@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3705,7 +3705,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="upgrade-percona-xtradb-cluster">Upgrade Percona XtraDB Cluster<a class="headerlink" href="#upgrade-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="upgrade-percona-xtradb-cluster">Upgrade Percona XtraDB Cluster<a data-markdown-ignore class="headerlink" href="#upgrade-percona-xtradb-cluster" title="Permanent link">&para;</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Required: Back up before upgrading</p>
 <p>Create backups before attempting any upgrade.</p>
@@ -3735,8 +3735,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </div>
 <p>Review <a href="get-help.html">Get more help</a> for ways that we can work with you.</p>
-<h2 id="important-changes-in-percona-xtradb-cluster-84">Important changes in Percona XtraDB Cluster 8.4<a class="headerlink" href="#important-changes-in-percona-xtradb-cluster-84" title="Permanent link">&para;</a></h2>
-<h3 id="keyring-plugin-vs-keyring-component">Keyring Plugin vs. Keyring Component<a class="headerlink" href="#keyring-plugin-vs-keyring-component" title="Permanent link">&para;</a></h3>
+<h2 id="important-changes-in-percona-xtradb-cluster-84">Important changes in Percona XtraDB Cluster 8.4<a data-markdown-ignore class="headerlink" href="#important-changes-in-percona-xtradb-cluster-84" title="Permanent link">&para;</a></h2>
+<h3 id="keyring-plugin-vs-keyring-component">Keyring Plugin vs. Keyring Component<a data-markdown-ignore class="headerlink" href="#keyring-plugin-vs-keyring-component" title="Permanent link">&para;</a></h3>
 <p>Percona XtraDB Cluster (PXC) 8.4 replaces the keyring plugin with the keyring component.</p>
 <table>
 <thead>
@@ -3760,14 +3760,14 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="default-authentication-plugin">Default authentication plugin<a class="headerlink" href="#default-authentication-plugin" title="Permanent link">&para;</a></h3>
+<h3 id="default-authentication-plugin">Default authentication plugin<a data-markdown-ignore class="headerlink" href="#default-authentication-plugin" title="Permanent link">&para;</a></h3>
 <p>In Percona XtraDB Cluster 8.4, the default authentication plugin is <code>caching_sha2_password</code>. In ProxySQL 2.6.2 or later, use the <code>caching_sha2_password</code> authentication method.</p>
-<h3 id="proxysql-262-or-later">ProxySQL 2.6.2 or later<a class="headerlink" href="#proxysql-262-or-later" title="Permanent link">&para;</a></h3>
+<h3 id="proxysql-262-or-later">ProxySQL 2.6.2 or later<a data-markdown-ignore class="headerlink" href="#proxysql-262-or-later" title="Permanent link">&para;</a></h3>
 <p>If you use a version before ProxySQL 2.6.2, the option <a href="proxysql-v2.html#proxysql-admin-utilities">&ndash;syncusers</a> does not work if the Percona XtraDB Cluster user is created using <code>caching_sha2_password</code>. Use the <code>mysql_native_password</code> authentication plugin in these cases. You must manually load this authentication plugin.</p>
-<h2 id="default-security-and-compatibility-settings">Default security and compatibility settings<a class="headerlink" href="#default-security-and-compatibility-settings" title="Permanent link">&para;</a></h2>
+<h2 id="default-security-and-compatibility-settings">Default security and compatibility settings<a data-markdown-ignore class="headerlink" href="#default-security-and-compatibility-settings" title="Permanent link">&para;</a></h2>
 <p><a href="strict-mode.html#percona-xtradb-cluster-strict-mode">PXC Strict Mode</a> is enabled by default. This mode denies unsupported operations and may halt the server.</p>
 <p><code>pxc-encrypt-cluster-traffic</code> is enabled by default. Configure each node accordingly and avoid joining a cluster with unencrypted cluster traffic. For more information, see <a href="encrypt-traffic.html#encrypt-pxc-traffic">Traffic encryption is enabled by default</a>.</p>
-<h2 id="do-not-mix-pxc-80-nodes-with-pxc-84-nodes">Do not mix PXC 8.0 nodes with PXC 8.4 nodes<a class="headerlink" href="#do-not-mix-pxc-80-nodes-with-pxc-84-nodes" title="Permanent link">&para;</a></h2>
+<h2 id="do-not-mix-pxc-80-nodes-with-pxc-84-nodes">Do not mix PXC 8.0 nodes with PXC 8.4 nodes<a data-markdown-ignore class="headerlink" href="#do-not-mix-pxc-80-nodes-with-pxc-84-nodes" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL versions 8.0 and 8.4 both use Galera 4. No Galera protocol layer issues prevent any node from being a writer in a mixed-version cluster. However, 8.4 introduces changes that may not work on 8.0. Running these changes on 8.4 and replicating them to 8.0 can cause node inconsistencies. The cluster may evict the node due to the inconsistency voting protocol.</p>
 <p>Percona Server for MySQL 8.4 introduces several Data Definition Language (DDL) enhancements not supported in 8.0. Running these DDL statements on 8.0 produces errors. A key difference is foreign key handling:</p>
 <ul>
@@ -3798,7 +3798,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 <p>In this example, <code>parent.value</code> is indexed but not unique. Version 8.4 allows the foreign key reference. Version 8.0 fails this operation.</p>
 <p>DDL statements replicate as Total Order Isolation (TOI) operations and execute on all nodes. If a statement succeeds on 8.4 but fails on 8.0, the cluster detects the inconsistency and evicts the 8.0 node.</p>
 <p>In a mixed-version cluster, use the lower version node as the writer. Verify that DDL statements behave the same way on all nodes.</p>
-<h2 id="major-upgrade-scenarios">Major upgrade scenarios<a class="headerlink" href="#major-upgrade-scenarios" title="Permanent link">&para;</a></h2>
+<h2 id="major-upgrade-scenarios">Major upgrade scenarios<a data-markdown-ignore class="headerlink" href="#major-upgrade-scenarios" title="Permanent link">&para;</a></h2>
 <p>Verify your version before upgrading PXC to version 8.4. Direct upgrades from versions older than 8.0 are not supported.</p>
 <ul>
 <li>
@@ -3809,7 +3809,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </li>
 </ul>
 <p>The upgrade steps vary based on cluster configuration and workload.</p>
-<h3 id="in-place-rolling-upgrade">In-place rolling upgrade<a class="headerlink" href="#in-place-rolling-upgrade" title="Permanent link">&para;</a></h3>
+<h3 id="in-place-rolling-upgrade">In-place rolling upgrade<a data-markdown-ignore class="headerlink" href="#in-place-rolling-upgrade" title="Permanent link">&para;</a></h3>
 <p>An in-place rolling upgrade updates an N-node PXC cluster with minimal downtime. This process updates nodes one at a time. During the upgrade, direct application writes only to lower-version nodes. Any node can handle reads.</p>
 <p>Before upgrading, verify your application can function with a reduced cluster size. A cluster with an even number of nodes can experience split-brain scenarios.</p>
 <p>The upgrade process automatically detects the 8.0 data directory and initiates the upgrade during node startup. The data directory transforms to be compatible with PXC 8.4. The node then joins the cluster and enters a synced state. The result is an N-node cluster with N-1 nodes on 8.0 and one node on 8.4.</p>
@@ -3828,7 +3828,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 <p>Start the <code>mysqld</code> service.</p>
 </li>
 </ol>
-<h2 id="add-84-node-to-80-cluster">Add 8.4 node to 8.0 cluster<a class="headerlink" href="#add-84-node-to-80-cluster" title="Permanent link">&para;</a></h2>
+<h2 id="add-84-node-to-80-cluster">Add 8.4 node to 8.0 cluster<a data-markdown-ignore class="headerlink" href="#add-84-node-to-80-cluster" title="Permanent link">&para;</a></h2>
 <p>You can upgrade a cluster by starting a fresh 8.4 node and joining the existing 8.0 cluster as an additional node.</p>
 <p>This scenario assumes an active three-node 8.0 cluster:</p>
 <ol>
@@ -3854,7 +3854,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </ul>
 </div>
 <p>If you run a version older than 8.0, first upgrade all nodes to the latest 8.0 release, then upgrade to 8.4.</p>
-<h2 id="upgrade-an-async-replication-replica-node">Upgrade an async replication replica node<a class="headerlink" href="#upgrade-an-async-replication-replica-node" title="Permanent link">&para;</a></h2>
+<h2 id="upgrade-an-async-replication-replica-node">Upgrade an async replication replica node<a data-markdown-ignore class="headerlink" href="#upgrade-an-async-replication-replica-node" title="Permanent link">&para;</a></h2>
 <p>If a PXC node is an async replica of another server, follow this procedure:</p>
 <ol>
 <li>
@@ -3870,7 +3870,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 <p>Verify async replication works.</p>
 </li>
 </ol>
-<h2 id="minor-upgrade">Minor upgrade<a class="headerlink" href="#minor-upgrade" title="Permanent link">&para;</a></h2>
+<h2 id="minor-upgrade">Minor upgrade<a data-markdown-ignore class="headerlink" href="#minor-upgrade" title="Permanent link">&para;</a></h2>
 <p>A minor upgrade moves Percona XtraDB Cluster 8.4 to a newer version within the 8.4 series (for example, from 8.4.0 to 8.4.1). These upgrades include bug fixes and minor improvements without major functionality changes.</p>
 <p>To upgrade the cluster, follow these steps for each node:</p>
 <ol>
@@ -3919,7 +3919,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 <p>Repeat this procedure for the next node in the cluster until all nodes are upgraded.</p>
 </li>
 </ol>
-<h2 id="downgrade">Downgrade<a class="headerlink" href="#downgrade" title="Permanent link">&para;</a></h2>
+<h2 id="downgrade">Downgrade<a data-markdown-ignore class="headerlink" href="#downgrade" title="Permanent link">&para;</a></h2>
 <p>MySQL-compatible database servers (version 8.0.34 and later) allow downgrades within the same Long-Term Support (LTS) version scope. The server must not have applied any new functionality to the data. Downgrading a node is not recommended, but administrators can perform the downgrade using the established procedure.</p>
 <p>The key constraint is data compatibility. New features introduced in a specific point release cannot be retroactively applied to an earlier version. Verify that no version-specific modifications have been made before attempting a downgrade.</p>
 <p>Downgrades carry inherent risks. Approach downgrades with caution and thorough planning.</p>
