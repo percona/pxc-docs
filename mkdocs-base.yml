@@ -1,7 +1,7 @@
 # MkDocs configuration for Netlify builds
 
 site_name: Percona XtraDB Cluster
-site_description: Documentation
+site_description: "Percona XtraDB Cluster 8.4, a high availability MySQL clustering solution with synchronous replication, with installation, configuration, upgrade, security and operations guides"
 site_author: Percona LLC
 copyright: >-
   <a href="https://www.percona.com/about">Percona LLC</a> and its affiliates &copy; 2026 — <a href="#" onclick="Osano.cm.showDrawer('osano-cm-dom-info-dialog-open')">Cookie Preferences</a>
