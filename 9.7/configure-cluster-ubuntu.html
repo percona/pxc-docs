@@ -125,7 +125,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.">
                <meta property="og:title" content="Percona XtraDB Cluster - Configure a cluster on Debian or Ubuntu" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-ubuntu.md"></head>
             </html>
 
             
@@ -139,7 +139,7 @@ on Ubuntu 14 LTS servers, using the packages from Percona repositories.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-ubuntu.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/configure-cluster-ubuntu.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3659,7 +3659,7 @@ For more information about bootstrapping the cluster, see <a href="bootstrap.htm
 <li>
 <p>Make sure that the configuration file <code>/etc/mysql/my.cnf</code>
 for the first node (<code>pxc1</code>) contains the following:</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 datadir=/var/lib/mysql
 user=mysql
 # Path to Galera library
@@ -3680,19 +3680,19 @@ wsrep_cluster_name=my_ubuntu_cluster
 </li>
 <li>
 <p>Start the first node, <code>[root@pxc1 ~]#</code>, with the following command:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>This command will start the first node and bootstrap the cluster.</p>
 </li>
 <li>
 <p>After the first node has been started,
 cluster status can be checked with the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following outut shows the cluste status:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
@@ -3714,7 +3714,7 @@ cluster status can be checked with the following command:</p>
 </ol>
 <p>To perform <a href="state-snapshot-transfer.html#state-snapshot-transfer">State Snapshot Transfer</a> using <em>XtraBackup</em>,
 set up a new user with proper <a href="https://docs.percona.com/percona-xtrabackup/9.7/privileges.html">privileges</a>:</p>
-<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'sstuser'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'s3cretPass'</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>CREATE<span class="w"> </span>USER<span class="w"> </span><span class="s1">'sstuser'</span>@<span class="s1">'localhost'</span><span class="w"> </span>IDENTIFIED<span class="w"> </span>BY<span class="w"> </span><span class="s1">'s3cretPass'</span><span class="p">;</span>
 GRANT<span class="w"> </span>PROCESS,<span class="w"> </span>RELOAD,<span class="w"> </span>LOCK<span class="w"> </span>TABLES,<span class="w"> </span>REPLICATION<span class="w"> </span>CLIENT<span class="w"> </span>ON<span class="w"> </span>*.*<span class="w"> </span>TO<span class="w"> </span><span class="s1">'sstuser'</span>@<span class="s1">'localhost'</span><span class="p">;</span>
 FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 </code></pre></div>
@@ -3727,7 +3727,7 @@ FLUSH<span class="w"> </span>PRIVILEGES<span class="p">;</span>
 <li>
 <p>Make sure that the configuration file <code>/etc/mysql/my.cnf</code>
 on the second node (<code>pxc2</code>) contains the following:</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 datadir=/var/lib/mysql
 user=mysql
 # Path to Galera library
@@ -3748,19 +3748,19 @@ wsrep_sst_method=xtrabackup-v2
 </li>
 <li>
 <p>Start the second node, <code>[root@pxc2 ~]#</code>, with the following command:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically.
     Cluster status can now be checked on both nodes.
     The following is an example of status from the second node (<code>pxc2</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows that the new node has been successfully added to the cluster.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
@@ -3784,7 +3784,7 @@ wsrep_sst_method=xtrabackup-v2
 <li>
 <p>Make sure that the MySQL configuration file <code>/etc/mysql/my.cnf</code>
 on the third node (<code>pxc3</code>) contains the following:</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 datadir=/var/lib/mysql
 user=mysql
 # Path to Galera library
@@ -3805,19 +3805,19 @@ wsrep_sst_method=xtrabackup-v2
 </li>
 <li>
 <p>Start the third node, <code>[root@pxc3 ~]#</code>, with the following command:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>After the server has been started, it should receive SST automatically. Cluster status can be checked on all nodes. The following is an example of status from the third node (<code>pxc3</code>):</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>show<span class="w"> </span>status<span class="w"> </span>like<span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the third node has joined the cluster.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | b598af3e-ace3-11e2-0800-3e90eb9cd5d3 |
@@ -3841,56 +3841,56 @@ and add some records to the table on the first node.</p>
 <ol>
 <li>
 <p>Create a new database on the second node, <code>mysql@percona2&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>CREATE<span class="w"> </span>DATABASE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a new database has been created:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Switch to a newly created database, <code>mysql@percona3&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>USE<span class="w"> </span>percona<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Database changed
+<div class="language-text no-copy highlight"><pre><span></span><code>Database changed
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Create a table on the third node:</p>
-<div class="highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>CREATE<span class="w"> </span>TABLE<span class="w"> </span>example<span class="w"> </span><span class="o">(</span>node_id<span class="w"> </span>INT<span class="w"> </span>PRIMARY<span class="w"> </span>KEY,<span class="w"> </span>node_name<span class="w"> </span>VARCHAR<span class="o">(</span><span class="m">30</span><span class="o">))</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.05 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.05 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Insert records on the first node, <code>mysql@percona1&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>INSERT<span class="w"> </span>INTO<span class="w"> </span>percona.example<span class="w"> </span>VALUES<span class="w"> </span><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="s1">'percona1'</span><span class="o">)</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Retrieve all the rows from that table on the second node, <code>mysql@percona2&gt;</code>:</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>SELECT<span class="w"> </span>*<span class="w"> </span>FROM<span class="w"> </span>percona.example<span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------+-----------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------+-----------+
 | node_id | node_name |
 +---------+-----------+
 |       1 | percona1  |

@@ -15,7 +15,7 @@ To set up the cluster:
 
    - `/etc/my.4000.cnf`
 
-   ```
+   ```text
    [mysqld]
    port = 4000
    socket=/tmp/mysql.4000.sock
@@ -36,7 +36,7 @@ To set up the cluster:
 
    - `/etc/my.5000.cnf`
 
-   ```
+   ```text
    [mysqld]
    port = 5000
    socket=/tmp/mysql.5000.sock
@@ -57,7 +57,7 @@ To set up the cluster:
 
    - `/etc/my.6000.cnf`
 
-   ```
+   ```text
    [mysqld]
    port = 6000
    socket=/tmp/mysql.6000.sock
@@ -84,7 +84,7 @@ To set up the cluster:
 
 1. Start the first node using the following command (from the Percona XtraDB Cluster install directory):
 
-   ```
+   ```shell
    bin/mysqld_safe --defaults-file=/etc/my.4000.cnf --wsrep-new-cluster
    ```
 
@@ -92,14 +92,14 @@ To set up the cluster:
 
    Expected output
 
-   ```
+   ```text
    111215 19:01:49 [Note] WSREP: Shifting JOINED -> SYNCED (TO: 0)
    111215 19:01:49 [Note] WSREP: New cluster view: global state: 4c286ccc-2792-11e1-0800-94bd91e32efa:0, view# 1: Primary, number of nodes: 1, my index: 0, protocol version 1
    ```
 
    To check the ports, run the following command:
 
-   ```
+   ```shell
    netstat -anp | grep mysqld
    tcp        0      0 192.168.2.21:4030           0.0.0.0:*                   LISTEN      21895/mysqld
    tcp        0      0 0.0.0.0:4000                0.0.0.0:*                   LISTEN      21895/mysqld
@@ -107,14 +107,14 @@ To set up the cluster:
 
 1. Start the second and third nodes:
 
-   ```
+   ```shell
    bin/mysqld_safe --defaults-file=/etc/my.5000.cnf
    bin/mysqld_safe --defaults-file=/etc/my.6000.cnf
    ```
 
    If the nodes start and join the cluster successful, you should see the following output:
 
-   ```
+   ```shell
    111215 19:22:26 [Note] WSREP: Shifting JOINER -> JOINED (TO: 2)
    111215 19:22:26 [Note] WSREP: Shifting JOINED -> SYNCED (TO: 2)
    111215 19:22:26 [Note] WSREP: Synchronized with group, ready for connections
@@ -122,13 +122,13 @@ To set up the cluster:
 
    To check the cluster size, run the following command:
 
-   ```
+   ```shell
    mysql -h127.0.0.1 -P6000 -e "show global status like 'wsrep_cluster_size';"
    ```
 
    Expected output
 
-   ```
+   ```text
    +--------------------+-------+
    | Variable_name      | Value |
    +--------------------+-------+
@@ -138,6 +138,6 @@ To set up the cluster:
 
    After that you can connect to any node and perform queries, which will be automatically synchronized with other nodes. For example, to create a database on the second node, you can run the following command:
 
-   ```
+   ```shell
    mysql -h127.0.0.1 -P5000 -e "CREATE DATABASE hello_peter"
    ```

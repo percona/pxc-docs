@@ -38,7 +38,7 @@ There is an inherent assumption/protocol enforcement that all nodes read the pac
 
 The following example shows what happens in a common situation. `act_id` is incremented and assigned only for totally ordered actions, and only in primary state (skip messages while in state exchange).
 
-```
+```shell
 rcvd->id = ++group->act_id_;
 ```
 
@@ -54,7 +54,7 @@ The following happens if two nodes get ready with their packet at same time:
 
 1. The following example shows what happens if two nodes modify same set of rows. Nodes are in sync until this point:
 
-   ```
+   ```shell
    create -> insert (1,2,3,4)
    ```
 
@@ -103,13 +103,13 @@ This suggests that the node doesn’t need to wait for certification to complete
 
 The following example shows what happens if one of the nodes has local changes that are not synced with the group:
 
-```
+```sql
 create (id primary key) -> insert (1), (2), (3), (4);
 ```
 
 Expected output
 
-```
+```text
 node-1: wsrep_on=0; insert (5); wsrep_on=1
 node-2: insert(5).
 ```

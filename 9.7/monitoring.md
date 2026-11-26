@@ -18,19 +18,19 @@ Besides standard MySQL alerting, you should use at least the following triggers 
 
 - Cluster state of each node
 
-[`wsrep_cluster_status`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_cluster_status) != Primary
+[`wsrep_cluster_status`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_cluster_status) != Primary
 
 - Node state
 
-[`wsrep_connected`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_connected) != `ON`
+[`wsrep_connected`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_connected) != `ON`
 
-[`wsrep_ready`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_ready) != `ON`
+[`wsrep_ready`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_ready) != `ON`
 
 For additional alerting, consider the following:
 
-- Excessive replication conflicts can be identtified using the [`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_cert_failures) and [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_bf_aborts) variables
-- Excessive flow control messages can be identified using the [`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_flow_control_sent) and [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_flow_control_recv) variables
-- Large replication queues can be identified using the [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_recv_queue).
+- Excessive replication conflicts can be identtified using the [`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_cert_failures) and [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_bf_aborts) variables
+- Excessive flow control messages can be identified using the [`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_flow_control_sent) and [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_flow_control_recv) variables
+- Large replication queues can be identified using the [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_recv_queue).
 
 ## Metrics
 
@@ -38,23 +38,23 @@ Cluster metrics collection for long-term graphing should be done at least for th
 
 - Queue sizes:
 
-[`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_recv_queue) and [`wsrep_local_send_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_send_queue)
+[`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_recv_queue) and [`wsrep_local_send_queue`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_send_queue)
 
 - Flow control:
 
-[`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_flow_control_sent) and [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_flow_control_recv)
+[`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_flow_control_sent) and [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_flow_control_recv)
 
 - Number of transactions for a node:
 
-[`wsrep_replicated`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_replicated) and [`wsrep_received`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_received)
+[`wsrep_replicated`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_replicated) and [`wsrep_received`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_received)
 
 - Number of transactions in bytes:
 
-[`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_replicated_bytes) and [`wsrep_received_bytes`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_received_bytes)
+[`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_replicated_bytes) and [`wsrep_received_bytes`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_received_bytes)
 
 - Replication conflicts:
 
-[`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_cert_failures) and [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_bf_aborts)
+[`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_cert_failures) and [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_bf_aborts)
 
 ## Use Percona Monitoring and Management
 
@@ -62,9 +62,15 @@ Cluster metrics collection for long-term graphing should be done at least for th
 
 1. PXC/Galera Cluster Overview:
 
+   *Image: image*
+
 1. PXC/Galera Graphs:
 
+   *Image: image*
+
    These dashboards are available from the menu:
+
+   *Image: image*
 
 Please refer to the [official documentation](https://docs.percona.com/percona-monitoring-and-management/3/) for details on Percona Monitoring and Management installation and setup.
 

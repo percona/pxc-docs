@@ -30,18 +30,18 @@ To set up Percona XtraDB Cluster:
 
 1. Remove any existing Percona XtraDB Cluster or Percona Server for MySQL packages from older versions before installing.
 
-1. Install Percona XtraDB Cluster with [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.html#install-from-percona-software-repository).
+1. Install Percona XtraDB Cluster with [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.md#install-from-percona-software-repository).
 
 1. Create data directories:
 
-   ```
+   ```shell
    mkdir -p /mnt/data
    mysql_install_db --datadir=/mnt/data --user=mysql
    ```
 
 1. Stop the firewall service:
 
-   ```
+   ```shell
    service iptables stop
    ```
 
@@ -49,7 +49,7 @@ To set up Percona XtraDB Cluster:
 
    Alternatively, you can keep the firewall running, but open ports 3306, 4444, 4567, 4568. For example to open port 4567 on 192.168.0.1:
 
-   ```
+   ```shell
    iptables -A INPUT -i eth0 -p tcp -m tcp --source 192.168.0.1/24 --dport 4567 -j ACCEPT
    ```
 
@@ -57,7 +57,7 @@ To set up Percona XtraDB Cluster:
 
    Contents of the configuration file on the first node:
 
-   ```
+   ```text
    [mysqld]
    datadir=/mnt/data
    user=mysql
@@ -71,33 +71,33 @@ To set up Percona XtraDB Cluster:
 
    For the second and third nodes change the following lines:
 
-   ```
+   ```text
    wsrep_node_name=node2
    wsrep_node_name=node3
    ```
 
 1. Start and bootstrap Percona XtraDB Cluster on the first node:
 
-   ```
+   ```shell
    systemctl start mysql@bootstrap.service
    ```
 
    Expected output
 
-   ```
+   ```text
    2014-01-30 11:52:35 23280 [Note] /usr/sbin/mysqld: ready for connections.
    Version: '...'  socket: '/var/lib/mysql/mysql.sock'  port: 3306  Percona XtraDB Cluster (GPL), Release ..., Revision ..., wsrep_version
    ```
 
 1. Start the second and third nodes:
 
-   ```
+   ```shell
    sudo systemctl start mysql
    ```
 
    Expected output
 
-   ```
+   ```text
    ... [Note] WSREP: Flow-control interval: [28, 28]
    ... [Note] WSREP: Restored state OPEN -> JOINED (2)
    ... [Note] WSREP: Member 2 (percona1) synced with group.
@@ -137,7 +137,7 @@ To set up Percona XtraDB Cluster:
 
 1. You can try connecting to MySQL on any node and create a database:
 
-   ```
+   ```shell
    mysql -uroot
    CREATE DATABASE hello_tom;
    ```

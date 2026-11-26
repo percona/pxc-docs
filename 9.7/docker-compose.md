@@ -4,17 +4,19 @@
 
 For more information about using Docker, see the [Docker Docs](https://docs.docker.com/) . Use the latest version of Docker. Versions provided through `apt` and `yum` may be outdated and cause errors.
 
-Percona collects [Telemetry data](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.html) in the Percona packages and Docker images.
+Percona collects [Telemetry data](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html) for ways that we can work with you.
+Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.md) for ways that we can work with you.
 
 This guide describes how to deploy a three-node Percona XtraDB Cluster (PXC) 9.7 with Docker Compose. You generate SSL certificates on the first node. You then copy the certificates to the other two nodes to enable secure communication.
 
-The following procedure is for evaluation and testing only. The MySQL certificates generated here are self-signed. For production, generate and store proper certificates. Also configure storage, [secure networking](https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.html), backup, and [monitoring](https://docs.percona.com/percona-xtradb-cluster/9.7/monitoring.html).
+*Image: Percona XtraDB Cluster with Docker*
+
+The following procedure is for evaluation and testing only. The MySQL certificates generated here are self-signed. For production, generate and store proper certificates. Also configure storage, [secure networking](https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.md), backup, and [monitoring](https://docs.percona.com/percona-xtradb-cluster/9.7/monitoring.md).
 
 Single-host deployment limits availability
 
-This guide runs all three nodes on a single host, which is not highly available. If the host reboots or the disk fails, the entire cluster fails and data can be lost. For production, run each of the three nodes on different physical machines or distinct failure domains. Use scheduling such as Docker Swarm or Kubernetes with anti-affinity to prevent a single failure from taking out the cluster. For production guidance, see [High availability](https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.html).
+This guide runs all three nodes on a single host, which is not highly available. If the host reboots or the disk fails, the entire cluster fails and data can be lost. For production, run each of the three nodes on different physical machines or distinct failure domains. Use scheduling such as Docker Swarm or Kubernetes with anti-affinity to prevent a single failure from taking out the cluster. For production guidance, see [High availability](https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.md).
 
 ## Prerequisites
 
@@ -30,7 +32,7 @@ Create a directory structure to organize configuration, certificate files, and t
 
 Run the following commands to create the directory structure:
 
-```
+```shell
 mkdir -p pxc-cluster/{certs,conf.d,init}
 cd pxc-cluster
 ```
@@ -39,7 +41,7 @@ Expected result: No output. The current directory is `pxc-cluster` with subdirec
 
 After you run these commands, the `pxc-cluster/` working directory contains the following layout:
 
-```
+```text
 pxc-cluster/
 ├── certs/
 ├── conf.d/
@@ -52,7 +54,7 @@ The directory structure separates configuration files, TLS/SSL certificates, and
 
 1. Create `conf.d/custom.cnf` with minimal SSL settings:
 
-   ```
+   ```ini
    [mysqld]
    ssl-ca=/etc/mysql/certs/ca.pem
    ssl-cert=/etc/mysql/certs/server-cert.pem
@@ -65,7 +67,7 @@ The directory structure separates configuration files, TLS/SSL certificates, and
 
    Option A — Docker Secrets (recommended): Create two secret files in the project root. Each file must contain only the password with no trailing newline. Generate strong passwords and write them in one step:
 
-   ```
+   ```shell
    openssl rand -base64 24 | tr -d '\n' > mysql_root_password
    openssl rand -base64 24 | tr -d '\n' > xtrabackup_password
    chmod 600 mysql_root_password xtrabackup_password
@@ -80,7 +82,7 @@ The directory structure separates configuration files, TLS/SSL certificates, and
 
    Option B — `.env` (quick local test only): Create a file named `.env` in the directory root with the following contents:
 
-   ```
+   ```text
    MYSQL_ROOT_PASSWORD=<password>
    XTRABACKUP_PASSWORD=<password>
    ```
@@ -89,11 +91,11 @@ The directory structure separates configuration files, TLS/SSL certificates, and
 
 ## SSL certificate generation
 
-For broader guidance on protecting cluster traffic, see [Encrypt traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.html).
+For broader guidance on protecting cluster traffic, see [Encrypt traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.md).
 
 1. Copy the SSL certificate generation script. Save the script as `init/create-ssl-certs.sh`:
 
-   ```
+   ```bash
    #!/bin/bash
    set -e
    CERT_DIR=./certs
@@ -120,7 +122,7 @@ For broader guidance on protecting cluster traffic, see [Encrypt traffic](https:
 
 1. Make the script executable:
 
-   ```
+   ```shell
    chmod +x init/create-ssl-certs.sh
    ```
 
@@ -128,7 +130,7 @@ For broader guidance on protecting cluster traffic, see [Encrypt traffic](https:
 
 1. Run the script to create the certs:
 
-   ```
+   ```shell
    ./init/create-ssl-certs.sh
    ```
 
@@ -148,7 +150,7 @@ For broader guidance on protecting cluster traffic, see [Encrypt traffic](https:
 
    For a multi-host deployment, copy the certificates to each machine. Each host must have its own `certs/` directory (or equivalent path) for its Compose project. From node 1, run the following commands:
 
-   ```
+   ```shell
    scp -r ./certs/ user@node2-host:/path/to/pxc-cluster/certs
    scp -r ./certs/ user@node3-host:/path/to/pxc-cluster/certs
    ```
@@ -203,7 +205,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Docker Compose v2 (the `docker compose` plugin) honors the `deploy.resources.limits.memory` block shown below. `podman-compose` and legacy `docker-compose` v1 ignore the `deploy:` block. If you run the stack with `podman compose` or `podman-compose` and need an enforced memory limit, replace the `deploy.resources.limits.memory` block on each service with `mem_limit: 3g` at the service level.
 
-   ```
+   ```yaml
    secrets:
      mysql_root_password:
        file: ./mysql_root_password
@@ -303,7 +305,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Volume persistence: The example uses bind mounts (`./data-pxc1`, `./data-pxc2`, `./data-pxc3`). Data lives on the host and survives `docker compose down`. For production, consider named volumes. Named volumes let the runtime manage storage instead of tying data to a single host path. Without bind mounts or named volumes, database data is ephemeral and is lost when containers are removed.
 
-   SELinux and rootless: The example uses `:Z` (or `:z`) on all volume mounts. The runtime relabels them for the container. SELinux relabeling is required when SELinux is enabled. SELinux ships enabled on RHEL, CentOS Stream, Rocky, AlmaLinux, and Fedora. Rootless runtimes (Podman or Docker rootless) also commonly need relabeling. Without relabeling, the container cannot read `certs/`, `conf.d/`, or the data directories and fails at startup. On systems without SELinux, remove `,Z` from the volume suffixes. For more on SELinux configuration, see [SELinux](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.html).
+   SELinux and rootless: The example uses `:Z` (or `:z`) on all volume mounts. The runtime relabels them for the container. SELinux relabeling is required when SELinux is enabled. SELinux ships enabled on RHEL, CentOS Stream, Rocky, AlmaLinux, and Fedora. Rootless runtimes (Podman or Docker rootless) also commonly need relabeling. Without relabeling, the container cannot read `certs/`, `conf.d/`, or the data directories and fails at startup. On systems without SELinux, remove `,Z` from the volume suffixes. For more on SELinux configuration, see [SELinux](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.md).
 
 ## Deployment
 
@@ -316,7 +318,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Start node 1 to initialize the cluster:
 
-   ```
+   ```shell
    docker compose up -d pxc1
    ```
 
@@ -326,7 +328,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Wait for pxc1 to report healthy before starting pxc2 and pxc3. The bootstrap node must accept connections, or the other nodes can fail to join. Use a wait loop:
 
-   ```
+   ```shell
    until docker exec pxc1 mysqladmin ping -h localhost &>/dev/null; do
      echo "Waiting for pxc1..."
      sleep 2
@@ -337,7 +339,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Start the remaining nodes:
 
-   ```
+   ```shell
    docker compose up -d pxc2 pxc3
    ```
 
@@ -356,7 +358,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    First, verify cluster size and node status:
 
-   ```
+   ```shell
    docker exec pxc1 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_cluster_size';"
    docker exec pxc2 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_cluster_status';"
    ```
@@ -365,7 +367,7 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    Verify additional cluster health indicators on any node (for example, pxc1):
 
-   ```
+   ```shell
    docker exec pxc1 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_ready';"
    docker exec pxc1 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_connected';"
    docker exec pxc1 mysql -uroot -p$(cat mysql_root_password) -e "SHOW STATUS LIKE 'wsrep_local_state_comment';"
@@ -375,13 +377,13 @@ Percona XtraDB Cluster and Galera require consistent time across nodes. Synchron
 
    With Podman, use `podman exec` instead of `docker exec`.
 
-All three nodes are joined and synchronized when the listed health indicators show the expected values. To validate replication end-to-end, see [Verify replication](https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.html).
+All three nodes are joined and synchronized when the listed health indicators show the expected values. To validate replication end-to-end, see [Verify replication](https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.md).
 
 ## Backup
 
 Back up data before major changes or shutdown. The following example dumps all databases from pxc1 to a file on the host. Use the root password from your secret file or `.env`:
 
-```
+```shell
 docker exec pxc1 mysqldump -uroot -p$(cat mysql_root_password) --all-databases > backup.sql
 ```
 
@@ -391,7 +393,7 @@ Expected result: The file `backup.sql` is created in the current directory with 
 
 View container logs for debugging:
 
-```
+```shell
 docker compose logs -f pxc1
 docker compose logs -f pxc2
 docker compose logs -f pxc3
@@ -433,7 +435,7 @@ The following sections cover common issues.
 
 To stop the cluster and remove containers (data in `data-pxc1/`, `data-pxc2/`, `data-pxc3/` is preserved):
 
-```
+```shell
 docker compose down
 ```
 
@@ -441,7 +443,7 @@ Expected result: Containers pxc1, pxc2, and pxc3 are stopped and removed. Projec
 
 To stop and remove containers and volumes (the `-v` option deletes all database data):
 
-```
+```shell
 docker compose down -v
 ```
 
@@ -451,7 +453,7 @@ Data loss
 
 The Compose file in this guide uses bind mounts (`./data-pxc1`, `./data-pxc2`, `./data-pxc3`), not named volumes, so `docker compose down -v` removes only named volumes if present. To fully reset, remove the data directories manually after stopping the containers:
 
-```
+```shell
 rm -rf data-pxc1 data-pxc2 data-pxc3
 ```
 
@@ -486,7 +488,7 @@ Use the following with Podman:
 
 In Docker, the daemon runs as root and can override file permissions. In Podman running as a normal user, the MySQL process inside the container runs as UID 1001 or 999. That UID may lack permission to read host files. Ensure host files are readable by the container. On systems with SELinux, use the `:Z` (private) or `:z` (shared) mount option to relabel the volume for the container. Use the following in your `docker-compose.yml`:
 
-```
+```yaml
 volumes:
   - ./certs:/etc/mysql/certs:ro,Z
   - ./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z

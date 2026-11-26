@@ -17,13 +17,13 @@ The following limitations apply to Percona XtraDB Cluster:
 
   If you enable query logging, you must forward the log to a file:
 
-  ```
+  ```text
   log_output = FILE
   ```
 
   Use `general_log` and `general_log_file` to choose query logging and the log file name.
 
-- Maximum allowed transaction size is defined by the [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_max_ws_rows) and [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_max_ws_size) variables.
+- Maximum allowed transaction size is defined by the [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_max_ws_rows) and [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_max_ws_size) variables.
 
   `LOAD DATA INFILE` processing commits every 10 000 rows. Percona XtraDB Cluster splits large `LOAD DATA` transactions into a series of smaller transactions.
 
@@ -33,7 +33,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
   Error message
 
-  ```
+  ```text
   (Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
   ```
 
@@ -51,7 +51,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
 - `enforce_storage_engine=InnoDB` is not compatible with `wsrep_replicate_myisam=OFF`
 
-  [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_replicate_myisam) is set to `OFF` by default.
+  [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_replicate_myisam) is set to `OFF` by default.
 
 - Avoid `ALTER TABLE ... IMPORT/EXPORT` workloads when running Percona XtraDB Cluster in cluster mode.
 
@@ -61,7 +61,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
   A primary key keeps row order identical on every node. The `DELETE` statement is not supported on tables without a primary key.
 
-  When [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster sets [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON`. The cluster rejects any attempt to set `sql_require_primary_key` to `OFF`. `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key fail. For details, see [Primary key requirement](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#primary-key-requirement).
+  When [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster sets [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON`. The cluster rejects any attempt to set `sql_require_primary_key` to `OFF`. `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key fail. For details, see [Primary key requirement](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md#primary-key-requirement).
 
   See also
 
@@ -84,7 +84,7 @@ The following limitations apply to Percona XtraDB Cluster:
 
   Error message
 
-  ```
+  ```text
   ... [Note] WSREP: TO BEGIN: -1, 0 : create table t (i int) engine=innodb
   ... [Note] WSREP: TO isolation skipped for: 1, sql: create table t (i int) engine=innodb. Only temporary tables affected.
   ```

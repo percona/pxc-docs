@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Run with Docker Compose" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/docker-compose.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/docker-compose.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/docker-compose.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3748,12 +3748,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="directory-structure">Directory structure<a data-markdown-ignore class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
 <p>Create a directory structure to organize configuration, certificate files, and the Docker Compose definition.</p>
 <p>Run the following commands to create the directory structure:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
+<div class="language-shell highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>pxc-cluster/<span class="o">{</span>certs,conf.d,init<span class="o">}</span>
 <span class="nb">cd</span><span class="w"> </span>pxc-cluster
 </code></pre></div>
 <p>Expected result: No output. The current directory is <code>pxc-cluster</code> with subdirectories <code>certs</code>, <code>conf.d</code>, and <code>init</code>.</p>
 <p>After you run these commands, the <code>pxc-cluster/</code> working directory contains the following layout:</p>
-<div class="highlight"><pre><span></span><code>pxc-cluster/
+<div class="language-text highlight"><pre><span></span><code>pxc-cluster/
 ├── certs/
 ├── conf.d/
 └── init/
@@ -3763,7 +3763,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Create <code>conf.d/custom.cnf</code> with minimal SSL settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">ssl-ca</span><span class="o">=</span><span class="s">/etc/mysql/certs/ca.pem</span>
 <span class="na">ssl-cert</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-cert.pem</span>
 <span class="na">ssl-key</span><span class="o">=</span><span class="s">/etc/mysql/certs/server-key.pem</span>
@@ -3773,7 +3773,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Configure password storage with Docker Secrets or <code>.env</code>.</p>
 <p>A <code>.env</code> file is convenient but exposes secret values through <code>docker inspect</code> and process listings. Prefer Docker Secrets (or Podman secrets), which mount passwords as files instead of environment variables.</p>
 <p>Option A — Docker Secrets (recommended): Create two secret files in the project root. Each file must contain only the password with no trailing newline. Generate strong passwords and write them in one step:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span>&gt;<span class="w"> </span>mysql_root_password
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span>&gt;<span class="w"> </span>mysql_root_password
 openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">24</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span>&gt;<span class="w"> </span>xtrabackup_password
 chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>mysql_root_password<span class="w"> </span>xtrabackup_password
 </code></pre></div>
@@ -3788,7 +3788,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>m
 </ul>
 <p>Add <code>mysql_root_password</code> and <code>xtrabackup_password</code> to your <code>.gitignore</code>. The Compose file in <a href="#docker-compose-setup">Docker Compose setup</a> references these files through the <code>secrets:</code> block. The container reads passwords from the mounted files through <code>MYSQL_ROOT_PASSWORD_FILE</code> and <code>XTRABACKUP_PASSWORD_FILE</code>. The Percona XtraDB Cluster 9.7 image supports these <code>_FILE</code> variables. If your image does not support <code>_FILE</code> variables, use Option B.</p>
 <p>Option B — <code>.env</code> (quick local test only): Create a file named <code>.env</code> in the directory root with the following contents:</p>
-<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=&lt;password&gt;
+<div class="language-text highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=&lt;password&gt;
 XTRABACKUP_PASSWORD=&lt;password&gt;
 </code></pre></div>
 <p>Add <code>.env</code> to your <code>.gitignore</code>. In the Compose file, replace the <code>secrets</code> block and the <code>_FILE</code> variables with <code>MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}</code> and <code>XTRABACKUP_PASSWORD=${XTRABACKUP_PASSWORD}</code>.</p>
@@ -3799,7 +3799,7 @@ XTRABACKUP_PASSWORD=&lt;password&gt;
 <ol>
 <li>
 <p>Copy the SSL certificate generation script. Save the script as <code>init/create-ssl-certs.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="language-bash highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">set</span><span class="w"> </span>-e
 <span class="nv">CERT_DIR</span><span class="o">=</span>./certs
 mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$CERT_DIR</span><span class="s2">"</span>
@@ -3825,13 +3825,13 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>*
 </li>
 <li>
 <p>Make the script executable:</p>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
+<div class="language-shell highlight"><pre><span></span><code>chmod<span class="w"> </span>+x<span class="w"> </span>init/create-ssl-certs.sh
 </code></pre></div>
 <p>Expected result: No output.</p>
 </li>
 <li>
 <p>Run the script to create the certs:</p>
-<div class="highlight"><pre><span></span><code>./init/create-ssl-certs.sh
+<div class="language-shell highlight"><pre><span></span><code>./init/create-ssl-certs.sh
 </code></pre></div>
 <p>Expected result: No output. The script creates <code>ca-key.pem</code>, <code>ca.pem</code>, <code>server-key.pem</code>, <code>server-req.pem</code>, and <code>server-cert.pem</code> in <code>certs/</code>.</p>
 <div class="admonition warning">
@@ -3847,7 +3847,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>*
 <p>Copy certificates to all nodes (only for multi-host).</p>
 <p>All three nodes must use the same set of SSL certificates. The <code>docker-compose.yml</code> in this guide mounts the same <code>./certs</code> directory for all three services (pxc1, pxc2, pxc3). For a single-host deployment, all nodes share the <code>certs/</code> directory created in step 3.</p>
 <p>For a multi-host deployment, copy the certificates to each machine. Each host must have its own <code>certs/</code> directory (or equivalent path) for its Compose project. From node 1, run the following commands:</p>
-<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
+<div class="language-shell highlight"><pre><span></span><code>scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node2-host:/path/to/pxc-cluster/certs
 scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </span>user@node3-host:/path/to/pxc-cluster/certs
 </code></pre></div>
 <p>Expected result: Progress or confirmation for each file copied to each host. No output indicates success after the transfer completes.</p>
@@ -3910,7 +3910,7 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 <p class="admonition-title">Memory limits with Podman Compose</p>
 <p>Docker Compose v2 (the <code>docker compose</code> plugin) honors the <code>deploy.resources.limits.memory</code> block shown below. <code>podman-compose</code> and legacy <code>docker-compose</code> v1 ignore the <code>deploy:</code> block. If you run the stack with <code>podman compose</code> or <code>podman-compose</code> and need an enforced memory limit, replace the <code>deploy.resources.limits.memory</code> block on each service with <code>mem_limit: 3g</code> at the service level.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">mysql_root_password</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./mysql_root_password</span>
 <span class="w">  </span><span class="nt">xtrabackup_password</span><span class="p">:</span>
@@ -4024,19 +4024,19 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 </li>
 </ul>
 <p>Start node 1 to initialize the cluster:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc1
 </code></pre></div>
 <p>Expected result: A line such as <code>[+] Running 1/1 - Container pxc1  Started</code>. The container pxc1 is running.</p>
 <p>With Podman, use <code>podman compose up -d pxc1</code> or <code>podman-compose up -d pxc1</code>.</p>
 <p>Wait for pxc1 to report healthy before starting pxc2 and pxc3. The bootstrap node must accept connections, or the other nodes can fail to join. Use a wait loop:</p>
-<div class="highlight"><pre><span></span><code><span class="k">until</span><span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqladmin<span class="w"> </span>ping<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="k">until</span><span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqladmin<span class="w"> </span>ping<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span><span class="p">&amp;</span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Waiting for pxc1..."</span>
 <span class="w">  </span>sleep<span class="w"> </span><span class="m">2</span>
 <span class="k">done</span>
 </code></pre></div>
 <p>Expected result: The loop prints <code>Waiting for pxc1...</code> until the node responds, then exits with no further output.</p>
 <p>Start the remaining nodes:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>pxc2<span class="w"> </span>pxc3
 </code></pre></div>
 <p>Expected result: Lines such as <code>[+] Running 2/2 - Container pxc2  Started - Container pxc3  Started</code>. Both containers are running.</p>
 <p>With Podman, use <code>podman compose up -d pxc2 pxc3</code> or <code>podman-compose up -d pxc2 pxc3</code>.</p>
@@ -4056,12 +4056,12 @@ scp<span class="w"> </span>-r<span class="w"> </span>./certs/<span class="w"> </
 </li>
 </ul>
 <p>First, verify cluster size and node status:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_size';"</span>
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_size';"</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc2<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_status';"</span>
 </code></pre></div>
 <p>Expected result: <code>wsrep_cluster_size</code> returns a row with value <code>3</code>. <code>wsrep_cluster_status</code> returns <code>Primary</code>. If the value is <code>non-Primary</code>, the node is isolated.</p>
 <p>Verify additional cluster health indicators on any node (for example, pxc1):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_ready';"</span>
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_ready';"</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_connected';"</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_local_state_comment';"</span>
 </code></pre></div>
@@ -4072,12 +4072,12 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <p>All three nodes are joined and synchronized when the listed health indicators show the expected values. To validate replication end-to-end, see <a href="verify-replication.html">Verify replication</a>.</p>
 <h2 id="backup">Backup<a data-markdown-ignore class="headerlink" href="#backup" title="Permanent link">&para;</a></h2>
 <p>Back up data before major changes or shutdown. The following example dumps all databases from pxc1 to a file on the host. Use the root password from your secret file or <code>.env</code>:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqldump<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>--all-databases<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pxc1<span class="w"> </span>mysqldump<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="k">$(</span>cat<span class="w"> </span>mysql_root_password<span class="k">)</span><span class="w"> </span>--all-databases<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
 </code></pre></div>
 <p>Expected result: The file <code>backup.sql</code> is created in the current directory with SQL statements for all databases. If you use <code>.env</code>, substitute <code>-p${MYSQL_ROOT_PASSWORD}</code>. With Podman, use <code>podman exec</code> instead of <code>docker exec</code>.</p>
 <h2 id="troubleshooting">Troubleshooting<a data-markdown-ignore class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>View container logs for debugging:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc1
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc1
 docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc2
 docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>pxc3
 </code></pre></div>
@@ -4135,17 +4135,17 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 </ul>
 <h2 id="cleanup-and-shutdown">Cleanup and shutdown<a data-markdown-ignore class="headerlink" href="#cleanup-and-shutdown" title="Permanent link">&para;</a></h2>
 <p>To stop the cluster and remove containers (data in <code>data-pxc1/</code>, <code>data-pxc2/</code>, <code>data-pxc3/</code> is preserved):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down
 </code></pre></div>
 <p>Expected result: Containers pxc1, pxc2, and pxc3 are stopped and removed. Project network is removed. Data in <code>data-pxc1/</code>, <code>data-pxc2/</code>, and <code>data-pxc3/</code> remains on the host.</p>
 <p>To stop and remove containers and volumes (the <code>-v</code> option deletes all database data):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v
 </code></pre></div>
 <p>Expected result: Containers and any named volumes are removed. Bind-mounted data directories (<code>data-pxc1/</code>, <code>data-pxc2/</code>, <code>data-pxc3/</code>) are not removed by this command.</p>
 <div class="admonition warning">
 <p class="admonition-title">Data loss</p>
 <p>The Compose file in this guide uses bind mounts (<code>./data-pxc1</code>, <code>./data-pxc2</code>, <code>./data-pxc3</code>), not named volumes, so <code>docker compose down -v</code> removes only named volumes if present. To fully reset, remove the data directories manually after stopping the containers:</p>
-<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>data-pxc1<span class="w"> </span>data-pxc2<span class="w"> </span>data-pxc3
+<div class="language-shell highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>data-pxc1<span class="w"> </span>data-pxc2<span class="w"> </span>data-pxc3
 </code></pre></div>
 <p>This operation deletes all database data permanently.</p>
 </div>
@@ -4194,7 +4194,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"
 </ul>
 <h3 id="handle-rootless-permissions-for-podman">Handle rootless permissions for Podman<a data-markdown-ignore class="headerlink" href="#handle-rootless-permissions-for-podman" title="Permanent link">&para;</a></h3>
 <p>In Docker, the daemon runs as root and can override file permissions. In Podman running as a normal user, the MySQL process inside the container runs as UID 1001 or 999. That UID may lack permission to read host files. Ensure host files are readable by the container. On systems with SELinux, use the <code>:Z</code> (private) or <code>:z</code> (shared) mount option to relabel the volume for the container. Use the following in your <code>docker-compose.yml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./certs:/etc/mysql/certs:ro,Z</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./conf.d:/etc/percona-xtradb-cluster.conf.d:ro,Z</span>
 </code></pre></div>

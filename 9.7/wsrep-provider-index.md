@@ -2,17 +2,17 @@
 
 # Index of wsrep_provider options
 
-You can set and check the following options in the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_provider_options) system variable. You can change option values in the *MySQL* configuration file, `my.cnf`, or by setting options in the *MySQL* client.
+You can set and check the following options in the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_provider_options) system variable. You can change option values in the *MySQL* configuration file, `my.cnf`, or by setting options in the *MySQL* client.
 
 To change the value in `my.cnf`, use the following syntax:
 
-```
+```shell
 wsrep_provider_options="option1=value1;[option2=value2]"
 ```
 
 For example, to set the size of the Galera buffer storage (gcache) to 512 MB, specify the following in `my.cnf`:
 
-```
+```shell
 wsrep_provider_options="gcache.size=512M"
 ```
 
@@ -34,7 +34,7 @@ This option specifies the data directory.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="base_dir=/var/lib/mysql"
 ```
 
@@ -52,7 +52,7 @@ This option sets the value of the node’s base IP. This is an IP address on whi
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="base_host=/var/lib/mysql"
 ```
 
@@ -70,7 +70,7 @@ This option sets the port on which Galera listens for connections from other nod
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="base_port=4567"
 ```
 
@@ -88,7 +88,7 @@ This option specifies whether the cluster logs the details of certification fail
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="cert.log_conflicts=yes"
 ```
 
@@ -122,7 +122,7 @@ When you set this option to `yes`, debugging is enabled.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="debug=yes"
 ```
 
@@ -136,29 +136,29 @@ wsrep_provider_options="debug=yes"
 | Dynamic:       | Yes         |
 | Default Value: | 0           |
 
-This option specifies the number of entries allowed on the delayed list until auto eviction runs. Set the value to `0` to disable auto eviction on the node (the cluster still monitors node response times). Auto eviction requires EVS (Extended Virtual Synchrony) protocol version ([`evs.version`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsversion)) `1`.
+This option specifies the number of entries allowed on the delayed list until auto eviction runs. Set the value to `0` to disable auto eviction on the node (the cluster still monitors node response times). Auto eviction requires EVS (Extended Virtual Synchrony) protocol version ([`evs.version`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsversion)) `1`.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.auto_evict=5"
 ```
 
 ### `evs.causal_keepalive_period`
 
-| Option         | Description                                                                                                                          |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Command Line:  | Yes                                                                                                                                  |
-| Config File:   | Yes                                                                                                                                  |
-| Scope:         | Global                                                                                                                               |
-| Dynamic:       | No                                                                                                                                   |
-| Default Value: | value of [`evs.keepalive_period`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evskeepalive_period) |
+| Option         | Description                                                                                                                        |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Command Line:  | Yes                                                                                                                                |
+| Config File:   | Yes                                                                                                                                |
+| Scope:         | Global                                                                                                                             |
+| Dynamic:       | No                                                                                                                                 |
+| Default Value: | value of [`evs.keepalive_period`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evskeepalive_period) |
 
 Use this option only for development. Do not use the option in production.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.causal_keepalive_period=/var/lib/mysql"
 ```
 
@@ -172,11 +172,11 @@ wsrep_provider_options="evs.causal_keepalive_period=/var/lib/mysql"
 | Dynamic:       | Yes         |
 | Default Value: | 0x1         |
 
-Use this option for EVS (Extended Virtual Synchrony) debugging. You can use the option only when [`wsrep_debug`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_debug) is set to `ON`.
+Use this option for EVS (Extended Virtual Synchrony) debugging. You can use the option only when [`wsrep_debug`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_debug) is set to `ON`.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.debug_log_mask=0x1"
 ```
 
@@ -194,7 +194,7 @@ This option specifies the time period that a node can delay its response from ex
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.delay_margin=PT30S"
 ```
 
@@ -212,7 +212,7 @@ This option specifies the time period that a node must remain responsive before 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.delayed_keep_period=PT30S"
 ```
 
@@ -225,11 +225,11 @@ wsrep_provider_options="evs.delayed_keep_period=PT30S"
 | Scope:        | Global      |
 | Dynamic:      | Yes         |
 
-Manual eviction can be triggered by setting the [`evs.evict`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsevict) to a certain node value. Setting the [`evs.evict`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsevict) to an empty string will clear the evict list on the node where the option was set.
+Manual eviction can be triggered by setting the [`evs.evict`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsevict) to a certain node value. Setting the [`evs.evict`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsevict) to an empty string will clear the evict list on the node where the option was set.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.evict=value"
 ```
 
@@ -247,7 +247,7 @@ This option defines how often to check for peer inactivity.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.inactive_check_period=PT30S"
 ```
 
@@ -265,7 +265,7 @@ This option defines the inactivity limit. Once the cluster reaches this limit, t
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.inactive_timeout=PT30S"
 ```
 
@@ -283,7 +283,7 @@ This option controls extra EVS (Extended Virtual Synchrony) info logging.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.info_log_mask=0"
 ```
 
@@ -301,7 +301,7 @@ This option defines the timeout on waiting for install message acknowledgments.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.install_timeout=PT30S"
 ```
 
@@ -319,7 +319,7 @@ This option defines how often to retransmit EVS (Extended Virtual Synchrony) joi
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.join_retrans_period=PT30S"
 ```
 
@@ -337,7 +337,7 @@ This option defines how often to emit keepalive beacons (in the absence of any o
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.keepalive_period=PT30S"
 ```
 
@@ -351,11 +351,11 @@ wsrep_provider_options="evs.keepalive_period=PT30S"
 | Dynamic:       | No          |
 | Default Value: | 1           |
 
-This option defines how many membership install rounds to try before giving up (total rounds will be [`evs.max_install_timeouts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsmax_install_timeouts) + 2).
+This option defines how many membership install rounds to try before giving up (total rounds will be [`evs.max_install_timeouts`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsmax_install_timeouts) + 2).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.max_install_timeouts=1"
 ```
 
@@ -369,11 +369,11 @@ wsrep_provider_options="evs.max_install_timeouts=1"
 | Dynamic:       | No          |
 | Default Value: | 10          |
 
-This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512). The value must not be less than [`evs.user_send_window`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsuser_send_window).
+This option defines the maximum number of data packets in replication at a time. For WAN setups, you can set this option to a considerably higher value than the default (for example, 512). The value must not be less than [`evs.user_send_window`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsuser_send_window).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.send_window=10"
 ```
 
@@ -391,7 +391,7 @@ This option defines the control period of EVS (Extended Virtual Synchrony) stati
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.stats_report_period=PT1M"
 ```
 
@@ -405,11 +405,11 @@ wsrep_provider_options="evs.stats_report_period=PT1M"
 | Dynamic:       | Yes         |
 | Default Value: | PT5S        |
 
-This option defines the inactivity period after which the node is “suspected” to be dead. If all remaining nodes agree, the cluster drops the node even before [`evs.inactive_timeout`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#evsinactive_timeout) is reached.
+This option defines the inactivity period after which the node is “suspected” to be dead. If all remaining nodes agree, the cluster drops the node even before [`evs.inactive_timeout`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#evsinactive_timeout) is reached.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.suspect_timeout=PT30S"
 ```
 
@@ -427,7 +427,7 @@ When you enable this option, the cluster aggregates smaller packets into one.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.use_aggregate=no"
 ```
 
@@ -445,7 +445,7 @@ This option defines the maximum number of data packets in replication at a time.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.user_send_window=4"
 ```
 
@@ -463,7 +463,7 @@ This option defines the EVS (Extended Virtual Synchrony) protocol version. Setti
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.version=0"
 ```
 
@@ -481,25 +481,25 @@ This option defines the timeout after which the cluster drops past views from hi
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="evs.view_forget_timeout=P1D"
 ```
 
 ### `gcache.dir`
 
-| Option         | Description                                                                            |
-| -------------- | -------------------------------------------------------------------------------------- |
-| Command Line:  | Yes                                                                                    |
-| Config File:   | Yes                                                                                    |
-| Scope:         | Global                                                                                 |
-| Dynamic:       | No                                                                                     |
-| Default Value: | [`datadir`](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#datadir) |
+| Option         | Description                                                                          |
+| -------------- | ------------------------------------------------------------------------------------ |
+| Command Line:  | Yes                                                                                  |
+| Config File:   | Yes                                                                                  |
+| Scope:         | Global                                                                               |
+| Dynamic:       | No                                                                                   |
+| Default Value: | [`datadir`](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#datadir) |
 
 Use this option to define the location of the `galera.cache` file.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.dir=/var/lib/mysql"
 ```
 
@@ -513,9 +513,9 @@ wsrep_provider_options="gcache.dir=/var/lib/mysql"
 | Dynamic:       | Yes           |
 | Default Value: | -1            |
 
-This option controls the purging of the gcache (Galera cache) and enables retaining more data in the gcache. This option makes possible the use of [IST (Incremental State Transfer)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist) when the node rejoins instead of [SST (State Snapshot Transfer)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst).
+This option controls the purging of the gcache (Galera cache) and enables retaining more data in the gcache. This option makes possible the use of [IST (Incremental State Transfer)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist) when the node rejoins instead of [SST (State Snapshot Transfer)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst).
 
-Set this option on an existing node of the cluster (that will continue to be part of the cluster and can act as a potential [donor node](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#donor-node)). This node continues to retain the write-sets (replicated transaction data) and allows restarting the node to rejoin by using [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist).
+Set this option on an existing node of the cluster (that will continue to be part of the cluster and can act as a potential [donor node](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#donor-node)). This node continues to retain the write-sets (replicated transaction data) and allows restarting the node to rejoin by using [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist).
 
 See also
 
@@ -524,7 +524,7 @@ Percona Database Performance Blog:
 - [All You Need to Know About GCache (Galera-Cache)](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 - [Want IST Not SST for Node Rejoins? We Have a Solution!](https://www.percona.com/blog/2018/02/13/no-sst-node-rejoins/)
 
-The [`gcache.freeze_purge_at_seqno`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachefreeze_purge_at_seqno) option accepts one of the following:
+The [`gcache.freeze_purge_at_seqno`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachefreeze_purge_at_seqno) option accepts one of the following:
 
 -1 (default): No freezing of gcache; purge operates as normal.
 
@@ -534,13 +534,13 @@ The literal string `now`: Set the value to the word `now` (as a string, not a nu
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.freeze_purge_at_seqno=-1"
 ```
 
 To freeze purge immediately using the current minimum seqno:
 
-```
+```text
 wsrep_provider_options="gcache.freeze_purge_at_seqno=now"
 ```
 
@@ -556,11 +556,11 @@ wsrep_provider_options="gcache.freeze_purge_at_seqno=now"
 
 This option limits the number of overflow pages rather than the total memory occupied by all overflow pages. Whenever you set `gcache.keep_pages_count` to a non-zero value, the cluster deletes excess overflow pages (starting from the oldest to the newest).
 
-Whenever you update either `gcache.keep_pages_count` or [`gcache.keep_pages_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachekeep_pages_size) at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
+Whenever you update either `gcache.keep_pages_count` or [`gcache.keep_pages_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachekeep_pages_size) at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.keep_pages_count=0"
 ```
 
@@ -576,11 +576,11 @@ wsrep_provider_options="gcache.keep_pages_count=0"
 
 This option limits the total size of overflow pages rather than the count of all overflow pages. Whenever you set `gcache.keep_pages_size` to a non-zero value, the cluster deletes excess overflow pages (starting from the oldest to the newest) until the total size is below the specified value.
 
-Whenever you update either [`gcache.keep_pages_count`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachekeep_pages_count) or `gcache.keep_pages_size` at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
+Whenever you update either [`gcache.keep_pages_count`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachekeep_pages_count) or `gcache.keep_pages_size` at runtime to a non-zero value, the cluster runs cleanup and deletes excess overflow pages.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.keep_pages_size=0"
 ```
 
@@ -598,7 +598,7 @@ Use this option to specify the name of the Galera cache file.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.name=/var/lib/mysql/galera.cache"
 ```
 
@@ -620,7 +620,7 @@ See also
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.page_size=128M"
 ```
 
@@ -638,7 +638,7 @@ This option attempts to recover a node’s gcache file to a usable state during 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.recover=value"
 ```
 
@@ -652,11 +652,11 @@ wsrep_provider_options="gcache.recover=value"
 | Dynamic:       | No          |
 | Default Value: | 128M        |
 
-Size of the transaction cache for Galera replication. This option defines the size of the `galera.cache` file, which the cluster uses as the source for [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist). The higher the value of this option, the better the chance that a re-joining node gets IST instead of [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst).
+Size of the transaction cache for Galera replication. This option defines the size of the `galera.cache` file, which the cluster uses as the source for [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist). The higher the value of this option, the better the chance that a re-joining node gets IST instead of [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcache.size=512M"
 ```
 
@@ -668,19 +668,19 @@ The format for this option is: <policy>:<priority>. The priority value is an int
 
 other
 
-```
+```text
 Default time-sharing scheduling in Linux. The threads can run until blocked by an I/O request or preempted by higher priorities or superior scheduling designations.
 ```
 
 fifo
 
-```
+```text
 First-in First-out (FIFO) scheduling. These threads always immediately preempt any currently running other, batch or idle threads. They can run until they are either blocked by an I/O request or preempted by a FIFO thread of a higher priority.
 ```
 
 rr
 
-```
+```text
 Round-robin scheduling. These threads always preempt any currently running other, batch or idle threads. The scheduler allows these threads to run for a
 fixed period of a time. If the thread is still running when this time period is exceeded, they are stopped and moved to the end of the list, allowing another
 round-robin thread of the same priority to run in their place. They can otherwise continue to run until they are blocked by an I/O request or are
@@ -693,7 +693,7 @@ For information, see the [MariaDB Galera Cluster documentation](https://mariadb.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcomm.thread_prio=value"
 ```
 
@@ -711,7 +711,7 @@ This option defines the threshold that the cluster must reach or cross before ev
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_auto_evict_threshold=value"
 ```
 
@@ -733,7 +733,7 @@ The maximum value is `DBL_MAX`.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_auto_evict_window=value"
 ```
 
@@ -751,7 +751,7 @@ This option specifies after how many writesets the cluster posts debug statistic
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_debug=0"
 ```
 
@@ -765,11 +765,11 @@ wsrep_provider_options="gcs.fc_debug=0"
 | Dynamic:       | Yes         |
 | Default Value: | 1           |
 
-This option controls replication flow. Replication resumes when the replica queue drops below [`gcs.fc_factor`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcsfc_factor) * [`gcs.fc_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcsfc_limit).
+This option controls replication flow. Replication resumes when the replica queue drops below [`gcs.fc_factor`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcsfc_factor) * [`gcs.fc_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcsfc_limit).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_factor=1"
 ```
 
@@ -783,11 +783,11 @@ wsrep_provider_options="gcs.fc_factor=1"
 | Dynamic:       | Yes         |
 | Default Value: | 100         |
 
-This option controls replication flow. Replication pauses when the replica queue exceeds this limit. In the default operation mode, the cluster recalculates the flow control limit dynamically based on the number of nodes in the cluster. You can turn off this recalculation by using the [`gcs.fc_master_slave`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcsfc_master_slave) option so that manual setting of [`gcs.fc_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcsfc_limit) takes effect (e.g., when only one node in Percona XtraDB Cluster accepts writes).
+This option controls replication flow. Replication pauses when the replica queue exceeds this limit. In the default operation mode, the cluster recalculates the flow control limit dynamically based on the number of nodes in the cluster. You can turn off this recalculation by using the [`gcs.fc_master_slave`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcsfc_master_slave) option so that manual setting of [`gcs.fc_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcsfc_limit) takes effect (e.g., when only one node in Percona XtraDB Cluster accepts writes).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_limit=100"
 ```
 
@@ -805,7 +805,7 @@ This option specifies if there is only one source node in the cluster. It affect
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.fc_master_slave=NO"
 ```
 
@@ -823,7 +823,7 @@ This option specifies the writeset (replicated transaction data) size after whic
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.max_packet_size=64500"
 ```
 
@@ -841,7 +841,7 @@ This option specifies how much replication can be throttled during state transfe
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.max_throttle=0.25"
 ```
 
@@ -859,7 +859,7 @@ This option specifies the maximum allowed size of the receive queue. Set this to
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.recv_q_hard_limit=9223372036854775807"
 ```
 
@@ -873,11 +873,11 @@ wsrep_provider_options="gcs.recv_q_hard_limit=9223372036854775807"
 | Dynamic:       | No          |
 | Default Value: | 0.25        |
 
-This option specifies the fraction of the [`gcs.recv_q_hard_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcsrecv_q_hard_limit) after which the cluster throttles the replication rate.
+This option specifies the fraction of the [`gcs.recv_q_hard_limit`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcsrecv_q_hard_limit) after which the cluster throttles the replication rate.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.recv_q_soft_limit=0.25"
 ```
 
@@ -895,7 +895,7 @@ This option controls whether the rest of the cluster stays in sync with the dono
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gcs.sync_donor=yes"
 ```
 
@@ -913,7 +913,7 @@ This option defines the address on which the node listens to connections from ot
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.listen_addr=tcp://0.0.0.0:4567"
 ```
 
@@ -931,7 +931,7 @@ Set this option if you use UDP multicast for replication.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.mcast_addr=None"
 ```
 
@@ -949,7 +949,7 @@ Use this option to define TTL (time to live) for multicast packets.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.mcast_ttl=1"
 ```
 
@@ -967,7 +967,7 @@ This option specifies the connection timeout to initiate message relaying.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.peer_timeout=PT30S"
 ```
 
@@ -985,7 +985,7 @@ This option specifies the group segment this member belongs to. The cluster trea
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.segment=0"
 ```
 
@@ -1003,7 +1003,7 @@ This option specifies the time to wait until allowing peer declared outside of s
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.time_wait=PT30S"
 ```
 
@@ -1021,7 +1021,7 @@ This option shows which gmcast protocol version is being used.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="gmcast.version=0"
 ```
 
@@ -1035,11 +1035,11 @@ wsrep_provider_options="gmcast.version=0"
 | Dynamic:       | No                            |
 | Default Value: | value of `wsrep_node_address` |
 
-This option specifies the address on which the node listens for Incremental State Transfer ([IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist)).
+This option specifies the address on which the node listens for Incremental State Transfer ([IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist)).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="ist.recv_addr=/var/lib/mysql"
 ```
 
@@ -1057,7 +1057,7 @@ The node sends cluster joining announcements every half second (0.5 s) for this 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.announce_timeout=PT30S"
 ```
 
@@ -1073,7 +1073,7 @@ wsrep_provider_options="pc.announce_timeout=PT30S"
 
 `pc.bootstrap` is a configuration option that instructs a node to become the initial starting point for a new cluster or rejoin an existing one as the primary component (PC). You can only set this option in the configuration file.
 
-```
+```text
 wsrep_provider_options="pc.bootstrap=TRUE"
 ```
 
@@ -1088,7 +1088,7 @@ By default, pc.bootstrap is disabled (FALSE).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.bootstrap=FALSE"
 ```
 
@@ -1106,7 +1106,7 @@ This option controls whether the cluster checksums replicated messages.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.checksum=no"
 ```
 
@@ -1124,7 +1124,7 @@ When you set this option to `TRUE`, the node completely ignores quorum calculati
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.ignore_quorum=false"
 ```
 
@@ -1142,7 +1142,7 @@ When you set this option to `TRUE`, the node processes updates even in the case 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.ignore_sb=false"
 ```
 
@@ -1160,7 +1160,7 @@ This option specifies the period for which the PC (Primary Component) protocol w
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.linger=PT30S"
 ```
 
@@ -1178,7 +1178,7 @@ When you set this option to `TRUE`, more recent primary components override olde
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.npvo=false"
 ```
 
@@ -1196,7 +1196,7 @@ When you set this option to `true`, the node stores the Primary Component state 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.recovery=no"
 ```
 
@@ -1214,7 +1214,7 @@ Use this option to check which PC (Primary Component) protocol version the clust
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.version=0"
 ```
 
@@ -1228,11 +1228,11 @@ wsrep_provider_options="pc.version=0"
 | Dynamic:       | No          |
 | Default Value: | true        |
 
-When set to `TRUE`, the node waits for a primary component for the period of time specified in [`pc.wait_prim_timeout`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#pcwait_prim_timeout). Use this to bring up a non-primary component and make that component primary with [`pc.bootstrap`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#pcbootstrap).
+When set to `TRUE`, the node waits for a primary component for the period of time specified in [`pc.wait_prim_timeout`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#pcwait_prim_timeout). Use this to bring up a non-primary component and make that component primary with [`pc.bootstrap`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#pcbootstrap).
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.wait_prim=no"
 ```
 
@@ -1250,7 +1250,7 @@ This option specifies the period of time to wait for a primary component.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.wait_prim_timeout=PT30S"
 ```
 
@@ -1272,7 +1272,7 @@ You can define a wait time with `PTNS`, replace the `N` value with the number of
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.wait_restored_prim_timeout=PT30S"
 ```
 
@@ -1290,7 +1290,7 @@ This option specifies the node weight that’s going to be used for Weighted Quo
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="pc.weight=1"
 ```
 
@@ -1308,7 +1308,7 @@ This option defines which transport backend to use. Currently the cluster suppor
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="protonet.backend=asio"
 ```
 
@@ -1326,7 +1326,7 @@ Use this option to check which transport backend protocol version the cluster us
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="protonet.version=0"
 ```
 
@@ -1344,7 +1344,7 @@ This option specifies the causal read timeout.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="repl.causal_read_timeout=PT30S"
 ```
 
@@ -1367,7 +1367,7 @@ This option specifies out-of-order committing (which improves parallel applying 
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="repl.commit_order=3"
 ```
 
@@ -1390,7 +1390,7 @@ This option specifies the replication key format. You can use the following valu
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="repl.key_format=FLAT8"
 ```
 
@@ -1408,7 +1408,7 @@ This option specifies the maximum size of a write-set (replicated transaction da
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="repl.max_ws_size=2147483647"
 ```
 
@@ -1426,7 +1426,7 @@ This option specifies the highest communication protocol version to accept in th
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="repl.proto_max=7"
 ```
 
@@ -1448,13 +1448,13 @@ This option selects the checksum algorithm for network packets. The `CRC32-C` op
 
 The following is an example of the option:
 
-```
+```text
 wsrep_provider_options="socket.checksum=2"
 ```
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.checksum=2"
 ```
 
@@ -1472,7 +1472,7 @@ This option specifies whether to use SSL (Secure Sockets Layer) encryption.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl=yes"
 ```
 
@@ -1489,7 +1489,7 @@ This option specifies the path to the Certificate Authority (CA) certificate fil
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl_ca=/path/to/ca.pem"
 ```
 
@@ -1506,7 +1506,7 @@ This option specifies the path to the server’s certificate file (in PEM, Priva
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl_cert=/path/to/server-cert.pem"
 ```
 
@@ -1523,7 +1523,7 @@ This option specifies the path to the server’s private key file (in PEM, Priva
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl_key=/path/to/server-key.pem"
 ```
 
@@ -1541,7 +1541,7 @@ This option specifies whether to use SSL (Secure Sockets Layer) compression.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl_compression=no"
 ```
 
@@ -1559,6 +1559,6 @@ This option specifies which cipher to use for encryption.
 
 Example (config file): Add to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 wsrep_provider_options="socket.ssl_cipher=AES128-SHA"
 ```

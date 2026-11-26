@@ -8,11 +8,11 @@ Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly ava
 
 You can install Percona XtraDB Cluster using different methods.
 
-- [Use the Percona Repositories](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html)
-- [Use APT](https://docs.percona.com/percona-xtradb-cluster/9.7/apt.html)
-- [Use YUM](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.html)
-- [Use binary tarballs](https://docs.percona.com/percona-xtradb-cluster/9.7/tarball.html)
-- [Use Docker](https://docs.percona.com/percona-xtradb-cluster/9.7/docker.html)
+- [Use the Percona Repositories](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.md)
+- [Use APT](https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md)
+- [Use YUM](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.md)
+- [Use binary tarballs](https://docs.percona.com/percona-xtradb-cluster/9.7/tarball.md)
+- [Use Docker](https://docs.percona.com/percona-xtradb-cluster/9.7/docker.md)
 
 ## For superior and optimized performance
 

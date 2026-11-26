@@ -14,7 +14,7 @@ In the event of a MySQL failure, the system does not remove the PID file because
 
 Use the `rm` command in a Unix/Linux shell to do this:
 
-```
+```shell
 bash rm /path/to/mysql.pid
 ```
 

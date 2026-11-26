@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - GCache encryption and Write-Set cache encryption" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-write-set-cache-encryption.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-write-set-cache-encryption.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-write-set-cache-encryption.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3534,7 +3534,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <details class="example">
 <summary>Sample preamble key-value pairs</summary>
-<div class="highlight"><pre><span></span><code>Version: 2
+<div class="language-text highlight"><pre><span></span><code>Version: 2
 GID: 3afaa71d-6665-11ed-98de-2aba4aabc65e
 synced: 0
 enc_version: 1
@@ -3632,7 +3632,7 @@ enc_crc: 279433530
 <h2 id="rotate-the-gcache-master-key">Rotate the GCache Master Key<a data-markdown-ignore class="headerlink" href="#rotate-the-gcache-master-key" title="Permanent link">&para;</a></h2>
 <p>GCache and Write-Set cache encryption uses either a keyring plugin or a keyring component. This plugin or component must be loaded.</p>
 <p>Store the keyring file outside the data directory when using a keyring plugin or a keyring component.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">GCACHE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">GCACHE</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="variable-descriptions">Variable descriptions<a data-markdown-ignore class="headerlink" href="#variable-descriptions" title="Permanent link">&para;</a></h2>
 <h3 id="gcache-encryption">GCache encryption<a data-markdown-ignore class="headerlink" href="#gcache-encryption" title="Permanent link">&para;</a></h3>

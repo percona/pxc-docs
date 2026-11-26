@@ -8,7 +8,7 @@ Create backups before attempting any upgrade.
 
 This guide describes how to upgrade Percona XtraDB Cluster (PXC) to version 9.7 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 9.7 require version 8.4 or later. Upgrade to the latest 8.4 release before upgrading to 9.7.
 
-If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Cluster, use [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/migrate-mysql-galera.html) first. Complete that migration, then return here for any major-version upgrade.
+If you are moving from MySQL Galera Cluster (mysql-wsrep) to Percona XtraDB Cluster, use [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/migrate-mysql-galera.md) first. Complete that migration, then return here for any major-version upgrade.
 
 Warning
 
@@ -16,13 +16,13 @@ A node with a higher protocol version cannot join a cluster running an older Gal
 
 Run the following command on a cluster member and on the joining node, then compare the outputs:
 
-```
+```sql
 SHOW STATUS LIKE 'wsrep_protocol_version';
 ```
 
 Expected output
 
-```
+```text
 +------------------------+-------+
 | Variable_name          | Value |
 +------------------------+-------+
@@ -32,7 +32,7 @@ Expected output
 
 Upgrading to Percona Server 9.7 follows the same process as minor 8.4 upgrades. Review the [Percona Server for MySQL 9.7 Upgrade Guide](https://docs.percona.com/percona-server/9.7/upgrade.html) for additional details.
 
-Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html) for ways that we can work with you.
+Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.md) for ways that we can work with you.
 
 ## Changes in Percona XtraDB Cluster 9.7
 
@@ -56,13 +56,13 @@ During a rolling upgrade, the donor node running 8.4 can use the keyring plugin.
 
 ### ProxySQL compatibility
 
-ProxySQL versions before 2.6.2 do not support the [–syncusers](https://docs.percona.com/percona-xtradb-cluster/9.7/proxysql-v2.html#proxysql-admin-utilities) option with `caching_sha2_password` users. Use the `mysql_native_password` authentication plugin for these versions. Load this authentication plugin manually.
+ProxySQL versions before 2.6.2 do not support the [–syncusers](https://docs.percona.com/percona-xtradb-cluster/9.7/proxysql-v2.md#proxysql-admin-utilities) option with `caching_sha2_password` users. Use the `mysql_native_password` authentication plugin for these versions. Load this authentication plugin manually.
 
 ## Default security and compatibility settings
 
-[PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html#percona-xtradb-cluster-strict-mode) is enabled by default. This mode denies unsupported operations and may halt the server. For more information, see [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html).
+[PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md#percona-xtradb-cluster-strict-mode) is enabled by default. This mode denies unsupported operations and may halt the server. For more information, see [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md).
 
-The `pxc-encrypt-cluster-traffic` variable is enabled by default. Configure each node accordingly. Do not join a cluster with unencrypted cluster traffic. For more information, see [Traffic encryption](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.html#encrypt-pxc-traffic).
+The `pxc-encrypt-cluster-traffic` variable is enabled by default. Configure each node accordingly. Do not join a cluster with unencrypted cluster traffic. For more information, see [Traffic encryption](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.md#encrypt-pxc-traffic).
 
 ## Avoid mixing PXC 8.4 nodes with PXC 9.7 nodes
 
@@ -96,7 +96,7 @@ The upgrade steps vary based on cluster configuration and workload.
 
 An in-place rolling upgrade updates an N-node PXC cluster with minimal downtime. This process updates nodes one at a time. During the upgrade, direct application writes only to lower-version nodes. Any node can handle reads.
 
-Before upgrading, verify that your application can function with a reduced cluster size. A cluster with an even number of nodes can experience split-brain scenarios. For more information, see [Cluster failover](https://docs.percona.com/percona-xtradb-cluster/9.7/failover.html).
+Before upgrading, verify that your application can function with a reduced cluster size. A cluster with an even number of nodes can experience split-brain scenarios. For more information, see [Cluster failover](https://docs.percona.com/percona-xtradb-cluster/9.7/failover.md).
 
 The upgrade process detects the 8.4 data directory and initiates the upgrade during node startup. The data directory transforms to be compatible with PXC 9.7. The node joins the cluster and enters a synced state. The result is an N-node cluster with N-1 nodes on 8.4 and one node on 9.7.
 
@@ -143,31 +143,31 @@ To upgrade the cluster, complete the following steps for each node:
 
 1. Disable fast shutdown to ensure that all data files are prepared before the upgrade:
 
-   ```
+   ```shell
    mysql -u root -p -e "SET GLOBAL innodb_fast_shutdown=0;"
    ```
 
 1. Stop the `mysql` service:
 
-   ```
+   ```shell
    sudo service mysql stop
    ```
 
 1. Back up `grastate.dat` to enable restoration if the file is corrupted or zeroed out due to network issues.
 
-1. Upgrade the PXC packages. For more information, see [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html).
+1. Upgrade the PXC packages. For more information, see [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.md).
 
 1. With the server stopped, run the following command to fetch the UUID and sequence number. Store these values to restore the `grastate.dat` file if corruption or network issues occur:
 
-   ```
+   ```shell
    mysqld --wsrep_recover --user=mysql --log-error=/tmp/wsrep-recover.log
    ```
 
 1. Start the PXC node with the upgraded packages.
 
-   Starting the `mysql` service runs the node with your previous configuration. For more information, see [Add nodes to a cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.html#add-nodes-to-cluster).
+   Starting the `mysql` service runs the node with your previous configuration. For more information, see [Add nodes to a cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md#add-nodes-to-cluster).
 
-   ```
+   ```shell
    sudo service mysql start
    ```
 
@@ -194,6 +194,6 @@ MySQL-compatible database servers version 8.0.34 and later allow downgrades with
 
 If you have used features specific to the newer version, you cannot downgrade. The data format becomes incompatible with the older version. To recover, restore a backup taken before using version-specific features. This restore results in data loss for changes made after that backup.
 
-To downgrade a cluster, use the backup and restore procedure described in [Restore 8.4 backup to 9.7 cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-backup.html). This procedure works in reverse for downgrades within the same LTS version. Verify that no version-specific modifications exist before attempting a downgrade.
+To downgrade a cluster, use the backup and restore procedure described in [Restore 8.4 backup to 9.7 cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-backup.md). This procedure works in reverse for downgrades within the same LTS version. Verify that no version-specific modifications exist before attempting a downgrade.
 
 Downgrades carry inherent risks. Approach downgrades with caution and thorough planning.

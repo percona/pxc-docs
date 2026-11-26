@@ -18,29 +18,29 @@ Avoid creating a cluster with two or any even number of nodes, because this can 
 
 The following procedure provides an overview with links to details for every step:
 
-- [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html#install-percona-xtradb-cluster) on all nodes and set up root access for them.
+- [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.md#install-percona-xtradb-cluster) on all nodes and set up root access for them.
 
 It is recommended to install from official Percona repositories:
 
-- On Red Hat and CentOS, [install using YUM](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.html#install-from-percona-software-repository).
-- On Debian and Ubuntu, [install using APT](https://docs.percona.com/percona-xtradb-cluster/9.7/apt.html#install-from-repository).
-- [Configure all nodes](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.html#configure-nodes-for-write-set-replication) with relevant settings required for write-set replication.
+- On Red Hat and CentOS, [install using YUM](https://docs.percona.com/percona-xtradb-cluster/9.7/yum.md#install-from-percona-software-repository).
+- On Debian and Ubuntu, [install using APT](https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md#install-from-repository).
+- [Configure all nodes](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.md#configure-nodes-for-write-set-replication) with relevant settings required for write-set replication.
 
 This includes path to the Galera library, location of other nodes, etc.
 
-- [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.html#bootstrap-the-first-node) to initialize the cluster.
+- [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.md#bootstrap-the-first-node) to initialize the cluster.
 
 This must be the node with your main database, which will be used as the data source for the cluster.
 
-- [Add other nodes](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.html#add-nodes-to-cluster) to the cluster.
+- [Add other nodes](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md#add-nodes-to-cluster) to the cluster.
 
 Data on new nodes joining the cluster is overwritten in order to synchronize it with the cluster.
 
-- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.html#verify-replication).
+- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/9.7/verify-replication.md#verify-replication).
 
 Although cluster initialization and node provisioning is performed automatically, it is a good idea to ensure that changes on one node actually replicate to other nodes.
 
-- [Install ProxySQL](https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.html#load-balance-with-proxysql).
+- [Install ProxySQL](https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.md#load-balance-with-proxysql).
 
 To complete the deployment of the cluster, a high-availability proxy is required. We recommend installing [ProxySQL](https://www.proxysql.com/) on client nodes for efficient workload management across the cluster without any changes to the applications that generate queries.
 

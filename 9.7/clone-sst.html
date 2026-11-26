@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona XtraDB Cluster 9.7, a high availability MySQL clustering solution with synchronous replication, with installation, configuration, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - State Snapshot Transfer (SST) Method using Clone plugin" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3805,12 +3805,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The Clone State Snapshot Transfer (SST) method in Percona XtraDB Cluster allows for efficient data synchronization between nodes. Proper configuration of this method ensures smooth and reliable cluster operations. This section explains how to enable the Clone SST method, including necessary variable settings and SSL configuration for secure data transfer.</p>
 <h3 id="donor-and-joiner">Donor and Joiner<a data-markdown-ignore class="headerlink" href="#donor-and-joiner" title="Permanent link">&para;</a></h3>
 <p>To enable the <code>clone</code> SST method, ensure the <a href="wsrep-system-index.html#wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code></a> variable in the configuration file (<code>my.cnf</code>) includes the <code>clone</code> method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 wsrep_sst_allowed_methods = xtrabackup-v2,clone
 </code></pre></div>
 <h3 id="joiner">Joiner<a data-markdown-ignore class="headerlink" href="#joiner" title="Permanent link">&para;</a></h3>
 <p>On the Joiner server, set the <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> variable to <code>clone</code> in the configuration file (<code>my.cnf</code>). This setting is the only accepted value for the Clone SST process.</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 wsrep_sst_method = clone
 </code></pre></div>
 <h3 id="additional-information">Additional Information<a data-markdown-ignore class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h3>
@@ -3819,7 +3819,7 @@ wsrep_sst_method = clone
 <h2 id="enable-ssl-for-clone-sst">Enable SSL for Clone SST<a data-markdown-ignore class="headerlink" href="#enable-ssl-for-clone-sst" title="Permanent link">&para;</a></h2>
 <p>To enable SSL for the Clone SST process, place the SSL certificates in a directory other than the data directory, as the clone process modifies this directory.</p>
 <p>We recommend explicitly setting the SSL certificates in the <code>my.cnf</code> file as follows:</p>
-<div class="highlight"><pre><span></span><code>[client]
+<div class="language-text highlight"><pre><span></span><code>[client]
 ssl-ca = /&lt;path&gt;/ca.pem
 ssl-cert = /&lt;path&gt;/client-cert.pem
 ssl-key = /&lt;path&gt;/client-key.pem
@@ -3829,7 +3829,7 @@ ssl-cert = /&lt;path&gt;/server-cert.pem
 ssl-key = /&lt;path&gt;/server-key.pem
 </code></pre></div>
 <p>Alternatively, you can configure the following SSL settings specifically for the Clone SST process on the Joiner:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 clone_ssl_ca = /path/to/ca.pem
 clone_ssl_cert = /path/to/client-cert.pem
 clone_ssl_key = /path/to/client-key.pem
@@ -3894,24 +3894,24 @@ clone_ssl_key = /path/to/client-key.pem
 </tbody>
 </table>
 <p>These timeout variables can be configured in the <code>my.cnf</code> file as follows:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 joiner_timeout_wait_donor_message=60
 donor_timeout_wait_Joiner=200
 joiner_timeout_clone_instance=90
 </code></pre></div>
 <h2 id="debug-the-process">Debug the process<a data-markdown-ignore class="headerlink" href="#debug-the-process" title="Permanent link">&para;</a></h2>
 <p>In the same context, if you must debug the process and need more information, you can enable the debug output in my.cnf:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 wsrep-debug=true
 </code></pre></div>
 <p>The default port used by the SST process is 4444.</p>
 <h2 id="monitor-the-process">Monitor the process<a data-markdown-ignore class="headerlink" href="#monitor-the-process" title="Permanent link">&para;</a></h2>
 <p>The Joiner log reports the clone process as a <code>% of the data transfer completed</code>.
 The query used is:</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">'completed%'</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'FILE_COPY'</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>SELECT<span class="w"> </span>FORMAT<span class="o">(((</span>data/estimate<span class="o">)</span>*100<span class="o">)</span>,2<span class="o">)</span><span class="w"> </span><span class="s1">'completed%'</span><span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_progress<span class="w"> </span>WHERE<span class="w"> </span>stage<span class="w"> </span>LIKE<span class="w"> </span><span class="s1">'FILE_COPY'</span><span class="p">;</span>
 </code></pre></div>
 <p>For more information on the progress, you can also use the query:</p>
-<div class="highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>SELECT<span class="w"> </span>STATE,<span class="w"> </span>ERROR_NO,<span class="w"> </span>ERROR_MESSAGE<span class="w"> </span>FROM<span class="w"> </span>performance_schema.clone_status<span class="p">;</span>
 </code></pre></div>
 <h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <table>

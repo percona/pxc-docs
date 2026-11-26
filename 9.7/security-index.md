@@ -4,11 +4,11 @@
 
 By default, Percona XtraDB Cluster does not encrypt or protect stored data. To ensure the security of your deployment, you must take additional measures. Consider the following areas when securing a Percona XtraDB Cluster environment:
 
-| Topic                                                                                                                  | Description                                                                                                                                                                                                                                                                      |
-| ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Securing the Network](https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.html#secure-the-network)     | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster.                   |
-| [Encrypting PXC Traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.html#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster 9.7, traffic encryption is enabled by default.                                                                                                                        |
-| Data-at-rest encryption                                                                                                | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html) . |
+| Topic                                                                                                                | Description                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Securing the Network](https://docs.percona.com/percona-xtradb-cluster/9.7/secure-network.md#secure-the-network)     | Anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. You should consider restricting access using a VPN and filtering traffic on ports used by Percona XtraDB Cluster.                   |
+| [Encrypting PXC Traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/encrypt-traffic.md#encrypt-pxc-traffic) | Unencrypted traffic can potentially be viewed by anyone monitoring your network. In Percona XtraDB Cluster 9.7, traffic encryption is enabled by default.                                                                                                                        |
+| Data-at-rest encryption                                                                                              | Percona XtraDB Cluster supports tablespace encryption to provide at-rest encryption for physical tablespace data files. For more information, see [Percona Server for MySQL Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html) . |
 
 ## Security modules
 
@@ -33,7 +33,7 @@ SELinux operates in one of two modes that determine how it applies security poli
 - Enforcing mode (default in most RHEL-based systems): SELinux actively enforces its security policies. It blocks and logs unauthorized access based on those policies.
 - Permissive mode: SELinux does not enforce the policies. It logs violations as if it were enforcing them, but allows the actions to proceed.
 
-```
+```shell
 setenforce 0
 ```
 
@@ -49,7 +49,7 @@ To restore the enforcing mode, execute `setenforce 1` to immediately set SELinux
 
 See also
 
-For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.html#enable-selinux)
+For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/selinux.md#enable-selinux)
 
 ### AppArmor
 
@@ -57,4 +57,4 @@ AppArmor is included in Debian and Ubuntu. *Percona XtraDB Cluster* provides sev
 
 See also
 
-For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.html#enable-apparmor)
+For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.md#enable-apparmor)

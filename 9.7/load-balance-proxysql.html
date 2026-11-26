@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Load balance with ProxySQL" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/load-balance-proxysql.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3563,13 +3563,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Install the ProxySQL client tools and server package:</p>
-<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
+<div class="language-shell highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
 apt<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Install the ProxySQL client tools and server package:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-client
 sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>proxysql
 </code></pre></div>
 </div>
@@ -3597,11 +3597,11 @@ package name available from your configured repository.</p>
 </li>
 </ul>
 <p>The following example shows how to connect to the ProxySQL admin interface with default credentials:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p&lt;PROXYSQL_ADMIN_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>admin<span class="w"> </span>-p&lt;PROXYSQL_ADMIN_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">6032</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+<div class="language-text no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
 Server version: ... (ProxySQL Admin Module)
 ...
@@ -3610,12 +3610,12 @@ mysql@proxysql&gt;
 </code></pre></div>
 </details>
 <p>To see the ProxySQL databases and tables use the following commands:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows the ProxySQL databases:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----+---------+-------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----+---------+-------------------------------+
 | seq | name    | file                          |
 +-----+---------+-------------------------------+
 | 0   | main    |                               |
@@ -3627,12 +3627,12 @@ mysql@proxysql&gt;
 ... rows in set (...)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows the ProxySQL tables:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | tables                               |
 +--------------------------------------+
 | global_variables                     |
@@ -3676,17 +3676,17 @@ mysql@proxysql&gt;
 <p>ProxySQL uses the concept of <em>hostgroups</em> to group cluster nodes. This enables you to balance the load in a cluster by routing different types of traffic to different groups. There are many ways you can configure hostgroups (for example, source and replicas, read and write load, etc.), and every node can be a member of multiple hostgroups.</p>
 </div>
 <p>This example adds three Percona XtraDB Cluster nodes to the default hostgroup (<code>0</code>), which receives both write and read traffic:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">'&lt;PXC_NODE1_IP&gt;'</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">'&lt;PXC_NODE1_IP&gt;'</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">'&lt;PXC_NODE2_IP&gt;'</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">(</span><span class="n">hostgroup_id</span><span class="p">,</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">'&lt;PXC_NODE3_IP&gt;'</span><span class="p">,</span><span class="mi">3306</span><span class="p">);</span>
 </code></pre></div>
 <p>To see the nodes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql_servers</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows the list of nodes:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE | 1      | 0           | 1000            | 0                   | 0       | 0              |         |
@@ -3701,27 +3701,27 @@ mysql@proxysql&gt;
 <p>For production deployments, avoid broad host patterns where possible. Use a host
 scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead of <code>%</code>.</p>
 <p>The following example adds a monitoring user on Node 2 using the <code>caching_sha2_password</code> authentication plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;MONITOR_PASSWORD&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;MONITOR_PASSWORD&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <p>Grant the user account privileges:</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'proxysql'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to configure this user on the ProxySQL node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'proxysql'</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_username'</span><span class="p">;</span>
 <span class="k">UPDATE</span><span class="w"> </span><span class="n">global_variables</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">variable_value</span><span class="o">=</span><span class="s1">'&lt;MONITOR_PASSWORD&gt;'</span>
 <span class="w">              </span><span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="o">=</span><span class="s1">'mysql-monitor_password'</span><span class="p">;</span>
 </code></pre></div>
 <p>To load this configuration at runtime, issue a <code>LOAD</code> command. To save these changes to disk (ensuring that they persist after ProxySQL shuts down), issue a <code>SAVE</code> command.</p>
-<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 </code></pre></div>
 <p>To ensure that monitoring is enabled, check the monitoring logs:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_connect_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_connect_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+----------------------+---------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------+------+------------------+----------------------+---------------+
 | hostname      | port | time_start_us    | connect_success_time | connect_error |
 +---------------+------+------------------+----------------------+---------------+
 | &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...                  | NULL          |
@@ -3732,11 +3732,11 @@ scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead o
 ... rows in set (...)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_ping_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">monitor</span><span class="p">.</span><span class="n">mysql_server_ping_log</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">time_start_us</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------+------+------------------+-------------------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------+------+------------------+-------------------+------------+
 | hostname      | port | time_start_us    | ping_success_time | ping_error |
 +---------------+------+------------------+-------------------+------------+
 | &lt;PXC_NODE1_IP&gt; | 3306 | ...              | ...               | NULL       |
@@ -3749,16 +3749,16 @@ scope for the ProxySQL node, such as <code>&lt;PROXYSQL_IP&gt;</code>, instead o
 </details>
 <p>The previous examples show that ProxySQL is able to connect and ping the nodes you have added.</p>
 <p>To enable monitoring of these nodes, load them at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">SERVERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="create-proxysql-client-user">Create ProxySQL client user<a data-markdown-ignore class="headerlink" href="#create-proxysql-client-user" title="Permanent link">&para;</a></h3>
 <p>ProxySQL must have users that can access backend nodes to manage connections.</p>
 <p>To add a user, insert credentials into <code>mysql_users</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'&lt;APP_USER&gt;'</span><span class="p">,</span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">mysql_users</span><span class="w"> </span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'&lt;APP_USER&gt;'</span><span class="p">,</span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -3770,15 +3770,15 @@ For supported password hash formats and examples, see
 <a href="https://proxysql.com/documentation/password-management">ProxySQL Password Management <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <p>Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):</p>
-<div class="highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">LOAD</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">RUNTIME</span><span class="p">;</span>
 <span class="n">SAVE</span><span class="w"> </span><span class="n">MYSQL</span><span class="w"> </span><span class="n">USERS</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="p">;</span>
 </code></pre></div>
 <p>To confirm that the user has been set up correctly, you can try to log in as root:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+<div class="language-text no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
 Server version: ... (Percona XtraDB Cluster)
 ...
@@ -3786,11 +3786,11 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>To verify end-to-end query routing through ProxySQL, run:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@hostname;"</span>
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;APP_USER&gt;<span class="w"> </span>-p&lt;APP_PASSWORD&gt;<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span>&lt;PROXYSQL_RW_PORT&gt;<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@hostname;"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------+
 | @@hostname |
 +------------+
 | &lt;PXC_NODEX_NAME&gt; |
@@ -3798,18 +3798,18 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>To provide read/write access to the cluster for ProxySQL, add this user on one of the Percona XtraDB Cluster nodes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;APP_USER&gt;'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;APP_USER&gt;'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;APP_USER&gt;'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'&lt;APP_USER&gt;'</span><span class="o">@</span><span class="s1">'&lt;PROXYSQL_IP&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h3 id="test-cluster-with-sysbench">Test cluster with sysbench<a data-markdown-ignore class="headerlink" href="#test-cluster-with-sysbench" title="Permanent link">&para;</a></h3>
@@ -3818,12 +3818,12 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Install <code>sysbench</code> with APT:</p>
-<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>sysbench
+<div class="language-shell highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Install <code>sysbench</code> with DNF:</p>
-<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>install<span class="w"> </span>sysbench
+<div class="language-shell highlight"><pre><span></span><code>dnf<span class="w"> </span>install<span class="w"> </span>sysbench
 </code></pre></div>
 </div>
 </div>
@@ -3836,12 +3836,12 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 <ol>
 <li>Create the database that will be used for testing on one of the Percona XtraDB Cluster nodes:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">sbtest</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">sbtest</span><span class="p">;</span>
 </code></pre></div>
 <ol>
 <li>Populate the table with data for the benchmark on the ProxySQL node:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
 --mysql-user<span class="o">=</span><span class="s1">'&lt;APP_USER&gt;'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="w"> </span><span class="se">\</span>
@@ -3851,7 +3851,7 @@ prepare
 <ol>
 <li>Run the benchmark on the ProxySQL node:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>sysbench<span class="w"> </span>--report-interval<span class="o">=</span><span class="m">5</span><span class="w"> </span>--num-threads<span class="o">=</span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 --num-requests<span class="o">=</span><span class="m">0</span><span class="w"> </span>--max-time<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
 --test<span class="o">=</span>/usr/share/doc/sysbench/tests/db/oltp.lua<span class="w"> </span><span class="se">\</span>
 --mysql-user<span class="o">=</span><span class="s1">'&lt;APP_USER&gt;'</span><span class="w"> </span>--mysql-password<span class="o">=</span><span class="s1">'&lt;APP_PASSWORD&gt;'</span><span class="w"> </span><span class="se">\</span>
@@ -3859,11 +3859,11 @@ prepare
 run
 </code></pre></div>
 <p>ProxySQL stores collected data in the <code>stats</code> schema:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------+
 | tables                         |
 +--------------------------------+
 | stats_mysql_query_rules        |
@@ -3877,12 +3877,12 @@ run
 </code></pre></div>
 </details>
 <p>For example, to see the number of commands that run on the cluster:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats_mysql_commands_counters</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">stats_mysql_commands_counters</span><span class="p">;</span>
 </code></pre></div>
 <p>The exact timing and counter values vary by workload, host resources, and test duration.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
 | Command                   | Total_Time_us | Total_cnt | cnt_100us | cnt_500us | cnt_1ms | cnt_5ms | cnt_10ms | cnt_50ms | cnt_100ms | cnt_500ms | cnt_1s | cnt_5s | cnt_10s | cnt_INFs |
 +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
 | ALTER_TABLE               | 0             | 0         | 0         | 0         | 0       | 0       | 0        | 0        | 0         | 0         | 0      | 0      | 0       | 0        |
@@ -3912,12 +3912,12 @@ run
 <h3 id="automatic-failover">Automatic failover<a data-markdown-ignore class="headerlink" href="#automatic-failover" title="Permanent link">&para;</a></h3>
 <p>ProxySQL will automatically detect if a node is not available or not synced with the cluster.</p>
 <p>You can check the status of all available nodes by running:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows the status of all available nodes:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
 | 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
@@ -3928,14 +3928,14 @@ run
 </code></pre></div>
 </details>
 <p>To test problem detection and fail-over mechanism, shut down Node 3:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>ProxySQL will detect that the node is down and update its status to <code>OFFLINE_SOFT</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------------+
 | hostgroup_id | hostname      | port | status       |
 +--------------+---------------+------+--------------+
 | 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE       |
@@ -3946,14 +3946,14 @@ run
 </code></pre></div>
 </details>
 <p>Now start Node 3 again:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>The script will detect the change and mark the node as <code>ONLINE</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">hostgroup_id</span><span class="p">,</span><span class="n">hostname</span><span class="p">,</span><span class="n">port</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">runtime_mysql_servers</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
 | 0            | &lt;PXC_NODE1_IP&gt; | 3306 | ONLINE |
@@ -3986,7 +3986,7 @@ run
 <p>When ProxySQL detects that the mode is set to <code>MAINTENANCE</code>, it stops routing traffic to the node. During the transition period, any existing connections continue, but ProxySQL avoids opening new connections and starting transactions. Still, the user can open connections to monitor status.</p>
 <p>Once control is returned, you can perform maintenance activity.</p>
 <p>!!! note</p>
-<div class="highlight"><pre><span></span><code>  Data changes continue to be replicated across the cluster.
+<div class="language-text highlight"><pre><span></span><code>  Data changes continue to be replicated across the cluster.
 </code></pre></div>
 <p>After you finish maintenance, set the mode back to <code>DISABLED</code>.
   When ProxySQL detects this, it starts routing traffic to the node again.</p>

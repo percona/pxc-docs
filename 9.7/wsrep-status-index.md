@@ -137,13 +137,13 @@ Because writesets can be processed by multiple applier threads concurrently, a h
 
 ### Example usage
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_oooe';
 ```
 
 Expected output
 
-```
+```text
 +------------------+----------+
 | Variable_name    | Value    |
 +------------------+----------+
@@ -167,7 +167,7 @@ The value is a floating‑point number between 0 and 1, reported with up to six 
 
 Run a single query to collect all relevant metrics:
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_oooe|wsrep_apply_window|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_oooe';
 ```
 
@@ -193,13 +193,13 @@ A value near `0` is ideal, showing that writesets generally apply in the correct
 
 Run the following command on any node in the cluster; only the `PROCESS` privilege is required, and the result reflects the status of the node where the command executes.
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_oool';
 ```
 
 Expected output
 
-```
+```text
 +------------------+----------+
 | Variable_name    | Value    |
 +------------------+----------+
@@ -221,7 +221,7 @@ Expected output
 
 Execute the following query to obtain a comprehensive snapshot of the relevant metrics:
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_oool|wsrep_apply_oooe|wsrep_apply_window|wsrep_local_recv_queue_avg|wsrep_cert_deps_distance|wsrep_commit_oooe';
 ```
 
@@ -247,13 +247,13 @@ Higher values signal a healthy, efficiently parallelized cluster that keeps pace
 
 Run the following command on any node; only the `PROCESS` privilege is required, and the result reflects the status of the node where the command is executed.
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_window';
 ```
 
 Expected output
 
-```
+```text
 +---------------------+----------+
 | Variable_name       | Value    |
 +---------------------+----------+
@@ -275,7 +275,7 @@ Expected output
 
 Execute the following query to obtain a comprehensive snapshot of the relevant metrics:
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_apply_window|wsrep_apply_oooe|wsrep_apply_oool|wsrep_cert_deps_distance|wsrep_local_recv_queue_avg|wsrep_commit_window';
 ```
 
@@ -333,7 +333,7 @@ See also
 
 ### `wsrep_cluster_state_uuid`
 
-This variable contains [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#uuid) state of the cluster. When this value is the same as the one in [`wsrep_local_state_uuid`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html#wsrep_local_state_uuid), node is synced with the cluster.
+This variable contains [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#uuid) state of the cluster. When this value is the same as the one in [`wsrep_local_state_uuid`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md#wsrep_local_state_uuid), node is synced with the cluster.
 
 See also
 
@@ -618,7 +618,7 @@ See also
 
 ### `wsrep_local_state_uuid`
 
-The [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#uuid) of the state stored on the node.
+The [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#uuid) of the state stored on the node.
 
 See also
 
@@ -628,7 +628,7 @@ See also
 
 The status of the local monitor (local and replicating actions), apply monitor (apply actions of write-set), and commit monitor (commit actions of write sets). In the value of this variable, each monitor (L: Local, A: Apply, C: Commit) is represented as a *last_entered*, and *last_left* pair:
 
-```
+```text
 wsrep_monitor_status (L/A/C)    [ ( 7, 5), (2, 2), ( 2, 2) ]
 ```
 
@@ -680,7 +680,7 @@ See also
 
 ### `wsrep_ready`
 
-This variable shows if node is ready to accept queries. If status is `OFF`, almost all queries will fail with `ERROR 1047 (08S01) Unknown Command` error (unless the [`wsrep_on`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_on) variable is set to `0`).
+This variable shows if node is ready to accept queries. If status is `OFF`, almost all queries will fail with `ERROR 1047 (08S01) Unknown Command` error (unless the [`wsrep_on`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_on) variable is set to `0`).
 
 See also
 
@@ -724,7 +724,7 @@ See also
 
 ### `wsrep_replicated_bytes`
 
-Total size of replicated writesets. To compute the actual size of bytes sent over network to cluster peers, multiply the value of this variable by the number of cluster peers in the given [`network segment`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gmcastsegment).
+Total size of replicated writesets. To compute the actual size of bytes sent over network to cluster peers, multiply the value of this variable by the number of cluster peers in the given [`network segment`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gmcastsegment).
 
 See also
 
@@ -754,13 +754,13 @@ The recommended value depends on your application’s need for consistency versu
 
 You can run this command on any node in the cluster; it requires only the `PROCESS` privilege. Results reflect the status of the node where the query is executed.
 
-```
+```shell
 SHOW GLOBAL STATUS LIKE 'wsrep_sync_wait';
 ```
 
 Expected output
 
-```
+```text
 +------------------+-------+
 | Variable_name    | Value |
 +------------------+-------+
@@ -780,7 +780,7 @@ Expected output
 
 To get a comprehensive view of how `wsrep_sync_wait` interacts with replication and flow control, run this query:
 
-```
+```shell
 SHOW GLOBAL STATUS LIKE 'wsrep_sync_wait|wsrep_local_recv_queue_avg|wsrep_flow_control_paused|wsrep_apply_oooe';
 ```
 

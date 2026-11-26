@@ -10,9 +10,9 @@ However, there are scenarios where the database service can stop with no node be
 
 In a three node cluster (node A, Node B, node C), one node (node A, for example) is gracefully stopped: for the purpose of maintenance, configuration change, etc.
 
-In this case, the other nodes receive a “good bye” message from the stopped node and the cluster size is reduced; some properties like quorum calculation or auto increment are automatically changed. As soon as node A is started again, it joins the cluster based on its [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_cluster_address) variable in `my.cnf`.
+In this case, the other nodes receive a “good bye” message from the stopped node and the cluster size is reduced; some properties like quorum calculation or auto increment are automatically changed. As soon as node A is started again, it joins the cluster based on its [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_cluster_address) variable in `my.cnf`.
 
-If the writeset cache ([`gcache.size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachesize)) on nodes B and/or C still has all the transactions executed while node A was down, joining is possible via [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist). If [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist) is impossible due to missing transactions in donor’s gcache, the fallback decision is made by the donor and [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst) is started automatically.
+If the writeset cache ([`gcache.size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachesize)) on nodes B and/or C still has all the transactions executed while node A was down, joining is possible via [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist). If [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist) is impossible due to missing transactions in donor’s gcache, the fallback decision is made by the donor and [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst) is started automatically.
 
 ## Scenario 2: Two nodes are gracefully stopped
 
@@ -22,7 +22,7 @@ However, when a new node joins the cluster, node C will be switched to the “Do
 
 If you restart node A and then node B, you may want to make sure node B does not use node A as the state transfer donor: node A may not have all the needed writesets in its gcache. Specify node C node as the donor in your configuration file and start the mysql service:
 
-```
+```shell
 systemctl start mysql
 ```
 
@@ -34,17 +34,17 @@ See also
 
 The cluster is completely stopped and the problem is to initialize it again. It is important that a PXC node writes its last executed position to the `grastate.dat` file.
 
-By comparing the seqno number in this file, you can see which is the most advanced node (most likely the last stopped). The cluster must be bootstrapped using this node, otherwise nodes that had a more advanced position will have to perform the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst) to join the cluster initialized from the less advanced one. As a result, some transactions will be lost). To bootstrap the first node, invoke the startup script like this:
+By comparing the seqno number in this file, you can see which is the most advanced node (most likely the last stopped). The cluster must be bootstrapped using this node, otherwise nodes that had a more advanced position will have to perform the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst) to join the cluster initialized from the less advanced one. As a result, some transactions will be lost). To bootstrap the first node, invoke the startup script like this:
 
-```
+```shell
 systemctl start mysql@bootstrap.service
 ```
 
 Note
 
-Even though you bootstrap from the most advanced node, the other nodes have a lower sequence number. They will still have to join via the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst) because the *Galera Cache* is not retained on restart.
+Even though you bootstrap from the most advanced node, the other nodes have a lower sequence number. They will still have to join via the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst) because the *Galera Cache* is not retained on restart.
 
-For this reason, it is recommended to stop writes to the cluster *before* its full shutdown, so that all nodes can stop at the same position. See also [`pc.recovery`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#pcrecovery).
+For this reason, it is recommended to stop writes to the cluster *before* its full shutdown, so that all nodes can stop at the same position. See also [`pc.recovery`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#pcrecovery).
 
 ## Scenario 4: One node disappears from the cluster
 
@@ -56,13 +56,13 @@ Two remaining nodes notice the connection to node A is down and start trying to 
 
 Two nodes are not available and the remaining node (node C) is not able to form the quorum alone. The cluster has to switch to a non-primary mode, where MySQL refuses to serve any SQL queries. In this state, the **mysqld** process on node C is still running and can be connected to but any statement related to data fails with an error.
 
-```
+```sql
 SELECT * FROM test.sbtest1;
 ```
 
 The error message
 
-```
+```text
 ERROR 1047 (08S01): WSREP has not yet prepared node for application use
 ```
 
@@ -72,7 +72,7 @@ As soon as the other nodes become available, the cluster is formed again automat
 
 If node A and node B crashed, you need to enable the primary component on node C manually, before you can bring up node A and node B. The command to do this is:
 
-```
+```sql
 SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
@@ -80,7 +80,7 @@ This approach only works if the other nodes are down before doing that! Otherwis
 
 See also
 
-[Adding Nodes to Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.html#add-nodes-to-cluster)
+[Adding Nodes to Cluster](https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md#add-nodes-to-cluster)
 
 ## Scenario 6: All nodes went down without a proper shutdown procedure
 
@@ -94,13 +94,13 @@ In each of these cases, the `grastate.dat` file is not updated and does not cont
 
 The `grastate.dat` file may look like this. Run:
 
-```
+```shell
 cat /var/lib/mysql/grastate.dat
 ```
 
 Expected output
 
-```
+```text
 GALERA saved state
 version: 2.1
 uuid: 220dcdcb-1629-11e4-add3-aec059ad3734
@@ -112,7 +112,7 @@ In this case, you cannot be sure that all nodes are consistent with each other. 
 
 An attempt to bootstrap from such a node will fail unless you start `mysqld` with the `--wsrep-recover` option:
 
-```
+```shell
 mysqld --wsrep-recover
 ```
 
@@ -120,7 +120,7 @@ Search the output for the line that reports the recovered position after the nod
 
 Expected output
 
-```
+```text
 ...
 ... [Note] WSREP: Recovered position: 220dcdcb-1629-11e4-add3-aec059ad3734:1122
 ...
@@ -128,21 +128,21 @@ Expected output
 
 The node where the recovered position is marked by the greatest number is the best bootstrap candidate. In its `grastate.dat` file, set the safe_to_bootstrap variable to **1**. Then, bootstrap from this node:
 
-```
+```shell
 systemctl start mysql@bootstrap.service
 ```
 
 After a shutdown, you can bootstrap from the node which is marked as safe in the `grastate.dat` file.
 
-```
+```text
 ...
 safe_to_bootstrap: 1
 ...
 ```
 
-In recent Galera versions, the option [`pc.recovery`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#pcrecovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it saves only a cluster being in the PRIMARY state. An example content of the file may look like this:
+In recent Galera versions, the option [`pc.recovery`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#pcrecovery) (enabled by default) saves the cluster state into a file named `gvwstate.dat` on each member node. As the name of this option suggests (pc – primary component), it saves only a cluster being in the PRIMARY state. An example content of the file may look like this:
 
-```
+```text
 cat /var/lib/mysql/gvwstate.dat
 my_uuid: 76de8ad9-2aac-11e4-8089-d27fd06893b9
 #vwbeg
@@ -158,7 +158,7 @@ We can see a three node cluster with all members being up. The nodes will try to
 
 The log file shows recovery completion:
 
-```
+```text
 2024-11-08T12:35:05.890123Z 0 [Note] InnoDB: Waiting for purge to start
 2024-11-08T12:35:06.901234Z 0 [Note] InnoDB: Purge done
 2024-11-08T12:35:07.012345Z 0 [Note] InnoDB: Buffer pool(s) load completed at 2024-11-08T12:35:07.012345Z
@@ -171,17 +171,17 @@ For the purpose of this example, let’s assume we have a cluster that consists 
 
 If you want to restore the service even before the network link is restored, you can make one of the groups primary again using the same command as described in [Scenario 5: Two nodes disappear from the cluster](#scenario-5-two-nodes-disappear-from-the-cluster)
 
-```
+```sql
 SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 
-After this, you are able to work on the manually restored part of the cluster, and the other half should be able to automatically re-join using [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist) as soon as the network link is restored.
+After this, you are able to work on the manually restored part of the cluster, and the other half should be able to automatically re-join using [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist) as soon as the network link is restored.
 
 Warning
 
 If you set the bootstrap option on both the separated parts, you will end up with two living cluster instances, with data likely diverging away from each other. Restoring a network link in this case will not make them re-join until the nodes are restarted and members specified in configuration file are connected again.
 
-Then, as the Galera replication model truly cares about data consistency: once the inconsistency is detected, nodes that cannot execute row change statement due to a data difference – an emergency shutdown will be performed and the only way to bring the nodes back to the cluster is via the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst)
+Then, as the Galera replication model truly cares about data consistency: once the inconsistency is detected, nodes that cannot execute row change statement due to a data difference – an emergency shutdown will be performed and the only way to bring the nodes back to the cluster is via the full [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst)
 
 **Based on material from Percona Database Performance Blog**
 

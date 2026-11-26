@@ -6,6 +6,8 @@ Percona XtraDB [Cluster](https://www.percona.com/software/mysql-database/percona
 
 A *cluster* consists of *nodes*, where each node contains the same set of data synchronized across nodes. The recommended configuration is to have at least three nodes, but you can have two nodes as well. Each node is a regular MySQL Server instance (for example, Percona Server). You can convert an existing MySQL Server instance to a node and run the cluster using this node as a base. You can also detach any node from the cluster and use it as a regular MySQL Server instance.
 
+*Image: image*
+
 ### Benefits
 
 - When you execute a query, it is executed locally on the node. All data is available locally, no need for remote access.

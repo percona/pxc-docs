@@ -6,7 +6,7 @@ Percona provides generic tarballs with all required files and binaries for manua
 
 You can download the appropriate tarball package from [Percona Software Downloads](https://www.percona.com/downloads) .
 
-Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html) for ways that we can work with you.
+Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.md) for ways that we can work with you.
 
 ### Version updates
 
@@ -21,7 +21,7 @@ Check your system to make sure the packages that the PXC version requires are in
 
 ### For Debian or Ubuntu:
 
-```
+```shell
 sudo apt-get install -y \
 socat libdbd-mysql-perl \
 libaio1 libc6 libcurl3 libev4 libgcc1 libgcrypt20 \
@@ -30,7 +30,7 @@ libgpg-error0 libssl1.1 libstdc++6 zlib1g libatomic1
 
 ### For Red Hat Enterprise Linux:
 
-```
+```shell
 sudo yum install -y openssl socat  \
 procps-ng chkconfig procps-ng coreutils shadow-utils \
 ```

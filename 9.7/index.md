@@ -2,7 +2,7 @@
 
 # Percona XtraDB Cluster 9.7 Documentation
 
-This documentation is for the latest release: [Percona XtraDB Cluster 9.7.2-3](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-3.html) release notes.
+This documentation is for the latest release: [Percona XtraDB Cluster 9.7.2-3](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-3.md) release notes.
 
 [Percona XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
 
@@ -29,7 +29,7 @@ See also
 
 Overview of changes in the most recent PXC release
 
-- [Important changes in Percona XtraDB Cluster 9.7](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-guide.html#important-changes-in-percona-xtradb-cluster-97)
+- [Important changes in Percona XtraDB Cluster 9.7](https://docs.percona.com/percona-xtradb-cluster/9.7/upgrade-guide.md#important-changes-in-percona-xtradb-cluster-97)
 - [MySQL Community Edition](https://www.mysql.com/products/community/)
 - [Percona Server for MySQL](https://www.percona.com/doc/percona-server/9.7/index.html)
 - [How We Made Percona XtraDB Cluster Scale](https://www.percona.com/blog/2017/04/19/how-we-made-percona-xtradb-cluster-scale)
@@ -38,22 +38,22 @@ Overview of changes in the most recent PXC release
 
 Get started quickly with our Quickstart guide.
 
-[Quickstart guide](https://docs.percona.com/percona-xtradb-cluster/9.7/quickstart-overview.html)
+[Quickstart guide](https://docs.percona.com/percona-xtradb-cluster/9.7/quickstart-overview.md)
 
 ### Installation guides
 
 Find the best installation solution with our step-by-step installation instructions.
 
-[Installation instructions](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.html)
+[Installation instructions](https://docs.percona.com/percona-xtradb-cluster/9.7/install-index.md)
 
 ### High availability
 
 Learn about how Percona XtraDB Cluster delivers high availability.
 
-[High availability](https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.html)
+[High availability](https://docs.percona.com/percona-xtradb-cluster/9.7/high-availability.md)
 
 ## State Snapshot Transfer (SST) Method using Clone plugin
 
 Learn about a modern and efficient method that leverages MySQL’s native cloning capabilities to transfer data from a donor node to a Joiner node.
 
-[SST](https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.html)
+[SST](https://docs.percona.com/percona-xtradb-cluster/9.7/clone-sst.md)

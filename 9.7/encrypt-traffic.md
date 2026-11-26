@@ -5,7 +5,7 @@
 Percona XtraDB Cluster processes two distinct types of traffic and applies encryption to ensure secure data exchanges across all connections.
 
 - Client-server traffic: flows between client applications and cluster nodes. This type of communication allows clients to send queries and retrieve data from the cluster, supporting standard database operations while maintaining data integrity and security.
-- Replication traffic: synchronizes replication traffic across cluster nodes using [State Snapshot Transfer (SST)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst), [Incremental State Transfer (IST)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist), write-set replication, and various service messages. These processes ensure data consistency and prevent loss.
+- Replication traffic: synchronizes replication traffic across cluster nodes using [State Snapshot Transfer (SST)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst), [Incremental State Transfer (IST)](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist), write-set replication, and various service messages. These processes ensure data consistency and prevent loss.
 
 Percona XtraDB Cluster encrypts all types of traffic to prevent unauthorized access and ensure data confidentiality. The system allows administrators to configure replication traffic encryption using either automated processes or manual setup, depending on security requirements and organizational policies. Implementing encryption enhances data protection, mitigates security risks, and maintains compliance with industry standards.
 
@@ -35,7 +35,7 @@ A common practice is to generate the certificates on the first node and then cop
 
 Instead of storing certificates in the data directory, relocate them to a dedicated directory:
 
-```
+```shell
 mkdir -p /etc/mysql/certs
 mv /var/lib/mysql/*.pem /etc/mysql/certs/
 chown -R mysql:mysql /etc/mysql/certs
@@ -43,7 +43,7 @@ chown -R mysql:mysql /etc/mysql/certs
 
 Then update your configuration in /etc/mysql/mysql.conf.d/mysqld.cnf:
 
-```
+```text
 ssl-key=/etc/mysql/certs/server-key.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
 ssl-ca=/etc/mysql/certs/ca.pem
@@ -57,7 +57,7 @@ For detailed instructions on key creation, certificate signing, and configuratio
 
 ## Encrypt replication traffic
 
-Replication traffic refers to the inter-node traffic, which includes [the SST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst), [IST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist), and replication traffic.
+Replication traffic refers to the inter-node traffic, which includes [the SST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst), [IST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist), and replication traffic.
 
 To ensure secure communication across the cluster, all nodes must use identical key and certificate files. Percona XtraDB Cluster provides a single configuration option to secure all replication traffic, known as SSL automatic configuration. This option ensures encrypted communication across the cluster.
 
@@ -71,7 +71,7 @@ All cluster nodes must use the same SSL certificates to maintain a secure and co
 
 ### Configure SSL encryption
 
-Percona XtraDB Cluster provides the [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_encrypt_cluster_traffic) variable to automate SSL encryption for replication traffic, including State Snapshot Transfer (SST), Incremental State Transfer (IST), and other replication processes. This configuration ensures that data exchanges between nodes remain encrypted, preventing unauthorized access and maintaining the cluster’s security.
+Percona XtraDB Cluster provides the [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#pxc_encrypt_cluster_traffic) variable to automate SSL encryption for replication traffic, including State Snapshot Transfer (SST), Incremental State Transfer (IST), and other replication processes. This configuration ensures that data exchanges between nodes remain encrypted, preventing unauthorized access and maintaining the cluster’s security.
 
 By default, `pxc-encrypt-cluster-traffic` enables a secure communication channel for replication. This variable is not dynamic, meaning administrators cannot modify the value while running the cluster. Any change to the encryption settings requires stopping the cluster, updating the configuration, and restarting the nodes.
 
@@ -81,7 +81,7 @@ Administrators can explicitly configure encryption in `my.cnf` configuration fil
 
 This configuration applies the following settings:
 
-```
+```text
 [mysqld]
 wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
 [sst]
@@ -91,7 +91,7 @@ ssl-ca=ca.pem
 ssl-cert=server-cert.pem
 ```
 
-For [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_provider_options), only the mentioned options are affected (`socket.ssl_key`, `socket,ssl_cert`, and `socket.ssl_ca`), the rest is not modified.
+For [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_provider_options), only the mentioned options are affected (`socket.ssl_key`, `socket,ssl_cert`, and `socket.ssl_ca`), the rest is not modified.
 
 ### Authentication and security transport in replication
 
@@ -103,7 +103,7 @@ This error indicates that the replica is attempting to connect to the source ser
 
 To resolve this on the replica, configure replication to use SSL:
 
-```
+```shell
 STOP REPLICA;
 CHANGE REPLICATION SOURCE TO SOURCE_SSL = 1;
 START REPLICA;
@@ -113,9 +113,9 @@ This change ensures that the replication channel uses encrypted transport, satis
 
 #### Disable pxc-encrypt-cluster-traffic and assess security risks
 
-The default setting for [`PCX`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_encrypt_cluster_traffic) significantly enhances your system’s security by encrypting the traffic between nodes in a Percona XtraDB Cluster (PXC).
+The default setting for [`PCX`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#pxc_encrypt_cluster_traffic) significantly enhances your system’s security by encrypting the traffic between nodes in a Percona XtraDB Cluster (PXC).
 
-When the option for [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#pxc_encrypt_cluster_traffic) remains disabled, individuals with access to the network can connect to any PXC node, either as a client or as another node attempting to join the cluster. This unrestricted access allows these individuals to query sensitive data or obtain a complete copy of the data stored within the cluster.
+When the option for [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#pxc_encrypt_cluster_traffic) remains disabled, individuals with access to the network can connect to any PXC node, either as a client or as another node attempting to join the cluster. This unrestricted access allows these individuals to query sensitive data or obtain a complete copy of the data stored within the cluster.
 
 To maintain a secure cluster, it is crucial to enable `pxc-encrypt-cluster-traffic` and ensure that all nodes use identical SSL certificates. If disabling `pxc-encrypt-cluster-traffic` becomes necessary, follow these steps to ensure proper configuration. First, halt the cluster to prevent any disruptions during the update process. Next, locate the `[mysqld]` section of the configuration file for each node and modify the setting to `pxc-encrypt-cluster-traffic=OFF`. After making this change, restart the cluster to apply the new configuration. This process ensures that the cluster operates under the updated security settings.
 
@@ -137,11 +137,11 @@ Encryption settings remain static during operation. Enabling encryption on a run
 
 You can enable encryption in three key areas of Percona XtraDB Cluster operation:
 
-| Encryption Type                                             | Description                                                                                                                                                                                          |
-| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Encrypt SST traffic](#encrypt-sst-traffic)                 | Encrypts [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst) traffic during full data copy from one cluster node (donor) to the joining node (joiner).                      |
-| [Encrypt replication traffic](#encrypt-replication-traffic) | Encrypts all replication-related traffic within the cluster.                                                                                                                                         |
-| [Encrypt IST traffic](#encrypt-replicationist-traffic)      | Encrypts internal Percona XtraDB Cluster communication, including write-set replication, [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist), and various service messages. |
+| Encryption Type                                             | Description                                                                                                                                                                                        |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Encrypt SST traffic](#encrypt-sst-traffic)                 | Encrypts [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst) traffic during full data copy from one cluster node (donor) to the joining node (joiner).                      |
+| [Encrypt replication traffic](#encrypt-replication-traffic) | Encrypts all replication-related traffic within the cluster.                                                                                                                                       |
+| [Encrypt IST traffic](#encrypt-replicationist-traffic)      | Encrypts internal Percona XtraDB Cluster communication, including write-set replication, [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist), and various service messages. |
 
 ### Encrypt SST traffic
 
@@ -149,11 +149,11 @@ When a new node (JOINER) joins the cluster, a full copy of the existing data is 
 
 To enable encryption during SST, administrators must configure the necessary settings in the cluster configuration file. When using the keyring_file plugin, encryption becomes mandatory. The system must transfer the keyring along with encrypted data files to ensure decryption. Without this step, the recipient node cannot access the transferred data.
 
-For more information, see [State snapshot transfer](https://docs.percona.com/percona-xtradb-cluster/9.7/state-snapshot-transfer.html#state-snapshot-transfer).
+For more information, see [State snapshot transfer](https://docs.percona.com/percona-xtradb-cluster/9.7/state-snapshot-transfer.md#state-snapshot-transfer).
 
 The following options are to be set in `my.cnf` on all nodes:
 
-```
+```text
 early-plugin-load=keyring_file.so
 keyring-file-data=/path/to/keyring/file
 ```
@@ -179,7 +179,7 @@ All nodes must use identical key and certificate files to ensure a consistent se
 
 An example configuration in `my.cnf`:
 
-```
+```text
 [sst]
 encrypt=4
 ssl-ca=/etc/mysql/certs/ca.pem
@@ -193,7 +193,7 @@ To avoid this delay, create the `dhparams.pem` file manually and place the file 
 
 An example command to generate the `dhparams.pem` file:
 
-```
+```shell
 openssl dhparam -out /path/to/datadir/dhparams.pem 2048
 ```
 
@@ -209,17 +209,17 @@ Replication traffic in Percona XtraDB Cluster consists of the following key comp
 | Incremental State Transfer (IST) | Transfers only missing transactions from the donor node to the joining node, reducing overhead.                                 |
 | Service messages                 | Synchronization signals exchanged between nodes to maintain cluster consistency.                                                |
 
-All replication traffic passes through the `gcomm` communication channel. Encrypting this channel secures [IST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist), write-set replication, and service messages ensuring confidentiality and integrity. IST uses a separate channel, so administrators must configure both channels with the same encryption parameters.
+All replication traffic passes through the `gcomm` communication channel. Encrypting this channel secures [IST traffic](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist), write-set replication, and service messages ensuring confidentiality and integrity. IST uses a separate channel, so administrators must configure both channels with the same encryption parameters.
 
-To enable encryption for all these processes, define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate [wsrep provider options](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html):
+To enable encryption for all these processes, define the paths to the key, specify the paths to the key, certificate, and certificate authority files using the appropriate [wsrep provider options](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md):
 
-- [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_ca)
-- [`socket.ssl_cert`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_cert)
-- [`socket.ssl_key`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_key)
+- [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_ca)
+- [`socket.ssl_cert`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_cert)
+- [`socket.ssl_key`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_key)
 
-To configure these encryption settings, define the required parameters in the configuration file using the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_provider_options) variable. This ensures secure replication traffic across the cluster.
+To configure these encryption settings, define the required parameters in the configuration file using the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_provider_options) variable. This ensures secure replication traffic across the cluster.
 
-```
+```shell
 wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"
 ```
 
@@ -247,7 +247,7 @@ The Certificate Authority is used to verify the signature on certificates. These
 
 1. Generate the CA key file:
 
-   ```
+   ```shell
    openssl genrsa 2048 > ca-key.pem
    ```
 
@@ -255,7 +255,7 @@ The Certificate Authority is used to verify the signature on certificates. These
 
 1. Generate the CA certificate file:
 
-   ```
+   ```shell
    openssl req -new -x509 -nodes -days 3600
        -key ca-key.pem -out ca.pem
    ```
@@ -273,7 +273,7 @@ This CA certificate can then be used to sign other certificates for secure authe
 
 1. Generate a new RSA key pair and certificate request:
 
-   ```
+   ```shell
    openssl req -newkey rsa:2048 -days 3600 \
        -nodes -keyout server-key.pem -out server-req.pem
    ```
@@ -287,13 +287,13 @@ This CA certificate can then be used to sign other certificates for secure authe
 
 1. This command reads an RSA private key from the `server-key.pem` file, processes the key, and then writes the processed key back to the same file, removing the passphrase.
 
-   ```
+   ```shell
    openssl rsa -in server-key.pem -out server-key.pem
    ```
 
 1. This command generates a signed certificate from a CSR using a specified CA certificate and its corresponding private key. The command also sets a defined validity period and serial number for the new certificate.
 
-   ```
+   ```shell
    openssl x509 -req -in server-req.pem -days 3600 \
        -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
        -out server-cert.pem
@@ -312,7 +312,7 @@ This CA certificate can then be used to sign other certificates for secure authe
 
 1. Generate the client key file:
 
-   ```
+   ```shell
    openssl req -newkey rsa:2048 -days 3600 \
        -nodes -keyout client-key.pem -out client-req.pem
    ```
@@ -326,7 +326,7 @@ This CA certificate can then be used to sign other certificates for secure authe
 
 1. Remove the passphrase:
 
-   ```
+   ```shell
    openssl rsa -in client-key.pem -out client-key.pem
    ```
 
@@ -334,7 +334,7 @@ This CA certificate can then be used to sign other certificates for secure authe
 
 1. Sign the certificate request using the CA certificate and key:
 
-   ```
+   ```shell
    openssl x509 -req -in client-req.pem -days 3600 \
       -CA ca.pem -CAkey ca-key.pem -set_serial 01 \
       -out client-cert.pem
@@ -350,14 +350,14 @@ The command does the following:
 
 To check whether the server and client certificates are properly signed by the Certificate Authority (CA) certificate, run the following command:
 
-```
+```shell
 openssl verify -CAfile ca.pem server-cert.pem client-cert.pem
 ```
 
 This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (`ca.pem`). If the certificates are correctly signed, OpenSSL returns a confirmation message;\
 otherwise, error details indicate issues with the certificate chain.
 
-```
+```text
 server-cert.pem: OK
 client-cert.pem: OK
 ```
@@ -366,13 +366,13 @@ client-cert.pem: OK
 
 An SSL configuration may fail if the certificate and CA files share the same attributes. To verify whether this is causing the issue, run the following openssl command and check that the CN field differs between the `Subject` and `Issuer` lines.
 
-```
+```shell
 openssl x509 -in server-cert.pem -text -noout
 ```
 
 **Incorrect values**
 
-```
+```text
 Certificate:
 Data:
 Version: 1 (0x0)
@@ -386,13 +386,13 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 
 To obtain a more compact output run `openssl` specifying `-subject` and `-issuer` parameters:
 
-```
+```shell
 openssl x509 -in server-cert.pem -subject -issuer -noout
 ```
 
 Expected output
 
-```
+```text
 subject= /CN=www.percona.com/O=Database Performance./C=AU
 issuer= /CN=www.percona.com/O=Database Performance./C=US
 ```
@@ -417,24 +417,24 @@ Refer to the [Upgrade certificates](#upgrade-certificates) section for details o
 
 The following procedure outlines the steps to upgrade certificates used for securing replication traffic when operating with two nodes in the cluster.
 
-1. Restart the first node with the [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_ca) option set to a combination of the the old and new certificates in a single file.
+1. Restart the first node with the [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_ca) option set to a combination of the the old and new certificates in a single file.
 
    For example, you can merge contents of `old-ca.pem` and `new-ca.pem` into `upgrade-ca.pem` as follows:
 
-   ```
+   ```shell
    cat old-ca.pem > upgrade-ca.pem && \
    cat new-ca.pem >> upgrade-ca.pem
    ```
 
-   Set the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#index-of-wsrep-system-variables) variable as follows:
+   Set the [`wsrep_provider_options`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#index-of-wsrep-system-variables) variable as follows:
 
-   ```
+   ```shell
    wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"
    ```
 
-1. Restart the second node with the [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_ca), [`socket.ssl_cert`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_cert), and [`socket.ssl_key`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#socketssl_cert) options set to the corresponding new certificate files.
+1. Restart the second node with the [`socket.ssl_ca`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_ca), [`socket.ssl_cert`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_cert), and [`socket.ssl_key`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#socketssl_cert) options set to the corresponding new certificate files.
 
-   ```
+   ```shell
    wsrep_provider_options="socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"
    ```
 

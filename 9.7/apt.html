@@ -125,7 +125,7 @@ is described in Percona Software and Platform Lifecycle .">
                <meta property="og:title" content="Percona XtraDB Cluster - Install on Debian or Ubuntu" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md"></head>
             </html>
 
             
@@ -139,7 +139,7 @@ is described in Percona Software and Platform Lifecycle .">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/apt.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3564,37 +3564,37 @@ using APT.</p>
 <ol>
 <li>
 <p>Update the system:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Install the necessary packages:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
 <p>Download the repository package</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Install the package with <code>dpkg</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>Refresh the local cache to update the package information:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>Enable the <code>release</code> repository for <em>Percona XtraDB Cluster</em>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>pxc-97-lts<span class="w"> </span>--scheme<span class="w"> </span>https
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>pxc-97-lts<span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 </li>
 <li>
 <p>Install the cluster:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 </li>
 </ol>

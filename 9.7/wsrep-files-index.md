@@ -8,7 +8,7 @@
 
   To be able to analyze these files binlog header needs to be added to the log file. To create the `GRA_HEADER` file you need an instance running with `binlog_checksum` set to `NONE` and extract first 120 bytes from the binlog file:
 
-  ```
+  ```shell
   head -c 123 mysqld-bin.000001 > GRA_HEADER
   cat GRA_HEADER > /var/lib/mysql/GRA_1_2-bin.log
   cat /var/lib/mysql/GRA_1_2.log >> /var/lib/mysql/GRA_1_2-bin.log
@@ -50,7 +50,7 @@
 
   Error message
 
-  ```
+  ```text
   160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
   160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
   ```
@@ -59,7 +59,7 @@
 
 - `gcache.page`
 
-  See [`gcache.page_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachepage_size)
+  See [`gcache.page_size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachepage_size)
 
   See also
 
@@ -67,14 +67,14 @@
 
 - `galera.cache`
 
-  This file is used as a main writeset store. It’s implemented as a permanent ring-buffer file that is preallocated on disk when the node is initialized. File size can be controlled with the variable [`gcache.size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachesize). If this value is bigger, more writesets are cached and chances are better that the re-joining node will get [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#ist) instead of [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#sst). Filename can be changed with the [`gcache.name`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.html#gcachename) variable.
+  This file is used as a main writeset store. It’s implemented as a permanent ring-buffer file that is preallocated on disk when the node is initialized. File size can be controlled with the variable [`gcache.size`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachesize). If this value is bigger, more writesets are cached and chances are better that the re-joining node will get [IST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#ist) instead of [SST](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#sst). Filename can be changed with the [`gcache.name`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-provider-index.md#gcachename) variable.
 
 - `grastate.dat`
 
   This file contains the Galera state information.
 
   - `version` - grastate version
-  - `uuid` - a unique identifier for the state and the sequence of changes it undergoes.For more information on how UUID is generated see [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#uuid).
+  - `uuid` - a unique identifier for the state and the sequence of changes it undergoes.For more information on how UUID is generated see [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#uuid).
   - `seqno` - Ordinal Sequence Number, a 64-bit signed integer used to denote the position of the change in the sequence. `seqno` is `0` when no writesets have been generated or applied on that node, i.e., not applied/generated across the lifetime of a `grastate` file. `-1` is a special value for the `seqno` that is kept in the `grastate.dat` while the server is running to allow Galera to distinguish between a clean and an unclean shutdown. Upon a clean shutdown, the correct `seqno` value is written to the file. So, when the server is brought back up, if the value is still `-1` , this means that the server did not shut down cleanly. If the value is greater than `0`, this means that the shutdown was clean. `-1` is then written again to the file in order to allow the server to correctly detect if the next shutdown was clean in the same manner.
   - `cert_index` - cert index restore through grastate is not implemented yet
 
@@ -82,7 +82,7 @@
 
   In case server node has this state when not running it means that that node crashed during the transaction processing.
 
-  ```
+  ```shell
   GALERA saved state
   version: 2.1
   uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -92,7 +92,7 @@
 
   In case server node has this state when not running it means that the node was gracefully shut down.
 
-  ```
+  ```shell
   GALERA saved state
   version: 2.1
   uuid:    1917033b-7081-11e2-0800-707f5d3b106b
@@ -102,7 +102,7 @@
 
   In case server node has this state when not running it means that the node crashed during the DDL.
 
-  ```
+  ```shell
   GALERA saved state
   version: 2.1
   uuid:    00000000-0000-0000-0000-000000000000
@@ -114,9 +114,9 @@
 
 This file is used for Primary Component recovery feature. This file is created once primary component is formed or changed, so you can get the latest primary component this node was in. And this file is deleted when the node is shutdown gracefully.
 
-First part contains the node [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#uuid) information. Second part contains the view information. View information is written between `#vwbeg` and `#vwend`. View information consists of:
+First part contains the node [UUID](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#uuid) information. Second part contains the view information. View information is written between `#vwbeg` and `#vwend`. View information consists of:
 
-````
+````text
 * view_id: [view_type] [view_uuid] [view_seq]. - `view_type` is always `3` which means primary view. `view_uuid` and `view_seq` identifies a unique view, which could be perceived as identifier of this primary component.
 
 * bootstrap: [bootstarp_or_not]. - it could be `0` or `1`, but it does not affect primary component recovery process now.

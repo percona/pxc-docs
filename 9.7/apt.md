@@ -6,9 +6,9 @@ Specific information on the supported platforms, products, and versions is descr
 
 The packages are available in the official Percona software repository and on the [Software Downloads](https://www.percona.com/downloads) . We recommended that you install Percona XtraDB Cluster from the official repository using APT.
 
-We gather [Telemetry data](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-xtradb-cluster/9.7/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.html) for ways that we can work with you.
+Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-help.md) for ways that we can work with you.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Review [Get more help](https://docs.percona.com/percona-xtradb-cluster/9.7/get-h
 
 See also
 
-For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.html#enable-apparmor).
+For more information, see [Enabling AppArmor](https://docs.percona.com/percona-xtradb-cluster/9.7/apparmor.md#enable-apparmor).
 
 ## Install from Repository
 
@@ -31,43 +31,43 @@ The following steps install from the APT repository.
 
 1. Update the system:
 
-   ```
+   ```shell
    sudo apt update
    ```
 
 1. Install the necessary packages:
 
-   ```
+   ```shell
    sudo apt install -y wget gnupg2 lsb-release curl
    ```
 
 1. Download the repository package
 
-   ```
+   ```shell
    wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
    ```
 
 1. Install the package with `dpkg`:
 
-   ```
+   ```shell
    sudo dpkg -i percona-release_latest.generic_all.deb
    ```
 
 1. Refresh the local cache to update the package information:
 
-   ```
+   ```shell
    sudo apt update
    ```
 
 1. Enable the `release` repository for *Percona XtraDB Cluster*:
 
-   ```
+   ```shell
    sudo percona-release enable-only pxc-97-lts --scheme https
    ```
 
 1. Install the cluster:
 
-   ```
+   ```shell
    sudo apt install -y percona-xtradb-cluster
    ```
 
@@ -93,4 +93,4 @@ If needed, you could also install the `percona-xtradb-cluster-full` meta-package
 
 ## Next steps
 
-After you install Percona XtraDB Cluster and stop the `mysql` service, configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.html#configure-nodes-for-write-set-replication).
+After you install Percona XtraDB Cluster and stop the `mysql` service, configure the node according to the procedure described in [Configuring Nodes for Write-Set Replication](https://docs.percona.com/percona-xtradb-cluster/9.7/configure-nodes.md#configure-nodes-for-write-set-replication).

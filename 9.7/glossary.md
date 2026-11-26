@@ -20,7 +20,7 @@ This property guarantees that all updates of a transaction occur in the database
 
 ## bootstrap
 
-The process of starting the first node of a cluster so that node initializes the Primary Component. See [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.html).
+The process of starting the first node of a cluster so that node initializes the Primary Component. See [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/9.7/bootstrap.md).
 
 ## Cluster replication
 
@@ -144,13 +144,13 @@ Split brain occurs when two parts of a computer cluster are disconnected, each p
 
 ## Strict Mode
 
-Percona XtraDB Cluster Strict Mode validates unsupported and tech preview features at startup and during runtime. See [Percona XtraDB Cluster strict mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.html).
+Percona XtraDB Cluster Strict Mode validates unsupported and tech preview features at startup and during runtime. See [Percona XtraDB Cluster strict mode](https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md).
 
 ## SST
 
 State Snapshot Transfer is the full copy of data from one node to another. It’s used when a new node joins the cluster, it has to transfer data from an existing node. Percona XtraDB Cluster: uses the `xtrabackup` program for this purpose. `xtrabackup` does not require `READ LOCK` for the entire syncing process - only for syncing the MySQL system tables and writing the information about the binlog, galera and replica information (same as the regular Percona XtraBackup backup).
 
-The SST method is configured with the [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_sst_method) variable.
+The SST method is configured with the [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_sst_method) variable.
 
 In PXC 9.7, the **mysql-upgrade** command is now run automatically as part of [`SST`](#sst). You do not have to run it manually when upgrading your system from an older version.
 
@@ -164,11 +164,11 @@ A tech preview item can be a feature, a variable, or a value within a variable. 
 
 ## Write-set
 
-Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for certification and application. Write-set caching during long transactions is described in [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-record-set-cache-difference.html).
+Binary log representation of the rows a transaction modifies. Galera replicates write-sets between cluster nodes for certification and application. Write-set caching during long transactions is described in [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/9.7/gcache-record-set-cache-difference.md).
 
 ## wsrep
 
-Write Set REPlication. The Galera API and the related status and system variables that control cluster replication. See [Index of wsrep system variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html) and [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.html).
+Write Set REPlication. The Galera API and the related status and system variables that control cluster replication. See [Index of wsrep system variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md) and [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-status-index.md).
 
 ## UUID
 

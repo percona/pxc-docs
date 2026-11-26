@@ -126,7 +126,7 @@ running node in the wsrep_cluster_address variable, this node automatically join
                <meta property="og:title" content="Percona XtraDB Cluster - Add nodes to cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md"></head>
             </html>
 
             
@@ -140,7 +140,7 @@ running node in the wsrep_cluster_address variable, this node automatically join
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/add-node.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3566,13 +3566,13 @@ data directory. After generating the certificates, copy them to all other nodes.
 <ol>
 <li>
 <p>Generate the SSL certificates on the first node, <code>[root@pxc1 ~]#</code>:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
 -x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
 </code></pre></div>
 </li>
 <li>
 <p>Copy the SSL certificates to the other nodes:</p>
-<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+<div class="language-shell highlight"><pre><span></span><code>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
 scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
 scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
 scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/
@@ -3581,15 +3581,15 @@ scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc
 </ol>
 <h2 id="start-the-second-node">Start the second node<a data-markdown-ignore class="headerlink" href="#start-the-second-node" title="Permanent link">&para;</a></h2>
 <p>Start the second node, <code>[root@pxc2 ~]#</code>, using the following command:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>After the server starts, it receives <a href="glossary.html#sst">SST</a> automatically.</p>
 <p>To check the status of the second node, <code>mysql@pxc2&gt;</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------+--------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------------+--------------------------------------------------+
 | Variable_name                    | Value                                            |
 +----------------------------------+--------------------------------------------------+
 | wsrep_local_state_uuid           | a08247c1-5807-11ea-b285-e3a50c8efb41             |
@@ -3623,17 +3623,17 @@ proceed to add the next node.</p>
 </div>
 <h2 id="starting-the-third-node">Starting the Third Node<a data-markdown-ignore class="headerlink" href="#starting-the-third-node" title="Permanent link">&para;</a></h2>
 <p>To add the third node, <code>[root@pxc3 ~]#</code>, start it as usual:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p>To check the status of the third node, <code>mysql@pxc3&gt;</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The output shows that the new node has been successfully added to the
 cluster. Cluster size is now three nodes; it is the primary component, and it is
 fully connected and ready to receive write-set replication.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | c2883338-834d-11e2-0800-03c9c68e41ec |

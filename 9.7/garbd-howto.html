@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Set up Galera arbitrator" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/garbd-howto.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/garbd-howto.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/garbd-howto.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3559,10 +3559,10 @@ is a lightweight member of a <strong>Percona XtraDB Cluster</strong>. This membe
 <p>Galera Arbitrator does not need a dedicated server and can be installed on a machine running other applications. The server must have good network connectivity.</p>
 <p>Run the following commands as root.</p>
 <p><em>Galera Arbitrator</em> can be installed from Percona’s repository on Debian/Ubuntu distributions with the following command:</p>
-<div class="highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-garbd
+<div class="language-shell highlight"><pre><span></span><code>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-garbd
 </code></pre></div>
 <p><em>Galera Arbitrator</em> can be installed from Percona’s repository on RedHat or derivative distributions with the following command:</p>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-garbd
+<div class="language-shell highlight"><pre><span></span><code>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster-garbd
 </code></pre></div>
 <p>On RHEL 8 and later, you can use <code>dnf install percona-xtradb-cluster-garbd</code> instead.</p>
 <h2 id="start-garbd-and-configuration">Start <code>garbd</code> and configuration<a data-markdown-ignore class="headerlink" href="#start-garbd-and-configuration" title="Permanent link">&para;</a></h2>
@@ -3576,7 +3576,7 @@ throwing an instance of ‘gnu::NotSet’” message.</p>
 <p>For more information, see <a href="https://mariadb.com/docs/galera-cluster/reference/wsrep-variable-details/wsrep_provider_options#socket.ssl_cipher">socket.ssl_cipher <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>
 </div>
 <p>When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:</p>
-<div class="highlight"><pre><span></span><code>garbd<span class="w"> </span>--group<span class="o">=</span>&lt;CLUSTER_NAME&gt;<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>garbd<span class="w"> </span>--group<span class="o">=</span>&lt;CLUSTER_NAME&gt;<span class="w"> </span><span class="se">\</span>
 --address<span class="o">=</span><span class="s2">"gcomm://&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567"</span><span class="w"> </span><span class="se">\</span>
 --option<span class="o">=</span><span class="s2">"socket.ssl=YES; socket.ssl_key=&lt;SSL_KEY_PATH&gt;; \</span>
 <span class="s2">socket.ssl_cert=&lt;SSL_CERT_PATH&gt;; \</span>
@@ -3588,7 +3588,7 @@ throwing an instance of ‘gnu::NotSet’” message.</p>
 <code>&lt;NODE2_IP&gt;</code>, <code>&lt;NODE3_IP&gt;</code>, <code>&lt;SSL_KEY_PATH&gt;</code>, <code>&lt;SSL_CERT_PATH&gt;</code>, and
 <code>&lt;SSL_CA_PATH&gt;</code> with values from your environment.</p>
 <p>After installation, before you add your cluster settings, <strong><code>/etc/default/garb</code></strong> (Debian/Ubuntu) from <strong>Percona XtraDB Cluster</strong> 9.7 packages matches the following template:</p>
-<div class="no-copy highlight"><pre><span></span><code># Copyright (C) 2012 Codership Oy
+<div class="language-text no-copy highlight"><pre><span></span><code># Copyright (C) 2012 Codership Oy
 # This config file is to be sourced by garb service script.
 
 # REMOVE THIS AFTER CONFIGURATION
@@ -3612,7 +3612,7 @@ throwing an instance of ‘gnu::NotSet’” message.</p>
 <p>Please note that you need to remove the <code># REMOVE THIS AFTER
 CONFIGURATION</code> line before you can start the service.</p>
 </div>
-<div class="no-copy highlight"><pre><span></span><code>This config file is to be sourced by garb service script.
+<div class="language-text no-copy highlight"><pre><span></span><code>This config file is to be sourced by garb service script.
 A comma-separated list of node addresses (address[:port]) in the cluster
 GALERA_NODES="&lt;NODE1_IP&gt;:4567,&lt;NODE2_IP&gt;:4567,&lt;NODE3_IP&gt;:4567"
 Galera cluster name, should be the same as on the rest of the nodes.
@@ -3631,20 +3631,20 @@ LOG_FILE="/var/log/garbd.log"
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">On Debian or Ubuntu</label><label for="__tabbed_1_2">On Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># No output on success
+<div class="language-text no-copy highlight"><pre><span></span><code># No output on success
 </code></pre></div>
 </details>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code># No output on success
+<div class="language-text no-copy highlight"><pre><span></span><code># No output on success
 </code></pre></div>
 </details>
 </div>
@@ -3654,11 +3654,11 @@ LOG_FILE="/var/log/garbd.log"
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_2_1">On Debian or Ubuntu</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>active
+<div class="language-text no-copy highlight"><pre><span></span><code>active
 </code></pre></div>
 </details>
 </div>
@@ -3668,32 +3668,32 @@ LOG_FILE="/var/log/garbd.log"
 <ol>
 <li>
 <p>Check the arbitrator service state:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>active
+<div class="language-text no-copy highlight"><pre><span></span><code>active
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Check recent arbitrator logs for successful cluster communication:</p>
-<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>garb<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+<div class="language-shell highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>garb<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>... WSREP: ...
+<div class="language-text no-copy highlight"><pre><span></span><code>... WSREP: ...
 ... connected ...
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>On a Percona XtraDB Cluster node, confirm that the cluster remains in <code>Primary</code> state:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_status';"</span>
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW STATUS LIKE 'wsrep_cluster_status';"</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------+---------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------+---------+
 | Variable_name        | Value   |
 +----------------------+---------+
 | wsrep_cluster_status | Primary |
@@ -3720,11 +3720,11 @@ LOG_FILE="/var/log/garbd.log"
 <div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_3_1">On Red Hat Enterprise Linux</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-active<span class="w"> </span>garb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>active
+<div class="language-text no-copy highlight"><pre><span></span><code>active
 </code></pre></div>
 </details>
 </div>

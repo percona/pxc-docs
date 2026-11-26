@@ -20,7 +20,7 @@ When a node crashes, after restarting, the node will copy the whole dataset from
 
 To check the health of a Galera node, use the following query:
 
-```
+```sql
 SELECT 1 FROM dual;
 ```
 
@@ -32,35 +32,35 @@ The following results of the previous query are possible:
 
 You can also check a node’s health with the `clustercheck` script. First set up the `clustercheck` user:
 
-```
+```sql
 CREATE USER 'clustercheck'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 GRANT PROCESS ON *.* TO 'clustercheck'@'localhost';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 You can then check a node’s health by running the `clustercheck` script:
 
-```
+```shell
 /usr/bin/clustercheck clustercheck password 0
 ```
 
 If the node is running, you should get the following status:
 
-```
+```text
 HTTP/1.1 200 OK
 Content-Type: text/plain
 Connection: close
@@ -70,7 +70,7 @@ Percona XtraDB Cluster Node is synced.
 
 In case the node is not synced or is offline, status will look like:
 
-```
+```text
 HTTP/1.1 503 Service Unavailable
 Content-Type: text/plain
 Connection: close
@@ -106,22 +106,22 @@ The mechanism is described in detail in [MariaDB Galera documentation](https://m
 
 ## How would the quorum mechanism handle split brain?
 
-Split brain occurs when parts of the cluster are disconnected and each part believes the other is no longer running; this can lead to data inconsistency. The quorum mechanism cannot resolve split brain. If there is no way to decide on the primary component, Percona XtraDB Cluster has no way to resolve a [split brain](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#split-brain) situation. The minimal recommendation is to have three nodes. However, you can allow a node to handle traffic with the following option:
+Split brain occurs when parts of the cluster are disconnected and each part believes the other is no longer running; this can lead to data inconsistency. The quorum mechanism cannot resolve split brain. If there is no way to decide on the primary component, Percona XtraDB Cluster has no way to resolve a [split brain](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#split-brain) situation. The minimal recommendation is to have three nodes. However, you can allow a node to handle traffic with the following option:
 
-```
+```text
 wsrep_provider_options="pc.ignore_sb = yes"
 ```
 
 ## A node stops accepting commands when the other node fails in a 2-node setup
 
-This is expected behavior to prevent [split brain](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.html#split-brain). For more information, see the previous section or [MariaDB Galera documentation](https://mariadb.com/docs/galera-cluster/) .
+This is expected behavior to prevent [split brain](https://docs.percona.com/percona-xtradb-cluster/9.7/glossary.md#split-brain). For more information, see the previous section or [MariaDB Galera documentation](https://mariadb.com/docs/galera-cluster/) .
 
 ## Setting up a cluster without state transfer
 
 You can set up a cluster without state transfer in two ways:
 
 1. By default, Galera reads starting position from a text file `<datadir>/grastate.dat`. Make this file identical on all nodes, and there will be no state transfer after starting a node.
-1. Use the [`wsrep_start_position`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.html#wsrep_start_position) variable to start the nodes with the same `UUID:seqno` value.
+1. Use the [`wsrep_start_position`](https://docs.percona.com/percona-xtradb-cluster/9.7/wsrep-system-index.md#wsrep_start_position) variable to start the nodes with the same `UUID:seqno` value.
 
 ## What TCP ports are used by Percona XtraDB Cluster?
 
@@ -131,19 +131,19 @@ You may need to open up to four ports if you are using a firewall. Add the optio
 
 1. **Port for group communication.** The default is 4567. To use a different port, add the following to the `[mysqld]` section of your configuration file:
 
-   ```
+   ```text
    wsrep_provider_options ="gmcast.listen_addr=tcp://0.0.0.0:4010; "
    ```
 
 1. **Port for State Snapshot Transfer.** The default is 4444. To use a different address or port, add the following to the `[mysqld]` section:
 
-   ```
+   ```text
    wsrep_sst_receive_address=10.11.12.205:5555
    ```
 
 1. **Port for Incremental State Transfer.** The default is the group communication port plus 1, or 4568. To use a different address or port, add the following to the `[mysqld]` section:
 
-   ```
+   ```text
    wsrep_provider_options = "ist.recv_addr=10.11.12.206:7777; "
    ```
 
@@ -161,7 +161,7 @@ Yes. On the node you are going to use as source, set a unique non-zero `server_i
 
 On systemd-based systems, use `systemctl start mysql` or `systemctl start mysqld` instead of the init script. If the service does not start, SELinux can block it. Prefer configuring SELinux to allow MySQL (for example, setting the correct file context or booleans) rather than disabling it. Only as a last resort for troubleshooting, you can temporarily set SELinux to permissive:
 
-```
+```shell
 setenforce 0
 ```
 

@@ -125,7 +125,7 @@ Strict Mode runs validations at startup and during runtime.">
                <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster strict mode" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/9.7/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md"></head>
             </html>
 
             
@@ -139,7 +139,7 @@ Strict Mode runs validations at startup and during runtime.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/9.7/strict-mode.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3521,7 +3521,7 @@ Alternatively, pass <code>--pxc-strict-mode</code> to <code>mysqld</code> at sta
 <p>Start the server with the target mode.
 <code>ENFORCING</code> is the default and recommended setting.</p>
 <p>Change the value at runtime with the following statement:</p>
-<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">pxc_strict_mode</span><span class="o">=</span>PERMISSIVE<span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="admonition note">
@@ -3557,14 +3557,14 @@ Run only one of the two products at a time.</p>
 With <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> set to <code>ENFORCING</code> or <code>MASTER</code>, an active plugin causes the server to fail with the following error:</p>
 <details class="example">
 <summary>The error message</summary>
-<div class="highlight"><pre><span></span><code>Group replication cannot be used with PXC in strict mode.
+<div class="language-text highlight"><pre><span></span><code>Group replication cannot be used with PXC in strict mode.
 </code></pre></div>
 </details>
 <p>With <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</code></a> set to <code>DISABLED</code>, group replication runs without validation.
 With <code>pxc_strict_mode</code> set to <code>PERMISSIVE</code>, the server logs the following warning:</p>
 <details class="example">
 <summary>Warning message</summary>
-<div class="highlight"><pre><span></span><code>Using group replication with PXC is only supported for migration. Please
+<div class="language-text highlight"><pre><span></span><code>Using group replication with PXC is only supported for migration. Please
 make sure that group replication is turned off once all data is migrated to PXC.
 </code></pre></div>
 </details>
@@ -3664,15 +3664,15 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 <ul>
 <li>
 <p>Switching to <code>ENFORCING</code> or <code>MASTER</code> sets the global <code>sql_require_primary_key</code> to <code>ON</code> when the previous value was <code>OFF</code>. The server log records the change:</p>
-<div class="no-copy highlight"><pre><span></span><code>Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
+<div class="language-text no-copy highlight"><pre><span></span><code>Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
 </code></pre></div>
 </li>
 <li>
 <p>Setting <code>sql_require_primary_key=OFF</code> is rejected. Both <code>SET GLOBAL</code> and <code>SET SESSION</code> return the following error:</p>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
 </code></pre></div>
 <p>The error log records the reason:</p>
-<div class="no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
+<div class="language-text no-copy highlight"><pre><span></span><code>Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
 </code></pre></div>
 </li>
 <li>
@@ -3711,7 +3711,7 @@ When <a href="wsrep-system-index.html#pxc_strict_mode"><code>pxc_strict_mode</co
 </table>
 <details class="example">
 <summary>Error message when creating or altering a table without a primary key</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
 </code></pre></div>
 </details>
 <div class="admonition note">
@@ -3914,7 +3914,7 @@ Running either statement on a single node produces data inconsistency across the
 <p>This validation checks that the protocol version is the same as the server major version. This validation protects the cluster against writes attempted on already upgraded nodes.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code><span class="n">ERROR</span><span class="w"> </span><span class="mi">1105</span><span class="w"> </span><span class="p">(</span><span class="n">HY000</span><span class="p">):</span><span class="w"> </span><span class="n">Percona</span><span class="o">-</span><span class="n">XtraDB</span><span class="o">-</span><span class="k">Cluster</span><span class="w"> </span><span class="n">prohibits</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="k">versions</span><span class="w"> </span><span class="n">while</span><span class="w"> </span><span class="n">accepting</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">workload</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">pxc_strict_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ENFORCING</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">MASTER</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">ERROR</span><span class="w"> </span><span class="mi">1105</span><span class="w"> </span><span class="p">(</span><span class="n">HY000</span><span class="p">):</span><span class="w"> </span><span class="n">Percona</span><span class="o">-</span><span class="n">XtraDB</span><span class="o">-</span><span class="k">Cluster</span><span class="w"> </span><span class="n">prohibits</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="k">versions</span><span class="w"> </span><span class="n">while</span><span class="w"> </span><span class="n">accepting</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">workload</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">pxc_strict_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ENFORCING</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">MASTER</span>
 </code></pre></div>
 </details>
 

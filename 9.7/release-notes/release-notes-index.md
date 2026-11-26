@@ -2,6 +2,6 @@
 
 # Percona XtraDB Cluster 9.7 release notes index
 
-- [Percona XtraDB Cluster 9.7.2-3 (2026-11-12)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-3.html)
-- [Percona XtraDB Cluster 9.7.2-2 (2026-11-02)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-2.html)
-- [Percona XtraDB Cluster 9.7.1-1 (2026-09-10)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.1-1.html)
+- [Percona XtraDB Cluster 9.7.2-3 (2026-11-12)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-3.md)
+- [Percona XtraDB Cluster 9.7.2-2 (2026-11-02)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.2-2.md)
+- [Percona XtraDB Cluster 9.7.1-1 (2026-09-10)](https://docs.percona.com/percona-xtradb-cluster/9.7/release-notes/9.7.1-1.md)
