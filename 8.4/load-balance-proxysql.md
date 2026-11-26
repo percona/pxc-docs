@@ -49,7 +49,7 @@ Run the following commands as root.
 
 Install the ProxySQL client tools and server package:
 
-```
+```shell
 apt install percona-xtradb-cluster-client
 apt install proxysql
 ```
@@ -58,7 +58,7 @@ apt install proxysql
 
 Install the ProxySQL client tools and server package:
 
-```
+```shell
 sudo dnf install percona-xtradb-cluster-client
 sudo dnf install proxysql
 ```
@@ -83,13 +83,13 @@ Apply the following hardening practices before production rollout:
 
 The following example shows how to connect to the ProxySQL admin interface with default credentials:
 
-```
+```shell
 mysql -u admin -p<PROXYSQL_ADMIN_PASSWORD> -h 127.0.0.1 -P 6032
 ```
 
 Expected output
 
-```
+```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 2
 Server version: ... (ProxySQL Admin Module)
@@ -100,7 +100,7 @@ mysql@proxysql>
 
 To see the ProxySQL databases and tables use the following commands:
 
-```
+```sql
 SHOW DATABASES;
 ```
 
@@ -108,7 +108,7 @@ The following output shows the ProxySQL databases:
 
 Expected output
 
-```
+```text
 +-----+---------+-------------------------------+
 | seq | name    | file                          |
 +-----+---------+-------------------------------+
@@ -121,7 +121,7 @@ Expected output
 ... rows in set (...)
 ```
 
-```
+```sql
 SHOW TABLES;
 ```
 
@@ -129,7 +129,7 @@ The following output shows the ProxySQL tables:
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | tables                               |
 +--------------------------------------+
@@ -172,7 +172,7 @@ ProxySQL uses the concept of *hostgroups* to group cluster nodes. This enables y
 
 This example adds three Percona XtraDB Cluster nodes to the default hostgroup (`0`), which receives both write and read traffic:
 
-```
+```sql
 INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'<PXC_NODE1_IP>',3306);
 INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'<PXC_NODE2_IP>',3306);
 INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'<PXC_NODE3_IP>',3306);
@@ -180,7 +180,7 @@ INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'<PXC_NODE3_IP
 
 To see the nodes:
 
-```
+```sql
 SELECT * FROM mysql_servers;
 ```
 
@@ -188,7 +188,7 @@ The following output shows the list of nodes:
 
 Expected output
 
-```
+```text
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
 | hostgroup_id | hostname      | port | status | weight | compression | max_connections | max_replication_lag | use_ssl | max_latency_ms | comment |
 +--------------+---------------+------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+
@@ -207,19 +207,19 @@ For production deployments, avoid broad host patterns where possible. Use a host
 
 The following example adds a monitoring user on Node 2 using the `caching_sha2_password` authentication plugin:
 
-```
+```sql
 CREATE USER 'proxysql'@'<PROXYSQL_IP>' IDENTIFIED WITH caching_sha2_password BY '<MONITOR_PASSWORD>';
 ```
 
 Grant the user account privileges:
 
-```
+```sql
 GRANT USAGE ON *.* TO 'proxysql'@'<PROXYSQL_IP>';
 ```
 
 The following example shows how to configure this user on the ProxySQL node:
 
-```
+```sql
 UPDATE global_variables SET variable_value='proxysql'
               WHERE variable_name='mysql-monitor_username';
 UPDATE global_variables SET variable_value='<MONITOR_PASSWORD>'
@@ -228,20 +228,20 @@ UPDATE global_variables SET variable_value='<MONITOR_PASSWORD>'
 
 To load this configuration at runtime, issue a `LOAD` command. To save these changes to disk (ensuring that they persist after ProxySQL shuts down), issue a `SAVE` command.
 
-```
+```sql
 LOAD MYSQL VARIABLES TO RUNTIME;
 SAVE MYSQL VARIABLES TO DISK;
 ```
 
 To ensure that monitoring is enabled, check the monitoring logs:
 
-```
+```sql
 SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 Expected output
 
-```
+```text
 +---------------+------+------------------+----------------------+---------------+
 | hostname      | port | time_start_us    | connect_success_time | connect_error |
 +---------------+------+------------------+----------------------+---------------+
@@ -253,13 +253,13 @@ Expected output
 ... rows in set (...)
 ```
 
-```
+```sql
 SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 Expected output
 
-```
+```text
 +---------------+------+------------------+-------------------+------------+
 | hostname      | port | time_start_us    | ping_success_time | ping_error |
 +---------------+------+------------------+-------------------+------------+
@@ -275,7 +275,7 @@ The previous examples show that ProxySQL is able to connect and ping the nodes y
 
 To enable monitoring of these nodes, load them at runtime:
 
-```
+```sql
 LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
@@ -285,13 +285,13 @@ ProxySQL must have users that can access backend nodes to manage connections.
 
 To add a user, insert credentials into `mysql_users` table:
 
-```
+```sql
 INSERT INTO mysql_users (username,password) VALUES ('<APP_USER>','<APP_PASSWORD>');
 ```
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.00 sec)
 ```
 
@@ -301,20 +301,20 @@ ProxySQL does not automatically encrypt plaintext passwords that you insert into
 
 Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):
 
-```
+```sql
 LOAD MYSQL USERS TO RUNTIME;
 SAVE MYSQL USERS TO DISK;
 ```
 
 To confirm that the user has been set up correctly, you can try to log in as root:
 
-```
+```shell
 mysql -u <APP_USER> -p<APP_PASSWORD> -h 127.0.0.1 -P <PROXYSQL_RW_PORT>
 ```
 
 Expected output
 
-```
+```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
 Server version: ... (Percona XtraDB Cluster)
@@ -324,13 +324,13 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 To verify end-to-end query routing through ProxySQL, run:
 
-```
+```shell
 mysql -u <APP_USER> -p<APP_PASSWORD> -h 127.0.0.1 -P <PROXYSQL_RW_PORT> -e "SELECT @@hostname;"
 ```
 
 Expected output
 
-```
+```text
 +------------+
 | @@hostname |
 +------------+
@@ -340,23 +340,23 @@ Expected output
 
 To provide read/write access to the cluster for ProxySQL, add this user on one of the Percona XtraDB Cluster nodes:
 
-```
+```sql
 CREATE USER '<APP_USER>'@'<PROXYSQL_IP>' IDENTIFIED BY '<APP_PASSWORD>';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
-```
+```sql
 GRANT ALL ON *.* TO '<APP_USER>'@'<PROXYSQL_IP>';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -368,7 +368,7 @@ You can install `sysbench` from Percona software repositories:
 
 Install `sysbench` with APT:
 
-```
+```shell
 apt install sysbench
 ```
 
@@ -376,7 +376,7 @@ apt install sysbench
 
 Install `sysbench` with DNF:
 
-```
+```shell
 dnf install sysbench
 ```
 
@@ -388,13 +388,13 @@ Note
 
 1. Create the database that will be used for testing on one of the Percona XtraDB Cluster nodes:
 
-```
+```sql
 CREATE DATABASE sbtest;
 ```
 
 1. Populate the table with data for the benchmark on the ProxySQL node:
 
-```
+```shell
 sysbench --report-interval=5 --num-threads=4 \
 --num-requests=0 --max-time=20 \
 --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
@@ -405,7 +405,7 @@ prepare
 
 1. Run the benchmark on the ProxySQL node:
 
-```
+```shell
 sysbench --report-interval=5 --num-threads=4 \
 --num-requests=0 --max-time=20 \
 --test=/usr/share/doc/sysbench/tests/db/oltp.lua \
@@ -416,13 +416,13 @@ run
 
 ProxySQL stores collected data in the `stats` schema:
 
-```
+```sql
 SHOW TABLES FROM stats;
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------+
 | tables                         |
 +--------------------------------+
@@ -438,7 +438,7 @@ Expected output
 
 For example, to see the number of commands that run on the cluster:
 
-```
+```sql
 SELECT * FROM stats_mysql_commands_counters;
 ```
 
@@ -446,7 +446,7 @@ The exact timing and counter values vary by workload, host resources, and test d
 
 Expected output
 
-```
+```text
 +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
 | Command                   | Total_Time_us | Total_cnt | cnt_100us | cnt_500us | cnt_1ms | cnt_5ms | cnt_10ms | cnt_50ms | cnt_100ms | cnt_500ms | cnt_1s | cnt_5s | cnt_10s | cnt_INFs |
 +---------------------------+---------------+-----------+-----------+-----------+---------+---------+----------+----------+-----------+-----------+--------+--------+---------+----------+
@@ -480,7 +480,7 @@ ProxySQL will automatically detect if a node is not available or not synced with
 
 You can check the status of all available nodes by running:
 
-```
+```sql
 SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
@@ -488,7 +488,7 @@ The following output shows the status of all available nodes:
 
 Expected output
 
-```
+```text
 +--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
@@ -501,19 +501,19 @@ Expected output
 
 To test problem detection and fail-over mechanism, shut down Node 3:
 
-```
+```shell
 sudo systemctl stop mysql
 ```
 
 ProxySQL will detect that the node is down and update its status to `OFFLINE_SOFT`:
 
-```
+```sql
 SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 Expected output
 
-```
+```text
 +--------------+---------------+------+--------------+
 | hostgroup_id | hostname      | port | status       |
 +--------------+---------------+------+--------------+
@@ -526,19 +526,19 @@ Expected output
 
 Now start Node 3 again:
 
-```
+```shell
 sudo systemctl start mysql
 ```
 
 The script will detect the change and mark the node as `ONLINE`:
 
-```
+```sql
 SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
 Expected output
 
-```
+```text
 +--------------+---------------+------+--------+
 | hostgroup_id | hostname      | port | status |
 +--------------+---------------+------+--------+
@@ -576,7 +576,7 @@ When you initiate node shutdown, Percona XtraDB Cluster does not initiate the se
 
   !!! note
 
-  ```
+  ```text
     Data changes continue to be replicated across the cluster.
   ```
 
@@ -584,4 +584,4 @@ When you initiate node shutdown, Percona XtraDB Cluster does not initiate the se
 
 Related sections
 
-[Setting up a testing environment with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/virtual-sandbox.html#set-up-a-testing-environment-with-proxysql)
+[Setting up a testing environment with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/virtual-sandbox.md#set-up-a-testing-environment-with-proxysql)

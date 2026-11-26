@@ -17,19 +17,19 @@ It is recommended to keep PXC Strict Mode set to `ENFORCING`, because in this ca
 
 If you are planning to set PXC Strict Mode to anything else than `ENFORCING`, you should be aware of the limitations and effects that this may have on data integrity. For more information, see [Validations](#validations).
 
-To set the mode, use the [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) variable in the configuration file or the `--pxc-strict-mode` option during `mysqld` startup.
+To set the mode, use the [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) variable in the configuration file or the `--pxc-strict-mode` option during `mysqld` startup.
 
 Note
 
 It is better to start the server with the necessary mode (the default `ENFORCING` is highly recommended). However, you can dynamically change it during runtime. For example, to set PXC Strict Mode to `PERMISSIVE`, run the following command:
 
-```
+```shell
 SET GLOBAL pxc_strict_mode=PERMISSIVE;
 ```
 
 Note
 
-To further ensure data consistency, it is important to have all nodes in the cluster running with the same configuration, including the value of [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) variable.
+To further ensure data consistency, it is important to have all nodes in the cluster running with the same configuration, including the value of [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) variable.
 
 ## Validations
 
@@ -37,7 +37,7 @@ PXC Strict Mode validations are designed to ensure optimal operation for common 
 
 Warning
 
-If an unsupported operation is performed on a node with [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) set to `DISABLED` or `PERMISSIVE`, it will not be validated on nodes where it is replicated to, even if the destination node has [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) set to `ENFORCING`.
+If an unsupported operation is performed on a node with [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) set to `DISABLED` or `PERMISSIVE`, it will not be validated on nodes where it is replicated to, even if the destination node has [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) set to `ENFORCING`.
 
 This section describes the purpose and consequences of each validation.
 
@@ -45,23 +45,23 @@ This section describes the purpose and consequences of each validation.
 
 *Group replication* is a feature of MySQL that [provides distributed state machine replication with strong coordination between servers](https://dev.mysql.com/doc/refman/8.4/en/group-replication.html) . It is implemented as a plugin which, if activated, may conflict with PXC. Group replication cannot be activated to run alongside PXC. However, you can migrate to PXC from the environment that uses group replication.
 
-For the strict mode to work correctly, make sure that the group replication plugin is *not active*. In fact, if [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) is set to ENFORCING or MASTER, the server will stop with an error:
+For the strict mode to work correctly, make sure that the group replication plugin is *not active*. In fact, if [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) is set to ENFORCING or MASTER, the server will stop with an error:
 
-**Error message with [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) set to `ENFORCING` or `MASTER`**
+**Error message with [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) set to `ENFORCING` or `MASTER`**
 
 The error message
 
-```
+```text
 Group replication cannot be used with PXC in strict mode.
 ```
 
-If `pxc_strict_mode` is set to `DISABLED` you can use group replication at your own risk. Setting [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) to `PERMISSIVE` will result in a warning.
+If `pxc_strict_mode` is set to `DISABLED` you can use group replication at your own risk. Setting [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) to `PERMISSIVE` will result in a warning.
 
 **Warning message with `pxc_strict_mode` set to `PERMISSIVE`**
 
 Warning message
 
-```
+```text
 Using group replication with PXC is only supported for migration. Please
 make sure that group replication is turned off once all data is migrated to PXC.
 ```
@@ -120,43 +120,43 @@ At runtime, it is permitted to change `wsrep_replicate_myisam` to any value, but
 
 `ENFORCING` or `MASTER`
 
-At startup, if [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam) is set to `ON`, an error is logged and startup is aborted.
+At startup, if [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam) is set to `ON`, an error is logged and startup is aborted.
 
-At runtime, any attempt to change [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam) to `ON` fails and an error is logged.
+At runtime, any attempt to change [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam) to `ON` fails and an error is logged.
 
 Note
 
-The [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam) variable controls *replication* for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.
+The [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam) variable controls *replication* for MyISAM tables, and this validation only checks whether it is allowed. Undesirable operations for MyISAM tables are restricted using the Storage engine validation.
 
 ### Primary key requirement
 
-Percona XtraDB Cluster requires every replicated table to have an explicit primary key. A missing primary key prevents write-set replication from guaranteeing identical row order across nodes. The `DELETE` statement also fails on tables without a primary key. For related guidance, see [Limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.html) and [`wsrep_certify_nonPK`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_certify_nonpk).
+Percona XtraDB Cluster requires every replicated table to have an explicit primary key. A missing primary key prevents write-set replication from guaranteeing identical row order across nodes. The `DELETE` statement also fails on tables without a primary key. For related guidance, see [Limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md) and [`wsrep_certify_nonPK`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_certify_nonpk).
 
-The [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key) variable rejects `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key. When [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster manages `sql_require_primary_key` to align both policies.
+The [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key) variable rejects `CREATE TABLE` and `ALTER TABLE` statements that would leave a table without a primary key. When [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`, Percona XtraDB Cluster manages `sql_require_primary_key` to align both policies.
 
-The following rules apply while [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) is `ENFORCING` or `MASTER`:
+The following rules apply while [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) is `ENFORCING` or `MASTER`:
 
 - Switching to `ENFORCING` or `MASTER` sets the global `sql_require_primary_key` to `ON` when the previous value was `OFF`. The server log records the change:
 
-  ```
+  ```text
   Setting sql_require_primary_key=ON because pxc_strict_mode is being changed to ENFORCING.
   ```
 
 - Setting `sql_require_primary_key=OFF` is rejected. Both `SET GLOBAL` and `SET SESSION` return the following error:
 
-  ```
+  ```text
   ERROR 42000: Variable 'sql_require_primary_key' can't be set to the value of 'OFF'
   ```
 
   The error log records the reason:
 
-  ```
+  ```text
   Cannot set sql_require_primary_key=OFF while pxc_strict_mode is ENFORCING.
   ```
 
 - Existing sessions retain their session value of `sql_require_primary_key`. Reconnect or update the session value explicitly to inherit the updated global default.
 
-- Lowering [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) to `DISABLED` or `PERMISSIVE` does not reset `sql_require_primary_key`. Set the variable explicitly to allow tables without a primary key.
+- Lowering [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) to `DISABLED` or `PERMISSIVE` does not reset `sql_require_primary_key`. Set the variable explicitly to allow tables without a primary key.
 
 The following table summarizes startup and runtime behavior by mode:
 
@@ -168,13 +168,13 @@ The following table summarizes startup and runtime behavior by mode:
 
 Error message when creating or altering a table without a primary key
 
-```
+```text
 ERROR HY000: Unable to create or change a table without a primary key, when the system variable 'sql_require_primary_key' is set. Add a primary key to the table or unset this variable to avoid this message. Note that tables without a primary key can cause performance problems in row-based replication, so please consult your DBA before changing this setting.
 ```
 
 Note
 
-Replication applier threads use replicated session metadata for each event. Events that originated on a non-strict source continue to apply on a strict-mode node. The events apply even when the source had `sql_require_primary_key` set to `OFF`. Use [`wsrep_certify_nonPK`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_certify_nonpk) only as a fallback for existing tables without a primary key.
+Replication applier threads use replicated session metadata for each event. Events that originated on a non-strict source continue to apply on a strict-mode node. The events apply even when the source had `sql_require_primary_key` set to `OFF`. Use [`wsrep_certify_nonPK`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_certify_nonpk) only as a fallback for existing tables without a primary key.
 
 ### Log output
 
@@ -311,6 +311,6 @@ This validation checks that the protocol version is the same as the server major
 
 Expected output
 
-```
+```sql
 ERROR 1105 (HY000): Percona-XtraDB-Cluster prohibits use of multiple major versions while accepting write workload with pxc_strict_mode = ENFORCING or MASTER
 ```

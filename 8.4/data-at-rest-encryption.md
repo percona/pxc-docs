@@ -34,7 +34,7 @@ Install the component using a manifest file and add the following options in the
 
 Create a manifest file named `mysqld.my` in the installation directory:
 
-```
+```text
 {
  "read_local_manifest": false,
  "components": "file://component_keyring_file"
@@ -43,20 +43,20 @@ Create a manifest file named `mysqld.my` in the installation directory:
 
 Add the following options to your configuration file:
 
-```
+```text
 [mysqld]
 component_keyring_file_data=<PATH>/keyring
 ```
 
 The `SHOW COMPONENTS` statement checks if the component has been successfully loaded:
 
-```
+```sql
 SHOW COMPONENTS;
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------+
 | Component_id                           |
 +----------------------------------------+
@@ -104,7 +104,7 @@ Configuration options are the same as [Percona Server for MySQL](https://docs.pe
 
 Create a manifest file named `mysqld.my` in the installation directory:
 
-```
+```text
 {
  "read_local_manifest": false,
  "components": "file://component_keyring_vault"
@@ -113,7 +113,7 @@ Create a manifest file named `mysqld.my` in the installation directory:
 
 Create a configuration file `component_keyring_vault.cnf` in JSON format:
 
-```
+```text
 {
  "timeout": 15,
  "vault_url": "https://vault.public.com:8202",
@@ -146,7 +146,7 @@ If the node is not able to reach or connect to the vault server, an error is not
 
 The warning message
 
-```
+```text
 2018-05-29T03:54:33.859613Z 0 [Warning] Component component_keyring_vault reported:
 'There is no vault_ca specified in component_keyring_vault's configuration file.
 Please make sure that Vault's CA certificate is trusted by the machine
@@ -164,7 +164,7 @@ When the vault server is reachable but authentication credentials are incorrect,
 
 The warning message
 
-```
+```text
 2018-05-29T03:58:54.461911Z 0 [Warning] Component component_keyring_vault reported:
 'There is no vault_ca specified in component_keyring_vault's configuration file.
 Please make sure that Vault's CA certificate is trusted by the machine
@@ -176,13 +176,13 @@ following error(s): ["permission denied"]'
 
 In case of an accessible vault-server with the wrong mount point, there is no error during server restart, but the node still refuses to start:
 
-```
+```sql
 CREATE TABLE t1 (c1 INT, PRIMARY KEY pk(c1)) ENCRYPTION='Y';
 ```
 
 Expected output
 
-```
+```text
 ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
 component is loaded.
 ... [ERROR] Component component_keyring_vault reported: 'Could not write key to Vault. ...
@@ -214,7 +214,7 @@ For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. T
 
 Run the migration server:
 
-```
+```shell
 /dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
 --keyring-migration-source=component_keyring_file \
 --component_keyring_file_data=/dev/shm/pxc80/node2/keyring \
@@ -224,7 +224,7 @@ Run the migration server:
 
 Expected log output
 
-```
+```text
 ... [Note] --secure-file-priv is set to NULL. Operations related to importing and
     exporting data are disabled
 ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
@@ -246,7 +246,7 @@ For example, a cluster has three Percona XtraDB Cluster nodes, n1, n2, and n3. T
 1. The Migration Server copies the keys from the n3 keyring file and adds them to the vault server.
 1. Restart the n3 node with the vault parameter, and the keys are available.
 
-```
+```text
 /dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
 --keyring-migration-source=component_keyring_vault \
 --component_keyring_vault_config=/dev/shm/pxc80/component_keyring_vault3.cnf \
@@ -286,7 +286,7 @@ Make sure to pass required keyring options and other configuration parameters fo
 
 Other non-keyring options may be required as well. One way to specify these options is by using `--defaults-file` to name an option file that contains the required options.
 
-```
+```text
 [mysqld]
 basedir=/dev/shm/pxc80
 datadir=/dev/shm/pxc80/copy_mig
@@ -297,6 +297,6 @@ port=16400
 
 See also
 
-[Encrypt traffic documentation](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html)
+[Encrypt traffic documentation](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md)
 
 [Percona Server for MySQL Documentation: Data-at-Rest Encryption](https://www.percona.com/doc/percona-server/8.4/security/data-at-rest-encryption.html#data-at-rest-encryption)

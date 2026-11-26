@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraDB Cluster limitations" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3503,7 +3503,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>Query log cannot be directed to table.</p>
 <p>If you enable query logging, you must forward the log to a file:</p>
-<div class="highlight"><pre><span></span><code>log_output = FILE
+<div class="language-text highlight"><pre><span></span><code>log_output = FILE
 </code></pre></div>
 <p>Use <code>general_log</code> and <code>general_log_file</code> to choose query logging and the log file name.</p>
 </li>
@@ -3521,7 +3521,7 @@ The other transaction is aborted.
 Percona XtraDB Cluster returns the following deadlock error code for cluster-level aborts:</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>(Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
+<div class="language-text highlight"><pre><span></span><code>(Error: 1213 SQLSTATE: 40001  (ER_LOCK_DEADLOCK)).
 </code></pre></div>
 </details>
 </li>
@@ -3580,7 +3580,7 @@ An empty value prevents the server from creating a socket.</p>
 <p>With wsrep_debug set to <em>1</em>, the error log may contain the following message:</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>... [Note] WSREP: TO BEGIN: -1, 0 : create table t (i int) engine=innodb
+<div class="language-text highlight"><pre><span></span><code>... [Note] WSREP: TO BEGIN: -1, 0 : create table t (i int) engine=innodb
 ... [Note] WSREP: TO isolation skipped for: 1, sql: create table t (i int) engine=innodb. Only temporary tables affected.
 </code></pre></div>
 </details>

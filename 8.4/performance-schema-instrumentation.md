@@ -10,13 +10,13 @@ Mutexes, condition variables, threads, and files from Galera library also were n
 
 You can see the complete list of available instruments by running:
 
-```
+```sql
 SELECT * FROM performance_schema.setup_instruments WHERE name LIKE '%galera%' OR name LIKE '%wsrep%';
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------------------------+---------+-------+
 | NAME                                                     | ENABLED | TIMED |
 +----------------------------------------------------------+---------+-------+
@@ -55,7 +55,7 @@ Galera maintains a process vector inside each monitor for its internal graph cre
 
 The `pxc_cluster_view` - provides a unified view of the cluster. The table is in the Performance_Schema database.
 
-```
+```sql
 DESCRIBE pxc_cluster_view;
 ```
 
@@ -63,7 +63,7 @@ This table has the following definition:
 
 Expected output
 
-```
+```text
 +-------------+--------------+------+-----+---------+-------+
 | Field       | Type         | Null | Key | Default | Extra |
 +-------------+--------------+------+-----+---------+-------+
@@ -78,13 +78,13 @@ Expected output
 
 To view the table, run the following query:
 
-```
+```sql
 SELECT * FROM pxc_cluster_view;
 ```
 
 Expected output
 
-```
+```text
 +-----------+--------------------------------------+--------+-------------+---------+
 | HOST_NAME | UUID                                 | STATUS | LOCAL_INDEX | SEGMENT |
 +-----------+--------------------------------------+--------+-------------+---------+

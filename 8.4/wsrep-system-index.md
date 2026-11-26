@@ -21,7 +21,7 @@ Possible values:
 - `ON`, `1`, `true`: Enabled (default)
 - `OFF`, `0`, `false`: Disabled
 
-For more information, see [SSL Automatic Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html#ssl-automatic-configuration).
+For more information, see [SSL Automatic Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md#ssl-automatic-configuration).
 
 ### `pxc_maint_mode`
 
@@ -41,7 +41,7 @@ The following values are available:
 - `SHUTDOWN`: This state is set automatically when you initiate node shutdown.
 - `MAINTENANCE`: You can manually change to this state if you need to perform maintenance on a node without shutting it down.
 
-For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html#assisted-maintenance-mode).
+For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md#assisted-maintenance-mode).
 
 ### `pxc_maint_transition_period`
 
@@ -53,9 +53,9 @@ For more information, see [Assisted Maintenance Mode](https://docs.percona.com/p
 | Dynamic:       | Yes                             |
 | Default Value: | `10` (ten seconds)              |
 
-Defines the transition period when you change [`pxc_maint_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_maint_mode) to `SHUTDOWN` or `MAINTENANCE`. By default, the period is set to 10 seconds, which should be enough for most transactions to finish. You can increase the value to accommodate longer-running transactions.
+Defines the transition period when you change [`pxc_maint_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_maint_mode) to `SHUTDOWN` or `MAINTENANCE`. By default, the period is set to 10 seconds, which should be enough for most transactions to finish. You can increase the value to accommodate longer-running transactions.
 
-For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html#assisted-maintenance-mode).
+For more information, see [Assisted Maintenance Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md#assisted-maintenance-mode).
 
 ### `pxc_strict_mode`
 
@@ -67,7 +67,7 @@ For more information, see [Assisted Maintenance Mode](https://docs.percona.com/p
 | Dynamic:       | Yes                       |
 | Default Value: | `ENFORCING` or `DISABLED` |
 
-Controls [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html#percona-xtradb-cluster-strict-mode). Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.
+Controls [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md#percona-xtradb-cluster-strict-mode). Strict Mode runs validations that block experimental and unsupported features in Percona XtraDB Cluster.
 
 When a validation fails, the server takes one of the following actions:
 
@@ -79,9 +79,9 @@ The action depends on the selected mode. The following modes are available:
 - `DISABLED`: skip strict mode validations and run normally.
 - `PERMISSIVE`: log a warning when a validation fails, then continue running.
 - `ENFORCING`: throw an error on validation failure. Halt the server at startup. Deny the operation at runtime.
-- `MASTER`: behave as `ENFORCING` but skip the [explicit table locking](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html#explicit-table-locking) validation. Use this mode with clusters in which write operations are isolated to a single node.
+- `MASTER`: behave as `ENFORCING` but skip the [explicit table locking](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md#explicit-table-locking) validation. Use this mode with clusters in which write operations are isolated to a single node.
 
-By default, [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) is set to `ENFORCING`. The variable defaults to `DISABLED` when the node acts as a standalone server or during bootstrapping.
+By default, [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) is set to `ENFORCING`. The variable defaults to `DISABLED` when the node acts as a standalone server or during bootstrapping.
 
 Note
 
@@ -92,9 +92,9 @@ When changing `pxc_strict_mode` from `DISABLED` or `PERMISSIVE` to `ENFORCING` o
 
 The `SERIALIZABLE` isolation level is not allowed in `ENFORCING` mode.
 
-Switching to `ENFORCING` or `MASTER` also sets [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON` when the previous value was `OFF`. Setting `sql_require_primary_key=OFF` is rejected while strict mode remains `ENFORCING` or `MASTER`. Existing sessions retain their session value until each session reconnects or updates the value explicitly. For details, see [Primary key requirement](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html#primary-key-requirement).
+Switching to `ENFORCING` or `MASTER` also sets [`sql_require_primary_key`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sql_require_primary_key) to `ON` when the previous value was `OFF`. Setting `sql_require_primary_key=OFF` is rejected while strict mode remains `ENFORCING` or `MASTER`. Existing sessions retain their session value until each session reconnects or updates the value explicitly. For details, see [Primary key requirement](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md#primary-key-requirement).
 
-For more information, see [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html#percona-xtradb-cluster-strict-mode).
+For more information, see [PXC Strict Mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md#percona-xtradb-cluster-strict-mode).
 
 ### `wsrep_applier_FK_checks`
 
@@ -136,7 +136,7 @@ If any replication consistency problems are encountered, it’s recommended to s
 
 You may want to increase it as suggested in \[\`Codership documentation for flow control\](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster) : when the node is in \`JOINED\` state, increasing the number of replica threads can speed up the catchup to \`SYNCED\`.
 
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster).
+You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/galera-cluster/high-availability/monitoring-mariadb-galera-cluster).
 
 For more configuration tips, see [`Setting Parallel Slave Threads`](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads) .
 
@@ -199,7 +199,7 @@ In some cases, the source may apply events faster than a replica, which can caus
 
 Note
 
-This variable was deprecated because enabling it is the equivalent of setting [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sync_wait) to `1`.
+This variable was deprecated because enabling it is the equivalent of setting [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sync_wait) to `1`.
 
 See also
 
@@ -253,7 +253,7 @@ See also
 
 Defines the back-end schema, IP addresses, ports, and options that the node uses when connecting to the cluster. This variable needs to specify at least one other node’s address, which is alive and a member of the cluster. In practice, it is best (but not necessary) to provide a complete list of all possible cluster nodes. The value should be of the following format:
 
-```
+```text
 <schema>://<address>[?<option1>=<value1>[&<option2>=<value2>]],...
 ```
 
@@ -261,7 +261,7 @@ The only back-end schema currently supported is `gcomm`. The IP address can cont
 
 For example:
 
-```
+```text
 wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
 ```
 
@@ -285,20 +285,20 @@ Specifies the cluster’s name, which must be identical on all nodes. A node che
 
 Edit the value in the `my.cnf` in the [galera] section.
 
-```
+```text
 [galera]
     wsrep_cluster_name=simple-cluster
 ```
 
 Execute `SHOW VARIABLES` with the LIKE operator to view the variable:
 
-```
+```sql
 SHOW VARIABLES LIKE 'wsrep_cluster_name';
 ```
 
 Expected output
 
-```
+```text
 +--------------------+----------------+
 | Variable_name      | Value          |
 +--------------------+----------------+
@@ -404,7 +404,7 @@ See also
 | Dynamic:       | Yes         |
 | Default Value: | `OFF`       |
 
-Defines whether the node should participate in Flow Control. By default, this variable is disabled, meaning that if the receive queue becomes too big, the node engages in Flow Control: it works through the receive queue until it reaches a more manageable size. For more information, see [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_local_recv_queue) and [`wsrep_flow_control_interval`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_flow_control_interval).
+Defines whether the node should participate in Flow Control. By default, this variable is disabled, meaning that if the receive queue becomes too big, the node engages in Flow Control: it works through the receive queue until it reaches a more manageable size. For more information, see [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_local_recv_queue) and [`wsrep_flow_control_interval`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_flow_control_interval).
 
 Enabling this variable will disable Flow Control for the node. It will continue to receive write-sets that it is not able to apply, the receive queue will keep growing, and the node will keep falling behind the cluster indefinitely.
 
@@ -432,17 +432,17 @@ Defines whether the node accepts read queries when in a non-operational state, t
 
 If you enable this variable, the node will permit read queries (`USE`, `SELECT`, `LOCK TABLE`, and `UNLOCK TABLES`), any command that modifies or updates the database on a non-operational node is rejected (including DDL and DML statements, such as `INSERT`, `DELETE`, and `UPDATE`).
 
-To avoid deadlock errors, set the [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sync_wait) variable to `0` if you enable `wsrep_dirty_reads`.
+To avoid deadlock errors, set the [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sync_wait) variable to `0` if you enable `wsrep_dirty_reads`.
 
 You can update the variable with a [`set_var hint`](https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var) .
 
-```
+```sql
 SELECT @@wsrep_dirty_reads;
 ```
 
 Expected output
 
-```
+```text
 +-----------------------+
 | @@wsrep_dirty_reads   |
 +-----------------------+
@@ -450,13 +450,13 @@ Expected output
 +-----------------------+
 ```
 
-```
+```sql
 SELECT /*+ SET_VAR(wsrep_dirty_reads=ON) */ @@wsrep_dirty_reads;
 ```
 
 Expected output
 
-```
+```text
 +-----------------------+
 | @@wsrep_dirty_reads   |
 +-----------------------+
@@ -627,7 +627,7 @@ By default, there is no limit for the maximum number of rows in a write-set. The
 
 See also
 
-[Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html)
+[Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md)
 
 [MySQL wsrep option: wsrep_max_ws_rows](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_rows)
 
@@ -645,11 +645,11 @@ Defines the maximum write-set size (in bytes). Anything bigger than the specifie
 
 You can set it to any value between `1024` and the default `2147483647`.
 
-For transactions that exceed this limit, consider [streaming replication](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html) instead of raising the limit globally.
+For transactions that exceed this limit, consider [streaming replication](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md) instead of raising the limit globally.
 
 See also
 
-[Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html)
+[Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md)
 
 [MySQL wsrep option: wsrep_max_ws_size](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-variables#wsrep_max_ws_size)
 
@@ -697,13 +697,13 @@ While the default value should be correct in most cases, there are situations wh
 
 The value should be specified in the following format:
 
-```
+```text
 <ip_address>[:port]
 ```
 
 Note
 
-The value of this variable is also used as the default value for the [`wsrep_sst_receive_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_receive_address) variable and the [`ist.recv_addr`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.html#istrecv_addr) option.
+The value of this variable is also used as the default value for the [`wsrep_sst_receive_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_receive_address) variable and the [`ist.recv_addr`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.md#istrecv_addr) option.
 
 See also
 
@@ -719,9 +719,9 @@ See also
 | Dynamic:       | No                              |
 | Default Value: | `AUTO`                          |
 
-Specifies the network address from which the node expects client connections. By default, it uses the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_node_address) and port number 3306.
+Specifies the network address from which the node expects client connections. By default, it uses the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_node_address) and port number 3306.
 
-This information is used for the [`wsrep_incoming_addresses`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_incoming_addresses) variable which shows all active cluster nodes.
+This information is used for the [`wsrep_incoming_addresses`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_incoming_addresses) variable which shows all active cluster nodes.
 
 See also
 
@@ -739,11 +739,11 @@ See also
 
 Defines a unique name for the node. Defaults to the host name.
 
-In many situations, you may use the value of this variable as a means to identify the given node in the cluster, as an alternative to using the node address (the value of the [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_node_address)).
+In many situations, you may use the value of this variable as a means to identify the given node in the cluster, as an alternative to using the node address (the value of the [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_node_address)).
 
 Note
 
-The variable [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_donor) is an example where you may only use the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_node_name) and the node address is not permitted.
+The variable [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_donor) is an example where you may only use the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_node_name) and the node address is not permitted.
 
 ### `wsrep_notify_cmd`
 
@@ -794,7 +794,7 @@ See also
 
 Defines the method for Online Schema Upgrade that the node uses to replicate DDL statements.
 
-For information on the available methods, see [Online Schema upgrade](https://docs.percona.com/percona-xtradb-cluster/8.4/online-schema-upgrade.html) and for information on Non-blocking operations, see [NBO](https://docs.percona.com/percona-xtradb-cluster/8.4/nbo.html).
+For information on the available methods, see [Online Schema upgrade](https://docs.percona.com/percona-xtradb-cluster/8.4/online-schema-upgrade.md) and for information on Non-blocking operations, see [NBO](https://docs.percona.com/percona-xtradb-cluster/8.4/nbo.md).
 
 See also
 
@@ -826,7 +826,7 @@ See also
 | Scope:        | Global                     |
 | Dynamic:      | No                         |
 
-Specifies optional settings for the replication provider documented in [Index of `wsrep_provider` options](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.html). These options affect how various situations are handled during replication.
+Specifies optional settings for the replication provider documented in [Index of `wsrep_provider` options](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.md). These options affect how various situations are handled during replication.
 
 See also
 
@@ -859,7 +859,7 @@ Defines whether the node should reject queries from clients. Rejecting queries c
 
 When a query is rejected, the following error is returned:
 
-```
+```text
 Error 1047: Unknown command
 ```
 
@@ -871,7 +871,7 @@ The following values are available:
 
 Note
 
-This variable doesn’t affect Galera replication in any way; only the applications that connect to the database are affected. If you want to desync a node, use [`wsrep_desync`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_desync).
+This variable doesn’t affect Galera replication in any way; only the applications that connect to the database are affected. If you want to desync a node, use [`wsrep_desync`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_desync).
 
 See also
 
@@ -897,9 +897,9 @@ Note
 
 You should keep in mind the following when using MyISAM replication:
 
-- DDL (CREATE/DROP/TRUNCATE) statements on MyISAM will be replicated irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam) value
-- DML (INSERT/UPDATE/DELETE) statements on MyISAM will be replicated only if[`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam) is enabled
-- SST will get full transfer irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_replicate_myisam)value (it will get MyISAM tables from donor)
+- DDL (CREATE/DROP/TRUNCATE) statements on MyISAM will be replicated irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam) value
+- DML (INSERT/UPDATE/DELETE) statements on MyISAM will be replicated only if[`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam) is enabled
+- SST will get full transfer irrespective of [`wsrep_replicate_myisam`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_replicate_myisam)value (it will get MyISAM tables from donor)
 - Difference in configuration of `pxc-cluster` node on [enforce_storage_engine](https://www.percona.com/doc/percona-server/8.4/enforce-engine.html) front may result in picking up different engine for the same table on different nodes
 - `CREATE TABLE AS SELECT` (CTAS) statements use TOI replication. MyISAM tables are created and loaded even if `wsrep_replicate_myisam` is set to ON.
 
@@ -1012,7 +1012,7 @@ If any replication consistency problems are encountered, it’s recommended to s
 
 You may want to increase it as suggested in [`Codership documentation for flow control`](https://mariadb.com/docs/galera-cluster/galera-management/performance-tuning/flow-control-in-galera-cluster) : when the node is in `JOINED` state, increasing the number of replica threads can speed up the catch-up to `SYNCED`.
 
-You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor) .
+You can also estimate the optimal value for this from [`wsrep_cert_deps_distance`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_cert_deps_distance) as suggested [in the MariaDB Galera Cluster documentation](https://mariadb.com/docs/maxscale/reference/maxscale-monitors/galera-monitor) .
 
 For more configuration tips, see [this document](https://mariadb.com/docs/galera-cluster/readme/about-galera-replication#galera-slave-threads) .
 
@@ -1048,7 +1048,7 @@ When the value is `none`, Galera skips the log table. Fragment replication still
 
 See also
 
-[What does wsrep_SR_store control?](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html#what-does-wsrep_sr_store-control)
+[What does wsrep_SR_store control?](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md#what-does-wsrep_sr_store-control)
 
 ### `wsrep_sst_allowed_methods`
 
@@ -1073,13 +1073,13 @@ This variable limits SST methods accepted by the server for [wsrep_sst_method](#
 | Scope:        | Global      |
 | Dynamic:      | Yes         |
 
-Specifies a list of nodes (using their `wsrep_node_name` values) that the current node should prefer as donors for [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst) and [IST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#ist).
+Specifies a list of nodes (using their `wsrep_node_name` values) that the current node should prefer as donors for [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst) and [IST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#ist).
 
 Warning
 
-Using IP addresses of nodes instead of node names (the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_node_name)) as values of [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_donor) results in an error.
+Using IP addresses of nodes instead of node names (the value of [`wsrep_node_name`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_node_name)) as values of [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_donor) results in an error.
 
-```
+```text
 ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
 to host). Most likely it is due to inability to communicate with the
 cluster primary component. Restart required.
@@ -1089,7 +1089,7 @@ If the value is empty, the first node in SYNCED state in the index becomes the d
 
 To consider other nodes if the listed nodes are not available, add a comma at the end of the list, for example:
 
-```
+```text
 wsrep_sst_donor=node1,node2,
 ```
 
@@ -1097,7 +1097,7 @@ If you remove the trailing comma from the previous example, then the joining nod
 
 Note
 
-By default, the joiner node does not wait for more than 100 seconds to receive the first packet from a donor. This is implemented via the [`sst-initial-timeout`](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.html#sst-initial-timeout) option. If you set the list of preferred donors without the trailing comma or believe that all nodes in the cluster can often be unavailable for SST (this is common for small clusters), then you may want to increase the initial timeout (or disable it completely if you don’t mind the joiner node waiting for the state transfer indefinitely).
+By default, the joiner node does not wait for more than 100 seconds to receive the first packet from a donor. This is implemented via the [`sst-initial-timeout`](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md#sst-initial-timeout) option. If you set the list of preferred donors without the trailing comma or believe that all nodes in the cluster can often be unavailable for SST (this is common for small clusters), then you may want to increase the initial timeout (or disable it completely if you don’t mind the joiner node waiting for the state transfer indefinitely).
 
 See also
 
@@ -1113,12 +1113,12 @@ See also
 | Dynamic:       | Yes                  |
 | Default Value: | xtrabackup-v2        |
 
-Defines the method or script for [State Snapshot Transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/state-snapshot-transfer.html#state-snapshot-transfer) (SST).
+Defines the method or script for [State Snapshot Transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/state-snapshot-transfer.md#state-snapshot-transfer) (SST).
 
 Available values are:
 
-- `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default. Privileges and permissions for running Percona XtraBackup can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.4/privileges.html) . For more information, see [Percona XtraBackup SST Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.html#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
-- `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](https://docs.percona.com/percona-xtradb-cluster/8.4/clone-sst.html).
+- `xtrabackup-v2`: Uses Percona XtraBackup to perform SST. This value is the default. Privileges and permissions for running Percona XtraBackup can be found in [Percona XtraBackup documentation](https://docs.percona.com/percona-xtrabackup/8.4/privileges.html) . For more information, see [Percona XtraBackup SST Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md#percona-xtrabackup-sst-configuration). The `xtrabackup-v2` method supports clusters with GTIDs and async replicas.
+- `clone`: Introduced in Percona XtraDB Cluster 8.4.4-4, uses the [clone method for SST](https://docs.percona.com/percona-xtradb-cluster/8.4/clone-sst.md).
 - `ist_only`: This value allows only Incremental State Transfer (IST). If a node cannot sync with the cluster with IST, abort that node’s start. This action leaves the data directory unchanged. This value prevents starting a node that does not have a `grastate.dat` file after a manual backup restoration. This missing file could initiate a full-state transfer (SST), which can be more time- and resource-intensive.
 
 See also
@@ -1135,7 +1135,7 @@ See also
 | Dynamic:       | Yes                           |
 | Default Value: | `AUTO`                        |
 
-Specifies the network address where the donor node should send state transfers. By default, this variable is set to `AUTO`, meaning that the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_node_address) is used.
+Specifies the network address where the donor node should send state transfers. By default, this variable is set to `AUTO`, meaning that the IP address from [`wsrep_node_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_node_address) is used.
 
 See also
 
@@ -1171,13 +1171,13 @@ Controls cluster-wide causality checks on certain statements. Checks ensure that
 
 You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var) .
 
-```
+```sql
 SELECT @@wsrep_sync_wait;
 ```
 
 Expected output
 
-```
+```text
 +---------------------+
 | @@wsrep_sync_wait   |
 +---------------------+
@@ -1185,13 +1185,13 @@ Expected output
 +---------------------+
 ```
 
-```
+```sql
 SELECT /*+ SET_VAR(wsrep_sync_wait=7) */ @@wsrep_sync_wait;
 ```
 
 Expected output
 
-```
+```text
 +---------------------+
 | @@wsrep_sync_wait   |
 +---------------------+
@@ -1216,7 +1216,7 @@ The type of statements to undergo checks is determined by bitmask:
 
 Note
 
-Setting [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sync_wait) to `1` is the equivalent of setting the deprecated [`wsrep_causal_reads`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_causal_reads) to `ON`.
+Setting [`wsrep_sync_wait`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sync_wait) to `1` is the equivalent of setting the deprecated [`wsrep_causal_reads`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_causal_reads) to `ON`.
 
 See also
 
@@ -1234,17 +1234,17 @@ See also
 
 Defines the streaming replication fragment size. This variable is measured in the value defined by `wsrep_trx_fragment_unit`. The minimum value is 0 and the maximum value is 2147483647. A value of `0` disables streaming replication.
 
-For an overview of when and how to use streaming replication, see [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html).
+For an overview of when and how to use streaming replication, see [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md).
 
 You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var) .
 
-```
+```sql
 SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+
@@ -1258,13 +1258,13 @@ Expected output
 +------------------------------+
 ```
 
-```
+```sql
 SELECT /*+ SET_VAR(wsrep_trx_fragment_size=5) */ @@wsrep_trx_fragment_size;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | @@wsrep_trx_fragment_size    |
 +------------------------------+
@@ -1274,7 +1274,7 @@ Expected output
 
 You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.
 
-```
+```text
 BEGIN;
 Query OK, 0 rows affected (0.00 sec)
 INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
@@ -1315,17 +1315,17 @@ Query OK, 131072 rows affected (15.09 sec)
 
 Defines the type of measure for the `wsrep_trx_fragment_size`. The possible values are: bytes, rows, statements.
 
-For an overview of when and how to use streaming replication, see [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html).
+For an overview of when and how to use streaming replication, see [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md).
 
 You can update the variable with a [set_var hint](https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var) .
 
-```
+```sql
 SELECT @@wsrep_trx_fragment_unit; SELECT @@wsrep_trx_fragment_size;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+
@@ -1339,13 +1339,13 @@ Expected output
 +------------------------------+
 ```
 
-```
+```sql
 SELECT /*+ SET_VAR(wsrep_trx_fragment_unit=rows) */ @@wsrep_trx_fragment_unit;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+

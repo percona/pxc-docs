@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Telemetry on Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3579,7 +3579,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>At this time, telemetry is added only to the Percona packages and Docker images. Percona XtraDB Cluster collects only information about the installation environment. Future releases may add additional metrics.</p>
 <p>Be assured that access to this raw data is rigorously controlled. Percona does not collect personal data. All data is anonymous and cannot be traced to a specific user. To learn more about our privacy practices, read our <a href="https://www.percona.com/privacy-policy#h.e34c40q8sb1a">Percona Privacy statement <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>An example of the data collected is the following:</p>
-<div class="highlight"><pre><span></span><code>[{"id" : "c416c3ee-48cd-471c-9733-37c2886f8231",
+<div class="language-text highlight"><pre><span></span><code>[{"id" : "c416c3ee-48cd-471c-9733-37c2886f8231",
 "product_family" : "PRODUCT_FAMILY_PXC",
 "instanceId" : "6aef422e-56a7-4530-af9d-94cc02198343",
 "createTime" : "2023-10-16T10:46:23Z",
@@ -3595,17 +3595,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Add the environment variable before the install process.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Add the environment variable before the install process.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-xtradb-cluster
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Add the environment variable when running a command in a new container.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span>percona/percona-xtradb-cluster:8.4
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>pxc-cluster1<span class="w"> </span>--name<span class="o">=</span>pxc-node1<span class="w"> </span>percona/percona-xtradb-cluster:8.4
 </code></pre></div>
 </div>
 </div>

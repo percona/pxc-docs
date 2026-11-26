@@ -129,7 +129,7 @@ bootstrapping the first node. This node must contain all the data you want to re
                <meta property="og:title" content="Percona XtraDB Cluster - Bootstrap the first node" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md"></head>
             </html>
 
             
@@ -143,7 +143,7 @@ bootstrapping the first node. This node must contain all the data you want to re
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3580,7 +3580,7 @@ bootstrapping the first node. This node must contain all the data you want to re
 <p>Start the first node without any known cluster
 addresses: if the <code>wsrep_cluster_address</code> variable is empty, Percona XtraDB Cluster treats the node as the first node and initializes the cluster.</p>
 <p>Instead of changing the configuration, start the first node, <code>[root@pxc1 ~]#</code>, using the following command:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>When you start the node using this command,
 the node runs in bootstrap mode with <code>wsrep_cluster_address=gcomm://</code>.
@@ -3592,11 +3592,11 @@ you can then restart the first node as normal. Then the node uses the standard c
 <p>Stop a node started with <code>mysql@bootstrap</code> by running <code>systemctl stop mysql@bootstrap</code>. The <code>systemctl stop mysql</code> command does not stop an instance started with <code>mysql@bootstrap</code>.</p>
 </div>
 <p>To check the status of the first node, <code>mysql@pxc1&gt;</code>, run the following:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
 | wsrep_local_state_uuid     | c2883338-834d-11e2-0800-03c9c68e41ec |
@@ -3633,13 +3633,13 @@ you can then restart the first node as normal. Then the node uses the standard c
 <ol>
 <li>
 <p>Generate the SSL certificates, <code>[root@pxc1 ~]#</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="w">  </span>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>/etc/server-key.pem<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-out<span class="w"> </span>/etc/server-cert.pem
 </code></pre></div>
 </li>
 <li>
 <p>Copy the certificates to the nodes you plan to add. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
+<div class="language-shell highlight"><pre><span></span><code><span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc2:/etc/
 <span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc2:/etc/
 <span class="w">  </span>scp<span class="w"> </span>/etc/server-key.pem<span class="w"> </span>pxc3:/etc/
 <span class="w">  </span>scp<span class="w"> </span>/etc/server-cert.pem<span class="w"> </span>pxc3:/etc/

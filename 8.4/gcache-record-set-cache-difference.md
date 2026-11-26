@@ -10,9 +10,9 @@ When you run a long-running transaction on any particular node, it will try to a
 
 Keys are cached in HeapStore (which has `page-size=64K` and `total-size=4MB`). If the transaction data-size outgrows this limit, then the storage is switched from Heap to Page (which has `page-size=64MB` and `total-limit=free-space-on-disk`).
 
-All these limits are non-configurable, but having a memory-page size greater than 4MB per transaction can cause things to stall due to memory pressure, so this limit is reasonable. For large or long-running transactions that exceed these caches, use [streaming replication](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.html).
+All these limits are non-configurable, but having a memory-page size greater than 4MB per transaction can cause things to stall due to memory pressure, so this limit is reasonable. For large or long-running transactions that exceed these caches, use [streaming replication](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md).
 
-The same long-running transaction will also generate binlog data that also appends to out-write-set on commit (`HeapStore->FileStore`). This data can be significant, as it is a binlog image of rows inserted/updated/deleted by the transaction. The [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_size) variable controls the size of this part of the write-set. The threshold doesn’t consider size allocated for caching-keys and the header.
+The same long-running transaction will also generate binlog data that also appends to out-write-set on commit (`HeapStore->FileStore`). This data can be significant, as it is a binlog image of rows inserted/updated/deleted by the transaction. The [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_size) variable controls the size of this part of the write-set. The threshold doesn’t consider size allocated for caching-keys and the header.
 
 If `FileStore` is used, it creates a file on the disk (with names like `xxxx_keys` and `xxxx_data`) to store the cache data. These files are kept until a transaction is committed, so the lifetime of the transaction is linked.
 
@@ -32,13 +32,13 @@ At any given point in time, the native node has two copies of the write-set: one
 
 For example, lets say you `INSERT/UPDATE` 2 million rows in a table with the following schema.
 
-```
+```text
 (int, char(100), char(100) with pk (int, char(100))
 ```
 
 It will create write-set key/data files in the background similar to the following:
 
-```
+```text
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000000
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000001
 -rw------- 1 xxx xxx 67108864 Apr 11 12:26 0x00000707_data.000002

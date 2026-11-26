@@ -19,18 +19,18 @@ The `mysqld` profile and the `SST` script profile can be adjusted, such as movin
 
 By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.
 
-[Generate keys and certificates manually](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html#generate-keys-and-certificates-manually) describes the certificate setup.
+[Generate keys and certificates manually](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md#generate-keys-and-certificates-manually) describes the certificate setup.
 
 The following AppArmor profile rule grants access to certificates located in /etc/mysql/certs. You must be root or have `sudo` privileges.
 
-```
+```shell
 # Allow config access
   /etc/mysql/** r,
 ```
 
 This rule is present in both profiles (usr.sbin.mysqld and usr.bin.wsrep_sst_xtrabackup-v2). The rule allows the administrator to store the certificates anywhere inside of the /etc/mysql/ directory. If the certificates are located outside of the specified directory, you must add an additional rule which allows access to the certificates in both profiles. The rule must have the path to the certificates location, like the following:
 
-```
+```shell
 # Allow config access
   /path/to/certificates/* r,
 ```

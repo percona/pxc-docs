@@ -2,13 +2,13 @@
 
 # Add nodes to cluster
 
-New nodes that are [properly configured](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.html#configure-nodes-for-write-set-replication) are provisioned automatically. When you start a node with the address of at least one other running node in the [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
+New nodes that are [properly configured](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.md#configure-nodes-for-write-set-replication) are provisioned automatically. When you start a node with the address of at least one other running node in the [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_cluster_address) variable, this node automatically joins and synchronizes with the cluster.
 
 Note
 
 Existing data and configuration will be replaced to align with those of the DONOR node. To minimize traffic overhead, avoid joining multiple nodes simultaneously.
 
-Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
+Percona XtraDB Cluster uses [Percona XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
 ## Generate and Copy SSL Certificates
 
@@ -16,14 +16,14 @@ Before starting the nodes, ensure that you generate the SSL certificates on the 
 
 1. Generate the SSL certificates on the first node, `[root@pxc1 ~]#`:
 
-   ```
+   ```shell
    openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
    -x509 -days 365 -out /etc/server-cert.pem
    ```
 
 1. Copy the SSL certificates to the other nodes:
 
-   ```
+   ```shell
    scp /etc/server-key.pem pxc2:/etc/
    scp /etc/server-cert.pem pxc2:/etc/
    scp /etc/server-key.pem pxc3:/etc/
@@ -34,21 +34,21 @@ Before starting the nodes, ensure that you generate the SSL certificates on the 
 
 Start the second node, `[root@pxc2 ~]#`, using the following command:
 
-```
+```shell
 systemctl start mysql
 ```
 
-After the server starts, it receives [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst) automatically.
+After the server starts, it receives [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst) automatically.
 
 To check the status of the second node, `mysql@pxc2>`, run the following:
 
-```
+```sql
 SHOW STATUS LIKE 'wsrep%';
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------+--------------------------------------------------+
 | Variable_name                    | Value                                            |
 +----------------------------------+--------------------------------------------------+
@@ -73,7 +73,7 @@ Expected output
 
 The output of `SHOW STATUS` shows that the new node has been successfully added to the cluster. The cluster size is now two nodes, it is the primary component, and it is fully connected and ready to receive write-set replication.
 
-If the state of the second node is `Synced` as in the previous example, then the node received full [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst) is synchronized with the cluster, and you can proceed to add the next node.
+If the state of the second node is `Synced` as in the previous example, then the node received full [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst) is synchronized with the cluster, and you can proceed to add the next node.
 
 Note
 
@@ -83,13 +83,13 @@ If the state of the node is `Joiner`, it means that SST hasn’t finished. Do no
 
 To add the third node, `[root@pxc3 ~]#`, start it as usual:
 
-```
+```shell
 systemctl start mysql
 ```
 
 To check the status of the third node, `mysql@pxc3>`, run the following:
 
-```
+```sql
 SHOW STATUS LIKE 'wsrep%';
 ```
 
@@ -97,7 +97,7 @@ The output shows that the new node has been successfully added to the cluster. C
 
 Expected output
 
-```
+```text
 +----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
@@ -117,4 +117,4 @@ Expected output
 
 ## Next steps
 
-When you add all nodes to the cluster, you can [verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.html#verify-replication) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.
+When you add all nodes to the cluster, you can [verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md#verify-replication) by running queries and manipulating data on nodes to see if these changes are synchronized across the cluster.

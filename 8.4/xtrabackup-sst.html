@@ -129,7 +129,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Percona XtraBackup SST configuration" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md"></head>
             </html>
 
             
@@ -143,7 +143,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3808,7 +3808,7 @@ for socat encryption based on OpenSSL.</p>
 </li>
 </ul>
 <p>Considering that you have all three necessary files:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 encrypt=4
 ssl-ca=ca.pem
 ssl-cert=server-cert.pem
@@ -3822,7 +3822,7 @@ ssl-key=server-key.pem
 <h3 id="sockopt">sockopt<a data-markdown-ignore class="headerlink" href="#sockopt" title="Permanent link">&para;</a></h3>
 <p>Used to specify key/value pairs of socket options, separated by commas,
 for example:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 sockopt="retry=2,interval=3"
 </code></pre></div>
 <p>The previous example causes socat to try to connect three times
@@ -3906,11 +3906,11 @@ For more information, see <a href="https://linux.die.net/man/1/pv">pv(1) <span c
 <p>Rate is limited on donor node. The rationale behind this is to not allow SST to saturate the donor’s regular cluster operations or to limit the rate for other purposes.</p>
 </div>
 <h3 id="cpat">cpat<a data-markdown-ignore class="headerlink" href="#cpat" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>**Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
+<div class="language-text highlight"><pre><span></span><code>**Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
 </code></pre></div>
 <p>Used to define the files that need to be retained in the <a href="glossary.html#datadir">datadir</a> before running SST, so that the state of the other node can be restored cleanly.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 </code></pre></div>
 <div class="admonition note">
@@ -3965,7 +3965,7 @@ decompressor=’pigz -dc’</p>
 decompressor=’gzip -dc’</p>
 <p>To revert to the XtraBackup-based compression,
 set <code>compress</code> under <code>[xtrabackup]</code>. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
 compress
 --<span class="w"> </span>compact<span class="w"> </span>has<span class="w"> </span>led<span class="w"> </span>to<span class="w"> </span>some<span class="w"> </span>crashes
 </code></pre></div>
@@ -4102,7 +4102,7 @@ To disable initial SST timeout, set <code>sst-initial-timeout=0</code>.</p>
 </table>
 <p>This option configures the time the SST operation waits on the joiner to receive more data. The size of the joiner’s sst directory is checked for the amount of data received. For example, the directory has received 50MB of data. The operation rechecks the data size after the default value, 120 seconds, has elapsed. If the data size is still 50MB, this operation is aborted. If the data has increased, the operation continues.</p>
 <p>An example of setting the option:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 sst-idle-timeout=0
 </code></pre></div>
 <h3 id="post-processing-timeout">post-processing-timeout<a data-markdown-ignore class="headerlink" href="#post-processing-timeout" title="Permanent link">&para;</a></h3>
@@ -4127,7 +4127,7 @@ sst-idle-timeout=0
 <p>The maximum time the State Snapshot Transfer (SST) procedure waits for the newly provisioned MySQL instance to complete its shutdown or startup. During shutdown, the procedure waits until the process is no longer alive or the Process ID (PID) cleanup completes. During startup, the procedure waits until the procedure successfully connects to the MySQL server.</p>
 <p>The <code>wsrep_sst_common.sh</code> script reads this variable from the configuration file to set the timeout value. For more information about when to increase this value, see <a href="#troubleshoot">Troubleshoot</a>.</p>
 <p>An example of setting the option:</p>
-<div class="highlight"><pre><span></span><code>[sst]
+<div class="language-text highlight"><pre><span></span><code>[sst]
 post-processing-timeout=600
 </code></pre></div>
 <h3 id="tmpdir">tmpdir<a data-markdown-ignore class="headerlink" href="#tmpdir" title="Permanent link">&para;</a></h3>
@@ -4268,17 +4268,17 @@ under <code>[xtrabackup]</code> in <code>my.cnf</code>:</p>
 is defined by the <code>--use-memory</code> option.
 You can pass it using the <code>inno-apply-opts</code> option
 under <code>[sst]</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="o">[</span>sst<span class="o">]</span>
 inno-apply-opts<span class="o">=</span><span class="s2">"--use-memory=500M"</span>
 </code></pre></div>
 <p>If it is not specified,
 the <code>use-memory</code> option under <code>[xtrabackup]</code> will be used:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="o">[</span>xtrabackup<span class="o">]</span>
 use-memory<span class="o">=</span>32M
 </code></pre></div>
 <p>If neither of the above are specified,
 the size of the InnoDB memory buffer will be used:</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">innodb_buffer_pool_size</span><span class="o">=</span>24M
 </code></pre></div>
 <h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>

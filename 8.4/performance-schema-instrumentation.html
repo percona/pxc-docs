@@ -130,7 +130,7 @@ threads) as a part of PERFORMANCE_SCHEMA.">
                <meta property="og:title" content="Percona XtraDB Cluster - Perfomance Schema instrumentation" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.md"></head>
             </html>
 
             
@@ -144,7 +144,7 @@ threads) as a part of PERFORMANCE_SCHEMA.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3584,11 +3584,11 @@ threads) as a part of <code>PERFORMANCE_SCHEMA</code>.</p>
 <p>Mutexes, condition variables, threads, and files from Galera library also were
 not part of the <code>PERFORMANCE_SCHEMA</code>.</p>
 <p>You can see the complete list of available instruments by running:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%galera%'</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%wsrep%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%galera%'</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%wsrep%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------------+---------+-------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------------------------------------+---------+-------+
 | NAME                                                     | ENABLED | TIMED |
 +----------------------------------------------------------+---------+-------+
 | wait/synch/mutex/sql/LOCK_wsrep_ready                    | NO      | NO    |
@@ -3643,12 +3643,12 @@ avoid hogging <code>PERFORMANCE_SCHEMA</code> limits and sidelining of the main 
 information.</p>
 <h2 id="use-pxc_cluster_view">Use <code>pxc_cluster_view</code><a data-markdown-ignore class="headerlink" href="#use-pxc_cluster_view" title="Permanent link">&para;</a></h2>
 <p>The <code>pxc_cluster_view</code> - provides a unified view of the cluster. The table is in the Performance_Schema database.</p>
-<div class="highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">pxc_cluster_view</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">pxc_cluster_view</span><span class="p">;</span>
 </code></pre></div>
 <p>This table has the following definition:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------+--------------+------+-----+---------+-------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-------------+--------------+------+-----+---------+-------+
 | Field       | Type         | Null | Key | Default | Extra |
 +-------------+--------------+------+-----+---------+-------+
 | HOST_NAME   | char(64)     | NO   |     | NULL    |       |
@@ -3661,11 +3661,11 @@ information.</p>
 </code></pre></div>
 </details>
 <p>To view the table, run the following query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pxc_cluster_view</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pxc_cluster_view</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------+--------------------------------------+--------+-------------+---------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------+--------------------------------------+--------+-------------+---------+
 | HOST_NAME | UUID                                 | STATUS | LOCAL_INDEX | SEGMENT |
 +-----------+--------------------------------------+--------+-------------+---------+
 | node1     | 22b9d47e-c215-11eb-81f7-7ed65a9d253b | SYNCED |           0 |       0 |

@@ -131,7 +131,7 @@ as if it is synchronous (virtually synchronous).">
                <meta property="og:title" content="Percona XtraDB Cluster - Certification in Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md"></head>
             </html>
 
             
@@ -145,7 +145,7 @@ as if it is synchronous (virtually synchronous).">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3712,7 +3712,7 @@ which is then processed through different action handlers.</p>
 <p>The following example shows what happens in a common situation.
 <code>act_id</code> is incremented and assigned only for totally ordered actions,
 and only in primary state (skip messages while in state exchange).</p>
-<div class="highlight"><pre><span></span><code>rcvd-&gt;id<span class="w"> </span><span class="o">=</span><span class="w"> </span>++group-&gt;act_id_<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>rcvd-&gt;id<span class="w"> </span><span class="o">=</span><span class="w"> </span>++group-&gt;act_id_<span class="p">;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3726,7 +3726,7 @@ and only in primary state (skip messages while in state exchange).</p>
 </li>
 <li>
 <p>The following example shows what happens if two nodes modify same set of rows. Nodes are in sync until this point:</p>
-<div class="highlight"><pre><span></span><code>create<span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,3,4<span class="o">)</span>
+<div class="language-shell highlight"><pre><span></span><code>create<span class="w"> </span>-&gt;<span class="w"> </span>insert<span class="w"> </span><span class="o">(</span><span class="m">1</span>,2,3,4<span class="o">)</span>
 </code></pre></div>
 <ul>
 <li>
@@ -3795,11 +3795,11 @@ The applier transaction will always win
 and the local conflicting transaction will be rolled back.</p>
 <p>The following example shows what happens
 if one of the nodes has local changes that are not synced with the group:</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>node-1: wsrep_on=0; insert (5); wsrep_on=1
+<div class="language-text no-copy highlight"><pre><span></span><code>node-1: wsrep_on=0; insert (5); wsrep_on=1
 node-2: insert(5).
 </code></pre></div>
 </details>

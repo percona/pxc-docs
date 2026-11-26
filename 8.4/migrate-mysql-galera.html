@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Migrate from MySQL Galera Cluster to Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3779,7 +3779,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Using the datadir of the last node you stopped, <a href="glossary.html#bootstrap">bootstrap</a> a new cluster with the PXC binaries:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql@bootstrap.service
 </code></pre></div>
 <p>See <a href="bootstrap.html">Bootstrap the first node</a>.</p>
 </li>
@@ -3788,19 +3788,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Start the other nodes one at a time with a normal start. Wait for each node to reach <code>Synced</code> before you start the next one.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Stop the bootstrap unit on the first node and start it normally so it uses <code>wsrep_cluster_address</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql@bootstrap.service
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql@bootstrap.service
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>
 <h2 id="verify-the-migration">Verify the migration<a data-markdown-ignore class="headerlink" href="#verify-the-migration" title="Permanent link">&para;</a></h2>
 <p>Run these checks on every node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_size'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>

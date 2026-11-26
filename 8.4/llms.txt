@@ -1,18 +1,107 @@
-# Percona XtraDB Cluster
+# Percona XtraDB Cluster 8.4
 
-> Documentation
+> Percona XtraDB Cluster 8.4, a high availability MySQL clustering solution with synchronous replication, with installation, configuration, upgrade, security and operations guides
 
 Each page below is also available as markdown. For the documentation of all Percona products, see https://docs.percona.com/llms.txt.
 
 ## Overview
 
-- [Home](https://docs.percona.com/percona-xtradb-cluster/8.4/index.md)
-- [Get help from Percona](https://docs.percona.com/percona-xtradb-cluster/8.4/get-help.md)
+- [Home](https://docs.percona.com/percona-xtradb-cluster/8.4/index.md): Percona XtraDB Cluster is a database clustering solution for MySQL. It ensures high availability, prevents downtime and data loss, and provides linear scalability for a growing environment.
+- [Get help from Percona](https://docs.percona.com/percona-xtradb-cluster/8.4/get-help.md): Our documentation guides are packed with information, but they can’t cover everything you need to know about Percona XtraDB Cluster. They also won’t cover every scenario you might come across. Don’t…
 - [Topic Index](https://docs.percona.com/percona-xtradb-cluster/8.4/index-contents.md)
 
-## Release notes
+## Introduction
 
-- [Release notes index](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/release-notes_index.md)
+- [About Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/intro.md): Percona XtraDB Cluster is a fully open-source high-availability solution for MySQL. It integrates Percona Server for MySQL and Percona XtraBackup with the MariaDB Galera library to enable synchronous…
+- [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md): The following limitations apply to Percona XtraDB Cluster:
+- [Understand version numbers](https://docs.percona.com/percona-xtradb-cluster/8.4/xtradb-cluster-version-numbers.md): A version number identifies the innovation product release. The product contains the latest features, improvements, and bug fixes at the time of that release.
+
+## Features
+
+- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.md): Percona XtraDB Cluster will continue to function in a basic setup with three nodes if you take any of the nodes down. At any point, you can shut down any node to perform maintenance or make…
+- [Percona XtraDB Cluster strict mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md): The Percona XtraDB Cluster (PXC) Strict Mode is designed to avoid the use of tech preview features and unsupported features in PXC. This mode performs a number of validations at startup and during…
+- [Online schema upgrade](https://docs.percona.com/percona-xtradb-cluster/8.4/online-schema-upgrade.md): Database schemas must change as applications change. For a cluster, the schema upgrade must occur while the system is online. A synchronous cluster requires all active nodes have the same data.…
+- [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](https://docs.percona.com/percona-xtradb-cluster/8.4/nbo.md): An Online Schema Upgrade can be a daily issue in an environment with accelerated development and deployment. The task becomes more difficult as the data grows. An ALTER TABLE statement is a…
+
+## Quickstart guide
+
+- [Quickstart Guide for Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/quickstart-overview.md): Percona XtraDB Cluster (PXC) is a 100% open source, enterprise-grade, highly available clustering solution for MySQL multi-master setups based on Galera. PXC helps enterprises minimize unexpected…
+- [Get started with Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/get-started-cluster.md): This guide describes the procedure for setting up Percona XtraDB Cluster.
+
+## Get started
+
+- [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/install-index.md): Install Percona XtraDB Cluster on all hosts that you are planning to use as cluster nodes and ensure that you have root access to the MySQL server on each one.
+- [Percona Software Download instructions](https://docs.percona.com/percona-xtradb-cluster/8.4/download-instructions.md): Do the following steps to select the software:
+- [Install on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/apt.md): Specific information on the supported platforms, products, and versions is described in Percona Software and Platform Lifecycle.
+- [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/yum.md): A list of the supported platforms by products and versions is available in Percona Software and Platform Lifecycle.
+- [Install from Binary Tarball](https://docs.percona.com/percona-xtradb-cluster/8.4/tarball.md): Percona provides generic tarballs with all required files and binaries for manual installation.
+- [Compile and install from source code](https://docs.percona.com/percona-xtradb-cluster/8.4/compile.md): For routine deployments, install from official packages or a binary tarball. Compile here only when you package PXC yourself, maintain local patches, or develop the server.
+- [Run in a Docker container](https://docs.percona.com/percona-xtradb-cluster/8.4/docker.md): Docker images of Percona XtraDB Cluster are hosted publicly on Docker Hub at https://hub.docker.com/r/percona/percona-xtradb-cluster/.
+- [Run with Docker Compose](https://docs.percona.com/percona-xtradb-cluster/8.4/docker-compose.md): For more information about using Docker, see the Docker Docs. Use the latest version of Docker. Versions provided through apt and yum may be outdated and cause errors.
+- [Configure nodes for write-set replication](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.md): After installing Percona XtraDB Cluster on each node, you need to configure the cluster. In this section, we will demonstrate how to configure a three node cluster:
+- [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md): After you configure all PXC nodes, initialize the cluster by bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.
+- [Add nodes to cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md): New nodes that are properly configured are provisioned automatically. When you start a node with the address of at least one other running node in the wsrep_cluster_address variable, this node…
+- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md): Use the following procedure to verify replication by creating a new database on the second node, creating a table for that database on the third node, and adding some records to the table on the…
+
+## Upgrade
+
+- [Upgrade Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md): This guide describes how to upgrade Percona XtraDB Cluster to version 8.4 without downtime. A rolling upgrade updates one node at a time while the cluster remains operational. Rolling upgrades to 8.4…
+- [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.md): Percona XtraDB Cluster (PXC) uses the same write-set replication model as MySQL Galera Cluster, so a migration replaces the binaries and keeps the datadir. The schemas, data, user accounts, and…
+- [Restore 8.0 backup to 8.4 cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-backup.md): Use Percona XtraBackup to back up the source server data and restore the data to a target server, and then upgrade the server to a different version of Percona XtraDB Cluster.
+- [Upgrade cluster from packages](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-packages.md): Make a full backup (or dump if possible) of your database. Move the database configuration file, my.cnf, to another direction to save it. Stop the server with /etc/init.d/mysql stop.
+
+## PXC security
+
+- [Security basics](https://docs.percona.com/percona-xtradb-cluster/8.4/security-index.md): By default, Percona XtraDB Cluster does not encrypt or protect stored data. To ensure the security of your deployment, you must take additional measures. Consider the following areas when securing a…
+- [Secure the network](https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.md): By default, anyone with access to your network can connect to any Percona XtraDB Cluster node either as a client or as another node joining the cluster. This could potentially let them query your…
+- [Encrypt PXC traffic](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md): Percona XtraDB Cluster processes two distinct types of traffic and applies encryption to ensure secure data exchanges across all connections.
+- [Enable AppArmor](https://docs.percona.com/percona-xtradb-cluster/8.4/apparmor.md): Percona XtraDB Cluster contains several AppArmor profiles. Multiple profiles allow for easier maintenance because the mysqld profile is decoupled from the SST script profile. This separation allows…
+- [Enable SELinux](https://docs.percona.com/percona-xtradb-cluster/8.4/selinux.md): SELinux helps protects the user’s home directory data. SELinux provides the following:
+
+## User's manual
+
+- [State snapshot transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/state-snapshot-transfer.md): Here are the top three takeaways from the “State Snapshot Transfer” documentation:
+- [Percona XtraBackup SST configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md): Two-Stage Process: The XtraBackup SST process operates in two stages. First, it identifies the type of data transfer (SST or IST) based on the presence of the xtrabackup_ist file on the joiner node.…
+- [State Snapshot Transfer (SST) Method using Clone plugin](https://docs.percona.com/percona-xtradb-cluster/8.4/clone-sst.md): Introduced in Percona XtraDB Cluster (PXC) version 8.4.4-4, Clone SST is a modern and efficient method that leverages MySQL’s native cloning capabilities to transfer data from a Donor node to a…
+- [Restart the cluster nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/restarting-nodes.md): This page is the entry point for restarts and recovery when nodes are managed directly (systemd, bare metal, or VMs). In PXC 8.4, Clone SST (wsrep_sst_method=clone) is the default rejoin path—set it…
+- [Cluster failover](https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md): Cluster membership depends on which nodes connect to the rest of the cluster; no configuration setting explicitly defines the list of all possible cluster nodes.
+- [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md): Each node can have a different view of the cluster. There is no centralized node to monitor. To track down the source of issues, you have to monitor each node independently.
+- [Certification in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md): Percona XtraDB Cluster replicates actions executed on one node to all other nodes in the cluster, and makes it fast enough to appear as if it is synchronous (virtually synchronous).
+- [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md): Streaming replication optimizes replication of large or long-running transactions in Percona XtraDB Cluster (PXC). A node normally executes a transaction fully. The node replicates the complete…
+- [Percona XtraDB Cluster threading model](https://docs.percona.com/percona-xtradb-cluster/8.4/threading-model.md): Percona XtraDB Cluster creates a set of threads to service its operations, which are not related to existing MySQL threads. There are three main groups of threads:
+- [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.md): In Percona XtraDB Cluster, there is a concept of GCache and Record-Set cache (which can also be called transaction write-set cache). The use of these two caches is often confusing if you are running…
+- [GCache encryption and Write-Set cache encryption](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-write-set-cache-encryption.md): These features are tech preview. Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative…
+- [Perfomance Schema instrumentation](https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.md): To improve monitoring Percona XtraDB Cluster has implemented an infrastructure to expose Galera instruments (mutexes, cond-variables, files, threads) as a part of PERFORMANCE_SCHEMA.
+- [Data at Rest Encryption](https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.md): Data at rest encryption refers to encrypting data stored on a disk on a server.
+
+## How-tos
+
+- [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md): Unlike the standard MySQL replication, a PXC cluster acts like one logical entity, which controls the status and consistency of each node as well as the status of the whole cluster. This allows…
+- [Configure a cluster on Red Hat-based distributions](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md): This tutorial describes how to install and configure three Percona XtraDB Cluster nodes on Red Hat Enterprise Linux (RHEL) 8 servers, using the packages from Percona repositories.
+- [Configure a cluster on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.md): This tutorial describes how to install and configure three Percona XtraDB Cluster nodes on Ubuntu 14 LTS servers, using the packages from Percona repositories.
+- [Set up Galera arbitrator](https://docs.percona.com/percona-xtradb-cluster/8.4/garbd-howto.md): The size of a cluster increases when a node joins the cluster and decreases when a node leaves. A cluster reacts to replication problems with inconsistency voting. The size of the cluster determines…
+- [How to set up a three-node cluster on a single box](https://docs.percona.com/percona-xtradb-cluster/8.4/singlebox.md): This tutorial describes how to set up a 3-node cluster on a single physical box.
+- [How to set up a three-node cluster in EC2 environment](https://docs.percona.com/percona-xtradb-cluster/8.4/set-up-3nodes-ec2.md): This manual assumes you are running three EC2 instances with Red Hat Enterprise Linux 7 64-bit.
+- [Load balancing with HAProxy](https://docs.percona.com/percona-xtradb-cluster/8.4/haproxy.md): This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.
+- [Load balance with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md): ProxySQL is a high-performance SQL proxy. ProxySQL runs as a daemon watched by a monitoring process. The process monitors the daemon and restarts it in case of a crash to minimize downtime.
+- [ProxySQL admin utilities](https://docs.percona.com/percona-xtradb-cluster/8.4/proxysql-v2.md): The ProxySQL and ProxySQL admin utilities documentation provides information on installing and running ProxySQL 1.x.x or ProxySQL 2.x.x with the following ProxySQL admin utilities:
+- [Set up a testing environment with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/virtual-sandbox.md): This section describes how to set up Percona XtraDB Cluster in a virtualized testing environment based on ProxySQL. To test the cluster, we will use the sysbench benchmark tool.
+
+## Reference
+
+- [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md): This document provides detailed information about the cluster status variables. These variables help you monitor and troubleshoot your cluster’s performance, health, and behavior.
+- [Index of wsrep system variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md): Percona XtraDB Cluster introduces a number of MySQL system variables related to write-set replication.
+- [Index of wsrep_provider options](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.md): You can set and check the following options in the wsrep_provider_options system variable. You can change option values in the MySQL configuration file, my.cnf, or by setting options in the MySQL…
+- [Index of files created by Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.md): Percona XtraDB Cluster can create the following files:
+- [Telemetry on Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.md): Percona telemetry fills in the gaps in our understanding of how you use Percona XtraDB Cluster to improve our products. Participation in the anonymous program is optional. You can opt-out if you…
+- [Frequently asked questions](https://docs.percona.com/percona-xtradb-cluster/8.4/faq.md): All bugs can be reported on JIRA.
+- [Glossary](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md): For each table, the server will create a file with the .frm extension containing the table definition (for all storage engines).
+- [Copyright and licensing information](https://docs.percona.com/percona-xtradb-cluster/8.4/copyright-and-licensing-information.md): Percona XtraDB Cluster documentation is (C)2009-2026 Percona LLC and/or its affiliates and is distributed under the Creative Commons Attribution 4.0 International License.
+- [Trademark policy](https://docs.percona.com/percona-xtradb-cluster/8.4/trademark-policy.md): This Trademark Policy is to ensure that users of Percona-branded products or services know that what they receive has really been developed, approved, tested and maintained by Percona. Trademarks…
+
+## Optional
+
+- [Release notes: Release notes index](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/release-notes_index.md): Percona XtraDB Cluster 8.4.12-12 (2026-11-10)
 - [Percona XtraDB Cluster 8.4.11-12 (2026-11-12)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.11-12.md)
 - [Percona XtraDB Cluster 8.4.11-11 (2026-10-05)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.11-11.md)
 - [Percona XtraDB Cluster 8.4.10-10 (2026-07-27)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.10-10.md)
@@ -21,102 +110,10 @@ Each page below is also available as markdown. For the documentation of all Perc
 - [Percona XtraDB Cluster 8.4.6-6 (2025-10-06)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.6-6.md)
 - [Percona XtraDB Cluster 8.4.5-5 (2025-07-14)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.5-5.md)
 - [Percona XtraDB Cluster 8.4.4-4 (2025-04-16)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.4-4.md)
-- [Percona XtraDB Cluster 8.4.3-3 (2025-01-21)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.3-3.md)
-- [Percona XtraDB Cluster 8.4.2-2 (2024-12-11)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.2-2.md)
-
-## Introduction
-
-- [About Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/intro.md)
-- [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md)
-- [Understand version numbers](https://docs.percona.com/percona-xtradb-cluster/8.4/xtradb-cluster-version-numbers.md)
-
-## Features
-
-- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.md)
-- [Percona XtraDB Cluster strict mode](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md)
-- [Online schema upgrade](https://docs.percona.com/percona-xtradb-cluster/8.4/online-schema-upgrade.md)
-- [Non-Blocking Operations (NBO) method for Online Scheme Upgrades (OSU)](https://docs.percona.com/percona-xtradb-cluster/8.4/nbo.md)
-
-## Quickstart guide
-
-- [Quickstart Guide for Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/quickstart-overview.md)
-- [Get started with Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/get-started-cluster.md)
-
-## Get started
-
-- [Install Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/install-index.md)
-- [Percona Software Download instructions](https://docs.percona.com/percona-xtradb-cluster/8.4/download-instructions.md)
-- [Install on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/apt.md)
-- [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/yum.md)
-- [Install from Binary Tarball](https://docs.percona.com/percona-xtradb-cluster/8.4/tarball.md)
-- [Compile and install from source code](https://docs.percona.com/percona-xtradb-cluster/8.4/compile.md)
-- [Run in a Docker container](https://docs.percona.com/percona-xtradb-cluster/8.4/docker.md)
-- [Run with Docker Compose](https://docs.percona.com/percona-xtradb-cluster/8.4/docker-compose.md)
-- [Configure nodes for write-set replication](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.md)
-- [Bootstrap the first node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md)
-- [Add nodes to cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md)
-- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md)
-
-## Upgrade
-
-- [Upgrade Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md)
-- [Migrate from MySQL Galera Cluster to Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/migrate-mysql-galera.md)
-- [Restore 8.0 backup to 8.4 cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-backup.md)
-- [Upgrade cluster from packages](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-packages.md)
-
-## PXC security
-
-- [Security basics](https://docs.percona.com/percona-xtradb-cluster/8.4/security-index.md)
-- [Secure the network](https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.md)
-- [Encrypt PXC traffic](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md)
-- [Enable AppArmor](https://docs.percona.com/percona-xtradb-cluster/8.4/apparmor.md)
-- [Enable SELinux](https://docs.percona.com/percona-xtradb-cluster/8.4/selinux.md)
-
-## User's manual
-
-- [State snapshot transfer](https://docs.percona.com/percona-xtradb-cluster/8.4/state-snapshot-transfer.md)
-- [Percona XtraBackup SST configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md)
-- [State Snapshot Transfer (SST) Method using Clone plugin](https://docs.percona.com/percona-xtradb-cluster/8.4/clone-sst.md)
-- [Restart the cluster nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/restarting-nodes.md)
-- [Cluster failover](https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md)
-- [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md)
-- [Certification in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md)
-- [Streaming replication for large transactions](https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md)
-- [Percona XtraDB Cluster threading model](https://docs.percona.com/percona-xtradb-cluster/8.4/threading-model.md)
-- [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.md)
-- [GCache encryption and Write-Set cache encryption](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-write-set-cache-encryption.md)
-- [Perfomance Schema instrumentation](https://docs.percona.com/percona-xtradb-cluster/8.4/performance-schema-instrumentation.md)
-- [Data at Rest Encryption](https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.md)
-
-## How-tos
-
-- [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md)
-- [Configure a cluster on Red Hat-based distributions](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md)
-- [Configure a cluster on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.md)
-- [Set up Galera arbitrator](https://docs.percona.com/percona-xtradb-cluster/8.4/garbd-howto.md)
-- [How to set up a three-node cluster on a single box](https://docs.percona.com/percona-xtradb-cluster/8.4/singlebox.md)
-- [How to set up a three-node cluster in EC2 environment](https://docs.percona.com/percona-xtradb-cluster/8.4/set-up-3nodes-ec2.md)
-- [Load balancing with HAProxy](https://docs.percona.com/percona-xtradb-cluster/8.4/haproxy.md)
-- [Load balance with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md)
-- [ProxySQL admin utilities](https://docs.percona.com/percona-xtradb-cluster/8.4/proxysql-v2.md)
-- [Set up a testing environment with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/virtual-sandbox.md)
-
-## Reference
-
-- [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md)
-- [Index of wsrep system variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md)
-- [Index of wsrep_provider options](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.md)
-- [Index of files created by Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.md)
-- [Telemetry on Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/telemetry.md)
-- [Frequently asked questions](https://docs.percona.com/percona-xtradb-cluster/8.4/faq.md)
-- [Glossary](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md)
-- [Copyright and licensing information](https://docs.percona.com/percona-xtradb-cluster/8.4/copyright-and-licensing-information.md)
-- [Trademark policy](https://docs.percona.com/percona-xtradb-cluster/8.4/trademark-policy.md)
-
-## Optional
-
-- [Emergency quorum recovery (when nodes are up but traffic is blocked)](https://docs.percona.com/percona-xtradb-cluster/8.4/emergency-quorum-recovery.md)
-- [Environmental blockers (AppArmor, systemd, firewalls)](https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.md)
-- [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.4/legal-notice.md)
-- [SST/Clone failure recovery (when nodes refuse to join)](https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.md)
+- [Percona XtraDB Cluster 8.4.3-3 (2025-01-21)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.3-3.md): Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high…
+- [Percona XtraDB Cluster 8.4.2-2 (2024-12-11)](https://docs.percona.com/percona-xtradb-cluster/8.4/release-notes/8.4.2-2.md): Percona XtraDB Cluster (PXC) supports critical business applications in your public, private, or hybrid cloud environment. Our free, open source, enterprise-grade solution includes the high…
+- [Emergency quorum recovery (when nodes are up but traffic is blocked)](https://docs.percona.com/percona-xtradb-cluster/8.4/emergency-quorum-recovery.md): Nodes are running and accept connections, but MySQL refuses writes (and often reads) with errors such as WSREP has not yet prepared node for application use. The cluster has lost quorum or the…
+- [Environmental blockers (AppArmor, systemd, firewalls)](https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.md): These often prevent nodes from joining and do not show up in the MySQL error log. If a node refuses to join, work through this section. See Restart the cluster nodes for the full recovery index.
+- [Legal Notice](https://docs.percona.com/percona-xtradb-cluster/8.4/legal-notice.md): You are interacting with an AI-powered chatbot that provides automated responses for general information about our IT services and software. Responses may be inaccurate or incomplete and do not…
+- [SST/Clone failure recovery (when nodes refuse to join)](https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.md): A node starts but never reaches Synced—SST or Clone fails, or the joiner is stuck. Most restarts after an unclean failure (OOM, power loss, crash) fall here; grastate.dat is often inconsistent and…
 

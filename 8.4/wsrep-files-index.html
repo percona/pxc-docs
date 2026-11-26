@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Index of files created by Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-files-index.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3492,14 +3492,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Check these logs to determine what failed.</p>
 <p>To decode a GRA log file, add a binary log header. Use an instance with <code>binlog_checksum</code> set to <code>NONE</code>. Extract the first 123 bytes from a binary log file.</p>
 <p>The following commands create <code>GRA_HEADER</code>, combine the files, and decode the result:</p>
-<div class="highlight"><pre><span></span><code>head<span class="w"> </span>-c<span class="w"> </span><span class="m">123</span><span class="w"> </span>mysqld-bin.000001<span class="w"> </span>&gt;<span class="w"> </span>GRA_HEADER
+<div class="language-bash highlight"><pre><span></span><code>head<span class="w"> </span>-c<span class="w"> </span><span class="m">123</span><span class="w"> </span>mysqld-bin.000001<span class="w"> </span>&gt;<span class="w"> </span>GRA_HEADER
 cat<span class="w"> </span>GRA_HEADER<span class="w"> </span>&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 cat<span class="w"> </span>/var/lib/mysql/GRA_1_2.log<span class="w"> </span>&gt;&gt;<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 mysqlbinlog<span class="w"> </span>-vvv<span class="w"> </span>/var/lib/mysql/GRA_1_2-bin.log
 </code></pre></div>
 <details class="example">
 <summary>mysqlbinlog output</summary>
-<div class="no-copy highlight"><pre><span></span><code>/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
+<div class="language-text no-copy highlight"><pre><span></span><code>/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/;
 /*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/;
 DELIMITER /*!*/;
 # at 4
@@ -3535,7 +3535,7 @@ DELIMITER ;
 <p>Use the decoded statement and timestamp to find the matching error in the MySQL error log.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
+<div class="language-text no-copy highlight"><pre><span></span><code>160805  9:33:37 8:52:21 [ERROR] Slave SQL: Error 'Unknown table 'test'' on query. Default database: 'test'. Query: 'drop table test', Error_code: 1051
 160805  9:33:37 8:52:21 [Warning] WSREP: RBR event 1 Query apply warning: 1, 3
 </code></pre></div>
 </details>
@@ -3584,21 +3584,21 @@ DELIMITER ;
 <p>At the next start, <code>-1</code> means the previous shutdown was not clean. A value greater than <code>0</code> means the previous shutdown was clean. The server then writes <code>-1</code> again. The next shutdown uses the same detection.</p>
 <p>The following examples show <code>grastate.dat</code> in three situations.</p>
 <p>The node is not running. This state means the node crashed during a transaction:</p>
-<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+<div class="language-text no-copy highlight"><pre><span></span><code>GALERA saved state
 version: 2.1
 uuid:    1917033b-7081-11e2-0800-707f5d3b106b
 seqno:   -1
 cert_index:
 </code></pre></div>
 <p>The node is not running. This state means the node shut down cleanly:</p>
-<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+<div class="language-text no-copy highlight"><pre><span></span><code>GALERA saved state
 version: 2.1
 uuid:    1917033b-7081-11e2-0800-707f5d3b106b
 seqno:   5192193423942
 cert_index:
 </code></pre></div>
 <p>The node is not running. This state means the node crashed during a DDL statement:</p>
-<div class="no-copy highlight"><pre><span></span><code>GALERA saved state
+<div class="language-text no-copy highlight"><pre><span></span><code>GALERA saved state
 version: 2.1
 uuid:    00000000-0000-0000-0000-000000000000
 seqno:   -1
@@ -3637,7 +3637,7 @@ cert_index:
 </ul>
 <details class="example">
 <summary>Example gvwstate.dat file</summary>
-<div class="no-copy highlight"><pre><span></span><code>my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
+<div class="language-text no-copy highlight"><pre><span></span><code>my_uuid: c5d5d990-30ee-11e4-aab1-46d0ed84b408
 #vwbeg
 view_id: 3 bc85bd53-31ac-11e4-9895-1f2ce13f2542 2 
 bootstrap: 0

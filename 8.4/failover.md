@@ -58,7 +58,7 @@ Use the command with caution and only on one node at a time, as incorrect usage 
 
 To recover the node from the non-primary state, execute the following command:
 
-```
+```shell
 SET GLOBAL wsrep_provider_options='pc.bootstrap=true';
 ```
 

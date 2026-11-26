@@ -131,7 +131,7 @@ and adding some records to the table on the first node.">
                <meta property="og:title" content="Percona XtraDB Cluster - Verify replication" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md"></head>
             </html>
 
             
@@ -145,7 +145,7 @@ and adding some records to the table on the first node.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3562,56 +3562,56 @@ and adding some records to the table on the first node.</p>
 <ol>
 <li>
 <p>Create a new database on the second node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a new database has been created:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Switch to a newly created database:</p>
-<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">percona</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that a database has been changed:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Database changed
+<div class="language-text no-copy highlight"><pre><span></span><code>Database changed
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Create a table on the third node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span><span class="n">node_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">));</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="p">(</span><span class="n">node_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">node_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">));</span>
 </code></pre></div>
 <p>The following output confirms that a table has been created:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.05 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.05 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Insert records on the first node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'percona1'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">'percona1'</span><span class="p">);</span>
 </code></pre></div>
 <p>The following output confirms that the records have been inserted:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Retrieve rows from that table on the second node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">percona</span><span class="p">.</span><span class="n">example</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that all the rows have been retrieved:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------+-----------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------+-----------+
 | node_id | node_name |
 +---------+-----------+
 |       1 | percona1  |

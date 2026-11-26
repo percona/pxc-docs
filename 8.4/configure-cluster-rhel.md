@@ -27,21 +27,21 @@ The procedure described in this tutorial requires the following:
 - The firewall on all nodes is configured to allow connecting to ports 3306, 4444, 4567 and 4568.
 - SELinux on all nodes is disabled.
 
-Percona XtraDB Cluster 8.4 creates the internal MySQL account [`mysql.pxc.internal.session`](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#mysqlpxcinternalsession), which the SST process uses to run the SQL needed for node synchronization.
+Percona XtraDB Cluster 8.4 creates the internal MySQL account [`mysql.pxc.internal.session`](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#mysqlpxcinternalsession), which the SST process uses to run the SQL needed for node synchronization.
 
-During [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst), that account creates the user `mysql.pxc.sst.user` on the donor node and assigns it the role [`mysql.pxc.sst.role`](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#mysqlpxcsstrole).
+During [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst), that account creates the user `mysql.pxc.sst.user` on the donor node and assigns it the role [`mysql.pxc.sst.role`](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#mysqlpxcsstrole).
 
 ## Step 1. Install
 
-Install Percona XtraDB Cluster on all three nodes as described in [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/yum.html#install-from-percona-software-repository).
+Install Percona XtraDB Cluster on all three nodes as described in [Install on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/yum.md#install-from-percona-software-repository).
 
 ## Step 2. Configure the first node
 
-Individual nodes should be configured to be able to bootstrap the cluster. For more information about bootstrapping the cluster, see [Bootstrapping the First Node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.html#bootstrap-the-first-node).
+Individual nodes should be configured to be able to bootstrap the cluster. For more information about bootstrapping the cluster, see [Bootstrapping the First Node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md#bootstrap-the-first-node).
 
 1. Make sure that the configuration file `/etc/my.cnf` on the first node (`percona1`) contains the following:
 
-   ```
+   ```text
    [mysqld]
    datadir=/var/lib/mysql
    user=mysql
@@ -63,15 +63,15 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
 1. Start the first node, `[root@percona1 ~] #`, with the following command:
 
-   ```
+   ```shell
    systemctl start mysql@bootstrap.service
    ```
 
-   The previous command will start the cluster with initial [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_cluster_address) variable set to `gcomm://`. If the node or MySQL are restarted later, there will be no need to change the configuration file.
+   The previous command will start the cluster with initial [`wsrep_cluster_address`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_cluster_address) variable set to `gcomm://`. If the node or MySQL are restarted later, there will be no need to change the configuration file.
 
 1. After the first node has been started, cluster status can be checked with the following command:
 
-   ```
+   ```sql
    show status like 'wsrep%';
    ```
 
@@ -79,7 +79,7 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
    Expected output
 
-   ```
+   ```text
    +----------------------------+--------------------------------------+
    | Variable_name              | Value                                |
    +----------------------------+--------------------------------------+
@@ -99,43 +99,43 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
    Copy the automatically generated temporary password for the superuser account:
 
-   ```
+   ```shell
    sudo grep 'temporary password' /var/log/mysqld.log
    ```
 
    Expected output
 
-   ```
+   ```text
    [Note] A temporary password is generated for root@localhost: xYz123AbC
    ```
 
    Use this password to log in as root:
 
-   ```
+   ```shell
    mysql -u root -p
    ```
 
    Change the password for the superuser account and log out. For example:
 
-   ```
+   ```shell
    ALTER USER 'root'@'localhost' IDENTIFIED BY 'r00tP@$$';
    ```
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
    Exit the MySQL client:
 
-   ```
+   ```sql
    EXIT
    ```
 
    Expected output
 
-   ```
+   ```text
    Bye
    ```
 
@@ -143,7 +143,7 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
 1. Make sure that the configuration file `/etc/my.cnf` on the second node (`percona2`) contains the following:
 
-   ```
+   ```text
    [mysqld]
    datadir=/var/lib/mysql
    user=mysql
@@ -165,13 +165,13 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
 1. Start the second node, `[root@percona2 ~] #`, with the following command:
 
-   ```
+   ```shell
    systemctl start mysql
    ```
 
 1. After the server has been started, it should receive SST automatically. Cluster status can be checked on both nodes. The following is an example of status from the second node (`percona2`):
 
-   ```
+   ```sql
    show status like 'wsrep%';
    ```
 
@@ -179,7 +179,7 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
    Expected output
 
-   ```
+   ```text
    +----------------------------+--------------------------------------+
    | Variable_name              | Value                                |
    +----------------------------+--------------------------------------+
@@ -201,7 +201,7 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
 1. Make sure that the MySQL configuration file `/etc/my.cnf` on the third node (`percona3`) contains the following:
 
-   ```
+   ```text
    [mysqld]
    datadir=/var/lib/mysql
    user=mysql
@@ -223,13 +223,13 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
 1. Start the third node, `[root@percona3 ~] #`, with the following command:
 
-   ```
+   ```shell
    systemctl start mysql
    ```
 
 1. After the server has been started, it should receive SST automatically. Cluster status can be checked on all three nodes. The following is an example of status from the third node (`percona3`):
 
-   ```
+   ```sql
    show status like 'wsrep%';
    ```
 
@@ -237,7 +237,7 @@ Individual nodes should be configured to be able to bootstrap the cluster. For m
 
    Expected output
 
-   ```
+   ```text
    +----------------------------+--------------------------------------+
    | Variable_name              | Value                                |
    +----------------------------+--------------------------------------+
@@ -261,19 +261,19 @@ To test replication, lets create a new database on second node, create a table f
 
 1. Create a new database on the second node, `mysql@percona2>`:
 
-   ```
+   ```sql
    CREATE DATABASE percona;
    ```
 
    Expected output
 
-   ```
+   ```text
    Query OK, 1 row affected (0.01 sec)
    ```
 
 1. Switch to a newly created database, `mysql@percona3>`:
 
-   ```
+   ```sql
    USE percona;
    ```
 
@@ -281,13 +281,13 @@ To test replication, lets create a new database on second node, create a table f
 
    Expected output
 
-   ```
+   ```text
    Database changed
    ```
 
 1. Create a table on the third node, `mysql@percona3>`:
 
-   ```
+   ```sql
    CREATE TABLE example (node_id INT PRIMARY KEY, node_name VARCHAR(30));
    ```
 
@@ -295,13 +295,13 @@ To test replication, lets create a new database on second node, create a table f
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.05 sec)
    ```
 
 1. Insert records on the first node, `mysql@percona1>`:
 
-   ```
+   ```sql
    INSERT INTO percona.example VALUES (1, 'percona1');
    ```
 
@@ -309,13 +309,13 @@ To test replication, lets create a new database on second node, create a table f
 
    Expected output
 
-   ```
+   ```text
    Query OK, 1 row affected (0.02 sec)
    ```
 
 1. Retrieve all the rows from that table on the second node, `mysql@percona2>`:
 
-   ```
+   ```sql
    SELECT * FROM percona.example;
    ```
 
@@ -323,7 +323,7 @@ To test replication, lets create a new database on second node, create a table f
 
    Expected output
 
-   ```
+   ```text
    +---------+-----------+
    | node_id | node_name |
    +---------+-----------+

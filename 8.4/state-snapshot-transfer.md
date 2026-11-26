@@ -68,15 +68,15 @@ When both local and remote nodes can perform IST, the cluster selects the node w
 
 The default SST method is `xtrabackup-v2`, which uses *Percona XtraBackup*. The least blocking method leverages [backup locks](https://docs.percona.com/percona-server/8.4/backup-locks.html) . XtraBackup is run locally on the donor node.
 
-The [datadir](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#datadir) must be specified in the server configuration file `my.cnf`, otherwise the transfer process will fail.
+The [datadir](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#datadir) must be specified in the server configuration file `my.cnf`, otherwise the transfer process will fail.
 
-Detailed information on this method is provided in [Percona XtraBackup SST Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.html#percona-xtrabackup-sst-configuration) documentation.
+Detailed information on this method is provided in [Percona XtraBackup SST Configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md#percona-xtrabackup-sst-configuration) documentation.
 
 ## SST for tables with tablespaces that are not in the data directory
 
 For example:
 
-```
+```shell
 CREATE TABLE t1 (c1 INT PRIMARY KEY) DATA DIRECTORY = '/alternative/directory';
 ```
 
@@ -87,4 +87,4 @@ XtraBackup restores the table to the same location on the joiner node. If the ta
 ## Other reading
 
 - [State Snapshot Transfer Methods for MySQL](https://mariadb.com/docs/galera-cluster/high-availability/state-snapshot-transfers-ssts-in-galera-cluster/introduction-to-state-snapshot-transfers-ssts/)
-- [Xtrabackup SST configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.html#percona-xtrabackup-sst-configuration)
+- [Xtrabackup SST configuration](https://docs.percona.com/percona-xtradb-cluster/8.4/xtrabackup-sst.md#percona-xtrabackup-sst-configuration)

@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Environmental blockers (AppArmor, systemd, firewalls)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/environmental-blockers.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3512,33 +3512,33 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="security-context-apparmor-selinux-the-sst-jail">Security context (AppArmor, SELinux): the &ldquo;SST jail&rdquo;<a data-markdown-ignore class="headerlink" href="#security-context-apparmor-selinux-the-sst-jail" title="Permanent link">&para;</a></h2>
 <p>On Ubuntu, the default AppArmor profile does not know about XtraBackup or socat and can block the donor from sending data and the joiner from running the SST method. The failure is often silent. Without fixing this, no amount of PID file removal or grastate.dat editing will make the node join.</p>
 <p>Option A — Temporary bridge (confirm AppArmor is the cause): Put both profiles in complain mode and restart MySQL on the joiner. If the node joins, add proper rules and put the profiles back in enforce mode. Run as root or with <code>sudo</code>:</p>
-<div class="highlight"><pre><span></span><code>aa-complain<span class="w"> </span>/usr/sbin/mysqld
+<div class="language-shell highlight"><pre><span></span><code>aa-complain<span class="w"> </span>/usr/sbin/mysqld
 aa-complain<span class="w"> </span>/usr/bin/wsrep_sst_xtrabackup-v2
 systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <p>Option B — Keep enforce mode, allow SST: Add rules to allow the SST script to run xtrabackup and socat. Add to both <code>/etc/apparmor.d/usr.sbin.mysqld</code> and <code>/etc/apparmor.d/usr.bin.wsrep_sst_xtrabackup-v2</code> (adjust paths for your datadir and binaries):</p>
-<div class="highlight"><pre><span></span><code>  /usr/bin/xtrabackup rix,
+<div class="language-text highlight"><pre><span></span><code>  /usr/bin/xtrabackup rix,
   /usr/bin/xbstream rix,
   /usr/bin/socat rix,
   /var/lib/mysql/ r,
   /var/lib/mysql/** rwk,
 </code></pre></div>
 <p>Then <code>systemctl reload apparmor</code> and <code>systemctl start mysql</code>. If the node joined after Option A, add rules like Option B (see <a href="apparmor.html">Enable AppArmor</a>), then:</p>
-<div class="highlight"><pre><span></span><code>aa-enforce<span class="w"> </span>/usr/sbin/mysqld
+<div class="language-shell highlight"><pre><span></span><code>aa-enforce<span class="w"> </span>/usr/sbin/mysqld
 aa-enforce<span class="w"> </span>/usr/bin/wsrep_sst_xtrabackup-v2
 </code></pre></div>
 <p>SELinux (RHEL / Rocky / Alma): Ensure the SST script and ports are allowed; see <a href="selinux.html">SELinux</a>.</p>
 <h2 id="systemd-timeout-the-silent-killer">Systemd timeout: the &ldquo;silent killer&rdquo;<a data-markdown-ignore class="headerlink" href="#systemd-timeout-the-silent-killer" title="Permanent link">&para;</a></h2>
 <p>On Ubuntu 22.04, systemd manages MySQL. If an SST takes longer than the start timeout (often 90 seconds), systemd kills the process. The user thinks the node &ldquo;refuses to join,&rdquo; but it was killed by the OS mid-SST. Check <code>journalctl -u mysql</code> for timeout or unit failure.</p>
 <p>The fix: Create a drop-in so the mysql unit has no start timeout. Run as root or with <code>sudo</code>:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>edit<span class="w"> </span>mysql.service
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>edit<span class="w"> </span>mysql.service
 </code></pre></div>
 <p>(On RHEL use <code>systemctl edit mysqld.service</code>.) In the editor, add and save:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">0</span>
 </code></pre></div>
 <p>Then:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload
 systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 <p><code>TimeoutStartSec=0</code> disables the start timeout so systemd waits indefinitely for SST and recovery. If the node was already killed mid-SST, you may need to clear or restore the data directory and retry after increasing the timeout.</p>

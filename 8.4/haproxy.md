@@ -4,13 +4,13 @@
 
 This guide describes how to configure HAProxy to work with Percona XtraDB Cluster.
 
-Start by installing HAProxy on a [node](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#node) intended for load balancing. Operating systems that support Percona XtraDB Cluster provide the `haproxy` package, and package managers install the package.
+Start by installing HAProxy on a [node](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#node) intended for load balancing. Operating systems that support Percona XtraDB Cluster provide the `haproxy` package, and package managers install the package.
 
 **Debian or Ubuntu**
 
 Install HAProxy from the default APT repositories:
 
-```
+```shell
 sudo apt update
 sudo apt install haproxy
 ```
@@ -19,7 +19,7 @@ sudo apt install haproxy
 
 Install HAProxy from the default DNF repositories:
 
-```
+```shell
 sudo dnf update
 sudo dnf install haproxy
 ```
@@ -32,7 +32,7 @@ Use the HAProxy version provided by your supported operating system repositories
 
 To start HAProxy, use the `haproxy` command. You may pass any number of configuration parameters on the command line. To use a configuration file, use the `-f` option.
 
-```
+```shell
 # Passing one configuration file
 sudo haproxy -f <HAPROXY_CFG_PATH>
 # Passing multiple configuration files
@@ -76,7 +76,7 @@ The legacy `xinetd`-based workflow with `/etc/xinetd.d/mysqlchk` remains availab
 
 For the legacy `xinetd` workflow, add the following service entry on each node:
 
-```
+```text
 mysqlchk        9200/tcp                # mysqlchk
 ```
 
@@ -84,7 +84,7 @@ mysqlchk        9200/tcp                # mysqlchk
 
 Example of the HAProxy configuration file
 
-```
+```text
 global
         log 127.0.0.1   local0
         log 127.0.0.1   local1 notice
@@ -120,63 +120,63 @@ For the `option httpchk` configuration, HAProxy checks node health through the `
 
 1. Validate the HAProxy configuration syntax:
 
-```
+```shell
 haproxy -c -f <HAPROXY_CFG_PATH>
 ```
 
 Expected output
 
-```
+```text
 Configuration file is valid
 ```
 
 1. Restart HAProxy and confirm service state:
 
-```
+```shell
 sudo systemctl restart haproxy
 sudo systemctl is-active haproxy
 ```
 
 Expected output
 
-```
+```text
 active
 ```
 
 1. Verify that HAProxy listens on port `<PXC_SERVICE_PORT>`:
 
-```
+```shell
 ss -ltn | rg ':<PXC_SERVICE_PORT>'
 ```
 
 Expected output
 
-```
+```text
 LISTEN 0      128      0.0.0.0:<PXC_SERVICE_PORT>      0.0.0.0:*
 ```
 
 1. Verify the node health endpoint on each cluster node:
 
-```
+```shell
 curl -sS -i http://<NODE1_IP>:<HEALTHCHECK_PORT>/
 ```
 
 Expected output
 
-```
+```text
 HTTP/1.1 200 OK
 Content-Type: text/plain
 ```
 
 1. Run an end-to-end query through HAProxy:
 
-```
+```shell
 mysql -h <HAPROXY_IP> -P <PXC_SERVICE_PORT> -u <APP_USER> -p -e "SELECT @@hostname;"
 ```
 
 Expected output
 
-```
+```text
 +------------+
 | @@hostname |
 +------------+
@@ -190,7 +190,7 @@ The following example uses a basic TCP/MySQL check. The following example does n
 
 Legacy HAProxy configuration example
 
-```
+```text
 global
         log 127.0.0.1   local0
         log 127.0.0.1   local1 notice
@@ -222,16 +222,16 @@ listen mysql-cluster 0.0.0.0:<PXC_SERVICE_PORT>
 
 See also
 
-- [Configure a cluster on Red Hat-based distributions](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.html)
-- [Configure a cluster on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.html)
-- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.html)
-- [Load balancing with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html)
-- [Manual monitoring](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html#manual-monitoring)
-- [Alerting](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html#alerting)
-- [Failover](https://docs.percona.com/percona-xtradb-cluster/8.4/failover.html)
-- [Start the second node](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.html#start-the-second-node)
-- [Starting the Third Node](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.html#starting-the-third-node)
-- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.html)
-- [Bootstrapping the First Node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.html#bootstrap-the-first-node)
+- [Configure a cluster on Red Hat-based distributions](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md)
+- [Configure a cluster on Debian or Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.md)
+- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.md)
+- [Load balancing with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md)
+- [Manual monitoring](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md#manual-monitoring)
+- [Alerting](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md#alerting)
+- [Failover](https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md)
+- [Start the second node](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md#start-the-second-node)
+- [Starting the Third Node](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md#starting-the-third-node)
+- [Verify replication](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md)
+- [Bootstrapping the First Node](https://docs.percona.com/percona-xtradb-cluster/8.4/bootstrap.md#bootstrap-the-first-node)
 - [HAProxy Documentation](https://www.haproxy.org/#docs)
 - [MySQL Documentation: CREATE USER statement](https://dev.mysql.com/doc/refman/8.4/en/create-user.html)

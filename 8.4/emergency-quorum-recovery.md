@@ -16,14 +16,14 @@ Recovery options:
 
 Run the following on one node that is still up (connected as a user with sufficient privileges):
 
-```
+```sql
 SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';
 ```
 
-The [`pc.bootstrap`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.html#pcbootstrap) option makes that node form a new primary component. After the command runs, the node accepts writes; the cluster is effectively that one node until the others are started and rejoin (via IST or SST). Then start the other nodes so they join this primary.
+The [`pc.bootstrap`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-provider-index.md#pcbootstrap) option makes that node form a new primary component. After the command runs, the node accepts writes; the cluster is effectively that one node until the others are started and rejoin (via IST or SST). Then start the other nodes so they join this primary.
 
 Only when the other nodes are down
 
-Run this override only when you have confirmed that the other nodes are actually down or unreachable. If another node is still primary elsewhere (for example, in another datacenter after a split), setting `pc.bootstrap=YES` on a second node creates two separate clusters with diverging data (split-brain). See [Scenario 5: Two nodes disappear from the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html#scenario-5-two-nodes-disappear-from-the-cluster) and [Scenario 7: Split brain](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html#scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain) in Crash recovery.
+Run this override only when you have confirmed that the other nodes are actually down or unreachable. If another node is still primary elsewhere (for example, in another datacenter after a split), setting `pc.bootstrap=YES` on a second node creates two separate clusters with diverging data (split-brain). See [Scenario 5: Two nodes disappear from the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md#scenario-5-two-nodes-disappear-from-the-cluster) and [Scenario 7: Split brain](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md#scenario-7-the-cluster-loses-its-primary-state-due-to-split-brain) in Crash recovery.
 
-For more support options, see [Get help from Percona](https://docs.percona.com/percona-xtradb-cluster/8.4/get-help.html).
+For more support options, see [Get help from Percona](https://docs.percona.com/percona-xtradb-cluster/8.4/get-help.md).

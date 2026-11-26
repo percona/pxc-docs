@@ -25,14 +25,14 @@ To enable port `14567` instead of the default port `4567`:
 
 Find the tag associated with the `4567` port:
 
-```
+```shell
 semanage port -l | grep 4567
 tram_port_t tcp 4567
 ```
 
 Run a command to find which rules grant mysqld access to the port:
 
-```
+```shell
 sesearch -A -s mysqld_t -t tram_port_t -c tcp_socket
 Found 5 semantic av rules:
     allow mysqld_t port_type : tcp_socket { recv_msg send_msg } ;
@@ -44,20 +44,20 @@ Found 5 semantic av rules:
 
 You could tag port 14567 with the `tramp_port_t` tag, but this tag may cause issues because port 14567 is not a TRAM port. Use the general `mysqld_port_t` tag to add ports. For example, the following command adds port 14567 to the policy module with the `mysqld_port_t` tag.
 
-```
+```shell
 semanage port -a -t mysqld_port_t -p tcp 14567
 ```
 
 You can verify the addition with the following command:
 
-```
+```shell
 semanage port -l | grep 14567
 mysqld_port_t                  tcp      4568, 14567, 1186, 3306, 63132-63164
 ```
 
 To see the tag associated with the 4444 port, run the following command:
 
-```
+```shell
 semanage port -l | grep 4444
 kerberos_port_t                tcp      88, 750, 4444
 kerberos_port_t                udp      88, 750, 4444
@@ -65,7 +65,7 @@ kerberos_port_t                udp      88, 750, 4444
 
 To find the rules associated with `kerberos_port_t`, run the following:
 
-```
+```shell
 sesearch -A -s mysqld_t -t kerberos_port_t -c tcp_socket
 Found 9 semantic av rules:
 allow mysqld_t port_type : tcp_socket { recv_msg send_msg } ;
@@ -90,13 +90,13 @@ If you must use a port that is already tagged, you can use either of the followi
 
 By default, the `pxc_encrypt_cluster_traffic` is `ON`, which means that all cluster traffic is protected with certificates. However, these certificates cannot be located in the data directory since that location is overwritten during the SST process.
 
-Review [How to set up the certificates](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html#encrypt-replication-traffic). When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:
+Review [How to set up the certificates](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md#encrypt-replication-traffic). When SELinux is enabled, mysqld must have access to these certificates. The following items must be checked or considered:
 
 - Certificates inside `/etc/mysql/certs/` directory must use the `mysqld_etc_t` tag. This tag is applied automatically when the files are copied into the directory. When they are moved, the files retain their original context.
 - Certificates are accessible to the mysql user. The server certificates should be readable only by this user.
 - Certificates without the proper SELinux context can be restored with the following command:
 
-```
+```shell
 restorecon -v /etc/mysql/certs/*
 ```
 
@@ -104,7 +104,7 @@ restorecon -v /etc/mysql/certs/*
 
 The process, mysqld, runs in permissive mode, by default, even if SELinux runs in enforcing mode:
 
-```
+```shell
 semodule -l | grep permissive
 permissive_mysqld_t
 permissivedomains
@@ -112,6 +112,6 @@ permissivedomains
 
 After ensuring that the system journal does not list any issues, the administrator can remove the permissive mode for mysqld_t:
 
-```
+```shell
 semanage permissive -d mysqld_t
 ```

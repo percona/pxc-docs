@@ -43,26 +43,28 @@ The following best practices are for using SST with the Clone plugin:
 
 A high-level outline of the process:
 
+*Image: Clone SST process*
+
 ## Enable the Clone SST Method
 
 The Clone State Snapshot Transfer (SST) method in Percona XtraDB Cluster allows for efficient data synchronization between nodes. Proper configuration of this method ensures smooth and reliable cluster operations. This section explains how to enable the Clone SST method, including necessary variable settings and SSL configuration for secure data transfer.
 
 ### Donor and Joiner
 
-To enable the `clone` SST method, ensure the [`wsrep_sst_allowed_methods`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_allowed_methods) variable in the configuration file (`my.cnf`) includes the `clone` method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).
+To enable the `clone` SST method, ensure the [`wsrep_sst_allowed_methods`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_allowed_methods) variable in the configuration file (`my.cnf`) includes the `clone` method for both the Donor and Joiner servers. This setting is essential for a successful State Snapshot Transfer (SST).
 
 Starting from Percona XtraDB Cluster 8.4.4-4, the default value of `wsrep_sst_allowed_methods` includes `clone`, which removes the need to configure this option manually in most cases.
 
-```
+```text
 [mysqld]
 wsrep_sst_allowed_methods = xtrabackup-v2,clone
 ```
 
 ### Joiner
 
-On the Joiner server, set the [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_method) variable to `clone` in the configuration file (`my.cnf`). This setting is the only accepted value for the Clone SST process.
+On the Joiner server, set the [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_method) variable to `clone` in the configuration file (`my.cnf`). This setting is the only accepted value for the Clone SST process.
 
-```
+```text
 [mysqld]
 wsrep_sst_method = clone
 ```
@@ -79,7 +81,7 @@ To enable SSL for the Clone SST process, place the SSL certificates in a directo
 
 We recommend explicitly setting the SSL certificates in the `my.cnf` file as follows:
 
-```
+```text
 [client]
 ssl-ca = /<path>/ca.pem
 ssl-cert = /<path>/client-cert.pem
@@ -92,7 +94,7 @@ ssl-key = /<path>/server-key.pem
 
 Alternatively, you can configure the following SSL settings specifically for the Clone SST process on the Joiner:
 
-```
+```text
 [mysqld]
 clone_ssl_ca = /path/to/ca.pem
 clone_ssl_cert = /path/to/client-cert.pem
@@ -113,7 +115,7 @@ The default password requires no extra configuration. The generated password has
 
 If the password policy requires a longer password or more mixed-case, digit, or special characters, add a suffix on the joiner. Add the suffix in `my.cnf` on the joiner:
 
-```
+```text
 [sst]
 sst-password-suffix=AAA..//2344
 ```
@@ -130,7 +132,7 @@ Other characters cause SST to fail. The following characters are not allowed: `+
 
 For a policy like the following:
 
-```
+```text
 validate_password.length = 40
 validate_password.mixed_case_count = 7
 validate_password.number_count = 3
@@ -139,7 +141,7 @@ validate_password.special_char_count = 2
 
 Use the following suffix:
 
-```
+```text
 [sst]
 sst-password-suffix=AAA..//2344
 ```
@@ -152,12 +154,12 @@ Match the suffix to the site password policy. The final password must pass valid
 
 State Snapshot Transfer (SST) in Galera Cluster relies on specific variables that control its configuration and behavior. You must set these variables appropriately to ensure seamless synchronization between nodes during the SST process. The following lists of the most commonly used variables and their purposes.
 
-| Variable                    | Description                                                                                                                                                                                         | Link                                                                                                                |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `sst_idle_timeout`          | Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. Default: 120 seconds. You must define this variable in the `[sst]` section of the `my.cnf` file. |                                                                                                                     |
-| `wsrep_sst_donor`           | Defines the preferred donor node for SST. If not specified, the cluster automatically selects a donor.                                                                                              | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_donor)           |
-| `wsrep_sst_method`          | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected.                                                                                  | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_method)          |
-| `wsrep_sst_receive_address` | Specifies the IP address and port on the Joiner node to receive SST data.                                                                                                                           | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_receive_address) |
+| Variable                    | Description                                                                                                                                                                                         | Link                                                                                                              |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `sst_idle_timeout`          | Sets the maximum time (in seconds) the SST process can remain idle before being considered failed. Default: 120 seconds. You must define this variable in the `[sst]` section of the `my.cnf` file. |                                                                                                                   |
+| `wsrep_sst_donor`           | Defines the preferred donor node for SST. If not specified, the cluster automatically selects a donor.                                                                                              | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_donor)           |
+| `wsrep_sst_method`          | Specifies the method or script used for the State Snapshot Transfer (SST) process. Only one value can be selected.                                                                                  | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_method)          |
+| `wsrep_sst_receive_address` | Specifies the IP address and port on the Joiner node to receive SST data.                                                                                                                           | [Learn more](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_receive_address) |
 
 ### Timeout variables
 
@@ -171,7 +173,7 @@ During the Clone SST process, there are three key moments when the Joiner or Don
 
 These timeout variables can be configured in the `my.cnf` file as follows:
 
-```
+```text
 [sst]
 joiner_timeout_wait_donor_message=60
 donor_timeout_wait_Joiner=200
@@ -182,7 +184,7 @@ joiner_timeout_clone_instance=90
 
 In the same context, if you must debug the process and need more information, you can enable the debug output in my.cnf:
 
-```
+```text
 [sst]
 wsrep-debug=true
 ```
@@ -193,13 +195,13 @@ The default port used by the SST process is 4444.
 
 The Joiner log reports the clone process as a `% of the data transfer completed`. The query used is:
 
-```
+```shell
 SELECT FORMAT(((data/estimate)*100),2) 'completed%' FROM performance_schema.clone_progress WHERE stage LIKE 'FILE_COPY';
 ```
 
 For more information on the progress, you can also use the query:
 
-```
+```shell
 SELECT STATE, ERROR_NO, ERROR_MESSAGE FROM performance_schema.clone_status;
 ```
 

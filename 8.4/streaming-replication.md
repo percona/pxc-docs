@@ -2,9 +2,9 @@
 
 # Streaming replication for large transactions
 
-Streaming replication optimizes replication of large or long-running transactions in Percona XtraDB Cluster (PXC). A node normally executes a transaction fully. The node replicates the complete [write-set](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#write-set) to other nodes at `COMMIT` time. Standard replication works well for most workloads. Very large or lengthy transactions can overwhelm standard replication.
+Streaming replication optimizes replication of large or long-running transactions in Percona XtraDB Cluster (PXC). A node normally executes a transaction fully. The node replicates the complete [write-set](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#write-set) to other nodes at `COMMIT` time. Standard replication works well for most workloads. Very large or lengthy transactions can overwhelm standard replication.
 
-With streaming replication, the initiating node divides the transaction into smaller fragments. Galera [certifies](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#certification) and replicates each fragment while the transaction remains open. Certified fragments lock their rows across the cluster. A later fragment in the same transaction can still fail certification. Streaming replication supports transaction totals larger than 2 GB when each fragment stays within global write-set limits.
+With streaming replication, the initiating node divides the transaction into smaller fragments. Galera [certifies](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#certification) and replicates each fragment while the transaction remains open. Certified fragments lock their rows across the cluster. A later fragment in the same transaction can still fail certification. Streaming replication supports transaction totals larger than 2 GB when each fragment stays within global write-set limits.
 
 Note
 
@@ -14,10 +14,10 @@ Streaming replication is available in Galera Cluster 4.0 and later. PXC uses Gal
 
 The following PXC concepts appear throughout this page:
 
-- [Write-set](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#write-set): the replicated payload that describes row changes in a transaction or fragment.
-- [Certification](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#certification): the conflict-detection step that runs before Galera applies a write-set. See [Certification in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/certification.html).
-- [Flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#flow-control): the mechanism that throttles replication when a node falls behind. See [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#flow-control-variables).
-- Write-set caching: how Galera buffers transaction data before commit. See [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.html).
+- [Write-set](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#write-set): the replicated payload that describes row changes in a transaction or fragment.
+- [Certification](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#certification): the conflict-detection step that runs before Galera applies a write-set. See [Certification in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/certification.md).
+- [Flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#flow-control): the mechanism that throttles replication when a node falls behind. See [Index of wsrep status variables](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#flow-control-variables).
+- Write-set caching: how Galera buffers transaction data before commit. See [Understand GCache and Record-Set cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.md).
 
 ## When should you use streaming replication?
 
@@ -28,7 +28,7 @@ Standard replication is sufficient for most workloads. Streaming replication tar
 Large data transactions are the primary use case. A massive `UPDATE`, `DELETE`, or `INSERT` forces the originating node to hold the full transaction locally. The node sends one large write-set at commit time. Large write-sets can cause these problems:
 
 - Significant replication lag, because the cluster waits for transfer and application of the large write-set.
-- [Flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#flow-control) on peer nodes. Cluster nodes that apply a large transaction cannot commit other transactions. Busy peer nodes can trigger [flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_flow_control_interval) and throttle the cluster.
+- [Flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#flow-control) on peer nodes. Cluster nodes that apply a large transaction cannot commit other transactions. Busy peer nodes can trigger [flow control](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_flow_control_interval) and throttle the cluster.
 
 Streaming replication sends data in fragments throughout the transaction lifetime. Fragmentation spreads network load across the transaction duration. Peer nodes can apply concurrent transactions between fragments. Cluster performance impact stays lower than with a single large write-set at commit.
 
@@ -58,7 +58,7 @@ Frequent rollbacks of streaming transactions increase resource use on every node
 
 ## How do global write-set limits apply to fragments?
 
-[`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_size) and [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_rows) apply to each fragment write-set, not to the full streaming transaction total.
+[`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_size) and [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_rows) apply to each fragment write-set, not to the full streaming transaction total.
 
 Galera evaluates limits when a fragment is replicated and certified. Each fragment must pass `wsrep_max_ws_size` and `wsrep_max_ws_rows` independently. A 5 GB transaction can succeed with streaming replication when fragmentation keeps every fragment under the configured limits.
 
@@ -70,12 +70,12 @@ When `wsrep_trx_fragment_unit` is `bytes`, compare the fragment threshold agains
 
 Enable streaming replication at the session level for transactions that need fragmentation. Two session variables control fragmentation:
 
-- [`wsrep_trx_fragment_unit`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_trx_fragment_unit) defines the unit of replication.
-- [`wsrep_trx_fragment_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_trx_fragment_size) defines how many units form one fragment.
+- [`wsrep_trx_fragment_unit`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_trx_fragment_unit) defines the unit of replication.
+- [`wsrep_trx_fragment_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_trx_fragment_size) defines how many units form one fragment.
 
 Set both variables to enable streaming replication:
 
-```
+```sql
 SET SESSION wsrep_trx_fragment_unit = 'statements';
 SET SESSION wsrep_trx_fragment_size = 10;
 SELECT @@wsrep_trx_fragment_unit, @@wsrep_trx_fragment_size;
@@ -85,7 +85,7 @@ The following output confirms that streaming replication is enabled for the sess
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 
 Query OK, 0 rows affected (0.00 sec)
@@ -134,18 +134,18 @@ Galera creates a new fragment when the accumulated buffer reaches `wsrep_trx_fra
 
 Use these starting points and tune from production observations:
 
-| Setting                | Guidance                                                                                                                                                           |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Minimum practical size | `262144` (256 KB) or higher. Sizes below 256 KB often create fragment thrashing.                                                                                   |
-| Common starting size   | `1048576` (1 MB). Percona testing found 1 MB fragments balance cluster catch-up and origin-node overhead.                                                          |
-| Upper bound            | Each fragment must stay below [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_size) (default 2 GB). |
-| Tuning signal          | Rising `mysql.wsrep_streaming_log` row counts with minimal row progress indicate fragments are too small.                                                          |
+| Setting                | Guidance                                                                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Minimum practical size | `262144` (256 KB) or higher. Sizes below 256 KB often create fragment thrashing.                                                                                 |
+| Common starting size   | `1048576` (1 MB). Percona testing found 1 MB fragments balance cluster catch-up and origin-node overhead.                                                        |
+| Upper bound            | Each fragment must stay below [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_size) (default 2 GB). |
+| Tuning signal          | Rising `mysql.wsrep_streaming_log` row counts with minimal row progress indicate fragments are too small.                                                        |
 
-Compare byte thresholds against `wsrep_max_ws_size`, not against SQL or application payload estimates. Tune from observed `mysql.wsrep_streaming_log` growth and [`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_replicated_bytes) rates during test jobs.
+Compare byte thresholds against `wsrep_max_ws_size`, not against SQL or application payload estimates. Tune from observed `mysql.wsrep_streaming_log` growth and [`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_replicated_bytes) rates during test jobs.
 
-Set [`wsrep_trx_fragment_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_trx_fragment_size) to `0` to disable streaming replication for the session:
+Set [`wsrep_trx_fragment_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_trx_fragment_size) to `0` to disable streaming replication for the session:
 
-```
+```sql
 SET SESSION wsrep_trx_fragment_size = 0;
 SELECT @@wsrep_trx_fragment_size;
 ```
@@ -154,7 +154,7 @@ The following output confirms that streaming replication is disabled for the ses
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 
 +---------------------------+
@@ -165,7 +165,7 @@ Query OK, 0 rows affected (0.00 sec)
 1 row in set (0.00 sec)
 ```
 
-Apply [optimizer `SET_VAR` hints](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_trx_fragment_size) to individual data manipulation language (DML) statements within a transaction. Hints help when a single statement dominates the transaction size.
+Apply [optimizer `SET_VAR` hints](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_trx_fragment_size) to individual data manipulation language (DML) statements within a transaction. Hints help when a single statement dominates the transaction size.
 
 ### How do SET_VAR hints scope inside a transaction?
 
@@ -175,7 +175,7 @@ Session variables set with `SET SESSION` remain in effect for all subsequent sta
 
 Example within one transaction:
 
-```
+```sql
 BEGIN;
 SET SESSION wsrep_trx_fragment_size = 10;
 INSERT /*+ SET_VAR(wsrep_trx_fragment_size = 500) */ INTO t1 SELECT * FROM t2;
@@ -187,7 +187,7 @@ The first `INSERT` fragments at 500 units. The second `INSERT` uses the session 
 
 Verify session state after a hinted statement:
 
-```
+```sql
 SELECT @@wsrep_trx_fragment_size;
 ```
 
@@ -195,7 +195,7 @@ The following output confirms that the session value is unchanged:
 
 Expected output
 
-```
+```text
 +---------------------------+
 | @@wsrep_trx_fragment_size |
 +---------------------------+
@@ -204,9 +204,9 @@ Expected output
 1 row in set (0.00 sec)
 ```
 
-You can apply hints on separate statements within one transaction. The [wsrep-system-index example](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_trx_fragment_size) uses `SET_VAR(wsrep_trx_fragment_size = 100)` on separate `INSERT`, `UPDATE`, and `DELETE` statements. Each statement gets its own fragment threshold. Other statements in the transaction keep the session defaults.
+You can apply hints on separate statements within one transaction. The [wsrep-system-index example](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_trx_fragment_size) uses `SET_VAR(wsrep_trx_fragment_size = 100)` on separate `INSERT`, `UPDATE`, and `DELETE` statements. Each statement gets its own fragment threshold. Other statements in the transaction keep the session defaults.
 
-```
+```sql
 UPDATE /*+ SET_VAR(wsrep_trx_fragment_size = 100) */ work_orders SET status = 'active';
 ```
 
@@ -214,7 +214,7 @@ The following output confirms that the optimizer hint applied the fragment size 
 
 Expected output
 
-```
+```text
 Query OK, 150 rows affected (2.34 sec)
 Rows matched: 150  Changed: 150  Warnings: 0
 ```
@@ -227,26 +227,26 @@ Galera does not expose a dedicated `wsrep_streaming_*` status variable or a cumu
 
 The following table lists variables useful for dashboards and alerts during streaming replication workloads:
 
-| Variable                                                                                                                               | What it indicates                                                       | Alert when                                               |
-| -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------- |
-| `mysql.wsrep_streaming_log` row count                                                                                                  | Active certified fragments on this node (query with `SELECT COUNT(*)`)  | Count stays above zero outside known maintenance windows |
-| [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_local_recv_queue)         | Applier backlog on the local node                                       | Sustained high values during streaming jobs              |
-| [`wsrep_local_recv_queue_avg`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_local_recv_queue_avg) | Smoothed applier backlog                                                | Sustained increase over baseline                         |
-| [`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_flow_control_sent)       | Flow control pauses this node initiated                                 | Rate spikes during large streaming jobs                  |
-| [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_flow_control_recv)       | Flow control pauses this node received                                  | Rate spikes during large streaming jobs                  |
-| [`wsrep_flow_control_paused`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_flow_control_paused)   | Time spent paused by flow control                                       | Sustained non-zero growth                                |
-| [`wsrep_replicated`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_replicated)                     | Write-sets this node sent to the cluster (includes fragment write-sets) | Unusual rate increase on the originating node            |
-| [`wsrep_received`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_received)                         | Write-sets this node received (includes fragment write-sets)            | Unusual rate increase on peer nodes                      |
-| [`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_replicated_bytes)         | Bytes this node sent in write-sets                                      | Sudden sustained increase during streaming               |
-| [`wsrep_received_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_received_bytes)             | Bytes this node received in write-sets                                  | Sudden sustained increase during streaming               |
-| [`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_local_cert_failures)   | Certification failures, including streaming aborts                      | Any sustained increase                                   |
-| [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.html#wsrep_local_bf_aborts)           | Local transactions aborted by conflicting replicated transactions       | Increase during hot-row streaming                        |
+| Variable                                                                                                                             | What it indicates                                                       | Alert when                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------- |
+| `mysql.wsrep_streaming_log` row count                                                                                                | Active certified fragments on this node (query with `SELECT COUNT(*)`)  | Count stays above zero outside known maintenance windows |
+| [`wsrep_local_recv_queue`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_local_recv_queue)         | Applier backlog on the local node                                       | Sustained high values during streaming jobs              |
+| [`wsrep_local_recv_queue_avg`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_local_recv_queue_avg) | Smoothed applier backlog                                                | Sustained increase over baseline                         |
+| [`wsrep_flow_control_sent`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_flow_control_sent)       | Flow control pauses this node initiated                                 | Rate spikes during large streaming jobs                  |
+| [`wsrep_flow_control_recv`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_flow_control_recv)       | Flow control pauses this node received                                  | Rate spikes during large streaming jobs                  |
+| [`wsrep_flow_control_paused`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_flow_control_paused)   | Time spent paused by flow control                                       | Sustained non-zero growth                                |
+| [`wsrep_replicated`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_replicated)                     | Write-sets this node sent to the cluster (includes fragment write-sets) | Unusual rate increase on the originating node            |
+| [`wsrep_received`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_received)                         | Write-sets this node received (includes fragment write-sets)            | Unusual rate increase on peer nodes                      |
+| [`wsrep_replicated_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_replicated_bytes)         | Bytes this node sent in write-sets                                      | Sudden sustained increase during streaming               |
+| [`wsrep_received_bytes`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_received_bytes)             | Bytes this node received in write-sets                                  | Sudden sustained increase during streaming               |
+| [`wsrep_local_cert_failures`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_local_cert_failures)   | Certification failures, including streaming aborts                      | Any sustained increase                                   |
+| [`wsrep_local_bf_aborts`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-status-index.md#wsrep_local_bf_aborts)           | Local transactions aborted by conflicting replicated transactions       | Increase during hot-row streaming                        |
 
 Galera counts each certified fragment as a separate write-set in `wsrep_replicated` and `wsrep_received`. A single large streaming transaction increases these counters incrementally as fragments certify, not only at final `COMMIT`.
 
 Query the recommended variables on every node:
 
-```
+```sql
 SHOW GLOBAL STATUS WHERE Variable_name IN (
   'wsrep_local_recv_queue',
   'wsrep_local_recv_queue_avg',
@@ -262,7 +262,7 @@ SHOW GLOBAL STATUS WHERE Variable_name IN (
 );
 ```
 
-Combine the query above with `mysql.wsrep_streaming_log` on each node for a complete streaming replication dashboard. See [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html) for general PXC alerting guidance.
+Combine the query above with `mysql.wsrep_streaming_log` on each node for a complete streaming replication dashboard. See [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md) for general PXC alerting guidance.
 
 ### Check active fragments in mysql.wsrep_streaming_log
 
@@ -270,7 +270,7 @@ Each row in `mysql.wsrep_streaming_log` represents one certified fragment from a
 
 Count active fragments on a node:
 
-```
+```sql
 SELECT COUNT(*) AS active_fragments FROM mysql.wsrep_streaming_log;
 ```
 
@@ -278,7 +278,7 @@ The following output shows no active streaming transactions:
 
 Expected output
 
-```
+```text
 +------------------+
 | active_fragments |
 +------------------+
@@ -289,7 +289,7 @@ Expected output
 
 List active streaming transactions during a large job:
 
-```
+```sql
 SELECT node_uuid, trx_id, seqno, flags
 FROM mysql.wsrep_streaming_log;
 ```
@@ -298,7 +298,7 @@ The following output shows the latest certified fragment (`seqno = 4`) for one i
 
 Expected output
 
-```
+```text
 +--------------------------------------+--------+-------+-------+
 | node_uuid                            | trx_id | seqno | flags |
 +--------------------------------------+--------+-------+-------+
@@ -313,15 +313,15 @@ The `seqno` value increases as Galera certifies additional fragments for the sam
 
 The variables in the table above cover cluster pressure during streaming jobs. Query all wsrep status variables when you need broader context:
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'wsrep_%';
 ```
 
-For broader cluster monitoring guidance, see [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.html).
+For broader cluster monitoring guidance, see [Monitor the cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/monitoring.md).
 
 ## What does wsrep_SR_store control?
 
-[`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sr_store) defines where Galera persists streaming replication fragments. The variable is global and not dynamic. Change the value only at startup.
+[`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sr_store) defines where Galera persists streaming replication fragments. The variable is global and not dynamic. Change the value only at startup.
 
 ### When wsrep_SR_store is table
 
@@ -364,19 +364,19 @@ Use this emergency playbook when log-table growth threatens disk space:
 
 1. Confirm active streaming fragments on each node:
 
-   ```
+   ```sql
    SELECT COUNT(*) AS active_fragments FROM mysql.wsrep_streaming_log;
    ```
 
 1. Identify the originating node and session. Query fragment metadata to find the origin node:
 
-   ```
+   ```sql
    SELECT DISTINCT node_uuid, trx_id FROM mysql.wsrep_streaming_log;
    ```
 
    The `node_uuid` value identifies the cluster node where the streaming transaction started. Query [`mysql.wsrep_cluster_members`](https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-tables) on any node to map the UUID to a host name or address. Run `SHOW FULL PROCESSLIST` on that node:
 
-   ```
+   ```sql
    SHOW FULL PROCESSLIST;
    ```
 
@@ -384,7 +384,7 @@ Use this emergency playbook when log-table growth threatens disk space:
 
 1. Terminate the connection on the node where the session runs:
 
-   ```
+   ```sql
    KILL <connection_id>;
    ```
 
@@ -394,7 +394,7 @@ Use this emergency playbook when log-table growth threatens disk space:
 
 1. Verify cleanup on every node:
 
-   ```
+   ```sql
    SELECT COUNT(*) AS active_fragments FROM mysql.wsrep_streaming_log;
    ```
 
@@ -402,7 +402,7 @@ Use this emergency playbook when log-table growth threatens disk space:
 
    Expected output
 
-   ```
+   ```text
    +------------------+
    | active_fragments |
    +------------------+
@@ -413,7 +413,7 @@ Use this emergency playbook when log-table growth threatens disk space:
 
 1. Confirm cluster health:
 
-   ```
+   ```sql
    SHOW GLOBAL STATUS LIKE 'wsrep_cluster_status';
    SHOW GLOBAL STATUS LIKE 'wsrep_local_state_comment';
    ```
@@ -426,21 +426,21 @@ Avoid waiting for [`wait_timeout`](https://dev.mysql.com/doc/refman/8.4/en/serve
 
 ## Do tables need a primary key for streaming replication?
 
-Streaming replication uses the same [certification](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#certification) and write-set machinery as standard Galera replication. Tables involved in streaming transactions must have a primary key.
+Streaming replication uses the same [certification](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#certification) and write-set machinery as standard Galera replication. Tables involved in streaming transactions must have a primary key.
 
 Galera uses primary-key values to identify rows for certification and cluster-wide locking. Without a primary key, Galera cannot reliably order or lock individual rows across nodes during fragment certification.
 
-Under [`pxc_strict_mode=ENFORCING`](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html), PXC denies `DELETE` and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming `DELETE` against a table without a primary key fails with an error when strict mode is `ENFORCING`.
+Under [`pxc_strict_mode=ENFORCING`](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md), PXC denies `DELETE` and other undesirable writes to tables without an explicit primary key. Streaming replication does not relax that validation. A streaming `DELETE` against a table without a primary key fails with an error when strict mode is `ENFORCING`.
 
-All tables in the cluster should define a primary key. See [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.html) and [Tables without primary keys](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html).
+All tables in the cluster should define a primary key. See [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md) and [Tables without primary keys](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md).
 
 ## How does streaming replication interact with pxc_strict_mode?
 
-Streaming replication does not require a dedicated [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_strict_mode) setting. The default value `ENFORCING` is supported and recommended.
+Streaming replication does not require a dedicated [`pxc_strict_mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_strict_mode) setting. The default value `ENFORCING` is supported and recommended.
 
-Streaming replication is a supported Galera 4 feature. [`PXC Strict Mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html) does not treat streaming replication as a tech preview capability.
+Streaming replication is a supported Galera 4 feature. [`PXC Strict Mode`](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md) does not treat streaming replication as a tech preview capability.
 
-Strict mode validations still apply inside streaming transactions. Operations that strict mode blocks on a standard transaction are also blocked when streaming replication is enabled for the session. Examples include unsupported storage engines and conflicting plugins listed in [PXC Strict Mode validations](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.html#validations).
+Strict mode validations still apply inside streaming transactions. Operations that strict mode blocks on a standard transaction are also blocked when streaming replication is enabled for the session. Examples include unsupported storage engines and conflicting plugins listed in [PXC Strict Mode validations](https://docs.percona.com/percona-xtradb-cluster/8.4/strict-mode.md#validations).
 
 Keep `pxc_strict_mode=ENFORCING` on all cluster nodes. Streaming replication does not bypass strict mode checks on peer nodes.
 
@@ -450,7 +450,7 @@ Streaming replication affects Galera cluster nodes and downstream async replicas
 
 ### Galera cluster replication (between PXC nodes)
 
-Galera replicates certified fragments to every cluster node while the transaction remains open. Fragments travel through the Galera write-set path. Fragments do not appear in the MySQL binary log during the open transaction. Partial fragment data is stored in `mysql.wsrep_streaming_log` when [`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sr_store) is `table`.
+Galera replicates certified fragments to every cluster node while the transaction remains open. Fragments travel through the Galera write-set path. Fragments do not appear in the MySQL binary log during the open transaction. Partial fragment data is stored in `mysql.wsrep_streaming_log` when [`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sr_store) is `table`.
 
 Other cluster nodes apply certified fragments before final `COMMIT`. Applied fragments hold cluster-wide row locks, but they remain part of an in-progress transaction on every peer node. Under normal isolation levels, other sessions do not read the uncommitted fragment data. Instead, sessions that try to modify the affected rows block on the fragment locks until the originating session commits or rolls back. Only the full transaction boundary is atomic from the application perspective.
 
@@ -468,7 +468,7 @@ Downstream async replicas do not receive streaming fragments in real time. The r
 
 A large streaming transaction can still produce a sudden downstream replication lag spike at commit time. The async replica receives one large binlog transaction, even though PXC cluster nodes applied fragments incrementally during the open transaction.
 
-Configure the PXC source node for async replication as described in [Does Percona XtraDB Cluster work with regular MySQL replication?](https://docs.percona.com/percona-xtradb-cluster/8.4/faq.html#does-percona-xtradb-cluster-work-with-regular-mysql-replication):
+Configure the PXC source node for async replication as described in [Does Percona XtraDB Cluster work with regular MySQL replication?](https://docs.percona.com/percona-xtradb-cluster/8.4/faq.md#does-percona-xtradb-cluster-work-with-regular-mysql-replication):
 
 - Unique non-zero `server_id` on each PXC node.
 - `log_bin` enabled on the node that acts as the replication source. Client writes that originate on the source node are written to the binary log at commit time.
@@ -492,7 +492,7 @@ Configure streaming replication for the queue update with these steps:
 
 1. Begin the transaction:
 
-   ```
+   ```sql
    START TRANSACTION;
    ```
 
@@ -500,13 +500,13 @@ Configure streaming replication for the queue update with these steps:
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
 1. Read the data the transaction requires. Enable streaming replication for the next statement:
 
-   ```
+   ```sql
    SET SESSION wsrep_trx_fragment_unit = 'statements';
    SET SESSION wsrep_trx_fragment_size = 1;
    ```
@@ -515,7 +515,7 @@ Configure streaming replication for the queue update with these steps:
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
 
    Query OK, 0 rows affected (0.00 sec)
@@ -523,7 +523,7 @@ Configure streaming replication for the queue update with these steps:
 
 1. Run the critical update. Galera fragments and replicates the statement immediately:
 
-   ```
+   ```sql
    UPDATE work_orders
       SET queue_position = queue_position + 1;
    ```
@@ -532,14 +532,14 @@ Configure streaming replication for the queue update with these steps:
 
    Expected output
 
-   ```
+   ```text
    Query OK, 1 row affected (0.01 sec)
    Rows matched: 1  Changed: 1  Warnings: 0
    ```
 
 1. Disable streaming replication for the remainder of the transaction:
 
-   ```
+   ```sql
    SET SESSION wsrep_trx_fragment_size = 0;
    ```
 
@@ -547,13 +547,13 @@ Configure streaming replication for the queue update with these steps:
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
 1. Complete non-critical work for the work order. Commit the transaction:
 
-   ```
+   ```sql
    COMMIT;
    ```
 
@@ -561,7 +561,7 @@ Configure streaming replication for the queue update with these steps:
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.01 sec)
    ```
 
@@ -581,13 +581,13 @@ There is no separate administrator timeout for orphaned streaming fragments on h
 
 ### When the crashed node rejoins
 
-The rejoining node was behind the cluster state at the moment of failure. The node typically receives an [IST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#ist) or [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst) from a donor to resynchronize. See [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html).
+The rejoining node was behind the cluster state at the moment of failure. The node typically receives an [IST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#ist) or [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst) from a donor to resynchronize. See [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md).
 
 When `wsrep_SR_store` is `table`, Galera can use `mysql.wsrep_streaming_log` on the restarted node to recover or roll back that node’s own partial streaming state after a crash. When `wsrep_SR_store` is `none`, that local recovery path is not available.
 
 ### When the entire cluster stops during streaming
 
-A power loss or full cluster outage may leave nodes with `seqno: -1` in `grastate.dat`. Follow [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html) to identify the most advanced node and bootstrap the cluster. Streaming log rows from incomplete transactions are resolved during Galera startup and transaction recovery on each node.
+A power loss or full cluster outage may leave nodes with `seqno: -1` in `grastate.dat`. Follow [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md) to identify the most advanced node and bootstrap the cluster. Streaming log rows from incomplete transactions are resolved during Galera startup and transaction recovery on each node.
 
 ## What are the limitations?
 
@@ -595,13 +595,13 @@ Review these limitations before you enable streaming replication.
 
 ### What is the performance overhead?
 
-Galera records write-sets to `mysql.wsrep_streaming_log` on every node when streaming replication is enabled and [`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sr_store) is `table`. The log provides crash recovery for partial transactions. Log writes add overhead. Use streaming replication only when fragmentation is required.
+Galera records write-sets to `mysql.wsrep_streaming_log` on every node when streaming replication is enabled and [`wsrep_SR_store`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sr_store) is `table`. The log provides crash recovery for partial transactions. Log writes add overhead. Use streaming replication only when fragmentation is required.
 
 ### What is the rollback cost?
 
 Galera must roll back every certified fragment on all nodes when a streaming transaction aborts after partial certification. A failure in any fragment aborts the full streaming transaction. Frequent rollbacks of streaming transactions increase resource use on every node.
 
-Prefer shorter, smaller transactions in application design. When large transactions are unavoidable, use streaming replication with appropriately sized fragments instead of raising [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_size) and [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_max_ws_rows) globally.
+Prefer shorter, smaller transactions in application design. When large transactions are unavoidable, use streaming replication with appropriately sized fragments instead of raising [`wsrep_max_ws_size`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_size) and [`wsrep_max_ws_rows`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_max_ws_rows) globally.
 
 ### What happens with SAVEPOINTs inside a streaming transaction?
 
@@ -631,4 +631,4 @@ Galera applies the same safety rule as explicit savepoint rollbacks. Once the fa
 
 #### Application guidance
 
-Prefer plain `BEGIN`, `COMMIT`, and `ROLLBACK` boundaries for streaming transactions. Split complex logic into separate transactions instead of nested savepoints. For general cluster limitations on transaction types, see [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.html).
+Prefer plain `BEGIN`, `COMMIT`, and `ROLLBACK` boundaries for streaming transactions. Split complex logic into separate transactions instead of nested savepoints. For general cluster limitations on transaction types, see [Percona XtraDB Cluster limitations](https://docs.percona.com/percona-xtradb-cluster/8.4/limitation.md).

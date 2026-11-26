@@ -2,7 +2,7 @@
 
 # GCache encryption and Write-Set cache encryption
 
-These features are [tech preview](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#tech-preview). Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+These features are [tech preview](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#tech-preview). Before using these features in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 ## GCache and Write-Set cache encryption
 
@@ -12,11 +12,11 @@ GCache has a RingBuffer on-disk file to manage write-sets. The keyring only stor
 
 See also
 
-For more information, see [Understanding GCache and Record-set Cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.html), and the Percona Database Performance Blog: [All you need to know about GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
+For more information, see [Understanding GCache and Record-set Cache](https://docs.percona.com/percona-xtradb-cluster/8.4/gcache-record-set-cache-difference.md), and the Percona Database Performance Blog: [All you need to know about GCache](https://www.percona.com/blog/2016/11/16/all-you-need-to-know-about-gcache-galera-cache/)
 
 Sample preamble key-value pairs
 
-```
+```text
 Version: 2
 GID: 3afaa71d-6665-11ed-98de-2aba4aabc65e
 synced: 0
@@ -62,7 +62,7 @@ GCache and Write-Set cache encryption uses either a keyring plugin or a keyring 
 
 Store the keyring file outside the data directory when using a keyring plugin or a keyring component.
 
-```
+```sql
 ALTER INSTANCE ROTATE GCACHE MASTER KEY;
 ```
 

@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Index of wsrep system variables" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -4032,14 +4032,14 @@ which is alive and a member of the cluster.
 In practice, it is best (but not necessary) to provide a complete list
 of all possible cluster nodes.
 The value should be of the following format:</p>
-<div class="no-copy highlight"><pre><span></span><code>&lt;schema&gt;://&lt;address&gt;[?&lt;option1&gt;=&lt;value1&gt;[&amp;&lt;option2&gt;=&lt;value2&gt;]],...
+<div class="language-text no-copy highlight"><pre><span></span><code>&lt;schema&gt;://&lt;address&gt;[?&lt;option1&gt;=&lt;value1&gt;[&amp;&lt;option2&gt;=&lt;value2&gt;]],...
 </code></pre></div>
 <p>The only back-end schema currently supported is <code>gcomm</code>.
 The IP address can contain a port number after a colon.
 Options are specified after <code>?</code> and separated by <code>&amp;</code>.
 You can specify multiple addresses separated by commas.</p>
 <p>For example:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
+<div class="language-text no-copy highlight"><pre><span></span><code>wsrep_cluster_address="gcomm://192.168.0.1:4567?gmcast.listen_addr=0.0.0.0:5678"
 </code></pre></div>
 <p>If an empty <code>gcomm://</code> is provided, the node will bootstrap itself
 (that is, form a new cluster).
@@ -4084,15 +4084,15 @@ you should pass the <code>--wsrep-new-cluster</code> option when starting.</p>
 </table>
 <p>Specifies the cluster&rsquo;s name, which must be identical on all nodes. A node checks the value when attempting to connect to the cluster. If the names match, the node connects. </p>
 <p>Edit the value in the <code>my.cnf</code> in the [galera] section.</p>
-<div class="no-copy highlight"><pre><span></span><code>[galera]
+<div class="language-text no-copy highlight"><pre><span></span><code>[galera]
     wsrep_cluster_name=simple-cluster
 </code></pre></div>
 <p>Execute <code>SHOW VARIABLES</code> with the LIKE operator to view the variable:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_name'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_name'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------+----------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------+----------------+
 | Variable_name      | Value          |
 +--------------------+----------------+
 | wsrep_cluster_name | simple-cluster |
@@ -4336,22 +4336,22 @@ such as <code>INSERT</code>, <code>DELETE</code>, and <code>UPDATE</code>).</p>
 <p>To avoid deadlock errors,
 set the <a href="wsrep-system-index.html#wsrep_sync_wait"><code>wsrep_sync_wait</code></a> variable to <code>0</code> if you enable <code>wsrep_dirty_reads</code>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var"><code>set_var hint</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------------------+
 | @@wsrep_dirty_reads   |
 +-----------------------+
 | OFF                   |
 +-----------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_dirty_reads=ON) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_dirty_reads=ON) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_dirty_reads</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------------------+
 | @@wsrep_dirty_reads   |
 +-----------------------+
 | ON                    |
@@ -4905,7 +4905,7 @@ For example:</p>
 </li>
 </ul>
 <p>The value should be specified in the following format:</p>
-<div class="no-copy highlight"><pre><span></span><code>&lt;ip_address&gt;[:port]
+<div class="language-text no-copy highlight"><pre><span></span><code>&lt;ip_address&gt;[:port]
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -5254,7 +5254,7 @@ Rejecting queries can be useful during upgrades,
 when you want to keep the node up and apply write-sets
 without accepting queries.</p>
 <p>When a query is rejected, the following error is returned:</p>
-<div class="no-copy highlight"><pre><span></span><code>Error 1047: Unknown command
+<div class="language-text no-copy highlight"><pre><span></span><code>Error 1047: Unknown command
 </code></pre></div>
 <p>The following values are available:</p>
 <ul>
@@ -5738,7 +5738,7 @@ that the current node should prefer as donors for <a href="glossary.html#sst">SS
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Using IP addresses of nodes instead of node names (the value of <a href="wsrep-system-index.html#wsrep_node_name"><code>wsrep_node_name</code></a>) as values of <a href="wsrep-system-index.html#wsrep_sst_donor"><code>wsrep_sst_donor</code></a> results in an error.</p>
-<div class="no-copy highlight"><pre><span></span><code>ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR] WSREP: State transfer request failed unrecoverably: 113 (No route
 to host). Most likely it is due to inability to communicate with the
 cluster primary component. Restart required.
 </code></pre></div>
@@ -5747,7 +5747,7 @@ cluster primary component. Restart required.
 becomes the donor and will not be able to serve requests during the state transfer.</p>
 <p>To consider other nodes if the listed nodes are not available,
 add a comma at the end of the list, for example:</p>
-<div class="no-copy highlight"><pre><span></span><code>wsrep_sst_donor=node1,node2,
+<div class="language-text no-copy highlight"><pre><span></span><code>wsrep_sst_donor=node1,node2,
 </code></pre></div>
 <p>If you remove the trailing comma from the previous example,
 then the joining node will consider <em>only</em> <code>node1</code> and <code>node2</code>.</p>
@@ -5928,22 +5928,22 @@ the cluster can be set up without the state transfer.</p>
 Checks ensure that the statement is executed on a node
 that is fully synced with the cluster.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+
 | @@wsrep_sync_wait   |
 +---------------------+
 | 3                   |
 +---------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_sync_wait=7) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_sync_wait=7) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_sync_wait</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+
 | @@wsrep_sync_wait   |
 +---------------------+
 | 7                   |
@@ -6025,11 +6025,11 @@ and <code>REPLACE</code> statements.</p>
 <p>Defines the streaming replication fragment size. This variable is measured in the value defined by <code>wsrep_trx_fragment_unit</code>. The minimum value is 0 and the maximum value is 2147483647. A value of <code>0</code> disables streaming replication.</p>
 <p>For an overview of when and how to use streaming replication, see <a href="streaming-replication.html">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+
 | statements                   |
@@ -6042,11 +6042,11 @@ and <code>REPLACE</code> statements.</p>
 +------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size=5) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size=5) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_size    |
 +------------------------------+
 | 5                            |
@@ -6054,7 +6054,7 @@ and <code>REPLACE</code> statements.</p>
 </code></pre></div>
 </details>
 <p>You can also use set_var() in a Data Manipulation Language (DML) statement. This ability is useful when streaming large statements within a transaction.</p>
-<div class="no-copy highlight"><pre><span></span><code>BEGIN;
+<div class="language-text no-copy highlight"><pre><span></span><code>BEGIN;
 Query OK, 0 rows affected (0.00 sec)
 INSERT /*+SET_VAR(wsrep_trx_fragment_size = 100)*/ INTO t1 SELECT * FROM t1; 
 Query OK, 65536 rows affected (15.15 sec)
@@ -6115,11 +6115,11 @@ Query OK, 131072 rows affected (15.09 sec)
 <p>Defines the type of measure for the <code>wsrep_trx_fragment_size</code>. The possible values are: bytes, rows, statements.</p>
 <p>For an overview of when and how to use streaming replication, see <a href="streaming-replication.html">Streaming replication for large transactions</a>.</p>
 <p>You can update the variable with a <a href="https://dev.mysql.com/doc/refman/8.4/en/optimizer-hints.html#optimizer-hints-set-var">set_var hint <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+
 | statements                   |
@@ -6132,11 +6132,11 @@ Query OK, 131072 rows affected (15.09 sec)
 +------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_unit=rows) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_unit=rows) */</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------------+
 | @@wsrep_trx_fragment_unit    |
 +------------------------------+
 | rows                         |

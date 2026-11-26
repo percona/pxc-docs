@@ -12,17 +12,17 @@ Tip
 
 Running ProxySQL on an application server, instead of having it as a dedicated entity, removes the unnecessary extra network roundtrip, because the load balancing layer in Percona XtraDB Cluster scales well with application servers.
 
-1. Install Percona XtraDB Cluster on three cluster nodes, as described in [Configure on RHEL](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.html#configure-a-cluster-on-red-hat-based-distributions).
+1. Install Percona XtraDB Cluster on three cluster nodes, as described in [Configure on RHEL](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions).
 
-1. On the client node, install [ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html#load-balance-with-proxysql) and `sysbench`:
+1. On the client node, install [ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md#load-balance-with-proxysql) and `sysbench`:
 
-   ```
+   ```shell
    dnf -y install proxysql sysbench
    ```
 
 1. When all cluster nodes are started, configure ProxySQL using the admin interface.
 
-   ````
+   ````text
    !!! admonition "Tip"
 
        To connect to the ProxySQL admin interface, you need a ``mysql`` client.
@@ -158,7 +158,7 @@ Running ProxySQL on an application server, instead of having it as a dedicated e
 
 To configure the backend Percona XtraDB Cluster nodes in ProxySQL, insert corresponding records into the mysql_servers table.
 
-```
+```sql
 INSERT INTO mysql_servers (hostname,hostgroup_id,port,weight) VALUES ('192.168.70.71',10,3306,1000);
 INSERT INTO mysql_servers (hostname,hostgroup_id,port,weight) VALUES ('192.168.70.72',10,3306,1000);
 INSERT INTO mysql_servers (hostname,hostgroup_id,port,weight) VALUES ('192.168.70.73',10,3306,1000);
@@ -184,7 +184,7 @@ This information is stored in the [runtime\_]mysql_galera_hostgroups table.
 
 Make sure that the variable mysql-server_version refers to the correct version. For Percona XtraDB Cluster 8.4, set it to 8.4 accordingly:
 
-```
+```sql
 UPDATE GLOBAL_VARIABLES
 SET variable_value='8.4'
 WHERE variable_name='mysql-server_version';
@@ -198,7 +198,7 @@ See also
 
 Given the nodes from the mysql_servers table, you may set up the hostgroups as follows:
 
-```
+```sql
 INSERT INTO mysql_galera_hostgroups (
 writer_hostgroup, backup_writer_hostgroup, reader_hostgroup,
 offline_hostgroup, active, max_writers, writer_is_also_reader,
@@ -210,31 +210,31 @@ This command configures ProxySQL as follows:
 
 WRITER hostgroup
 
-```
+```text
 hostgroup `10`
 ```
 
 READER hostgroup
 
-```
+```text
 hostgroup `11`
 ```
 
 BACKUP WRITER hostgroup
 
-```
+```text
 hostgroup `12`
 ```
 
 OFFLINE hostgroup
 
-```
+```text
 hostgroup `13`
 ```
 
 Set up ProxySQL query rules for read/write split using the mysql_query_rules table:
 
-```
+```sql
 INSERT INTO mysql_query_rules (
 username,destination_hostgroup,active,match_digest,apply)
 VALUES ('appuser',10,1,'^SELECT.*FOR UPDATE',1);
@@ -248,7 +248,7 @@ select hostgroup_id,hostname,port,status,weight from runtime_mysql_servers;
 
 Expected output
 
-```
+```text
 +--------------+----------------+------+--------+--------+
 | hostgroup_id | hostname       | port | status | weight |
 +--------------+----------------+------+--------+--------+
@@ -269,13 +269,13 @@ See also
 
 Notice that all servers were inserted into the mysql_servers table with the READER hostgroup set to 10 (see the value of the hostgroup_id column):
 
-```
+```sql
 SELECT * FROM mysql_servers;
 ```
 
 Expected output
 
-```
+```text
 +--------------+---------------+------+--------+     +---------+
 | hostgroup_id | hostname      | port | weight | ... | comment |
 +--------------+---------------+------+--------+     +---------+
@@ -294,7 +294,7 @@ To enable monitoring of Percona XtraDB Cluster nodes in ProxySQL, create a user 
 
 The following example adds a monitoring user on Node 2 if you are using the `caching_sha2_password` authentication method:
 
-```
+```sql
 CREATE USER 'proxysql'@'%' \
         IDENTIFIED WITH caching_sha2_password \
         BY 'ProxySQLPa55';
@@ -302,13 +302,13 @@ CREATE USER 'proxysql'@'%' \
 
 For either authentication method, run the following command to give the user account named ‘proxysql’ permission to connect to any database and perform basic actions like checking if the database is read-only. This privilege is often used for tools that need to monitor or interact with a MySQL server.
 
-```
+```sql
 GRANT USAGE ON *.* TO 'proxysql'@'%';
 ```
 
 The following example shows how to configure this user on the ProxySQL node:
 
-```
+```sql
 UPDATE global_variables SET variable_value='proxysql'
 WHERE variable_name='mysql-monitor_username';
 UPDATE global_variables SET variable_value='ProxySQLPa55'
@@ -319,20 +319,20 @@ WHERE variable_name='mysql-monitor_password';
 
 To load this configuration at runtime, issue the `LOAD` command. To save these changes to disk (ensuring that they persist after ProxySQL shuts down), issue the `SAVE` command.
 
-```
+```sql
 LOAD MYSQL VARIABLES TO RUNTIME;
 SAVE MYSQL VARIABLES TO DISK;
 ```
 
 To ensure that monitoring is enabled, check the monitoring logs:
 
-```
+```sql
 SELECT * FROM monitor.mysql_server_connect_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 Expected output
 
-```
+```text
 +---------------+------+------------------+----------------------+---------------+
 | hostname      | port | time_start_us    | connect_success_time | connect_error |
 +---------------+------+------------------+----------------------+---------------+
@@ -346,13 +346,13 @@ Expected output
 6 rows in set (0.00 sec)
 ```
 
-```
+```sql
 SELECT * FROM monitor.mysql_server_ping_log ORDER BY time_start_us DESC LIMIT 6;
 ```
 
 Expected output
 
-```
+```text
 +---------------+------+------------------+-------------------+------------+
 | hostname      | port | time_start_us    | ping_success_time | ping_error |
 +---------------+------+------------------+-------------------+------------+
@@ -370,7 +370,7 @@ The previous examples show that ProxySQL is able to connect and ping the nodes y
 
 To enable monitoring of these nodes, load them at runtime:
 
-```
+```sql
 LOAD MYSQL SERVERS TO RUNTIME;
 ```
 
@@ -380,7 +380,7 @@ ProxySQL must have users that can access backend nodes to manage connections.
 
 To add a user, insert credentials into `mysql_users` table:
 
-```
+```sql
 INSERT INTO mysql_users (username,password) VALUES ('appuser','$3kRetp@$sW0rd');
 ```
 
@@ -388,7 +388,7 @@ The example of the output is the following:
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.00 sec)
 ```
 
@@ -402,20 +402,20 @@ See also
 
 Load the user into runtime space and save these changes to disk (ensuring that they persist after ProxySQL shuts down):
 
-```
+```sql
 LOAD MYSQL USERS TO RUNTIME;
 SAVE MYSQL USERS TO DISK;
 ```
 
 To confirm that the user has been set up correctly, you can try to log in:
 
-```
+```shell
 mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033
 ```
 
 Expected output
 
-```
+```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 1491
 Server version: ... (ProxySQL)
@@ -425,7 +425,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 The following example adds an `appuser` user account if you are using the `caching_sha2_password` authentication method:
 
-```
+```sql
 CREATE USER 'appuser'@'192.168.70.74' \
         IDENTIFIED WITH caching_sha2_password \
         BY '$3kRetp@$sW0rd';
@@ -433,7 +433,7 @@ CREATE USER 'appuser'@'192.168.70.74' \
 
 The following example command grants the `appuser` account all privileges on all databases and tables.
 
-```
+```sql
 GRANT ALL ON *.* TO 'appuser'@'192.168.70.74';
 ```
 
@@ -443,7 +443,7 @@ Run the following checks after setup to confirm that the virtual sandbox is work
 
 1. Verify ProxySQL admin login:
 
-```
+```shell
 mysql -u admin -padmin -h 127.0.0.1 -P 6032
 ```
 
@@ -451,7 +451,7 @@ Expected result: ProxySQL admin prompt opens without errors.
 
 1. Verify backend status in ProxySQL:
 
-```
+```sql
 SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
 ```
 
@@ -459,7 +459,7 @@ Expected result: all configured backend nodes show `ONLINE`.
 
 1. Verify end-to-end query routing through ProxySQL:
 
-```
+```shell
 mysql -u appuser -p$3kRetp@$sW0rd -h 127.0.0.1 -P 6033 -e "SELECT @@hostname;"
 ```
 
@@ -471,7 +471,7 @@ Expected result: query returns a backend node hostname.
 
 1. Re-run:
 
-   ```
+   ```sql
    SELECT hostgroup_id,hostname,port,status FROM runtime_mysql_servers;
    ```
 
@@ -483,7 +483,7 @@ After you set up Percona XtraDB Cluster in your testing environment, you can tes
 
 1. Create a database (sysbenchdb in this example; you can use a different name):
 
-   ````
+   ````text
    ```sql
    CREATE DATABASE sysbenchdb;
    ````
@@ -503,7 +503,7 @@ After you set up Percona XtraDB Cluster in your testing environment, you can tes
 
 1. Populate the table with data for the benchmark. Note that you should pass the database you have created as the value of the `--mysql-db` parameter, and the name of the user who has full access to this database as the value of the `--mysql-user` parameter:
 
-   ```
+   ```shell
    sysbench /usr/share/sysbench/oltp_insert.lua --mysql-db=sysbenchdb \
    --mysql-host=127.0.0.1 --mysql-port=6033 --mysql-user=appuser \
    --mysql-password=$3kRetp@$sW0rd --db-driver=mysql --threads=10 --tables=10 \
@@ -512,7 +512,7 @@ After you set up Percona XtraDB Cluster in your testing environment, you can tes
 
 1. Run the benchmark on port 6033:
 
-   ```
+   ```shell
    sysbench /usr/share/sysbench/oltp_read_write.lua --mysql-db=sysbenchdb \
    --mysql-host=127.0.0.1 --mysql-port=6033 --mysql-user=appuser \
    --mysql-password=$3kRetp@$sW0rd --db-driver=mysql --threads=10 --tables=10 \
@@ -523,8 +523,8 @@ ______________________________________________________________________
 
 For more information, see:
 
-- [Load balancing with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.html#load-balance-with-proxysql)
-- [Configure on RHEL](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.html#configure-a-cluster-on-red-hat-based-distributions)
-- [Verify replication in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.html)
-- [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.html)
-- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.html)
+- [Load balancing with ProxySQL](https://docs.percona.com/percona-xtradb-cluster/8.4/load-balance-proxysql.md#load-balance-with-proxysql)
+- [Configure on RHEL](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions)
+- [Verify replication in Percona XtraDB Cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/verify-replication.md)
+- [Crash recovery](https://docs.percona.com/percona-xtradb-cluster/8.4/crash-recovery.md)
+- [High availability](https://docs.percona.com/percona-xtradb-cluster/8.4/high-availability.md)

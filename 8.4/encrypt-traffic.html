@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Encrypt PXC traffic" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3722,12 +3722,12 @@ preventing nodes from joining the cluster.</p>
 then copy them to all other nodes.</p>
 <h3 id="recommended-certificate-storage">Recommended Certificate Storage<a data-markdown-ignore class="headerlink" href="#recommended-certificate-storage" title="Permanent link">&para;</a></h3>
 <p>Instead of storing certificates in the data directory, relocate them to a dedicated directory:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/mysql/certs
+<div class="language-shell highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/mysql/certs
 mv<span class="w"> </span>/var/lib/mysql/*.pem<span class="w"> </span>/etc/mysql/certs/
 chown<span class="w"> </span>-R<span class="w"> </span>mysql:mysql<span class="w"> </span>/etc/mysql/certs
 </code></pre></div>
 <p>Then update your configuration in /etc/mysql/mysql.conf.d/mysqld.cnf:</p>
-<div class="no-copy highlight"><pre><span></span><code>ssl-key=/etc/mysql/certs/server-key.pem
+<div class="language-text no-copy highlight"><pre><span></span><code>ssl-key=/etc/mysql/certs/server-key.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
 ssl-ca=/etc/mysql/certs/ca.pem
 </code></pre></div>
@@ -3763,7 +3763,7 @@ encryption settings, including <code>encrypt</code>, <code>ssl_key</code>, <code
 exchange between nodes.</p>
 <p>Administrators can explicitly configure encryption in <code>my.cnf</code> configuration file by setting <code>pxc-encrypt-cluster-traffic=ON</code>. </p>
 <p>This configuration applies the following settings:</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 wsrep_provider_options=”socket.ssl_key=server-key.pem;socket.ssl_cert=server-cert.pem;socket.ssl_ca=ca.pem”
 [sst]
 encrypt=4
@@ -3777,7 +3777,7 @@ ssl-cert=server-cert.pem
 <p><code>Authentication requires secure connection</code></p>
 <p>This error indicates that the replica is attempting to connect to the source server using a user account that requires an encrypted connection, but the replication client is not providing one. This behavior stems from stricter defaults in MySQL 8.4, such as accounts created with <code>REQUIRE SSL</code> or the server setting <code>require_secure_transport=ON</code>.</p>
 <p>To resolve this on the replica, configure replication to use SSL:</p>
-<div class="highlight"><pre><span></span><code>STOP<span class="w"> </span>REPLICA<span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>STOP<span class="w"> </span>REPLICA<span class="p">;</span>
 CHANGE<span class="w"> </span>REPLICATION<span class="w"> </span>SOURCE<span class="w"> </span>TO<span class="w"> </span><span class="nv">SOURCE_SSL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">;</span>
 START<span class="w"> </span>REPLICA<span class="p">;</span>
 </code></pre></div>
@@ -3854,7 +3854,7 @@ a running cluster requires restarting the entire cluster.</p>
 <p>To enable encryption during SST, administrators must configure the necessary settings in the cluster configuration file. When using the keyring_file plugin, encryption becomes mandatory. The system must transfer the keyring along with encrypted data files to ensure decryption. Without this step, the recipient node cannot access the transferred data.</p>
 <p>For more information, see <a href="state-snapshot-transfer.html#state-snapshot-transfer">State snapshot transfer</a>.</p>
 <p>The following options are to be set in <code>my.cnf</code> on all nodes:</p>
-<div class="no-copy highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
+<div class="language-text no-copy highlight"><pre><span></span><code>early-plugin-load=keyring_file.so
 keyring-file-data=/path/to/keyring/file
 </code></pre></div>
 <p>The cluster will not work if keyring configuration across nodes is
@@ -3878,7 +3878,7 @@ files to maintain a secure and consistent encryption setup.</p>
 <p>All nodes must use identical key and certificate files to ensure a consistent security setup.</p>
 </div>
 <p>An example configuration in <code>my.cnf</code>:</p>
-<div class="no-copy highlight"><pre><span></span><code>[sst]
+<div class="language-text no-copy highlight"><pre><span></span><code>[sst]
 encrypt=4
 ssl-ca=/etc/mysql/certs/ca.pem
 ssl-cert=/etc/mysql/certs/server-cert.pem
@@ -3889,13 +3889,13 @@ However, versions of <code>socat</code> earlier than 1.7.3 use 512-bit parameter
 If a <code>dhparams.pem</code> file of the required length is not found during SST in the data directory, a 2048-bit file is generated, which can take several minutes.</p>
 <p>To avoid this delay, create the <code>dhparams.pem</code> file manually and place the file in the data directory before joining the node to the cluster.</p>
 <p>An example command to generate the <code>dhparams.pem</code> file:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>dhparam<span class="w"> </span>-out<span class="w"> </span>/path/to/datadir/dhparams.pem<span class="w"> </span><span class="m">2048</span>
 </code></pre></div>
 <p>For more information, see <a href="https://www.percona.com/blog/percona-xtradb-cluster-dh-key-too-small-error-during-an-sst-using-ssl/">Percona XtraDB Cluster: “dh key too small” error during an SST using SSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h3 id="clone">clone<a data-markdown-ignore class="headerlink" href="#clone" title="Permanent link">&para;</a></h3>
 <p>Clone SST uses MySQL&rsquo;s native clone plugin rather than XtraBackup, so it doesn&rsquo;t use the <code>[sst]</code> section <code>encrypt</code> option described in <a href="#xtrabackup">xtrabackup</a>. Instead, encryption relies on the standard MySQL SSL settings under <code>[mysqld]</code>/<code>[client]</code>, or on a set of variables specific to the Clone SST process.</p>
 <p>Configure encryption using the shared MySQL SSL settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[client]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[client]</span>
 <span class="na">ssl-ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/ca.pem</span>
 <span class="na">ssl-cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-cert.pem</span>
 <span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/client-key.pem</span>
@@ -3905,7 +3905,7 @@ If a <code>dhparams.pem</code> file of the required length is not found during S
 <span class="na">ssl-key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/&lt;path&gt;/server-key.pem</span>
 </code></pre></div>
 <p>Alternatively, configure SSL settings specifically for the Clone SST process on the Joiner:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">clone_ssl_ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/ca.pem</span>
 <span class="na">clone_ssl_cert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-cert.pem</span>
 <span class="na">clone_ssl_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/path/to/client-key.pem</span>
@@ -3956,7 +3956,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 </ul>
 <p>To configure these encryption settings, define the required parameters in the configuration file using the <a href="wsrep-system-index.html#wsrep_provider_options"><code>wsrep_provider_options</code></a> variable. This ensures secure replication traffic across the cluster.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/ca.pem;socket.ssl_cert=/etc/mysql/certs/server-cert.pem;socket.ssl_key=/etc/mysql/certs/server-key.pem"</span>
 </code></pre></div>
 <p>All nodes must share the same key and certificate files to maintain a secure and consistent encryption setup. Ideally, use the same files configured for <a href="#encrypt-client-server-communication">Encrypt client-server</a> communication to simplify management and ensure compatibility across the cluster.</p>
 <p>Check <a href="#upgrade-certificates">upgrade-certificate</a> section on how to upgrade existing certificates.</p>
@@ -3993,13 +3993,13 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate the CA key file:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>ca-key.pem
 </code></pre></div>
 <p>The command generates a 2048-bit RSA private key and saves the key to <code>ca-key.pem</code>. This key is essential for signing certificates.</p>
 </li>
 <li>
 <p>Generate the CA certificate file:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span>
 <span class="w">    </span>-key<span class="w"> </span>ca-key.pem<span class="w"> </span>-out<span class="w"> </span>ca.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -4025,7 +4025,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate a new RSA key pair and certificate request:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-req.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -4046,12 +4046,12 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 <li>
 <p>This command reads an RSA private key from the <code>server-key.pem</code> file, processes the key, and then writes the processed key back to the same file, removing the passphrase.</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-key.pem
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>server-key.pem<span class="w"> </span>-out<span class="w"> </span>server-key.pem
 </code></pre></div>
 </li>
 <li>
 <p>This command generates a signed certificate from a CSR using a specified CA certificate and its corresponding private key. The command also sets a defined validity period and serial number for the new certificate.</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>server-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-out<span class="w"> </span>server-cert.pem
 </code></pre></div>
@@ -4083,7 +4083,7 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 <ol>
 <li>
 <p>Generate the client key file:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-nodes<span class="w"> </span>-keyout<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-req.pem
 </code></pre></div>
 <p>The command does the following:</p>
@@ -4104,13 +4104,13 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </li>
 <li>
 <p>Remove the passphrase:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>client-key.pem<span class="w"> </span>-out<span class="w"> </span>client-key.pem
 </code></pre></div>
 <p>The command ensures the private key (server-key.pem) is stored without a passphrase.</p>
 </li>
 <li>
 <p>Sign the certificate request using the CA certificate and key:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span>client-req.pem<span class="w"> </span>-days<span class="w"> </span><span class="m">3600</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-CA<span class="w"> </span>ca.pem<span class="w"> </span>-CAkey<span class="w"> </span>ca-key.pem<span class="w"> </span>-set_serial<span class="w"> </span><span class="m">01</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>-out<span class="w"> </span>client-cert.pem
 </code></pre></div>
@@ -4133,19 +4133,19 @@ define the paths to the key, specify the paths to the key, certificate, and cert
 </div>
 <h3 id="verify-certificates">Verify certificates<a data-markdown-ignore class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
 <p>To check whether the server and client certificates are properly signed by the Certificate Authority (CA) certificate, run the following command:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>ca.pem<span class="w"> </span>server-cert.pem<span class="w"> </span>client-cert.pem
 </code></pre></div>
 <p>This command verifies that the server and client certificates are valid and trusted by the specified CA certificate (<code>ca.pem</code>). If the certificates are correctly signed, OpenSSL returns a confirmation message;<br />
 otherwise, error details indicate issues with the certificate chain.</p>
-<div class="no-copy highlight"><pre><span></span><code>server-cert.pem: OK
+<div class="language-text no-copy highlight"><pre><span></span><code>server-cert.pem: OK
 client-cert.pem: OK
 </code></pre></div>
 <h3 id="failed-validation-caused-by-matching-cn">Failed validation caused by matching CN<a data-markdown-ignore class="headerlink" href="#failed-validation-caused-by-matching-cn" title="Permanent link">&para;</a></h3>
 <p>An SSL configuration may fail if the certificate and CA files share the same attributes. To verify whether this is causing the issue, run the following openssl command and check that the CN field differs between the <code>Subject</code> and <code>Issuer</code> lines.</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-text<span class="w"> </span>-noout
 </code></pre></div>
 <p><strong>Incorrect values</strong></p>
-<div class="no-copy highlight"><pre><span></span><code>Certificate:
+<div class="language-text no-copy highlight"><pre><span></span><code>Certificate:
 Data:
 Version: 1 (0x0)
 Serial Number: 1 (0x1)
@@ -4156,11 +4156,11 @@ Subject: CN=www.percona.com, O=Database Performance., C=AU
 ...
 </code></pre></div>
 <p>To obtain a more compact output run <code>openssl</code> specifying <code>-subject</code> and <code>-issuer</code> parameters:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-noout
+<div class="language-shell highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>server-cert.pem<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-noout
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>subject= /CN=www.percona.com/O=Database Performance./C=AU
+<div class="language-text no-copy highlight"><pre><span></span><code>subject= /CN=www.percona.com/O=Database Performance./C=AU
 issuer= /CN=www.percona.com/O=Database Performance./C=US
 </code></pre></div>
 </details>
@@ -4199,16 +4199,16 @@ Set permissions to limit access, ensuring only <code>mysqld</code> has read righ
 <p>Restart the first node with the <a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a> option set to a combination of the the old and new certificates in a single file.</p>
 <p>For example, you can merge contents of <code>old-ca.pem</code>
 and <code>new-ca.pem</code> into <code>upgrade-ca.pem</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>cat<span class="w"> </span>old-ca.pem<span class="w"> </span>&gt;<span class="w"> </span>upgrade-ca.pem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 cat<span class="w"> </span>new-ca.pem<span class="w"> </span>&gt;&gt;<span class="w"> </span>upgrade-ca.pem
 </code></pre></div>
 <p>Set the <a href="wsrep-system-index.html#index-of-wsrep-system-variables"><code>wsrep_provider_options</code></a> variable as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/upgrade-ca.pem;socket.ssl_cert=/etc/mysql/certs/old-cert.pem;socket.ssl_key=/etc/mysql/certs/old-key.pem"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Restart the second node with the <a href="wsrep-provider-index.html#socketssl_ca"><code>socket.ssl_ca</code></a>, <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_cert</code></a>, and <a href="wsrep-provider-index.html#socketssl_cert"><code>socket.ssl_key</code></a> options set to the corresponding new certificate files.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"</span>
+<div class="language-shell highlight"><pre><span></span><code><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s2">"socket.ssl=yes;socket.ssl_ca=/etc/mysql/certs/new-ca.pem;socket.ssl_cert=/etc/mysql/certs/new-cert.pem;socket.ssl_key=/etc/mysql/certs/new-key.pem"</span>
 </code></pre></div>
 </li>
 <li>

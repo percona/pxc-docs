@@ -97,7 +97,7 @@ Enables SST encryption mode in Percona XtraBackup:
 
 Considering that you have all three necessary files:
 
-```
+```text
 [sst]
 encrypt=4
 ssl-ca=ca.pem
@@ -107,15 +107,15 @@ ssl-key=server-key.pem
 
 Note
 
-The default value of `4` depends on [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#pxc_encrypt_cluster_traffic), which is `ON` by default and automatically sets `encrypt=4`. If `pxc-encrypt-cluster-traffic` is disabled, `encrypt` reverts to `0` unless you set the value explicitly.
+The default value of `4` depends on [`pxc-encrypt-cluster-traffic`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#pxc_encrypt_cluster_traffic), which is `ON` by default and automatically sets `encrypt=4`. If `pxc-encrypt-cluster-traffic` is disabled, `encrypt` reverts to `0` unless you set the value explicitly.
 
-For more information, see [Encrypting PXC Traffic](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.html#encrypt-pxc-traffic).
+For more information, see [Encrypting PXC Traffic](https://docs.percona.com/percona-xtradb-cluster/8.4/encrypt-traffic.md#encrypt-pxc-traffic).
 
 ### sockopt
 
 Used to specify key/value pairs of socket options, separated by commas, for example:
 
-```
+```text
 [sst]
 sockopt="retry=2,interval=3"
 ```
@@ -176,22 +176,22 @@ Rate is limited on donor node. The rationale behind this is to not allow SST to 
 
 ### cpat
 
-```
+```text
 **Default**: `'.*\.pem$\|.*init\.ok$\|.*galera\.cache$\|.*sst_in_progress$\|.*sst-xb-tmpdir$\|.*gvwstate\.dat$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*component_keyring_.*\.cnf$\|.*mysqld.my$'`
 ```
 
-Used to define the files that need to be retained in the [datadir](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#datadir) before running SST, so that the state of the other node can be restored cleanly.
+Used to define the files that need to be retained in the [datadir](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#datadir) before running SST, so that the state of the other node can be restored cleanly.
 
 For example:
 
-```
+```text
 [sst]
 cpat='.*galera\.cache$\|.*sst_in_progress$\|.*grastate\.dat$\|.*\.err$\|.*\.log$\|.*RPM_UPGRADE_MARKER$\|.*RPM_UPGRADE_HISTORY$\|.*\.xyz$'
 ```
 
 Note
 
-This option can only be used when [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default value).
+This option can only be used when [`wsrep_sst_method`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_method) is set to `xtrabackup-v2` (which is the default value).
 
 ### compressor
 
@@ -219,7 +219,7 @@ compressor=’gzip’ decompressor=’gzip -dc’
 
 To revert to the XtraBackup-based compression, set `compress` under `[xtrabackup]`. You can define both the compressor and the decompressor, although you will be wasting CPU cycles.
 
-```
+```shell
 [xtrabackup]
 compress
 -- compact has led to some crashes
@@ -283,7 +283,7 @@ By default, the joiner node will not wait for more than 100 seconds to get a don
 
 Note
 
-If you are using [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_sst_donor), and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), **and** there is a possibility of **all** nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).
+If you are using [`wsrep_sst_donor`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_sst_donor), and you want the joiner node to strictly wait for donors listed in the variable and not fall back (that is, without a terminating comma at the end), **and** there is a possibility of **all** nodes in that variable to be unavailable, disable initial SST timeout or set it to a higher value (maximum threshold that you want the joiner node to wait). You can also disable this option (or set it to a higher value) if you believe all other nodes in the cluster can potentially become unavailable at any point in time (mostly in small clusters) or there is a high network latency or network disturbance (which can cause donor selection to take longer than 100 seconds).
 
 ### sst-idle-timeout
 
@@ -296,7 +296,7 @@ This option configures the time the SST operation waits on the joiner to receive
 
 An example of setting the option:
 
-```
+```text
 [sst]
 sst-idle-timeout=0
 ```
@@ -314,7 +314,7 @@ The `wsrep_sst_common.sh` script reads this variable from the configuration file
 
 An example of setting the option:
 
-```
+```text
 [sst]
 post-processing-timeout=600
 ```
@@ -338,7 +338,7 @@ The `tmpdir` option can be set in the following `my.cnf` groups:
 - `[xtrabackup]` is the secondary location (if not specified under `[sst]`)
 - `[mysqld]` is used if it is not specified in either of the above
 
-[`wsrep_debug`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.html#wsrep_debug)
+[`wsrep_debug`](https://docs.percona.com/percona-xtradb-cluster/8.4/wsrep-system-index.md#wsrep_debug)
 
 Specifies whether additional debugging output for the database server error log should be enabled. Disabled by default.
 
@@ -379,7 +379,7 @@ The following are optional dependencies of Percona XtraDB Cluster introduced by 
 
 ## XtraBackup-based encryption
 
-Settings related to XtraBackup-based Encryption are no longer allowed in PXC 8.4 when used for [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.html#sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
+Settings related to XtraBackup-based Encryption are no longer allowed in PXC 8.4 when used for [SST](https://docs.percona.com/percona-xtradb-cluster/8.4/glossary.md#sst). If it is detected that XtraBackup-based Encryption is enabled, PXC will produce an error.
 
 The XtraBackup-based Encryption is enabled when you specify any of the following options under `[xtrabackup]` in `my.cnf`:
 
@@ -391,21 +391,21 @@ The XtraBackup-based Encryption is enabled when you specify any of the following
 
 The amount of memory for XtraBackup is defined by the `--use-memory` option. You can pass it using the `inno-apply-opts` option under `[sst]` as follows:
 
-```
+```shell
 [sst]
 inno-apply-opts="--use-memory=500M"
 ```
 
 If it is not specified, the `use-memory` option under `[xtrabackup]` will be used:
 
-```
+```shell
 [xtrabackup]
 use-memory=32M
 ```
 
 If neither of the above are specified, the size of the InnoDB memory buffer will be used:
 
-```
+```shell
 [mysqld]
 innodb_buffer_pool_size=24M
 ```

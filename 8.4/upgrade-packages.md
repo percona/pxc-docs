@@ -19,7 +19,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
    The following example downloads Percona Server for MySQL 8.4.11-12 packages for Debian 11.0:
 
-   ```
+   ```shell
    wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/debian/bullseye/x86_64/Percona-Server-8.4.11-12-rd76e81f4-bullseye-x86_64-bundle.tar
    ```
 
@@ -27,13 +27,13 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
    After you unpack the bundle, you should see the following packages:
 
-   ```
+   ```shell
    ls *.deb
    ```
 
    Expected output
 
-   ```
+   ```text
    llibperconaserverclient21-dev_8.4.11-12.bullseye_amd64.deb
    percona-server-dbg_8.4.11-12.bullseye_amd64.deb
    libperconaserverclient21_8.4.11-12.bullseye_amd64.deb
@@ -48,7 +48,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
 1. Install Percona Server for MySQL:
 
-   ```
+   ```shell
    sudo dpkg -i *.deb
    ```
 
@@ -68,13 +68,13 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
 1. Check the installed packages:
 
-   ```
+   ```shell
    rpm -qa | grep percona-server
    ```
 
    Expected output
 
-   ```
+   ```text
    percona-server-shared-8.4.11-12.el9.x86_64
    percona-server-shared-compat-8.4.11-12.el9.x86_64
    percona-server-client-8.4.11-12.el9.x86_64
@@ -89,19 +89,19 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
    To remove the listed packages, run:
 
-   ```
+   ```shell
    rpm -qa | grep '^mysql-'| xargs rpm -e --nodeps`
    ```
 
 1. Download the packages of the desired series for your architecture from the [Percona Software Downloads](https://www.percona.com/downloads) . The easiest way is to download the bundle which contains all the packages. The following example downloads Percona Server for MySQL 8.4.11-12 packages for CentOS 9:
 
-   ```
+   ```shell
    wget https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/redhat/9/x86_64/Percona-Server-8.4.11-12-rd76e81f4-el9-x86_64-bundle.tar
    ```
 
 1. Unpack the bundle to get the packages
 
-   ```
+   ```shell
    tar xvf Percona-Server-8.4.11-12-rd76e81f4-el9-x86_64-bundle.tar
    ```
 
@@ -109,7 +109,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
 1. Install Percona Server for MySQL:
 
-   ```
+   ```shell
    sudo rpm -ivh percona-server-server-8.4.11-12.el9.x86_64.rpm \
    percona-server-client-8.4.11-12.el9.x86_64.rpm \
    percona-server-shared-8.4.11-12.el9.x86_64.rpm \
@@ -130,7 +130,7 @@ Make a full backup (or dump if possible) of your database. Move the database con
 
 1. The schema of the grant table has changed, the server must be started without reading the grants. Add a line to my.cnf in the [mysqld] section,
 
-   ```
+   ```text
    [mysqld]
    skip-grant-tables
    ```

@@ -124,7 +124,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - SST/Clone failure recovery (when nodes refuse to join)" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.md"></head>
             </html>
 
             
@@ -138,7 +138,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/sst-clone-failure-recovery.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3647,7 +3647,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>On every node (donor and joiner), set <a href="wsrep-system-index.html#wsrep_sst_method"><code>wsrep_sst_method</code></a> and <a href="wsrep-system-index.html#wsrep_sst_allowed_methods"><code>wsrep_sst_allowed_methods</code></a> in the configuration file (read-only at runtime; must be in <code>my.cnf</code> before startup):</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">wsrep_sst_method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">clone</span>
 <span class="na">wsrep_sst_allowed_methods</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">xtrabackup-v2,clone</span>
 </code></pre></div>

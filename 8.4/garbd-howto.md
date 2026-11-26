@@ -10,7 +10,7 @@ A [Galera Arbitrator](https://mariadb.com/docs/galera-cluster/high-availability/
 
 Note
 
-For more information on how to set up a cluster you can read in the [Configuring Percona XtraDB Cluster on Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.html#configure-a-cluster-on-debian-or-ubuntu) or [Configure on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.html#configure-a-cluster-on-red-hat-based-distributions) manuals.
+For more information on how to set up a cluster you can read in the [Configuring Percona XtraDB Cluster on Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.md#configure-a-cluster-on-debian-or-ubuntu) or [Configure on Red Hat Enterprise Linux](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-rhel.md#configure-a-cluster-on-red-hat-based-distributions) manuals.
 
 ## Installation
 
@@ -20,13 +20,13 @@ Run the following commands as root.
 
 *Galera Arbitrator* can be installed from Percona’s repository on Debian/Ubuntu distributions with the following command:
 
-```
+```shell
 apt install percona-xtradb-cluster-garbd
 ```
 
 *Galera Arbitrator* can be installed from Percona’s repository on RedHat or derivative distributions with the following command:
 
-```
+```shell
 yum install percona-xtradb-cluster-garbd
 ```
 
@@ -44,7 +44,7 @@ For more information, see [socket.ssl_cipher](https://mariadb.com/docs/galera-cl
 
 When starting from the shell, you can set the parameters from the command line or edit the configuration file. This is an example of starting from the command line:
 
-```
+```shell
 garbd --group=<CLUSTER_NAME> \
 --address="gcomm://<NODE1_IP>:4567,<NODE2_IP>:4567,<NODE3_IP>:4567" \
 --option="socket.ssl=YES; socket.ssl_key=<SSL_KEY_PATH>; \
@@ -59,7 +59,7 @@ Replace placeholder values such as `<CLUSTER_NAME>`, `<NODE1_IP>`, `<NODE2_IP>`,
 
 After installation, before you add your cluster settings, **`/etc/default/garb`** (Debian/Ubuntu) from **Percona XtraDB Cluster** 8.4 packages matches the following template:
 
-```
+```text
 # Copyright (C) 2012 Codership Oy
 # This config file is to be sourced by garb service script.
 
@@ -79,13 +79,13 @@ After installation, before you add your cluster settings, **`/etc/default/garb`*
 # LOG_FILE=""
 ```
 
-Add the parameter information about the cluster. For this document, we use the cluster information from [Configuring Percona XtraDB Cluster on Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.html#configure-a-cluster-on-debian-or-ubuntu).
+Add the parameter information about the cluster. For this document, we use the cluster information from [Configuring Percona XtraDB Cluster on Ubuntu](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-cluster-ubuntu.md#configure-a-cluster-on-debian-or-ubuntu).
 
 Note
 
 Please note that you need to remove the `# REMOVE THIS AFTER CONFIGURATION` line before you can start the service.
 
-```
+```text
 This config file is to be sourced by garb service script.
 A comma-separated list of node addresses (address[:port]) in the cluster
 GALERA_NODES="<NODE1_IP>:4567,<NODE2_IP>:4567,<NODE3_IP>:4567"
@@ -106,25 +106,25 @@ The systemd service name is `garb`, while the daemon binary name is `garbd`.
 
 **On Debian or Ubuntu**
 
-```
+```shell
 systemctl start garb
 ```
 
 Expected output
 
-```
+```text
 # No output on success
 ```
 
 **On Red Hat Enterprise Linux**
 
-```
+```shell
 systemctl start garb
 ```
 
 Expected output
 
-```
+```text
 # No output on success
 ```
 
@@ -132,13 +132,13 @@ Additionally, you can check the `arbitrator` status by running:
 
 **On Debian or Ubuntu**
 
-```
+```shell
 systemctl is-active garb
 ```
 
 Expected output
 
-```
+```text
 active
 ```
 
@@ -146,38 +146,38 @@ active
 
 1. Check the arbitrator service state:
 
-   ```
+   ```shell
    systemctl is-active garb
    ```
 
    Expected output
 
-   ```
+   ```text
    active
    ```
 
 1. Check recent arbitrator logs for successful cluster communication:
 
-   ```
+   ```shell
    journalctl -u garb --no-pager -n 20
    ```
 
    Expected output
 
-   ```
+   ```text
    ... WSREP: ...
    ... connected ...
    ```
 
 1. On a Percona XtraDB Cluster node, confirm that the cluster remains in `Primary` state:
 
-   ```
+   ```shell
    mysql -e "SHOW STATUS LIKE 'wsrep_cluster_status';"
    ```
 
    Expected output
 
-   ```
+   ```text
    +----------------------+---------+
    | Variable_name        | Value   |
    +----------------------+---------+
@@ -194,12 +194,12 @@ active
 
 **On Red Hat Enterprise Linux**
 
-```
+```shell
 systemctl is-active garb
 ```
 
 Expected output
 
-```
+```text
 active
 ```

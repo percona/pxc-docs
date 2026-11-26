@@ -130,7 +130,7 @@ This could potentially let them query your data or get a complete copy of it.">
                <meta property="og:title" content="Percona XtraDB Cluster - Secure the network" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.md"></head>
             </html>
 
             
@@ -144,7 +144,7 @@ This could potentially let them query your data or get a complete copy of it.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/secure-network.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3588,7 +3588,7 @@ you need to append new rules to the <code>INPUT</code> chain on the filter table
 In the following example, the trusted range of IP addresses is 192.168.0.1/24.
 It is assumed that only Percona XtraDB Cluster nodes and clients will connect from these IPs.
 To enable packet filtering, run the commands as root on each Percona XtraDB Cluster node.</p>
-<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--protocol<span class="w"> </span>tcp<span class="w"> </span>--match<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">3306</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--source<span class="w"> </span><span class="m">192</span>.168.0.1/24<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
 iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--in-interface<span class="w"> </span>eth0<span class="w"> </span><span class="se">\</span>
@@ -3614,7 +3614,7 @@ In this case, you can consider to open all ports between trusted hosts.
 This is a little bit less secure, but reduces the amount of commands.
 For example, if you have three Percona XtraDB Cluster nodes,
 you can run the following commands on each one:</p>
-<div class="highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--source<span class="w"> </span><span class="m">64</span>.57.102.34<span class="w"> </span>--jump<span class="w"> </span>ACCEPT
 iptables<span class="w"> </span>--append<span class="w"> </span>INPUT<span class="w"> </span>--protocol<span class="w"> </span>tcp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--source<span class="w"> </span><span class="m">193</span>.166.3.20<span class="w">  </span>--jump<span class="w"> </span>ACCEPT
@@ -3626,7 +3626,7 @@ from the IP addresses of the other Percona XtraDB Cluster nodes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The changes that you make in <code>iptables</code> are not persistent unless you save the packet filtering state:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>save<span class="w"> </span>iptables
+<div class="language-shell highlight"><pre><span></span><code>service<span class="w"> </span>save<span class="w"> </span>iptables
 </code></pre></div>
 <p>For distributions that use <code>systemd</code>,
 you need to save the current packet filtering rules
@@ -3643,7 +3643,7 @@ For example:</p>
 </li>
 </ul>
 <p>Use <code>iptables-save</code> to update the file:</p>
-<div class="highlight"><pre><span></span><code>iptables-save<span class="w"> </span>&gt;<span class="w"> </span>/etc/sysconfig/iptables
+<div class="language-shell highlight"><pre><span></span><code>iptables-save<span class="w"> </span>&gt;<span class="w"> </span>/etc/sysconfig/iptables
 </code></pre></div>
 </div>
 

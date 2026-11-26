@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona XtraDB Cluster 8.4, a high availability MySQL clustering solution with synchronous replication, with installation, configuration, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Cluster failover" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/failover.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3787,7 +3787,7 @@ data loss or inconsistency.</p>
 usage can lead to split-brain scenarios. This results in multiple independent 
 clusters with differing data, causing inconsistencies and corruption.</p>
 <p>To recover the node from the non-primary state, execute the following command:</p>
-<div class="highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
+<div class="language-shell highlight"><pre><span></span><code>SET<span class="w"> </span>GLOBAL<span class="w"> </span><span class="nv">wsrep_provider_options</span><span class="o">=</span><span class="s1">'pc.bootstrap=true'</span><span class="p">;</span>
 </code></pre></div>
 <p>This command enables the bootstrap process for the primary component, allowing
 the node and all connected nodes to become a primary cluster. By setting this

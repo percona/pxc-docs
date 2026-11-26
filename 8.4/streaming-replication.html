@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Streaming replication for large transactions" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/streaming-replication.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3881,14 +3881,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Set both variables to enable streaming replication:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_unit</span><span class="p">,</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that streaming replication is enabled for the session:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 
 Query OK, 0 rows affected (0.00 sec)
 
@@ -3996,13 +3996,13 @@ Query OK, 0 rows affected (0.00 sec)
 </table>
 <p>Compare byte thresholds against <code>wsrep_max_ws_size</code>, not against SQL or application payload estimates. Tune from observed <code>mysql.wsrep_streaming_log</code> growth and <a href="wsrep-status-index.html#wsrep_replicated_bytes"><code>wsrep_replicated_bytes</code></a> rates during test jobs.</p>
 <p>Set <a href="wsrep-system-index.html#wsrep_trx_fragment_size"><code>wsrep_trx_fragment_size</code></a> to <code>0</code> to disable streaming replication for the session:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that streaming replication is disabled for the session:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 
 +---------------------------+
 | @@wsrep_trx_fragment_size |
@@ -4017,7 +4017,7 @@ Query OK, 0 rows affected (0.00 sec)
 <p>A <code>SET_VAR</code> hint applies only to the single statement that contains the hint. The hint does not change session variables for later statements in the same transaction.</p>
 <p>Session variables set with <code>SET SESSION</code> remain in effect for all subsequent statements until you change them again. A <code>SET_VAR</code> hint overrides the session value only while the annotated statement runs.</p>
 <p>Example within one transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 500) */</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">t3</span><span class="p">;</span>
@@ -4025,12 +4025,12 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 <p>The first <code>INSERT</code> fragments at 500 units. The second <code>INSERT</code> uses the session value of 10.</p>
 <p>Verify session state after a hinted statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">wsrep_trx_fragment_size</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the session value is unchanged:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------------+
 | @@wsrep_trx_fragment_size |
 +---------------------------+
 | 10                        |
@@ -4039,12 +4039,12 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>You can apply hints on separate statements within one transaction. The <a href="wsrep-system-index.html#wsrep_trx_fragment_size">wsrep-system-index example</a> uses <code>SET_VAR(wsrep_trx_fragment_size = 100)</code> on separate <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> statements. Each statement gets its own fragment threshold. Other statements in the transaction keep the session defaults.</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 100) */</span><span class="w"> </span><span class="n">work_orders</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'active'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="cm">/*+ SET_VAR(wsrep_trx_fragment_size = 100) */</span><span class="w"> </span><span class="n">work_orders</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'active'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the optimizer hint applied the fragment size for the statement:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 150 rows affected (2.34 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 150 rows affected (2.34 sec)
 Rows matched: 150  Changed: 150  Warnings: 0
 </code></pre></div>
 </details>
@@ -4125,7 +4125,7 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </table>
 <p>Galera counts each certified fragment as a separate write-set in <code>wsrep_replicated</code> and <code>wsrep_received</code>. A single large streaming transaction increases these counters incrementally as fragments certify, not only at final <code>COMMIT</code>.</p>
 <p>Query the recommended variables on every node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'wsrep_local_recv_queue'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'wsrep_local_recv_queue_avg'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'wsrep_flow_control_sent'</span><span class="p">,</span>
@@ -4143,12 +4143,12 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <h3 id="check-active-fragments-in-mysqlwsrep_streaming_log">Check active fragments in mysql.wsrep_streaming_log<a data-markdown-ignore class="headerlink" href="#check-active-fragments-in-mysqlwsrep_streaming_log" title="Permanent link">&para;</a></h3>
 <p>Each row in <code>mysql.wsrep_streaming_log</code> represents one certified fragment from an in-progress streaming transaction. Query metadata columns only. The <code>frag</code> column contains full binary log events and can exceed <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_max_allowed_packet"><code>max_allowed_packet</code></a>.</p>
 <p>Count active fragments on a node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows no active streaming transactions:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------+
 | active_fragments |
 +------------------+
 |                0 |
@@ -4157,13 +4157,13 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </code></pre></div>
 </details>
 <p>List active streaming transactions during a large job:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="p">,</span><span class="w"> </span><span class="n">seqno</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="p">,</span><span class="w"> </span><span class="n">seqno</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output shows the latest certified fragment (<code>seqno = 4</code>) for one in-progress transaction:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+--------+-------+-------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+--------+-------+-------+
 | node_uuid                            | trx_id | seqno | flags |
 +--------------------------------------+--------+-------+-------+
 | a006244a-7ed8-11e9-bf00-867215999c7c |     26 |     4 |     1 |
@@ -4174,7 +4174,7 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <p>The <code>seqno</code> value increases as Galera certifies additional fragments for the same <code>trx_id</code>. The <code>node_uuid</code> column identifies the cluster node that originated the streaming transaction.</p>
 <h3 id="check-related-cluster-status-variables">Check related cluster status variables<a data-markdown-ignore class="headerlink" href="#check-related-cluster-status-variables" title="Permanent link">&para;</a></h3>
 <p>The variables in the table above cover cluster pressure during streaming jobs. Query all wsrep status variables when you need broader context:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_%'</span><span class="p">;</span>
 </code></pre></div>
 <p>For broader cluster monitoring guidance, see <a href="monitoring.html">Monitor the cluster</a>.</p>
 <h2 id="what-does-wsrep_sr_store-control">What does wsrep_SR_store control?<a data-markdown-ignore class="headerlink" href="#what-does-wsrep_sr_store-control" title="Permanent link">&para;</a></h2>
@@ -4208,21 +4208,21 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <ol>
 <li>
 <p>Confirm active streaming fragments on each node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Identify the originating node and session. Query fragment metadata to find the origin node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">node_uuid</span><span class="p">,</span><span class="w"> </span><span class="n">trx_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>node_uuid</code> value identifies the cluster node where the streaming transaction started. Query <a href="https://mariadb.com/docs/galera-cluster/reference/galera-cluster-system-tables"><code>mysql.wsrep_cluster_members</code></a> on any node to map the UUID to a host name or address. Run <code>SHOW FULL PROCESSLIST</code> on that node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">FULL</span><span class="w"> </span><span class="n">PROCESSLIST</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">FULL</span><span class="w"> </span><span class="n">PROCESSLIST</span><span class="p">;</span>
 </code></pre></div>
 <p>Look for a long-running DML statement or an open transaction in the <code>State</code> column. Note the connection <code>Id</code>. The streaming log does not expose the connection <code>Id</code> directly.</p>
 </li>
 <li>
 <p>Terminate the connection on the node where the session runs:</p>
-<div class="highlight"><pre><span></span><code><span class="n">KILL</span><span class="w"> </span><span class="o">&lt;</span><span class="n">connection_id</span><span class="o">&gt;</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">KILL</span><span class="w"> </span><span class="o">&lt;</span><span class="n">connection_id</span><span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>&lt;connection_id&gt;</code> with the <code>Id</code> from <code>SHOW FULL PROCESSLIST</code>. <code>KILL</code> is shorthand for <code>KILL CONNECTION</code>.</p>
 </li>
@@ -4231,12 +4231,12 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </li>
 <li>
 <p>Verify cleanup on every node:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">active_fragments</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">wsrep_streaming_log</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that no fragments remain:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------+
 | active_fragments |
 +------------------+
 |                0 |
@@ -4247,7 +4247,7 @@ Rows matched: 150  Changed: 150  Warnings: 0
 </li>
 <li>
 <p>Confirm cluster health:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_cluster_status'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_local_state_comment'</span><span class="p">;</span>
 </code></pre></div>
 <p>Expect <code>Primary</code> cluster status and <code>Synced</code> local state on healthy nodes.</p>
@@ -4300,24 +4300,24 @@ Rows matched: 150  Changed: 150  Warnings: 0
 <ol>
 <li>
 <p>Begin the transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the transaction has started:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Read the data the transaction requires. Enable streaming replication for the next statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'statements'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that streaming replication is enabled for the next statement:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 
 Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
@@ -4325,36 +4325,36 @@ Query OK, 0 rows affected (0.00 sec)
 </li>
 <li>
 <p>Run the critical update. Galera fragments and replicates the statement immediately:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">work_orders</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">work_orders</span>
 <span class="w">   </span><span class="k">SET</span><span class="w"> </span><span class="n">queue_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue_position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the queue position was updated:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Disable streaming replication for the remainder of the transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">wsrep_trx_fragment_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that streaming replication is disabled:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Complete non-critical work for the work order. Commit the transaction:</p>
-<div class="highlight"><pre><span></span><code><span class="k">COMMIT</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">COMMIT</span><span class="p">;</span>
 </code></pre></div>
 <p>The following output confirms that the transaction committed:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 </li>

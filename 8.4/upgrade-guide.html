@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Upgrade Percona XtraDB Cluster" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3716,11 +3716,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Warning</p>
 <p>A node with a newer protocol version cannot join a cluster running an older Galera Communication System (GCS) protocol version. The cluster enforces this rule to prevent data corruption and incompatibility issues.</p>
 <p>Run the following command on a cluster member and on the joining node, then compare the outputs.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_protocol_version'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'wsrep_protocol_version'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------+-------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------+-------+
 | Variable_name          | Value |
 +------------------------+-------+
 | wsrep_protocol_version | 11    |
@@ -3784,7 +3784,7 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </li>
 </ul>
 <p>The following example shows a foreign key referencing a non-unique index:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">    </span><span class="k">INDEX</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -3879,12 +3879,12 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </li>
 <li>
 <p>Disable fast shutdown to ensure all data files are fully prepared before the upgrade:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SET GLOBAL innodb_fast_shutdown=0;"</span>
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SET GLOBAL innodb_fast_shutdown=0;"</span>
 </code></pre></div>
 </li>
 <li>
 <p>Stop the <code>mysql</code> service:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
@@ -3895,13 +3895,13 @@ target version. Upgrading from 8.4.11 to 9.7.1 is not supported.</p>
 </li>
 <li>
 <p>With the server stopped, run the following command to fetch the UUID and sequence number. Store these values to restore the <code>grastate.dat</code> file if needed:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>mysqld<span class="w"> </span>--wsrep_recover<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--log-error<span class="o">=</span>/tmp/wsrep-recover.log
 </code></pre></div>
 </li>
 <li>
 <p>Start the Percona XtraDB Cluster node with the new packages.</p>
 <p>Starting the <code>mysql</code> service runs the node with your previous configuration. For more information, see <a href="add-node.html#add-nodes-to-cluster">Adding Nodes to Cluster</a>.</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 <p>On Red Hat Enterprise Linux, the <code>/etc/my.cnf</code> configuration file is renamed to <code>my.cnf.rpmsave</code>. Rename this file back to the original name before joining the upgraded node to the cluster.</p>
 <p>The node automatically upgrades the data directory. This upgrade happens in one of two ways:</p>

@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona XtraDB Cluster 8.4, a high availability MySQL clustering solution with synchronous replication, with installation, configuration, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -128,7 +128,7 @@
                <meta property="og:title" content="Percona XtraDB Cluster - Data at Rest Encryption" />
                <meta property="og:image" content="https://docs.percona.com/percona-xtradb-cluster/8.4/_static/percona-mysql-logo.png">
                <meta property="og:url" content="https://docs.percona.com/percona-xtradb-cluster/">
-            </head>
+            <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.md"></head>
             </html>
 
             
@@ -142,7 +142,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.md" tabindex="-1">https://docs.percona.com/percona-xtradb-cluster/8.4/data-at-rest-encryption.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -3682,21 +3682,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <p>Install the component using a manifest file and add the following options in the configuration file:</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
-<div class="no-copy highlight"><pre><span></span><code>{
+<div class="language-text no-copy highlight"><pre><span></span><code>{
  "read_local_manifest": false,
  "components": "file://component_keyring_file"
 }
 </code></pre></div>
 <p>Add the following options to your configuration file:</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 component_keyring_file_data=&lt;PATH&gt;/keyring
 </code></pre></div>
 <p>The <code>SHOW COMPONENTS</code> statement checks if the component has been successfully loaded:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">COMPONENTS</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">COMPONENTS</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------------------+
 | Component_id                           |
 +----------------------------------------+
 | file://component_keyring_file          |
@@ -3727,13 +3727,13 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <h3 id="configuration_1">Configuration<a data-markdown-ignore class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h3>
 <p>Configuration options are the same as <a href="https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html">Percona Server for MySQL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Create a manifest file named <code>mysqld.my</code> in the installation directory:</p>
-<div class="no-copy highlight"><pre><span></span><code>{
+<div class="language-text no-copy highlight"><pre><span></span><code>{
  "read_local_manifest": false,
  "components": "file://component_keyring_vault"
 }
 </code></pre></div>
 <p>Create a configuration file <code>component_keyring_vault.cnf</code> in JSON format:</p>
-<div class="no-copy highlight"><pre><span></span><code>{
+<div class="language-text no-copy highlight"><pre><span></span><code>{
  "timeout": 15,
  "vault_url": "https://vault.public.com:8202",
  "secret_mount_point": "secret",
@@ -3758,7 +3758,7 @@ component_keyring_file_data=&lt;PATH&gt;/keyring
 <p>If the node is not able to reach or connect to the vault server, an error is notified during the server restart, and the node refuses to start:</p>
 <details class="example">
 <summary>The warning message</summary>
-<div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Component component_keyring_vault reported:
+<div class="language-text no-copy highlight"><pre><span></span><code>2018-05-29T03:54:33.859613Z 0 [Warning] Component component_keyring_vault reported:
 'There is no vault_ca specified in component_keyring_vault's configuration file.
 Please make sure that Vault's CA certificate is trusted by the machine
 from which you intend to connect to Vault.'
@@ -3772,7 +3772,7 @@ to 127.0.0.1 port 8200: Connection refused'
 <p>When the vault server is reachable but authentication credentials are incorrect, the same behavior occurs:</p>
 <details class="example">
 <summary>The warning message</summary>
-<div class="no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Component component_keyring_vault reported:
+<div class="language-text no-copy highlight"><pre><span></span><code>2018-05-29T03:58:54.461911Z 0 [Warning] Component component_keyring_vault reported:
 'There is no vault_ca specified in component_keyring_vault's configuration file.
 Please make sure that Vault's CA certificate is trusted by the machine
 from which you intend to connect to Vault.'
@@ -3782,11 +3782,11 @@ following error(s): ["permission denied"]'
 </code></pre></div>
 </details>
 <p>In case of an accessible vault-server with the wrong mount point, there is no error during server restart, but the node still refuses to start:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">c1</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">pk</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR 3185 (HY000): Can't find master key from keyring, please check keyring
 component is loaded.
 ... [ERROR] Component component_keyring_vault reported: 'Could not write key to Vault. ...
 ... [ERROR] Component component_keyring_vault reported: 'Could not flush keys to keyring'
@@ -3818,7 +3818,7 @@ component is loaded.
 </li>
 </ol>
 <p>Run the migration server:</p>
-<div class="highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld<span class="w"> </span>--defaults-file<span class="o">=</span>/dev/shm/pxc80/copy_mig.cnf<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld<span class="w"> </span>--defaults-file<span class="o">=</span>/dev/shm/pxc80/copy_mig.cnf<span class="w"> </span><span class="se">\</span>
 --keyring-migration-source<span class="o">=</span>component_keyring_file<span class="w"> </span><span class="se">\</span>
 --component_keyring_file_data<span class="o">=</span>/dev/shm/pxc80/node2/keyring<span class="w"> </span><span class="se">\</span>
 --keyring-migration-destination<span class="o">=</span>component_keyring_vault<span class="w"> </span><span class="se">\</span>
@@ -3826,7 +3826,7 @@ component is loaded.
 </code></pre></div>
 <details class="example">
 <summary>Expected log output</summary>
-<div class="no-copy highlight"><pre><span></span><code>... [Note] --secure-file-priv is set to NULL. Operations related to importing and
+<div class="language-text no-copy highlight"><pre><span></span><code>... [Note] --secure-file-priv is set to NULL. Operations related to importing and
     exporting data are disabled
 ... [Warning] WSREP: Node is not a cluster node. Disabling pxc_strict_mode
 ... [Note] /dev/shm/pxc84/bin/mysqld (mysqld 8.4-debug) starting as process 5710 ...
@@ -3849,7 +3849,7 @@ component is loaded.
 <p>Restart the n3 node with the vault parameter, and the keys are available.</p>
 </li>
 </ol>
-<div class="no-copy highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
+<div class="language-text no-copy highlight"><pre><span></span><code>/dev/shm/pxc80/bin/mysqld --defaults-file=/dev/shm/pxc80/copy_mig.cnf \
 --keyring-migration-source=component_keyring_vault \
 --component_keyring_vault_config=/dev/shm/pxc80/component_keyring_vault3.cnf \
 --keyring-migration-destination=component_keyring_file \
@@ -3889,7 +3889,7 @@ component is loaded.
 <p>Prerequisite for migration:</p>
 <p>Make sure to pass required keyring options and other configuration parameters for the two keyring components. For example, if <code>component_keyring_file</code> is one of the components, you must explicitly configure the <code>component_keyring_file_data</code> system variable in the my.cnf file.</p>
 <p>Other non-keyring options may be required as well. One way to specify these options is by using <code>--defaults-file</code> to name an option file that contains the required options.</p>
-<div class="no-copy highlight"><pre><span></span><code>[mysqld]
+<div class="language-text no-copy highlight"><pre><span></span><code>[mysqld]
 basedir=/dev/shm/pxc80
 datadir=/dev/shm/pxc80/copy_mig
 log-error=/dev/shm/pxc80/logs/copy_mig.err

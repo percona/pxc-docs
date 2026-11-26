@@ -2,19 +2,19 @@
 
 # Bootstrap the first node
 
-After you [configure all PXC nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.html#configure-nodes-for-write-set-replication), initialize the cluster by bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.
+After you [configure all PXC nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/configure-nodes.md#configure-nodes-for-write-set-replication), initialize the cluster by bootstrapping the first node. This node must contain all the data you want to replicate to other nodes.
 
 Start the first node without any known cluster addresses: if the `wsrep_cluster_address` variable is empty, Percona XtraDB Cluster treats the node as the first node and initializes the cluster.
 
 Instead of changing the configuration, start the first node, `[root@pxc1 ~]#`, using the following command:
 
-```
+```shell
 systemctl start mysql@bootstrap.service
 ```
 
 When you start the node using this command, the node runs in bootstrap mode with `wsrep_cluster_address=gcomm://`. Bootstrap mode initializes the cluster and sets the `wsrep_cluster_conf_id` variable to `1`.
 
-After you [add other nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.html) to the cluster, you can then restart the first node as normal. Then the node uses the standard configuration again.
+After you [add other nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md) to the cluster, you can then restart the first node as normal. Then the node uses the standard configuration again.
 
 Note
 
@@ -22,13 +22,13 @@ Stop a node started with `mysql@bootstrap` by running `systemctl stop mysql@boot
 
 To check the status of the first node, `mysql@pxc1>`, run the following:
 
-```
+```sql
 SHOW STATUS LIKE 'wsrep%';
 ```
 
 Expected output
 
-```
+```text
 +----------------------------+--------------------------------------+
 | Variable_name              | Value                                |
 +----------------------------+--------------------------------------+
@@ -59,14 +59,14 @@ Generate the SSL certificates on this node before you add other nodes to the clu
 
 1. Generate the SSL certificates, `[root@pxc1 ~]#`:
 
-   ```
+   ```shell
      openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
      -x509 -days 365 -out /etc/server-cert.pem
    ```
 
 1. Copy the certificates to the nodes you plan to add. For example:
 
-   ```
+   ```shell
      scp /etc/server-key.pem pxc2:/etc/
      scp /etc/server-cert.pem pxc2:/etc/
      scp /etc/server-key.pem pxc3:/etc/
@@ -75,4 +75,4 @@ Generate the SSL certificates on this node before you add other nodes to the clu
 
 ## Next steps
 
-After initializing the cluster, you can [add other nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.html).
+After initializing the cluster, you can [add other nodes](https://docs.percona.com/percona-xtradb-cluster/8.4/add-node.md).

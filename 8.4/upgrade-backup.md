@@ -6,7 +6,7 @@ Use Percona XtraBackup to back up the source server data and restore the data to
 
 ## Restore a database with a different server version
 
-Review [Upgrade Percona XtraDB cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.html).
+Review [Upgrade Percona XtraDB cluster](https://docs.percona.com/percona-xtradb-cluster/8.4/upgrade-guide.md).
 
 Upgrade the nodes one at a time. The primary node should be the last node to be upgraded. The following steps are required on each node.
 
