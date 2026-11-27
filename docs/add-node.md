@@ -12,32 +12,11 @@ running node in the [`wsrep_cluster_address`](wsrep-system-index.md#wsrep_cluste
 
 Percona XtraDB Cluster uses [Percona XtraBackup :octicons-link-external-16:](https://www.percona.com/software/mysql-database/percona-xtrabackup) for [State Snapshot Transfer](glossary.md#sst) and the `wsrep_sst_method` variable is always set to `xtrabackup-v2`.
 
-## Generate and Copy SSL Certificates
+## SSL certificates
 
-Before starting the nodes, ensure that you generate the SSL certificates on the 
-first node. All nodes must use identical key and certificate files to ensure 
-a consistent security setup. Store the certificates in `/etc/`, not in the 
-data directory. After generating the certificates, copy them to all other nodes.
+Confirm that every node stores the same SSL certificates in `/etc/mysql/certs/`.
 
-1. Generate the SSL certificates on the first node, `[root@pxc1 ~]#`:
-
-    ```shell
-    openssl req -newkey rsa:2048 -nodes -keyout /etc/server-key.pem \
-    -x509 -days 365 -out /etc/server-cert.pem
-    ```
-
-    
-
-2. Copy the SSL certificates to the other nodes:
-
-    ```shell
-    scp /etc/server-key.pem pxc2:/etc/
-    scp /etc/server-cert.pem pxc2:/etc/
-    scp /etc/server-key.pem pxc3:/etc/
-    scp /etc/server-cert.pem pxc3:/etc/
-    ```
-
-    
+Use the certificate procedure in [Generate SSL certificates for the cluster](generate-certificates.md#generate-ssl-certificates-for-the-cluster).
 
 ## Start the second node
 
